@@ -1,0 +1,28 @@
+# AccessNow BD
+
+> AccessNow BD is a trusted Bangladeshi marketplace for verified premium digital subscriptions — streaming, AI tools, productivity, education and design software — with fast delivery and bKash / Nagad / card payments.
+
+## Pages
+
+- [Home](/): Featured digital services, bestsellers and category overview.
+- [All Subscriptions](/products): Full catalog of premium digital subscriptions.
+- [All Categories](/categories): Browse every product category.
+- [Streaming Services](/streaming): Netflix, Prime Video, Disney+, HBO Max, Hoichoi, Chorki and more.
+- [AI & Productivity Tools](/ai-tools): ChatGPT Plus, Claude Pro, Gemini Advanced, Grammarly, Quillbot.
+- [Education & Creative](/education): Coursera Plus, Canva Pro, CapCut Pro, Adobe Creative Cloud.
+- [Contact](/contact): WhatsApp, email and contact form. Office 11 AM – 11 PM.
+- [FAQ](/faq): Delivery, payment, warranty and support questions.
+- [Sitemap](/sitemap): Human-readable map of every public page.
+
+## Policies
+
+- [Privacy Policy](/privacy-policy): How we handle customer data.
+- [Terms of Service](/terms): Site terms and conditions.
+- [Refund Policy](/refund-policy): 30-day warranty and refund rules.
+- [Delivery Info](/delivery-info): How and when accounts are delivered.
+- [Order Cancellation](/order-cancellation): Rules for cancelling an order.
+- [Refund Request](/refund-request): Submit a refund request.
+
+## Optional
+
+- [Developer](/developer): About Shahed IT, the agency behind AccessNow BD.

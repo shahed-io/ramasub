@@ -1,0 +1,3222 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* AccessNow BD — Premium DARK Glassmorphism Theme
+   Deep midnight blue canvas, frosted dark glass cards, neon cyan/violet glows.
+   Fonts are loaded via <link> tags in src/routes/__root.tsx (Lightning CSS cannot resolve remote @import). */
+
+
+@theme inline {
+  --font-display: 'Poppins', 'Hind Siliguri', system-ui, sans-serif;
+  --font-heading: 'Poppins', 'Hind Siliguri', system-ui, sans-serif;
+  --font-body: 'Inter', 'Hind Siliguri', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 36px;
+  --radius-pill: 9999px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-aqua: var(--aqua);
+  --color-aqua-deep: var(--aqua-deep);
+  --color-gold: var(--gold);
+  --color-coral: var(--coral);
+  --color-teal: var(--aqua);
+  --color-cyan-deep: var(--aqua-deep);
+  --color-orange: var(--coral);
+  --color-success: var(--success);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --shadow-glass-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.06) inset;
+  --shadow-glass: 0 16px 48px -16px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.08) inset;
+  --shadow-glass-lg: 0 32px 80px -24px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255,255,255,0.1) inset;
+  --shadow-glow-violet: 0 0 70px -6px rgba(168, 85, 247, 0.7);
+  --shadow-glow-aqua: 0 0 70px -6px rgba(6, 182, 212, 0.7);
+  --shadow-glow-blue: 0 0 70px -6px rgba(99, 102, 241, 0.7);
+  --shadow-glow-pink: 0 0 70px -8px rgba(236, 72, 153, 0.6);
+}
+
+/* DEFAULT = NEON TECH — Dark Gradient + Glassmorphism + Neon Tech UI
+   Deep space canvas, frosted neon glass cards, electric cyan/violet/magenta glows. */
+:root {
+  /* Deep space base — near-black with subtle violet bias */
+  --background: oklch(0.09 0.03 270);
+  --foreground: oklch(0.985 0.004 250);
+  --card: oklch(0.14 0.035 272);
+  --card-foreground: oklch(0.985 0.004 250);
+  --popover: oklch(0.12 0.035 272);
+  --popover-foreground: oklch(0.985 0.004 250);
+
+  /* Neon violet primary */
+  --primary: oklch(0.66 0.27 295);
+  --primary-foreground: oklch(1 0 0);
+  --primary-dark: oklch(0.44 0.22 285);
+
+  --secondary: oklch(0.18 0.035 272);
+  --secondary-foreground: oklch(0.96 0.008 250);
+  --muted: oklch(0.19 0.03 272);
+  --muted-foreground: oklch(0.78 0.02 250);
+  --accent: oklch(0.82 0.18 200);
+  --accent-foreground: oklch(0.09 0.03 270);
+
+  /* Electric accents */
+  --aqua: oklch(0.85 0.18 200);
+  --aqua-deep: oklch(0.7 0.2 220);
+  --gold: oklch(0.84 0.16 88);
+  --coral: oklch(0.72 0.24 18);
+
+  --success: oklch(0.78 0.2 158);
+  --warning: oklch(0.84 0.16 88);
+  --destructive: oklch(0.65 0.26 22);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: rgba(140, 180, 255, 0.14);
+  --input: rgba(255, 255, 255, 0.05);
+  --ring: oklch(0.78 0.22 200);
+  --radius: 18px;
+
+  /* Glass tokens — frosted neon dark */
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-bg-strong: rgba(255, 255, 255, 0.08);
+  --glass-bg-soft: rgba(255, 255, 255, 0.025);
+  --glass-border: rgba(140, 180, 255, 0.16);
+  --glass-border-soft: rgba(140, 180, 255, 0.08);
+  --glass-highlight: rgba(180, 220, 255, 0.22);
+
+  /* Brand gradients — violet · cyan · magenta neon */
+  --gradient-aurora: linear-gradient(135deg, #7C3AED 0%, #06B6D4 55%, #EC4899 100%);
+  --gradient-aurora-strong: linear-gradient(135deg, #6D28D9 0%, #0891B2 50%, #DB2777 100%);
+  --gradient-cyan: linear-gradient(135deg, #22D3EE 0%, #6366F1 100%);
+  --gradient-violet: linear-gradient(135deg, #A855F7 0%, #4F46E5 100%);
+  --gradient-sunset: linear-gradient(135deg, #F472B6 0%, #8B5CF6 100%);
+  --gradient-gold: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
+  --gradient-conic: conic-gradient(from 180deg at 50% 50%, #7C3AED, #06B6D4, #EC4899, #A855F7, #7C3AED);
+  --gradient-mesh:
+    radial-gradient(at 8% 8%, rgba(124, 58, 237, 0.55) 0px, transparent 50%),
+    radial-gradient(at 92% 10%, rgba(6, 182, 212, 0.4) 0px, transparent 50%),
+    radial-gradient(at 70% 92%, rgba(236, 72, 153, 0.32) 0px, transparent 55%),
+    radial-gradient(at 22% 78%, rgba(99, 102, 241, 0.4) 0px, transparent 55%);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body { background-color: #06051a; color-scheme: dark; }
+
+  /* A11y: clear, high-contrast focus ring for keyboard navigation.
+     Applies globally (admin included). Mouse clicks won't show it
+     because we use :focus-visible. */
+  :where(a, button, [role="button"], input, select, textarea, summary, [tabindex]:not([tabindex="-1"]))
+    :focus-visible,
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  summary:focus-visible,
+  [tabindex]:not([tabindex="-1"]):focus-visible {
+    outline: 2px solid #7c3aed;
+    outline-offset: 2px;
+    border-radius: 6px;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.35);
+  }
+  html {
+    overflow-x: clip;
+    max-width: 100%;
+  }
+  body {
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: clip;
+    max-width: 100%;
+  }
+  /* Defense-in-depth: stop wide media/fixed-width children from blowing out the viewport on mobile */
+  img, video, svg, canvas, iframe { max-width: 100%; height: auto; }
+  /* Premium aurora background — layered radial glows with subtle vignette and
+     a faint noise overlay for depth. No grid lines. */
+  body {
+    background-color: #06051a;
+    background-image:
+      radial-gradient(70% 55% at 10% 12%, rgba(124, 58, 237, 0.45), transparent 70%),
+      radial-gradient(60% 50% at 92% 8%, rgba(6, 182, 212, 0.28), transparent 72%),
+      radial-gradient(65% 55% at 78% 95%, rgba(236, 72, 153, 0.22), transparent 72%),
+      radial-gradient(55% 45% at 25% 85%, rgba(99, 102, 241, 0.30), transparent 72%),
+      radial-gradient(120% 80% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.45) 100%);
+    background-attachment: scroll;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  body > * { position: relative; z-index: 1; }
+
+  /* ===========================
+     White (Glassmorp) theme — applied via <html class="theme-white">
+     Soft pastel pink/lavender/blue canvas with frosted-white glass cards,
+     violet accents, gentle drop shadows. Inspired by Glassmorp dashboards.
+     =========================== */
+  html.theme-white {
+    --background: oklch(0.985 0.008 320);
+    --foreground: oklch(0.22 0.04 285);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.22 0.04 285);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.22 0.04 285);
+
+    /* Reference palette: deep violet → indigo → blue (IDM-style badge) */
+    --primary: oklch(0.50 0.24 280);
+    --primary-foreground: oklch(1 0 0);
+    --primary-dark: oklch(0.36 0.22 275);
+
+    --secondary: oklch(0.97 0.012 280);
+    --secondary-foreground: oklch(0.24 0.05 280);
+    --muted: oklch(0.965 0.012 280);
+    --muted-foreground: oklch(0.5 0.04 280);
+    --accent: oklch(0.94 0.05 280);
+    --accent-foreground: oklch(0.24 0.05 280);
+
+    --aqua: oklch(0.46 0.22 268);
+    --aqua-deep: oklch(0.38 0.22 270);
+    --gold: oklch(0.78 0.16 88);
+    --coral: oklch(0.7 0.22 18);
+
+    --success: oklch(0.7 0.18 158);
+    --warning: oklch(0.78 0.16 88);
+    --destructive: oklch(0.62 0.24 22);
+    --destructive-foreground: oklch(1 0 0);
+
+    --border: rgba(79, 70, 229, 0.16);
+    --input: rgba(255, 255, 255, 0.85);
+    --ring: oklch(0.50 0.24 280);
+
+    /* Frosted-white glass over pastel canvas */
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-bg-strong: rgba(255, 255, 255, 0.78);
+    --glass-bg-soft: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.7);
+    --glass-border-soft: rgba(255, 255, 255, 0.5);
+    --glass-highlight: rgba(255, 255, 255, 0.95);
+
+    /* IDM-inspired gradient family: deep violet → indigo → blue */
+    --gradient-aurora: linear-gradient(135deg, #6D28D9 0%, #4F46E5 50%, #2563EB 100%);
+    --gradient-aurora-strong: linear-gradient(135deg, #5B21B6 0%, #4338CA 50%, #1D4ED8 100%);
+    --gradient-cyan: linear-gradient(135deg, #6366F1 0%, #2563EB 100%);
+    --gradient-violet: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%);
+    --gradient-sunset: linear-gradient(135deg, #C4B5FD 0%, #818CF8 100%);
+    --gradient-mesh:
+      radial-gradient(at 8% 8%, rgba(196, 181, 253, 0.45) 0px, transparent 55%),
+      radial-gradient(at 92% 10%, rgba(186, 230, 253, 0.45) 0px, transparent 55%),
+      radial-gradient(at 70% 92%, rgba(199, 210, 254, 0.45) 0px, transparent 60%),
+      radial-gradient(at 22% 78%, rgba(224, 231, 255, 0.5) 0px, transparent 60%);
+
+    --shadow-glass-sm: 0 2px 10px -2px rgba(79, 70, 229, 0.10), 0 0 0 1px rgba(255,255,255,0.7) inset;
+    --shadow-glass: 0 20px 60px -24px rgba(79, 70, 229, 0.28), 0 0 0 1px rgba(255,255,255,0.8) inset;
+    --shadow-glass-lg: 0 36px 90px -28px rgba(79, 70, 229, 0.32), 0 0 0 1px rgba(255,255,255,0.9) inset;
+    --shadow-glow-violet: 0 0 50px -10px rgba(124, 58, 237, 0.32);
+    --shadow-glow-aqua: 0 0 50px -10px rgba(99, 102, 241, 0.32);
+    --shadow-glow-blue: 0 0 50px -10px rgba(59, 130, 246, 0.32);
+    --shadow-glow-pink: 0 0 50px -10px rgba(124, 58, 237, 0.28);
+
+    color-scheme: light;
+  }
+  /* Pure white canvas — flat paint, no fixed attachment or full-page
+     backdrop-filter (both cause scroll-time white flicker / repaint storms). */
+  html.theme-white body {
+    background-color: #ffffff;
+    background-image:
+      radial-gradient(60% 50% at 50% 0%, rgba(245, 245, 250, 0.9), transparent 70%),
+      radial-gradient(50% 40% at 100% 100%, rgba(248, 248, 252, 0.8), transparent 70%),
+      radial-gradient(50% 40% at 0% 100%, rgba(248, 248, 252, 0.8), transparent 70%);
+    background-attachment: scroll;
+    color: var(--color-foreground);
+  }
+
+  html.theme-white body::before { display: none; }
+  html.theme-white body::after { display: none; }
+
+  /* Admin clarity system — soft lavender/sky mesh, high-contrast cards, pill controls. */
+  .admin-clarity {
+    --admin-bg: #f6f4ff;
+    --admin-panel: oklch(1 0 0);
+    --admin-card: oklch(1 0 0);
+    --admin-ink: oklch(0.14 0.04 260);
+    --admin-text: oklch(0.26 0.04 260);
+    --admin-muted: oklch(0.40 0.035 260);
+    --admin-border: oklch(0.86 0.02 255);
+    --admin-hover: oklch(0.955 0.014 255);
+    --admin-active: oklch(0.92 0.06 285);
+    --admin-primary: oklch(0.42 0.22 280);
+    --admin-primary-soft: oklch(0.74 0.13 280);
+    color: var(--admin-ink);
+    background:
+      radial-gradient(900px 500px at 0% 0%, rgba(196,181,253,0.45), transparent 60%),
+      radial-gradient(700px 480px at 100% 0%, rgba(186,230,253,0.5), transparent 60%),
+      radial-gradient(700px 500px at 100% 100%, rgba(251,207,232,0.45), transparent 60%),
+      #f7f5ff;
+    color-scheme: light;
+  }
+
+  /* Admin design system — pill tabs, stat cards, search bar, action icons */
+  .admin-clarity .a-stat {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 1.25rem;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 6px 20px -12px rgba(15, 23, 42, 0.18);
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .admin-clarity .a-stat-label { color: var(--admin-muted); font-size: 0.8125rem; font-weight: 600; }
+  .admin-clarity .a-stat-value { color: #0f172a; font-size: 1.875rem; font-weight: 800; letter-spacing: -0.02em; }
+  .admin-clarity .a-stat-icon { width: 2rem; height: 2rem; border-radius: 9999px; display: grid; place-items: center; }
+
+  .admin-clarity .a-pill { display: inline-flex; align-items: center; gap: 0.375rem; height: 2.25rem; padding: 0 0.875rem; border-radius: 9999px; font-size: 0.8125rem; font-weight: 700; background: #ffffff; color: #475569; border: 1px solid rgba(226, 232, 240, 0.9); transition: all 0.15s ease; }
+  .admin-clarity .a-pill:hover { color: #0f172a; }
+  .admin-clarity .a-pill-active { background: linear-gradient(135deg, #7c3aed, #a855f7); color: #ffffff !important; border-color: transparent; box-shadow: 0 8px 20px -8px rgba(124, 58, 237, 0.55); }
+  .admin-clarity .a-pill-count { font-size: 0.75rem; opacity: 0.85; }
+
+  .admin-clarity .a-search {
+    width: 100%; height: 3rem; padding: 0 1rem 0 2.75rem; border-radius: 9999px;
+    background: #ffffff; border: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 0 6px 20px -14px rgba(15, 23, 42, 0.18);
+    font-size: 0.875rem; color: #0f172a;
+  }
+  .admin-clarity .a-search:focus { outline: none; box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.35); border-color: #c4b5fd; }
+
+  .admin-clarity .a-card { background: #ffffff; border: 1px solid rgba(226, 232, 240, 0.9); border-radius: 1.25rem; box-shadow: 0 6px 20px -14px rgba(15, 23, 42, 0.18); }
+
+  .admin-clarity .a-action { width: 2.25rem; height: 2.25rem; border-radius: 9999px; display: inline-grid; place-items: center; transition: transform 0.12s ease, background 0.12s ease; }
+  .admin-clarity .a-action:hover { transform: translateY(-1px); }
+  .admin-clarity .a-action-violet { background: #ede9fe; color: #7c3aed; }
+  .admin-clarity .a-action-emerald { background: #d1fae5; color: #059669; }
+  .admin-clarity .a-action-sky { background: #e0f2fe; color: #0284c7; }
+  .admin-clarity .a-action-amber { background: #fef3c7; color: #d97706; }
+  .admin-clarity .a-action-rose { background: #ffe4e6; color: #e11d48; }
+
+  .admin-clarity .a-status { display: inline-flex; align-items: center; padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 700; border: 1px solid transparent; }
+  .admin-clarity .a-status-completed { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
+  .admin-clarity .a-status-pending { background: #fef3c7; color: #b45309; border-color: #fde68a; }
+  .admin-clarity .a-status-processing { background: #e0f2fe; color: #0369a1; border-color: #bae6fd; }
+  .admin-clarity .a-status-refunded { background: #ede9fe; color: #6d28d9; border-color: #ddd6fe; }
+  .admin-clarity .a-status-cancelled { background: #fee2e2; color: #b91c1c; border-color: #fecaca; }
+  .admin-clarity .a-status-failed { background: #ffe4e6; color: #be123c; border-color: #fecdd3; }
+  .admin-clarity .a-status-delivered { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
+  .admin-clarity .a-status-open { background: #fef3c7; color: #b45309; border-color: #fde68a; }
+  .admin-clarity .a-status-closed { background: #f1f5f9; color: #475569; border-color: #e2e8f0; }
+
+  .admin-clarity .a-save-btn { display: inline-flex; align-items: center; gap: 0.5rem; height: 2.5rem; padding: 0 1.25rem; border-radius: 0.75rem; background: linear-gradient(135deg, #7c3aed, #a855f7); color: #ffffff; font-weight: 700; font-size: 0.875rem; box-shadow: 0 10px 24px -10px rgba(124, 58, 237, 0.6); }
+  .admin-clarity .a-save-btn:hover { filter: brightness(1.05); }
+  .admin-clarity .admin-card {
+    background: var(--admin-card) !important;
+    border: 1px solid var(--admin-border) !important;
+    box-shadow: 0 16px 36px -28px rgba(15, 23, 42, 0.45) !important;
+  }
+  .admin-clarity .admin-kpi-icon,
+  .admin-clarity .admin-menu-icon {
+    background-color: var(--admin-primary) !important;
+    color: #ffffff !important;
+    box-shadow: 0 12px 26px -13px rgba(15, 23, 42, 0.76) !important;
+  }
+  .admin-clarity .admin-kpi-icon *,
+  .admin-clarity .admin-menu-icon * { color: #ffffff !important; }
+  .admin-clarity .admin-menu-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+    stroke-width: 2.65 !important;
+    filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.28));
+  }
+  .admin-clarity button[class*="bg-violet-5"],
+  .admin-clarity button[class*="bg-violet-6"],
+  .admin-clarity button[class*="bg-violet-7"],
+  .admin-clarity button[class*="bg-violet-8"],
+  .admin-clarity button[class*="bg-violet-9"],
+  .admin-clarity button[class*="bg-indigo-5"],
+  .admin-clarity button[class*="bg-indigo-6"],
+  .admin-clarity button[class*="bg-indigo-7"],
+  .admin-clarity button[class*="bg-indigo-8"],
+  .admin-clarity button[class*="bg-indigo-9"],
+  .admin-clarity button[class*="bg-emerald-5"],
+  .admin-clarity button[class*="bg-emerald-6"],
+  .admin-clarity button[class*="bg-emerald-7"],
+  .admin-clarity button[class*="bg-emerald-8"],
+  .admin-clarity button[class*="bg-emerald-9"],
+  .admin-clarity button[class*="bg-rose-5"],
+  .admin-clarity button[class*="bg-rose-6"],
+  .admin-clarity button[class*="bg-rose-7"],
+  .admin-clarity button[class*="bg-rose-8"],
+  .admin-clarity button[class*="bg-rose-9"],
+  .admin-clarity button[class*="bg-slate-9"] { color: #ffffff !important; }
+  .admin-clarity table thead {
+    background: oklch(0.96 0.01 255) !important;
+    color: var(--admin-muted) !important;
+  }
+  .admin-clarity table tbody tr:hover { background: var(--admin-hover) !important; }
+  .admin-clarity .text-muted-foreground { color: var(--admin-muted) !important; }
+  .admin-clarity .bg-secondary,
+  .admin-clarity .bg-secondary\/30,
+  .admin-clarity .bg-secondary\/50 { background-color: oklch(0.96 0.01 255) !important; }
+  .admin-clarity .border-border { border-color: var(--admin-border) !important; }
+  .admin-clarity .ring-white\/60 { --tw-ring-color: var(--admin-border) !important; }
+  .admin-clarity .bg-white\/60,
+  .admin-clarity .bg-white\/70,
+  .admin-clarity .bg-white\/85,
+  .admin-clarity .bg-white\/95 { background-color: #ffffff !important; }
+  .admin-clarity .text-slate-300 { color: oklch(0.60 0.025 255) !important; }
+  .admin-clarity .text-slate-400 { color: oklch(0.50 0.03 255) !important; }
+  .admin-clarity .text-slate-500 { color: var(--admin-muted) !important; }
+  .admin-clarity input,
+  .admin-clarity textarea,
+  .admin-clarity select {
+    background: #ffffff !important;
+    color: var(--admin-ink) !important;
+    border-color: var(--admin-border) !important;
+  }
+
+  /* GLASS CARDS — premium frosted white over violet/indigo mesh */
+  html.theme-white .glass {
+    background: linear-gradient(135deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.45) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow:
+      0 22px 60px -22px rgba(79, 70, 229, 0.28),
+      0 1px 0 0 rgba(255, 255, 255, 0.95) inset,
+      0 0 0 1px rgba(124, 58, 237, 0.06) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  }
+  html.theme-white .glass-strong {
+    background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.68) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.95) !important;
+    box-shadow:
+      0 30px 80px -28px rgba(79, 70, 229, 0.35),
+      0 1px 0 0 rgba(255, 255, 255, 1) inset,
+      0 0 0 1px rgba(124, 58, 237, 0.08) !important;
+    backdrop-filter: blur(28px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  }
+  html.theme-white .glass-soft {
+    background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.32) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.7) !important;
+    box-shadow:
+      0 8px 24px -10px rgba(79, 70, 229, 0.18),
+      0 1px 0 0 rgba(255, 255, 255, 0.85) inset !important;
+    backdrop-filter: blur(18px) saturate(170%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(170%) !important;
+  }
+
+  /* Product cards — frosted glassmorphism */
+  html.theme-white .product-card-v2 {
+    background: linear-gradient(135deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.38) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow:
+      0 14px 40px -18px rgba(79, 70, 229, 0.28),
+      0 1px 0 0 rgba(255, 255, 255, 0.95) inset,
+      0 0 0 1px rgba(124, 58, 237, 0.05) !important;
+    backdrop-filter: blur(22px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(180%) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
+  }
+  html.theme-white .product-card-v2:hover {
+    transform: translateY(-3px);
+    border-color: rgba(124, 58, 237, 0.35) !important;
+    box-shadow:
+      0 24px 60px -20px rgba(79, 70, 229, 0.42),
+      0 1px 0 0 rgba(255, 255, 255, 1) inset !important;
+  }
+
+  /* Aurora dark theme — also give product cards a subtle frosted glass look */
+  html:not(.theme-white) .product-card-v2 {
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(18px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+    box-shadow:
+      0 12px 32px -14px rgba(0, 0, 0, 0.5),
+      0 1px 0 0 rgba(255, 255, 255, 0.08) inset !important;
+  }
+  html:not(.theme-white) .product-card-v2:hover {
+    border-color: rgba(34, 211, 238, 0.32) !important;
+    box-shadow:
+      0 22px 52px -16px rgba(34, 211, 238, 0.25),
+      0 1px 0 0 rgba(255, 255, 255, 0.12) inset !important;
+  }
+
+  /* GPU-layer promotion for every frosted-glass surface. Prevents the
+     backdrop-filter "white flash / re-sample" flicker during scroll by
+     giving each glass element its own compositor layer, and avoids
+     subpixel jitter from fractional positioning. */
+  .glass,
+  .glass-strong,
+  .glass-soft,
+  .product-card-v2,
+  [style*="backdrop-filter"],
+  [class*="backdrop-blur"] {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  /* Isolate stacking so nested backdrop-filters don't bleed/flash through parents */
+  section, header, main, footer { isolation: isolate; }
+
+  /* Gradient bordered cards adapt to white-glass premium look (no pink) */
+  html.theme-white .gradient-border-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.6));
+    box-shadow: 0 22px 60px -22px rgba(79, 70, 229, 0.30);
+  }
+  html.theme-white .gradient-border-card::before {
+    background: linear-gradient(135deg, rgba(196, 181, 253, 0.8), rgba(186, 230, 253, 0.7) 50%, rgba(199, 210, 254, 0.8));
+    opacity: 0.6;
+  }
+  html.theme-white .gradient-border-card::after {
+    background:
+      radial-gradient(120% 70% at 50% -10%, rgba(186, 230, 253, 0.4), transparent 55%),
+      radial-gradient(80% 60% at 50% 110%, rgba(199, 210, 254, 0.45), transparent 60%);
+  }
+  html.theme-white .gradient-border-card:hover {
+    box-shadow: 0 32px 80px -24px rgba(79, 70, 229, 0.42);
+  }
+  html.theme-white .gradient-border-soft {
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 8px 22px -10px rgba(79, 70, 229, 0.20);
+  }
+  html.theme-white .gradient-border-soft::before {
+    background: linear-gradient(135deg, rgba(196, 181, 253, 0.7), rgba(186, 230, 253, 0.6) 50%, rgba(199, 210, 254, 0.7));
+  }
+
+  /* Buttons / accents */
+  html.theme-white .btn-aurora {
+    background: linear-gradient(135deg, #6D28D9 0%, #4F46E5 50%, #2563EB 100%);
+    color: #ffffff;
+    box-shadow: 0 12px 30px -10px rgba(168, 85, 247, 0.45), 0 0 0 1px rgba(255,255,255,0.4) inset;
+  }
+  html.theme-white .btn-aurora:hover {
+    box-shadow: 0 18px 40px -10px rgba(168, 85, 247, 0.6), 0 0 0 1px rgba(255,255,255,0.5) inset;
+  }
+  html.theme-white .neon-border {
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.1), 0 0 20px -4px rgba(168, 85, 247, 0.3);
+  }
+
+  /* Text contrast tweaks for light bg — catches every text-white opacity variant */
+  html.theme-white [class*="text-white"] { color: oklch(0.22 0.04 285) !important; }
+  html.theme-white .text-white\/90 { color: oklch(0.26 0.04 285) !important; }
+  html.theme-white .text-white\/85,
+  html.theme-white .text-white\/80 { color: oklch(0.30 0.04 285) !important; }
+  html.theme-white .text-white\/75,
+  html.theme-white .text-white\/70 { color: oklch(0.36 0.05 280) !important; }
+  html.theme-white .text-white\/65,
+  html.theme-white .text-white\/60 { color: oklch(0.42 0.06 280) !important; }
+  html.theme-white .text-white\/55,
+  html.theme-white .text-white\/50 { color: oklch(0.48 0.06 280) !important; }
+  html.theme-white .text-white\/40 { color: oklch(0.54 0.06 280) !important; }
+  html.theme-white .text-foreground { color: oklch(0.22 0.04 285) !important; }
+  /* Tailwind alpha variants like text-foreground/85 become faded ghosts on the
+     translucent white-glass cards. Force every opacity variant back to a
+     readable violet-tinted dark color. */
+  html.theme-white [class*="text-foreground\/"] { color: oklch(0.26 0.05 285) !important; }
+  html.theme-white .text-foreground\/95,
+  html.theme-white .text-foreground\/90 { color: oklch(0.22 0.04 285) !important; }
+  html.theme-white .text-foreground\/85,
+  html.theme-white .text-foreground\/80 { color: oklch(0.26 0.05 285) !important; }
+  html.theme-white .text-foreground\/75,
+  html.theme-white .text-foreground\/70 { color: oklch(0.32 0.05 282) !important; }
+  html.theme-white .text-foreground\/65,
+  html.theme-white .text-foreground\/60 { color: oklch(0.38 0.06 280) !important; }
+  html.theme-white .text-foreground\/55,
+  html.theme-white .text-foreground\/50 { color: oklch(0.44 0.06 280) !important; }
+  html.theme-white .text-foreground\/40,
+  html.theme-white .text-foreground\/30 { color: oklch(0.50 0.06 280) !important; }
+
+  /* Catch-all for any remaining washed-out light grays that slipped through
+     on white backgrounds (slate-100/200/300, gray-100/200/300, neutral-100/200/300,
+     zinc-100/200/300). Force them to a readable violet-dark. */
+  html.theme-white .text-white,
+  html.theme-white .text-slate-50,
+  html.theme-white .text-slate-100,
+  html.theme-white .text-slate-200,
+  html.theme-white .text-slate-300,
+  html.theme-white .text-gray-50,
+  html.theme-white .text-gray-100,
+  html.theme-white .text-gray-200,
+  html.theme-white .text-gray-300,
+  html.theme-white .text-neutral-100,
+  html.theme-white .text-neutral-200,
+  html.theme-white .text-neutral-300,
+  html.theme-white .text-zinc-100,
+  html.theme-white .text-zinc-200,
+  html.theme-white .text-zinc-300,
+  html.theme-white .text-stone-100,
+  html.theme-white .text-stone-200,
+  html.theme-white .text-stone-300 { color: oklch(0.26 0.05 285) !important; }
+
+  /* Drop dark text-shadows that were designed for dark theme — they smudge text on white */
+  html.theme-white h1,
+  html.theme-white h2,
+  html.theme-white h3,
+  html.theme-white h4,
+  html.theme-white p,
+  html.theme-white span,
+  html.theme-white a,
+  html.theme-white div { text-shadow: none !important; }
+
+  /* Convert white dividers/borders to violet so they show on white */
+  html.theme-white [class*="bg-white\/"] { background-color: rgba(79, 70, 229, 0.18) !important; }
+  html.theme-white [class*="border-white\/"] { border-color: rgba(79, 70, 229, 0.22) !important; }
+
+  /* Opt-out wrapper: dark-canvas hero/sections that need to keep white-on-dark
+     even in the white theme. Re-applies original white/slate colors and
+     translucent white backgrounds for descendants. */
+  html.theme-white .force-dark-canvas [class*="text-white"] { color: #ffffff !important; }
+  html.theme-white .force-dark-canvas .text-white\/90 { color: rgba(255,255,255,0.9) !important; }
+  html.theme-white .force-dark-canvas .text-white\/80 { color: rgba(255,255,255,0.8) !important; }
+  html.theme-white .force-dark-canvas .text-white\/70 { color: rgba(255,255,255,0.7) !important; }
+  html.theme-white .force-dark-canvas .text-white\/60 { color: rgba(255,255,255,0.6) !important; }
+  html.theme-white .force-dark-canvas .text-white\/50 { color: rgba(255,255,255,0.5) !important; }
+  html.theme-white .force-dark-canvas .text-white\/40 { color: rgba(255,255,255,0.4) !important; }
+  html.theme-white .force-dark-canvas .text-slate-200 { color: rgb(226 232 240) !important; }
+  html.theme-white .force-dark-canvas .text-slate-300 { color: rgb(203 213 225) !important; }
+  html.theme-white .force-dark-canvas .text-slate-400 { color: rgb(148 163 184) !important; }
+  html.theme-white .force-dark-canvas .text-slate-500 { color: rgb(100 116 139) !important; }
+  html.theme-white .force-dark-canvas [class*="bg-white\/"] { background-color: rgba(255,255,255,0.05) !important; }
+  html.theme-white .force-dark-canvas .bg-white\/10 { background-color: rgba(255,255,255,0.10) !important; }
+  html.theme-white .force-dark-canvas [class*="border-white\/"] { border-color: rgba(255,255,255,0.10) !important; }
+
+  /* Scrollbar in white theme */
+  html.theme-white {
+    scrollbar-color: rgba(168, 85, 247, 0.5) transparent;
+  }
+  html.theme-white ::-webkit-scrollbar-thumb {
+    background: rgba(168, 85, 247, 0.45);
+  }
+  html.theme-white ::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 85, 247, 0.7);
+  }
+
+  /* Inputs / form fields */
+  html.theme-white input,
+  html.theme-white textarea,
+  html.theme-white select {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-color: rgba(124, 58, 237, 0.18);
+    color: oklch(0.22 0.04 285);
+  }
+  html.theme-white input::placeholder,
+  html.theme-white textarea::placeholder {
+    color: oklch(0.55 0.04 285);
+  }
+
+  /* Tables */
+  html.theme-white table { color: oklch(0.22 0.04 285); }
+  html.theme-white thead { background: rgba(255, 255, 255, 0.6); }
+  html.theme-white tbody tr { border-color: rgba(124, 58, 237, 0.08); }
+  html.theme-white tbody tr:hover { background: rgba(196, 181, 253, 0.12); }
+
+  /* ========== Aggressive overrides — header / footer / products / dialogs ========== */
+  html.theme-white [class*="bg-black"],
+  html.theme-white [class*="bg-slate-9"],
+  html.theme-white [class*="bg-slate-8"],
+  html.theme-white [class*="bg-slate-7"],
+  html.theme-white [class*="bg-zinc-9"],
+  html.theme-white [class*="bg-zinc-8"],
+  html.theme-white [class*="bg-neutral-9"],
+  html.theme-white [class*="bg-neutral-8"],
+  html.theme-white [class*="bg-gray-9"],
+  html.theme-white [class*="bg-gray-8"],
+  html.theme-white [class*="bg-stone-9"] {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    color: oklch(0.22 0.04 285) !important;
+  }
+
+  html.theme-white [class*="from-slate-9"],
+  html.theme-white [class*="from-zinc-9"],
+  html.theme-white [class*="from-neutral-9"],
+  html.theme-white [class*="from-gray-9"],
+  html.theme-white [class*="from-black"],
+  html.theme-white [class*="via-slate-9"],
+  html.theme-white [class*="via-zinc-9"],
+  html.theme-white [class*="to-slate-9"],
+  html.theme-white [class*="to-zinc-9"],
+  html.theme-white [class*="to-black"] {
+    --tw-gradient-from: rgba(255, 255, 255, 0.7) !important;
+    --tw-gradient-via: rgba(245, 233, 247, 0.55) !important;
+    --tw-gradient-to: rgba(224, 242, 254, 0.7) !important;
+  }
+
+  html.theme-white [class*="text-slate-1"],
+  html.theme-white [class*="text-slate-2"],
+  html.theme-white [class*="text-zinc-1"],
+  html.theme-white [class*="text-zinc-2"],
+  html.theme-white [class*="text-neutral-1"],
+  html.theme-white [class*="text-gray-1"],
+  html.theme-white [class*="text-gray-2"] {
+    color: oklch(0.22 0.04 285) !important;
+  }
+  html.theme-white .text-slate-300,
+  html.theme-white .text-slate-400,
+  html.theme-white .text-zinc-300,
+  html.theme-white .text-zinc-400,
+  html.theme-white .text-neutral-300,
+  html.theme-white .text-neutral-400,
+  html.theme-white .text-gray-300,
+  html.theme-white .text-gray-400 {
+    color: oklch(0.45 0.04 285) !important;
+  }
+
+  html.theme-white .admin-clarity .admin-kpi-icon,
+  html.theme-white .admin-clarity .admin-menu-icon,
+  html.theme-white .admin-clarity .admin-kpi-icon *,
+  html.theme-white .admin-clarity .admin-menu-icon * {
+    color: #ffffff !important;
+    opacity: 1 !important;
+  }
+  html.theme-white .admin-clarity button[class*="bg-violet-5"],
+  html.theme-white .admin-clarity button[class*="bg-violet-6"],
+  html.theme-white .admin-clarity button[class*="bg-violet-7"],
+  html.theme-white .admin-clarity button[class*="bg-violet-8"],
+  html.theme-white .admin-clarity button[class*="bg-violet-9"],
+  html.theme-white .admin-clarity button[class*="bg-indigo-5"],
+  html.theme-white .admin-clarity button[class*="bg-indigo-6"],
+  html.theme-white .admin-clarity button[class*="bg-indigo-7"],
+  html.theme-white .admin-clarity button[class*="bg-indigo-8"],
+  html.theme-white .admin-clarity button[class*="bg-indigo-9"],
+  html.theme-white .admin-clarity button[class*="bg-emerald-5"],
+  html.theme-white .admin-clarity button[class*="bg-emerald-6"],
+  html.theme-white .admin-clarity button[class*="bg-emerald-7"],
+  html.theme-white .admin-clarity button[class*="bg-emerald-8"],
+  html.theme-white .admin-clarity button[class*="bg-emerald-9"],
+  html.theme-white .admin-clarity button[class*="bg-rose-5"],
+  html.theme-white .admin-clarity button[class*="bg-rose-6"],
+  html.theme-white .admin-clarity button[class*="bg-rose-7"],
+  html.theme-white .admin-clarity button[class*="bg-rose-8"],
+  html.theme-white .admin-clarity button[class*="bg-rose-9"],
+  html.theme-white .admin-clarity button[class*="bg-blue-5"],
+  html.theme-white .admin-clarity button[class*="bg-blue-6"],
+  html.theme-white .admin-clarity button[class*="bg-blue-7"],
+  html.theme-white .admin-clarity button[class*="bg-blue-8"],
+  html.theme-white .admin-clarity button[class*="bg-blue-9"],
+  html.theme-white .admin-clarity button[class*="bg-orange-5"],
+  html.theme-white .admin-clarity button[class*="bg-orange-6"],
+  html.theme-white .admin-clarity button[class*="bg-orange-7"],
+  html.theme-white .admin-clarity button[class*="bg-amber-5"],
+  html.theme-white .admin-clarity button[class*="bg-amber-6"],
+  html.theme-white .admin-clarity button[class*="bg-amber-7"] {
+    color: #ffffff !important;
+    opacity: 1 !important;
+  }
+
+  html.theme-white [class*="border-white\\/"],
+  html.theme-white [class*="border-slate-7"],
+  html.theme-white [class*="border-slate-8"],
+  html.theme-white [class*="border-zinc-7"],
+  html.theme-white [class*="border-zinc-8"],
+  html.theme-white [class*="border-neutral-7"] {
+    border-color: rgba(124, 58, 237, 0.18) !important;
+  }
+
+  html.theme-white [class*="bg-white\\/"] {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  html.theme-white header,
+  html.theme-white footer,
+  html.theme-white nav,
+  html.theme-white aside { color: oklch(0.22 0.04 285); }
+  html.theme-white header a,
+  html.theme-white footer a,
+  html.theme-white nav a { color: oklch(0.28 0.04 285); }
+  html.theme-white header a:hover,
+  html.theme-white footer a:hover,
+  html.theme-white nav a:hover { color: oklch(0.5 0.22 295); }
+
+  html.theme-white .bg-card { background-color: rgba(255, 255, 255, 0.85) !important; }
+  html.theme-white .bg-popover { background-color: #ffffff !important; }
+  html.theme-white .bg-background { background-color: #ffffff !important; }
+  html.theme-white .bg-muted { background-color: rgba(238, 242, 255, 0.85) !important; }
+
+  /* Customer review cards — frosted white in light theme, dark glass in aurora */
+  html.theme-white .review-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.65) 100%) !important;
+    border: 1px solid rgba(255,255,255,0.9) !important;
+    box-shadow:
+      0 12px 32px -14px rgba(79, 70, 229, 0.18),
+      0 1px 0 0 rgba(255,255,255,0.95) inset,
+      0 0 0 1px rgba(124, 58, 237, 0.06) !important;
+    backdrop-filter: blur(18px) saturate(170%);
+    -webkit-backdrop-filter: blur(18px) saturate(170%);
+  }
+  html:not(.theme-white) .review-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 100%) !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    box-shadow: 0 8px 30px -12px rgba(0,0,0,0.6) !important;
+  }
+
+  /* Review carousel edge fade — theme-aware (white in light, dark in aurora) */
+  html.theme-white .review-fade-left {
+    background: linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+  }
+  html.theme-white .review-fade-right {
+    background: linear-gradient(to left, #ffffff 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+  }
+  html:not(.theme-white) .review-fade-left {
+    background: linear-gradient(to right, #06051a 0%, rgba(6,5,26,0.6) 50%, rgba(6,5,26,0) 100%);
+  }
+  html:not(.theme-white) .review-fade-right {
+    background: linear-gradient(to left, #06051a 0%, rgba(6,5,26,0.6) 50%, rgba(6,5,26,0) 100%);
+  }
+
+  html.theme-white .text-aurora,
+  html.theme-white .text-aurora-strong,
+  html.theme-white .text-neon,
+  html.theme-white .text-sunset {
+    background-image: linear-gradient(135deg, #5B21B6 0%, #4338CA 50%, #1D4ED8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  html.theme-white [role="dialog"],
+  html.theme-white [data-radix-popper-content-wrapper] > * {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    color: oklch(0.22 0.04 285) !important;
+    border-color: rgba(124, 58, 237, 0.15) !important;
+  }
+
+  html.theme-white button[class*="bg-slate-"],
+  html.theme-white button[class*="bg-zinc-"],
+  html.theme-white button[class*="bg-neutral-"],
+  html.theme-white button[class*="bg-black"] {
+    background-color: rgba(124, 58, 237, 0.92) !important;
+    color: #ffffff !important;
+  }
+
+  html.theme-white .admin-clarity button[class*="bg-slate-900"],
+  html.theme-white .admin-clarity button[class*="bg-slate-800"] {
+    background-color: oklch(0.20 0.035 260) !important;
+    color: #ffffff !important;
+  }
+  html.theme-white .admin-clarity button[class*="bg-white"],
+  html.theme-white .admin-clarity button[class*="bg-slate-100"],
+  html.theme-white .admin-clarity button[class*="bg-slate-50"] {
+    background-color: #ffffff !important;
+    color: var(--admin-text) !important;
+  }
+
+  html.theme-white .product-action-button,
+  html.theme-white .product-action-button span,
+  html.theme-white .product-action-button svg {
+    color: #ffffff !important;
+    opacity: 1 !important;
+  }
+
+  html.theme-white .product-buy-button,
+  .product-buy-button {
+    background: linear-gradient(135deg, #7C3AED 0%, #2563EB 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 18px 42px -14px rgba(124, 58, 237, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
+  }
+
+  html.theme-white .product-cart-button,
+  .product-cart-button {
+    background: linear-gradient(135deg, #111827 0%, #374151 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 16px 36px -14px rgba(17, 24, 39, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+  }
+
+  html.theme-white .product-whatsapp-button,
+  .product-whatsapp-button {
+    background: linear-gradient(135deg, #075E54 0%, #128C7E 38%, #25D366 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 18px 42px -14px rgba(37, 211, 102, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.24) !important;
+  }
+
+  html.theme-white .bg-secondary {
+    background-color: rgba(243, 232, 255, 0.9) !important;
+    color: oklch(0.32 0.18 295) !important;
+  }
+
+  /* ===== Footer-specific (catches arbitrary text-white/NN + bg-white/[0.0xx]) ===== */
+  html.theme-white footer {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.92)) !important;
+    backdrop-filter: blur(28px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(140%) !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+    color: oklch(0.22 0.04 285) !important;
+  }
+  html.theme-white footer .blur-\[60px\],
+  html.theme-white footer .blur-\[70px\],
+  html.theme-white footer .blur-\[90px\],
+  html.theme-white footer .blur-\[96px\] {
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    opacity: 0.5 !important;
+  }
+  html.theme-white footer [class*="text-white"] {
+    color: oklch(0.28 0.04 285) !important;
+  }
+  html.theme-white footer .text-white,
+  html.theme-white footer .font-bold.text-white,
+  html.theme-white footer .font-extrabold.text-white {
+    color: oklch(0.18 0.06 285) !important;
+  }
+  html.theme-white footer [class*="bg-white"] {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    border-color: rgba(124, 58, 237, 0.14) !important;
+  }
+  html.theme-white footer a.text-aqua,
+  html.theme-white footer .text-aqua {
+    color: oklch(0.5 0.18 220) !important;
+  }
+  html.theme-white footer .blur-\[90px\],
+  html.theme-white footer .blur-\[96px\] {
+    opacity: 0.35 !important;
+  }
+
+  /* ===== Header — WHITE + Glassmorphism chrome ===== */
+  /* Top utility bar (uses bg-background) — soft frosted lavender */
+  html.theme-white .relative.z-40.overflow-hidden.bg-background {
+    background: linear-gradient(90deg, rgba(245, 243, 255, 0.85) 0%, rgba(236, 233, 254, 0.82) 50%, rgba(245, 243, 255, 0.85) 100%) !important;
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border-bottom: 1px solid rgba(124, 58, 237, 0.18) !important;
+  }
+  /* Soften top-bar decorative blurs/gradients */
+  html.theme-white .relative.z-40.overflow-hidden.bg-background .absolute.inset-0 {
+    opacity: 0.35 !important;
+  }
+  /* Sticky main header — white glass bar */
+  html.theme-white header.sticky > div {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(250, 248, 255, 0.72)) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 10px 30px -16px rgba(124, 58, 237, 0.22) !important;
+    border-bottom: 1px solid rgba(124, 58, 237, 0.14) !important;
+  }
+  /* Header text → readable dark */
+  html.theme-white header [class*="text-white"],
+  html.theme-white header.sticky [class*="text-white"],
+  html.theme-white .relative.z-40.overflow-hidden.bg-background [class*="text-white"],
+  html.theme-white header [class*="text-white\\/"],
+  html.theme-white .relative.z-40.overflow-hidden.bg-background [class*="text-white\\/"] {
+    color: oklch(0.28 0.04 285) !important;
+  }
+  html.theme-white header a,
+  html.theme-white header.sticky a {
+    color: oklch(0.32 0.05 285) !important;
+  }
+  html.theme-white header a:hover,
+  html.theme-white header.sticky a:hover {
+    color: oklch(0.45 0.22 295) !important;
+  }
+  /* Frosted pills (Home / All Products / nav, search, icons) */
+  html.theme-white header [class*="bg-white\\/"],
+  html.theme-white header.sticky [class*="bg-white\\/"],
+  html.theme-white .relative.z-40.overflow-hidden.bg-background [class*="bg-white\\/"] {
+    background-color: rgba(255, 255, 255, 0.65) !important;
+    backdrop-filter: blur(10px) saturate(160%);
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+  }
+  html.theme-white header [class*="border-white\\/"],
+  html.theme-white header.sticky [class*="border-white\\/"],
+  html.theme-white .relative.z-40.overflow-hidden.bg-background [class*="border-white\\/"] {
+    border-color: rgba(124, 58, 237, 0.18) !important;
+  }
+  /* Mobile nav pill bar inside header */
+  html.theme-white header nav .glass-soft {
+    background: rgba(255, 255, 255, 0.7) !important;
+    border-color: rgba(124, 58, 237, 0.18) !important;
+    color: oklch(0.28 0.04 285) !important;
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+  }
+  /* Top-bar small status chips/icons keep premium accent */
+  html.theme-white .relative.z-40.overflow-hidden.bg-background svg {
+    color: oklch(0.45 0.22 295);
+  }
+
+  /* === Header chips & inline-styled pills → white glassmorphism === */
+  html.theme-white .relative.z-40.overflow-hidden.bg-background > div > div > span[style*="linear-gradient"]:not(.bg-clip-text),
+  html.theme-white .relative.z-40.overflow-hidden.bg-background > div > div > a[style*="linear-gradient"]:not(.bg-clip-text) {
+    background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(245,243,255,0.7)) !important;
+    border-color: rgba(124, 58, 237, 0.22) !important;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.7),
+      0 4px 14px -6px rgba(124, 58, 237, 0.25) !important;
+    backdrop-filter: blur(10px) saturate(160%);
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+  }
+  html.theme-white .relative.z-40.overflow-hidden.bg-background .bg-clip-text.text-transparent {
+    background-image: linear-gradient(135deg, #5B21B6 0%, #4338CA 50%, #1D4ED8 100%) !important;
+    color: transparent !important;
+  }
+  html.theme-white .relative.z-40.overflow-hidden.bg-background .bg-white\/15,
+  html.theme-white .relative.z-40.overflow-hidden.bg-background [class*="bg-white\\/1"] {
+    background-color: rgba(124, 58, 237, 0.22) !important;
+  }
+  html.theme-white .relative.z-40.overflow-hidden.bg-background .text-emerald-200,
+  html.theme-white .relative.z-40.overflow-hidden.bg-background .text-emerald-300 {
+    color: oklch(0.45 0.18 158) !important;
+  }
+  html.theme-white .relative.z-40.overflow-hidden.bg-background a:hover {
+    background-color: rgba(124, 58, 237, 0.10) !important;
+  }
+
+  /* Sticky main header chrome */
+  html.theme-white header.sticky [class*="bg-background\\/"] {
+    background-color: rgba(255, 255, 255, 0.72) !important;
+  }
+  html.theme-white header .bg-background\/85 {
+    background-color: rgba(255, 255, 255, 0.92) !important;
+    border-color: rgba(124, 58, 237, 0.18) !important;
+  }
+  html.theme-white header [class*="border-white\\/"],
+  html.theme-white header.sticky [class*="border-white\\/"] {
+    border-color: rgba(124, 58, 237, 0.18) !important;
+  }
+  /* Magnetic nav sliding pill */
+  html.theme-white header.sticky nav span[style*="color-mix"] {
+    background: linear-gradient(135deg, rgba(196, 181, 253, 0.55), rgba(186, 230, 253, 0.45)) !important;
+    border: 1px solid rgba(124, 58, 237, 0.45) !important;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+      0 0 22px -4px rgba(124, 58, 237, 0.45),
+      0 8px 26px -12px rgba(124, 58, 237, 0.5) !important;
+  }
+  /* Header icons → violet, except on gradient buttons */
+  html.theme-white header svg,
+  html.theme-white header.sticky svg {
+    color: oklch(0.40 0.18 295);
+  }
+  html.theme-white header [class*="bg-gradient"] svg,
+  html.theme-white header.sticky [class*="bg-gradient"] svg,
+  html.theme-white header .bg-aurora svg {
+    color: #ffffff !important;
+  }
+  html.theme-white header .text-white\/70,
+  html.theme-white header .text-white\/75,
+  html.theme-white header .text-white\/80,
+  html.theme-white header .text-white\/85 {
+    color: oklch(0.40 0.04 285) !important;
+  }
+  /* Sign In / Register split pill container */
+  html.theme-white header .bg-white\/\[0\.05\] {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    border-color: rgba(124, 58, 237, 0.18) !important;
+    box-shadow: 0 8px 24px -12px rgba(124, 58, 237, 0.3) !important;
+  }
+  html.theme-white header .bg-white\/10 {
+    background-color: rgba(124, 58, 237, 0.10) !important;
+    color: oklch(0.40 0.18 295) !important;
+    border-color: rgba(124, 58, 237, 0.22) !important;
+  }
+
+  /* === Search bar + header icon readability (white theme) === */
+  /* All header SVG icons → consistent dark violet, including text-aqua/text-aurora colored ones */
+  html.theme-white header svg,
+  html.theme-white header.sticky svg,
+  html.theme-white .relative.z-40.overflow-hidden.bg-background svg {
+    color: oklch(0.38 0.18 295) !important;
+  }
+  /* Accent icons (Zap, Phone, Search, ChevronRight) keep a slightly brighter violet */
+  html.theme-white header .text-aqua,
+  html.theme-white header.sticky .text-aqua,
+  html.theme-white .relative.z-40.overflow-hidden.bg-background .text-aqua {
+    color: oklch(0.50 0.20 295) !important;
+  }
+  /* Icons sitting on gradient/primary CTA stay white (override above) */
+  html.theme-white header [class*="bg-gradient"] svg,
+  html.theme-white header.sticky [class*="bg-gradient"] svg,
+  html.theme-white header .bg-aurora svg,
+  html.theme-white header .bg-primary svg {
+    color: #ffffff !important;
+  }
+
+  /* Search pill (xl:inline-flex search button) — strong contrast */
+  html.theme-white header button[aria-label="Search products"],
+  html.theme-white header button[aria-label="Search"] {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(124, 58, 237, 0.22) !important;
+    color: oklch(0.28 0.04 285) !important;
+    box-shadow: 0 4px 14px -6px rgba(124, 58, 237, 0.22) !important;
+  }
+  html.theme-white header button[aria-label="Search products"]:hover,
+  html.theme-white header button[aria-label="Search"]:hover {
+    border-color: rgba(124, 58, 237, 0.40) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+  /* "Search…" placeholder label + ⌘K kbd inside search pill */
+  html.theme-white header button[aria-label="Search products"] span,
+  html.theme-white header button[aria-label="Search products"] .text-white\/55 {
+    color: oklch(0.40 0.04 285) !important;
+  }
+  html.theme-white header button[aria-label="Search products"] .bg-white\/10 {
+    background-color: rgba(124, 58, 237, 0.10) !important;
+    color: oklch(0.36 0.18 295) !important;
+    border-color: rgba(124, 58, 237, 0.25) !important;
+  }
+
+  /* Cart count badge — keep accent contrast */
+  html.theme-white header .bg-\[var\(--color-orange\)\] {
+    color: #ffffff !important;
+  }
+
+  /* Theme switcher trigger button & dropdown — readable */
+  html.theme-white header button[aria-label*="theme" i] svg,
+  html.theme-white header button[aria-haspopup] svg {
+    color: oklch(0.38 0.18 295) !important;
+  }
+
+  /* Catch-all: any header text-white (no opacity) → dark, except on gradient CTAs */
+  html.theme-white header :not([class*="bg-gradient"]):not(.bg-aurora):not(.bg-primary) > .text-white {
+    color: oklch(0.22 0.04 285) !important;
+  }
+
+  /* === Mobile header nav — match desktop white-glass look === */
+  /* Mobile horizontal scroll pill nav (lg:hidden, sits below sticky header) */
+  html.theme-white header.sticky > div > .lg\:hidden {
+    background: linear-gradient(180deg, rgba(255,255,255,0.78), rgba(250,248,255,0.72)) !important;
+    border-top: 1px solid rgba(124, 58, 237, 0.14) !important;
+    box-shadow: 0 8px 22px -16px rgba(124, 58, 237, 0.25) !important;
+  }
+  /* Each scroll-pill link in mobile nav */
+  html.theme-white header.sticky nav .glass-soft,
+  html.theme-white header nav a.glass-soft,
+  html.theme-white header nav button.glass-soft {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(124, 58, 237, 0.18) !important;
+    color: oklch(0.30 0.04 285) !important;
+    box-shadow: 0 2px 10px -4px rgba(124, 58, 237, 0.18) !important;
+  }
+  html.theme-white header nav a.glass-soft:hover,
+  html.theme-white header nav button.glass-soft:hover {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(124, 58, 237, 0.30) !important;
+    color: oklch(0.22 0.04 285) !important;
+  }
+  /* Active pill on mobile (uses !important Tailwind overrides via activeProps) */
+  html.theme-white header nav a.\!text-primary,
+  html.theme-white header nav a[class*="!text-primary"] {
+    background: linear-gradient(135deg, rgba(196, 181, 253, 0.55), rgba(186, 230, 253, 0.45)) !important;
+    border: 1px solid rgba(124, 58, 237, 0.45) !important;
+    color: oklch(0.42 0.22 295) !important;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+      0 4px 18px -6px rgba(124, 58, 237, 0.45) !important;
+  }
+
+  /* Mobile menu drawer (open menu) — frosted white panel */
+  html.theme-white header > .lg\:hidden.relative {
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,248,255,0.92)) !important;
+    border-bottom: 1px solid rgba(124, 58, 237, 0.18) !important;
+    box-shadow: 0 18px 40px -20px rgba(124, 58, 237, 0.30) !important;
+  }
+  /* Drawer link tiles → soft white glass with violet rim */
+  html.theme-white header > .lg\:hidden.relative nav a {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(124, 58, 237, 0.18) !important;
+    color: oklch(0.22 0.04 285) !important;
+    box-shadow: 0 2px 10px -4px rgba(124, 58, 237, 0.18) !important;
+  }
+  html.theme-white header > .lg\:hidden.relative nav a:hover {
+    background: rgba(255, 255, 255, 0.98) !important;
+    border-color: rgba(124, 58, 237, 0.35) !important;
+  }
+  /* Sign Out / secondary action button in drawer */
+  html.theme-white header > .lg\:hidden.relative button.glass-soft {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(124, 58, 237, 0.18) !important;
+    color: oklch(0.22 0.04 285) !important;
+  }
+  /* Sign In / Register split pill in drawer */
+  html.theme-white header > .lg\:hidden.relative .bg-white\/\[0\.05\] {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(124, 58, 237, 0.22) !important;
+    box-shadow: 0 8px 24px -12px rgba(124, 58, 237, 0.30) !important;
+  }
+  /* ChevronRight & icons inside drawer */
+  html.theme-white header > .lg\:hidden.relative svg {
+    color: oklch(0.42 0.20 295) !important;
+  }
+  html.theme-white header > .lg\:hidden.relative [class*="bg-gradient"] svg {
+    color: #ffffff !important;
+  }
+
+  /* Mobile-only: re-enable a subtle frost on header glass elements (mobile blur is otherwise disabled site-wide) */
+  @media (max-width: 1023px), (pointer: coarse) {
+    html.theme-white header,
+    html.theme-white header.sticky > div,
+    html.theme-white header > .lg\:hidden.relative,
+    html.theme-white header nav .glass-soft,
+    html.theme-white header nav a.glass-soft {
+      backdrop-filter: blur(10px) saturate(160%) !important;
+      -webkit-backdrop-filter: blur(10px) saturate(160%) !important;
+    }
+  }
+
+  /* Generic nav pill borders & dividers anywhere */
+  html.theme-white nav [class*="border-white\\/"] {
+    border-color: rgba(124, 58, 237, 0.18) !important;
+  }
+  html.theme-white nav [class*="bg-white\\/"] {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(10px) saturate(160%);
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+  }
+
+  /* ===== Site-wide catch: any text-white/NN arbitrary opacity → readable dark ===== */
+  html.theme-white [class*="text-white\\/"] {
+    color: oklch(0.32 0.04 285) !important;
+  }
+  /* Faint bg-white/[0.0NN] arbitrary opacities → frosted, visible */
+  html.theme-white [class*="bg-white\\/\\[0\\.0"] {
+    background-color: rgba(255, 255, 255, 0.6) !important;
+  }
+  html.theme-white [class*="bg-white\\/\\[0\\.1"] {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  /* ===== Product card dark "Choose Plan" pill (matches reference) ===== */
+  .choose-plan-btn {
+    background: linear-gradient(180deg, #1a1a1a 0%, #000000 100%);
+    color: #ffffff;
+    box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .choose-plan-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  }
+
+  /* White-theme product card polish */
+  html.theme-white .product-card-v2 {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(124, 58, 237, 0.12) !important;
+    box-shadow: 0 4px 18px -8px rgba(124, 58, 237, 0.18) !important;
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+  }
+  html.theme-white .product-card-v2:hover {
+    box-shadow: 0 16px 38px -16px rgba(124, 58, 237, 0.32) !important;
+    border-color: rgba(124, 58, 237, 0.24) !important;
+  }
+  html.theme-white .product-card-v2 h3 {
+    color: oklch(0.18 0.04 285) !important;
+  }
+  html.theme-white .product-card-v2 .text-aurora {
+    background-image: linear-gradient(135deg, #5B21B6 0%, #4338CA 50%, #1D4ED8 100%) !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+  }
+
+  /* Choose Plan / Add to Cart pill — white glassmorphism with violet gradient */
+  html.theme-white .choose-plan-btn {
+    background: linear-gradient(135deg, #6D28D9 0%, #4F46E5 50%, #2563EB 100%) !important;
+    color: #ffffff !important;
+    box-shadow:
+      0 8px 22px -8px rgba(124, 58, 237, 0.45),
+      0 0 0 1px rgba(255, 255, 255, 0.55) inset !important;
+  }
+  html.theme-white .choose-plan-btn:hover {
+    box-shadow:
+      0 14px 30px -10px rgba(124, 58, 237, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.7) inset !important;
+  }
+
+  /* Product detail page — make hero info, plans, features, "How delivery works" clearly readable */
+  html.theme-white section .glass,
+  html.theme-white section .glass-strong,
+  html.theme-white section .glass-soft {
+    color: oklch(0.22 0.04 285) !important;
+  }
+  html.theme-white .text-foreground { color: oklch(0.20 0.04 285) !important; }
+  html.theme-white .text-muted-foreground { color: oklch(0.45 0.04 285) !important; }
+
+  /* Decorative white-ribbon shimmer on product banner — tone down so banner reads */
+  html.theme-white [class*="via-white\\/"] {
+    --tw-gradient-via: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  /* Buttons that intentionally sit on the aurora gradient must keep white text */
+  html.theme-white .bg-aurora,
+  html.theme-white .btn-aurora,
+  html.theme-white [class*="bg-gradient"][class*="from-primary"] {
+    color: #ffffff !important;
+  }
+  html.theme-white .bg-aurora .text-white,
+  html.theme-white .btn-aurora .text-white,
+  html.theme-white .bg-primary .text-white,
+  html.theme-white [class*="bg-gradient"] .text-white,
+  html.theme-white .text-primary-foreground {
+    color: #ffffff !important;
+  }
+
+  /* Badges sitting on solid color chips keep white text */
+  html.theme-white .bg-primary,
+  html.theme-white [class*="bg-emerald-5"],
+  html.theme-white [class*="bg-rose-5"],
+  html.theme-white [class*="bg-amber-5"],
+  html.theme-white [class*="bg-sky-5"],
+  html.theme-white [class*="bg-violet-5"],
+  html.theme-white [class*="bg-pink-5"],
+  html.theme-white [class*="bg-cyan-5"] {
+    color: #ffffff !important;
+  }
+
+  /* Site-wide: any element using arbitrary `text-white/[0.NN]` becomes readable dark
+     EXCEPT when the element also sits on a gradient/aurora/primary background */
+  html.theme-white *:not(.bg-aurora):not(.btn-aurora):not(.bg-primary):not([class*="bg-gradient"]):not([class*="from-primary"]) > [class*="text-white\\/"] {
+    color: oklch(0.32 0.04 285) !important;
+  }
+
+  /* Cards / dropdowns / popovers — solid frosted white with violet rim */
+  html.theme-white [data-radix-popper-content-wrapper] > *,
+  html.theme-white [role="menu"],
+  html.theme-white [role="listbox"],
+  html.theme-white [role="dialog"] {
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    border: 1px solid rgba(124, 58, 237, 0.18) !important;
+    box-shadow: 0 24px 60px -24px rgba(124, 58, 237, 0.35) !important;
+    color: oklch(0.22 0.04 285) !important;
+  }
+
+  /* === Final unification: catch any remaining dark/glass leaks → frosted lavender card === */
+  /* Hardcoded dark hex backgrounds used in heroes, modals, support widget */
+  html.theme-white .bg-\[\#07071a\],
+  html.theme-white .bg-\[\#070922\],
+  html.theme-white .bg-\[\#070922\]\/95,
+  html.theme-white .bg-\[\#0a0c1e\],
+  html.theme-white .bg-\[\#0a0c1e\]\/95,
+  html.theme-white .bg-\[\#0b0f29\],
+  html.theme-white .bg-\[\#0b0f29\]\/95,
+  html.theme-white .bg-\[\#0c1322\],
+  html.theme-white .bg-\[\#1a2238\],
+  html.theme-white .hover\:bg-\[\#1a2238\]:hover {
+    background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(245,243,255,0.88)) !important;
+    color: oklch(0.22 0.04 285) !important;
+    border-color: rgba(124, 58, 237, 0.18) !important;
+    box-shadow:
+      0 18px 48px -22px rgba(124, 58, 237, 0.30),
+      0 0 0 1px rgba(255,255,255,0.7) inset !important;
+    backdrop-filter: blur(16px) saturate(170%);
+    -webkit-backdrop-filter: blur(16px) saturate(170%);
+  }
+  /* Auth submit button (dark pill) → violet aurora gradient */
+  html.theme-white button.bg-\[\#0c1322\],
+  html.theme-white .bg-\[\#0c1322\].rounded-full {
+    background: linear-gradient(135deg, #6D28D9 0%, #4F46E5 50%, #2563EB 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 12px 30px -10px rgba(124, 58, 237, 0.55) !important;
+  }
+  /* Section heroes (faq/contact) — text inside dark hero must read on lavender */
+  html.theme-white section.bg-\[\#07071a\],
+  html.theme-white section.bg-\[\#07071a\] * {
+    color: oklch(0.22 0.04 285) !important;
+  }
+  html.theme-white section.bg-\[\#07071a\] .text-aurora,
+  html.theme-white section.bg-\[\#07071a\] [class*="bg-clip-text"] {
+    background-image: linear-gradient(135deg, #5B21B6 0%, #4338CA 50%, #1D4ED8 100%) !important;
+    color: transparent !important;
+  }
+
+  /* Support widget chat panels & quick-action cards */
+  html.theme-white [class*="bg-\\[\\#070922\\]"],
+  html.theme-white [class*="bg-\\[\\#0b0f29\\]"],
+  html.theme-white [class*="bg-\\[\\#0a0c1e\\]"] {
+    background: rgba(255, 255, 255, 0.92) !important;
+    border-color: rgba(124, 58, 237, 0.18) !important;
+    color: oklch(0.22 0.04 285) !important;
+  }
+
+  /* Any inline-style dark gradient on hero/admin chrome */
+  html.theme-white [style*="#06051a"],
+  html.theme-white [style*="#0b1020"],
+  html.theme-white [style*="#0f1535"],
+  html.theme-white [style*="#1a0f3d"],
+  html.theme-white [style*="#070922"],
+  html.theme-white [style*="#07071a"] {
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(245,243,255,0.78)) !important;
+    color: oklch(0.22 0.04 285) !important;
+  }
+
+  /* Heavy dark text-shadows assumed dark bg → soften */
+  html.theme-white [style*="textShadow"][style*="rgba(0,0,0"],
+  html.theme-white [style*="text-shadow"][style*="rgba(0,0,0"] {
+    text-shadow: 0 1px 2px rgba(124, 58, 237, 0.18) !important;
+  }
+}
+
+@layer utilities {
+  /* Glass — desktop gets backdrop blur; mobile/tablet falls back to a slightly
+     more opaque bg to keep the look without the GPU cost. */
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass);
+    background-color: rgba(20, 22, 45, 0.55);
+  }
+  .glass-strong {
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass-lg);
+    background-color: rgba(24, 26, 52, 0.65);
+  }
+  .glass-soft {
+    background: var(--glass-bg-soft);
+    border: 1px solid var(--glass-border-soft);
+    box-shadow: var(--shadow-glass-sm);
+  }
+  @media (min-width: 1024px) and (pointer: fine) {
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px) saturate(150%);
+      -webkit-backdrop-filter: blur(12px) saturate(150%);
+    }
+    .glass-strong {
+      background: var(--glass-bg-strong);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+    }
+  }
+
+  /* SIGNATURE: Dark Glassmorphism Card — premium, no jitter */
+  .gradient-border-card {
+    position: relative;
+    background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02));
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-glass);
+    isolation: isolate;
+    will-change: box-shadow;
+    transition: box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+  .gradient-border-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.55), rgba(79, 70, 229, 0.5) 50%, rgba(37, 99, 235, 0.5));
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    opacity: 0.35;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+  .gradient-border-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      radial-gradient(120% 70% at 50% -10%, rgba(0, 229, 255, 0.10), transparent 55%),
+      radial-gradient(80% 60% at 50% 110%, rgba(124, 58, 237, 0.12), transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .gradient-border-card:hover {
+    box-shadow: var(--shadow-glass-lg), 0 0 24px -6px rgba(0, 229, 255, 0.30);
+  }
+  .gradient-border-card:hover::before { opacity: 0.7; }
+
+  .gradient-border-soft {
+    position: relative;
+    background: rgba(20, 22, 45, 0.5);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-glass-sm);
+  }
+  @media (min-width: 1024px) and (pointer: fine) {
+    .gradient-border-soft {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
+    }
+  }
+  .gradient-border-soft::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.5), rgba(124, 58, 237, 0.4) 50%, rgba(255,255,255,0.1));
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .bg-aurora { background-image: var(--gradient-aurora); }
+  .bg-cyan-grad { background-image: var(--gradient-cyan); }
+  .bg-violet-grad { background-image: var(--gradient-violet); }
+  .bg-sunset { background-image: var(--gradient-sunset); }
+  .bg-mesh { background-image: var(--gradient-mesh); }
+  .bg-conic { background-image: var(--gradient-conic); }
+
+  .text-aurora {
+    background-image: var(--gradient-aurora-strong);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-aurora-strong {
+    background-image: var(--gradient-aurora-strong);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-neon {
+    background-image: var(--gradient-cyan);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-sunset {
+    background-image: var(--gradient-sunset);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glow-violet { box-shadow: var(--shadow-glow-violet); }
+  .glow-aqua { box-shadow: var(--shadow-glow-aqua); }
+  .glow-blue { box-shadow: var(--shadow-glow-blue); }
+  .glow-pink { box-shadow: var(--shadow-glow-pink); }
+
+  .btn-aurora {
+    position: relative;
+    background: var(--gradient-aurora);
+    color: white;
+    font-weight: 700;
+    border-radius: 9999px;
+    box-shadow: 0 10px 30px -10px rgba(0, 229, 255, 0.55), 0 0 0 1px rgba(255,255,255,0.18) inset;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .btn-aurora:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 18px 40px -10px rgba(0, 229, 255, 0.7), 0 0 0 1px rgba(255,255,255,0.28) inset;
+  }
+
+  .neon-border {
+    border: 1px solid rgba(0, 229, 255, 0.4);
+    box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.15), 0 0 24px -4px rgba(0, 229, 255, 0.4);
+  }
+
+  .noise-overlay {
+    position: relative;
+  }
+  .noise-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
+  }
+
+  .animate-aurora-pan {
+    background-size: 200% 200%;
+    animation: auroraPan 14s ease-in-out infinite;
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes auroraPan {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 20px -4px rgba(0, 229, 255, 0.4); }
+    50% { box-shadow: 0 0 40px -2px rgba(0, 229, 255, 0.7); }
+  }
+  @keyframes spinSlow {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .animate-marquee { animation: marquee 32s linear infinite; }
+  @keyframes shine {
+    0% { transform: translateX(-120%) skewX(-12deg); }
+    100% { transform: translateX(220%) skewX(-12deg); }
+  }
+  .animate-shine { animation: shine 3.5s ease-in-out infinite; }
+  @keyframes orbit {
+    from { transform: rotate(0deg) translateX(var(--r,160px)) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(var(--r,160px)) rotate(-360deg); }
+  }
+  .animate-orbit { animation: orbit 22s linear infinite; }
+  @keyframes blobDrift {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(40px,-30px) scale(1.08); }
+    66% { transform: translate(-30px,40px) scale(0.95); }
+  }
+  .animate-blob { animation: blobDrift 18s ease-in-out infinite; }
+}
+
+/* ===== Minimal neutral scrollbar (desktop only) ===== */
+@media (pointer: fine) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(120, 120, 120, 0.45) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(120, 120, 120, 0.45);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(120, 120, 120, 0.7);
+    background-clip: padding-box;
+  }
+  html.theme-white ::-webkit-scrollbar-thumb {
+    background: rgba(100, 100, 100, 0.35);
+    background-clip: padding-box;
+  }
+  html.theme-white ::-webkit-scrollbar-thumb:hover {
+    background: rgba(80, 80, 80, 0.55);
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
+/* ===== Performance guards ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Disable continuous decorative animations on small/touch devices to save battery + GPU */
+@media (max-width: 1023px), (pointer: coarse) {
+  .animate-blob,
+  .animate-aurora-pan,
+  .animate-orbit,
+  .animate-float,
+  .animate-pulse-glow,
+  .animate-shine {
+    animation: none !important;
+  }
+}
+
+/* Tame Tailwind's backdrop-blur utilities on small/touch devices to prevent scroll lag */
+@media (max-width: 1023px), (pointer: coarse) {
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* === Anti-flicker hardening (desktop + all themes) ============================ */
+
+/* 1. Respect OS-level reduced motion: kill every infinite/loop animation and
+      lengthy transition — these are the main repaint sources behind glass cards. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 2. Prime html with the theme bg color so the very first paint
+      (before CSS background-image resolves) is never browser-default white-on-dark
+      or dark-on-white — eliminates the initial "white flash". */
+html { background-color: #06051a; }
+html.theme-white { background-color: #ffffff; }
+
+/* 3. Scroll unlock guard. Keep horizontal overflow contained, but never lock
+      vertical wheel/touch scrolling on the storefront. */
+html, body {
+  height: auto !important;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+  overscroll-behavior-y: auto;
+  touch-action: auto;
+}
+
+#main-content,
+main {
+  overflow: visible !important;
+}
+
+#main-content {
+  position: relative;
+  z-index: 2;
+  display: block;
+  min-height: 1px;
+}
+
+/* 4. Paint containment on big repeating sections — limits the area the browser
+      has to re-rasterize when something inside changes, and prevents glass
+      cards from triggering full-page repaints on hover. */
+main > section,
+.product-card-v2 {
+  contain: none;
+}
+
+/* 5. Skeleton loaders: replace the default opacity pulse (which fights the
+      glass blur underneath) with a static tinted surface — no animation, no flicker. */
+.animate-pulse {
+  animation: none !important;
+  background-color: rgba(124, 58, 237, 0.08);
+}
+html:not(.theme-white) .animate-pulse {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+
+/* ============================================================
+   FINAL: Eliminate all cyan/turquoise/teal leaks in white theme.
+   Map every aqua/cyan/teal text + accent to the violet→indigo→blue
+   IDM-style palette so nothing renders as turquoise.
+   ============================================================ */
+@layer utilities {
+  /* Solid aqua/cyan/teal text → deep indigo */
+  html.theme-white .text-aqua,
+  html.theme-white .text-aqua-deep,
+  html.theme-white [class*="text-cyan-"],
+  html.theme-white [class*="text-teal-"],
+  html.theme-white [class*="text-sky-"] {
+    color: oklch(0.42 0.22 275) !important;
+    text-shadow: none !important;
+  }
+
+  /* Hero gradient headlines that previously read as turquoise */
+  html.theme-white h1 .text-aqua,
+  html.theme-white h2 .text-aqua,
+  html.theme-white h3 .text-aqua {
+    background-image: linear-gradient(135deg, #6D28D9 0%, #4F46E5 50%, #2563EB 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    text-shadow: none !important;
+  }
+
+  /* SVG icons in cyan/teal/sky → indigo */
+  html.theme-white [class*="text-cyan-"] svg,
+  html.theme-white [class*="text-teal-"] svg,
+  html.theme-white [class*="text-sky-"] svg,
+  html.theme-white svg[class*="text-cyan-"],
+  html.theme-white svg[class*="text-teal-"],
+  html.theme-white svg[class*="text-sky-"] {
+    color: oklch(0.42 0.22 275) !important;
+    stroke: oklch(0.42 0.22 275) !important;
+  }
+
+  /* Backgrounds: cyan/teal/sky tints → soft violet wash */
+  html.theme-white [class*="bg-cyan-"],
+  html.theme-white [class*="bg-teal-"],
+  html.theme-white [class*="bg-sky-"] {
+    background-color: rgba(99, 102, 241, 0.14) !important;
+    color: oklch(0.32 0.20 280) !important;
+    border-color: rgba(79, 70, 229, 0.22) !important;
+  }
+
+  /* Tailwind gradient stops with cyan/teal/sky → indigo/blue */
+  html.theme-white [class*="from-cyan-"],
+  html.theme-white [class*="from-teal-"],
+  html.theme-white [class*="from-sky-"] {
+    --tw-gradient-from: #6D28D9 var(--tw-gradient-from-position) !important;
+    --tw-gradient-to: rgb(109 40 217 / 0) var(--tw-gradient-to-position) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+  }
+  html.theme-white [class*="via-cyan-"],
+  html.theme-white [class*="via-teal-"],
+  html.theme-white [class*="via-sky-"] {
+    --tw-gradient-via: #4F46E5 var(--tw-gradient-via-position) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-via), var(--tw-gradient-to) !important;
+  }
+  html.theme-white [class*="to-cyan-"],
+  html.theme-white [class*="to-teal-"],
+  html.theme-white [class*="to-sky-"] {
+    --tw-gradient-to: #2563EB var(--tw-gradient-to-position) !important;
+  }
+
+  /* Borders/rings */
+  html.theme-white [class*="border-cyan-"],
+  html.theme-white [class*="border-teal-"],
+  html.theme-white [class*="border-sky-"],
+  html.theme-white [class*="ring-cyan-"],
+  html.theme-white [class*="ring-teal-"],
+  html.theme-white [class*="ring-sky-"] {
+    border-color: rgba(79, 70, 229, 0.35) !important;
+  }
+
+  /* Strip cyan glow text-shadows in hero */
+  html.theme-white h1 [style*="rgba(0,229,255"],
+  html.theme-white h1 [style*="rgba(0, 229, 255"],
+  html.theme-white h2 [style*="rgba(0,229,255"],
+  html.theme-white h2 [style*="rgba(0, 229, 255"] {
+    text-shadow: 0 2px 14px rgba(79, 70, 229, 0.28) !important;
+  }
+}
+
+/* =====================================================
+   Product Banner — clean, systematic (reference-matched)
+   ===================================================== */
+.product-banner-clean {
+  background: transparent;
+  border: 0;
+}
+html.dark .product-banner-clean,
+html.theme-white .product-banner-clean {
+  background: transparent;
+  border: 0;
+}
+
+
+/* =====================================================
+   PREMIUM CONTRAST FIX — Catches white-on-white and
+   black-on-black collisions across the entire site
+   (admin, dialogs, dropdowns, AI tools, etc.)
+   ===================================================== */
+
+/* ---------- White theme: kill white-on-white collisions ---------- */
+
+/* Any element that has BOTH a white background AND white text →
+   convert to a premium violet→indigo gradient pill with white text.
+   This catches all the admin icon containers and pill buttons that
+   were rendered invisible (bg-white/70 ... text-white). */
+html.theme-white [class*="bg-white"][class*="text-white"],
+html.theme-white [class*="bg-white\\/"][class*="text-white"] {
+  background: linear-gradient(135deg, #6D28D9 0%, #4F46E5 55%, #2563EB 100%) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  box-shadow:
+    0 10px 26px -10px rgba(79, 70, 229, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.35) inset !important;
+}
+html.theme-white [class*="bg-white"][class*="text-white"] svg,
+html.theme-white [class*="bg-white\\/"][class*="text-white"] svg {
+  color: #ffffff !important;
+}
+
+/* Toggle / chip OFF state (bg-slate-200 text-white) → readable */
+html.theme-white [class*="bg-slate-2"][class*="text-white"],
+html.theme-white [class*="bg-slate-1"][class*="text-white"],
+html.theme-white [class*="bg-gray-2"][class*="text-white"],
+html.theme-white [class*="bg-gray-1"][class*="text-white"] {
+  background-color: rgba(196, 181, 253, 0.35) !important;
+  color: oklch(0.32 0.18 295) !important;
+}
+
+/* Dropdown / popover / menu items — premium hover with readable text.
+   Radix uses data-highlighted on the focused item. */
+html.theme-white [data-radix-popper-content-wrapper] [role="menuitem"],
+html.theme-white [data-radix-popper-content-wrapper] [role="option"],
+html.theme-white [data-radix-popper-content-wrapper] [role="menuitemradio"],
+html.theme-white [data-radix-popper-content-wrapper] [role="menuitemcheckbox"] {
+  color: oklch(0.22 0.04 285) !important;
+}
+html.theme-white [data-radix-popper-content-wrapper] [role="menuitem"][data-highlighted],
+html.theme-white [data-radix-popper-content-wrapper] [role="option"][data-highlighted],
+html.theme-white [data-radix-popper-content-wrapper] [role="menuitemradio"][data-highlighted],
+html.theme-white [data-radix-popper-content-wrapper] [role="menuitemcheckbox"][data-highlighted],
+html.theme-white [data-radix-popper-content-wrapper] [role="menuitem"]:hover,
+html.theme-white [data-radix-popper-content-wrapper] [role="option"]:hover {
+  background: linear-gradient(90deg, rgba(196, 181, 253, 0.45), rgba(186, 230, 253, 0.35)) !important;
+  color: oklch(0.22 0.18 295) !important;
+}
+
+/* Command palette items (cmdk) */
+html.theme-white [cmdk-item] { color: oklch(0.22 0.04 285) !important; }
+html.theme-white [cmdk-item][data-selected="true"],
+html.theme-white [cmdk-item]:hover {
+  background: linear-gradient(90deg, rgba(196, 181, 253, 0.45), rgba(186, 230, 253, 0.35)) !important;
+  color: oklch(0.22 0.18 295) !important;
+}
+
+/* Select trigger / combobox value text */
+html.theme-white [role="combobox"],
+html.theme-white [data-radix-select-trigger] {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(124, 58, 237, 0.22) !important;
+  color: oklch(0.22 0.04 285) !important;
+}
+
+/* ---------- Premium admin surfaces (frosted white-glass) ---------- */
+
+/* Solid bg-white cards in admin → premium frosted gradient panels */
+html.theme-white .min-h-screen [class*="bg-white"]:not([class*="bg-white\\/"]):not(button):not([role="dialog"]) {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 245, 255, 0.85)) !important;
+  border-color: rgba(124, 58, 237, 0.14) !important;
+  box-shadow:
+    0 14px 40px -22px rgba(79, 70, 229, 0.22),
+    0 1px 0 0 rgba(255, 255, 255, 0.9) inset !important;
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+}
+
+/* Solid bg-slate-900 buttons in admin (Save / primary CTAs) → aurora */
+html.theme-white button[class*="bg-slate-900"],
+html.theme-white a[class*="bg-slate-900"],
+html.theme-white button[class*="bg-slate-800"],
+html.theme-white a[class*="bg-slate-800"],
+html.theme-white button[class*="bg-blue-600"],
+html.theme-white a[class*="bg-blue-600"] {
+  background: linear-gradient(135deg, #6D28D9 0%, #4F46E5 55%, #2563EB 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow:
+    0 12px 30px -10px rgba(79, 70, 229, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.25) inset !important;
+}
+html.theme-white button[class*="bg-slate-900"]:hover,
+html.theme-white a[class*="bg-slate-900"]:hover,
+html.theme-white button[class*="bg-slate-800"]:hover,
+html.theme-white a[class*="bg-slate-800"]:hover,
+html.theme-white button[class*="bg-blue-600"]:hover,
+html.theme-white a[class*="bg-blue-600"]:hover {
+  box-shadow:
+    0 18px 42px -12px rgba(79, 70, 229, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset !important;
+  filter: brightness(1.05);
+}
+
+/* Admin sidebar — premium frosted instead of flat white */
+html.theme-white aside[class*="bg-white"] {
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(245,243,255,0.78)) !important;
+  border-right: 1px solid rgba(124, 58, 237, 0.14) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 4px 0 24px -16px rgba(79, 70, 229, 0.18) !important;
+}
+
+/* AI image toolbar (the row of icon buttons in the screenshot) — give each
+   icon button a frosted hover state with a violet accent ring. */
+html.theme-white .flex button[class*="rounded"]:has(svg):not([class*="bg-gradient"]):not([class*="bg-aurora"]):not([class*="bg-primary"]) {
+  transition: all 200ms ease;
+}
+html.theme-white .flex button[class*="rounded"]:has(svg):not([class*="bg-gradient"]):not([class*="bg-aurora"]):not([class*="bg-primary"]):hover {
+  background: linear-gradient(135deg, rgba(196, 181, 253, 0.55), rgba(186, 230, 253, 0.45)) !important;
+  box-shadow:
+    0 0 0 1px rgba(124, 58, 237, 0.35),
+    0 8px 22px -10px rgba(79, 70, 229, 0.45) !important;
+}
+
+/* ---------- Dark theme: catch any black-on-black collisions ---------- */
+
+/* If anything has both a dark background and dark text in the aurora theme,
+   force readable foreground. */
+:root:not(.theme-white) [class*="bg-black"][class*="text-black"],
+:root:not(.theme-white) [class*="bg-slate-9"][class*="text-slate-9"],
+:root:not(.theme-white) [class*="bg-slate-8"][class*="text-slate-9"] {
+  color: #ffffff !important;
+}
+
+/* Dropdown / popover hover in dark theme — readable */
+:root:not(.theme-white) [data-radix-popper-content-wrapper] [role="menuitem"][data-highlighted],
+:root:not(.theme-white) [data-radix-popper-content-wrapper] [role="option"][data-highlighted] {
+  background: linear-gradient(90deg, rgba(124, 58, 237, 0.35), rgba(6, 182, 212, 0.22)) !important;
+  color: #ffffff !important;
+}
+
+/* Keep desktop storefront sizing tied to the real viewport, while preserving
+   normal browser zoom behavior: desktop product rows use 5 columns only when
+   the zoomed CSS viewport is wide enough, and the page never stretches past
+   the intended desktop canvas. */
+
+html, body {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Ultra-wide desktop scaling: storefront container caps grow from 1440px up to
+   2560px so 1080p/1440p/4K monitors fill the screen instead of leaving large
+   side gutters. Narrow text containers (max-w-md/xl/2xl/3xl/4xl/5xl) are left
+   alone so reading columns stay comfortable. */
+@media (min-width: 1280px) {
+  main .max-w-6xl,
+  main .max-w-\[1200px\] {
+    max-width: 1440px !important;
+  }
+}
+
+@media (min-width: 1600px) {
+  .max-w-\[1440px\],
+  main .max-w-6xl,
+  main .max-w-\[1200px\],
+  main .max-w-\[1280px\] {
+    max-width: min(1920px, 96vw) !important;
+  }
+}
+
+@media (min-width: 1920px) {
+  .max-w-\[1440px\],
+  main .max-w-6xl,
+  main .max-w-\[1200px\],
+  main .max-w-\[1280px\] {
+    max-width: min(2240px, 94vw) !important;
+  }
+}
+
+@media (min-width: 2400px) {
+  .max-w-\[1440px\],
+  main .max-w-6xl,
+  main .max-w-\[1200px\],
+  main .max-w-\[1280px\] {
+    max-width: min(2560px, 92vw) !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .home-scroll-optimized .xl\:grid-cols-5,
+  main .xl\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+}
+
+html.theme-white .product-action-button,
+.product-action-button,
+html.theme-white .product-action-button *,
+.product-action-button * {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.18) !important;
+}
+
+html.theme-white .product-buy-button,
+.product-buy-button {
+  background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%) !important;
+  border: 0 !important;
+  box-shadow: 0 18px 42px -14px rgba(124, 58, 237, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
+}
+
+html.theme-white .product-cart-button,
+.product-cart-button {
+  background: linear-gradient(135deg, #111827 0%, #374151 100%) !important;
+  border: 0 !important;
+  box-shadow: 0 16px 36px -14px rgba(17, 24, 39, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+}
+
+html.theme-white .product-whatsapp-button,
+.product-whatsapp-button {
+  background: linear-gradient(135deg, #075e54 0%, #128c7e 38%, #25d366 100%) !important;
+  border: 0 !important;
+  box-shadow: 0 18px 42px -14px rgba(37, 211, 102, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.24) !important;
+}
+
+/* =====================================================
+   DARK MODE STABILITY FIX — calmer colors, no blur jitter
+   ===================================================== */
+/* =============================================================
+   Premium Dark Mode — refined obsidian palette
+   Deep near-black base, warm-cool neutrals, restrained accents,
+   high contrast type, calm static surfaces (no jitter).
+   ============================================================= */
+:root:not(.theme-white) {
+  --background: oklch(0.115 0.012 260);
+  --foreground: oklch(0.97 0.005 250);
+  --card: oklch(0.165 0.014 260);
+  --card-foreground: oklch(0.97 0.005 250);
+  --popover: oklch(0.15 0.014 260);
+  --popover-foreground: oklch(0.97 0.005 250);
+  --primary: oklch(0.66 0.16 258);
+  --primary-foreground: oklch(0.98 0.005 250);
+  --primary-dark: oklch(0.46 0.14 258);
+  --secondary: oklch(0.19 0.012 260);
+  --muted: oklch(0.21 0.011 260);
+  --muted-foreground: oklch(0.74 0.014 250);
+  --accent: oklch(0.78 0.10 210);
+  --aqua: oklch(0.80 0.11 208);
+  --aqua-deep: oklch(0.64 0.12 225);
+  --gold: oklch(0.82 0.13 85);
+  --border: rgba(186, 200, 230, 0.10);
+  --input: rgba(186, 200, 230, 0.12);
+  --ring: oklch(0.66 0.16 258);
+  --glass-bg: rgba(20, 26, 42, 0.78);
+  --glass-bg-strong: rgba(22, 28, 46, 0.88);
+  --glass-bg-soft: rgba(24, 30, 48, 0.66);
+  --glass-border: rgba(186, 200, 230, 0.12);
+  --glass-border-soft: rgba(186, 200, 230, 0.07);
+  --gradient-aurora: linear-gradient(135deg, #4338ca 0%, #2563eb 55%, #0e7490 100%);
+  --gradient-aurora-strong: linear-gradient(135deg, #3730a3 0%, #1d4ed8 55%, #075985 100%);
+  --gradient-cyan: linear-gradient(135deg, #0891b2 0%, #4338ca 100%);
+  --gradient-violet: linear-gradient(135deg, #4f46e5 0%, #312e81 100%);
+  --gradient-sunset: linear-gradient(135deg, #475569 0%, #4338ca 100%);
+  --gradient-mesh:
+    radial-gradient(at 8% 8%, rgba(67, 56, 202, 0.18) 0px, transparent 58%),
+    radial-gradient(at 92% 10%, rgba(14, 116, 144, 0.12) 0px, transparent 60%),
+    radial-gradient(at 25% 85%, rgba(29, 78, 216, 0.12) 0px, transparent 62%);
+  --shadow-glass-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.04) inset;
+  --shadow-glass: 0 14px 38px -22px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255,255,255,0.05) inset;
+  --shadow-glass-lg: 0 28px 64px -30px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255,255,255,0.06) inset;
+  --shadow-glow-violet: 0 0 26px -14px rgba(99, 102, 241, 0.32);
+  --shadow-glow-aqua: 0 0 26px -14px rgba(34, 211, 238, 0.28);
+  --shadow-glow-blue: 0 0 26px -14px rgba(37, 99, 235, 0.30);
+  --shadow-glow-pink: 0 0 22px -16px rgba(99, 102, 241, 0.20);
+}
+
+/* Midnight Aurora — premium dark canvas.
+   Deep near-black base (#05060f) layered with violet/indigo aurora glows,
+   a soft top spotlight, and a vignette to focus content. */
+:root:not(.theme-white) body {
+  background-color: #05060f !important;
+  background-image:
+    /* top-left violet aurora */
+    radial-gradient(60% 45% at 12% 0%, rgba(124, 58, 237, 0.32), transparent 70%),
+    /* top-right indigo glow */
+    radial-gradient(55% 40% at 92% 6%, rgba(79, 70, 229, 0.22), transparent 72%),
+    /* mid magenta whisper */
+    radial-gradient(45% 35% at 78% 48%, rgba(168, 85, 247, 0.14), transparent 75%),
+    /* bottom-left deep violet */
+    radial-gradient(65% 50% at 8% 95%, rgba(59, 29, 110, 0.32), transparent 72%),
+    /* bottom-right blue depth */
+    radial-gradient(55% 45% at 95% 100%, rgba(67, 56, 202, 0.20), transparent 74%),
+    /* center soft halo */
+    radial-gradient(40% 30% at 50% 38%, rgba(124, 58, 237, 0.08), transparent 78%),
+    /* vignette */
+    radial-gradient(120% 85% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%) !important;
+  background-attachment: fixed !important;
+}
+
+/* Subtle film-grain noise — adds premium texture without distraction */
+:root:not(.theme-white) body::before {
+  content: "" !important;
+  position: fixed !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  display: block !important;
+  opacity: 0.35 !important;
+  mix-blend-mode: overlay !important;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>") !important;
+}
+
+/* Slow drifting aurora highlight — extra premium depth */
+:root:not(.theme-white) body::after {
+  content: "" !important;
+  position: fixed !important;
+  inset: -20% !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  display: block !important;
+  opacity: 0.55 !important;
+  background-image:
+    radial-gradient(35% 22% at 30% 25%, rgba(139, 92, 246, 0.22), transparent 70%),
+    radial-gradient(30% 20% at 70% 70%, rgba(99, 102, 241, 0.18), transparent 70%);
+  filter: blur(40px);
+  animation: midnight-aurora-drift 22s ease-in-out infinite alternate;
+}
+
+@keyframes midnight-aurora-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(2%, -1.5%, 0) scale(1.06); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not(.theme-white) body::after { animation: none !important; }
+}
+
+
+/* Kill all backdrop blur in dark mode — primary cause of jitter */
+:root:not(.theme-white) .glass,
+:root:not(.theme-white) .glass-strong,
+:root:not(.theme-white) .glass-soft,
+:root:not(.theme-white) .gradient-border-soft,
+:root:not(.theme-white) .product-card-v2,
+:root:not(.theme-white) [class*="backdrop-blur"],
+:root:not(.theme-white) [class*="backdrop-saturate"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+:root:not(.theme-white) .glass,
+:root:not(.theme-white) [class*="backdrop-blur"]:not(.force-light) {
+  background: rgba(20, 26, 42, 0.86) !important;
+  border-color: rgba(186, 200, 230, 0.10) !important;
+}
+
+/* Opt-out: pages/components that must stay light in dark theme (e.g. checkout card) */
+:root:not(.theme-white) .force-light {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgb(237 233 254) !important; /* violet-100 */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+/* Inside force-light, neutralize dark-theme white text overrides so content stays readable on the white card. */
+:root:not(.theme-white) .force-light,
+:root:not(.theme-white) .force-light h1,
+:root:not(.theme-white) .force-light h2,
+:root:not(.theme-white) .force-light h3,
+:root:not(.theme-white) .force-light h4,
+:root:not(.theme-white) .force-light p,
+:root:not(.theme-white) .force-light span,
+:root:not(.theme-white) .force-light label,
+:root:not(.theme-white) .force-light li,
+:root:not(.theme-white) .force-light a,
+:root:not(.theme-white) .force-light div {
+  color: #0f172a;
+}
+:root:not(.theme-white) .force-light .text-foreground,
+:root:not(.theme-white) .force-light [class*="text-foreground"] { color: #0f172a !important; }
+:root:not(.theme-white) .force-light .text-muted-foreground { color: #64748b !important; }
+:root:not(.theme-white) .force-light .text-slate-900 { color: #0f172a !important; }
+:root:not(.theme-white) .force-light .text-slate-800 { color: #1e293b !important; }
+:root:not(.theme-white) .force-light .text-slate-700 { color: #334155 !important; }
+:root:not(.theme-white) .force-light .text-slate-600 { color: #475569 !important; }
+:root:not(.theme-white) .force-light .text-slate-500 { color: #64748b !important; }
+:root:not(.theme-white) .force-light .text-slate-400 { color: #94a3b8 !important; }
+/* Inputs/cards inside force-light keep light surfaces */
+:root:not(.theme-white) .force-light .bg-white { background-color: #ffffff !important; }
+:root:not(.theme-white) .force-light .bg-slate-50 { background-color: #f8fafc !important; }
+:root:not(.theme-white) .force-light .bg-slate-100 { background-color: #f1f5f9 !important; }
+:root:not(.theme-white) .force-light input,
+:root:not(.theme-white) .force-light textarea,
+:root:not(.theme-white) .force-light select { color: #0f172a !important; background-color: #ffffff !important; }
+/* Buttons/badges that explicitly want white text keep it */
+:root:not(.theme-white) .force-light .keep-white,
+:root:not(.theme-white) .force-light button[class*="bg-"][class*="text-white"],
+:root:not(.theme-white) .force-light a[class*="bg-"][class*="text-white"],
+:root:not(.theme-white) .force-light [class*="bg-gradient"][class*="text-white"],
+:root:not(.theme-white) .force-light [class*="bg-violet"][class*="text-white"],
+:root:not(.theme-white) .force-light [class*="bg-primary"][class*="text-white"] { color: #ffffff !important; }
+
+:root:not(.theme-white) .glass-strong {
+  background: linear-gradient(180deg, rgba(26, 32, 50, 0.92), rgba(18, 24, 38, 0.92)) !important;
+  border-color: rgba(186, 200, 230, 0.12) !important;
+}
+
+:root:not(.theme-white) .glass-soft,
+:root:not(.theme-white) .gradient-border-soft {
+  background: rgba(22, 28, 44, 0.74) !important;
+  border-color: rgba(186, 200, 230, 0.08) !important;
+}
+
+:root:not(.theme-white) .product-card-v2 {
+  background: linear-gradient(180deg, rgba(24, 30, 48, 0.95), rgba(16, 22, 36, 0.95)) !important;
+  border-color: rgba(186, 200, 230, 0.10) !important;
+  box-shadow: 0 16px 40px -24px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255,255,255,0.04) inset !important;
+  transition: border-color 220ms ease, box-shadow 220ms ease !important;
+}
+
+:root:not(.theme-white) .product-card-v2:hover {
+  transform: none !important;
+  border-color: rgba(99, 102, 241, 0.35) !important;
+  box-shadow: 0 22px 50px -26px rgba(67, 56, 202, 0.45), 0 0 0 1px rgba(99,102,241,0.15) inset !important;
+}
+
+/* Disable ALL decorative animations in dark mode — kills white flicker */
+:root:not(.theme-white) .animate-blob,
+:root:not(.theme-white) .animate-aurora-pan,
+:root:not(.theme-white) .animate-orbit,
+:root:not(.theme-white) .animate-float,
+:root:not(.theme-white) .animate-pulse-glow,
+:root:not(.theme-white) .animate-shine,
+:root:not(.theme-white) .animate-pulse,
+:root:not(.theme-white) .animate-marquee {
+  animation: none !important;
+}
+
+/* Hide the white shine overlay entirely in dark mode (causes jumping) */
+:root:not(.theme-white) [class*="bg-white/30"][class*="blur"],
+:root:not(.theme-white) [class*="bg-white/40"][class*="blur"],
+:root:not(.theme-white) [class*="bg-white/60"][class*="blur"],
+:root:not(.theme-white) [class*="bg-white/70"][class*="blur"] {
+  display: none !important;
+}
+
+/* Marquee — replace JS animation with a slow, smooth, stable variant */
+:root:not(.theme-white) .animate-marquee {
+  animation: marquee 80s linear infinite !important;
+  will-change: transform;
+}
+
+:root:not(.theme-white) .btn-aurora:hover,
+:root:not(.theme-white) .choose-plan-btn:hover,
+:root:not(.theme-white) .hover\:-translate-y-0\.5:hover,
+:root:not(.theme-white) .hover\:-translate-y-1:hover,
+:root:not(.theme-white) .hover\:scale-105:hover,
+:root:not(.theme-white) .hover\:scale-\[1\.02\]:hover,
+:root:not(.theme-white) .active\:scale-95:active,
+:root:not(.theme-white) .scale-\[1\.03\],
+:root:not(.theme-white) .group:hover .group-hover\:scale-110,
+:root:not(.theme-white) .group:hover .group-hover\:translate-x-1 {
+  transform: none !important;
+}
+
+:root:not(.theme-white) .hover\:gap-2\.5:hover {
+  gap: 0.375rem !important;
+}
+
+/* Homepage scroll performance: keep the premium glass look using static
+   translucent surfaces instead of backdrop sampling on dozens of cards. */
+html.theme-white .home-scroll-optimized .glass,
+html.theme-white .home-scroll-optimized .glass-strong,
+html.theme-white .home-scroll-optimized .glass-soft,
+html.theme-white .home-scroll-optimized .product-card-v2,
+html.theme-white .home-scroll-optimized [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transform: none !important;
+  -webkit-transform: none !important;
+  backface-visibility: visible !important;
+  will-change: auto !important;
+}
+
+.home-scroll-optimized > div > section,
+.home-scroll-optimized .product-card-v2,
+.home-rail {
+  contain: none !important;
+  content-visibility: visible !important;
+}
+
+html.theme-white .home-scroll-optimized .glass,
+html.theme-white .home-scroll-optimized .glass-strong,
+html.theme-white .home-scroll-optimized .glass-soft {
+  background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(248,245,255,0.88)) !important;
+  border-color: rgba(124, 58, 237, 0.14) !important;
+  box-shadow: 0 8px 24px -16px rgba(79, 70, 229, 0.24), 0 0 0 1px rgba(255,255,255,0.7) inset !important;
+}
+
+html.theme-white .home-scroll-optimized .product-card-v2 {
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,245,255,0.92)) !important;
+  border-color: rgba(124, 58, 237, 0.12) !important;
+  box-shadow: 0 8px 26px -18px rgba(79, 70, 229, 0.26), 0 0 0 1px rgba(255,255,255,0.8) inset !important;
+  transition: border-color 180ms ease, box-shadow 180ms ease !important;
+}
+
+html.theme-white .home-scroll-optimized .product-card-v2:hover {
+  transform: none !important;
+}
+
+/* ============================================================
+   GLOBAL backdrop-filter KILL SWITCH
+   ------------------------------------------------------------
+   backdrop-filter forces per-frame pixel re-sampling of layers
+   beneath the element. With dozens of glass cards / headers /
+   modals on a page, this causes visible "jumping" (লাফালাফি),
+   white flashes and scroll lag on every device — especially
+   mid-tier mobile + integrated GPUs.
+
+   We disable backdrop-filter EVERYWHERE and keep the glass look
+   via the already-defined translucent backgrounds + borders.
+   ============================================================ */
+*,
+*::before,
+*::after,
+[class*="backdrop-blur"],
+[class*="backdrop-saturate"],
+[style*="backdrop-filter"],
+.glass,
+.glass-strong,
+.glass-soft,
+.gradient-border-soft,
+.product-card-v2,
+.footer-glass-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* === Glow gradient search — force white inner regardless of theme overrides === */
+.glow-search-inner,
+.glow-search-inner:hover {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.glow-search-inner:hover {
+  background-color: #f8fafc !important;
+}
+
+/* ============================================================
+   Admin Panel — Premium Glass Revamp (scoped to .admin-glass)
+   Applies violet/fuchsia glass treatment to all common UI
+   primitives inside the admin panel without editing each page.
+   ============================================================ */
+
+.admin-glass {
+  background:
+    radial-gradient(1200px 600px at 0% 0%, rgba(196, 181, 253, 0.35), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(244, 114, 182, 0.20), transparent 60%),
+    radial-gradient(1000px 700px at 50% 100%, rgba(165, 180, 252, 0.25), transparent 60%),
+    #f4f1ff;
+}
+
+/* Card-like containers: any element using shadcn card tokens */
+.admin-glass .bg-card,
+.admin-glass [class*="bg-white"]:not(.bg-white\/0):not([class*="rounded-full"]):where(.rounded-xl, .rounded-2xl, .rounded-3xl, .rounded-lg) {
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65)) !important;
+  backdrop-filter: blur(18px) saturate(140%);
+  border-color: rgba(255,255,255,0.7) !important;
+  box-shadow: 0 10px 40px -22px rgba(99, 102, 241, 0.35), 0 2px 8px -4px rgba(99, 102, 241, 0.1);
+}
+
+/* Generic surface upgrade for plain rounded containers with white bg */
+.admin-glass .rounded-2xl.border,
+.admin-glass .rounded-xl.border,
+.admin-glass .rounded-3xl.border {
+  border-color: rgba(255,255,255,0.7);
+}
+
+/* Inputs / textareas / selects — frosted glass */
+.admin-glass input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+.admin-glass textarea,
+.admin-glass select,
+.admin-glass [role="combobox"] {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(167, 139, 250, 0.25) !important;
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.6), 0 1px 3px rgba(99,102,241,0.06);
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+.admin-glass input:focus,
+.admin-glass textarea:focus,
+.admin-glass select:focus,
+.admin-glass [role="combobox"]:focus {
+  border-color: rgba(139, 92, 246, 0.55) !important;
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15), inset 0 1px 2px rgba(255,255,255,0.6) !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Primary / default buttons → violet→fuchsia gradient */
+.admin-glass button:where(.bg-primary, [class*="bg-violet-"], [class*="bg-indigo-"], [class*="bg-purple-"]):not([class*="bg-white"]):not(.no-glass) {
+  background-image: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #ec4899 100%) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.4) !important;
+  box-shadow: 0 8px 24px -10px rgba(139, 92, 246, 0.55), inset 0 1px 0 rgba(255,255,255,0.3);
+  transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+}
+.admin-glass button:where(.bg-primary, [class*="bg-violet-"], [class*="bg-indigo-"], [class*="bg-purple-"]):not([class*="bg-white"]):not(.no-glass):hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px -12px rgba(139, 92, 246, 0.7), inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+/* Outline / ghost / secondary buttons → frosted glass */
+.admin-glass button:where(.bg-secondary, [class*="bg-white"], .bg-transparent):not(.no-glass):not([class*="rounded-full"][class*="w-10"]):not([class*="rounded-full"][class*="w-11"]):not([class*="rounded-full"][class*="w-12"]) {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.7) !important;
+  box-shadow: 0 4px 14px -6px rgba(99, 102, 241, 0.18);
+  transition: background .2s, box-shadow .2s, transform .15s;
+}
+.admin-glass button:where(.bg-secondary, [class*="bg-white"], .bg-transparent):not(.no-glass):hover {
+  background: rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 8px 22px -8px rgba(139, 92, 246, 0.28);
+}
+
+/* Destructive buttons */
+.admin-glass button:where(.bg-destructive, [class*="bg-red-"], [class*="bg-rose-"]):not(.no-glass) {
+  background-image: linear-gradient(135deg, #f43f5e, #ef4444) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  box-shadow: 0 8px 22px -10px rgba(244, 63, 94, 0.55);
+}
+
+/* Tables — soft glass */
+.admin-glass table {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.admin-glass thead {
+  background: linear-gradient(180deg, rgba(196,181,253,0.35), rgba(196,181,253,0.15));
+}
+.admin-glass thead th {
+  color: #4c1d95;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.admin-glass tbody tr {
+  border-bottom: 1px solid rgba(167, 139, 250, 0.12);
+  transition: background .15s;
+}
+.admin-glass tbody tr:hover {
+  background: rgba(167, 139, 250, 0.08);
+}
+
+/* Tabs — pill glass */
+.admin-glass [role="tablist"] {
+  background: rgba(255, 255, 255, 0.65) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.7);
+  border-radius: 14px;
+  padding: 4px;
+  box-shadow: 0 6px 20px -10px rgba(99, 102, 241, 0.2);
+}
+.admin-glass [role="tab"][data-state="active"] {
+  background-image: linear-gradient(135deg, #8b5cf6, #ec4899) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 16px -6px rgba(139, 92, 246, 0.5);
+}
+
+/* Badges */
+.admin-glass [class*="rounded-full"][class*="px-"]:where(.bg-primary, [class*="bg-violet"], [class*="bg-indigo"], [class*="bg-purple"]) {
+  background-image: linear-gradient(135deg, #8b5cf6, #ec4899) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+/* Section headings inside admin pages — give them a subtle gradient touch */
+.admin-glass h2,
+.admin-glass h3 {
+  letter-spacing: -0.01em;
+}
+
+/* Dialog / modal panels */
+.admin-glass [role="dialog"] > div:where([class*="bg-background"], [class*="bg-white"]),
+[role="dialog"][data-admin-glass="1"] > div {
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(248,245,255,0.92)) !important;
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255,255,255,0.7) !important;
+  box-shadow: 0 30px 80px -30px rgba(99, 102, 241, 0.45);
+}
+
+/* Switches / toggles accent */
+.admin-glass [role="switch"][data-state="checked"] {
+  background-image: linear-gradient(135deg, #8b5cf6, #ec4899) !important;
+}
+
+/* Checkbox checked state */
+.admin-glass [role="checkbox"][data-state="checked"] {
+  background-image: linear-gradient(135deg, #8b5cf6, #ec4899) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+}
+
+/* Progress bars */
+.admin-glass [role="progressbar"] > div {
+  background-image: linear-gradient(90deg, #8b5cf6, #ec4899) !important;
+}
+
+/* Scrollbars inside admin */
+.admin-glass *::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.admin-glass *::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(139,92,246,0.45), rgba(236,72,153,0.45));
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.admin-glass *::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Keep the sidebar's circular icon tiles and the hero's small icon chips
+   from getting the generic glass treatment — they have their own design. */
+.admin-glass aside button,
+.admin-glass aside a,
+.admin-glass [data-hero-chip] {
+  background-image: none;
+}
+
+/* --------------------------------------------------------------------------
+   Product page — theme-aware shell + dark-mode overrides for the legacy
+   light surfaces used in src/routes/product.$slug.tsx so cards/text adapt
+   when the user switches to the Aurora (dark) theme.
+   -------------------------------------------------------------------------- */
+.product-page-shell {
+  background: oklch(0.984 0.003 247.86); /* slate-50 */
+}
+
+html:not(.theme-white) .product-page-shell {
+  background: linear-gradient(135deg,
+    oklch(0.18 0.05 270) 0%,
+    oklch(0.14 0.04 280) 55%,
+    oklch(0.16 0.06 200) 100%);
+}
+
+/* Glass card "teal" tint uses literal bg-white/40 etc; tone it down in dark theme. */
+html:not(.theme-white) .product-page-shell [class*="bg-white\/"],
+html:not(.theme-white) .product-page-shell [class*="from-white\/"],
+html:not(.theme-white) .product-page-shell [class*="via-white\/"] {
+  /* Let the GlassCard's white overlays still read as glass, just darker. */
+}
+html:not(.theme-white) .product-page-shell .bg-card { background-color: oklch(0.22 0.04 280 / 0.78); }
+html:not(.theme-white) .product-page-shell .border-border { border-color: oklch(1 0 0 / 0.12); }
+
+/* Quantity input text uses inline #0f172a — override under dark theme. */
+html:not(.theme-white) .product-page-shell input[style*="#0f172a"] { color: oklch(0.96 0 0) !important; }
+
+/* Plus/Minus inline-styled buttons (#f5f3ff bg, #7c3aed icon) — keep accent in dark. */
+html:not(.theme-white) .product-page-shell button[style*="#f5f3ff"] {
+  background: oklch(0.32 0.12 285 / 0.35) !important;
+}
+
+/* Active plan card uses violet-50 bg — soften in dark theme. */
+html:not(.theme-white) .product-page-shell label.bg-violet-50 {
+  background-color: oklch(0.30 0.14 285 / 0.35);
+}
+
+/* ============================================================
+   Header nav pill + search trigger — theme-aware overrides.
+   Aurora/dark themes need dark glass surfaces because the
+   components use hardcoded white backgrounds inline.
+   ============================================================ */
+html:not(.theme-white) .site-nav-pill {
+  background: oklch(0.22 0.04 280 / 0.55) !important;
+  border-color: oklch(1 0 0 / 0.12) !important;
+  box-shadow: 0 6px 18px -10px rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+html:not(.theme-white) .site-nav-pill a {
+  color: oklch(0.96 0.01 280 / 0.85);
+}
+html:not(.theme-white) .site-nav-pill a:hover {
+  color: oklch(0.85 0.15 295);
+}
+html:not(.theme-white) .site-nav-pill a[aria-current="page"],
+html:not(.theme-white) .site-nav-pill a.text-\[\#4f46e5\] {
+  color: oklch(0.92 0.12 295) !important;
+}
+/* Sliding pill indicator behind active item */
+html:not(.theme-white) .site-nav-pill > span[aria-hidden] {
+  background: oklch(0.45 0.18 290 / 0.35) !important;
+  border-color: oklch(0.75 0.18 295 / 0.55) !important;
+}
+
+/* SearchTrigger pill — bg-white + slate borders/text */
+html:not(.theme-white) .site-search-trigger {
+  background: oklch(0.22 0.04 280 / 0.55) !important;
+  border-color: oklch(1 0 0 / 0.14) !important;
+  color: oklch(0.96 0.01 280 / 0.9) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+html:not(.theme-white) .site-search-trigger span {
+  color: oklch(0.96 0.01 280 / 0.6);
+}
+html:not(.theme-white) .site-search-trigger kbd {
+  background: oklch(1 0 0 / 0.08) !important;
+  border-color: oklch(1 0 0 / 0.12) !important;
+  color: oklch(0.96 0.01 280 / 0.7) !important;
+}
+html:not(.theme-white) .site-search-trigger span[aria-hidden].bg-slate-200 {
+  background: oklch(1 0 0 / 0.15) !important;
+}
+
+/* =====================================================
+   Product detail page — Aurora (dark) theme adaptation
+   The product.$slug.tsx page uses hardcoded light tokens
+   (bg-white, text-slate-*, border-slate-*) for the Light
+   Aesthetic. In Aurora theme, remap them to dark glass.
+   ===================================================== */
+html:not(.theme-white) .product-page-shell {
+  background: transparent !important;
+  color: oklch(0.96 0.01 280) !important;
+}
+html:not(.theme-white) .product-page-shell .bg-white {
+  background: oklch(0.18 0.04 280 / 0.55) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+html:not(.theme-white) .product-page-shell .bg-slate-50 { background: transparent !important; }
+html:not(.theme-white) .product-page-shell .bg-slate-100 { background: oklch(1 0 0 / 0.08) !important; }
+html:not(.theme-white) .product-page-shell [class*="bg-indigo-50"] {
+  background: oklch(0.55 0.22 285 / 0.18) !important;
+}
+
+html:not(.theme-white) .product-page-shell .border-slate-200,
+html:not(.theme-white) .product-page-shell .border-slate-300 {
+  border-color: oklch(1 0 0 / 0.12) !important;
+}
+
+html:not(.theme-white) .product-page-shell .text-slate-900 { color: oklch(0.98 0.01 280) !important; }
+html:not(.theme-white) .product-page-shell .text-slate-700 { color: oklch(0.88 0.02 280) !important; }
+html:not(.theme-white) .product-page-shell .text-slate-600 { color: oklch(0.82 0.02 280) !important; }
+html:not(.theme-white) .product-page-shell .text-slate-500 { color: oklch(0.70 0.02 280) !important; }
+html:not(.theme-white) .product-page-shell .text-slate-400 { color: oklch(0.60 0.02 280) !important; }
+html:not(.theme-white) .product-page-shell .text-slate-300 { color: oklch(0.45 0.02 280) !important; }
+
+html:not(.theme-white) .product-page-shell .hover\:text-slate-900:hover { color: oklch(0.98 0.01 280) !important; }
+html:not(.theme-white) .product-page-shell .hover\:border-slate-300:hover { border-color: oklch(1 0 0 / 0.22) !important; }
+
+/* Description prose */
+html:not(.theme-white) .product-page-shell .prose,
+html:not(.theme-white) .product-page-shell .prose * { color: oklch(0.86 0.02 280) !important; }
+html:not(.theme-white) .product-page-shell .prose h1,
+html:not(.theme-white) .product-page-shell .prose h2,
+html:not(.theme-white) .product-page-shell .prose h3,
+html:not(.theme-white) .product-page-shell .prose h4,
+html:not(.theme-white) .product-page-shell .prose strong { color: oklch(0.98 0.01 280) !important; }
+html:not(.theme-white) .product-page-shell .prose a { color: oklch(0.78 0.18 285) !important; }
+
+/* Sale chip stays readable */
+html:not(.theme-white) .product-page-shell .bg-rose-100 {
+  background: oklch(0.55 0.22 20 / 0.18) !important;
+}
+
+/* ============================================================
+   .dark-adapt — Page-scoped opt-in that remaps hardcoded light
+   utilities (bg-white / text-slate-* / border-slate-*) to dark
+   glass equivalents when the Aurora (dark) theme is active.
+   Apply this class to page root containers (wallet, auth,
+   policy, etc.) that ship with a light aesthetic so they stay
+   readable in dark theme. Light theme is unaffected.
+   ============================================================ */
+html:not(.theme-white) .dark-adapt {
+  background: linear-gradient(135deg,
+    oklch(0.12 0.04 275) 0%,
+    oklch(0.10 0.03 280) 55%,
+    oklch(0.14 0.05 260) 100%) !important;
+  color: oklch(0.96 0.01 280) !important;
+}
+
+/* Surfaces */
+html:not(.theme-white) .dark-adapt .bg-white,
+html:not(.theme-white) .dark-adapt [class*="bg-white\/"],
+html:not(.theme-white) .dark-adapt [class*="from-white"],
+html:not(.theme-white) .dark-adapt [class*="via-white"],
+html:not(.theme-white) .dark-adapt [class*="to-white"] {
+  background-color: oklch(0.18 0.04 280 / 0.78) !important;
+  background-image: none !important;
+}
+html:not(.theme-white) .dark-adapt .bg-slate-50,
+html:not(.theme-white) .dark-adapt .bg-\[\#f4f5f7\],
+html:not(.theme-white) .dark-adapt .bg-\[\#f8fafc\] {
+  background-color: oklch(0.14 0.04 280) !important;
+}
+html:not(.theme-white) .dark-adapt .bg-slate-100,
+html:not(.theme-white) .dark-adapt .bg-slate-200 {
+  background-color: oklch(1 0 0 / 0.08) !important;
+}
+
+/* Borders */
+html:not(.theme-white) .dark-adapt .border-slate-100,
+html:not(.theme-white) .dark-adapt .border-slate-200,
+html:not(.theme-white) .dark-adapt .border-slate-300 {
+  border-color: oklch(1 0 0 / 0.12) !important;
+}
+
+/* Text */
+html:not(.theme-white) .dark-adapt,
+html:not(.theme-white) .dark-adapt .text-slate-900 { color: oklch(0.98 0.01 280) !important; }
+html:not(.theme-white) .dark-adapt .text-slate-800 { color: oklch(0.92 0.02 280) !important; }
+html:not(.theme-white) .dark-adapt .text-slate-700 { color: oklch(0.86 0.02 280) !important; }
+html:not(.theme-white) .dark-adapt .text-slate-600 { color: oklch(0.78 0.02 280) !important; }
+html:not(.theme-white) .dark-adapt .text-slate-500 { color: oklch(0.70 0.02 280) !important; }
+html:not(.theme-white) .dark-adapt .text-slate-400 { color: oklch(0.62 0.02 280) !important; }
+html:not(.theme-white) .dark-adapt .placeholder\:text-slate-400::placeholder { color: oklch(0.55 0.02 280) !important; }
+
+/* Inputs */
+html:not(.theme-white) .dark-adapt input,
+html:not(.theme-white) .dark-adapt textarea,
+html:not(.theme-white) .dark-adapt select {
+  background-color: oklch(0.20 0.04 280 / 0.85) !important;
+  color: oklch(0.96 0.01 280) !important;
+  border-color: oklch(1 0 0 / 0.14) !important;
+}
+
+/* Solid filled buttons/badges that already specify text-white keep their fill */
+html:not(.theme-white) .dark-adapt [class*="bg-slate-900"],
+html:not(.theme-white) .dark-adapt [class*="bg-primary"],
+html:not(.theme-white) .dark-adapt [class*="bg-gradient"],
+html:not(.theme-white) .dark-adapt [class*="bg-violet-"],
+html:not(.theme-white) .dark-adapt [class*="bg-indigo-"],
+html:not(.theme-white) .dark-adapt [class*="bg-emerald-"],
+html:not(.theme-white) .dark-adapt [class*="bg-rose-"],
+html:not(.theme-white) .dark-adapt .keep-light {
+  background-image: revert !important;
+}
+html:not(.theme-white) .dark-adapt .keep-light {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* Checkout page — dark theme must use dark surfaces, not white-on-white cards. */
+html:not(.theme-white) .checkout-dark {
+  position: relative;
+  z-index: 5;
+  display: grid !important;
+  isolation: isolate;
+  background: linear-gradient(135deg, oklch(0.12 0.04 275), oklch(0.09 0.03 280) 58%, oklch(0.14 0.05 260)) !important;
+  color: oklch(0.96 0.01 280) !important;
+}
+
+html:not(.theme-white) .checkout-dark .bg-white,
+html:not(.theme-white) .checkout-dark .bg-slate-50,
+html:not(.theme-white) .checkout-dark .bg-violet-50,
+html:not(.theme-white) .checkout-dark .bg-violet-50\/60 {
+  background-color: oklch(0.18 0.04 280 / 0.92) !important;
+  background-image: none !important;
+}
+
+html:not(.theme-white) .checkout-dark .border-slate-100,
+html:not(.theme-white) .checkout-dark .border-slate-200,
+html:not(.theme-white) .checkout-dark .border-slate-300,
+html:not(.theme-white) .checkout-dark .border-violet-100,
+html:not(.theme-white) .checkout-dark .border-violet-200 {
+  border-color: oklch(1 0 0 / 0.14) !important;
+}
+
+html:not(.theme-white) .checkout-dark .text-slate-900 { color: oklch(0.98 0.01 280) !important; }
+html:not(.theme-white) .checkout-dark .text-slate-800 { color: oklch(0.93 0.02 280) !important; }
+html:not(.theme-white) .checkout-dark .text-slate-700 { color: oklch(0.86 0.02 280) !important; }
+html:not(.theme-white) .checkout-dark .text-slate-600 { color: oklch(0.78 0.02 280) !important; }
+html:not(.theme-white) .checkout-dark .text-slate-500 { color: oklch(0.70 0.02 280) !important; }
+html:not(.theme-white) .checkout-dark .text-slate-400 { color: oklch(0.62 0.02 280) !important; }
+
+html:not(.theme-white) .checkout-dark input,
+html:not(.theme-white) .checkout-dark textarea,
+html:not(.theme-white) .checkout-dark select {
+  color: oklch(0.98 0.01 280) !important;
+}
+
+/* Catch-all: any white/light surface utility (incl. alpha variants like bg-white/70)
+   inside checkout-dark must render as a dark glass surface. */
+html:not(.theme-white) .checkout-dark [class*="bg-white"],
+html:not(.theme-white) .checkout-dark [class*="bg-slate-50"],
+html:not(.theme-white) .checkout-dark [class*="bg-slate-100"],
+html:not(.theme-white) .checkout-dark [class*="bg-violet-50"],
+html:not(.theme-white) .checkout-dark [class*="bg-violet-100"] {
+  background-color: oklch(0.20 0.04 280 / 0.88) !important;
+  background-image: none !important;
+}
+
+html:not(.theme-white) .checkout-dark [class*="border-white"],
+html:not(.theme-white) .checkout-dark [class*="border-slate"],
+html:not(.theme-white) .checkout-dark [class*="border-violet"] {
+  border-color: oklch(1 0 0 / 0.14) !important;
+}
+
+html:not(.theme-white) .checkout-dark ::placeholder {
+  color: oklch(0.68 0.02 280) !important;
+  opacity: 1;
+}
+
+/* Dashed upload box background */
+html:not(.theme-white) .checkout-dark .border-dashed {
+  background-color: oklch(0.16 0.03 280 / 0.6) !important;
+}
+
+/* Primary text fallback inside dark cards */
+html:not(.theme-white) .checkout-dark .text-white { color: oklch(0.99 0 0) !important; }
+
+html:not(.theme-white) .checkout-card-readable {
+  background: oklch(0.16 0.04 280 / 0.96) !important;
+  border-color: oklch(1 0 0 / 0.16) !important;
+  color: oklch(0.98 0.01 280) !important;
+}
+
+html:not(.theme-white) .checkout-card-readable :where(h1, h2, h3, label, p, span, div, button, input) {
+  color: inherit;
+}
+
+html:not(.theme-white) .checkout-card-readable :where(.text-muted-foreground, [class*="placeholder"]) {
+  color: oklch(0.78 0.02 280) !important;
+}
+
+html:not(.theme-white) .checkout-card-readable :where(.text-primary) {
+  color: var(--primary) !important;
+}
+html:not(.theme-white) .checkout-card-readable :where([class*="text-violet-6"], [class*="text-violet-7"], [class*="text-violet-8"]) {
+  color: oklch(0.82 0.16 295) !important;
+}
+html:not(.theme-white) .checkout-card-readable :where([class*="text-emerald-6"], [class*="text-emerald-7"]) {
+  color: oklch(0.82 0.18 160) !important;
+}
+
+html:not(.theme-white) .checkout-card-readable :where(input, textarea, select) {
+  color: oklch(0.99 0 0) !important;
+}
+
+/* Force inner panels (bg-card / bg-muted / bg-secondary) to stand out from the
+   outer checkout card so labels, totals and inputs are clearly visible. */
+html:not(.theme-white) .checkout-card-readable :where(.bg-card, .bg-background, [class*="bg-background/"]) {
+  background-color: oklch(0.22 0.04 280 / 0.92) !important;
+}
+html:not(.theme-white) .checkout-card-readable :where(.bg-muted, .bg-secondary, [class*="bg-secondary/"]) {
+  background-color: oklch(0.28 0.05 280 / 0.95) !important;
+}
+html:not(.theme-white) .checkout-card-readable :where(.border-border, [class*="border-slate-"], [class*="border-gray-"]) {
+  border-color: oklch(1 0 0 / 0.18) !important;
+}
+html:not(.theme-white) .checkout-card-readable :where(.text-foreground, .text-card-foreground) {
+  color: oklch(0.98 0.01 280) !important;
+}
+html:not(.theme-white) .checkout-card-readable :where(.text-muted-foreground) {
+  color: oklch(0.82 0.02 280) !important;
+}
+/* Info / empty-state card on /checkout (loader, login prompt, empty cart) */
+html:not(.theme-white) .checkout-info-card {
+  background: oklch(0.18 0.04 280 / 0.96) !important;
+  border-color: oklch(1 0 0 / 0.18) !important;
+  color: oklch(0.98 0.01 280) !important;
+}
+html:not(.theme-white) .checkout-info-card :where(h1, h2, h3, p, span, a, button) {
+  color: inherit !important;
+}
+html:not(.theme-white) .checkout-info-card :where(.text-primary, a.text-primary) {
+  color: oklch(0.82 0.16 295) !important;
+}
+
+/* Cart page — dark theme: light text on dark glass cards, mirror of checkout-dark. */
+html:not(.theme-white) .cart-surface .bg-white,
+html:not(.theme-white) .cart-surface .bg-slate-50,
+html:not(.theme-white) .cart-surface .bg-slate-100,
+html:not(.theme-white) .cart-surface [class*="bg-white"],
+html:not(.theme-white) .cart-surface [class*="bg-slate-50"],
+html:not(.theme-white) .cart-surface [class*="bg-slate-100"] {
+  background-color: oklch(0.20 0.04 280 / 0.88) !important;
+  background-image: none !important;
+}
+
+html:not(.theme-white) .cart-surface [class*="border-slate"],
+html:not(.theme-white) .cart-surface [class*="border-white"] {
+  border-color: oklch(1 0 0 / 0.14) !important;
+}
+
+html:not(.theme-white) .cart-surface .text-slate-900 { color: oklch(0.98 0.01 280) !important; }
+html:not(.theme-white) .cart-surface .text-slate-800 { color: oklch(0.93 0.02 280) !important; }
+html:not(.theme-white) .cart-surface .text-slate-700 { color: oklch(0.86 0.02 280) !important; }
+html:not(.theme-white) .cart-surface .text-slate-600 { color: oklch(0.78 0.02 280) !important; }
+html:not(.theme-white) .cart-surface .text-slate-500 { color: oklch(0.70 0.02 280) !important; }
+html:not(.theme-white) .cart-surface .text-slate-400 { color: oklch(0.62 0.02 280) !important; }
+
+html:not(.theme-white) .cart-surface input,
+html:not(.theme-white) .cart-surface textarea,
+html:not(.theme-white) .cart-surface select {
+  background-color: oklch(0.20 0.04 280 / 0.85) !important;
+  color: oklch(0.98 0.01 280) !important;
+  border-color: oklch(1 0 0 / 0.14) !important;
+}
+html:not(.theme-white) .cart-surface ::placeholder {
+  color: oklch(0.68 0.02 280) !important;
+  opacity: 1;
+}
+
+/* Cart + Checkout — Aurora theme: ensure every GlassCard/Card surface has
+   a visible dark glass background, not transparent. */
+html:not(.theme-white) .cart-surface :where(
+  .bg-card, [class*="bg-card"], [class*="bg-white\\/"], [class*="bg-white/"]
+),
+html:not(.theme-white) .checkout-dark :where(
+  .bg-card, [class*="bg-card"], [class*="bg-white\\/"], [class*="bg-white/"]
+) {
+  background-color: oklch(0.20 0.04 280 / 0.92) !important;
+  background-image: none !important;
+  border-color: oklch(1 0 0 / 0.16) !important;
+  color: oklch(0.96 0.01 280) !important;
+}
+
+/* Cart quantity pill (uses bg-slate-100 text-slate-700) → dark glass */
+html:not(.theme-white) .cart-surface .bg-slate-100 {
+  background-color: oklch(1 0 0 / 0.10) !important;
+  color: oklch(0.96 0.01 280) !important;
+}
+html:not(.theme-white) .cart-surface .bg-slate-100 :where(span, button) {
+  color: oklch(0.96 0.01 280) !important;
+}
+
+
+/* Checkout info cards (login prompt / empty cart) — guaranteed visible in both themes */
+.checkout-info-card {
+  background-color: oklch(0.22 0.04 280 / 0.95) !important;
+  background-image: none !important;
+  border: 1px solid oklch(1 0 0 / 0.18) !important;
+  box-shadow: 0 12px 40px -12px oklch(0 0 0 / 0.6) !important;
+  color: oklch(0.98 0.01 280) !important;
+}
+.checkout-info-card * { color: inherit; }
+.checkout-info-card a.text-primary { color: oklch(0.78 0.18 250) !important; }
+html.theme-white .checkout-info-card {
+  background-color: #ffffff !important;
+  border: 1px solid oklch(0.92 0.01 280) !important;
+  box-shadow: 0 12px 40px -16px oklch(0.6 0.1 280 / 0.25) !important;
+  color: oklch(0.20 0.04 280) !important;
+}
+html.theme-white .checkout-info-card a.text-primary { color: oklch(0.50 0.18 280) !important; }
+
+/* ============================================================
+   GLOBAL THEME CONTRAST SAFETY NET (Dark / Aurora theme)
+   ------------------------------------------------------------
+   Catches every hardcoded light-mode color class anywhere in
+   the site so dark text on dark bg / light text on light bg
+   problems disappear automatically. Excludes opted-out canvas
+   wrappers (.force-light-canvas) and known solid-filled
+   colored buttons/badges (bg-primary, gradients, vivid hues).
+   ============================================================ */
+
+/* --- Dark text classes → light variants in dark theme --- */
+html:not(.theme-white) :where(
+  .text-slate-900, .text-gray-900, .text-zinc-900, .text-neutral-900, .text-stone-900, .text-black
+):not(.force-light-canvas *):not([class*="bg-white"]):not([class*="bg-slate-50"]):not([class*="bg-slate-100"]) {
+  color: oklch(0.97 0.01 280) !important;
+}
+html:not(.theme-white) :where(
+  .text-slate-800, .text-gray-800, .text-zinc-800, .text-neutral-800, .text-stone-800
+):not(.force-light-canvas *) {
+  color: oklch(0.92 0.02 280) !important;
+}
+html:not(.theme-white) :where(
+  .text-slate-700, .text-gray-700, .text-zinc-700, .text-neutral-700, .text-stone-700
+):not(.force-light-canvas *) {
+  color: oklch(0.86 0.02 280) !important;
+}
+html:not(.theme-white) :where(
+  .text-slate-600, .text-gray-600, .text-zinc-600, .text-neutral-600, .text-stone-600
+):not(.force-light-canvas *) {
+  color: oklch(0.78 0.02 280) !important;
+}
+html:not(.theme-white) :where(
+  .text-slate-500, .text-gray-500, .text-zinc-500, .text-neutral-500, .text-stone-500
+):not(.force-light-canvas *) {
+  color: oklch(0.72 0.02 280) !important;
+}
+
+/* --- Light surface classes → dark equivalents in dark theme --- */
+html:not(.theme-white) :where(.bg-white, .bg-slate-50, .bg-gray-50, .bg-zinc-50, .bg-neutral-50, .bg-stone-50):not(.force-light-canvas):not(.force-light-canvas *) {
+  background-color: oklch(0.18 0.04 280 / 0.85) !important;
+}
+html:not(.theme-white) :where(.bg-slate-100, .bg-gray-100, .bg-zinc-100, .bg-neutral-100):not(.force-light-canvas):not(.force-light-canvas *) {
+  background-color: oklch(1 0 0 / 0.06) !important;
+}
+
+/* --- Light border classes → dark borders in dark theme --- */
+html:not(.theme-white) :where(
+  .border-slate-100, .border-slate-200, .border-slate-300,
+  .border-gray-100, .border-gray-200, .border-gray-300,
+  .border-zinc-100, .border-zinc-200, .border-zinc-300,
+  .border-neutral-100, .border-neutral-200, .border-neutral-300
+):not(.force-light-canvas):not(.force-light-canvas *) {
+  border-color: oklch(1 0 0 / 0.12) !important;
+}
+
+/* --- Light placeholder text → readable on dark inputs --- */
+html:not(.theme-white) :where(
+  .placeholder\:text-slate-400, .placeholder\:text-slate-500,
+  .placeholder\:text-gray-400, .placeholder\:text-gray-500
+):not(.force-light-canvas *)::placeholder {
+  color: oklch(0.68 0.02 280) !important;
+  opacity: 1;
+}
+
+/* --- Light theme extra safety: bg-slate-900/black surfaces in white theme
+       are intentional dark sections — keep them dark and force white text
+       on their descendants so the wrapper remains an island of dark canvas. */
+html.theme-white :where(.bg-slate-900, .bg-slate-950, .bg-gray-900, .bg-gray-950, .bg-zinc-900, .bg-zinc-950, .bg-neutral-900, .bg-black) {
+  /* keep as-is — these are dark accent sections, descendants get white text via existing .force-dark-canvas rules if marked */
+}
+
+/* ===========================================================
+   Checkout page — white theme contrast booster
+   The checkout card sits on a near-white background; default
+   muted-foreground (medium gray) can read low-contrast against
+   the white card. Darken text tones inside .checkout-page so
+   labels, helpers and step body copy stay clearly separated
+   from the surface. Scoped to white theme only.
+   =========================================================== */
+html.theme-white .checkout-page {
+  color: oklch(0.18 0.04 285);
+}
+html.theme-white .checkout-page .text-foreground {
+  color: oklch(0.16 0.04 285) !important;
+}
+html.theme-white .checkout-page .text-card-foreground {
+  color: oklch(0.16 0.04 285) !important;
+}
+html.theme-white .checkout-page .text-muted-foreground {
+  color: oklch(0.38 0.05 280) !important;
+}
+html.theme-white .checkout-page .text-foreground\/85,
+html.theme-white .checkout-page .text-foreground\/80 {
+  color: oklch(0.22 0.05 285) !important;
+}
+html.theme-white .checkout-page .text-foreground\/70 {
+  color: oklch(0.30 0.05 282) !important;
+}
+html.theme-white .checkout-page input,
+html.theme-white .checkout-page textarea {
+  color: oklch(0.16 0.04 285);
+}
+html.theme-white .checkout-page input::placeholder,
+html.theme-white .checkout-page textarea::placeholder {
+  color: oklch(0.52 0.04 280);
+  opacity: 1;
+}
+/* Inner surfaces (bg-background / bg-muted) inside the white card
+   need a hint of contrast so they don't melt into the white card. */
+html.theme-white .checkout-page .bg-background {
+  background-color: oklch(0.975 0.012 285) !important;
+}
+html.theme-white .checkout-page .bg-muted {
+  background-color: oklch(0.955 0.018 282) !important;
+}
+
+/* Admin sidebar item ripple animation */
+@keyframes adminRipple {
+  0%   { width: 8px; height: 8px; opacity: 0.55; }
+  100% { width: 320px; height: 320px; opacity: 0; }
+}
+
+/* Admin panel loading animation */
+@keyframes adminLoaderRing {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes adminLoaderPulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+@keyframes adminLoaderBar {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+.admin-loader-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #4f46e5, #7c3aed, #06b6d4, #4f46e5);
+  animation: adminLoaderRing 1.2s linear infinite;
+  mask: radial-gradient(circle, transparent 62%, black 63%);
+  -webkit-mask: radial-gradient(circle, transparent 62%, black 63%);
+}
+.admin-loader-logo {
+  animation: adminLoaderPulse 2s ease-in-out infinite;
+}
+.admin-loader-bar {
+  display: inline-block;
+  width: 4px;
+  height: 16px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #4f46e5, #7c3aed);
+  animation: adminLoaderBar 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ============================================================
+   UNIVERSAL GLASSMORPHISM CARDS — white theme
+   Applies a premium frosted-glass look to every card-like surface
+   (shadcn Card, bg-card containers, gradient/border cards, KPI tiles,
+   trust items, category cards, FAQ panels, etc.) under the white theme.
+   ============================================================ */
+html.theme-white [data-slot="card"],
+html.theme-white .ui-card,
+html.theme-white .glass-card,
+html.theme-white [class*="rounded-2xl"][class*="border"]:not(button):not(a[class*="rounded-full"]):not([class*="bg-gradient"]):not(.product-action-button),
+html.theme-white [class*="rounded-3xl"][class*="border"]:not(button):not([class*="bg-gradient"]),
+html.theme-white .trust-card,
+html.theme-white .category-card,
+html.theme-white .kpi-card,
+html.theme-white .feature-card,
+html.theme-white .stat-card,
+html.theme-white .info-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.48) 100%) !important;
+  border: 1px solid rgba(255,255,255,0.85) !important;
+  box-shadow:
+    0 20px 50px -22px rgba(79, 70, 229, 0.25),
+    0 1px 0 0 rgba(255,255,255,0.95) inset,
+    0 0 0 1px rgba(124, 58, 237, 0.06) !important;
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+
+html.theme-white [data-slot="card"]:hover,
+html.theme-white .glass-card:hover,
+html.theme-white .trust-card:hover,
+html.theme-white .category-card:hover,
+html.theme-white .feature-card:hover,
+html.theme-white .stat-card:hover,
+html.theme-white .info-card:hover {
+  border-color: rgba(124, 58, 237, 0.32) !important;
+  box-shadow:
+    0 28px 70px -22px rgba(79, 70, 229, 0.4),
+    0 1px 0 0 rgba(255,255,255,1) inset !important;
+  transform: translateY(-2px);
+}
+
+/* Inner subdued surfaces inside cards stay legible */
+html.theme-white [data-slot="card"] [class*="bg-muted"],
+html.theme-white [data-slot="card"] [class*="bg-secondary"] {
+  background-color: rgba(248, 247, 255, 0.7) !important;
+}
+
+/* Section-level wrapper panels (anything explicitly tagged) */
+html.theme-white .glass-panel,
+html.theme-white .glass-section {
+  background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.35) 100%) !important;
+  border: 1px solid rgba(255,255,255,0.75) !important;
+  border-radius: 24px;
+  box-shadow:
+    0 24px 60px -24px rgba(79, 70, 229, 0.22),
+    0 1px 0 0 rgba(255,255,255,0.9) inset !important;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+/* Pills / chips get a soft glass treatment too */
+html.theme-white .chip,
+html.theme-white .pill,
+html.theme-white [class*="rounded-full"][class*="border"][class*="bg-white"] {
+  background: rgba(255,255,255,0.55) !important;
+  border-color: rgba(255,255,255,0.8) !important;
+  backdrop-filter: blur(14px) saturate(170%);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+}

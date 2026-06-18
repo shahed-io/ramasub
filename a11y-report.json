@@ -1,0 +1,42 @@
+[
+  {
+    "route": "/",
+    "url": "https://accessnowbd.lovable.app/",
+    "status": 200,
+    "violations": [],
+    "passes": 22,
+    "incomplete": 1
+  },
+  {
+    "route": "/auth",
+    "url": "https://accessnowbd.lovable.app/auth",
+    "status": 200,
+    "violations": [],
+    "passes": 20,
+    "incomplete": 1
+  },
+  {
+    "route": "/developer",
+    "url": "https://accessnowbd.lovable.app/developer",
+    "status": 200,
+    "violations": [],
+    "passes": 19,
+    "incomplete": 1
+  },
+  {
+    "route": "/dashboard",
+    "url": "https://accessnowbd.lovable.app/dashboard",
+    "status": 200,
+    "violations": [],
+    "passes": 16,
+    "incomplete": 2
+  },
+  {
+    "route": "/admin",
+    "url": "https://accessnowbd.lovable.app/admin",
+    "status": 200,
+    "violations": [],
+    "passes": 7,
+    "incomplete": 1
+  }
+]

@@ -1,0 +1,1 @@
+UPDATE public.admin_records SET is_active = true WHERE kind='theme_config' AND data->>'id'='aurora';

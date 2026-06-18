@@ -1,0 +1,43 @@
+
+ALTER TABLE public.products ADD COLUMN IF NOT EXISTS image_url text NOT NULL DEFAULT '';
+
+UPDATE public.products SET image_url = CASE slug
+  WHEN 'netflix-premium' THEN 'https://logo.clearbit.com/netflix.com'
+  WHEN 'amazon-prime-video' THEN 'https://logo.clearbit.com/primevideo.com'
+  WHEN 'youtube-premium' THEN 'https://logo.clearbit.com/youtube.com'
+  WHEN 'chorki' THEN 'https://logo.clearbit.com/chorki.com'
+  WHEN 'hoichoi-premium' THEN 'https://logo.clearbit.com/hoichoi.tv'
+  WHEN 'crunchyroll' THEN 'https://logo.clearbit.com/crunchyroll.com'
+  WHEN 'sonyliv' THEN 'https://logo.clearbit.com/sonyliv.com'
+  WHEN 'windows-10-pro' THEN 'https://logo.clearbit.com/microsoft.com'
+  WHEN 'windows-11-pro' THEN 'https://logo.clearbit.com/microsoft.com'
+  WHEN 'office-2019-pro-plus' THEN 'https://logo.clearbit.com/office.com'
+  WHEN 'office-2016-pro-plus' THEN 'https://logo.clearbit.com/office.com'
+  WHEN 'office-2021-pro-plus' THEN 'https://logo.clearbit.com/office.com'
+  WHEN 'office-365' THEN 'https://logo.clearbit.com/office.com'
+  WHEN 'chatgpt-plus' THEN 'https://logo.clearbit.com/openai.com'
+  WHEN 'claude-ai-pro' THEN 'https://logo.clearbit.com/anthropic.com'
+  WHEN 'gemini-advanced' THEN 'https://logo.clearbit.com/gemini.google.com'
+  WHEN 'perplexity-ai' THEN 'https://logo.clearbit.com/perplexity.ai'
+  WHEN 'grok-ai' THEN 'https://logo.clearbit.com/x.ai'
+  WHEN 'spotify-premium' THEN 'https://logo.clearbit.com/spotify.com'
+  WHEN 'coursera-plus' THEN 'https://logo.clearbit.com/coursera.org'
+  WHEN 'vidiq-premium' THEN 'https://logo.clearbit.com/vidiq.com'
+  WHEN 'duolingo-super' THEN 'https://logo.clearbit.com/duolingo.com'
+  WHEN 'quillbot-premium' THEN 'https://logo.clearbit.com/quillbot.com'
+  WHEN 'grammarly-premium' THEN 'https://logo.clearbit.com/grammarly.com'
+  WHEN 'canva-pro' THEN 'https://logo.clearbit.com/canva.com'
+  WHEN 'capcut-pro' THEN 'https://logo.clearbit.com/capcut.com'
+  WHEN 'adobe-creative-cloud' THEN 'https://logo.clearbit.com/adobe.com'
+  WHEN 'freepik-premium' THEN 'https://logo.clearbit.com/freepik.com'
+  WHEN 'autodesk-subscription' THEN 'https://logo.clearbit.com/autodesk.com'
+  WHEN 'truecaller-premium' THEN 'https://logo.clearbit.com/truecaller.com'
+  WHEN 'zoom-pro' THEN 'https://logo.clearbit.com/zoom.us'
+  WHEN 'google-one' THEN 'https://logo.clearbit.com/one.google.com'
+  WHEN 'nordvpn' THEN 'https://logo.clearbit.com/nordvpn.com'
+  WHEN 'expressvpn' THEN 'https://logo.clearbit.com/expressvpn.com'
+  WHEN 'surfshark-vpn' THEN 'https://logo.clearbit.com/surfshark.com'
+  WHEN 'itunes-gift-card' THEN 'https://logo.clearbit.com/apple.com'
+  ELSE image_url
+END
+WHERE image_url = '' OR image_url IS NULL;
