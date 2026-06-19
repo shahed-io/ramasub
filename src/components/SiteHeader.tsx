@@ -181,27 +181,27 @@ export function SiteHeader() {
               className="flex items-center gap-3 sm:gap-3.5 shrink-0 group min-w-0 justify-self-center md:justify-self-auto"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              {/* Logo — rounded-square card with gradient ring (Shahed Store style) */}
+              {/* Logo — rounded-square card with gradient ring, light interior so full logo shows */}
               <span
                 aria-hidden
-                className="relative grid place-items-center shrink-0 rounded-2xl p-[2px] transition-transform duration-500 group-hover:scale-[1.04]"
+                className="relative grid place-items-center shrink-0 rounded-2xl p-[2.5px] transition-transform duration-500 group-hover:scale-[1.04]"
                 style={{
                   backgroundImage:
-                    "linear-gradient(135deg, #a855f7 0%, #22d3ee 45%, #f59e0b 100%)",
-                  boxShadow: "0 10px 28px -12px rgba(34,211,238,0.55)",
+                    "linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #38bdf8 100%)",
+                  boxShadow: "0 10px 28px -12px rgba(251,146,60,0.55)",
                 }}
               >
-                <span className="grid place-items-center w-12 h-12 md:w-14 md:h-14 rounded-[14px] bg-slate-950/80 backdrop-blur-md overflow-hidden">
+                <span className="grid place-items-center w-14 h-14 md:w-16 md:h-16 rounded-[14px] bg-white overflow-hidden">
                   <img
                     src={ramaSubLogo}
                     alt="Rama Sub logo"
                     draggable={false}
-                    className="w-full h-full object-contain p-1"
+                    className="w-full h-full object-contain p-1.5"
                   />
                 </span>
               </span>
 
-              {/* Wordmark — English name on top, website address below */}
+              {/* Wordmark — English name on top, website address with curved underline below */}
               <span className="flex flex-col leading-none min-w-0">
                 <span
                   className="text-[24px] sm:text-[28px] md:text-[32px] font-extrabold tracking-tight whitespace-nowrap bg-clip-text text-transparent"
@@ -214,13 +214,34 @@ export function SiteHeader() {
                 >
                   Rama Sub
                 </span>
-                <span className="mt-1.5 flex items-center gap-2">
-                  <span className="h-px flex-1 bg-gradient-to-r from-amber-400/70 via-sky-400/40 to-transparent" />
-                  <span className="text-[10px] md:text-[11px] font-bold tracking-[0.22em] uppercase text-white/70 whitespace-nowrap">
+                <span className="mt-1.5 relative inline-flex flex-col items-start">
+                  <span className="text-[10px] md:text-[11px] font-bold tracking-[0.22em] uppercase text-white/85 whitespace-nowrap">
                     RAMASUB.COM.BD
                   </span>
+                  <svg
+                    aria-hidden
+                    viewBox="0 0 140 8"
+                    preserveAspectRatio="none"
+                    className="absolute left-0 -bottom-1.5 w-full h-[6px]"
+                  >
+                    <path
+                      d="M2 5 Q 35 1, 70 4 T 138 3"
+                      fill="none"
+                      stroke="url(#ramaUnderline)"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                    />
+                    <defs>
+                      <linearGradient id="ramaUnderline" x1="0" x2="1" y1="0" y2="0">
+                        <stop offset="0%" stopColor="#f59e0b" />
+                        <stop offset="55%" stopColor="#ef4444" />
+                        <stop offset="100%" stopColor="#38bdf8" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
                 </span>
               </span>
+            </Link>
             </Link>
 
 
