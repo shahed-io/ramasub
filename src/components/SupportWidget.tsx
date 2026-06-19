@@ -290,9 +290,9 @@ export function SupportWidget() {
 
               {/* Spinning conic ring */}
               <span
-                className="absolute -inset-[3px] rounded-full opacity-70 animate-[spin_6s_linear_infinite]"
+                className="absolute -inset-[3px] rounded-full opacity-90 animate-[spin_6s_linear_infinite]"
                 style={{
-                  background: `conic-gradient(from 0deg, ${cfg?.spin_color_1 ?? "#7c3aed"}99, ${cfg?.spin_color_2 ?? "#00e5ff"}99, ${cfg?.spin_color_1 ?? "#7c3aed"}99, ${cfg?.spin_color_2 ?? "#00e5ff"}99, ${cfg?.spin_color_1 ?? "#7c3aed"}99)`,
+                  background: `conic-gradient(from 0deg, ${cfg?.spin_color_1 ?? "#7c3aed"}f2, ${cfg?.spin_color_2 ?? "#a78bfa"}f2, ${cfg?.spin_color_1 ?? "#7c3aed"}f2, ${cfg?.spin_color_2 ?? "#a78bfa"}f2, ${cfg?.spin_color_1 ?? "#7c3aed"}f2)`,
                   filter: "blur(2px)",
                 }}
               />
