@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import ramaSubLogoAsset from "@/assets/rama-sub-logo-transparent.png.asset.json";
+import ramaSubLogoAsset from "@/assets/rama-logo.png.asset.json";
 const ramaSubLogo = ramaSubLogoAsset.url;
 import {
   Crown,
