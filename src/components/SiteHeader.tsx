@@ -201,23 +201,23 @@ export function SiteHeader() {
                 </span>
               </span>
 
-              {/* Wordmark — name on top, website link below */}
+              {/* Wordmark — English name on top, website address below */}
               <span className="flex flex-col leading-none min-w-0">
                 <span
-                  className="text-[22px] sm:text-[26px] md:text-[30px] font-extrabold tracking-tight whitespace-nowrap bg-clip-text text-transparent"
+                  className="text-[24px] sm:text-[28px] md:text-[32px] font-extrabold tracking-tight whitespace-nowrap bg-clip-text text-transparent"
                   style={{
-                    fontFamily: "'Hind Siliguri', var(--font-heading)",
+                    fontFamily: "'Poppins', var(--font-heading)",
                     backgroundImage:
-                      "linear-gradient(90deg, #ffffff 0%, #d4f1ff 55%, #67e8f9 100%)",
-                    filter: "drop-shadow(0 0 14px rgba(34,211,238,0.35))",
+                      "linear-gradient(90deg, #f59e0b 0%, #fb923c 50%, #38bdf8 100%)",
+                    filter: "drop-shadow(0 0 14px rgba(251,146,60,0.35))",
                   }}
                 >
-                  রামা সাব
+                  Rama Sub
                 </span>
-                <span className="mt-1 flex items-center gap-2">
-                  <span className="h-px flex-1 bg-gradient-to-r from-aqua/60 via-aqua/20 to-transparent" />
-                  <span className="text-[10px] md:text-[11px] font-semibold tracking-[0.22em] uppercase text-white/60 whitespace-nowrap">
-                    ramasub.com.bd
+                <span className="mt-1.5 flex items-center gap-2">
+                  <span className="h-px flex-1 bg-gradient-to-r from-amber-400/70 via-sky-400/40 to-transparent" />
+                  <span className="text-[10px] md:text-[11px] font-bold tracking-[0.22em] uppercase text-white/70 whitespace-nowrap">
+                    RAMASUB.COM.BD
                   </span>
                 </span>
               </span>
