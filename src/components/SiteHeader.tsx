@@ -181,22 +181,24 @@ export function SiteHeader() {
               className="flex items-center gap-3 sm:gap-3.5 shrink-0 group min-w-0 justify-self-center md:justify-self-auto"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              {/* Logo — rounded-square card with gradient ring, light interior so full logo shows */}
+              {/* Logo — circular badge that sits flush inside the gradient ring */}
               <span
                 aria-hidden
-                className="relative grid place-items-center shrink-0 rounded-2xl p-[2.5px] transition-transform duration-500 group-hover:scale-[1.04]"
+                className="relative grid place-items-center shrink-0 rounded-full p-[2.5px] transition-transform duration-500 group-hover:scale-[1.04]"
                 style={{
                   backgroundImage:
                     "linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #38bdf8 100%)",
                   boxShadow: "0 10px 28px -12px rgba(251,146,60,0.55)",
                 }}
               >
-                <span className="grid place-items-center w-14 h-14 md:w-16 md:h-16 rounded-[14px] bg-white overflow-hidden">
+                <span className="grid place-items-center w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden bg-transparent">
                   <img
                     src={ramaSubLogo}
                     alt="Rama Sub logo"
                     draggable={false}
-                    className="w-full h-full object-contain p-1.5"
+                    className="w-full h-full object-cover"
+                    width={128}
+                    height={128}
                   />
                 </span>
               </span>
