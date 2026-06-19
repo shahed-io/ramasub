@@ -13,13 +13,6 @@ export interface ThemeMeta {
 
 export const THEMES: ThemeMeta[] = [
   {
-    id: "aurora",
-    name: "Aurora",
-    description: "Premium dark glass with violet · cyan · pink aurora",
-    className: "",
-    swatch: "linear-gradient(135deg, #7C3AED 0%, #06B6D4 55%, #EC4899 100%)",
-  },
-  {
     id: "white",
     name: "White",
     description: "Clean light theme — bright surfaces, soft shadows",
