@@ -175,94 +175,56 @@ export function SiteHeader() {
               <ThemeSwitcher />
             </div>
 
-            {/* Brand */}
+            {/* Brand — integrated neon glass wordmark */}
             <Link
               to="/"
-              className="flex items-center gap-2 sm:gap-3 shrink-0 group min-w-0 justify-self-center md:justify-self-auto"
+              className="flex items-center gap-3 sm:gap-4 shrink-0 group min-w-0 justify-self-center md:justify-self-auto"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              {/* Brand logo — clean round premium badge */}
-              <span className="relative shrink-0">
-                {/* Outer rotating gradient ring */}
+              {/* Logo — glass orb with slow neon orbit */}
+              <span className="relative grid place-items-center shrink-0">
                 <span
                   aria-hidden
-                  className="absolute -inset-[2px] rounded-full opacity-90"
-                  style={{
-                    background:
-                      "conic-gradient(from 0deg, #2f6dff, #1fc796, #f59e0b, #2f6dff)",
-                    animation: "aurora-pan 6s linear infinite",
-                    filter: "blur(0.5px)",
-                  }}
+                  className="absolute inset-[-6px] rounded-full border border-aqua/20 blur-[2px]"
                 />
-                {/* Soft outer glow */}
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -inset-2 rounded-full opacity-60 blur-lg -z-10"
-                  style={{
-                    background:
-                      "radial-gradient(circle, rgba(56,128,255,0.55) 0%, rgba(31,199,150,0.3) 50%, transparent 75%)",
-                  }}
+                  className="absolute inset-[-4px] rounded-full border-t-2 border-l-2 border-aqua/80"
+                  style={{ animation: "spin 9s linear infinite" }}
                 />
-                {/* Inner round badge — frosted light bg so dark logo strokes stay readable */}
                 <span
-                  className="relative grid place-items-center w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden ring-1 ring-white/30 shadow-[0_8px_24px_-6px_rgba(15,23,42,0.6)] group-hover:scale-105 transition-transform duration-500"
-                  style={{ background: "#ffffff" }}
+                  className="relative grid place-items-center w-11 h-11 md:w-12 md:h-12 rounded-full overflow-hidden border border-white/10 bg-gradient-to-tr from-slate-900 via-slate-800 to-slate-900 group-hover:scale-105 transition-transform duration-500"
                 >
-                  {/* Top gloss highlight */}
-                  <span className="pointer-events-none absolute inset-x-1 top-0.5 h-3 rounded-full bg-white/60 blur-[3px]" />
-                  {/* Bottom inner shadow */}
-                  <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_-6px_12px_-6px_rgba(0,0,0,0.08)]" />
                   <img
                     src={ramaSubLogo}
-                    alt="Rama Sub"
+                    alt="Rama Sub logo"
                     draggable={false}
-                    className="relative w-full h-full object-contain p-1 drop-shadow-[0_2px_4px_rgba(30,79,216,0.25)]"
-                  />
-                  {/* Sweeping shine effect on hover */}
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"
-                    style={{
-                      background:
-                        "linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.7) 50%, transparent 65%)",
-                    }}
+                    className="relative w-full h-full object-contain p-[3px]"
                   />
                 </span>
               </span>
 
-              {/* Wordmark — Rama Sub */}
-              <span className="leading-[1.05] min-w-0">
-                <span className="flex items-baseline gap-1.5 whitespace-nowrap">
-                  <span
-                    className="text-[18px] sm:text-[20px] md:text-[24px] font-extrabold tracking-normal bg-clip-text text-transparent"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(180deg, #1e3fb8 0%, #1d4ed8 55%, #0f2773 100%)",
-                    }}
-                  >
-                    Rama
-                  </span>
-                  <span
-                    className="text-[18px] sm:text-[20px] md:text-[24px] font-extrabold tracking-normal bg-clip-text text-transparent"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(180deg, #6ce4b8 0%, #1fc796 55%, #0e9472 100%)",
-                    }}
-                  >
-                    Sub
-                  </span>
+              {/* Wordmark — dominant Bengali, small English caption */}
+              <span className="flex flex-col -space-y-0.5 leading-none min-w-0">
+                <span
+                  className="text-[22px] sm:text-[26px] md:text-[30px] font-bold tracking-tight whitespace-nowrap bg-clip-text text-transparent"
+                  style={{
+                    fontFamily: "'Hind Siliguri', var(--font-heading)",
+                    backgroundImage:
+                      "linear-gradient(90deg, #ffffff 0%, #d4f1ff 55%, #67e8f9 100%)",
+                    filter: "drop-shadow(0 0 14px rgba(34,211,238,0.35))",
+                  }}
+                >
+                  রামা সাব
                 </span>
-                <span className="mt-1 flex w-full max-w-[180px] md:max-w-[200px] items-center justify-between gap-2">
-                  <span className="text-[9px] md:text-[10px] uppercase tracking-[0.22em] font-bold text-white/70">
-                    Fast
+                <span className="flex items-center gap-2 pt-1">
+                  <span className="text-[9px] md:text-[10px] font-bold tracking-[0.22em] uppercase text-white/40">
+                    Rama Sub
                   </span>
-                  <span className="w-1 h-1 rounded-full bg-[#2f6dff] shadow-[0_0_6px_rgba(47,109,255,0.8)]" />
-                  <span className="text-[9px] md:text-[10px] uppercase tracking-[0.22em] font-bold text-white/70">
-                    Secure
-                  </span>
-                  <span className="w-1 h-1 rounded-full bg-[#1fc796] shadow-[0_0_6px_rgba(31,199,150,0.8)]" />
-                  <span className="text-[9px] md:text-[10px] uppercase tracking-[0.22em] font-bold text-white/70">
-                    Reliable
+                  <span className="h-px w-4 bg-aqua/30" />
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inset-0 rounded-full bg-aqua animate-ping opacity-70" />
+                    <span className="relative w-1.5 h-1.5 rounded-full bg-aqua shadow-[0_0_8px_rgba(34,211,238,0.9)]" />
                   </span>
                 </span>
               </span>
