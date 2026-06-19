@@ -101,7 +101,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-title", content: "Rama Sub" },
       { name: "application-name", content: "Rama Sub" },
       { title: "Rama Sub | Trusted Digital Services in Bangladesh" },
-      { name: "description", content: "Rama Sub provides digital products, premium subscriptions, hosting, software, and IT services with fast support and secure access across Bangladesh." },
+      { name: "description", content: "Rama Sub provides digital products, premium subscriptions, hosting, software, with fast support and secure access across Bangladesh." },
       { name: "author", content: "Rama Sub" },
       // Sitewide Open Graph defaults — page-specific og:title / og:description /
       // og:image / og:url MUST be set on the leaf route. We intentionally do NOT
@@ -113,6 +113,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:locale:alternate", content: "en_US" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@ramasub" },
+      { property: "og:title", content: "Rama Sub | Trusted Digital Services in Bangladesh" },
+      { name: "twitter:title", content: "Rama Sub | Trusted Digital Services in Bangladesh" },
+      { property: "og:description", content: "Rama Sub provides digital products, premium subscriptions, hosting, software, with fast support and secure access across Bangladesh." },
+      { name: "twitter:description", content: "Rama Sub provides digital products, premium subscriptions, hosting, software, with fast support and secure access across Bangladesh." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/398b6e84-6fff-45dc-9f6c-edeeb56fbd9b/id-preview-b4c92514--e2352888-ae7a-48ce-968f-674ff8a31d97.lovable.app-1781893257323.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/398b6e84-6fff-45dc-9f6c-edeeb56fbd9b/id-preview-b4c92514--e2352888-ae7a-48ce-968f-674ff8a31d97.lovable.app-1781893257323.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
