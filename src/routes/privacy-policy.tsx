@@ -62,8 +62,8 @@ function PrivacyPolicyPage() {
       <h2>যোগাযোগ</h2>
       <p>
         প্রাইভেসি সংক্রান্ত যেকোনো প্রশ্নে ইমেইল করুন{" "}
-        <a href="mailto:support@accessnowbd.com">support@accessnowbd.com</a> অথবা WhatsApp করুন{" "}
-        <a href="https://wa.me/8801580607614" target="_blank" rel="noreferrer">+880 1580-607614</a>।
+        <a href="mailto:support@ramasub.com">support@ramasub.com</a> অথবা WhatsApp করুন{" "}
+        <a href="https://wa.me/8801601048085" target="_blank" rel="noreferrer">+880 1601-048085</a>।
       </p>
     </PolicyPage>
   );

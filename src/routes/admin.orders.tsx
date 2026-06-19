@@ -88,7 +88,7 @@ function AdminOrders() {
             planName: creds?.plan || firstItem?.name || "Your subscription",
             startsOn: creds?.startsOn, expiresOn: creds?.expiresOn,
             loginEmail: creds?.loginEmail, loginPassword: creds?.loginPassword,
-            manageUrl: "https://accessnowbd.com/orders",
+            manageUrl: "https://ramasub.com/orders",
           },
         }).catch(() => {});
       } else {
@@ -96,7 +96,7 @@ function AdminOrders() {
           templateName: "order-status-update",
           recipientEmail: target.email,
           idempotencyKey: `order-status-${id}-${status}`,
-          templateData: { name: firstName, orderId: sid, status, orderUrl: "https://accessnowbd.com/orders" },
+          templateData: { name: firstName, orderId: sid, status, orderUrl: "https://ramasub.com/orders" },
         }).catch(() => {});
       }
     }

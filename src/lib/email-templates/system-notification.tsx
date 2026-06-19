@@ -46,7 +46,7 @@ export const template = {
     title: 'Your account settings were updated',
     message: 'আপনার phone number সফলভাবে update হয়েছে। যদি এটা আপনি না করে থাকেন, এখনই password পরিবর্তন করুন।',
     ctaLabel: 'Open dashboard',
-    ctaUrl: 'https://accessnowbd.com/dashboard',
+    ctaUrl: 'https://ramasub.com/dashboard',
   },
 } satisfies TemplateEntry
 

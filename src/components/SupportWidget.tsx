@@ -20,14 +20,14 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-const ADMIN_PHONE = "+8801580607614";
-const ADMIN_TEL = "tel:+8801580607614";
+const ADMIN_PHONE = "+8801601048085";
+const ADMIN_TEL = "tel:+8801601048085";
 
 type Msg = { role: "user" | "assistant"; content: string };
 type Tab = "home" | "ai" | "faq";
 
 const WHATSAPP_URL =
-  "https://wa.me/8801580607614?text=" +
+  "https://wa.me/8801601048085?text=" +
   encodeURIComponent("হ্যালো Rama Sub! আমি একটি বিষয়ে সাহায্য চাচ্ছি।");
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/support-chat`;

@@ -42,8 +42,8 @@ const DEFAULTS: LiveChatConfig = {
   whatsapp_enabled: true,
   phone_enabled: true,
   fab_label: "",
-  whatsapp_number: "+8801580607614",
-  phone_number: "+8801580607614",
+  whatsapp_number: "+8801601048085",
+  phone_number: "+8801601048085",
   night_mode: false,
 };
 

@@ -16,7 +16,7 @@ const Email = ({
   ticketId,
   subject = 'your support request',
   message,
-  ticketUrl = 'https://accessnowbd.com/support',
+  ticketUrl = 'https://ramasub.com/support',
 }: Props) => (
   <EmailLayout
     preview={`We've received your ticket: ${subject}`}

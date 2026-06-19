@@ -93,13 +93,13 @@ export function TopUtilityBar() {
           {/* Social icon placeholders removed — no real accounts wired yet */}
 
           <a
-            href="tel:+8801580607614"
+            href="tel:+8801601048085"
             className="hidden md:inline-flex items-center gap-1.5 text-white/85 hover:text-white transition font-semibold"
           >
             <span className="grid place-items-center w-5 h-5 rounded-full bg-aqua/15 ring-1 ring-aqua/35">
               <PhoneCall className="w-2.5 h-2.5 text-aqua" strokeWidth={2.5} />
             </span>
-            <span className="tabular-nums tracking-tight">+880 1580-607614</span>
+            <span className="tabular-nums tracking-tight">+880 1601-048085</span>
           </a>
           <span className="hidden md:block w-px h-3.5 bg-white/15" />
           <span
@@ -461,7 +461,7 @@ export function SiteHeader() {
                     <div className="mt-1 text-white/85 text-[10px] font-semibold">প্যাকেজ দেখুন →</div>
                   </Link>
                   <a
-                    href="https://wa.me/8801580607614"
+                    href="https://wa.me/8801601048085"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setOpen(false)}

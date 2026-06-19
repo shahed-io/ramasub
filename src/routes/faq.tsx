@@ -11,9 +11,9 @@ export const Route = createFileRoute("/faq")({
       { name: "description", content: "Answers to common questions about delivery, payment, warranty and account support at Rama Sub." },
       { property: "og:title", content: "FAQ — Rama Sub" },
       { property: "og:description", content: "Everything you need to know about buying premium subscriptions in Bangladesh." },
-      { property: "og:url", content: "https://accessnowbd.com/faq" },
+      { property: "og:url", content: "https://ramasub.com/faq" },
     ],
-    links: [{ rel: "canonical", href: "https://accessnowbd.com/faq" }],
+    links: [{ rel: "canonical", href: "https://ramasub.com/faq" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -111,7 +111,7 @@ function FaqPage() {
 
             <div className="flex flex-wrap gap-3 shrink-0">
               <a
-                href="https://wa.me/8801580607614"
+                href="https://wa.me/8801601048085"
                 className="h-11 px-5 inline-flex items-center gap-2 rounded-full bg-[#25D366] text-white text-sm font-bold shadow-lg shadow-emerald-500/25 hover:scale-[1.03] transition"
               >
                 <MessageCircle className="w-4 h-4" /> Chat on WhatsApp

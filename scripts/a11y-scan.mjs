@@ -2,14 +2,14 @@
 /**
  * Accessibility scan using Playwright + axe-core.
  * Usage: node scripts/a11y-scan.mjs [baseUrl]
- * Default baseUrl: env BASE_URL or https://accessnowbd.lovable.app
+ * Default baseUrl: env BASE_URL or https://ramasub.lovable.app
  */
 import { chromium } from "playwright";
 import { AxeBuilder } from "@axe-core/playwright";
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 
-const baseUrl = (process.argv[2] || process.env.BASE_URL || "https://accessnowbd.lovable.app").replace(/\/$/, "");
+const baseUrl = (process.argv[2] || process.env.BASE_URL || "https://ramasub.lovable.app").replace(/\/$/, "");
 const routes = (process.env.ROUTES || "/,/auth,/developer,/dashboard,/admin").split(",");
 
 const reportPath = "a11y-report.json";

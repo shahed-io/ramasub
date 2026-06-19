@@ -5,13 +5,13 @@ import { createFileRoute } from '@tanstack/react-router'
 import { TEMPLATES } from '@/lib/email-templates/registry'
 
 // Configuration baked in at scaffold time
-const SITE_NAME = "accessnowbd"
+const SITE_NAME = "ramasub"
 // SENDER_DOMAIN is the verified sender subdomain FQDN (e.g., "notify.example.com").
 // It MUST match the subdomain delegated to Lovable's nameservers. NEVER use the root domain.
-const SENDER_DOMAIN = "notify.accessnowbd.com"
+const SENDER_DOMAIN = "notify.ramasub.com"
 // FROM_DOMAIN is the domain shown in the From: header (e.g., "example.com").
 // Can be the root domain when display_from_root is enabled — this is cosmetic only.
-const FROM_DOMAIN = "notify.accessnowbd.com"
+const FROM_DOMAIN = "notify.ramasub.com"
 
 function redactEmail(email: string | null | undefined): string {
   if (!email) return '***'

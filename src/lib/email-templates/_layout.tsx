@@ -13,8 +13,8 @@ import {
 } from '@react-email/components'
 
 const SITE = 'Rama Sub'
-const SITE_URL = 'https://accessnowbd.com'
-const SUPPORT_EMAIL = 'support@accessnowbd.com'
+const SITE_URL = 'https://ramasub.com'
+const SUPPORT_EMAIL = 'support@ramasub.com'
 
 interface LayoutProps {
   preview: string
@@ -45,7 +45,7 @@ export const EmailLayout = ({ preview, heading, children }: LayoutProps) => (
           </Link>
           {' '}or visit{' '}
           <Link href={SITE_URL} style={footerLink}>
-            accessnowbd.com
+            ramasub.com
           </Link>
           .
         </Text>

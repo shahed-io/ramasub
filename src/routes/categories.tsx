@@ -9,9 +9,9 @@ export const Route = createFileRoute("/categories")({
       { name: "description", content: "Browse every product category on Rama Sub — streaming, AI tools, education, design, VPN, Office and more." },
       { property: "og:title", content: "All Categories — Rama Sub" },
       { property: "og:description", content: "Browse every product category on Rama Sub." },
-      { property: "og:url", content: "https://accessnowbd.com/categories" },
+      { property: "og:url", content: "https://ramasub.com/categories" },
     ],
-    links: [{ rel: "canonical", href: "https://accessnowbd.com/categories" }],
+    links: [{ rel: "canonical", href: "https://ramasub.com/categories" }],
   }),
   component: () => (
     <CategoryPage

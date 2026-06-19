@@ -2,7 +2,7 @@
 // Number is configurable via admin_records (kind='shop_config') but we keep
 // a safe default so the app works even before the config row is fetched.
 
-export const DEFAULT_SHOP_WA = "8801580607614";
+export const DEFAULT_SHOP_WA = "8801601048085";
 
 export type WaOrderItem = {
   name: string;

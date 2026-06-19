@@ -20,7 +20,7 @@ const Email = ({
   paymentMethod,
   transactionId,
   paidAt,
-  orderUrl = 'https://accessnowbd.com/orders',
+  orderUrl = 'https://ramasub.com/orders',
 }: Props) => (
   <EmailLayout
     preview={`Payment received for order ${orderId ?? ''}`}
@@ -77,7 +77,7 @@ export const template = {
     paymentMethod: 'bKash',
     transactionId: '8H92K2L1AB',
     paidAt: '12 Jun 2026, 10:42 PM',
-    orderUrl: 'https://accessnowbd.com/orders',
+    orderUrl: 'https://ramasub.com/orders',
   },
 } satisfies TemplateEntry
 

@@ -17,8 +17,8 @@ export const Route = createFileRoute("/education")({
       { name: "description", content: "Coursera Plus, Canva Pro, CapCut Pro, Adobe Creative Cloud — premium learning and design tools." },
       { property: "og:title", content: "Educational & Creative Subscriptions — Rama Sub" },
       { property: "og:description", content: "Best prices on learning and design subscriptions in Bangladesh." },
-      { property: "og:url", content: "https://accessnowbd.com/education" },
+      { property: "og:url", content: "https://ramasub.com/education" },
     ],
-    links: [{ rel: "canonical", href: "https://accessnowbd.com/education" }],
+    links: [{ rel: "canonical", href: "https://ramasub.com/education" }],
   }),
 });

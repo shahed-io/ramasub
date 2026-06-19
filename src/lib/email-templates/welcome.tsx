@@ -8,7 +8,7 @@ interface Props {
   dashboardUrl?: string
 }
 
-const Email = ({ name, dashboardUrl = 'https://accessnowbd.com' }: Props) => (
+const Email = ({ name, dashboardUrl = 'https://ramasub.com' }: Props) => (
   <EmailLayout
     preview={`Welcome to Rama Sub${name ? `, ${name}` : ''}!`}
     heading={`Welcome${name ? `, ${name}` : ''}! 🎉`}
@@ -34,7 +34,7 @@ export const template = {
   component: Email,
   subject: 'Welcome to Rama Sub 🎉',
   displayName: 'Welcome email',
-  previewData: { name: 'Rahim', dashboardUrl: 'https://accessnowbd.com' },
+  previewData: { name: 'Rahim', dashboardUrl: 'https://ramasub.com' },
 } satisfies TemplateEntry
 
 export default Email

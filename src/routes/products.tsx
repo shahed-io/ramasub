@@ -19,8 +19,8 @@ export const Route = createFileRoute("/products")({
       { name: "description", content: "Browse all premium subscriptions: Netflix, ChatGPT, Spotify, Canva, Coursera and more." },
       { property: "og:title", content: "All Subscriptions — Rama Sub" },
       { property: "og:description", content: "Browse the full catalog of premium digital subscriptions in Bangladesh." },
-      { property: "og:url", content: "https://accessnowbd.com/products" },
+      { property: "og:url", content: "https://ramasub.com/products" },
     ],
-    links: [{ rel: "canonical", href: "https://accessnowbd.com/products" }],
+    links: [{ rel: "canonical", href: "https://ramasub.com/products" }],
   }),
 });

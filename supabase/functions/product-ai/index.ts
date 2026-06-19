@@ -7,10 +7,10 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const ALLOWED_ORIGIN_PATTERNS: RegExp[] = [
-  /^https:\/\/accessnowbd\.lovable\.app$/,
+  /^https:\/\/ramasub\.lovable\.app$/,
   /^https:\/\/[a-z0-9-]+\.lovable\.app$/,
   /^https:\/\/[a-z0-9-]+\.lovableproject\.com$/,
-  /^https:\/\/(www\.)?accessnowbd\.com$/,
+  /^https:\/\/(www\.)?ramasub\.com$/,
   /^http:\/\/localhost(:\d+)?$/,
 ];
 function corsFor(req: Request) {
@@ -60,9 +60,9 @@ HERO ROW (top 55% of card, two columns):
 
 FEATURE ROW (bottom 35%): three equal rounded-square dark glass cards side by side. Each card has the preset accent-colour rim glow, a circular icon badge at the top (line icon in accent colour — pick icons that fit the feature), a bold short feature TITLE (2-3 words, white), and a 2-3 line feature description in soft light-grey. Use the 3 features supplied; if fewer than 3 are supplied invent plausible ones that match the product.
 
-FOOTER STRIP (very bottom): centered tagline "Fast • Secure • Reliable" with two small accent-colour dots as separators, sitting above a thin divider line. Bottom-left: a dark pill containing a globe icon + the text "accessnowbd.com". Bottom-right: the Rama Sub logomark with the words "Rama Sub" (white) and the small caption "Premium Digital Services" under it.
+FOOTER STRIP (very bottom): centered tagline "Fast • Secure • Reliable" with two small accent-colour dots as separators, sitting above a thin divider line. Bottom-left: a dark pill containing a globe icon + the text "ramasub.com". Bottom-right: the Rama Sub logomark with the words "Rama Sub" (white) and the small caption "Premium Digital Services" under it.
 
-QUALITY: cinematic studio render, ultra crisp, no extra text anywhere, no watermark, no Lorem Ipsum, no UI chrome outside the described frame. Render ONLY the text that is explicitly listed (brand name, feature titles + descriptions, "Fast • Secure • Reliable", "accessnowbd.com", "Rama Sub", "Premium Digital Services"). Spell every word correctly.
+QUALITY: cinematic studio render, ultra crisp, no extra text anywhere, no watermark, no Lorem Ipsum, no UI chrome outside the described frame. Render ONLY the text that is explicitly listed (brand name, feature titles + descriptions, "Fast • Secure • Reliable", "ramasub.com", "Rama Sub", "Premium Digital Services"). Spell every word correctly.
 `.trim();
 
 const STYLE_PROMPTS: Record<CardStyle, string> = {
@@ -145,7 +145,7 @@ serve(async (req) => {
         : " For the three feature cards invent 3 short premium-sounding features that genuinely fit this product (each: 2-3 word TITLE + 2-3 line description).";
       const userExtra = imagePrompt?.trim() ? ` Additional creative direction from the operator: ${imagePrompt.trim()}.` : "";
       const prompt = isPremium
-        ? `${styleText}\n\n${subjectLine}${featuresLine}${userExtra}\n\nRender only the text described in the layout (brand wordmark, the 3 feature titles + descriptions, "Fast • Secure • Reliable", "accessnowbd.com", "Rama Sub", "Premium Digital Services"). No other text, no watermark. Ultra high detail, 1:1 square.`
+        ? `${styleText}\n\n${subjectLine}${featuresLine}${userExtra}\n\nRender only the text described in the layout (brand wordmark, the 3 feature titles + descriptions, "Fast • Secure • Reliable", "ramasub.com", "Rama Sub", "Premium Digital Services"). No other text, no watermark. Ultra high detail, 1:1 square.`
         : (imagePrompt?.trim() || `${styleText}. ${subjectLine} Branded for ${SHOP_BRAND}. 1:1 square, ultra high detail, no text, no watermark.`);
 
       // ---- Path A: Lovable AI Gateway (preferred) — Nano Banana 2 with fallback ----
@@ -293,7 +293,7 @@ The "description" field MUST be markdown that follows EXACTLY this section order
       short: `Generate copy for this digital product. Keep tagline under 70 chars and short_description 2-3 short sentences. Return JSON: { "tagline": string, "short_description": string }.\n\nProduct:\n${JSON.stringify(product, null, 2)}`,
       rich: `Generate rich SEO copy. Return JSON: { "description": string, "seo_title": string (max 60 chars), "seo_description": string (max 155 chars), "tags": string[] (5-8 keywords) }.\n\nThe "description" MUST follow this template exactly:\n${DESCRIPTION_TEMPLATE}\n\nProduct:\n${JSON.stringify(product, null, 2)}`,
       all: `Generate the full listing for this product. Return JSON with: tagline (under 70 chars), short_description (2-3 sentences), description (markdown following the template below EXACTLY), features (array of 5-8 short bullet strings), seo_title (max 60 chars), seo_description (max 155 chars), tags (array of 5-8 keywords).\n\nDescription template (MANDATORY):\n${DESCRIPTION_TEMPLATE}\n\nProduct:\n${JSON.stringify(product, null, 2)}`,
-      seo: `Write Google-ranking SEO meta tags for this product page on accessnowbd.com.
+      seo: `Write Google-ranking SEO meta tags for this product page on ramasub.com.
 
 Rules:
 - seo_title: 50–60 chars. MUST start with the product/brand name + a buyer-intent keyword (e.g. "Buy", "Price", "Subscription"). Include "Bangladesh" or "BD". End with " | Rama Sub". Use a power word (Cheap, Official, Premium, Genuine, Instant) when natural.

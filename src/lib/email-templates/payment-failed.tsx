@@ -16,7 +16,7 @@ const Email = ({
   orderId,
   amount,
   reason,
-  retryUrl = 'https://accessnowbd.com/cart',
+  retryUrl = 'https://ramasub.com/cart',
 }: Props) => (
   <EmailLayout
     preview={`Payment failed for order ${orderId ?? ''}`}
@@ -64,7 +64,7 @@ export const template = {
     orderId: 'ANB-104821',
     amount: '350',
     reason: 'bKash transaction ID could not be verified',
-    retryUrl: 'https://accessnowbd.com/cart',
+    retryUrl: 'https://ramasub.com/cart',
   },
 } satisfies TemplateEntry
 

@@ -27,7 +27,7 @@ const fmt = (v?: number | string) =>
 const Email = ({
   name,
   orderId,
-  orderUrl = 'https://accessnowbd.com/orders',
+  orderUrl = 'https://ramasub.com/orders',
   items = [],
   subtotal,
   discount,

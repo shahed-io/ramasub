@@ -1,10 +1,10 @@
 // Rama Sub — AI support chat (streaming via Lovable AI Gateway)
 const ALLOWED_ORIGIN_PATTERNS: RegExp[] = [
-  /^https:\/\/accessnowbd\.lovable\.app$/,
+  /^https:\/\/ramasub\.lovable\.app$/,
   /^https:\/\/[a-z0-9-]+\.lovable\.app$/,
   /^https:\/\/[a-z0-9-]+\.lovableproject\.com$/,
-  /^https:\/\/accessnowbd\.com$/,
-  /^https:\/\/(www\.)?accessnowbd\.com$/,
+  /^https:\/\/ramasub\.com$/,
+  /^https:\/\/(www\.)?ramasub\.com$/,
   /^http:\/\/localhost(:\d+)?$/,
 ];
 function corsFor(req: Request) {
@@ -42,8 +42,8 @@ const SYSTEM_PROMPT = `তুমি Rama Sub-এর প্রিমিয়া�
 🕒 অফিস টাইম: প্রতিদিন সকাল ১১টা – রাত ১১টা
 
 📞 জরুরি যোগাযোগ:
-- WhatsApp: +880 1580-607614
-- Email: support@accessnowbd.com
+- WhatsApp: +880 1601-048085
+- Email: support@ramasub.com
 
 নিয়ম:
 - উত্তর সংক্ষিপ্ত রাখো (২–৪ লাইন সাধারণত)
