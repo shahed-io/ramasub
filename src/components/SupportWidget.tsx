@@ -275,16 +275,16 @@ export function SupportWidget() {
               {/* Ripple ping waves (only when idle) */}
               {!open && !chooser && (
                 <>
-                  <span className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: `${cfg?.ring_color ?? "#7c3aed"}33` }} />
-                  <span className="absolute inset-0 rounded-full animate-ping [animation-delay:0.6s]" style={{ backgroundColor: `${cfg?.spin_color_2 ?? "#00e5ff"}26` }} />
+                  <span className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: `${cfg?.ring_color ?? "#7c3aed"}66` }} />
+                  <span className="absolute inset-0 rounded-full animate-ping [animation-delay:0.6s]" style={{ backgroundColor: `${cfg?.spin_color_2 ?? "#a78bfa"}4d` }} />
                 </>
               )}
 
               {/* Soft ambient glow */}
               <span
-                className="absolute -inset-4 rounded-full opacity-40 blur-2xl group-hover:opacity-70 transition-opacity duration-500 animate-pulse"
+                className="absolute -inset-4 rounded-full opacity-60 blur-2xl group-hover:opacity-100 transition-opacity duration-500 animate-pulse"
                 style={{
-                  background: `linear-gradient(135deg, ${cfg?.ring_color ?? "#7c3aed"}33, ${cfg?.spin_color_1 ?? "#7c3aed"}33, ${cfg?.spin_color_2 ?? "#00e5ff"}33)`,
+                  background: `linear-gradient(135deg, ${cfg?.ring_color ?? "#7c3aed"}66, ${cfg?.spin_color_1 ?? "#7c3aed"}66, ${cfg?.spin_color_2 ?? "#a78bfa"}66)`,
                 }}
               />
 
