@@ -28,7 +28,7 @@ type Tab = "home" | "ai" | "faq";
 
 const WHATSAPP_URL =
   "https://wa.me/8801580607614?text=" +
-  encodeURIComponent("হ্যালো AccessNow BD! আমি একটি বিষয়ে সাহায্য চাচ্ছি।");
+  encodeURIComponent("হ্যালো Rama Sub! আমি একটি বিষয়ে সাহায্য চাচ্ছি।");
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/support-chat`;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
@@ -563,7 +563,7 @@ export function SupportWidget() {
                     <div className="rounded-2xl rounded-tl-sm bg-white/[0.06] border border-white/10 px-3.5 py-2.5 text-[13px] text-white/90 max-w-[85%] leading-relaxed">
                       আসসালামু আলাইকুম! 👋
                       <br />
-                      আমি AccessNow-এর AI সহকারী। প্রোডাক্ট, পেমেন্ট, ডেলিভারি — যেকোনো বিষয়ে জিজ্ঞাসা করুন।
+                      আমি Rama Sub-এর AI সহকারী। প্রোডাক্ট, পেমেন্ট, ডেলিভারি — যেকোনো বিষয়ে জিজ্ঞাসা করুন।
                     </div>
                   </div>
 

@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* AccessNow BD — Premium DARK Glassmorphism Theme
+/* Rama Sub — Premium DARK Glassmorphism Theme
    Deep midnight blue canvas, frosted dark glass cards, neon cyan/violet glows.
    Fonts are loaded via <link> tags in src/routes/__root.tsx (Lightning CSS cannot resolve remote @import). */
 

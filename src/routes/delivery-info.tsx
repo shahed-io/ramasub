@@ -5,9 +5,9 @@ export const Route = createFileRoute("/delivery-info")({
   component: DeliveryInfoPage,
   head: () => ({
     meta: [
-      { title: "Delivery Info — AccessNow BD" },
-      { name: "description", content: "Digital delivery times and process for AccessNow BD orders." },
-      { property: "og:title", content: "Delivery Info — AccessNow BD" },
+      { title: "Delivery Info — Rama Sub" },
+      { name: "description", content: "Digital delivery times and process for Rama Sub orders." },
+      { property: "og:title", content: "Delivery Info — Rama Sub" },
       { property: "og:description", content: "Fast digital delivery — usually 10-30 minutes." },
     ],
   }),
@@ -40,7 +40,7 @@ function DeliveryInfoPage() {
       <ul>
         <li>রেজিস্টার্ড ইমেইলে — মূল অ্যাকাউন্ট ক্রেডেনশিয়ালস।</li>
         <li>WhatsApp মোবাইল নম্বরে — কুইক অ্যাক্সেস ও সাপোর্ট চ্যানেল।</li>
-        <li>AccessNow BD অ্যাকাউন্টের <em>Orders</em> সেকশনে — ব্যাকআপ হিসেবে সর্বদা সংরক্ষিত।</li>
+        <li>Rama Sub অ্যাকাউন্টের <em>Orders</em> সেকশনে — ব্যাকআপ হিসেবে সর্বদা সংরক্ষিত।</li>
       </ul>
 
       <h2>সমস্যা হলে কী করবেন</h2>

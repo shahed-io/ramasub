@@ -11,7 +11,7 @@ interface Props {
 
 const Email = ({ name, message, topic }: Props) => (
   <EmailLayout
-    preview="We received your message — AccessNow BD"
+    preview="We received your message — Rama Sub"
     heading="আপনার message পেয়েছি 📨"
   >
     <Text style={styles.text}>
@@ -43,7 +43,7 @@ const Email = ({ name, message, topic }: Props) => (
 
 export const template = {
   component: Email,
-  subject: 'We received your message — AccessNow BD',
+  subject: 'We received your message — Rama Sub',
   displayName: 'Contact form confirmation',
   previewData: {
     name: 'Karim',

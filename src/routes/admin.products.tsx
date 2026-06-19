@@ -1379,12 +1379,12 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  <span className="font-bold text-slate-900">AI Card Generator</span>
  <span className="text-[9px] font-bold tracking-wider text-slate-700 bg-slate-100 px-1.5 py-0.5 rounded-full">PREMIUM</span>
  </div>
- <div className="text-xs text-slate-500">AccessNow BD ব্র্যান্ডিংসহ প্রিমিয়াম প্রোডাক্ট কার্ড তৈরি করুন</div>
+ <div className="text-xs text-slate-500">Rama Sub ব্র্যান্ডিংসহ প্রিমিয়াম প্রোডাক্ট কার্ড তৈরি করুন</div>
  </div>
  </div>
 
           <div className="px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600">
-            💡 দুই ধরনের প্রিমিয়াম গ্লাস-কার্ড ডিজাইন — AccessNow BD ব্র্যান্ডিং, ওয়েবসাইট ও ফোন নম্বর সহ
+            💡 দুই ধরনের প্রিমিয়াম গ্লাস-কার্ড ডিজাইন — Rama Sub ব্র্যান্ডিং, ওয়েবসাইট ও ফোন নম্বর সহ
           </div>
 
           <input value={imagePrompt} onChange={(e) => setImagePrompt(e.target.value)} placeholder="Optional: describe the look..." className="mt-3 w-full h-10 px-3 rounded-xl border border-slate-200 text-xs outline-none focus:border-slate-400" />

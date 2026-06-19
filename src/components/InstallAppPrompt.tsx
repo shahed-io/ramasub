@@ -111,7 +111,7 @@ export function InstallAppPrompt() {
           </div>
           <div className="flex-1">
             <p className="text-sm font-semibold text-foreground">
-              AccessNow BD অ্যাপ ইনস্টল করুন
+              Rama Sub অ্যাপ ইনস্টল করুন
             </p>
             <p className="mt-0.5 text-xs text-muted-foreground">
               হোম স্ক্রিনে যোগ করে দ্রুত অ্যাকসেস নিন।

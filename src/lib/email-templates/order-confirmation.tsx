@@ -99,7 +99,7 @@ const Email = ({
 
 export const template = {
   component: Email,
-  subject: (data) => `Order ${data?.orderId ? `#${data.orderId} ` : ''}received — AccessNow BD`,
+  subject: (data) => `Order ${data?.orderId ? `#${data.orderId} ` : ''}received — Rama Sub`,
   displayName: 'Order confirmation',
   previewData: {
     name: 'Rahim',

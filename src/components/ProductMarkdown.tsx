@@ -2,7 +2,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 // Renders the structured product description (with H2/H3 sections, bullets, etc.)
-// in a consistent, branded way. Colors the section headings using the AccessNow palette.
+// in a consistent, branded way. Colors the section headings using the Rama Sub palette.
 export function ProductMarkdown({ source }: { source?: string | null }) {
   if (!source) return null;
   return (

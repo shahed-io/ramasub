@@ -30,7 +30,7 @@ export function waOrderUrl(
   const total = items.reduce((s, it) => s + it.price * it.qty, 0);
 
   const lines: string[] = [];
-  lines.push("🛒 *AccessNow BD — New Order*", "");
+  lines.push("🛒 *Rama Sub — New Order*", "");
   if (items.length) {
     lines.push("*Items:*");
     items.forEach((it, i) => {

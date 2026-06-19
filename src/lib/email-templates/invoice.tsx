@@ -33,7 +33,7 @@ const Email = ({
   invoiceUrl = 'https://accessnowbd.com/orders',
 }: Props) => (
   <EmailLayout
-    preview={`Invoice ${orderId ?? ''} from AccessNow BD`}
+    preview={`Invoice ${orderId ?? ''} from Rama Sub`}
     heading={`Invoice ${orderId ?? ''}`}
   >
     <Text style={styles.text}>
@@ -85,7 +85,7 @@ const Email = ({
 
 export const template = {
   component: Email,
-  subject: 'Your AccessNow BD invoice',
+  subject: 'Your Rama Sub invoice',
   displayName: 'Invoice email',
   previewData: {
     name: 'Rahim',

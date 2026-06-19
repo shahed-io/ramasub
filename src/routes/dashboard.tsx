@@ -18,7 +18,7 @@ export const Route = createFileRoute("/dashboard")({
   component: DashboardPage,
   head: () => ({
     meta: [
-      { title: "User Dashboard — AccessNow BD" },
+      { title: "User Dashboard — Rama Sub" },
       { name: "description", content: "আপনার অর্ডার, প্রোফাইল ও সব কিছু এক জায়গায়।" },
     ],
   }),
@@ -1099,7 +1099,7 @@ function ReferralView({ user }: { user: { id?: string; email?: string } | null }
   const [copied, setCopied] = useState(false);
   const copy = () => { navigator.clipboard.writeText(link); setCopied(true); setTimeout(() => setCopied(false), 1500); };
   const share = async () => {
-    const data = { title: "AccessNow BD", text: "আমার রেফারেল লিংক দিয়ে সাইন আপ করুন!", url: link };
+    const data = { title: "Rama Sub", text: "আমার রেফারেল লিংক দিয়ে সাইন আপ করুন!", url: link };
     if ((navigator as any).share) { try { await (navigator as any).share(data); } catch { /* user cancelled */ } }
     else copy();
   };
@@ -1319,7 +1319,7 @@ function InstallAppView() {
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl grid place-items-center text-primary-foreground" style={{ background: "linear-gradient(135deg,#6366f1,#8b5cf6,#d946ef)" }}><Smartphone className="w-6 h-6" /></div>
           <div className="flex-1">
-            <div className="font-bold text-foreground">AccessNow BD App</div>
+            <div className="font-bold text-foreground">Rama Sub App</div>
             <div className="text-xs text-muted-foreground mt-0.5">দ্রুত অ্যাক্সেস, অফলাইন সাপোর্ট ও পুশ নোটিফিকেশন</div>
           </div>
           {installed ? (

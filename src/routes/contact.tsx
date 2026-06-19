@@ -9,9 +9,9 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
   head: () => ({
     meta: [
-      { title: "Contact — AccessNow BD" },
-      { name: "description", content: "Reach AccessNow BD via WhatsApp, email, or the contact form. Office hours 11 AM – 11 PM." },
-      { property: "og:title", content: "Contact AccessNow BD" },
+      { title: "Contact — Rama Sub" },
+      { name: "description", content: "Reach Rama Sub via WhatsApp, email, or the contact form. Office hours 11 AM – 11 PM." },
+      { property: "og:title", content: "Contact Rama Sub" },
       { property: "og:description", content: "We're here to help — WhatsApp, email, or send us a message." },
       { property: "og:url", content: "https://accessnowbd.com/contact" },
     ],

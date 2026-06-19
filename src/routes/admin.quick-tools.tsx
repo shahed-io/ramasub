@@ -147,7 +147,7 @@ function InvoiceFromOrders() {
       const url = await uploadInvoicePdf(blob, receiptFileName(receipt));
       const itemsTxt = receipt.items.map((it, i) => `${i + 1}. ${it.name ?? it.slug} — ${it.planPeriod} × ${it.qty}`).join("\n");
       const msg = [
-        `🧾 *${shop?.shop_name ?? "AccessNow BD"} — Invoice*`,
+        `🧾 *${shop?.shop_name ?? "Rama Sub"} — Invoice*`,
         `Order #${o.id.slice(0, 8).toUpperCase()}`,
         "",
         itemsTxt,
@@ -320,7 +320,7 @@ function QuickOrderCreator() {
       const url = await uploadInvoicePdf(blob, receiptFileName(receipt));
       const itemsTxt = receipt.items.map((it, i) => `${i + 1}. ${it.name} — ${it.planPeriod} × ${it.qty} = ${fmt((it.price ?? 0) * it.qty)}`).join("\n");
       const msg = [
-        `🧾 *${shop?.shop_name ?? "AccessNow BD"} — Invoice*`,
+        `🧾 *${shop?.shop_name ?? "Rama Sub"} — Invoice*`,
         `Order #${receipt.id}`,
         "",
         itemsTxt,
@@ -462,7 +462,7 @@ function BulkDeliverySender() {
   const renderMessage = (o: OrderRow) => {
     const items = (o.items ?? []).map((it) => `${it.name ?? it.slug} (${it.planPeriod ?? it.plan ?? ""})`).join(", ");
     return template
-      .replace(/\{\{shop\}\}/g, shop?.shop_name ?? "AccessNow BD")
+      .replace(/\{\{shop\}\}/g, shop?.shop_name ?? "Rama Sub")
       .replace(/\{\{order_id\}\}/g, o.id.slice(0, 8).toUpperCase())
       .replace(/\{\{customer\}\}/g, o.full_name || "Customer")
       .replace(/\{\{items\}\}/g, items)

@@ -13,12 +13,12 @@ interface Props {
 
 const Email = ({ name, device, location, ipAddress, signedInAt }: Props) => (
   <EmailLayout
-    preview="New device sign-in to your AccessNow BD account"
+    preview="New device sign-in to your Rama Sub account"
     heading="New device login 🔔"
   >
     <Text style={styles.text}>
       Hi{name ? ` ${name}` : ''}, আমরা detect করেছি যে একটা নতুন device থেকে
-      আপনার AccessNow BD account-এ login হয়েছে।
+      আপনার Rama Sub account-এ login হয়েছে।
     </Text>
     <div style={styles.totalBox}>
       {device && (

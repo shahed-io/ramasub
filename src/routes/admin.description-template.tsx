@@ -4,14 +4,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { ProductMarkdown } from "@/components/ProductMarkdown";
 import { toast } from "sonner";
 
-const FALLBACK = `## {Product Name} – {one-line value proposition}\n\n{Intro paragraph}\n\n## Choose Your Plan\n\n### 🟪 Basic – 1 month\n- benefit\n\n## Powerful Features\n- feature\n\n## Why Buy From AccessNow BD\n- Trusted provider\n\n## Delivery Information\n- Within 1–2 hours`;
+const FALLBACK = `## {Product Name} – {one-line value proposition}\n\n{Intro paragraph}\n\n## Choose Your Plan\n\n### 🟪 Basic – 1 month\n- benefit\n\n## Powerful Features\n- feature\n\n## Why Buy From Rama Sub\n- Trusted provider\n\n## Delivery Information\n- Within 1–2 hours`;
 
 const SECTION_SNIPPETS: { label: string; body: string }[] = [
   { label: "Intro", body: "## {Product Name} – {one-line value proposition}\n\n{2-4 sentence intro paragraph.}\n" },
   { label: "Plans", body: "## Choose Your {Brand} Plan\n\n### 🟪 {Plan 1} – {duration}\n- benefit\n- benefit\n\n### 🟦 {Plan 2} – {duration}\n- benefit\n\n### 🟩 {Plan 3} – {duration}\n- benefit\n" },
   { label: "Features", body: "## Powerful {Brand} Features\n- feature\n- feature\n- feature\n" },
   { label: "Perfect For", body: "## Perfect For\n- **Content Creators** – reason\n- **Marketers** – reason\n- **Students** – reason\n" },
-  { label: "Why Buy", body: "## Why Buy From AccessNow BD\n- Trusted provider in Bangladesh\n- Secure delivery\n- Fast support\n" },
+  { label: "Why Buy", body: "## Why Buy From Rama Sub\n- Trusted provider in Bangladesh\n- Secure delivery\n- Fast support\n" },
   { label: "Delivery", body: "## Delivery Information\n- Delivery within 1–2 hours\n- Secure activation\n" },
   { label: "Note", body: "\n**Note:** {Region-specific availability note}\n" },
 ];

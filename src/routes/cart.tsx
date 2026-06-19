@@ -15,7 +15,7 @@ const cartSearchSchema = z.object({
 export const Route = createFileRoute("/cart")({
   component: CartPage,
   validateSearch: zodValidator(cartSearchSchema),
-  head: () => ({ meta: [{ title: "Your Cart — AccessNow BD" }] }),
+  head: () => ({ meta: [{ title: "Your Cart — Rama Sub" }] }),
 });
 
 function CartPage() {

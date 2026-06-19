@@ -13,9 +13,9 @@ export const Route = createFileRoute("/education")({
   ),
   head: () => ({
     meta: [
-      { title: "Educational & Creative Subscriptions — AccessNow BD" },
+      { title: "Educational & Creative Subscriptions — Rama Sub" },
       { name: "description", content: "Coursera Plus, Canva Pro, CapCut Pro, Adobe Creative Cloud — premium learning and design tools." },
-      { property: "og:title", content: "Educational & Creative Subscriptions — AccessNow BD" },
+      { property: "og:title", content: "Educational & Creative Subscriptions — Rama Sub" },
       { property: "og:description", content: "Best prices on learning and design subscriptions in Bangladesh." },
       { property: "og:url", content: "https://accessnowbd.com/education" },
     ],

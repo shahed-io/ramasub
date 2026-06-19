@@ -8,7 +8,7 @@ import { rememberReturnTo } from "@/lib/auth-return-to";
 
 export const Route = createFileRoute("/orders")({
   component: OrdersPage,
-  head: () => ({ meta: [{ title: "My Orders — AccessNow BD" }] }),
+  head: () => ({ meta: [{ title: "My Orders — Rama Sub" }] }),
 });
 
 type OrderItem = { slug: string; planPeriod: string; qty: number; name?: string; emoji?: string; gradient?: string; price?: number };

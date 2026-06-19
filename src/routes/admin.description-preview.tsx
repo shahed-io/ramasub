@@ -26,7 +26,7 @@ Brief intro paragraph describing what this product does and why customers love i
 - Small business owners
 - Anyone who wants premium quality
 
-## Why Buy From AccessNow BD
+## Why Buy From Rama Sub
 
 - ✅ 100% genuine & verified
 - ✅ Instant delivery after payment

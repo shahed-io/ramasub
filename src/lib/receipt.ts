@@ -31,7 +31,7 @@ export function buildReceiptDoc(order: ReceiptOrder) {
   doc.setTextColor(255, 255, 255);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(22);
-  doc.text("AccessNow BD", margin, 42);
+  doc.text("Rama Sub", margin, 42);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(11);
   doc.text("Payment Receipt", margin, 64);
@@ -152,7 +152,7 @@ export function buildReceiptDoc(order: ReceiptOrder) {
     { align: "center" },
   );
   doc.text(
-    "AccessNow BD · Premium digital subscriptions",
+    "Rama Sub · Premium digital subscriptions",
     pageW / 2,
     footerY + 14,
     { align: "center" },
@@ -162,7 +162,7 @@ export function buildReceiptDoc(order: ReceiptOrder) {
 }
 
 export function receiptFileName(order: ReceiptOrder) {
-  return `AccessNowBD-Receipt-${order.id.slice(0, 8).toUpperCase()}.pdf`;
+  return `RamaSub-Receipt-${order.id.slice(0, 8).toUpperCase()}.pdf`;
 }
 
 export function downloadReceiptPdf(order: ReceiptOrder) {

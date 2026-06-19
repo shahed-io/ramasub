@@ -5,9 +5,9 @@ export const Route = createFileRoute("/refund-policy")({
   component: RefundPolicyPage,
   head: () => ({
     meta: [
-      { title: "Refund & Return Policy — AccessNow BD" },
+      { title: "Refund & Return Policy — Rama Sub" },
       { name: "description", content: "30-day warranty, replacement and refund policy for digital subscriptions." },
-      { property: "og:title", content: "Refund & Return Policy — AccessNow BD" },
+      { property: "og:title", content: "Refund & Return Policy — Rama Sub" },
       { property: "og:description", content: "Our hassle-free refund and replacement policy." },
     ],
   }),
@@ -18,7 +18,7 @@ function RefundPolicyPage() {
     <PolicyPage
       title="Refund & Return Policy"
       eyebrow="30-day full warranty"
-      subtitle="AccessNow BD-এ প্রতিটি অর্ডারে রয়েছে ৩০ দিনের সম্পূর্ণ ওয়ারেন্টি — দ্রুত রিপ্লেসমেন্ট অথবা ১০০% টাকা ফেরতের নিশ্চয়তা।"
+      subtitle="Rama Sub-এ প্রতিটি অর্ডারে রয়েছে ৩০ দিনের সম্পূর্ণ ওয়ারেন্টি — দ্রুত রিপ্লেসমেন্ট অথবা ১০০% টাকা ফেরতের নিশ্চয়তা।"
     >
       <h2>ওয়ারেন্টি কভারেজ</h2>
       <ul>

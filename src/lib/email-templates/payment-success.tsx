@@ -28,7 +28,7 @@ const Email = ({
   >
     <Text style={styles.text}>
       Hi{name ? ` ${name}` : ''}, আপনার payment সফলভাবে গ্রহণ করা হয়েছে। ধন্যবাদ
-      AccessNow BD-তে অর্ডার দেওয়ার জন্য।
+      Rama Sub-তে অর্ডার দেওয়ার জন্য।
     </Text>
     <div style={styles.totalBox}>
       {orderId && (

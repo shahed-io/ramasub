@@ -8,7 +8,7 @@ interface ReauthenticationEmailProps {
 
 export const ReauthenticationEmail = ({ token }: ReauthenticationEmailProps) => (
   <EmailLayout
-    preview="Your AccessNow BD verification code"
+    preview="Your Rama Sub verification code"
     heading="Your verification code 🔐"
   >
     <Text style={styles.text}>

@@ -39,7 +39,7 @@ const Email = ({
 
 export const template = {
   component: Email,
-  subject: (data) => data?.title ?? 'System notification — AccessNow BD',
+  subject: (data) => data?.title ?? 'System notification — Rama Sub',
   displayName: 'System notification (generic)',
   previewData: {
     name: 'Karim',

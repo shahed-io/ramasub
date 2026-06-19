@@ -188,7 +188,7 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
           <Link to="/" className="flex items-center justify-center mb-7 group">
             <img
               src={accessNowLogo}
-              alt="AccessNow BD — Fast, Secure, Reliable"
+              alt="Rama Sub — Fast, Secure, Reliable"
               draggable={false}
               className="h-14 w-auto object-contain group-hover:scale-105 transition-transform"
             />
@@ -199,7 +199,7 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
             {isLogin ? "Welcome back" : "Create account"}
           </h1>
           <p className="mt-2 text-center text-slate-500 text-[14px]">
-            {isLogin ? "Please enter your detail to sign in." : "Sign up to get started with AccessNow BD."}
+            {isLogin ? "Please enter your detail to sign in." : "Sign up to get started with Rama Sub."}
           </p>
 
           {/* Social buttons */}
@@ -434,7 +434,7 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
       </div>
 
       <p className="mt-6 text-center text-[12.5px] text-slate-400">
-        © {year} AccessNow BD
+        © {year} Rama Sub
       </p>
     </div>
   );

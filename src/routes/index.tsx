@@ -40,9 +40,9 @@ export const Route = createFileRoute("/")({
   },
   head: () => ({
     meta: [
-      { title: "AccessNow BD — Digital Products & Software" },
+      { title: "Rama Sub — Digital Products & Software" },
       { name: "description", content: "Buy verified digital products, subscriptions, software licenses, AI tools, OTT, VPN and education services in Bangladesh with fast delivery." },
-      { property: "og:title", content: "AccessNow BD — Digital Products & Software" },
+      { property: "og:title", content: "Rama Sub — Digital Products & Software" },
       { property: "og:description", content: "White glassmorphism digital marketplace for premium software, subscriptions and services." },
       { property: "og:url", content: "https://accessnowbd.com/" },
       { property: "og:type", content: "website" },
@@ -54,7 +54,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "AccessNow BD",
+          name: "Rama Sub",
           url: "https://accessnowbd.com",
           logo: "https://accessnowbd.com/icons/apple-touch-icon.png",
           sameAs: ["https://accessnowbd.lovable.app"],
@@ -65,7 +65,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "AccessNow BD",
+          name: "Rama Sub",
           url: "https://accessnowbd.com",
           potentialAction: {
             "@type": "SearchAction",
@@ -632,7 +632,7 @@ function SectionTitle({ eyebrow, title, subtitle, action, to, compact = false }:
 }
 
 const CUSTOMER_REVIEWS = [
-  { name: "তাহসিন কবির", city: "ঢাকা", product: "ChatGPT Plus", rating: 5, text: "মাত্র ৭ মিনিটে ডেলিভারি পেয়েছি। অরিজিনাল অ্যাক্সেস, কোনো ঝামেলা নেই। AccessNow BD-এর সার্ভিস সত্যিই অসাধারণ!", avatarColor: "#7C3AED" },
+  { name: "তাহসিন কবির", city: "ঢাকা", product: "ChatGPT Plus", rating: 5, text: "মাত্র ৭ মিনিটে ডেলিভারি পেয়েছি। অরিজিনাল অ্যাক্সেস, কোনো ঝামেলা নেই। Rama Sub-এর সার্ভিস সত্যিই অসাধারণ!", avatarColor: "#7C3AED" },
   { name: "মালিহা রহমান", city: "চট্টগ্রাম", product: "Canva Pro", rating: 5, text: "এক বছরের Canva Pro নিয়েছি, পুরো একদম স্মুথ কাজ করছে। সাপোর্ট টিম খুবই হেল্পফুল ছিল।", avatarColor: "#EC4899" },
   { name: "রাকিব হাসান", city: "সিলেট", product: "Netflix Premium", rating: 5, text: "৪টা স্ক্রিন একসাথে চলছে, 4K কোয়ালিটি পারফেক্ট। দামও সবচেয়ে কম পেয়েছি এখানে।", avatarColor: "#E50914" },
   { name: "সাজিদ ইসলাম", city: "রাজশাহী", product: "Windows 11 Pro", rating: 5, text: "জেনুইন লাইসেন্স কী পেয়েছি, Microsoft অ্যাকাউন্টে অ্যাক্টিভ হয়েছে সাথে সাথে। হাইলি রেকমেন্ডেড।", avatarColor: "#0078D4" },

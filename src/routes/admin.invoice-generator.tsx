@@ -147,7 +147,7 @@ function InvoiceGeneratorPage() {
     doc.setTextColor(255, 255, 255);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
-    doc.text("AccessNow BD", margin, 42);
+    doc.text("Rama Sub", margin, 42);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(11);
     doc.text("Invoice", margin, 64);

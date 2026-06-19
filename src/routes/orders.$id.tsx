@@ -19,7 +19,7 @@ const orderSearchSchema = z.object({
 export const Route = createFileRoute("/orders/$id")({
   component: OrderDetailPage,
   validateSearch: zodValidator(orderSearchSchema),
-  head: () => ({ meta: [{ title: "Order Details — AccessNow BD" }] }),
+  head: () => ({ meta: [{ title: "Order Details — Rama Sub" }] }),
 });
 
 type OrderItem = { slug: string; planPeriod: string; qty: number; name?: string; emoji?: string; gradient?: string; price?: number };
@@ -163,7 +163,7 @@ function OrderDetailPage() {
         <div className="mx-auto max-w-[1440px] px-4 md:px-10 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 font-bold text-lg" style={{ fontFamily: "var(--font-heading)" }}>
             <span className="grid place-items-center w-9 h-9 rounded-xl bg-aurora text-white"><Crown className="w-4 h-4" /></span>
-            AccessNow <span className="text-aurora">BD</span>
+            Rama <span className="text-aurora">Sub</span>
           </Link>
           <div className="flex items-center gap-1.5"><AccountIcon /><CartIcon /></div>
         </div>

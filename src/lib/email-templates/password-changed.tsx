@@ -11,11 +11,11 @@ interface Props {
 
 const Email = ({ name, changedAt, ipAddress }: Props) => (
   <EmailLayout
-    preview="Your AccessNow BD password was changed"
+    preview="Your Rama Sub password was changed"
     heading="Password changed ✅"
   >
     <Text style={styles.text}>
-      Hi{name ? ` ${name}` : ''}, আপনার AccessNow BD account-এর password
+      Hi{name ? ` ${name}` : ''}, আপনার Rama Sub account-এর password
       সফলভাবে পরিবর্তন করা হয়েছে।
     </Text>
     {(changedAt || ipAddress) && (

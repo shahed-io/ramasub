@@ -5,9 +5,9 @@ export const Route = createFileRoute("/terms")({
   component: TermsPage,
   head: () => ({
     meta: [
-      { title: "Terms & Conditions — AccessNow BD" },
-      { name: "description", content: "Terms of use for purchasing digital subscriptions on AccessNow BD." },
-      { property: "og:title", content: "Terms & Conditions — AccessNow BD" },
+      { title: "Terms & Conditions — Rama Sub" },
+      { name: "description", content: "Terms of use for purchasing digital subscriptions on Rama Sub." },
+      { property: "og:title", content: "Terms & Conditions — Rama Sub" },
       { property: "og:description", content: "Read the terms governing your purchase and account use." },
     ],
   }),
@@ -18,11 +18,11 @@ function TermsPage() {
     <PolicyPage
       title="Terms & Conditions"
       eyebrow="Clear rules · Fair service"
-      subtitle="AccessNow BD ব্যবহারের পূর্বে অনুগ্রহ করে নিম্নলিখিত শর্তাবলী মনোযোগ দিয়ে পড়ুন। আমাদের সেবা ব্যবহার মানে আপনি এসব শর্তে সম্মতি দিচ্ছেন।"
+      subtitle="Rama Sub ব্যবহারের পূর্বে অনুগ্রহ করে নিম্নলিখিত শর্তাবলী মনোযোগ দিয়ে পড়ুন। আমাদের সেবা ব্যবহার মানে আপনি এসব শর্তে সম্মতি দিচ্ছেন।"
     >
       <h2>সেবার পরিধি</h2>
       <p>
-        AccessNow BD বাংলাদেশের একটি বিশ্বস্ত ডিজিটাল সাবস্ক্রিপশন স্টোর — যেখানে Netflix, Spotify, ChatGPT, Canva Pro সহ ১০০+ প্রিমিয়াম সার্ভিস সাশ্রয়ী মূল্যে পাওয়া যায়। আমাদের সাইট ব্যবহার করে আপনি এই শর্তগুলোতে সম্মতি জানাচ্ছেন।
+        Rama Sub বাংলাদেশের একটি বিশ্বস্ত ডিজিটাল সাবস্ক্রিপশন স্টোর — যেখানে Netflix, Spotify, ChatGPT, Canva Pro সহ ১০০+ প্রিমিয়াম সার্ভিস সাশ্রয়ী মূল্যে পাওয়া যায়। আমাদের সাইট ব্যবহার করে আপনি এই শর্তগুলোতে সম্মতি জানাচ্ছেন।
       </p>
 
       <h2>অ্যাকাউন্ট দায়িত্ব</h2>
@@ -63,7 +63,7 @@ function TermsPage() {
 
       <h2>শর্তাবলী পরিবর্তন</h2>
       <p>
-        AccessNow BD যেকোনো সময় এই শর্তাবলী সংশোধনের অধিকার রাখে। গুরুত্বপূর্ণ পরিবর্তন ইমেইল ও ওয়েবসাইটে ঘোষণা করা হবে।
+        Rama Sub যেকোনো সময় এই শর্তাবলী সংশোধনের অধিকার রাখে। গুরুত্বপূর্ণ পরিবর্তন ইমেইল ও ওয়েবসাইটে ঘোষণা করা হবে।
       </p>
     </PolicyPage>
   );

@@ -12,7 +12,7 @@ import {
   Text,
 } from '@react-email/components'
 
-const SITE = 'AccessNow BD'
+const SITE = 'Rama Sub'
 const SITE_URL = 'https://accessnowbd.com'
 const SUPPORT_EMAIL = 'support@accessnowbd.com'
 

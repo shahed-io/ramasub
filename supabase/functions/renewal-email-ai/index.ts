@@ -92,7 +92,7 @@ serve(async (req) => {
       : "Do not invent any coupon code.";
 
     const sys =
-      "You write concise, friendly renewal-reminder emails for AccessNow BD (a Bangladeshi premium digital-products shop). Output STRICT JSON via the provided tool.";
+      "You write concise, friendly renewal-reminder emails for Rama Sub (a Bangladeshi premium digital-products shop). Output STRICT JSON via the provided tool.";
     const user = `Generate a renewal reminder email.
 ${langText}
 Tone: ${tone}.

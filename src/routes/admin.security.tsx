@@ -152,7 +152,7 @@ function AdminSecurityPage() {
 
   const downloadCodes = () => {
     if (!backupCodes) return;
-    const text = `AccessNow BD — Admin 2FA Backup Codes\nGenerated: ${new Date().toLocaleString()}\n\n${backupCodes.join("\n")}\n\nKeep these codes safe. Each can be used once.`;
+    const text = `Rama Sub — Admin 2FA Backup Codes\nGenerated: ${new Date().toLocaleString()}\n\n${backupCodes.join("\n")}\n\nKeep these codes safe. Each can be used once.`;
     const blob = new Blob([text], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

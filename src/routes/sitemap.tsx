@@ -5,9 +5,9 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/sitemap")({
   head: () => ({
     meta: [
-      { title: "Sitemap — AccessNow BD" },
-      { name: "description", content: "AccessNow BD-এর সব পেজের তালিকা — streaming, AI tools, education, account ও support পেজসহ পুরো সাইট ম্যাপ।" },
-      { property: "og:title", content: "Sitemap — AccessNow BD" },
+      { title: "Sitemap — Rama Sub" },
+      { name: "description", content: "Rama Sub-এর সব পেজের তালিকা — streaming, AI tools, education, account ও support পেজসহ পুরো সাইট ম্যাপ।" },
+      { property: "og:title", content: "Sitemap — Rama Sub" },
       { property: "og:description", content: "আমাদের সাইটের সব পেজ এক জায়গায়।" },
     ],
   }),
@@ -82,7 +82,7 @@ function SitemapPage() {
             Sitemap
           </h1>
           <p className="mt-3 text-muted-foreground">
-            AccessNow BD-এর সব পেজ এক জায়গায় — সহজে নেভিগেট করুন।
+            Rama Sub-এর সব পেজ এক জায়গায় — সহজে নেভিগেট করুন।
           </p>
         </header>
 
