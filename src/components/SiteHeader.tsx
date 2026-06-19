@@ -190,8 +190,20 @@ export function SiteHeader() {
                   boxShadow: "0 0 0 2px white, 0 4px 20px rgba(0,0,0,0.12), 0 0 40px -5px rgba(139,92,246,0.45), 0 0 12px 2px rgba(167,139,250,0.35)",
                 }}
               >
+                {/* Outer visible ring — all four sides */}
+                <span
+                  className="absolute inset-[-4px] rounded-full pointer-events-none"
+                  style={{
+                    background: "linear-gradient(135deg, #f59e0b, #fb923c, #38bdf8, #f59e0b)",
+                    padding: "2px",
+                    WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                    WebkitMaskComposite: "xor",
+                    maskComposite: "exclude",
+                    animation: "spin 4s linear infinite",
+                  }}
+                />
                 <span className="grid place-items-center w-[52px] h-[52px] md:w-[64px] md:h-[64px] rounded-full overflow-hidden bg-white relative">
-                  <span className="absolute inset-0 rounded-full ring-[3px] ring-violet-300/40 animate-pulse pointer-events-none" />
+                  <span className="absolute inset-0 rounded-full ring-[3px] ring-amber-300/50 animate-pulse pointer-events-none" />
                   <img
                     src={ramaSubLogo}
                     alt="Rama Sub logo"
