@@ -216,7 +216,7 @@ export function SiteHeader() {
                     src={ramaSubLogo}
                     alt="Rama Sub"
                     draggable={false}
-                    className="relative w-[145%] h-[145%] object-contain -translate-y-[6%] drop-shadow-[0_2px_4px_rgba(30,79,216,0.25)]"
+                    className="relative w-full h-full object-contain p-1 drop-shadow-[0_2px_4px_rgba(30,79,216,0.25)]"
                   />
                   {/* Sweeping shine effect on hover */}
                   <span
@@ -230,7 +230,7 @@ export function SiteHeader() {
                 </span>
               </span>
 
-              {/* Wordmark — matches footer brand (Access · Now · BD + tagline) */}
+              {/* Wordmark — Rama Sub */}
               <span className="leading-[1.05] min-w-0">
                 <span className="flex items-baseline gap-1.5 whitespace-nowrap">
                   <span
@@ -240,7 +240,7 @@ export function SiteHeader() {
                         "linear-gradient(180deg, #1e3fb8 0%, #1d4ed8 55%, #0f2773 100%)",
                     }}
                   >
-                    Access
+                    Rama
                   </span>
                   <span
                     className="text-[18px] sm:text-[20px] md:text-[24px] font-extrabold tracking-normal bg-clip-text text-transparent"
@@ -249,16 +249,7 @@ export function SiteHeader() {
                         "linear-gradient(180deg, #6ce4b8 0%, #1fc796 55%, #0e9472 100%)",
                     }}
                   >
-                    Now
-                  </span>
-                  <span
-                    className="text-[18px] sm:text-[20px] md:text-[24px] font-extrabold tracking-normal bg-clip-text text-transparent"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(180deg, #ffd86b 0%, #f59e0b 55%, #c2780a 100%)",
-                    }}
-                  >
-                    BD
+                    Sub
                   </span>
                 </span>
                 <span className="mt-1 flex w-full max-w-[180px] md:max-w-[200px] items-center justify-between gap-2">
@@ -376,13 +367,12 @@ export function SiteHeader() {
               <div className="sticky top-0 z-10 flex items-center justify-between px-4 pt-4 pb-3 bg-gradient-to-b from-white via-white/95 to-transparent">
                 <div className="flex items-center gap-2.5 min-w-0">
                   <span className="relative grid place-items-center w-10 h-10 rounded-xl bg-white shrink-0 ring-1 ring-violet-200 shadow-[0_8px_22px_-10px_rgba(124,58,237,0.35)] overflow-hidden">
-                    <img src={ramaSubLogo} alt="" className="w-[145%] h-[145%] object-contain" draggable={false} />
+                    <img src={ramaSubLogo} alt="" className="w-full h-full object-contain p-1" draggable={false} />
                   </span>
                   <span className="min-w-0 leading-tight">
                     <span className="flex items-baseline gap-1">
-                      <span className="text-[15px] font-extrabold text-slate-900">Access</span>
-                      <span className="text-[15px] font-extrabold text-aqua">Now</span>
-                      <span className="text-[15px] font-extrabold text-gold">BD</span>
+                      <span className="text-[15px] font-extrabold text-slate-900">Rama</span>
+                      <span className="text-[15px] font-extrabold text-aqua">Sub</span>
                     </span>
                     <span className="block text-[9px] font-bold uppercase tracking-[0.22em] text-violet-500/80 mt-0.5">
                       Premium Menu
