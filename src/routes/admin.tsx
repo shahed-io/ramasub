@@ -13,7 +13,7 @@ import { ADMIN_MENU, type AdminMenuItem } from "@/lib/admin-menu";
 import { AdminMfaGate } from "@/components/admin/AdminMfaGate";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AdminLangProvider, useAdminLang } from "@/context/AdminLangContext";
-import accessNowLogo from "@/assets/logo-gold-a.webp";
+import ramaSubLogo from "@/assets/logo-gold-a.webp";
 
 export const Route = createFileRoute("/admin")({
   component: AdminLayout,
@@ -296,7 +296,7 @@ function AdminBlankState() {
           <div className="admin-loader-ring" />
           <div className="absolute inset-0 grid place-items-center">
             <img
-              src={accessNowLogo}
+              src={ramaSubLogo}
               alt=""
               className="w-10 h-10 object-contain admin-loader-logo"
               draggable={false}
@@ -384,7 +384,7 @@ function AdminShell({ user, signOut, navigate }: any) {
           <Link to="/admin" className={`flex items-center gap-2.5 min-w-0 ${collapsed ? "justify-center" : ""}`}>
             <span className="relative shrink-0 grid place-items-center w-10 h-10 rounded-xl overflow-hidden ring-1 ring-slate-200 bg-white">
               <img
-                src={accessNowLogo}
+                src={ramaSubLogo}
                 alt="Rama Sub"
                 draggable={false}
                 className="relative w-[140%] h-[140%] object-contain translate-y-[2%]"

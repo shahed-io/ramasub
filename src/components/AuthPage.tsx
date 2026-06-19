@@ -5,7 +5,7 @@ import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/context/AuthContext";
 import { sendTransactionalEmail } from "@/lib/email/send";
-import accessNowLogo from "@/assets/logo-gold-a.webp";
+import ramaSubLogo from "@/assets/logo-gold-a.webp";
 
 export function AuthPageEntry({ initialMode, openForgot }: { initialMode: "login" | "signup"; openForgot?: boolean }) {
   return <AuthPage initialMode={initialMode} openForgot={openForgot} />;
@@ -187,7 +187,7 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
           {/* Brand logo */}
           <Link to="/" className="flex items-center justify-center mb-7 group">
             <img
-              src={accessNowLogo}
+              src={ramaSubLogo}
               alt="Rama Sub — Fast, Secure, Reliable"
               draggable={false}
               className="h-14 w-auto object-contain group-hover:scale-105 transition-transform"
