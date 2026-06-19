@@ -78,8 +78,8 @@ function findItem(pathname: string): { group: { id: string; title: string; title
 export function AdminPageHeader() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { t } = useAdminLang();
-  if (HIDE_ON.has(pathname)) return null;
   const ctx = useMemo(() => findItem(pathname), [pathname]);
+  if (HIDE_ON.has(pathname)) return null;
   if (!ctx) return null;
 
   const { group, item } = ctx;
