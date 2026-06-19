@@ -24,7 +24,7 @@ const Email = ({
   orderId,
   status = 'pending',
   note,
-  orderUrl = 'https://accessnowbd.com/orders',
+  orderUrl = 'https://ramasub.com/orders',
 }: Props) => (
   <EmailLayout
     preview={`Order ${orderId ?? ''} status: ${status}`}
@@ -68,7 +68,7 @@ export const template = {
     orderId: 'ANB-12AB34CD',
     status: 'processing',
     note: 'Payment confirmed, delivery prepare হচ্ছে।',
-    orderUrl: 'https://accessnowbd.com/orders',
+    orderUrl: 'https://ramasub.com/orders',
   },
 } satisfies TemplateEntry
 

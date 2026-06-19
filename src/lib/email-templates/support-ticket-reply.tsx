@@ -18,7 +18,7 @@ const Email = ({
   subject = 'your support request',
   agentName = 'Rama Sub Support',
   message = 'We have an update on your ticket. Please open it to see the full reply.',
-  ticketUrl = 'https://accessnowbd.com/support',
+  ticketUrl = 'https://ramasub.com/support',
 }: Props) => (
   <EmailLayout
     preview={`New reply on ${subject}`}

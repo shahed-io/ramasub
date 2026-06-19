@@ -54,7 +54,7 @@ function RefundPolicyPage() {
       <p>
         রিফান্ড পেতে এখনই ভিজিট করুন{" "}
         <Link to="/refund-request">Refund Request পেজ</Link> অথবা WhatsApp করুন{" "}
-        <a href="https://wa.me/8801580607614" target="_blank" rel="noreferrer">+880 1580-607614</a>।
+        <a href="https://wa.me/8801601048085" target="_blank" rel="noreferrer">+880 1601-048085</a>।
       </p>
     </PolicyPage>
   );

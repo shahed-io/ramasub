@@ -20,7 +20,7 @@ const Email = ({
   expiresOn,
   loginEmail,
   loginPassword,
-  manageUrl = 'https://accessnowbd.com/orders',
+  manageUrl = 'https://ramasub.com/orders',
 }: Props) => (
   <EmailLayout
     preview={`Your ${planName ?? 'subscription'} is active`}
@@ -74,9 +74,9 @@ export const template = {
     planName: 'Netflix Premium (1 month)',
     startsOn: '12 Jun 2026',
     expiresOn: '12 Jul 2026',
-    loginEmail: 'shared-account@accessnowbd.com',
+    loginEmail: 'shared-account@ramasub.com',
     loginPassword: '••••••••',
-    manageUrl: 'https://accessnowbd.com/orders',
+    manageUrl: 'https://ramasub.com/orders',
   },
 } satisfies TemplateEntry
 

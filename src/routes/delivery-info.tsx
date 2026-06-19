@@ -52,8 +52,8 @@ function DeliveryInfoPage() {
 
       <h2>২৪/৭ সাপোর্ট</h2>
       <p>
-        WhatsApp: <a href="https://wa.me/8801580607614" target="_blank" rel="noreferrer">+880 1580-607614</a> · Email:{" "}
-        <a href="mailto:support@accessnowbd.com">support@accessnowbd.com</a> — যেকোনো সমস্যায় আপনার পাশে।
+        WhatsApp: <a href="https://wa.me/8801601048085" target="_blank" rel="noreferrer">+880 1601-048085</a> · Email:{" "}
+        <a href="mailto:support@ramasub.com">support@ramasub.com</a> — যেকোনো সমস্যায় আপনার পাশে।
       </p>
     </PolicyPage>
   );

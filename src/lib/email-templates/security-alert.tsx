@@ -22,7 +22,7 @@ const Email = ({
   location,
   device,
   occurredAt,
-  secureAccountUrl = 'https://accessnowbd.com/account/security',
+  secureAccountUrl = 'https://ramasub.com/account/security',
 }: Props) => (
   <EmailLayout
     preview={event}

@@ -112,7 +112,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:locale", content: "bn_BD" },
       { property: "og:locale:alternate", content: "en_US" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@accessnowbd" },
+      { name: "twitter:site", content: "@ramasub" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

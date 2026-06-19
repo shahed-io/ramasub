@@ -56,7 +56,7 @@ export const Route = createFileRoute("/product/$slug")({
   component: ProductPage,
   head: ({ loaderData, params }) => {
     const p = loaderData?.product;
-    const url = `https://accessnowbd.com/product/${params.slug}`;
+    const url = `https://ramasub.com/product/${params.slug}`;
     if (!p) {
       return {
         meta: [
@@ -123,8 +123,8 @@ export const Route = createFileRoute("/product/$slug")({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "https://accessnowbd.com/" },
-              { "@type": "ListItem", position: 2, name: "All Subscriptions", item: "https://accessnowbd.com/products" },
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://ramasub.com/" },
+              { "@type": "ListItem", position: 2, name: "All Subscriptions", item: "https://ramasub.com/products" },
               { "@type": "ListItem", position: 3, name: p.name, item: url },
             ],
           }),

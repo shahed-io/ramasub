@@ -3,10 +3,10 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const ALLOWED_ORIGIN_PATTERNS: RegExp[] = [
-  /^https:\/\/accessnowbd\.lovable\.app$/,
+  /^https:\/\/ramasub\.lovable\.app$/,
   /^https:\/\/[a-z0-9-]+\.lovable\.app$/,
   /^https:\/\/[a-z0-9-]+\.lovableproject\.com$/,
-  /^https:\/\/(www\.)?accessnowbd\.com$/,
+  /^https:\/\/(www\.)?ramasub\.com$/,
   /^http:\/\/localhost(:\d+)?$/,
 ];
 function corsFor(req: Request) {

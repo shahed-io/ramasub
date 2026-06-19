@@ -124,10 +124,10 @@ function GeneralSettingsPage() {
             <Input value={data.site_name ?? ""} onChange={(v) => set("site_name", v)} placeholder="Rama Sub" />
           </Field>
           <Field label="Support email">
-            <Input type="email" value={data.support_email ?? ""} onChange={(v) => set("support_email", v)} placeholder="info@accessnowbd.com.bd" />
+            <Input type="email" value={data.support_email ?? ""} onChange={(v) => set("support_email", v)} placeholder="info@ramasub.com" />
           </Field>
           <Field label="WhatsApp number">
-            <Input value={data.whatsapp_number ?? ""} onChange={(v) => set("whatsapp_number", v)} placeholder="01580607614" />
+            <Input value={data.whatsapp_number ?? ""} onChange={(v) => set("whatsapp_number", v)} placeholder="01601048085" />
           </Field>
           <Field label="Address">
             <Input value={data.address ?? ""} onChange={(v) => set("address", v)} placeholder="Bangladesh" />
@@ -249,7 +249,7 @@ function GeneralSettingsPage() {
         <p className="text-xs mb-3" style={{ color: "var(--admin-muted)" }}>নতুন অর্ডার এলে WhatsApp-এ নোটিফিকেশন আসবে</p>
         <Field label="WhatsApp নম্বর (দেশ কোড সহ)">
           <div className="flex gap-2">
-            <Input value={data.whatsapp_notify_number ?? ""} onChange={(v) => set("whatsapp_notify_number", v)} placeholder="8801580607614" />
+            <Input value={data.whatsapp_notify_number ?? ""} onChange={(v) => set("whatsapp_notify_number", v)} placeholder="8801601048085" />
             <button
               type="button"
               onClick={() => testWhatsApp(data.whatsapp_notify_number)}

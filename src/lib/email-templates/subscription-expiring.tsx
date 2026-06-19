@@ -21,7 +21,7 @@ const Email = ({
   planName,
   expiresOn,
   daysLeft,
-  renewUrl = 'https://accessnowbd.com/products',
+  renewUrl = 'https://ramasub.com/products',
   aiBody,
   couponCode,
   couponDiscount,
@@ -91,7 +91,7 @@ export const template = {
     planName: 'Netflix Premium',
     expiresOn: '15 Jun 2026',
     daysLeft: 3,
-    renewUrl: 'https://accessnowbd.com/products',
+    renewUrl: 'https://ramasub.com/products',
   },
 } satisfies TemplateEntry
 

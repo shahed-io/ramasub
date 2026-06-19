@@ -30,7 +30,7 @@ const Email = ({
   subtotal,
   discount,
   total,
-  invoiceUrl = 'https://accessnowbd.com/orders',
+  invoiceUrl = 'https://ramasub.com/orders',
 }: Props) => (
   <EmailLayout
     preview={`Invoice ${orderId ?? ''} from Rama Sub`}
@@ -96,7 +96,7 @@ export const template = {
     subtotal: '350',
     discount: '0',
     total: '350',
-    invoiceUrl: 'https://accessnowbd.com/orders',
+    invoiceUrl: 'https://ramasub.com/orders',
   },
 } satisfies TemplateEntry
 

@@ -16,7 +16,7 @@ const Email = ({
   planName,
   cancelledOn,
   accessUntil,
-  reactivateUrl = 'https://accessnowbd.com/products',
+  reactivateUrl = 'https://ramasub.com/products',
 }: Props) => (
   <EmailLayout
     preview={`Your ${planName ?? 'subscription'} was cancelled`}
@@ -59,7 +59,7 @@ export const template = {
     planName: 'Netflix Premium',
     cancelledOn: '12 Jun 2026',
     accessUntil: '15 Jun 2026',
-    reactivateUrl: 'https://accessnowbd.com/products',
+    reactivateUrl: 'https://ramasub.com/products',
   },
 } satisfies TemplateEntry
 

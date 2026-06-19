@@ -17,8 +17,8 @@ export const Route = createFileRoute("/ai-tools")({
       { name: "description", content: "ChatGPT Plus, Claude Pro, Gemini Advanced, Grammarly, Quillbot — AI tools for Bangladesh." },
       { property: "og:title", content: "AI & Productivity Subscriptions — Rama Sub" },
       { property: "og:description", content: "All major AI tools and productivity apps at affordable prices." },
-      { property: "og:url", content: "https://accessnowbd.com/ai-tools" },
+      { property: "og:url", content: "https://ramasub.com/ai-tools" },
     ],
-    links: [{ rel: "canonical", href: "https://accessnowbd.com/ai-tools" }],
+    links: [{ rel: "canonical", href: "https://ramasub.com/ai-tools" }],
   }),
 });

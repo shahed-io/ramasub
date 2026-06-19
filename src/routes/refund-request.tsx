@@ -23,8 +23,8 @@ function RefundRequestPage() {
       <h2>WhatsApp-এ যোগাযোগ (সবচেয়ে দ্রুত)</h2>
       <p>
         সরাসরি মেসেজ করুন —{" "}
-        <a href="https://wa.me/8801580607614" target="_blank" rel="noreferrer">
-          +880 1580-607614
+        <a href="https://wa.me/8801601048085" target="_blank" rel="noreferrer">
+          +880 1601-048085
         </a>
         । সাধারণত ৫–১৫ মিনিটের মধ্যে রিপ্লাই পাবেন।
       </p>
@@ -32,7 +32,7 @@ function RefundRequestPage() {
       <h2>ইমেইল সাপোর্ট</h2>
       <p>
         বিস্তারিত বর্ণনাসহ পাঠান —{" "}
-        <a href="mailto:support@accessnowbd.com">support@accessnowbd.com</a>। উত্তর সাধারণত ২–৬ ঘণ্টার মধ্যে।
+        <a href="mailto:support@ramasub.com">support@ramasub.com</a>। উত্তর সাধারণত ২–৬ ঘণ্টার মধ্যে।
       </p>
 
       <h2>রিকোয়েস্টে যা যা উল্লেখ করবেন</h2>

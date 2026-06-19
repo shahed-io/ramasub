@@ -13,9 +13,9 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Reach Rama Sub via WhatsApp, email, or the contact form. Office hours 11 AM – 11 PM." },
       { property: "og:title", content: "Contact Rama Sub" },
       { property: "og:description", content: "We're here to help — WhatsApp, email, or send us a message." },
-      { property: "og:url", content: "https://accessnowbd.com/contact" },
+      { property: "og:url", content: "https://ramasub.com/contact" },
     ],
-    links: [{ rel: "canonical", href: "https://accessnowbd.com/contact" }],
+    links: [{ rel: "canonical", href: "https://ramasub.com/contact" }],
   }),
 });
 
@@ -73,9 +73,9 @@ function ContactPage() {
       <section className="mx-auto max-w-[1200px] px-4 md:px-10 py-12 grid md:grid-cols-2 gap-8">
         <div className="space-y-4">
           <InfoCard icon={MessageCircle} title="WhatsApp" desc="দ্রুততম রেসপন্স — 15 মিনিটের মধ্যে।"
-            action={<a href="https://wa.me/8801580607614" className="text-primary font-bold hover:underline">+880 1580-607614</a>} />
+            action={<a href="https://wa.me/8801601048085" className="text-primary font-bold hover:underline">+880 1601-048085</a>} />
           <InfoCard icon={Mail} title="Email" desc="বিস্তারিত প্রশ্নের জন্য।"
-            action={<a href="mailto:hello@accessnowbd.com" className="text-primary font-bold hover:underline">hello@accessnowbd.com</a>} />
+            action={<a href="mailto:support@ramasub.com" className="text-primary font-bold hover:underline">support@ramasub.com</a>} />
           <InfoCard icon={Clock} title="Office Hours" desc="প্রতিদিন খোলা।"
             action={<span className="font-bold">11 AM – 11 PM</span>} />
           <InfoCard icon={MapPin} title="Location" desc="Online-first business।"

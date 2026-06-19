@@ -44,10 +44,10 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Buy verified digital products, subscriptions, software licenses, AI tools, OTT, VPN and education services in Bangladesh with fast delivery." },
       { property: "og:title", content: "Rama Sub — Digital Products & Software" },
       { property: "og:description", content: "White glassmorphism digital marketplace for premium software, subscriptions and services." },
-      { property: "og:url", content: "https://accessnowbd.com/" },
+      { property: "og:url", content: "https://ramasub.com/" },
       { property: "og:type", content: "website" },
     ],
-    links: [{ rel: "canonical", href: "https://accessnowbd.com/" }],
+    links: [{ rel: "canonical", href: "https://ramasub.com/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -55,9 +55,9 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Rama Sub",
-          url: "https://accessnowbd.com",
-          logo: "https://accessnowbd.com/icons/apple-touch-icon.png",
-          sameAs: ["https://accessnowbd.lovable.app"],
+          url: "https://ramasub.com",
+          logo: "https://ramasub.com/icons/apple-touch-icon.png",
+          sameAs: ["https://ramasub.lovable.app"],
         }),
       },
       {
@@ -66,10 +66,10 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: "Rama Sub",
-          url: "https://accessnowbd.com",
+          url: "https://ramasub.com",
           potentialAction: {
             "@type": "SearchAction",
-            target: "https://accessnowbd.com/products?q={search_term_string}",
+            target: "https://ramasub.com/products?q={search_term_string}",
             "query-input": "required name=search_term_string",
           },
         }),

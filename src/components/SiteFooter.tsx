@@ -85,7 +85,7 @@ const COLUMNS: {
 ];
 
 const SOCIALS = [
-  { Icon: MessageCircle, href: "https://wa.me/8801580607614", label: "WhatsApp" },
+  { Icon: MessageCircle, href: "https://wa.me/8801601048085", label: "WhatsApp" },
 ];
 
 
@@ -187,8 +187,8 @@ export function SiteFooter() {
 
               <div className="grid gap-2.5">
                 {[
-                  { Icon: PhoneCall, label: "+880 1580-607614", href: "tel:+8801580607614" },
-                  { Icon: Mail, label: "support@accessnowbd.com", href: "mailto:support@accessnowbd.com" },
+                  { Icon: PhoneCall, label: "+880 1601-048085", href: "tel:+8801601048085" },
+                  { Icon: Mail, label: "support@ramasub.com", href: "mailto:support@ramasub.com" },
                 ].map(({ Icon, label, href }) => (
                   <a
                     key={label}

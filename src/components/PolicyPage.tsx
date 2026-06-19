@@ -115,12 +115,12 @@ export function PolicyPage({
                   যেকোনো প্রশ্নে WhatsApp-এ মেসেজ করুন।
                 </p>
                 <a
-                  href="https://wa.me/8801580607614"
+                  href="https://wa.me/8801601048085"
                   target="_blank"
                   rel="noreferrer"
                   className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-emerald-700"
                 >
-                  WhatsApp: 01580-607614
+                  WhatsApp: 01601-048085
                 </a>
               </div>
             </div>

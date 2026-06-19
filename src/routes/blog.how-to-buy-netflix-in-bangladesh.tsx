@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Button } from "@/components/ui/button";
 
-const URL = "https://accessnowbd.com/blog/how-to-buy-netflix-in-bangladesh";
+const URL = "https://ramasub.com/blog/how-to-buy-netflix-in-bangladesh";
 const TITLE = "How to Buy Netflix Subscription in Bangladesh (bKash & Nagad) — 2026 Guide";
 const DESCRIPTION =
   "ধাপে ধাপে গাইড: bKash বা Nagad দিয়ে Bangladesh থেকে Netflix subscription কেনা, ছাড়াই international credit card. দাম, plan, delivery time সব এক জায়গায়।";
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/blog/how-to-buy-netflix-in-bangladesh")({
           estimatedCost: { "@type": "MonetaryAmount", currency: "BDT", value: "350" },
           supply: ["bKash or Nagad account", "Netflix account email"],
           step: [
-            { "@type": "HowToStep", name: "Choose a plan", text: "Pick your Netflix plan (Mobile, Basic, Standard, or Premium) on accessnowbd.com." },
+            { "@type": "HowToStep", name: "Choose a plan", text: "Pick your Netflix plan (Mobile, Basic, Standard, or Premium) on ramasub.com." },
             { "@type": "HowToStep", name: "Place order", text: "Add the plan to cart and enter your Netflix email." },
             { "@type": "HowToStep", name: "Pay with bKash or Nagad", text: "Send payment to the merchant number shown at checkout and submit the transaction ID." },
             { "@type": "HowToStep", name: "Receive access", text: "We activate your Netflix account and deliver login details via WhatsApp within 30 minutes." },
