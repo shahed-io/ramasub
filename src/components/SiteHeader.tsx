@@ -175,39 +175,36 @@ export function SiteHeader() {
               <ThemeSwitcher />
             </div>
 
-            {/* Brand — integrated neon glass wordmark */}
+            {/* Brand — logo card on the left, name on top + site link below */}
             <Link
               to="/"
-              className="flex items-center gap-3 sm:gap-4 shrink-0 group min-w-0 justify-self-center md:justify-self-auto"
+              className="flex items-center gap-3 sm:gap-3.5 shrink-0 group min-w-0 justify-self-center md:justify-self-auto"
               style={{ fontFamily: "var(--font-heading)" }}
             >
-              {/* Logo — glass orb with slow neon orbit */}
-              <span className="relative grid place-items-center shrink-0">
-                <span
-                  aria-hidden
-                  className="absolute inset-[-6px] rounded-full border border-aqua/20 blur-[2px]"
-                />
-                <span
-                  aria-hidden
-                  className="absolute inset-[-4px] rounded-full border-t-2 border-l-2 border-aqua/80"
-                  style={{ animation: "spin 9s linear infinite" }}
-                />
-                <span
-                  className="relative grid place-items-center w-11 h-11 md:w-12 md:h-12 rounded-full overflow-hidden border border-white/10 bg-gradient-to-tr from-slate-900 via-slate-800 to-slate-900 group-hover:scale-105 transition-transform duration-500"
-                >
+              {/* Logo — rounded-square card with gradient ring (Shahed Store style) */}
+              <span
+                aria-hidden
+                className="relative grid place-items-center shrink-0 rounded-2xl p-[2px] transition-transform duration-500 group-hover:scale-[1.04]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(135deg, #a855f7 0%, #22d3ee 45%, #f59e0b 100%)",
+                  boxShadow: "0 10px 28px -12px rgba(34,211,238,0.55)",
+                }}
+              >
+                <span className="grid place-items-center w-12 h-12 md:w-14 md:h-14 rounded-[14px] bg-slate-950/80 backdrop-blur-md overflow-hidden">
                   <img
                     src={ramaSubLogo}
                     alt="Rama Sub logo"
                     draggable={false}
-                    className="relative w-full h-full object-contain p-[3px]"
+                    className="w-full h-full object-contain p-1"
                   />
                 </span>
               </span>
 
-              {/* Wordmark — dominant Bengali, small English caption */}
-              <span className="flex flex-col -space-y-0.5 leading-none min-w-0">
+              {/* Wordmark — name on top, website link below */}
+              <span className="flex flex-col leading-none min-w-0">
                 <span
-                  className="text-[22px] sm:text-[26px] md:text-[30px] font-bold tracking-tight whitespace-nowrap bg-clip-text text-transparent"
+                  className="text-[22px] sm:text-[26px] md:text-[30px] font-extrabold tracking-tight whitespace-nowrap bg-clip-text text-transparent"
                   style={{
                     fontFamily: "'Hind Siliguri', var(--font-heading)",
                     backgroundImage:
@@ -217,18 +214,15 @@ export function SiteHeader() {
                 >
                   রামা সাব
                 </span>
-                <span className="flex items-center gap-2 pt-1">
-                  <span className="text-[9px] md:text-[10px] font-bold tracking-[0.22em] uppercase text-white/40">
-                    Rama Sub
-                  </span>
-                  <span className="h-px w-4 bg-aqua/30" />
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inset-0 rounded-full bg-aqua animate-ping opacity-70" />
-                    <span className="relative w-1.5 h-1.5 rounded-full bg-aqua shadow-[0_0_8px_rgba(34,211,238,0.9)]" />
+                <span className="mt-1 flex items-center gap-2">
+                  <span className="h-px flex-1 bg-gradient-to-r from-aqua/60 via-aqua/20 to-transparent" />
+                  <span className="text-[10px] md:text-[11px] font-semibold tracking-[0.22em] uppercase text-white/60 whitespace-nowrap">
+                    ramasub.com.bd
                   </span>
                 </span>
               </span>
             </Link>
+
 
             {/* Nav — pill glass with magnetic sliding indicator */}
             <MagneticNav />
