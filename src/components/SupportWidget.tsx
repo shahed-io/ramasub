@@ -275,42 +275,43 @@ export function SupportWidget() {
               {/* Ripple ping waves (only when idle) */}
               {!open && !chooser && (
                 <>
-                  <span className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: `${cfg?.ring_color ?? "#7c3aed"}33` }} />
-                  <span className="absolute inset-0 rounded-full animate-ping [animation-delay:0.6s]" style={{ backgroundColor: `${cfg?.spin_color_2 ?? "#00e5ff"}26` }} />
+                  <span className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: `${cfg?.ring_color ?? "#7c3aed"}66` }} />
+                  <span className="absolute inset-0 rounded-full animate-ping [animation-delay:0.6s]" style={{ backgroundColor: `${cfg?.spin_color_2 ?? "#a78bfa"}4d` }} />
                 </>
               )}
 
               {/* Soft ambient glow */}
               <span
-                className="absolute -inset-4 rounded-full opacity-40 blur-2xl group-hover:opacity-70 transition-opacity duration-500 animate-pulse"
+                className="absolute -inset-4 rounded-full opacity-60 blur-2xl group-hover:opacity-100 transition-opacity duration-500 animate-pulse"
                 style={{
-                  background: `linear-gradient(135deg, ${cfg?.ring_color ?? "#7c3aed"}33, ${cfg?.spin_color_1 ?? "#7c3aed"}33, ${cfg?.spin_color_2 ?? "#00e5ff"}33)`,
+                  background: `linear-gradient(135deg, ${cfg?.ring_color ?? "#7c3aed"}66, ${cfg?.spin_color_1 ?? "#7c3aed"}66, ${cfg?.spin_color_2 ?? "#a78bfa"}66)`,
                 }}
               />
 
               {/* Spinning conic ring */}
               <span
-                className="absolute -inset-[3px] rounded-full opacity-70 animate-[spin_6s_linear_infinite]"
+                className="absolute -inset-[3px] rounded-full opacity-90 animate-[spin_6s_linear_infinite]"
                 style={{
-                  background: `conic-gradient(from 0deg, ${cfg?.spin_color_1 ?? "#7c3aed"}99, ${cfg?.spin_color_2 ?? "#00e5ff"}99, ${cfg?.spin_color_1 ?? "#7c3aed"}99, ${cfg?.spin_color_2 ?? "#00e5ff"}99, ${cfg?.spin_color_1 ?? "#7c3aed"}99)`,
+                  background: `conic-gradient(from 0deg, ${cfg?.spin_color_1 ?? "#7c3aed"}f2, ${cfg?.spin_color_2 ?? "#a78bfa"}f2, ${cfg?.spin_color_1 ?? "#7c3aed"}f2, ${cfg?.spin_color_2 ?? "#a78bfa"}f2, ${cfg?.spin_color_1 ?? "#7c3aed"}f2)`,
                   filter: "blur(2px)",
                 }}
               />
 
-              {/* Main orb — white theme */}
+              {/* Main orb — purple theme */}
               <span
-                className="relative grid place-items-center h-16 w-16 rounded-full text-slate-700 shadow-[0_22px_50px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/5 overflow-hidden bg-white"
+                className="relative grid place-items-center h-16 w-16 rounded-full text-white shadow-[0_22px_50px_-12px_rgba(124,58,237,0.45)] ring-1 ring-white/20 overflow-hidden"
+                style={{ background: `linear-gradient(135deg, ${cfg?.orb_from ?? "#6d28d9"}, ${cfg?.orb_via ?? "#7c3aed"}, ${cfg?.orb_to ?? "#5b21b6"})` }}
               >
-                <span className="absolute inset-x-2 top-1.5 h-4 rounded-full bg-white/60 blur-[3px]" />
-                <span className="absolute -bottom-4 inset-x-3 h-6 rounded-full blur-xl" style={{ backgroundColor: `${cfg?.spin_color_2 ?? "#00e5ff"}33` }} />
+                <span className="absolute inset-x-2 top-1.5 h-4 rounded-full bg-white/20 blur-[3px]" />
+                <span className="absolute -bottom-4 inset-x-3 h-6 rounded-full blur-xl" style={{ backgroundColor: `${cfg?.spin_color_2 ?? "#a78bfa"}66` }} />
 
                 {(chooser || open) ? (
-                  <X className="h-7 w-7 relative drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)]" strokeWidth={2.6} style={{ color: cfg?.icon_color ?? "#475569" }} />
+                  <X className="h-7 w-7 relative drop-shadow-[0_2px_10px_rgba(0,229,255,0.6)]" strokeWidth={2.6} style={{ color: cfg?.icon_color ?? "#ffffff" }} />
                 ) : (
                   <MessageCircleMore
-                    className="h-8 w-8 relative drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)]"
+                    className="h-8 w-8 relative drop-shadow-[0_2px_10px_rgba(0,229,255,0.6)]"
                     strokeWidth={2.4}
-                    style={{ color: cfg?.icon_color ?? "#475569" }}
+                    style={{ color: cfg?.icon_color ?? "#ffffff" }}
                   />
                 )}
               </span>
