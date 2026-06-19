@@ -62,53 +62,57 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const { availability, defaultTheme } = useThemeAvailability();
   const [theme, setThemeState] = useState<ThemeId>("white");
   const userPickedRef = useRef(false);
+  const serverConfirmedRef = useRef(false);
 
-  // Initial mount: load stored theme if user picked one; else use admin default.
+  // Initial mount: prefer the user's saved theme. Do NOT use cached availability
+  // to override it — cache may be stale and would clobber the user's choice.
   useEffect(() => {
     let stored: ThemeId | null = null;
     try {
       const saved = localStorage.getItem(STORAGE_KEY) as ThemeId | null;
       if (saved && THEMES.some((t) => t.id === saved)) stored = saved;
     } catch { /* ignore */ }
-    const initialAvail = getCachedAvailability();
-    const initialDefault = getCachedDefaultTheme();
     let initial: ThemeId;
-    if (stored && initialAvail[stored]) {
+    if (stored) {
       initial = stored;
       userPickedRef.current = true;
     } else {
+      const initialAvail = getCachedAvailability();
+      const initialDefault = getCachedDefaultTheme();
       initial = initialAvail[initialDefault] ? initialDefault : "white";
     }
     applyTheme(initial);
     setThemeState(initial);
-    try { localStorage.setItem(STORAGE_KEY, initial); } catch { /* ignore */ }
-    userPickedRef.current = true;
   }, []);
 
-  // When availability changes (admin toggled), force fallback if needed.
+  // Mark when fresh server data arrives so we know it's safe to enforce fallback.
   useEffect(() => {
-    if (!availability[theme]) {
-      const next = availability[defaultTheme] ? defaultTheme : "white";
-      applyTheme(next);
-      setThemeState(next);
-      if (userPickedRef.current) {
-        try { localStorage.setItem(STORAGE_KEY, next); } catch { /* ignore */ }
-      }
-    }
-  }, [availability, defaultTheme, theme]);
+    const handler = () => { serverConfirmedRef.current = true; };
+    window.addEventListener("anbd:theme-availability", handler);
+    return () => window.removeEventListener("anbd:theme-availability", handler);
+  }, []);
 
-  // Note: we intentionally do NOT auto-follow admin default theme changes after mount.
-  // Once a visitor lands on the site, their active theme stays put unless they pick a new
-  // one or the current theme is disabled by an admin (handled in the fallback effect above).
+  // Only force fallback once we have CONFIRMED server data showing the current
+  // theme is actually disabled. Never overwrite the user's stored choice during
+  // fallback — they keep their pick, we just temporarily render the fallback.
+  useEffect(() => {
+    if (!serverConfirmedRef.current) return;
+    if (availability[theme]) return;
+    const next = availability[defaultTheme] ? defaultTheme : "white";
+    if (next === theme) return;
+    applyTheme(next);
+    setThemeState(next);
+  }, [availability, defaultTheme, theme]);
 
   const setTheme = useCallback((id: ThemeId) => {
     if (!THEMES.some((t) => t.id === id)) return;
-    if (!availability[id]) return; // blocked
+    if (serverConfirmedRef.current && !availability[id]) return; // blocked
     applyTheme(id);
     setThemeState(id);
     userPickedRef.current = true;
     try { localStorage.setItem(STORAGE_KEY, id); } catch { /* ignore */ }
   }, [availability]);
+
 
   const enabledThemes = useMemo(() => THEMES.filter((t) => availability[t.id]), [availability]);
 
