@@ -42,6 +42,16 @@ const ThemeCtx = createContext<Ctx>({
   setTheme: () => {},
 });
 
+function applyTheme(id: ThemeId) {
+  if (typeof document === "undefined") return;
+  const root = document.documentElement;
+  ALL_CLASSES.forEach((c) => root.classList.remove(c));
+  const found = THEMES.find((t) => t.id === id);
+  if (found?.className) root.classList.add(found.className);
+  root.dataset.theme = id;
+}
+
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const { availability, defaultTheme } = useThemeAvailability();
   const [theme] = useState<ThemeId>("white");
