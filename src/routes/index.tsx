@@ -24,7 +24,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ProgressiveSection } from "@/components/ProgressiveSection";
 import { PerfReportSection, ProfiledSection } from "@/components/PerfReportSection";
 
-import { HeroBannerCarousel } from "@/components/HeroBannerCarousel";
+import { ImageBannerCarousel } from "@/components/ImageBannerCarousel";
 import { RecentlyViewedSection } from "@/components/RecentlyViewedSection";
 import type { Product } from "@/data/products";
 
@@ -147,8 +147,8 @@ function Index() {
     <div className="home-scroll-optimized min-h-screen">
 
       <div>
-        <ProfiledSection id="HeroBannerCarousel">
-          <HeroBannerCarousel />
+        <ProfiledSection id="ImageBannerCarousel">
+          <ImageBannerCarousel />
         </ProfiledSection>
 
 
