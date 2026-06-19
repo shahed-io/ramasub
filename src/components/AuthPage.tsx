@@ -5,7 +5,8 @@ import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/context/AuthContext";
 import { sendTransactionalEmail } from "@/lib/email/send";
-import ramaSubLogo from "@/assets/logo-gold-a.webp";
+import ramaSubLogoAsset from "@/assets/rama-sub-logo.jpg.asset.json";
+const ramaSubLogo = ramaSubLogoAsset.url;
 
 export function AuthPageEntry({ initialMode, openForgot }: { initialMode: "login" | "signup"; openForgot?: boolean }) {
   return <AuthPage initialMode={initialMode} openForgot={openForgot} />;

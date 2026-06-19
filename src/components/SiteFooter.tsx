@@ -7,7 +7,8 @@ import {
   Info,
   FileText,
 } from "lucide-react";
-import ramaSubLogo from "@/assets/logo-gold-a.webp";
+import ramaSubLogoAsset from "@/assets/rama-sub-logo.jpg.asset.json";
+const ramaSubLogo = ramaSubLogoAsset.url;
 
 type LinkTo =
   | "/"
