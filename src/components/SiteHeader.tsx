@@ -242,7 +242,6 @@ export function SiteHeader() {
                 </span>
               </span>
             </Link>
-            </Link>
 
 
             {/* Nav — pill glass with magnetic sliding indicator */}
