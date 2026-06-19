@@ -190,7 +190,7 @@ export function SiteHeader() {
                   boxShadow: "0 0 0 2px white, 0 4px 20px rgba(0,0,0,0.12), 0 0 30px -5px rgba(245,158,11,0.25)",
                 }}
               >
-                <span className="grid place-items-center w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden bg-white">
+                <span className="grid place-items-center w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden bg-white">
                   <img
                     src={ramaSubLogo}
                     alt="Rama Sub logo"
