@@ -297,12 +297,13 @@ export function SupportWidget() {
                 }}
               />
 
-              {/* Main orb — white theme */}
+              {/* Main orb — purple theme */}
               <span
-                className="relative grid place-items-center h-16 w-16 rounded-full text-slate-700 shadow-[0_22px_50px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/5 overflow-hidden bg-white"
+                className="relative grid place-items-center h-16 w-16 rounded-full text-white shadow-[0_22px_50px_-12px_rgba(124,58,237,0.45)] ring-1 ring-white/20 overflow-hidden"
+                style={{ background: `linear-gradient(135deg, ${cfg?.orb_from ?? "#6d28d9"}, ${cfg?.orb_via ?? "#7c3aed"}, ${cfg?.orb_to ?? "#5b21b6"})` }}
               >
-                <span className="absolute inset-x-2 top-1.5 h-4 rounded-full bg-white/60 blur-[3px]" />
-                <span className="absolute -bottom-4 inset-x-3 h-6 rounded-full blur-xl" style={{ backgroundColor: `${cfg?.spin_color_2 ?? "#00e5ff"}33` }} />
+                <span className="absolute inset-x-2 top-1.5 h-4 rounded-full bg-white/20 blur-[3px]" />
+                <span className="absolute -bottom-4 inset-x-3 h-6 rounded-full blur-xl" style={{ backgroundColor: `${cfg?.spin_color_2 ?? "#a78bfa"}66` }} />
 
                 {(chooser || open) ? (
                   <X className="h-7 w-7 relative drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)]" strokeWidth={2.6} style={{ color: cfg?.icon_color ?? "#475569" }} />
