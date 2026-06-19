@@ -306,12 +306,12 @@ export function SupportWidget() {
                 <span className="absolute -bottom-4 inset-x-3 h-6 rounded-full blur-xl" style={{ backgroundColor: `${cfg?.spin_color_2 ?? "#a78bfa"}66` }} />
 
                 {(chooser || open) ? (
-                  <X className="h-7 w-7 relative drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)]" strokeWidth={2.6} style={{ color: cfg?.icon_color ?? "#475569" }} />
+                  <X className="h-7 w-7 relative drop-shadow-[0_2px_10px_rgba(0,229,255,0.6)]" strokeWidth={2.6} style={{ color: cfg?.icon_color ?? "#ffffff" }} />
                 ) : (
                   <MessageCircleMore
-                    className="h-8 w-8 relative drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)]"
+                    className="h-8 w-8 relative drop-shadow-[0_2px_10px_rgba(0,229,255,0.6)]"
                     strokeWidth={2.4}
-                    style={{ color: cfg?.icon_color ?? "#475569" }}
+                    style={{ color: cfg?.icon_color ?? "#ffffff" }}
                   />
                 )}
               </span>
