@@ -13,7 +13,8 @@ import { ADMIN_MENU, type AdminMenuItem } from "@/lib/admin-menu";
 import { AdminMfaGate } from "@/components/admin/AdminMfaGate";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AdminLangProvider, useAdminLang } from "@/context/AdminLangContext";
-import ramaSubLogo from "@/assets/logo-gold-a.webp";
+import ramaSubLogoAsset from "@/assets/rama-sub-logo.jpg.asset.json";
+const ramaSubLogo = ramaSubLogoAsset.url;
 
 export const Route = createFileRoute("/admin")({
   component: AdminLayout,
