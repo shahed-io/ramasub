@@ -187,15 +187,16 @@ export function SiteHeader() {
                 className="relative grid place-items-center shrink-0 rounded-full p-[2.5px] transition-transform duration-500 group-hover:scale-[1.04]"
                 style={{
                   background: "white",
-                  boxShadow: "0 0 0 2px white, 0 4px 20px rgba(0,0,0,0.12), 0 0 30px -5px rgba(245,158,11,0.25)",
+                  boxShadow: "0 0 0 2px white, 0 4px 20px rgba(0,0,0,0.12), 0 0 40px -5px rgba(139,92,246,0.45), 0 0 12px 2px rgba(167,139,250,0.35)",
                 }}
               >
-                <span className="grid place-items-center w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden bg-white">
+                <span className="grid place-items-center w-[52px] h-[52px] md:w-[64px] md:h-[64px] rounded-full overflow-hidden bg-white relative">
+                  <span className="absolute inset-0 rounded-full ring-[3px] ring-violet-300/40 animate-pulse pointer-events-none" />
                   <img
                     src={ramaSubLogo}
                     alt="Rama Sub logo"
                     draggable={false}
-                    className="w-full h-full object-cover"
+                    className="w-[90%] h-[90%] object-contain"
                     width={128}
                     height={128}
                   />
