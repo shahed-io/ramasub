@@ -60,7 +60,7 @@ HERO ROW (top 55% of card, two columns):
 
 FEATURE ROW (bottom 35%): three equal rounded-square dark glass cards side by side. Each card has the preset accent-colour rim glow, a circular icon badge at the top (line icon in accent colour — pick icons that fit the feature), a bold short feature TITLE (2-3 words, white), and a 2-3 line feature description in soft light-grey. Use the 3 features supplied; if fewer than 3 are supplied invent plausible ones that match the product.
 
-FOOTER STRIP (very bottom): centered tagline "Fast • Secure • Reliable" with two small accent-colour dots as separators, sitting above a thin divider line. Bottom-left: a dark pill containing a globe icon + the text "accessnowbd.com". Bottom-right: the Rama Sub logomark — a stylised letter "A" in the accent colour next to the words "AccessNow" (white) with a tiny red "BD" badge under the "A", and the small caption "Premium Digital Services" under "AccessNow".
+FOOTER STRIP (very bottom): centered tagline "Fast • Secure • Reliable" with two small accent-colour dots as separators, sitting above a thin divider line. Bottom-left: a dark pill containing a globe icon + the text "accessnowbd.com". Bottom-right: the Rama Sub logomark with the words "Rama Sub" (white) and the small caption "Premium Digital Services" under it.
 
 QUALITY: cinematic studio render, ultra crisp, no extra text anywhere, no watermark, no Lorem Ipsum, no UI chrome outside the described frame. Render ONLY the text that is explicitly listed (brand name, feature titles + descriptions, "Fast • Secure • Reliable", "accessnowbd.com", "Rama Sub", "Premium Digital Services"). Spell every word correctly.
 `.trim();
