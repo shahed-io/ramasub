@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import accessNowLogo from "@/assets/logo-gold-a.webp";
+import ramaSubLogo from "@/assets/logo-gold-a.webp";
 import {
   Crown,
   Search,
@@ -212,7 +212,7 @@ export function SiteHeader() {
                   {/* Bottom inner shadow */}
                   <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_-6px_12px_-6px_rgba(0,0,0,0.08)]" />
                   <img
-                    src={accessNowLogo}
+                    src={ramaSubLogo}
                     alt="Rama Sub"
                     draggable={false}
                     className="relative w-[145%] h-[145%] object-contain -translate-y-[6%] drop-shadow-[0_2px_4px_rgba(30,79,216,0.25)]"
@@ -375,7 +375,7 @@ export function SiteHeader() {
               <div className="sticky top-0 z-10 flex items-center justify-between px-4 pt-4 pb-3 bg-gradient-to-b from-white via-white/95 to-transparent">
                 <div className="flex items-center gap-2.5 min-w-0">
                   <span className="relative grid place-items-center w-10 h-10 rounded-xl bg-white shrink-0 ring-1 ring-violet-200 shadow-[0_8px_22px_-10px_rgba(124,58,237,0.35)] overflow-hidden">
-                    <img src={accessNowLogo} alt="" className="w-[145%] h-[145%] object-contain" draggable={false} />
+                    <img src={ramaSubLogo} alt="" className="w-[145%] h-[145%] object-contain" draggable={false} />
                   </span>
                   <span className="min-w-0 leading-tight">
                     <span className="flex items-baseline gap-1">

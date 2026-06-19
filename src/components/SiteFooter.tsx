@@ -7,7 +7,7 @@ import {
   Info,
   FileText,
 } from "lucide-react";
-import accessNowLogo from "@/assets/logo-gold-a.webp";
+import ramaSubLogo from "@/assets/logo-gold-a.webp";
 
 type LinkTo =
   | "/"
@@ -119,7 +119,7 @@ export function SiteFooter() {
                     <span className="grid h-full w-full place-items-center overflow-hidden rounded-full bg-[radial-gradient(120%_120%_at_30%_20%,rgba(255,255,255,0.98)_0%,rgba(225,236,255,0.92)_56%,rgba(196,218,255,0.88)_100%)] ring-1 ring-white/35">
                       <span className="pointer-events-none absolute inset-x-2 top-1 h-3 rounded-full bg-white/70 blur-[4px]" />
                       <img
-                        src={accessNowLogo}
+                        src={ramaSubLogo}
                         alt="Rama Sub"
                         draggable={false}
                         className="relative h-[145%] w-[145%] object-contain translate-y-[2%]"
