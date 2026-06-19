@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/reset-password")({
   component: ResetPasswordPage,
-  head: () => ({ meta: [{ title: "Reset password — AccessNow BD" }] }),
+  head: () => ({ meta: [{ title: "Reset password — Rama Sub" }] }),
 });
 
 const schema = z.object({

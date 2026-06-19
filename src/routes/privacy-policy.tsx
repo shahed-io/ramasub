@@ -5,9 +5,9 @@ export const Route = createFileRoute("/privacy-policy")({
   component: PrivacyPolicyPage,
   head: () => ({
     meta: [
-      { title: "Privacy Policy — AccessNow BD" },
-      { name: "description", content: "How AccessNow BD collects, uses, and protects your personal information." },
-      { property: "og:title", content: "Privacy Policy — AccessNow BD" },
+      { title: "Privacy Policy — Rama Sub" },
+      { name: "description", content: "How Rama Sub collects, uses, and protects your personal information." },
+      { property: "og:title", content: "Privacy Policy — Rama Sub" },
       { property: "og:description", content: "Read our privacy practices for orders, payments and account data." },
     ],
   }),
@@ -18,7 +18,7 @@ function PrivacyPolicyPage() {
     <PolicyPage
       title="Privacy Policy"
       eyebrow="Your data · Your control"
-      subtitle="AccessNow BD-তে আপনার ব্যক্তিগত তথ্যের গোপনীয়তা ও নিরাপত্তা আমাদের কাছে সবচেয়ে গুরুত্বপূর্ণ। নিচে বিস্তারিতভাবে আমাদের প্রাইভেসি অনুশীলন তুলে ধরা হলো।"
+      subtitle="Rama Sub-তে আপনার ব্যক্তিগত তথ্যের গোপনীয়তা ও নিরাপত্তা আমাদের কাছে সবচেয়ে গুরুত্বপূর্ণ। নিচে বিস্তারিতভাবে আমাদের প্রাইভেসি অনুশীলন তুলে ধরা হলো।"
     >
       <h2>আমরা কী তথ্য সংগ্রহ করি</h2>
       <ul>

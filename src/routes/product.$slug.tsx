@@ -60,17 +60,17 @@ export const Route = createFileRoute("/product/$slug")({
     if (!p) {
       return {
         meta: [
-          { title: "Subscription details — AccessNow BD" },
+          { title: "Subscription details — Rama Sub" },
           { name: "robots", content: "noindex" },
         ],
       };
     }
-    const seoTitle = p.meta?.seo_title?.trim() || `${p.name} — Buy in Bangladesh | AccessNow BD`;
+    const seoTitle = p.meta?.seo_title?.trim() || `${p.name} — Buy in Bangladesh | Rama Sub`;
     const seoDesc =
       p.meta?.meta_description?.trim() ||
       p.shortDescription?.trim() ||
       p.tagline?.trim() ||
-      `Get ${p.name} subscription in Bangladesh at the best price. Instant delivery, genuine access, trusted support from AccessNow BD.`;
+      `Get ${p.name} subscription in Bangladesh at the best price. Instant delivery, genuine access, trusted support from Rama Sub.`;
     const firstPlan = p.plans?.[0];
     const priceNum = firstPlan ? Number(String(firstPlan.price).replace(/[^\d.]/g, "")) : 0;
     const jsonLd = {
@@ -79,7 +79,7 @@ export const Route = createFileRoute("/product/$slug")({
       name: p.name,
       description: seoDesc,
       ...(p.imageUrl ? { image: p.imageUrl } : {}),
-      brand: { "@type": "Brand", name: p.category || "AccessNow BD" },
+      brand: { "@type": "Brand", name: p.category || "Rama Sub" },
       category: p.category,
       sku: p.slug,
       offers: {
@@ -88,7 +88,7 @@ export const Route = createFileRoute("/product/$slug")({
         priceCurrency: "BDT",
         price: priceNum > 0 ? priceNum.toString() : "0",
         availability: "https://schema.org/InStock",
-        seller: { "@type": "Organization", name: "AccessNow BD" },
+        seller: { "@type": "Organization", name: "Rama Sub" },
       },
     };
     return {
@@ -100,7 +100,7 @@ export const Route = createFileRoute("/product/$slug")({
         { property: "og:description", content: seoDesc },
         { property: "og:type", content: "product" },
         { property: "og:url", content: url },
-        { property: "og:site_name", content: "AccessNow BD" },
+        { property: "og:site_name", content: "Rama Sub" },
         ...(p.imageUrl
           ? [
               { property: "og:image", content: p.imageUrl },
@@ -574,7 +574,7 @@ function buildFaqs(product: {
   return [
     {
       q: `Can I use ${name} in Bangladesh?`,
-      a: `Yes — ${name} works fully in Bangladesh through AccessNow BD. We provide verified ${category} access that runs on any device without restrictions.`,
+      a: `Yes — ${name} works fully in Bangladesh through Rama Sub. We provide verified ${category} access that runs on any device without restrictions.`,
     },
     {
       q: `How fast will I receive my ${name} access?`,
@@ -582,18 +582,18 @@ function buildFaqs(product: {
     },
     {
       q: `What warranty do I get with ${name}?`,
-      a: `Every ${name} order from AccessNow BD includes ${warranty}. If anything stops working during your plan period, contact support and we'll replace or fix it free of charge.`,
+      a: `Every ${name} order from Rama Sub includes ${warranty}. If anything stops working during your plan period, contact support and we'll replace or fix it free of charge.`,
     },
     {
-      q: `How do I subscribe to ${name} via AccessNow BD?`,
+      q: `How do I subscribe to ${name} via Rama Sub?`,
       a: `Choose your duration above, add to cart and complete payment with bKash, Nagad, Rocket, or card. ${durationLine}`,
     },
     {
-      q: `How much does ${name} cost in Bangladesh via AccessNow BD?`,
+      q: `How much does ${name} cost in Bangladesh via Rama Sub?`,
       a: priceLine,
     },
     {
-      q: `How do I renew my ${name} subscription with AccessNow BD?`,
+      q: `How do I renew my ${name} subscription with Rama Sub?`,
       a: `Simply place a new order for ${name} when your current plan is about to expire. We'll keep your existing access active where possible, and your new ${delivery.toLowerCase()} delivery applies to renewals too.`,
     },
   ];

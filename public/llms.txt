@@ -1,6 +1,6 @@
-# AccessNow BD
+# Rama Sub
 
-> AccessNow BD is a trusted Bangladeshi marketplace for verified premium digital subscriptions — streaming, AI tools, productivity, education and design software — with fast delivery and bKash / Nagad / card payments.
+> Rama Sub is a trusted Bangladeshi marketplace for verified premium digital subscriptions — streaming, AI tools, productivity, education and design software — with fast delivery and bKash / Nagad / card payments.
 
 ## Pages
 
@@ -25,4 +25,4 @@
 
 ## Optional
 
-- [Developer](/developer): About Shahed IT, the agency behind AccessNow BD.
+- [Developer](/developer): About Shahed IT, the agency behind Rama Sub.

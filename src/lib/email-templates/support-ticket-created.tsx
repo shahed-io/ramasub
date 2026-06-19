@@ -56,7 +56,7 @@ const Email = ({
 
 export const template = {
   component: Email,
-  subject: (data) => `[Ticket ${data?.ticketId ?? ''}] We received your request — AccessNow BD`,
+  subject: (data) => `[Ticket ${data?.ticketId ?? ''}] We received your request — Rama Sub`,
   displayName: 'Support ticket created',
   previewData: {
     name: 'Rahim',

@@ -98,17 +98,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
-      { name: "apple-mobile-web-app-title", content: "AccessNow BD" },
-      { name: "application-name", content: "AccessNow BD" },
-      { title: "AccessNow BD | Trusted Digital Services in Bangladesh" },
-      { name: "description", content: "AccessNow BD provides digital products, premium subscriptions, hosting, software, and IT services with fast support and secure access across Bangladesh." },
-      { name: "author", content: "AccessNow BD" },
+      { name: "apple-mobile-web-app-title", content: "Rama Sub" },
+      { name: "application-name", content: "Rama Sub" },
+      { title: "Rama Sub | Trusted Digital Services in Bangladesh" },
+      { name: "description", content: "Rama Sub provides digital products, premium subscriptions, hosting, software, and IT services with fast support and secure access across Bangladesh." },
+      { name: "author", content: "Rama Sub" },
       // Sitewide Open Graph defaults — page-specific og:title / og:description /
       // og:image / og:url MUST be set on the leaf route. We intentionally do NOT
       // declare og:image here: TanStack head() concatenates root meta into every
       // match, and a root og:image would override every leaf's own preview.
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "AccessNow BD" },
+      { property: "og:site_name", content: "Rama Sub" },
       { property: "og:locale", content: "bn_BD" },
       { property: "og:locale:alternate", content: "en_US" },
       { name: "twitter:card", content: "summary_large_image" },

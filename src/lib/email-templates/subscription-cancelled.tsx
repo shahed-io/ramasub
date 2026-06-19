@@ -45,7 +45,7 @@ const Email = ({
       Reactivate subscription
     </Button>
     <Text style={styles.muted}>
-      আপনার feedback পেলে আমরা service আরও ভালো করতে পারব। ধন্যবাদ AccessNow BD-এর সাথে থাকার জন্য।
+      আপনার feedback পেলে আমরা service আরও ভালো করতে পারব। ধন্যবাদ Rama Sub-এর সাথে থাকার জন্য।
     </Text>
   </EmailLayout>
 )

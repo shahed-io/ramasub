@@ -213,7 +213,7 @@ export function SiteHeader() {
                   <span className="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_-6px_12px_-6px_rgba(0,0,0,0.08)]" />
                   <img
                     src={accessNowLogo}
-                    alt="AccessNow BD"
+                    alt="Rama Sub"
                     draggable={false}
                     className="relative w-[145%] h-[145%] object-contain -translate-y-[6%] drop-shadow-[0_2px_4px_rgba(30,79,216,0.25)]"
                   />

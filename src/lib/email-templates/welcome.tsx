@@ -10,11 +10,11 @@ interface Props {
 
 const Email = ({ name, dashboardUrl = 'https://accessnowbd.com' }: Props) => (
   <EmailLayout
-    preview={`Welcome to AccessNow BD${name ? `, ${name}` : ''}!`}
+    preview={`Welcome to Rama Sub${name ? `, ${name}` : ''}!`}
     heading={`Welcome${name ? `, ${name}` : ''}! 🎉`}
   >
     <Text style={styles.text}>
-      AccessNow BD-তে স্বাগতম! আপনার account তৈরি হয়েছে এবং আপনি এখন আমাদের সব
+      Rama Sub-তে স্বাগতম! আপনার account তৈরি হয়েছে এবং আপনি এখন আমাদের সব
       digital subscription, AI tools এবং education service ব্যবহার করতে পারবেন।
     </Text>
     <Text style={styles.text}>
@@ -32,7 +32,7 @@ const Email = ({ name, dashboardUrl = 'https://accessnowbd.com' }: Props) => (
 
 export const template = {
   component: Email,
-  subject: 'Welcome to AccessNow BD 🎉',
+  subject: 'Welcome to Rama Sub 🎉',
   displayName: 'Welcome email',
   previewData: { name: 'Rahim', dashboardUrl: 'https://accessnowbd.com' },
 } satisfies TemplateEntry

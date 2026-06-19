@@ -82,7 +82,7 @@ serve(async (req) => {
         : "Most ratings should be 5 stars, a few 4 stars. No ratings below 4.";
 
     const sys =
-      "You generate realistic, varied Bangladeshi customer reviews for a digital-products shop (AccessNow BD). Avoid generic filler. Each review feels like a real human wrote it. Output STRICT JSON only via the provided tool.";
+      "You generate realistic, varied Bangladeshi customer reviews for a digital-products shop (Rama Sub). Avoid generic filler. Each review feels like a real human wrote it. Output STRICT JSON only via the provided tool.";
     const user = `Generate ${n} unique customer reviews for this product. ${langText} ${ratingText}
 - reviewer_name: realistic Bangladeshi names (mix of Bangla and English script names, both male & female). No duplicates.
 - comment: 1-3 short sentences each. Mention specifics like fast delivery, good price, working perfectly, customer support, etc. Avoid repeating the same opening phrase. No emojis required but a few may include 1 emoji.

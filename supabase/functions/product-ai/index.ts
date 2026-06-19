@@ -46,7 +46,7 @@ type Body = {
  * background mood changes per preset — the composition is identical so the
  * cards look like one consistent product series.
  *
- * Reference: AccessNow BD "Premium Digital Services" promo cards (Gemini AI
+ * Reference: Rama Sub "Premium Digital Services" promo cards (Gemini AI
  * Advance / Claude Pro / Canva Pro / QuillBot Premium style).
  */
 const SHARED_LAYOUT = `
@@ -60,9 +60,9 @@ HERO ROW (top 55% of card, two columns):
 
 FEATURE ROW (bottom 35%): three equal rounded-square dark glass cards side by side. Each card has the preset accent-colour rim glow, a circular icon badge at the top (line icon in accent colour — pick icons that fit the feature), a bold short feature TITLE (2-3 words, white), and a 2-3 line feature description in soft light-grey. Use the 3 features supplied; if fewer than 3 are supplied invent plausible ones that match the product.
 
-FOOTER STRIP (very bottom): centered tagline "Fast • Secure • Reliable" with two small accent-colour dots as separators, sitting above a thin divider line. Bottom-left: a dark pill containing a globe icon + the text "accessnowbd.com". Bottom-right: the AccessNow BD logomark — a stylised letter "A" in the accent colour next to the words "AccessNow" (white) with a tiny red "BD" badge under the "A", and the small caption "Premium Digital Services" under "AccessNow".
+FOOTER STRIP (very bottom): centered tagline "Fast • Secure • Reliable" with two small accent-colour dots as separators, sitting above a thin divider line. Bottom-left: a dark pill containing a globe icon + the text "accessnowbd.com". Bottom-right: the Rama Sub logomark with the words "Rama Sub" (white) and the small caption "Premium Digital Services" under it.
 
-QUALITY: cinematic studio render, ultra crisp, no extra text anywhere, no watermark, no Lorem Ipsum, no UI chrome outside the described frame. Render ONLY the text that is explicitly listed (brand name, feature titles + descriptions, "Fast • Secure • Reliable", "accessnowbd.com", "AccessNow BD", "Premium Digital Services"). Spell every word correctly.
+QUALITY: cinematic studio render, ultra crisp, no extra text anywhere, no watermark, no Lorem Ipsum, no UI chrome outside the described frame. Render ONLY the text that is explicitly listed (brand name, feature titles + descriptions, "Fast • Secure • Reliable", "accessnowbd.com", "Rama Sub", "Premium Digital Services"). Spell every word correctly.
 `.trim();
 
 const STYLE_PROMPTS: Record<CardStyle, string> = {
@@ -83,7 +83,7 @@ const STYLE_PROMPTS: Record<CardStyle, string> = {
     `${SHARED_LAYOUT}\n\nPRESET — "Neon Edge": near-black background with a cool blue ambience, electric blue→violet neon on the outer frame, hero tile and feature cards, plus a faint starfield. Brand-name accent word uses a blue→violet→pink gradient. Bullet dots in the footer are blue and violet.`,
 };
 
-const SHOP_BRAND = "AccessNow BD";
+const SHOP_BRAND = "Rama Sub";
 
 
 const json = (body: unknown, status = 200, corsHeaders: Record<string, string> = {}) =>
@@ -145,7 +145,7 @@ serve(async (req) => {
         : " For the three feature cards invent 3 short premium-sounding features that genuinely fit this product (each: 2-3 word TITLE + 2-3 line description).";
       const userExtra = imagePrompt?.trim() ? ` Additional creative direction from the operator: ${imagePrompt.trim()}.` : "";
       const prompt = isPremium
-        ? `${styleText}\n\n${subjectLine}${featuresLine}${userExtra}\n\nRender only the text described in the layout (brand wordmark, the 3 feature titles + descriptions, "Fast • Secure • Reliable", "accessnowbd.com", "AccessNow BD", "Premium Digital Services"). No other text, no watermark. Ultra high detail, 1:1 square.`
+        ? `${styleText}\n\n${subjectLine}${featuresLine}${userExtra}\n\nRender only the text described in the layout (brand wordmark, the 3 feature titles + descriptions, "Fast • Secure • Reliable", "accessnowbd.com", "Rama Sub", "Premium Digital Services"). No other text, no watermark. Ultra high detail, 1:1 square.`
         : (imagePrompt?.trim() || `${styleText}. ${subjectLine} Branded for ${SHOP_BRAND}. 1:1 square, ultra high detail, no text, no watermark.`);
 
       // ---- Path A: Lovable AI Gateway (preferred) — Nano Banana 2 with fallback ----
@@ -246,7 +246,7 @@ The "description" field MUST be markdown that follows EXACTLY this section order
 ## Perfect For
 - **Content Creators** – {reason}
 
-## Why Buy From AccessNow BD
+## Why Buy From Rama Sub
 - Trusted digital subscription provider in Bangladesh
 - Secure delivery with verified access
 - Fast customer support
@@ -282,11 +282,11 @@ The "description" field MUST be markdown that follows EXACTLY this section order
       short:
         "You write concise, persuasive Bangladeshi e-commerce product copy in clean English. Output STRICT JSON only.",
       rich:
-        "You write rich, SEO-optimised Bangladeshi e-commerce product descriptions in clean English markdown for AccessNow BD. You ALWAYS follow the provided section template exactly. Output STRICT JSON only.",
+        "You write rich, SEO-optimised Bangladeshi e-commerce product descriptions in clean English markdown for Rama Sub. You ALWAYS follow the provided section template exactly. Output STRICT JSON only.",
       all:
-        "You are an expert Bangladeshi e-commerce copywriter for AccessNow BD. You ALWAYS write the long description following the provided sectioned markdown template exactly. Output STRICT JSON only.",
+        "You are an expert Bangladeshi e-commerce copywriter for Rama Sub. You ALWAYS write the long description following the provided sectioned markdown template exactly. Output STRICT JSON only.",
       seo:
-        "You are a senior SEO copywriter for AccessNow BD (Bangladesh's trusted digital subscription store). You craft Google-friendly, click-worthy meta tags that rank for buyer-intent keywords like 'buy {product} in Bangladesh', '{product} BD price', '{product} subscription Bangladesh'. Output STRICT JSON only — no commentary.",
+        "You are a senior SEO copywriter for Rama Sub (Bangladesh's trusted digital subscription store). You craft Google-friendly, click-worthy meta tags that rank for buyer-intent keywords like 'buy {product} in Bangladesh', '{product} BD price', '{product} subscription Bangladesh'. Output STRICT JSON only — no commentary.",
     };
 
     const prompts: Record<Exclude<Mode, "image">, string> = {
@@ -296,7 +296,7 @@ The "description" field MUST be markdown that follows EXACTLY this section order
       seo: `Write Google-ranking SEO meta tags for this product page on accessnowbd.com.
 
 Rules:
-- seo_title: 50–60 chars. MUST start with the product/brand name + a buyer-intent keyword (e.g. "Buy", "Price", "Subscription"). Include "Bangladesh" or "BD". End with " | AccessNow BD". Use a power word (Cheap, Official, Premium, Genuine, Instant) when natural.
+- seo_title: 50–60 chars. MUST start with the product/brand name + a buyer-intent keyword (e.g. "Buy", "Price", "Subscription"). Include "Bangladesh" or "BD". End with " | Rama Sub". Use a power word (Cheap, Official, Premium, Genuine, Instant) when natural.
 - seo_description: 140–160 chars. Mention the product name + key benefit + price/availability cue (e.g. "best price", "instant delivery", "official subscription"). Include "Bangladesh" / "BD". End with a soft call-to-action ("Order now", "Get yours today"). Natural, no keyword stuffing.
 - tags: 6–10 lowercase long-tail keywords a Bangladeshi buyer would search (e.g. "buy {name} bangladesh", "{name} bd price", "{name} subscription bd", "cheap {name} bangladesh").
 

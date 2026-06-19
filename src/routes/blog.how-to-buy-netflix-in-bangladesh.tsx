@@ -54,7 +54,7 @@ export const Route = createFileRoute("/blog/how-to-buy-netflix-in-bangladesh")({
               name: "Can I buy Netflix in Bangladesh without a credit card?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes. AccessNow BD lets you pay with bKash or Nagad — no international card required.",
+                text: "Yes. Rama Sub lets you pay with bKash or Nagad — no international card required.",
               },
             },
             {
@@ -145,7 +145,7 @@ function NetflixGuide() {
             </li>
           </ol>
 
-          <h2>কেন AccessNow BD থেকে কিনবেন?</h2>
+          <h2>কেন Rama Sub থেকে কিনবেন?</h2>
           <ul>
             <li>✅ ১০০% official Netflix account — full features, all devices</li>
             <li>✅ bKash, Nagad, Rocket — local payment-এ সরাসরি কেনাকাটা</li>

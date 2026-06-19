@@ -7,7 +7,7 @@ import { rememberReturnTo } from "@/lib/auth-return-to";
 
 export const Route = createFileRoute("/wallet")({
   component: WalletPage,
-  head: () => ({ meta: [{ title: "My Wallet — AccessNow BD" }] }),
+  head: () => ({ meta: [{ title: "My Wallet — Rama Sub" }] }),
 });
 
 type Txn = {

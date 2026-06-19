@@ -46,7 +46,7 @@ export function PolicyPage({
         <header className="mb-10 md:mb-14">
           <div className="inline-flex items-center gap-2 rounded-full border border-violet-200/70 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-violet-700 shadow-sm">
             <Sparkles className="h-3.5 w-3.5" />
-            {eyebrow ?? "AccessNow BD · Policies"}
+            {eyebrow ?? "Rama Sub · Policies"}
           </div>
           <h1 className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight">
             <span className="bg-clip-text text-transparent bg-[linear-gradient(135deg,#6D28D9_0%,#4F46E5_50%,#0891B2_100%)]">

@@ -121,7 +121,7 @@ function GeneralSettingsPage() {
       <Card icon={<Info className="w-4 h-4" />} title="General Information" tone="violet">
         <Grid2>
           <Field label="Site name">
-            <Input value={data.site_name ?? ""} onChange={(v) => set("site_name", v)} placeholder="AccessNow BD" />
+            <Input value={data.site_name ?? ""} onChange={(v) => set("site_name", v)} placeholder="Rama Sub" />
           </Field>
           <Field label="Support email">
             <Input type="email" value={data.support_email ?? ""} onChange={(v) => set("support_email", v)} placeholder="info@accessnowbd.com.bd" />
@@ -305,7 +305,7 @@ async function testTelegram(token?: string, chatId?: string) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: chatId,
-        text: "✅ AccessNow BD — Telegram নোটিফিকেশন সফলভাবে কনফিগার হয়েছে!",
+        text: "✅ Rama Sub — Telegram নোটিফিকেশন সফলভাবে কনফিগার হয়েছে!",
       }),
     });
     const data = await res.json();
@@ -318,7 +318,7 @@ async function testTelegram(token?: string, chatId?: string) {
 
 function testWhatsApp(num?: string) {
   if (!num) return toast.error("WhatsApp নম্বর দিন");
-  const msg = encodeURIComponent("✅ AccessNow BD — WhatsApp নোটিফিকেশন কনফিগার সফল!");
+  const msg = encodeURIComponent("✅ Rama Sub — WhatsApp নোটিফিকেশন কনফিগার সফল!");
   window.open(`https://wa.me/${num.replace(/\D/g, "")}?text=${msg}`, "_blank");
 }
 

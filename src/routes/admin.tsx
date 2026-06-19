@@ -17,7 +17,7 @@ import accessNowLogo from "@/assets/logo-gold-a.webp";
 
 export const Route = createFileRoute("/admin")({
   component: AdminLayout,
-  head: () => ({ meta: [{ title: "Admin — AccessNow BD" }, { name: "robots", content: "noindex,nofollow" }] }),
+  head: () => ({ meta: [{ title: "Admin — Rama Sub" }, { name: "robots", content: "noindex,nofollow" }] }),
 });
 
 const ADMIN_CACHE_KEY = "anbd:isAdmin";
@@ -306,7 +306,7 @@ function AdminBlankState() {
 
         {/* Animated text */}
         <div className="flex flex-col items-center gap-2">
-          <span className="text-sm font-semibold text-slate-700 tracking-wide">AccessNow BD</span>
+          <span className="text-sm font-semibold text-slate-700 tracking-wide">Rama Sub</span>
           <span className="text-xs text-slate-400 font-medium tracking-wide">Loading admin panel</span>
         </div>
 
@@ -385,14 +385,14 @@ function AdminShell({ user, signOut, navigate }: any) {
             <span className="relative shrink-0 grid place-items-center w-10 h-10 rounded-xl overflow-hidden ring-1 ring-slate-200 bg-white">
               <img
                 src={accessNowLogo}
-                alt="AccessNow BD"
+                alt="Rama Sub"
                 draggable={false}
                 className="relative w-[140%] h-[140%] object-contain translate-y-[2%]"
               />
             </span>
             {!collapsed && (
               <span className="leading-tight min-w-0">
-                <span className="block text-[15px] font-extrabold tracking-tight text-[var(--admin-ink)]">AccessNow BD</span>
+                <span className="block text-[15px] font-extrabold tracking-tight text-[var(--admin-ink)]">Rama Sub</span>
                 <span className="block text-[9.5px] font-bold uppercase tracking-[0.22em] text-[var(--admin-muted)] mt-0.5">Admin Console</span>
               </span>
             )}

@@ -128,7 +128,7 @@ export function AdminMfaGate({ children, onSignOut, userEmail }: Props) {
         }
         const { data: enrollData, error: enrollErr } = await supabase.auth.mfa.enroll({
           factorType: "totp",
-          friendlyName: `AccessNow BD Admin (${new Date().toISOString().slice(0, 10)})`,
+          friendlyName: `Rama Sub Admin (${new Date().toISOString().slice(0, 10)})`,
         });
         if (enrollErr) throw enrollErr;
         setEnrollFactorId(enrollData.id);
@@ -361,7 +361,7 @@ export function AdminMfaGate({ children, onSignOut, userEmail }: Props) {
               <div className="mt-5 space-y-4">
                 <p className="text-sm text-slate-600 leading-relaxed">
                   {hasVerifiedFactor
-                    ? "Authenticator app খুলে AccessNow BD Admin-এর জন্য দেখানো ৬-ডিজিটের কোডটি লিখুন।"
+                    ? "Authenticator app খুলে Rama Sub Admin-এর জন্য দেখানো ৬-ডিজিটের কোডটি লিখুন।"
                     : "প্রথমে Authenticator setup করুন (Email tab-এ গিয়ে recovery code-ও নিতে পারেন)।"}
                 </p>
                 <CodeInput

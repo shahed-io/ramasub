@@ -5,9 +5,9 @@ export const Route = createFileRoute("/refund-request")({
   component: RefundRequestPage,
   head: () => ({
     meta: [
-      { title: "Refund Request — AccessNow BD" },
-      { name: "description", content: "Request a refund for your AccessNow BD order." },
-      { property: "og:title", content: "Refund Request — AccessNow BD" },
+      { title: "Refund Request — Rama Sub" },
+      { name: "description", content: "Request a refund for your Rama Sub order." },
+      { property: "og:title", content: "Refund Request — Rama Sub" },
       { property: "og:description", content: "Submit your refund request quickly." },
     ],
   }),
@@ -53,7 +53,7 @@ function RefundRequestPage() {
 
       <h2>স্বচ্ছ ও নিরাপদ প্রতিশ্রুতি</h2>
       <p>
-        AccessNow BD প্রতিটি রিফান্ড রিকোয়েস্ট ব্যক্তিগতভাবে রিভিউ করে। আপনার তথ্য সুরক্ষিত থাকবে এবং অযৌক্তিকভাবে কোনো রিকোয়েস্ট খারিজ করা হবে না।
+        Rama Sub প্রতিটি রিফান্ড রিকোয়েস্ট ব্যক্তিগতভাবে রিভিউ করে। আপনার তথ্য সুরক্ষিত থাকবে এবং অযৌক্তিকভাবে কোনো রিকোয়েস্ট খারিজ করা হবে না।
       </p>
 
       <p>

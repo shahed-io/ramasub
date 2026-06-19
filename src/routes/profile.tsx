@@ -10,7 +10,7 @@ import { AccountIcon } from "@/components/AccountIcon";
 
 export const Route = createFileRoute("/profile")({
   component: ProfilePage,
-  head: () => ({ meta: [{ title: "My Profile — AccessNow BD" }] }),
+  head: () => ({ meta: [{ title: "My Profile — Rama Sub" }] }),
 });
 
 const profileSchema = z.object({
@@ -95,7 +95,7 @@ function ProfilePage() {
         <div className="mx-auto max-w-[1440px] px-4 md:px-10 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 font-bold text-lg" style={{ fontFamily: "var(--font-heading)" }}>
             <span className="grid place-items-center w-9 h-9 rounded-xl bg-aurora text-white"><Crown className="w-4 h-4" /></span>
-            AccessNow <span className="text-aurora">BD</span>
+            Rama <span className="text-aurora">Sub</span>
           </Link>
           <div className="flex items-center gap-1.5"><AccountIcon /><CartIcon /></div>
         </div>

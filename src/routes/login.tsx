@@ -5,8 +5,8 @@ export const Route = createFileRoute("/login")({
   component: () => <AuthPageEntry initialMode="login" />,
   head: () => ({
     meta: [
-      { title: "Sign in — AccessNow BD" },
-      { name: "description", content: "Sign in to your AccessNow BD account to manage orders and digital products." },
+      { title: "Sign in — Rama Sub" },
+      { name: "description", content: "Sign in to your Rama Sub account to manage orders and digital products." },
     ],
   }),
 });

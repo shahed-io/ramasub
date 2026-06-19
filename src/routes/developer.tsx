@@ -20,17 +20,17 @@ export const Route = createFileRoute("/developer")({
   component: DeveloperPage,
   head: () => ({
     meta: [
-      { title: "Developer — Shahed IT | AccessNow BD" },
+      { title: "Developer — Shahed IT | Rama Sub" },
       {
         name: "description",
         content:
-          "AccessNow BD is designed and developed by Shahed IT — a trusted Bangladeshi digital agency since 2014, offering web development, graphic design and digital marketing.",
+          "Rama Sub is designed and developed by Shahed IT — a trusted Bangladeshi digital agency since 2014, offering web development, graphic design and digital marketing.",
       },
       { property: "og:title", content: "Meet the Developer — Shahed IT" },
       {
         property: "og:description",
         content:
-          "The team behind AccessNow BD: Shahed IT, a premium Bangladeshi IT agency with 10+ years of experience and 1000+ projects delivered.",
+          "The team behind Rama Sub: Shahed IT, a premium Bangladeshi IT agency with 10+ years of experience and 1000+ projects delivered.",
       },
     ],
   }),
@@ -94,13 +94,13 @@ function DeveloperPage() {
           </h1>
 
           <p className="mt-4 text-sm text-muted-foreground md:text-base">
-            প্রকাশিত: 2026 • লেখক: AccessNow BD Team • পড়ার সময়: ~4 মিনিট
+            প্রকাশিত: 2026 • লেখক: Rama Sub Team • পড়ার সময়: ~4 মিনিট
           </p>
 
           {/* Intro card */}
           <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8 dark:border-white/10 dark:bg-white/[0.03] dark:shadow-violet-500/10 dark:backdrop-blur">
             <p className="text-base leading-relaxed text-foreground/90 md:text-lg">
-              <strong>AccessNow BD</strong> ওয়েবসাইটটির সম্পূর্ণ ডিজাইন,
+              <strong>Rama Sub</strong> ওয়েবসাইটটির সম্পূর্ণ ডিজাইন,
               ডেভেলপমেন্ট ও রক্ষণাবেক্ষণের দায়িত্বে রয়েছে{" "}
               <strong className="text-violet-600 dark:text-violet-300">
                 Shahed IT
@@ -161,7 +161,7 @@ function DeveloperPage() {
               তারা বিভিন্ন ধরনের আইটি সেবা, ডিজিটাল সাবস্ক্রিপশন, সফটওয়্যার
               সল্যুশন এবং অনলাইন সার্ভিস প্রদান করে। তাদের লক্ষ্য হলো গ্রাহকদের
               নিরাপদ, দ্রুত এবং সাশ্রয়ী মূল্যে ডিজিটাল সেবা প্রদান করা — এবং
-              AccessNow BD সেই দর্শনেরই বাস্তব রূপ।
+              Rama Sub সেই দর্শনেরই বাস্তব রূপ।
             </p>
             <p className="mt-4 leading-relaxed text-foreground/85">
               10 বছরের অধিক অভিজ্ঞতা, 1000+ সফল প্রজেক্ট এবং 20+ দেশে সেবা
@@ -210,10 +210,10 @@ function DeveloperPage() {
           {/* Project story */}
           <section className="mt-12">
             <h2 className="text-2xl font-bold md:text-3xl">
-              AccessNow BD প্রজেক্ট সম্পর্কে
+              Rama Sub প্রজেক্ট সম্পর্কে
             </h2>
             <p className="mt-4 leading-relaxed text-foreground/85">
-              AccessNow BD একটি আধুনিক ডিজিটাল সাবস্ক্রিপশন ও সার্ভিস
+              Rama Sub একটি আধুনিক ডিজিটাল সাবস্ক্রিপশন ও সার্ভিস
               প্ল্যাটফর্ম, যেখানে গ্রাহকরা সহজে premium subscriptions, software
               এবং digital products কিনতে পারেন। এই প্ল্যাটফর্মের পুরো UI/UX,
               frontend, backend, payment integration এবং admin panel — সবকিছুই
@@ -267,7 +267,7 @@ function DeveloperPage() {
           </section>
 
           <p className="mt-12 text-center text-xs text-muted-foreground">
-            © {new Date().getFullYear()} AccessNow BD · Crafted with care by
+            © {new Date().getFullYear()} Rama Sub · Crafted with care by
             Shahed IT
           </p>
         </article>

@@ -17,7 +17,7 @@ export const Route = createFileRoute("/unsubscribe")({
   component: UnsubscribePage,
   head: () => ({
     meta: [
-      { title: "Unsubscribe — AccessNow BD" },
+      { title: "Unsubscribe — Rama Sub" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
@@ -90,7 +90,7 @@ function UnsubscribePage() {
           Email Unsubscribe
         </h1>
         <p className="text-sm text-muted-foreground mb-6">
-          AccessNow BD email preferences
+          Rama Sub email preferences
         </p>
 
         {state.kind === "loading" && (
@@ -115,7 +115,7 @@ function UnsubscribePage() {
         {state.kind === "valid" && (
           <>
             <p className="text-foreground mb-6">
-              Are you sure you want to unsubscribe from AccessNow BD emails?
+              Are you sure you want to unsubscribe from Rama Sub emails?
             </p>
             <button
               onClick={confirm}

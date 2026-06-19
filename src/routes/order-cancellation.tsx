@@ -5,9 +5,9 @@ export const Route = createFileRoute("/order-cancellation")({
   component: OrderCancellationPage,
   head: () => ({
     meta: [
-      { title: "Order & Cancellation Policy — AccessNow BD" },
+      { title: "Order & Cancellation Policy — Rama Sub" },
       { name: "description", content: "How to cancel your order and our cancellation policy." },
-      { property: "og:title", content: "Order & Cancellation — AccessNow BD" },
+      { property: "og:title", content: "Order & Cancellation — Rama Sub" },
       { property: "og:description", content: "Order cancellation rules and procedures." },
     ],
   }),

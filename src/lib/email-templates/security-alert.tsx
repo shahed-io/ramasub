@@ -17,7 +17,7 @@ interface Props {
 const Email = ({
   name,
   event = 'Unusual activity detected',
-  detail = 'We noticed something unusual on your AccessNow BD account.',
+  detail = 'We noticed something unusual on your Rama Sub account.',
   ipAddress,
   location,
   device,
@@ -72,12 +72,12 @@ const Email = ({
 
 export const template = {
   component: Email,
-  subject: (data) => `🛡️ Security alert: ${data?.event ?? 'unusual activity'} — AccessNow BD`,
+  subject: (data) => `🛡️ Security alert: ${data?.event ?? 'unusual activity'} — Rama Sub`,
   displayName: 'Security alert',
   previewData: {
     name: 'Rahim',
     event: 'New login from an unrecognised device',
-    detail: 'A new sign-in was detected on your AccessNow BD account.',
+    detail: 'A new sign-in was detected on your Rama Sub account.',
     ipAddress: '103.108.224.10',
     location: 'Dhaka, Bangladesh',
     device: 'Chrome on Windows',

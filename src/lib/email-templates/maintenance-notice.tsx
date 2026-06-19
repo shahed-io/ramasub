@@ -17,7 +17,7 @@ const Email = ({
   startsAt = 'TBA',
   endsAt,
   durationMinutes,
-  affected = 'AccessNow BD dashboard',
+  affected = 'Rama Sub dashboard',
   reason = 'system upgrade and performance improvements',
 }: Props) => (
   <EmailLayout

@@ -37,7 +37,7 @@ export const Route = createFileRoute("/checkout")({
     step: search.step === "2" || search.step === 2 ? 2 : 1,
     coupon: typeof search.coupon === "string" ? search.coupon : "",
   }),
-  head: () => ({ meta: [{ title: "Checkout — AccessNow BD" }] }),
+  head: () => ({ meta: [{ title: "Checkout — Rama Sub" }] }),
 });
 
 type PayMethod = {

@@ -16,7 +16,7 @@ const Email = ({
   name,
   ticketId,
   subject = 'your support request',
-  agentName = 'AccessNow BD Support',
+  agentName = 'Rama Sub Support',
   message = 'We have an update on your ticket. Please open it to see the full reply.',
   ticketUrl = 'https://accessnowbd.com/support',
 }: Props) => (
@@ -53,7 +53,7 @@ const Email = ({
 
 export const template = {
   component: Email,
-  subject: (data) => `Re: ${data?.subject ?? 'your support request'} — AccessNow BD`,
+  subject: (data) => `Re: ${data?.subject ?? 'your support request'} — Rama Sub`,
   displayName: 'Support ticket reply',
   previewData: {
     name: 'Rahim',

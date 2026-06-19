@@ -1,4 +1,4 @@
-// AccessNow BD — AI support chat (streaming via Lovable AI Gateway)
+// Rama Sub — AI support chat (streaming via Lovable AI Gateway)
 const ALLOWED_ORIGIN_PATTERNS: RegExp[] = [
   /^https:\/\/accessnowbd\.lovable\.app$/,
   /^https:\/\/[a-z0-9-]+\.lovable\.app$/,
@@ -22,7 +22,7 @@ function corsFor(req: Request) {
 const MAX_MESSAGES = 20;
 const MAX_CONTENT_LEN = 4000;
 
-const SYSTEM_PROMPT = `তুমি AccessNow BD-এর প্রিমিয়াম সাপোর্ট অ্যাসিস্ট্যান্ট। বাংলায় (প্রয়োজনে English mix) বন্ধুসুলভ, সংক্ষিপ্ত, সঠিক উত্তর দাও।
+const SYSTEM_PROMPT = `তুমি Rama Sub-এর প্রিমিয়াম সাপোর্ট অ্যাসিস্ট্যান্ট। বাংলায় (প্রয়োজনে English mix) বন্ধুসুলভ, সংক্ষিপ্ত, সঠিক উত্তর দাও।
 
 📦 আমরা যা বিক্রি করি:
 - OTT/Streaming: Netflix, Prime Video, Hoichoi, Chorki, Disney+, YouTube Premium, Spotify

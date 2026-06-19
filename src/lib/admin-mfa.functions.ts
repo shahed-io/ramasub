@@ -49,7 +49,7 @@ async function sendOtpEmail(emails: string[], code: string, requesterEmail: stri
   }
   const html = `
     <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:480px;margin:0 auto;padding:24px;background:#ffffff;color:#0f172a">
-      <h1 style="font-size:18px;margin:0 0 12px">AccessNow BD — Admin Login Code</h1>
+      <h1 style="font-size:18px;margin:0 0 12px">Rama Sub — Admin Login Code</h1>
       <p style="font-size:14px;color:#475569;margin:0 0 20px">
         Login attempt by <b>${requesterEmail}</b>. If this wasn't you, ignore this email and revoke admin access immediately.
       </p>
@@ -67,7 +67,7 @@ async function sendOtpEmail(emails: string[], code: string, requesterEmail: stri
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "AccessNow BD Admin <onboarding@resend.dev>",
+      from: "Rama Sub Admin <onboarding@resend.dev>",
       to: emails,
       subject: `Admin login code: ${code}`,
       html,

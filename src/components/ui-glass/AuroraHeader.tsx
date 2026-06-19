@@ -18,7 +18,7 @@ export function AuroraHeader({ children }: AuroraHeaderProps) {
           <span className="grid place-items-center w-9 h-9 rounded-full glass-strong text-primary font-bold">
             A
           </span>
-          AccessNow BD
+          Rama Sub
         </Link>
         <div className="flex items-center gap-2">{children}</div>
       </div>

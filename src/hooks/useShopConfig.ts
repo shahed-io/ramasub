@@ -22,7 +22,7 @@ export type PaymentMethod = {
 
 export const DEFAULT_SHOP_CONFIG: ShopConfig = {
   whatsapp_number: "8801580607614",
-  shop_name: "AccessNow BD",
+  shop_name: "Rama Sub",
   support_hours: "9 AM – 12 AM",
 };
 
