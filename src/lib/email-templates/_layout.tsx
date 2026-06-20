@@ -15,6 +15,7 @@ import {
 const SITE = 'Rama Sub'
 const SITE_URL = 'https://ramasub.com'
 const SUPPORT_EMAIL = 'support@ramasub.com'
+const LOGO_URL = 'https://ramasub.com/__l5e/assets-v1/6b147f1c-869f-4fad-92f0-780115851353/rama-logo-new.png'
 
 interface LayoutProps {
   preview: string
@@ -29,8 +30,29 @@ export const EmailLayout = ({ preview, heading, children }: LayoutProps) => (
     <Body style={main}>
       <Container style={container}>
         <Section style={header}>
-          <Link href={SITE_URL} style={brand}>
-            {SITE}
+          <Link href={SITE_URL} style={brandLink}>
+            <table cellPadding={0} cellSpacing={0} style={{ borderCollapse: 'collapse' }}>
+              <tr>
+                <td style={{ verticalAlign: 'middle', paddingRight: '12px' }}>
+                  <img
+                    src={LOGO_URL}
+                    alt="Rama Sub"
+                    width={44}
+                    height={44}
+                    style={brandLogo}
+                  />
+                </td>
+                <td style={{ verticalAlign: 'middle' }}>
+                  <span style={brandWord}>
+                    <span style={{ color: '#f59e0b' }}>Rama</span>
+                    <span style={{ color: '#fb923c' }}> </span>
+                    <span style={{ color: '#38bdf8' }}>Sub</span>
+                  </span>
+                  <br />
+                  <span style={brandTag}>RAMASUB.COM.BD</span>
+                </td>
+              </tr>
+            </table>
           </Link>
         </Section>
         <Section style={card}>
@@ -93,14 +115,34 @@ export const styles = {
 
 const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, Helvetica, sans-serif' }
 const container = { maxWidth: '560px', margin: '0 auto', padding: '24px 20px' }
-const header = { padding: '0 0 16px' }
-const brand = {
-  fontSize: '18px',
-  fontWeight: 700 as const,
-  color: '#0f1b3d',
+const header = { padding: '0 0 18px' }
+const brandLink = {
   textDecoration: 'none',
-  letterSpacing: '0.2px',
-}
+  display: 'inline-block',
+} as const
+const brandLogo = {
+  display: 'block',
+  width: '44px',
+  height: '44px',
+  borderRadius: '999px',
+  border: '2px solid #ffffff',
+  boxShadow: '0 4px 14px rgba(15,27,61,0.18)',
+  backgroundColor: '#ffffff',
+} as const
+const brandWord = {
+  fontSize: '22px',
+  fontWeight: 800 as const,
+  letterSpacing: '-0.2px',
+  fontFamily: 'Poppins, Arial, Helvetica, sans-serif',
+  lineHeight: '1.1',
+} as const
+const brandTag = {
+  fontSize: '10px',
+  fontWeight: 700 as const,
+  letterSpacing: '0.22em',
+  color: '#64748b',
+  textTransform: 'uppercase' as const,
+} as const
 const card = {
   backgroundColor: '#ffffff',
   border: '1px solid #e5e7eb',
