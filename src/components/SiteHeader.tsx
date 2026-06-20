@@ -202,12 +202,12 @@ export function SiteHeader() {
                     animation: "spin 4s linear infinite",
                   }}
                 />
-                <span className="grid place-items-center w-[52px] h-[52px] md:w-[64px] md:h-[64px] rounded-full overflow-hidden bg-white relative">
+                <span className="grid place-items-center w-[44px] h-[44px] md:w-[52px] md:h-[52px] rounded-full overflow-hidden bg-white relative">
                   <img
                     src={ramaSubLogo}
                     alt="Rama Sub logo"
                     draggable={false}
-                    className="w-full h-full object-contain p-[2px]"
+                    className="w-full h-full object-contain p-[3px]"
                     width={128}
                     height={128}
                   />
