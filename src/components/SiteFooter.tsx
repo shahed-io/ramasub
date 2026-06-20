@@ -295,7 +295,8 @@ export function SiteFooter() {
                 <span className="text-rose-500">©</span>{" "}
                 <span className="font-bold text-fuchsia-600 dark:text-fuchsia-400">2026</span>
                 <span className="mx-2 text-foreground/25">·</span>
-                <span className="font-extrabold tracking-tight text-primary">Access</span><span className="font-extrabold tracking-tight text-aqua-deep">Now</span>{" "}
+                <span className="font-extrabold tracking-tight text-primary">Rama</span>{" "}
+                <span className="font-extrabold tracking-tight text-aqua-deep">Sub</span>{" "}
                 <span className="font-extrabold tracking-tight text-[var(--gold)]">BD</span>
                 <span className="mx-2 text-foreground/25">·</span>
                 <span className="font-semibold text-emerald-600 dark:text-emerald-400">All</span>{" "}
