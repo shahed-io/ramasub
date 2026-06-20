@@ -7,7 +7,7 @@ import {
   Info,
   FileText,
 } from "lucide-react";
-import ramaSubLogoAsset from "@/assets/rama-sub-logo.jpg.asset.json";
+import ramaSubLogoAsset from "@/assets/rama-logo-new.png.asset.json";
 const ramaSubLogo = ramaSubLogoAsset.url;
 
 type LinkTo =
