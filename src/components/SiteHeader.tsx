@@ -161,8 +161,6 @@ export function SiteHeader() {
     <>
       <TopUtilityBar />
       <header className="fixed inset-x-0 top-0 z-50">
-        {/* Spacer so page content doesn't slide under the fixed header */}
-        <div aria-hidden className="h-[64px] md:h-[68px] w-full pointer-events-none" style={{ position: "absolute", top: "100%" }} />
         <div
           className={[
             "relative transition-[background-color,box-shadow,backdrop-filter] duration-300 will-change-[background-color]",
