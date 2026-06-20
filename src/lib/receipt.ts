@@ -25,16 +25,25 @@ export function buildReceiptDoc(order: ReceiptOrder) {
   let y = margin;
 
 
-  // Header bar
-  doc.setFillColor(99, 102, 241); // violet
+  // Header bar — brand identity
+  doc.setFillColor(15, 23, 42); // slate-900
   doc.rect(0, 0, pageW, 90, "F");
-  doc.setTextColor(255, 255, 255);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(22);
-  doc.text("Rama Sub", margin, 42);
+  doc.setFontSize(24);
+  // "Rama" in amber, " Sub" in sky — mirrors site wordmark gradient endpoints
+  doc.setTextColor(245, 158, 11);
+  doc.text("Rama", margin, 44);
+  const ramaW = doc.getTextWidth("Rama");
+  doc.setTextColor(56, 189, 248);
+  doc.text(" Sub", margin + ramaW, 44);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.setTextColor(203, 213, 225);
+  doc.text("R A M A S U B . C O M . B D", margin, 60);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(11);
-  doc.text("Payment Receipt", margin, 64);
+  doc.setTextColor(255, 255, 255);
+  doc.text("Payment Receipt", margin, 78);
 
   doc.setFontSize(10);
   doc.text(

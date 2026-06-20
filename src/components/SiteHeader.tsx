@@ -355,19 +355,36 @@ export function SiteHeader() {
               {/* Top: brand + close */}
               <div className="sticky top-0 z-10 flex items-center justify-between px-4 pt-4 pb-3 bg-gradient-to-b from-white via-white/95 to-transparent">
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <span className="relative grid place-items-center w-10 h-10 rounded-xl bg-white shrink-0 ring-1 ring-violet-200 shadow-[0_8px_22px_-10px_rgba(124,58,237,0.35)] overflow-hidden">
-                    <img src={ramaSubLogo} alt="" className="w-full h-full object-contain p-1" draggable={false} />
+                  <span className="relative grid place-items-center w-10 h-10 rounded-full bg-white shrink-0 ring-1 ring-violet-200 shadow-[0_8px_22px_-10px_rgba(124,58,237,0.35)] overflow-hidden p-[2px]">
+                    <span
+                      className="absolute inset-[-3px] rounded-full pointer-events-none"
+                      style={{
+                        background: "linear-gradient(135deg,#f59e0b,#fb923c,#38bdf8,#f59e0b)",
+                        padding: "2px",
+                        WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                        WebkitMaskComposite: "xor",
+                        maskComposite: "exclude",
+                        animation: "spin 4s linear infinite",
+                      }}
+                    />
+                    <img src={ramaSubLogo} alt="" className="w-full h-full object-contain p-[2px] relative" draggable={false} />
                   </span>
                   <span className="min-w-0 leading-tight">
-                    <span className="flex items-baseline gap-1">
-                      <span className="text-[15px] font-extrabold text-slate-900">Rama</span>
-                      <span className="text-[15px] font-extrabold text-aqua">Sub</span>
+                    <span
+                      className="block text-[16px] font-extrabold tracking-tight bg-clip-text text-transparent whitespace-nowrap"
+                      style={{
+                        fontFamily: "'Poppins', var(--font-heading)",
+                        backgroundImage: "linear-gradient(90deg, #f59e0b 0%, #fb923c 50%, #38bdf8 100%)",
+                      }}
+                    >
+                      Rama Sub
                     </span>
                     <span className="block text-[9px] font-bold uppercase tracking-[0.22em] text-violet-500/80 mt-0.5">
-                      Premium Menu
+                      RAMASUB.COM.BD
                     </span>
                   </span>
                 </div>
+
                 <button
                   onClick={() => setOpen(false)}
                   aria-label="Close"

@@ -13,7 +13,8 @@ import { ADMIN_MENU, type AdminMenuItem } from "@/lib/admin-menu";
 import { AdminMfaGate } from "@/components/admin/AdminMfaGate";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AdminLangProvider, useAdminLang } from "@/context/AdminLangContext";
-import ramaSubLogoAsset from "@/assets/rama-sub-logo.jpg.asset.json";
+import { BrandLogo } from "@/components/BrandLogo";
+import ramaSubLogoAsset from "@/assets/rama-logo-new.png.asset.json";
 const ramaSubLogo = ramaSubLogoAsset.url;
 
 export const Route = createFileRoute("/admin")({
@@ -382,22 +383,24 @@ function AdminShell({ user, signOut, navigate }: any) {
             : "h-[68px] flex items-center justify-between px-4",
         ].join(" ")}>
 
-          <Link to="/admin" className={`flex items-center gap-2.5 min-w-0 ${collapsed ? "justify-center" : ""}`}>
-            <span className="relative shrink-0 grid place-items-center w-10 h-10 rounded-xl overflow-hidden ring-1 ring-slate-200 bg-white">
-              <img
-                src={ramaSubLogo}
-                alt="Rama Sub"
-                draggable={false}
-                className="relative w-[140%] h-[140%] object-contain translate-y-[2%]"
-              />
-            </span>
+          <Link to="/admin" className={`flex items-center gap-2.5 min-w-0 group ${collapsed ? "justify-center" : ""}`} aria-label="Rama Sub Admin">
+            <BrandLogo size="sm" showWordmark={false} underlineId="adminSidebarUnderline" />
             {!collapsed && (
               <span className="leading-tight min-w-0">
-                <span className="block text-[15px] font-extrabold tracking-tight text-[var(--admin-ink)]">Rama Sub</span>
+                <span
+                  className="block text-[16px] font-extrabold tracking-tight bg-clip-text text-transparent"
+                  style={{
+                    fontFamily: "'Poppins', var(--font-heading)",
+                    backgroundImage: "linear-gradient(90deg, #f59e0b 0%, #fb923c 50%, #38bdf8 100%)",
+                  }}
+                >
+                  Rama Sub
+                </span>
                 <span className="block text-[9.5px] font-bold uppercase tracking-[0.22em] text-[var(--admin-muted)] mt-0.5">Admin Console</span>
               </span>
             )}
           </Link>
+
           <button
             onClick={() => setMobileOpen(false)}
             className="lg:hidden p-1.5 rounded-lg hover:bg-slate-100 text-slate-600"
