@@ -1,105 +1,50 @@
-import { useEffect, useState, useCallback } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import banner1 from "@/assets/rama-banner-1.png.asset.json";
-import banner2 from "@/assets/rama-banner-2.png.asset.json";
-import banner3 from "@/assets/rama-banner-3.png.asset.json";
+import { ArrowRight } from "lucide-react";
+import personAsset from "@/assets/rama-person.png.asset.json";
 
-const BANNERS = [
-  {
-    id: 1,
-    src: banner1.url,
-    alt: "Rama Subscription — বিশ্বস্ততার আরেক নাম",
-    to: "/products",
-  },
-  {
-    id: 2,
-    src: banner2.url,
-    alt: "Rama Subscription — Premium Digital Subscriptions",
-    to: "/products",
-  },
-  {
-    id: 3,
-    src: banner3.url,
-    alt: "Rama Subscription — All Your Favorite Apps",
-    to: "/products",
-  },
-];
-
+/**
+ * Simple, clean hero banner — light background, person photo on the left,
+ * concise English headline + CTA on the right. No carousel, no chrome.
+ */
 export function ImageBannerCarousel() {
-  const [active, setActive] = useState(0);
-
-  const next = useCallback(() => setActive((i) => (i + 1) % BANNERS.length), []);
-  const prev = useCallback(
-    () => setActive((i) => (i - 1 + BANNERS.length) % BANNERS.length),
-    [],
-  );
-
-  useEffect(() => {
-    const id = window.setInterval(next, 6000);
-    return () => window.clearInterval(id);
-  }, [next]);
-
   return (
     <section className="px-4 md:px-10 pt-6 pb-4">
-      <div className="relative mx-auto max-w-[1280px] overflow-hidden rounded-2xl md:rounded-[28px] border border-white/20 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.15)] group">
-        {/* Slides */}
-        <div className="relative aspect-[16/9] sm:aspect-[2/1] md:aspect-[2.5/1] lg:aspect-[3/1]">
-          {BANNERS.map((banner, idx) => (
+      <div className="relative mx-auto max-w-[1280px] overflow-hidden rounded-2xl md:rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-slate-100 shadow-[0_20px_60px_-25px_rgba(15,23,42,0.18)]">
+        <div className="relative grid grid-cols-[minmax(0,1fr)_auto] sm:grid-cols-2 items-end gap-4 sm:gap-6 px-5 sm:px-10 md:px-14 pt-8 sm:pt-10 md:pt-14 min-h-[220px] sm:min-h-[300px] md:min-h-[360px]">
+          {/* Text */}
+          <div className="min-w-0 pb-6 sm:pb-10 md:pb-14">
+            <span className="inline-block text-[10px] sm:text-xs font-semibold tracking-[0.22em] uppercase text-sky-600">
+              Rama Sub · BD
+            </span>
+            <h2 className="mt-3 font-extrabold tracking-tight text-slate-900 text-[22px] leading-[1.1] sm:text-4xl md:text-5xl">
+              Premium Subscriptions,{" "}
+              <span className="text-sky-600">Simple Prices.</span>
+            </h2>
+            <p className="mt-3 text-slate-600 text-[13px] sm:text-base max-w-md">
+              Netflix, ChatGPT, Canva, Zoom, Microsoft Office & more — instant
+              delivery, trusted support.
+            </p>
             <Link
-              key={banner.id}
-              to={banner.to as never}
-              className={`absolute inset-0 transition-opacity duration-700 ease-out ${
-                idx === active ? "opacity-100 z-10" : "opacity-0 z-0"
-              }`}
+              to="/products"
+              className="mt-5 sm:mt-7 inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 sm:px-6 py-2.5 sm:py-3 text-white text-sm font-semibold shadow-md hover:bg-slate-800 transition"
             >
-              <img
-                src={banner.src}
-                alt={banner.alt}
-                className="w-full h-full object-cover object-center"
-                loading={idx === 0 ? "eager" : "lazy"}
-                width={1920}
-                height={640}
-              />
+              Shop Now
+              <ArrowRight className="w-4 h-4" />
             </Link>
-          ))}
-        </div>
+          </div>
 
-        {/* Previous */}
-        <button
-          type="button"
-          onClick={prev}
-          aria-label="Previous banner"
-          className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-20 h-9 w-9 md:h-10 md:w-10 rounded-full bg-white/85 backdrop-blur-md text-slate-800 shadow-md hover:bg-white hover:scale-105 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-
-        {/* Next */}
-        <button
-          type="button"
-          onClick={next}
-          aria-label="Next banner"
-          className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 z-20 h-9 w-9 md:h-10 md:w-10 rounded-full bg-white/85 backdrop-blur-md text-slate-800 shadow-md hover:bg-white hover:scale-105 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-
-        {/* Dots */}
-        <div className="absolute bottom-3 md:bottom-5 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-          {BANNERS.map((_, idx) => (
-            <button
-              key={idx}
-              type="button"
-              onClick={() => setActive(idx)}
-              aria-label={`Go to banner ${idx + 1}`}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                idx === active
-                  ? "w-6 bg-white shadow-sm"
-                  : "w-2.5 bg-white/50 hover:bg-white/80"
-              }`}
+          {/* Person */}
+          <div className="relative h-full flex items-end justify-end shrink-0">
+            <img
+              src={personAsset.url}
+              alt="Rama Sub representative"
+              className="block h-[200px] sm:h-[300px] md:h-[380px] w-auto object-contain object-bottom drop-shadow-[0_18px_30px_rgba(15,23,42,0.18)] select-none pointer-events-none"
+              draggable={false}
+              loading="eager"
+              width={800}
+              height={800}
             />
-          ))}
+          </div>
         </div>
       </div>
     </section>
