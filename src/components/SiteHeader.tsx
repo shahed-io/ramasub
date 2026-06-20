@@ -160,7 +160,7 @@ export function SiteHeader() {
   return (
     <>
       <TopUtilityBar />
-      <header className="fixed inset-x-0 top-0 z-50">
+      <header className="sticky top-0 z-40">
         <div
           className={[
             "relative transition-[background-color,box-shadow,backdrop-filter] duration-300 will-change-[background-color]",
@@ -583,8 +583,6 @@ export function SiteHeader() {
           </>
         )}
       </header>
-      {/* Spacer to offset the fixed header so page content isn't hidden underneath */}
-      <div aria-hidden className="h-[64px] md:h-[68px] w-full" />
       <GlobalSearch open={searchOpen} onOpenChange={setSearchOpen} />
     </>
   );
