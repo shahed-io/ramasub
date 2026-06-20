@@ -583,6 +583,8 @@ export function SiteHeader() {
           </>
         )}
       </header>
+      {/* Spacer to offset the fixed header so page content isn't hidden underneath */}
+      <div aria-hidden className="h-[64px] md:h-[68px] w-full" />
       <GlobalSearch open={searchOpen} onOpenChange={setSearchOpen} />
     </>
   );
