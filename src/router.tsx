@@ -3,7 +3,20 @@ import { createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
 export const getRouter = () => {
-  const queryClient = new QueryClient();
+  // App-wide Query defaults: avoid noisy refetches on focus/reconnect that
+  // would thrash re-renders and PostgREST calls when the user tabs back or a
+  // component remounts with already-fresh data. Per-query overrides still win.
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60_000,
+        gcTime: 5 * 60_000,
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: false,
+        retry: 1,
+      },
+    },
+  });
 
   const router = createRouter({
     routeTree,
