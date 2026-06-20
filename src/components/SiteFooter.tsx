@@ -113,66 +113,88 @@ export function SiteFooter() {
               <div>
                 <Link
                   to="/"
-                  className="inline-flex max-w-full items-center gap-3 sm:gap-4"
+                  className="flex items-center gap-3 sm:gap-3.5 shrink-0 group min-w-0"
+                  style={{ fontFamily: "var(--font-heading)" }}
                   aria-label="Rama Sub home"
                 >
-                  <span className="relative grid h-16 w-16 shrink-0 place-items-center rounded-full bg-[var(--gradient-conic)] p-[2px] shadow-[0_16px_42px_-16px_rgba(34,211,238,0.7)] md:h-[72px] md:w-[72px]">
-                    <span className="grid h-full w-full place-items-center overflow-hidden rounded-full bg-[radial-gradient(120%_120%_at_30%_20%,rgba(255,255,255,0.98)_0%,rgba(225,236,255,0.92)_56%,rgba(196,218,255,0.88)_100%)] ring-1 ring-white/35">
-                      <span className="pointer-events-none absolute inset-x-2 top-1 h-3 rounded-full bg-white/70 blur-[4px]" />
+                  {/* Logo — white background with elegant shadow effect */}
+                  <span
+                    aria-hidden
+                    className="relative grid place-items-center shrink-0 rounded-full p-[2.5px] transition-transform duration-500 group-hover:scale-[1.04]"
+                    style={{
+                      background: "white",
+                      boxShadow:
+                        "0 0 0 2px white, 0 4px 20px rgba(0,0,0,0.12), 0 0 40px -5px rgba(139,92,246,0.45), 0 0 12px 2px rgba(167,139,250,0.35)",
+                    }}
+                  >
+                    {/* Outer visible spinning ring */}
+                    <span
+                      className="absolute inset-[-4px] rounded-full pointer-events-none"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, #f59e0b, #fb923c, #38bdf8, #f59e0b)",
+                        padding: "2px",
+                        WebkitMask:
+                          "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                        WebkitMaskComposite: "xor",
+                        maskComposite: "exclude",
+                        animation: "spin 4s linear infinite",
+                      }}
+                    />
+                    <span className="grid place-items-center w-[44px] h-[44px] md:w-[52px] md:h-[52px] rounded-full overflow-hidden bg-white relative">
                       <img
                         src={ramaSubLogo}
-                        alt="Rama Sub"
+                        alt="Rama Sub logo"
                         draggable={false}
-                        className="relative h-[145%] w-[145%] object-contain translate-y-[2%]"
+                        className="w-full h-full object-contain p-[3px]"
+                        width={128}
+                        height={128}
                       />
                     </span>
                   </span>
 
-                  <span className="min-w-0 leading-[1.05]">
-                    <span className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
-                      <span
-                        className="text-[24px] font-extrabold tracking-normal bg-clip-text text-transparent sm:text-[28px] md:text-[32px]"
-                        style={{
-                          backgroundImage:
-                            "linear-gradient(180deg, #7cb6ff 0%, #2f6dff 55%, #1e3fb8 100%)",
-                        }}
-                      >
-                        Access
-                      </span>
-                      <span
-                        className="text-[24px] font-extrabold tracking-normal bg-clip-text text-transparent sm:text-[28px] md:text-[32px]"
-                        style={{
-                          backgroundImage:
-                            "linear-gradient(180deg, #6ce4b8 0%, #1fc796 55%, #0e9472 100%)",
-                        }}
-                      >
-                        Now
-                      </span>
-                      <span
-                        className="text-[24px] font-extrabold tracking-normal bg-clip-text text-transparent sm:text-[28px] md:text-[32px]"
-                        style={{
-                          backgroundImage:
-                            "linear-gradient(180deg, #ffd86b 0%, #f59e0b 55%, #c2780a 100%)",
-                        }}
-                      >
-                        BD
-                      </span>
+                  {/* Wordmark */}
+                  <span className="flex flex-col leading-none min-w-0">
+                    <span
+                      className="text-[24px] sm:text-[28px] md:text-[32px] font-extrabold tracking-tight whitespace-nowrap bg-clip-text text-transparent"
+                      style={{
+                        fontFamily: "'Poppins', var(--font-heading)",
+                        backgroundImage:
+                          "linear-gradient(90deg, #f59e0b 0%, #fb923c 50%, #38bdf8 100%)",
+                        filter: "drop-shadow(0 0 14px rgba(251,146,60,0.35))",
+                      }}
+                    >
+                      Rama Sub
                     </span>
-                    <span className="mt-1.5 flex max-w-[230px] items-center justify-between gap-2">
-                      <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/70 md:text-[11px]">
-                        Fast
+                    <span className="mt-1.5 relative inline-flex flex-col items-start">
+                      <span className="text-[10px] md:text-[11px] font-bold tracking-[0.22em] uppercase text-white/85 whitespace-nowrap">
+                        RAMASUB.COM.BD
                       </span>
-                      <span className="h-1 w-1 rounded-full bg-primary shadow-[0_0_6px_rgba(47,109,255,0.8)]" />
-                      <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/70 md:text-[11px]">
-                        Secure
-                      </span>
-                      <span className="h-1 w-1 rounded-full bg-aqua shadow-[0_0_6px_rgba(31,199,150,0.8)]" />
-                      <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/70 md:text-[11px]">
-                        Reliable
-                      </span>
+                      <svg
+                        aria-hidden
+                        viewBox="0 0 140 8"
+                        preserveAspectRatio="none"
+                        className="absolute left-0 -bottom-1.5 w-full h-[6px]"
+                      >
+                        <path
+                          d="M2 5 Q 35 1, 70 4 T 138 3"
+                          fill="none"
+                          stroke="url(#ramaFooterUnderline)"
+                          strokeWidth="1.6"
+                          strokeLinecap="round"
+                        />
+                        <defs>
+                          <linearGradient id="ramaFooterUnderline" x1="0" x2="1" y1="0" y2="0">
+                            <stop offset="0%" stopColor="#f59e0b" />
+                            <stop offset="55%" stopColor="#ef4444" />
+                            <stop offset="100%" stopColor="#38bdf8" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
                     </span>
                   </span>
                 </Link>
+
 
                 <p className="mt-6 max-w-xl text-[14px] leading-7 text-white/72">
                   <span className="font-bold text-cyan-600">বাংলাদেশের</span> সবচেয়ে{" "}
