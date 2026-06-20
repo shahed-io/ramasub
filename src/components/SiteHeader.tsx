@@ -203,12 +203,11 @@ export function SiteHeader() {
                   }}
                 />
                 <span className="grid place-items-center w-[52px] h-[52px] md:w-[64px] md:h-[64px] rounded-full overflow-hidden bg-white relative">
-                  <span className="absolute inset-0 rounded-full ring-[3px] ring-amber-300/50 animate-pulse pointer-events-none" />
                   <img
                     src={ramaSubLogo}
                     alt="Rama Sub logo"
                     draggable={false}
-                    className="w-[90%] h-[90%] object-contain"
+                    className="w-full h-full object-contain p-[2px]"
                     width={128}
                     height={128}
                   />
