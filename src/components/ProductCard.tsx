@@ -131,11 +131,11 @@ function ProductCardImpl({ product }: { product: Product }) {
                   "noopener,noreferrer"
                 );
               }}
-              aria-label="Order via WhatsApp"
+              aria-label="WhatsApp-এ অর্ডার করুন"
               className="product-action-button product-whatsapp-button flex items-center justify-center gap-1.5 h-10 rounded-full text-[12px] font-bold transition"
             >
               <MessageCircle className="w-3.5 h-3.5" />
-              WhatsApp
+              WhatsApp অর্ডার
             </button>
             <button
               onClick={onAdd}
