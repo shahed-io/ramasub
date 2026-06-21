@@ -160,16 +160,21 @@ export function SiteHeader() {
   return (
     <>
       <TopUtilityBar />
-      <header className="sticky top-0 z-40">
+      <header className="sticky top-0 z-40 pt-2 sm:pt-3 md:pt-4 pb-1 sm:pb-2">
         <div
           className={[
-            "relative transition-[background-color,box-shadow,backdrop-filter] duration-300 will-change-[background-color]",
-            scrolled
-              ? "bg-background/65 backdrop-blur-2xl shadow-[0_18px_50px_-24px_rgba(0,0,0,0.7)]"
-              : "bg-background/35 backdrop-blur-xl",
+            "relative mx-auto max-w-[1440px] px-2 sm:px-3 md:px-5 transition-all duration-300",
           ].join(" ")}
         >
-          <div className="mx-auto max-w-[1440px] px-3 sm:px-4 md:px-10 h-[64px] md:h-[68px] grid grid-cols-[auto_1fr_auto] items-center gap-2 md:flex md:justify-between md:gap-5 md:flex-nowrap">
+          <div
+            className={[
+              "relative rounded-full border bg-white transition-all duration-300",
+              scrolled
+                ? "border-violet-200/70 shadow-[0_14px_40px_-18px_rgba(79,70,229,0.45)]"
+                : "border-[#eef0ff] shadow-[0_10px_30px_-18px_rgba(79,70,229,0.30)]",
+            ].join(" ")}
+          >
+          <div className="px-3 sm:px-4 md:px-6 h-[64px] md:h-[72px] grid grid-cols-[auto_1fr_auto] items-center gap-2 md:flex md:justify-between md:gap-5 md:flex-nowrap">
             {/* Mobile-only: theme switcher on the left */}
             <div className="md:hidden justify-self-start">
               <ThemeSwitcher />
