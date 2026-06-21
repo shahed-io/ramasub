@@ -253,7 +253,7 @@ function CartPage() {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 h-12 w-full rounded-full bg-[#25D366] text-white text-sm font-bold hover:opacity-90 transition"
                 >
-                  <MessageCircle className="w-4 h-4" /> Order via WhatsApp
+                  <MessageCircle className="w-4 h-4" /> WhatsApp-এ অর্ডার করুন
                 </a>
               </div>
 

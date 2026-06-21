@@ -447,7 +447,7 @@ function ProductPage() {
                 className="product-whatsapp-button flex items-center justify-center gap-2 font-bold py-3 rounded-2xl hover:opacity-95 transition"
               >
                 <MessageCircle className="w-5 h-5" />
-                <span>WhatsApp</span>
+                <span>WhatsApp অর্ডার</span>
               </a>
               <button
                 onClick={addToCart}
