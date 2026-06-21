@@ -299,7 +299,7 @@ export function ImageBannerCarousel() {
                       wordBreak: "keep-all",
                       letterSpacing: "-0.025em",
                       textShadow:
-                        "0 2px 6px rgba(0,0,0,0.75), 0 10px 36px rgba(0,0,0,0.65)",
+                        "0 0 24px rgba(255,255,255,0.45), 0 0 60px rgba(255,255,255,0.25), 0 2px 4px rgba(0,0,0,0.35)",
                     }}
                   >
                     {tail ? (
@@ -308,7 +308,7 @@ export function ImageBannerCarousel() {
                         <span
                           style={{
                             color: p.accent,
-                            textShadow: `0 0 32px ${p.halo}, 0 2px 8px rgba(0,0,0,0.65)`,
+                            textShadow: `0 0 28px rgba(255,255,255,0.55), 0 0 60px ${p.halo}`,
                           }}
                         >
                           {tail}
@@ -323,11 +323,11 @@ export function ImageBannerCarousel() {
                     <p
                       className="text-sm sm:text-base md:text-lg max-w-lg mx-auto md:mx-0"
                       style={{
-                        color: "rgba(255,255,255,0.95)",
+                        color: "rgba(255,255,255,0.96)",
                         fontFamily: BN,
                         wordBreak: "keep-all",
                         lineHeight: 1.65,
-                        textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 1px 2px rgba(0,0,0,0.7)",
+                        textShadow: "0 0 18px rgba(255,255,255,0.35), 0 1px 2px rgba(0,0,0,0.3)",
                       }}
                     >
                       {subtitle}
