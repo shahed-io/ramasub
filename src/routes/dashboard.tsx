@@ -272,10 +272,12 @@ function DashboardPage() {
                   )}
                   <button
                     onClick={handleSignOut}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 rounded-full text-sm font-semibold text-rose-500 border border-rose-500/30 hover:bg-rose-500/10 transition"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-sm font-bold text-white shadow-md hover:opacity-95 transition"
+                    style={{ background: "linear-gradient(135deg, #ef4444, #dc2626, #b91c1c)" }}
                   >
                     <LogOut className="w-4 h-4" /> Logout
                   </button>
+
                 </div>
               </nav>
             </div>
