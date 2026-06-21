@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 
-const BASE_URL = "https://ramasub.lovable.app";
+import { SITE_URL } from "@/lib/site";
+const BASE_URL = SITE_URL;
 
 interface SitemapEntry {
   path: string;
