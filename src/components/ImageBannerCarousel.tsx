@@ -23,62 +23,69 @@ type BannerRow = {
   data: SlideData;
 };
 
-// Premium glossy palettes — each slide gets a distinct mood.
+// Premium glossy palettes — richer, luminous mid-tones so the person blends
+// into a glowing backdrop instead of a flat black void.
 const PRESET: Record<
   string,
   { gradient: string; sweep: string; halo: string; halo2: string; accent: string; pillBg: string; pillBorder: string }
 > = {
   ruby: {
-    gradient: "linear-gradient(135deg, #3d0a0a 0%, #1a0505 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(244,63,94,0.22), transparent 60%)",
-    halo: "rgba(225,29,72,0.35)",
-    halo2: "rgba(244,63,94,0.22)",
-    accent: "#f43f5e",
-    pillBg: "rgba(244,63,94,0.10)",
-    pillBorder: "rgba(244,63,94,0.30)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #b91c4a 0%, #6b0f2a 35%, #2a0610 70%, #100206 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(255,120,150,0.35), transparent 65%)",
+    halo: "rgba(244,63,94,0.55)",
+    halo2: "rgba(251,113,133,0.38)",
+    accent: "#ffb4c2",
+    pillBg: "rgba(255,255,255,0.12)",
+    pillBorder: "rgba(255,200,210,0.45)",
   },
   sapphire: {
-    gradient: "linear-gradient(135deg, #0b1a3d 0%, #050a1f 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(56,189,248,0.20), transparent 60%)",
-    halo: "rgba(59,130,246,0.35)",
-    halo2: "rgba(99,102,241,0.22)",
-    accent: "#60a5fa",
-    pillBg: "rgba(59,130,246,0.10)",
-    pillBorder: "rgba(96,165,250,0.30)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #1e40af 0%, #1e3a8a 35%, #0c1740 70%, #04060f 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(125,200,255,0.32), transparent 65%)",
+    halo: "rgba(59,130,246,0.55)",
+    halo2: "rgba(125,211,252,0.38)",
+    accent: "#bae6fd",
+    pillBg: "rgba(255,255,255,0.12)",
+    pillBorder: "rgba(186,230,253,0.45)",
   },
   emerald: {
-    gradient: "linear-gradient(135deg, #06302a 0%, #02110f 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(16,185,129,0.20), transparent 60%)",
-    halo: "rgba(16,185,129,0.32)",
-    halo2: "rgba(52,211,153,0.22)",
-    accent: "#34d399",
-    pillBg: "rgba(16,185,129,0.10)",
-    pillBorder: "rgba(52,211,153,0.30)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #047857 0%, #064e3b 35%, #062a22 70%, #03110d 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(110,231,183,0.32), transparent 65%)",
+    halo: "rgba(16,185,129,0.55)",
+    halo2: "rgba(110,231,183,0.38)",
+    accent: "#a7f3d0",
+    pillBg: "rgba(255,255,255,0.12)",
+    pillBorder: "rgba(167,243,208,0.45)",
   },
-  // legacy fallbacks
   ocean: {
-    gradient: "linear-gradient(135deg, #0b1a3d 0%, #050a1f 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(56,189,248,0.20), transparent 60%)",
-    halo: "rgba(59,130,246,0.35)", halo2: "rgba(99,102,241,0.22)", accent: "#60a5fa",
-    pillBg: "rgba(59,130,246,0.10)", pillBorder: "rgba(96,165,250,0.30)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #1e40af 0%, #1e3a8a 35%, #0c1740 70%, #04060f 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(125,200,255,0.32), transparent 65%)",
+    halo: "rgba(59,130,246,0.55)", halo2: "rgba(125,211,252,0.38)", accent: "#bae6fd",
+    pillBg: "rgba(255,255,255,0.12)", pillBorder: "rgba(186,230,253,0.45)",
   },
   violet: {
-    gradient: "linear-gradient(135deg, #2a1065 0%, #14072e 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(167,139,250,0.22), transparent 60%)",
-    halo: "rgba(139,92,246,0.35)", halo2: "rgba(167,139,250,0.22)", accent: "#a78bfa",
-    pillBg: "rgba(139,92,246,0.12)", pillBorder: "rgba(167,139,250,0.30)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #6d28d9 0%, #4c1d95 35%, #1e0b4a 70%, #07031a 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(196,181,253,0.32), transparent 65%)",
+    halo: "rgba(139,92,246,0.55)", halo2: "rgba(196,181,253,0.38)", accent: "#ddd6fe",
+    pillBg: "rgba(255,255,255,0.12)", pillBorder: "rgba(221,214,254,0.45)",
   },
   sunset: {
-    gradient: "linear-gradient(135deg, #4a1f02 0%, #1a0a01 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(251,191,36,0.22), transparent 60%)",
-    halo: "rgba(245,158,11,0.32)", halo2: "rgba(251,191,36,0.22)", accent: "#fbbf24",
-    pillBg: "rgba(245,158,11,0.10)", pillBorder: "rgba(251,191,36,0.30)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #b45309 0%, #7c2d12 35%, #3a1206 70%, #140602 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(253,186,116,0.35), transparent 65%)",
+    halo: "rgba(245,158,11,0.55)", halo2: "rgba(253,186,116,0.38)", accent: "#fed7aa",
+    pillBg: "rgba(255,255,255,0.12)", pillBorder: "rgba(254,215,170,0.45)",
   },
   graphite: {
-    gradient: "linear-gradient(135deg, #1f2937 0%, #0b0e14 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(148,163,184,0.18), transparent 60%)",
-    halo: "rgba(148,163,184,0.25)", halo2: "rgba(71,85,105,0.20)", accent: "#cbd5e1",
-    pillBg: "rgba(148,163,184,0.10)", pillBorder: "rgba(203,213,225,0.25)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #475569 0%, #1e293b 35%, #0b1220 70%, #04060c 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(203,213,225,0.28), transparent 65%)",
+    halo: "rgba(148,163,184,0.45)", halo2: "rgba(203,213,225,0.30)", accent: "#e2e8f0",
+    pillBg: "rgba(255,255,255,0.12)", pillBorder: "rgba(226,232,240,0.40)",
   },
 };
 
