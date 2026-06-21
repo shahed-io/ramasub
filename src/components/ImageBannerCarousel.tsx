@@ -284,11 +284,13 @@ export function ImageBannerCarousel() {
                   )}
 
                   <h2
-                    className="text-white font-black tracking-tight leading-[1.02] text-[40px] sm:text-[58px] md:text-[72px] lg:text-[84px] drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)]"
+                    className="text-white font-black tracking-tight leading-[1.02] text-[40px] sm:text-[58px] md:text-[72px] lg:text-[84px]"
                     style={{
                       fontFamily: /[\u0980-\u09FF]/.test(title) ? BN : EN,
                       wordBreak: "keep-all",
                       letterSpacing: "-0.025em",
+                      textShadow:
+                        "0 2px 4px rgba(0,0,0,0.6), 0 8px 32px rgba(0,0,0,0.55)",
                     }}
                   >
                     {tail ? (
@@ -297,7 +299,7 @@ export function ImageBannerCarousel() {
                         <span
                           style={{
                             color: p.accent,
-                            textShadow: `0 0 32px ${p.halo}`,
+                            textShadow: `0 0 28px ${p.halo}, 0 2px 6px rgba(0,0,0,0.55)`,
                           }}
                         >
                           {tail}
@@ -310,8 +312,13 @@ export function ImageBannerCarousel() {
 
                   {subtitle && (
                     <p
-                      className="text-white/85 text-sm sm:text-base md:text-lg max-w-lg mx-auto md:mx-0"
-                      style={{ fontFamily: BN, wordBreak: "keep-all", lineHeight: 1.65 }}
+                      className="text-white text-sm sm:text-base md:text-lg max-w-lg mx-auto md:mx-0"
+                      style={{
+                        fontFamily: BN,
+                        wordBreak: "keep-all",
+                        lineHeight: 1.65,
+                        textShadow: "0 2px 10px rgba(0,0,0,0.65)",
+                      }}
                     >
                       {subtitle}
                     </p>
@@ -322,7 +329,7 @@ export function ImageBannerCarousel() {
                     {TRUST_BADGES.map((b) => (
                       <span
                         key={b.label}
-                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/[0.06] backdrop-blur-md border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/30 backdrop-blur-md border border-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
                         style={{ fontFamily: BN, wordBreak: "keep-all" }}
                       >
                         <span className="w-1.5 h-1.5 rounded-full" style={{ background: b.dot, boxShadow: `0 0 8px ${b.dot}` }} />
