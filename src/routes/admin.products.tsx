@@ -388,7 +388,7 @@ function AdminProducts() {
  </h1>
  <p className="text-sm text-muted-foreground mt-0.5">{products.length}টি পণ্য</p>
  </div>
- <div className="flex flex-wrap items-center gap-2 sm:justify-end">
+ <div className="admin-product-actions grid grid-cols-2 sm:flex sm:flex-wrap sm:items-center sm:justify-end gap-2">
  <button
  onClick={() => runAI("short")}
  disabled={aiBusy || selected.size === 0}
