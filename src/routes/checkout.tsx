@@ -577,14 +577,14 @@ function CheckoutPage() {
           </button>
         </div>
 
-        {/* Payment method tiles */}
+        {/* Payment method tiles — bKash / Nagad / Wallet */}
         <div className="px-5 mt-4 grid grid-cols-3 gap-3" role="radiogroup" aria-label="Payment method">
           {methods.map((m) => {
             const active = method === m.id;
             return (
               <button
                 key={m.id}
-                onClick={() => setMethod(m.id)}
+                onClick={() => { setMethod(m.id); setUseWallet(false); }}
                 role="radio"
                 aria-checked={active}
                 className={`relative rounded-2xl border-2 bg-background px-3 py-3 flex flex-col items-center gap-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
@@ -604,45 +604,51 @@ function CheckoutPage() {
               </button>
             );
           })}
+
+          {/* Wallet tile */}
+          <button
+            onClick={() => { setMethod("wallet"); setUseWallet(true); }}
+            role="radio"
+            aria-checked={isWalletMethod}
+            className={`relative rounded-2xl border-2 bg-background px-3 py-3 flex flex-col items-center gap-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+              isWalletMethod ? "border-primary ring-2 ring-primary/20" : "border-border hover:border-primary/40"
+            }`}
+          >
+            <div className="w-12 h-12 grid place-items-center">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/70 grid place-items-center text-primary-foreground shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M2 10h20"/><circle cx="17" cy="15" r="1.5" fill="currentColor"/></svg>
+              </div>
+            </div>
+            <div className="text-[12px] font-semibold text-foreground text-center leading-tight">Wallet</div>
+            <div className="text-[10px] text-muted-foreground tabular-nums">৳{walletBalance.toLocaleString()}</div>
+          </button>
         </div>
 
-        {/* Wallet — always visible */}
-        <div className="mx-5 mt-4 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 p-3.5">
-          {walletBalance > 0 ? (
-            <>
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked={useWallet} onChange={(e) => setUseWallet(e.target.checked)} className="w-4 h-4 accent-primary" />
+        {/* Wallet-selected info banner */}
+        {isWalletMethod && (
+          <div className="mx-5 mt-4 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 p-3.5">
+            {walletInsufficient ? (
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-destructive/15 grid place-items-center text-lg shrink-0">⚠️</div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[13px] font-bold text-foreground">💳 ওয়ালেট ব্যালেন্স ব্যবহার করুন</div>
-                  <div className="text-[11px] text-muted-foreground">Available: ৳{walletBalance.toLocaleString()}</div>
+                  <div className="text-[13px] font-bold text-foreground">ব্যালেন্স অপর্যাপ্ত</div>
+                  <div className="text-[11px] text-muted-foreground">আপনার Wallet: ৳{walletBalance.toLocaleString()} • প্রয়োজন: ৳{subAfterCoupon.toLocaleString()}</div>
                 </div>
-                {useWallet && walletApplied > 0 && (
-                  <div className="text-[13px] font-bold text-primary tabular-nums shrink-0">−৳{walletApplied.toLocaleString()}</div>
-                )}
-              </label>
-              {fullyByWallet && (
-                <p className="text-[11px] text-emerald-500 font-semibold mt-2">✓ Wallet দিয়ে সম্পূর্ণ পেমেন্ট হবে — bKash/Nagad লাগবে না</p>
-              )}
-              {useWallet && !fullyByWallet && walletApplied > 0 && (
-                <p className="text-[11px] text-muted-foreground mt-2">বাকি ৳{grandTotal.toLocaleString()} টাকা নিচের পদ্ধতিতে পাঠান</p>
-              )}
-            </>
-          ) : (
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-primary/15 grid place-items-center text-lg shrink-0">💳</div>
-              <div className="flex-1 min-w-0">
-                <div className="text-[13px] font-bold text-foreground">ওয়ালেট ব্যালেন্স: ৳0</div>
-                <div className="text-[11px] text-muted-foreground">আগে থেকে টাকা load করে দ্রুত checkout করুন</div>
+                <Link to="/wallet" className="text-[12px] font-semibold text-primary shrink-0 px-2.5 py-1 rounded-full border border-primary/40 hover:bg-primary/10 transition">
+                  Top-up
+                </Link>
               </div>
-              <Link
-                to="/wallet"
-                className="text-[12px] font-semibold text-primary hover:underline shrink-0 px-2.5 py-1 rounded-full border border-primary/40 hover:bg-primary/10 transition"
-              >
-                Top-up
-              </Link>
-            </div>
-          )}
-        </div>
+            ) : (
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-primary/15 grid place-items-center text-lg shrink-0">✓</div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] font-bold text-foreground">Wallet দিয়ে সম্পূর্ণ পেমেন্ট হবে</div>
+                  <div className="text-[11px] text-muted-foreground">৳{walletApplied.toLocaleString()} কাটা হবে • বাকি ৳{(walletBalance - walletApplied).toLocaleString()}</div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Brand instruction card */}
         {!fullyByWallet && (
