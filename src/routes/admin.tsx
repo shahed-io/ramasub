@@ -70,11 +70,14 @@ function readCachedAdmin(): boolean {
 function AdminLayout() {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
-  // Read cache synchronously in initializer so first render already has it.
-  const initialCachedAdmin = typeof window !== "undefined" ? readCachedAdmin() : false;
-  const [cachedAdmin] = useState(initialCachedAdmin);
-  const [isAdmin, setIsAdmin] = useState(initialCachedAdmin);
-  const [verified, setVerified] = useState(initialCachedAdmin);
+  // IMPORTANT: never read localStorage during initial render — SSR has no
+  // localStorage, so the server-rendered HTML would differ from the client and
+  // React would throw a hydration mismatch (wiping the tree and producing a
+  // broken mobile admin shell). We hydrate the cached-admin flag in an effect
+  // after mount so SSR and the first client render always match.
+  const [cachedAdmin, setCachedAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [verified, setVerified] = useState(false);
   const [roleError, setRoleError] = useState<{
     message: string;
     code?: string;
@@ -84,10 +87,15 @@ function AdminLayout() {
   } | null>(null);
   const [checkedAt, setCheckedAt] = useState<string | null>(null);
 
-  // Wipe historical splash/admin flags immediately on mount so a stale client
-  // flag can never leave the route on an empty gradient screen.
+  // Wipe historical splash/admin flags and hydrate the cached-admin flag
+  // post-mount (so SSR markup matches the first client render).
   useEffect(() => {
     purgeLegacySplashFlags();
+    if (readCachedAdmin()) {
+      setCachedAdmin(true);
+      setIsAdmin(true);
+      setVerified(true);
+    }
   }, []);
 
   // Admin panel is always light/white themed regardless of the user-selected
