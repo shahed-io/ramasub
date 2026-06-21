@@ -52,9 +52,8 @@ type PayMethod = {
 };
 
 const FALLBACK_METHODS: PayMethod[] = [
-  { id: "bkash", name: "bKash", number: "01711-123456", color: "bg-[#E2136E]", brand_color: "#E2136E", send_money_label: "Send Money" },
-  { id: "nagad", name: "Nagad", number: "01911-654321", color: "bg-[#EC1C24]", brand_color: "#EC1C24", send_money_label: "Send Money" },
-  { id: "rocket", name: "Rocket", number: "01511-987654", color: "bg-[#8C3494]", brand_color: "#8C3494", send_money_label: "Send Money" },
+  { id: "bkash", name: "bKash", number: "01319029214", color: "bg-[#E2136E]", brand_color: "#E2136E", send_money_label: "Send Money" },
+  { id: "nagad", name: "Nagad", number: "01319029214", color: "bg-[#EC1C24]", brand_color: "#EC1C24", send_money_label: "Send Money" },
 ];
 
 const COLOR_BY_NAME: Record<string, string> = {
