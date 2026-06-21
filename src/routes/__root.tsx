@@ -11,6 +11,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { WelcomePopup } from "@/components/WelcomePopup";
 import { InstallAppPrompt } from "@/components/InstallAppPrompt";
 import { TrackingScripts } from "@/components/TrackingScripts";
+import { useRealtimeSync } from "@/hooks/useRealtimeSync";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
