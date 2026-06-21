@@ -373,35 +373,35 @@ export function ImageBannerCarousel() {
                   </div>
                 </div>
 
-                {/* RIGHT — person with radiant halo */}
-                <div className="order-1 md:order-2 relative flex items-end justify-center md:justify-end self-stretch min-h-[220px] md:min-h-[420px]">
-                  {/* Outer ambient color wash (matches preset) */}
+                {/* RIGHT — person sits flush to bottom with white luminous halo */}
+                <div className="order-1 md:order-2 relative flex items-end justify-center md:justify-end self-stretch min-h-[260px] md:min-h-[460px]">
+                  {/* Outer white wash */}
                   <div
-                    className="absolute left-1/2 bottom-[6%] -translate-x-1/2 w-[520px] h-[520px] md:w-[640px] md:h-[640px] rounded-full blur-[120px] pointer-events-none animate-pulse"
-                    style={{ background: p.halo, animationDuration: "6s", opacity: 0.85 }}
+                    className="absolute left-1/2 bottom-0 -translate-x-1/2 w-[520px] h-[520px] md:w-[680px] md:h-[680px] rounded-full blur-[120px] pointer-events-none animate-pulse"
+                    style={{ background: "rgba(255,255,255,0.35)", animationDuration: "6s" }}
                   />
-                  {/* Mid halo */}
+                  {/* Mid color-tinted halo (still light) */}
                   <div
-                    className="absolute left-1/2 bottom-[14%] -translate-x-1/2 w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full blur-[70px] pointer-events-none"
+                    className="absolute left-1/2 bottom-[8%] -translate-x-1/2 w-[340px] h-[340px] md:w-[440px] md:h-[440px] rounded-full blur-[80px] pointer-events-none"
                     style={{ background: p.halo2 }}
                   />
-                  {/* Inner light disc behind subject */}
+                  {/* Inner bright light disc behind subject */}
                   <div
-                    className="absolute left-1/2 bottom-[10%] -translate-x-1/2 w-[220px] h-[220px] md:w-[300px] md:h-[300px] rounded-full pointer-events-none"
+                    className="absolute left-1/2 bottom-[4%] -translate-x-1/2 w-[240px] h-[240px] md:w-[320px] md:h-[320px] rounded-full pointer-events-none"
                     style={{
-                      background: `radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%)`,
+                      background:
+                        "radial-gradient(circle, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 45%, transparent 75%)",
                     }}
                   />
 
-                  {/* Person with ambient color drop shadows to blend into background */}
+                  {/* Person flush to bottom, white glow drop-shadow */}
                   <img
                     src={personSrc}
                     alt={title}
-                    className="relative block h-[240px] sm:h-[320px] md:h-[420px] lg:h-[480px] w-auto object-contain select-none pointer-events-none"
+                    className="relative block h-[260px] sm:h-[340px] md:h-[460px] lg:h-[520px] w-auto object-contain select-none pointer-events-none -mb-7 sm:-mb-9 md:-mb-12"
                     style={{
-                      maskImage: "linear-gradient(to bottom, black 94%, transparent 100%)",
-                      WebkitMaskImage: "linear-gradient(to bottom, black 94%, transparent 100%)",
-                      filter: `drop-shadow(0 0 22px ${p.halo}) drop-shadow(0 0 60px ${p.halo2}) drop-shadow(0 30px 40px rgba(0,0,0,0.55))`,
+                      filter:
+                        "drop-shadow(0 0 26px rgba(255,255,255,0.55)) drop-shadow(0 0 70px rgba(255,255,255,0.30)) drop-shadow(0 18px 28px rgba(0,0,0,0.30))",
                     }}
                     draggable={false}
                     loading={idx === 0 ? "eager" : "lazy"}
