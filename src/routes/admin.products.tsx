@@ -174,13 +174,25 @@ function AdminProducts() {
  setSelected(next);
  };
 
- const remove = async (slug: string) => {
- if (!confirm("এই পণ্যটি মুছবেন?")) return;
- const { error } = await supabase.from("products").delete().eq("slug", slug);
- if (error) return toast.error(error.message);
- toast.success("পণ্য মুছে ফেলা হয়েছে");
- load();
- };
+  const remove = async (slug: string) => {
+  if (!confirm("এই পণ্যটি মুছবেন?")) return;
+  const { error } = await supabase.from("products").delete().eq("slug", slug);
+  if (error) return toast.error(error.message);
+  toast.success("পণ্য মুছে ফেলা হয়েছে");
+  load();
+  };
+
+  const bulkDelete = async () => {
+  if (selected.size === 0) return;
+  const slugs = Array.from(selected);
+  if (!confirm(`${slugs.length}টি পণ্য মুছে ফেলবেন? এই কাজটি ফেরানো যাবে না।`)) return;
+  const { error } = await supabase.from("products").delete().in("slug", slugs);
+  if (error) return toast.error(error.message);
+  toast.success(`${slugs.length}টি পণ্য মুছে ফেলা হয়েছে`);
+  setSelected(new Set());
+  load();
+  };
+
 
  const duplicate = async (p: Product) => {
  const newSlug = `${p.slug}-copy-${Date.now().toString(36).slice(-4)}`;
