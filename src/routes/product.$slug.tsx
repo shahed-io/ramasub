@@ -162,6 +162,7 @@ function ProductPage() {
   useShopConfig();
   const popularIdx = (loaderProduct?.plans ?? product?.plans ?? []).findIndex((p: { popular?: boolean }) => p.popular);
   const [selected, setSelected] = useState(() => (popularIdx > 0 ? popularIdx : 0));
+  const [clickedPlan, setClickedPlan] = useState<number | null>(null);
   const [qty, setQty] = useState(1);
   
   const [openFaq, setOpenFaq] = useState<number | null>(null);
