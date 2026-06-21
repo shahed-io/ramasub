@@ -456,7 +456,7 @@ function WalletRedirect() {
       <Card>
         <div className="text-center py-6">
           <Wallet className="w-10 h-10 mx-auto text-primary mb-3" />
-          <h3 className="text-lg font-bold mb-1">My Wallet</h3>
+          <h3 className="text-lg font-bold mb-1 text-foreground">My Wallet</h3>
           <p className="text-sm text-muted-foreground mb-4">Balance দেখুন, টপ-আপ করুন এবং লেনদেন ইতিহাস ব্রাউজ করুন।</p>
           <Link to="/wallet" className="inline-flex items-center gap-2 px-5 h-11 rounded-full text-white text-sm font-bold" style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6, #d946ef)" }}>
             Open Wallet <ChevronRight className="w-4 h-4" />
