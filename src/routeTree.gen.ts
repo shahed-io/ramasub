@@ -56,6 +56,7 @@ import { Route as AdminSecurityRouteImport } from './routes/admin.security'
 import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminReviewGeneratorRouteImport } from './routes/admin.review-generator'
 import { Route as AdminRenewalRemindersRouteImport } from './routes/admin.renewal-reminders'
+import { Route as AdminRedirectsRouteImport } from './routes/admin.redirects'
 import { Route as AdminQuickToolsRouteImport } from './routes/admin.quick-tools'
 import { Route as AdminQuickSaleRouteImport } from './routes/admin.quick-sale'
 import { Route as AdminPromotionsRouteImport } from './routes/admin.promotions'
@@ -328,6 +329,11 @@ const AdminRenewalRemindersRoute = AdminRenewalRemindersRouteImport.update({
   path: '/renewal-reminders',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminRedirectsRoute = AdminRedirectsRouteImport.update({
+  id: '/redirects',
+  path: '/redirects',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminQuickToolsRoute = AdminQuickToolsRouteImport.update({
   id: '/quick-tools',
   path: '/quick-tools',
@@ -565,6 +571,7 @@ export interface FileRoutesByFullPath {
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quick-sale': typeof AdminQuickSaleRoute
   '/admin/quick-tools': typeof AdminQuickToolsRoute
+  '/admin/redirects': typeof AdminRedirectsRoute
   '/admin/renewal-reminders': typeof AdminRenewalRemindersRoute
   '/admin/review-generator': typeof AdminReviewGeneratorRoute
   '/admin/reviews': typeof AdminReviewsRoute
@@ -648,6 +655,7 @@ export interface FileRoutesByTo {
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quick-sale': typeof AdminQuickSaleRoute
   '/admin/quick-tools': typeof AdminQuickToolsRoute
+  '/admin/redirects': typeof AdminRedirectsRoute
   '/admin/renewal-reminders': typeof AdminRenewalRemindersRoute
   '/admin/review-generator': typeof AdminReviewGeneratorRoute
   '/admin/reviews': typeof AdminReviewsRoute
@@ -733,6 +741,7 @@ export interface FileRoutesById {
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quick-sale': typeof AdminQuickSaleRoute
   '/admin/quick-tools': typeof AdminQuickToolsRoute
+  '/admin/redirects': typeof AdminRedirectsRoute
   '/admin/renewal-reminders': typeof AdminRenewalRemindersRoute
   '/admin/review-generator': typeof AdminReviewGeneratorRoute
   '/admin/reviews': typeof AdminReviewsRoute
@@ -819,6 +828,7 @@ export interface FileRouteTypes {
     | '/admin/promotions'
     | '/admin/quick-sale'
     | '/admin/quick-tools'
+    | '/admin/redirects'
     | '/admin/renewal-reminders'
     | '/admin/review-generator'
     | '/admin/reviews'
@@ -902,6 +912,7 @@ export interface FileRouteTypes {
     | '/admin/promotions'
     | '/admin/quick-sale'
     | '/admin/quick-tools'
+    | '/admin/redirects'
     | '/admin/renewal-reminders'
     | '/admin/review-generator'
     | '/admin/reviews'
@@ -986,6 +997,7 @@ export interface FileRouteTypes {
     | '/admin/promotions'
     | '/admin/quick-sale'
     | '/admin/quick-tools'
+    | '/admin/redirects'
     | '/admin/renewal-reminders'
     | '/admin/review-generator'
     | '/admin/reviews'
@@ -1388,6 +1400,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRenewalRemindersRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/redirects': {
+      id: '/admin/redirects'
+      path: '/redirects'
+      fullPath: '/admin/redirects'
+      preLoaderRoute: typeof AdminRedirectsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/quick-tools': {
       id: '/admin/quick-tools'
       path: '/quick-tools'
@@ -1664,6 +1683,7 @@ interface AdminRouteChildren {
   AdminPromotionsRoute: typeof AdminPromotionsRoute
   AdminQuickSaleRoute: typeof AdminQuickSaleRoute
   AdminQuickToolsRoute: typeof AdminQuickToolsRoute
+  AdminRedirectsRoute: typeof AdminRedirectsRoute
   AdminRenewalRemindersRoute: typeof AdminRenewalRemindersRoute
   AdminReviewGeneratorRoute: typeof AdminReviewGeneratorRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
@@ -1708,6 +1728,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminPromotionsRoute: AdminPromotionsRoute,
   AdminQuickSaleRoute: AdminQuickSaleRoute,
   AdminQuickToolsRoute: AdminQuickToolsRoute,
+  AdminRedirectsRoute: AdminRedirectsRoute,
   AdminRenewalRemindersRoute: AdminRenewalRemindersRoute,
   AdminReviewGeneratorRoute: AdminReviewGeneratorRoute,
   AdminReviewsRoute: AdminReviewsRoute,
