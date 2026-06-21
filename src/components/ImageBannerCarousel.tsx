@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, ShieldCheck, Zap, Headphones } from "lucide-react";
+import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import personAsset from "@/assets/rama-person-new.png.asset.json";
 
