@@ -23,62 +23,69 @@ type BannerRow = {
   data: SlideData;
 };
 
-// Premium glossy palettes — each slide gets a distinct mood.
+// Premium glossy palettes — richer, luminous mid-tones so the person blends
+// into a glowing backdrop instead of a flat black void.
 const PRESET: Record<
   string,
   { gradient: string; sweep: string; halo: string; halo2: string; accent: string; pillBg: string; pillBorder: string }
 > = {
   ruby: {
-    gradient: "linear-gradient(135deg, #3d0a0a 0%, #1a0505 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(244,63,94,0.22), transparent 60%)",
-    halo: "rgba(225,29,72,0.35)",
-    halo2: "rgba(244,63,94,0.22)",
-    accent: "#f43f5e",
-    pillBg: "rgba(244,63,94,0.10)",
-    pillBorder: "rgba(244,63,94,0.30)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #b91c4a 0%, #6b0f2a 35%, #2a0610 70%, #100206 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(255,120,150,0.35), transparent 65%)",
+    halo: "rgba(244,63,94,0.55)",
+    halo2: "rgba(251,113,133,0.38)",
+    accent: "#ffb4c2",
+    pillBg: "rgba(255,255,255,0.12)",
+    pillBorder: "rgba(255,200,210,0.45)",
   },
   sapphire: {
-    gradient: "linear-gradient(135deg, #0b1a3d 0%, #050a1f 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(56,189,248,0.20), transparent 60%)",
-    halo: "rgba(59,130,246,0.35)",
-    halo2: "rgba(99,102,241,0.22)",
-    accent: "#60a5fa",
-    pillBg: "rgba(59,130,246,0.10)",
-    pillBorder: "rgba(96,165,250,0.30)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #1e40af 0%, #1e3a8a 35%, #0c1740 70%, #04060f 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(125,200,255,0.32), transparent 65%)",
+    halo: "rgba(59,130,246,0.55)",
+    halo2: "rgba(125,211,252,0.38)",
+    accent: "#bae6fd",
+    pillBg: "rgba(255,255,255,0.12)",
+    pillBorder: "rgba(186,230,253,0.45)",
   },
   emerald: {
-    gradient: "linear-gradient(135deg, #06302a 0%, #02110f 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(16,185,129,0.20), transparent 60%)",
-    halo: "rgba(16,185,129,0.32)",
-    halo2: "rgba(52,211,153,0.22)",
-    accent: "#34d399",
-    pillBg: "rgba(16,185,129,0.10)",
-    pillBorder: "rgba(52,211,153,0.30)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #047857 0%, #064e3b 35%, #062a22 70%, #03110d 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(110,231,183,0.32), transparent 65%)",
+    halo: "rgba(16,185,129,0.55)",
+    halo2: "rgba(110,231,183,0.38)",
+    accent: "#a7f3d0",
+    pillBg: "rgba(255,255,255,0.12)",
+    pillBorder: "rgba(167,243,208,0.45)",
   },
-  // legacy fallbacks
   ocean: {
-    gradient: "linear-gradient(135deg, #0b1a3d 0%, #050a1f 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(56,189,248,0.20), transparent 60%)",
-    halo: "rgba(59,130,246,0.35)", halo2: "rgba(99,102,241,0.22)", accent: "#60a5fa",
-    pillBg: "rgba(59,130,246,0.10)", pillBorder: "rgba(96,165,250,0.30)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #1e40af 0%, #1e3a8a 35%, #0c1740 70%, #04060f 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(125,200,255,0.32), transparent 65%)",
+    halo: "rgba(59,130,246,0.55)", halo2: "rgba(125,211,252,0.38)", accent: "#bae6fd",
+    pillBg: "rgba(255,255,255,0.12)", pillBorder: "rgba(186,230,253,0.45)",
   },
   violet: {
-    gradient: "linear-gradient(135deg, #2a1065 0%, #14072e 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(167,139,250,0.22), transparent 60%)",
-    halo: "rgba(139,92,246,0.35)", halo2: "rgba(167,139,250,0.22)", accent: "#a78bfa",
-    pillBg: "rgba(139,92,246,0.12)", pillBorder: "rgba(167,139,250,0.30)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #6d28d9 0%, #4c1d95 35%, #1e0b4a 70%, #07031a 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(196,181,253,0.32), transparent 65%)",
+    halo: "rgba(139,92,246,0.55)", halo2: "rgba(196,181,253,0.38)", accent: "#ddd6fe",
+    pillBg: "rgba(255,255,255,0.12)", pillBorder: "rgba(221,214,254,0.45)",
   },
   sunset: {
-    gradient: "linear-gradient(135deg, #4a1f02 0%, #1a0a01 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(251,191,36,0.22), transparent 60%)",
-    halo: "rgba(245,158,11,0.32)", halo2: "rgba(251,191,36,0.22)", accent: "#fbbf24",
-    pillBg: "rgba(245,158,11,0.10)", pillBorder: "rgba(251,191,36,0.30)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #b45309 0%, #7c2d12 35%, #3a1206 70%, #140602 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(253,186,116,0.35), transparent 65%)",
+    halo: "rgba(245,158,11,0.55)", halo2: "rgba(253,186,116,0.38)", accent: "#fed7aa",
+    pillBg: "rgba(255,255,255,0.12)", pillBorder: "rgba(254,215,170,0.45)",
   },
   graphite: {
-    gradient: "linear-gradient(135deg, #1f2937 0%, #0b0e14 55%, #000000 100%)",
-    sweep: "radial-gradient(80% 60% at 78% 22%, rgba(148,163,184,0.18), transparent 60%)",
-    halo: "rgba(148,163,184,0.25)", halo2: "rgba(71,85,105,0.20)", accent: "#cbd5e1",
-    pillBg: "rgba(148,163,184,0.10)", pillBorder: "rgba(203,213,225,0.25)",
+    gradient:
+      "radial-gradient(120% 90% at 75% 30%, #475569 0%, #1e293b 35%, #0b1220 70%, #04060c 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(203,213,225,0.28), transparent 65%)",
+    halo: "rgba(148,163,184,0.45)", halo2: "rgba(203,213,225,0.30)", accent: "#e2e8f0",
+    pillBg: "rgba(255,255,255,0.12)", pillBorder: "rgba(226,232,240,0.40)",
   },
 };
 
@@ -284,40 +291,42 @@ export function ImageBannerCarousel() {
                   )}
 
                   <h2
-                    className="text-white font-black tracking-tight leading-[1.02] text-[40px] sm:text-[58px] md:text-[72px] lg:text-[84px]"
+                    className="font-black tracking-tight leading-[1.02] text-[40px] sm:text-[58px] md:text-[72px] lg:text-[84px]"
                     style={{
+                      color: "#ffffff",
                       fontFamily: /[\u0980-\u09FF]/.test(title) ? BN : EN,
                       wordBreak: "keep-all",
                       letterSpacing: "-0.025em",
                       textShadow:
-                        "0 2px 4px rgba(0,0,0,0.6), 0 8px 32px rgba(0,0,0,0.55)",
+                        "0 2px 6px rgba(0,0,0,0.75), 0 10px 36px rgba(0,0,0,0.65)",
                     }}
                   >
                     {tail ? (
                       <>
-                        {head}{" "}
+                        <span style={{ color: "#ffffff" }}>{head}</span>{" "}
                         <span
                           style={{
                             color: p.accent,
-                            textShadow: `0 0 28px ${p.halo}, 0 2px 6px rgba(0,0,0,0.55)`,
+                            textShadow: `0 0 32px ${p.halo}, 0 2px 8px rgba(0,0,0,0.65)`,
                           }}
                         >
                           {tail}
                         </span>
                       </>
                     ) : (
-                      title
+                      <span style={{ color: "#ffffff" }}>{title}</span>
                     )}
                   </h2>
 
                   {subtitle && (
                     <p
-                      className="text-white text-sm sm:text-base md:text-lg max-w-lg mx-auto md:mx-0"
+                      className="text-sm sm:text-base md:text-lg max-w-lg mx-auto md:mx-0"
                       style={{
+                        color: "rgba(255,255,255,0.95)",
                         fontFamily: BN,
                         wordBreak: "keep-all",
                         lineHeight: 1.65,
-                        textShadow: "0 2px 10px rgba(0,0,0,0.65)",
+                        textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 1px 2px rgba(0,0,0,0.7)",
                       }}
                     >
                       {subtitle}
@@ -410,17 +419,17 @@ export function ImageBannerCarousel() {
               type="button"
               onClick={prev}
               aria-label="Previous"
-              className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 h-10 w-10 sm:h-12 sm:w-12 rounded-2xl bg-white/[0.08] backdrop-blur-xl border border-white/15 text-white hover:bg-white/[0.18] transition flex items-center justify-center"
+              className="absolute left-2 sm:left-4 md:left-5 top-1/2 -translate-y-1/2 z-30 h-11 w-11 sm:h-12 sm:w-12 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-xl border border-white/25 text-white shadow-[0_8px_24px_-6px_rgba(0,0,0,0.55)] transition flex items-center justify-center"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
             <button
               type="button"
               onClick={next}
               aria-label="Next"
-              className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 h-10 w-10 sm:h-12 sm:w-12 rounded-2xl bg-white/[0.08] backdrop-blur-xl border border-white/15 text-white hover:bg-white/[0.18] transition flex items-center justify-center"
+              className="absolute right-2 sm:right-4 md:right-5 top-1/2 -translate-y-1/2 z-30 h-11 w-11 sm:h-12 sm:w-12 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-xl border border-white/25 text-white shadow-[0_8px_24px_-6px_rgba(0,0,0,0.55)] transition flex items-center justify-center"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
             <div className="absolute bottom-5 sm:bottom-7 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
