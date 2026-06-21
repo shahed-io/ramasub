@@ -374,9 +374,8 @@ function ProductPage() {
                   <span className="grid place-items-center w-11 h-11 rounded-xl bg-white border border-indigo-200 text-xl shrink-0" aria-hidden>{info.icon}</span>
                   <div className="font-bold text-slate-900">{info.label}</div>
                 </div>
-
-                </div>
               </div>
+
             );
           })()}
 
