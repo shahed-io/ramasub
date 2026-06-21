@@ -308,7 +308,7 @@ export function SiteHeader() {
                       onClick={handleLogout}
                       aria-label="Logout"
                       title="Logout"
-                      className="grid place-items-center w-10 h-10 sm:w-11 sm:h-11 rounded-full glass-soft border border-white/10 text-white hover:bg-white/10 transition"
+                      className="grid place-items-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-violet-50 border border-violet-200 text-violet-600 hover:bg-violet-100 transition"
                     >
                       <LogOut className="w-4 h-4" />
                     </button>
