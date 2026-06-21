@@ -113,7 +113,7 @@ export function SiteFooter() {
               <div>
                 <Link
                   to="/"
-                  className="flex items-center gap-3 sm:gap-3.5 shrink-0 group min-w-0"
+                  className="flex items-center justify-center gap-3 sm:gap-3.5 shrink-0 group min-w-0 mx-auto lg:mx-0 lg:justify-start"
                   style={{ fontFamily: "var(--font-heading)" }}
                   aria-label="Rama Sub home"
                 >
