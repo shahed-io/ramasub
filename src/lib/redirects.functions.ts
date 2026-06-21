@@ -22,11 +22,11 @@ function normalize(p: string): string {
   return v;
 }
 
-async function adminGuard(ctx: { supabase: ReturnType<typeof Object>; userId: string }) {
-  const supa = ctx.supabase as unknown as { rpc: (n: string, a: Record<string, unknown>) => Promise<{ data: unknown }> };
-  const { data: isAdmin } = await supa.rpc("has_role", { _user_id: ctx.userId, _role: "admin" });
+async function adminGuard(context: { supabase: { rpc: (n: string, a: Record<string, unknown>) => Promise<{ data: unknown }> }; userId: string }) {
+  const { data: isAdmin } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
   if (!isAdmin) throw new Error("Forbidden");
 }
+
 
 export const listRedirects = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
