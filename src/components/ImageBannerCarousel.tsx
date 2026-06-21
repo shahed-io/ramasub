@@ -419,17 +419,17 @@ export function ImageBannerCarousel() {
               type="button"
               onClick={prev}
               aria-label="Previous"
-              className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 h-10 w-10 sm:h-12 sm:w-12 rounded-2xl bg-white/[0.08] backdrop-blur-xl border border-white/15 text-white hover:bg-white/[0.18] transition flex items-center justify-center"
+              className="absolute left-2 sm:left-4 md:left-5 top-1/2 -translate-y-1/2 z-30 h-11 w-11 sm:h-12 sm:w-12 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-xl border border-white/25 text-white shadow-[0_8px_24px_-6px_rgba(0,0,0,0.55)] transition flex items-center justify-center"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
             <button
               type="button"
               onClick={next}
               aria-label="Next"
-              className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 h-10 w-10 sm:h-12 sm:w-12 rounded-2xl bg-white/[0.08] backdrop-blur-xl border border-white/15 text-white hover:bg-white/[0.18] transition flex items-center justify-center"
+              className="absolute right-2 sm:right-4 md:right-5 top-1/2 -translate-y-1/2 z-30 h-11 w-11 sm:h-12 sm:w-12 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-xl border border-white/25 text-white shadow-[0_8px_24px_-6px_rgba(0,0,0,0.55)] transition flex items-center justify-center"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
             <div className="absolute bottom-5 sm:bottom-7 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
