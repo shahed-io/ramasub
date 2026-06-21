@@ -49,7 +49,7 @@ export const EmailLayout = ({ preview, heading, children }: LayoutProps) => (
                     <span style={{ color: '#38bdf8' }}>Sub</span>
                   </span>
                   <br />
-                  <span style={brandTag}>RAMASUB.COM.BD</span>
+                  <span style={brandTag}>RAMASUB.COM</span>
                 </td>
               </tr>
             </table>
