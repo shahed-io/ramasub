@@ -167,6 +167,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <RealtimeBridge />
       <ThemeProvider>
         <AuthProvider>
           <CartProvider>
@@ -192,4 +193,9 @@ function RootComponent() {
       </ThemeProvider>
     </QueryClientProvider>
   );
+}
+
+function RealtimeBridge() {
+  useRealtimeSync();
+  return null;
 }
