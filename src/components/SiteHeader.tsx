@@ -277,10 +277,10 @@ export function SiteHeader() {
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="xl:hidden grid place-items-center w-10 h-10 rounded-full glass-soft border border-white/10 text-white shrink-0"
+                className="xl:hidden grid place-items-center w-10 h-10 rounded-full bg-violet-50 border border-violet-200 text-violet-600 hover:bg-violet-100 transition shrink-0"
                 aria-label="Search"
               >
-                <Search className="w-4 h-4 text-aqua" />
+                <Search className="w-4 h-4" />
               </button>
 
               <div className="hidden md:flex items-center gap-1.5 md:gap-2">
