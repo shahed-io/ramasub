@@ -444,10 +444,6 @@
       border-radius: 1rem;
     }
 
-    .admin-shell :where([class*="grid-cols-[minmax(0,1fr)_auto]") {
-      grid-template-columns: minmax(0, 1fr) auto;
-    }
-
     .admin-shell :where(.fixed.inset-0.z-50) {
       align-items: stretch;
       justify-items: stretch;
