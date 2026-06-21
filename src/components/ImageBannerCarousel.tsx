@@ -398,7 +398,7 @@ export function ImageBannerCarousel() {
                   <img
                     src={personSrc}
                     alt={title}
-                    className="relative block h-[260px] sm:h-[340px] md:h-[460px] lg:h-[520px] w-auto object-contain select-none pointer-events-none -mb-7 sm:-mb-9 md:-mb-12"
+                    className="relative block h-[280px] sm:h-[360px] md:h-[490px] lg:h-[560px] w-auto object-contain select-none pointer-events-none -mb-14 sm:-mb-20 md:-mb-28"
                     style={{
                       filter:
                         "drop-shadow(0 0 26px rgba(255,255,255,0.55)) drop-shadow(0 0 70px rgba(255,255,255,0.30)) drop-shadow(0 18px 28px rgba(0,0,0,0.30))",
