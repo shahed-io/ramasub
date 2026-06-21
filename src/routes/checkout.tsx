@@ -221,9 +221,12 @@ function CheckoutPage() {
   }, [form.name, form.email, form.phone, items, total, coupon, user?.id]);
 
   const subAfterCoupon = Math.max(0, total - applied.discount);
-  const walletApplied = useWallet ? Math.min(walletBalance, subAfterCoupon) : 0;
+  const isWalletMethod = method === "wallet";
+  const walletApplied = isWalletMethod ? Math.min(walletBalance, subAfterCoupon) : (useWallet ? Math.min(walletBalance, subAfterCoupon) : 0);
   const grandTotal = Math.max(0, subAfterCoupon - walletApplied);
-  const fullyByWallet = walletApplied > 0 && grandTotal === 0;
+  const fullyByWallet = isWalletMethod ? walletBalance >= subAfterCoupon : (walletApplied > 0 && grandTotal === 0);
+  const walletInsufficient = isWalletMethod && walletBalance < subAfterCoupon;
+
 
   const copyNumber = async () => {
     await navigator.clipboard.writeText(selectedMethod.number.replace(/-/g, ""));
