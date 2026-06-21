@@ -111,6 +111,23 @@ function CheckoutPage() {
 
   const [walletBalance, setWalletBalance] = useState<number>(0);
   const [useWallet, setUseWallet] = useState(false);
+  const [productImages, setProductImages] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    if (!items.length) return;
+    const slugs = items.map((i) => i.slug).filter(Boolean);
+    if (!slugs.length) return;
+    supabase.from("products").select("slug,image_url").in("slug", slugs)
+      .then(({ data }) => {
+        if (!data) return;
+        const map: Record<string, string> = {};
+        data.forEach((p: { slug: string; image_url: string | null }) => {
+          if (p.image_url) map[p.slug] = p.image_url;
+        });
+        setProductImages(map);
+      });
+  }, [items]);
+
 
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -204,9 +221,12 @@ function CheckoutPage() {
   }, [form.name, form.email, form.phone, items, total, coupon, user?.id]);
 
   const subAfterCoupon = Math.max(0, total - applied.discount);
-  const walletApplied = useWallet ? Math.min(walletBalance, subAfterCoupon) : 0;
+  const isWalletMethod = method === "wallet";
+  const walletApplied = isWalletMethod ? Math.min(walletBalance, subAfterCoupon) : (useWallet ? Math.min(walletBalance, subAfterCoupon) : 0);
   const grandTotal = Math.max(0, subAfterCoupon - walletApplied);
-  const fullyByWallet = walletApplied > 0 && grandTotal === 0;
+  const fullyByWallet = isWalletMethod ? walletBalance >= subAfterCoupon : (walletApplied > 0 && grandTotal === 0);
+  const walletInsufficient = isWalletMethod && walletBalance < subAfterCoupon;
+
 
   const copyNumber = async () => {
     await navigator.clipboard.writeText(selectedMethod.number.replace(/-/g, ""));
@@ -349,7 +369,10 @@ function CheckoutPage() {
   };
 
   const firstItem = items[0];
-  const headerTitle = items.length === 1 ? firstItem.name : `${items.length} items`;
+  const firstImage = productImages[firstItem.slug];
+  const headerTitle = firstItem.name;
+  const headerSubtitle = items.length > 1 ? `+${items.length - 1} more item${items.length > 2 ? "s" : ""}` : (firstItem.planPeriod || "");
+
 
   // ============ STEP 1: CONTACT ============
   if (step === 1) {
@@ -363,13 +386,23 @@ function CheckoutPage() {
           {/* Header */}
           <div className="flex items-center justify-between px-5 pt-5 pb-3">
             <div className="flex items-center gap-3 min-w-0">
-              <div className={`w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br ${firstItem.gradient} grid place-items-center text-lg`}>
-                {firstItem.emoji}
+              {firstImage ? (
+                <img src={firstImage} alt={firstItem.name} className="w-11 h-11 shrink-0 rounded-xl object-cover border border-border" loading="lazy" />
+              ) : (
+                <div className={`w-11 h-11 shrink-0 rounded-xl bg-gradient-to-br ${firstItem.gradient} grid place-items-center text-lg`}>
+                  {firstItem.emoji}
+                </div>
+              )}
+              <div className="min-w-0 flex-1">
+                <h1 className="text-[15px] font-semibold truncate leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                  {headerTitle}
+                </h1>
+                {headerSubtitle && (
+                  <p className="text-[11px] text-muted-foreground truncate mt-0.5">{headerSubtitle}</p>
+                )}
               </div>
-              <h1 className="text-[15px] font-semibold truncate" style={{ fontFamily: "var(--font-heading)" }}>
-                {headerTitle}
-              </h1>
             </div>
+
             <button
               onClick={() => navigate({ to: "/cart" })}
               aria-label="Close"
@@ -509,13 +542,23 @@ function CheckoutPage() {
         {/* Header */}
         <div className="flex items-center justify-between px-5 pt-5 pb-3">
           <div className="flex items-center gap-3 min-w-0">
-            <div className={`w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br ${firstItem.gradient} grid place-items-center text-lg`}>
-              {firstItem.emoji}
+            {firstImage ? (
+              <img src={firstImage} alt={firstItem.name} className="w-11 h-11 shrink-0 rounded-xl object-cover border border-border" loading="lazy" />
+            ) : (
+              <div className={`w-11 h-11 shrink-0 rounded-xl bg-gradient-to-br ${firstItem.gradient} grid place-items-center text-lg`}>
+                {firstItem.emoji}
+              </div>
+            )}
+            <div className="min-w-0 flex-1">
+              <h1 className="text-[15px] font-semibold truncate leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                {headerTitle}
+              </h1>
+              {headerSubtitle && (
+                <p className="text-[11px] text-muted-foreground truncate mt-0.5">{headerSubtitle}</p>
+              )}
             </div>
-            <h1 className="text-[15px] font-semibold truncate" style={{ fontFamily: "var(--font-heading)" }}>
-              {headerTitle}
-            </h1>
           </div>
+
           <button onClick={() => navigate({ to: "/cart" })} aria-label="Close" className="p-1.5 rounded-full hover:bg-muted text-muted-foreground">
             <X className="w-4 h-4" />
           </button>
@@ -534,14 +577,14 @@ function CheckoutPage() {
           </button>
         </div>
 
-        {/* Payment method tiles */}
+        {/* Payment method tiles — bKash / Nagad / Wallet */}
         <div className="px-5 mt-4 grid grid-cols-3 gap-3" role="radiogroup" aria-label="Payment method">
           {methods.map((m) => {
             const active = method === m.id;
             return (
               <button
                 key={m.id}
-                onClick={() => setMethod(m.id)}
+                onClick={() => { setMethod(m.id); setUseWallet(false); }}
                 role="radio"
                 aria-checked={active}
                 className={`relative rounded-2xl border-2 bg-background px-3 py-3 flex flex-col items-center gap-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
@@ -561,45 +604,51 @@ function CheckoutPage() {
               </button>
             );
           })}
+
+          {/* Wallet tile */}
+          <button
+            onClick={() => { setMethod("wallet"); setUseWallet(true); }}
+            role="radio"
+            aria-checked={isWalletMethod}
+            className={`relative rounded-2xl border-2 bg-background px-3 py-3 flex flex-col items-center gap-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+              isWalletMethod ? "border-primary ring-2 ring-primary/20" : "border-border hover:border-primary/40"
+            }`}
+          >
+            <div className="w-12 h-12 grid place-items-center">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/70 grid place-items-center text-primary-foreground shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M2 10h20"/><circle cx="17" cy="15" r="1.5" fill="currentColor"/></svg>
+              </div>
+            </div>
+            <div className="text-[12px] font-semibold text-foreground text-center leading-tight">Wallet</div>
+            <div className="text-[10px] text-muted-foreground tabular-nums">৳{walletBalance.toLocaleString()}</div>
+          </button>
         </div>
 
-        {/* Wallet — always visible */}
-        <div className="mx-5 mt-4 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 p-3.5">
-          {walletBalance > 0 ? (
-            <>
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked={useWallet} onChange={(e) => setUseWallet(e.target.checked)} className="w-4 h-4 accent-primary" />
+        {/* Wallet-selected info banner */}
+        {isWalletMethod && (
+          <div className="mx-5 mt-4 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 p-3.5">
+            {walletInsufficient ? (
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-destructive/15 grid place-items-center text-lg shrink-0">⚠️</div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[13px] font-bold text-foreground">💳 ওয়ালেট ব্যালেন্স ব্যবহার করুন</div>
-                  <div className="text-[11px] text-muted-foreground">Available: ৳{walletBalance.toLocaleString()}</div>
+                  <div className="text-[13px] font-bold text-foreground">ব্যালেন্স অপর্যাপ্ত</div>
+                  <div className="text-[11px] text-muted-foreground">আপনার Wallet: ৳{walletBalance.toLocaleString()} • প্রয়োজন: ৳{subAfterCoupon.toLocaleString()}</div>
                 </div>
-                {useWallet && walletApplied > 0 && (
-                  <div className="text-[13px] font-bold text-primary tabular-nums shrink-0">−৳{walletApplied.toLocaleString()}</div>
-                )}
-              </label>
-              {fullyByWallet && (
-                <p className="text-[11px] text-emerald-500 font-semibold mt-2">✓ Wallet দিয়ে সম্পূর্ণ পেমেন্ট হবে — bKash/Nagad লাগবে না</p>
-              )}
-              {useWallet && !fullyByWallet && walletApplied > 0 && (
-                <p className="text-[11px] text-muted-foreground mt-2">বাকি ৳{grandTotal.toLocaleString()} টাকা নিচের পদ্ধতিতে পাঠান</p>
-              )}
-            </>
-          ) : (
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-primary/15 grid place-items-center text-lg shrink-0">💳</div>
-              <div className="flex-1 min-w-0">
-                <div className="text-[13px] font-bold text-foreground">ওয়ালেট ব্যালেন্স: ৳0</div>
-                <div className="text-[11px] text-muted-foreground">আগে থেকে টাকা load করে দ্রুত checkout করুন</div>
+                <Link to="/wallet" className="text-[12px] font-semibold text-primary shrink-0 px-2.5 py-1 rounded-full border border-primary/40 hover:bg-primary/10 transition">
+                  Top-up
+                </Link>
               </div>
-              <Link
-                to="/wallet"
-                className="text-[12px] font-semibold text-primary hover:underline shrink-0 px-2.5 py-1 rounded-full border border-primary/40 hover:bg-primary/10 transition"
-              >
-                Top-up
-              </Link>
-            </div>
-          )}
-        </div>
+            ) : (
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-primary/15 grid place-items-center text-lg shrink-0">✓</div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] font-bold text-foreground">Wallet দিয়ে সম্পূর্ণ পেমেন্ট হবে</div>
+                  <div className="text-[11px] text-muted-foreground">৳{walletApplied.toLocaleString()} কাটা হবে • বাকি ৳{(walletBalance - walletApplied).toLocaleString()}</div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Brand instruction card */}
         {!fullyByWallet && (
@@ -757,7 +806,7 @@ function CheckoutPage() {
         <div className="px-5 py-5">
           <button
             onClick={handleSubmit}
-            disabled={busy || (!fullyByWallet && (!!errors.trxId || !form.trxId || !!errors.senderNumber || !form.senderNumber))}
+            disabled={busy || walletInsufficient || (!fullyByWallet && (!!errors.trxId || !form.trxId || !!errors.senderNumber || !form.senderNumber))}
             className="w-full h-12 rounded-full text-primary-foreground text-[15px] font-semibold inline-flex items-center justify-center gap-2 disabled:opacity-50 hover:opacity-95 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-lg shadow-primary/25"
             style={{ background: CTA_GRADIENT }}
           >
