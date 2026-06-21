@@ -431,14 +431,14 @@ function AdminProducts() {
 
 
  {/* Filters */}
- <div className="flex flex-wrap items-center gap-2 mb-4">
+ <div className="grid grid-cols-1 sm:flex sm:flex-wrap sm:items-center gap-2 mb-4">
  <SearchBar
    value={query}
    onChange={setQuery}
    placeholder="পণ্য খুঁজুন…"
    size="md"
    showSubmit={false}
-   className="flex-1 min-w-[220px]"
+   className="w-full sm:flex-1 sm:min-w-[220px]"
  />
 
  <select value={catFilter} onChange={(e) => setCatFilter(e.target.value)} className="h-10 px-3 rounded-xl border border-border bg-white text-sm">
