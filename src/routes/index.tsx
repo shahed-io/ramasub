@@ -57,7 +57,7 @@ export const Route = createFileRoute("/")({
           name: "Rama Sub",
           url: "https://ramasub.com",
           logo: "https://ramasub.com/icons/apple-touch-icon.png",
-          sameAs: ["https://ramasub.lovable.app"],
+          sameAs: ["https://wa.me/8801601048085"],
         }),
       },
       {
