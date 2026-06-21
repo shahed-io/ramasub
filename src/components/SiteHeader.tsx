@@ -158,9 +158,10 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <>
+    <div className="sticky top-0 z-50">
       <TopUtilityBar />
-      <header className="sticky top-0 z-40">
+      <header className="relative z-40">
+
         <div
           className={[
             "relative transition-[background-color,box-shadow,backdrop-filter] duration-300 will-change-[background-color]",
