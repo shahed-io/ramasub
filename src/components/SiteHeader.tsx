@@ -326,7 +326,7 @@ export function SiteHeader() {
 
               <button
                 onClick={() => setOpen((o) => !o)}
-                className="md:hidden grid place-items-center w-10 h-10 rounded-full glass-soft border border-white/10 text-white shrink-0"
+                className="md:hidden grid place-items-center w-10 h-10 rounded-full bg-violet-50 border border-violet-200 text-violet-600 shrink-0"
                 aria-label="Menu"
                 aria-expanded={open}
               >
