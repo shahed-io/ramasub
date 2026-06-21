@@ -631,6 +631,14 @@
   html.theme-white [class*="text-foreground\/"] { color: oklch(0.26 0.05 285) !important; }
   html.theme-white .text-foreground\/95,
   html.theme-white .text-foreground\/90 { color: oklch(0.22 0.04 285) !important; }
+
+  /* Defensive: any element on a white card surface that doesn't declare its
+     own color/gradient gets the readable dark foreground. Stops accidental
+     white-on-white from inherited dark-theme card-foreground tokens. */
+  html.theme-white .bg-card :where(div, span, p, h1, h2, h3, h4, h5, h6, li, dt, dd, label):not([class*="text-"]):not([class*="bg-clip-text"]):not([class*="text-aurora"]):not([class*="text-neon"]):not([class*="text-sunset"]):not([class*="gradient-text"]) {
+    color: oklch(0.22 0.04 285);
+  }
+
   html.theme-white .text-foreground\/85,
   html.theme-white .text-foreground\/80 { color: oklch(0.26 0.05 285) !important; }
   html.theme-white .text-foreground\/75,
