@@ -238,20 +238,20 @@ export function ImageBannerCarousel() {
               <div className="absolute inset-0" style={{ background: p.gradient }} />
               {/* Top-right ambient sweep */}
               <div className="absolute inset-0 pointer-events-none" style={{ background: p.sweep }} />
-              {/* Left scrim — improves text legibility */}
+              {/* Left soft white glow — lifts text without darkening */}
               <div
                 className="absolute inset-0 pointer-events-none hidden md:block"
                 style={{
                   background:
-                    "linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 35%, rgba(0,0,0,0.10) 60%, transparent 80%)",
+                    "radial-gradient(60% 80% at 20% 50%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 35%, transparent 70%)",
                 }}
               />
-              {/* Mobile bottom scrim */}
+              {/* Mobile bottom soft white wash */}
               <div
                 className="absolute inset-0 pointer-events-none md:hidden"
                 style={{
                   background:
-                    "linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.55) 100%)",
+                    "linear-gradient(180deg, transparent 40%, rgba(255,255,255,0.12) 100%)",
                 }}
               />
               {/* Soft white vignette — brightens edges instead of darkening */}
