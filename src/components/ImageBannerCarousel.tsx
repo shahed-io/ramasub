@@ -199,9 +199,9 @@ export function ImageBannerCarousel() {
   };
 
   return (
-    <section className="px-3 sm:px-5 lg:px-8 pt-4 sm:pt-5 pb-3">
+    <section className="mx-auto w-full max-w-[1440px] px-4 md:px-10 pt-4 sm:pt-5 pb-3">
       <div
-        className="relative mx-auto w-full max-w-[1480px] overflow-hidden rounded-[28px] sm:rounded-[36px] md:rounded-[40px] shadow-[0_30px_80px_-30px_rgba(15,23,42,0.55)] ring-1 ring-white/10 bg-[#050505] group"
+        className="relative mx-auto w-full overflow-hidden rounded-[28px] sm:rounded-[36px] md:rounded-[40px] shadow-[0_30px_80px_-30px_rgba(15,23,42,0.55)] ring-1 ring-white/10 bg-[#050505] group"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onTouchStart={onTouchStart}
