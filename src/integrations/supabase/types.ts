@@ -715,6 +715,42 @@ export type Database = {
           },
         ]
       }
+      redirects: {
+        Row: {
+          created_at: string
+          from_path: string
+          hits: number
+          id: string
+          is_active: boolean
+          notes: string | null
+          status_code: number
+          to_path: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          from_path: string
+          hits?: number
+          id?: string
+          is_active?: boolean
+          notes?: string | null
+          status_code?: number
+          to_path: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          from_path?: string
+          hits?: number
+          id?: string
+          is_active?: boolean
+          notes?: string | null
+          status_code?: number
+          to_path?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       renewal_reminders_sent: {
         Row: {
           expiry_date: string
