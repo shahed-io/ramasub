@@ -455,11 +455,27 @@ function AdminProducts() {
  <option value="views">সর্বমোট ভিউ</option>
  <option value="name">নাম</option>
  </select>
- {selected.size > 0 && (
- <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
- <Filter className="w-3 h-3" /> {selected.size} সিলেক্টেড
- </span>
- )}
+  {selected.size > 0 && (
+  <>
+  <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
+  <Filter className="w-3 h-3" /> {selected.size} সিলেক্টেড
+  </span>
+  <button
+  onClick={bulkDelete}
+  className="h-10 px-3.5 inline-flex items-center gap-1.5 rounded-xl bg-rose-600 text-white text-sm font-semibold hover:bg-rose-700 transition shadow-[0_4px_14px_-4px_rgba(225,29,72,0.6)]"
+  title={`${selected.size}টি পণ্য মুছুন`}
+  >
+  <Trash2 className="w-4 h-4" /> সিলেক্টেড ডিলিট ({selected.size})
+  </button>
+  <button
+  onClick={() => setSelected(new Set())}
+  className="h-10 px-3 inline-flex items-center gap-1.5 rounded-xl border border-border bg-white text-slate-600 text-sm hover:bg-slate-50 transition"
+  >
+  ক্লিয়ার
+  </button>
+  </>
+  )}
+
  </div>
 
  {/* Table */}
