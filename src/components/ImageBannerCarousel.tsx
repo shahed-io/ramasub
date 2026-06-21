@@ -339,11 +339,11 @@ export function ImageBannerCarousel() {
                     {TRUST_BADGES.map((b) => (
                       <span
                         key={b.label}
-                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/30 backdrop-blur-md border border-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/15 backdrop-blur-md border border-white/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
                         style={{ fontFamily: BN, wordBreak: "keep-all" }}
                       >
                         <span className="w-1.5 h-1.5 rounded-full" style={{ background: b.dot, boxShadow: `0 0 8px ${b.dot}` }} />
-                        <span className="text-[11px] sm:text-xs text-white/90 font-medium">
+                        <span className="text-[11px] sm:text-xs text-white font-medium">
                           {b.label}
                         </span>
                       </span>
