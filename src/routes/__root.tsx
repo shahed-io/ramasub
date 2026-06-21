@@ -120,8 +120,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:title", content: "Rama Sub | Trusted Digital Services in Bangladesh" },
       { property: "og:description", content: "Rama Sub provides digital products, premium subscriptions, hosting, software, with fast support and secure access across Bangladesh." },
       { name: "twitter:description", content: "Rama Sub provides digital products, premium subscriptions, hosting, software, with fast support and secure access across Bangladesh." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/398b6e84-6fff-45dc-9f6c-edeeb56fbd9b/id-preview-b4c92514--e2352888-ae7a-48ce-968f-674ff8a31d97.lovable.app-1781893257323.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/398b6e84-6fff-45dc-9f6c-edeeb56fbd9b/id-preview-b4c92514--e2352888-ae7a-48ce-968f-674ff8a31d97.lovable.app-1781893257323.png" },
+      { property: "og:image", content: "https://ramasub.com/icons/apple-touch-icon.png" },
+      { name: "twitter:image", content: "https://ramasub.com/icons/apple-touch-icon.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
