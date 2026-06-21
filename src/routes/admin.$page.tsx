@@ -225,7 +225,7 @@ function ListCrud({ kind, fields }: { kind: string; fields: AdminField[] }) {
  </div>
  </div>
 
-  <div className="admin-card rounded-2xl overflow-hidden">
+   <div className="admin-card rounded-2xl overflow-hidden">
  {loading ? null : visibleRows.length === 0 ? (
  <div className="p-10 text-center text-slate-500">
  {rows.length === 0
@@ -233,7 +233,8 @@ function ListCrud({ kind, fields }: { kind: string; fields: AdminField[] }) {
    : t("No matches for your search.", "আপনার অনুসন্ধানের সাথে কিছু মেলেনি।")}
  </div>
  ) : (
- <table className="w-full text-sm">
+  <div className="overflow-x-auto">
+  <table className="w-full text-sm min-w-[760px]">
   <thead className="bg-slate-50 text-[11px] uppercase tracking-wider text-slate-600">
  <tr>
  <th className="w-8"></th>
@@ -297,7 +298,8 @@ function ListCrud({ kind, fields }: { kind: string; fields: AdminField[] }) {
  </tr>
  ))}
  </tbody>
- </table>
+  </table>
+  </div>
  )}
  </div>
 
@@ -421,9 +423,9 @@ function RecordForm({
  />
  ))}
  </div>
- <div className="px-6 py-4 border-t border-slate-200 flex justify-end gap-2">
- <button onClick={onClose} className="h-10 px-4 rounded-full border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50">{t("Cancel", "বাতিল")}</button>
- <button onClick={save} disabled={saving} className="h-10 px-5 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold shadow inline-flex items-center gap-1.5 disabled:opacity-60 transition">
+  <div className="px-4 sm:px-6 py-4 border-t border-slate-200 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+  <button onClick={onClose} className="h-10 px-4 rounded-full border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50 w-full sm:w-auto">{t("Cancel", "বাতিল")}</button>
+  <button onClick={save} disabled={saving} className="h-10 px-5 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold shadow inline-flex items-center justify-center gap-1.5 disabled:opacity-60 transition w-full sm:w-auto">
  {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
  {t("Save", "সংরক্ষণ")}
  </button>
@@ -488,7 +490,7 @@ function SingleSettings({ kind, fields }: { kind: string; fields: AdminField[] }
  if (loading) return null;
 
  return (
-  <div className="admin-card rounded-2xl p-6 space-y-5">
+   <div className="admin-card rounded-2xl p-4 sm:p-6 space-y-5">
  <div className="grid sm:grid-cols-2 gap-4">
  {fields.map((f) => (
  <div key={f.name} className={f.type === "textarea" ? "sm:col-span-2" : ""}>

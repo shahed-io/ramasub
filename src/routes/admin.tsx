@@ -3,7 +3,7 @@ import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { AuthPageEntry } from "@/components/AuthPage";
 import {
   ShieldAlert, LogOut, Globe,
-  PanelLeftClose, PanelLeftOpen, ChevronDown, ChevronRight, ExternalLink, Menu, X,
+  PanelLeftClose, PanelLeftOpen, ChevronDown, ChevronRight, ExternalLink, Menu, Search, X,
 } from "lucide-react";
 import { AdminGlobalSearch, useAdminGlobalSearch } from "@/components/admin/AdminGlobalSearch";
 import { SearchTrigger } from "@/components/SearchBar";
@@ -363,7 +363,7 @@ function AdminShell({ user, signOut, navigate }: any) {
   }, [pathname]);
 
   return (
-    <div className="admin-shell admin-clarity lg:h-screen lg:overflow-hidden min-h-screen flex relative font-['Manrope',ui-sans-serif,system-ui] text-slate-900 bg-[var(--admin-bg)]">
+    <div className="admin-shell admin-clarity min-h-[100dvh] w-full overflow-x-hidden lg:h-[100dvh] lg:overflow-hidden flex relative font-['Manrope',ui-sans-serif,system-ui] text-slate-900 bg-[var(--admin-bg)]">
       {/* Mobile overlay */}
       {mobileOpen && (
         <div
@@ -375,11 +375,11 @@ function AdminShell({ user, signOut, navigate }: any) {
       {/* SIDEBAR */}
       <aside
         className={[
-          "shrink-0 transition-all duration-200 flex flex-col h-screen lg:relative",
+          "shrink-0 transition-all duration-200 flex flex-col h-[100dvh] max-h-[100dvh] lg:relative",
           "bg-[var(--admin-panel)] border-r border-[var(--admin-border)]",
           "lg:sticky lg:top-0 lg:translate-x-0 lg:z-10",
           collapsed ? "lg:w-[76px]" : "lg:w-[260px]",
-          "fixed top-0 left-0 z-50 w-[260px] max-w-[85vw] shadow-2xl lg:shadow-none",
+          "fixed top-0 left-0 z-50 w-[min(22rem,92vw)] shadow-2xl lg:shadow-none",
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         ].join(" ")}
       >
@@ -474,11 +474,11 @@ function AdminShell({ user, signOut, navigate }: any) {
       </aside>
 
       {/* MAIN */}
-      <div className="flex-1 min-w-0 flex flex-col lg:h-screen lg:overflow-y-auto relative z-[1]">
+      <div className="flex-1 min-w-0 w-full flex flex-col lg:h-[100dvh] lg:overflow-y-auto relative z-[1]">
 
         {/* Top bar */}
         <header className="h-[64px] sticky top-0 z-20 bg-[var(--admin-panel)] border-b border-[var(--admin-border)] shadow-[0_10px_30px_-24px_rgba(15,23,42,0.35)]">
-          <div className="h-full px-3 md:px-6 flex items-center gap-2 md:gap-3">
+          <div className="h-full px-3 md:px-6 flex items-center gap-2 md:gap-3 min-w-0">
             <button
               onClick={() => setMobileOpen(true)}
               className="lg:hidden h-9 w-9 rounded-lg grid place-items-center border border-slate-200 text-slate-700 hover:bg-slate-50 bg-white"
@@ -518,6 +518,15 @@ function AdminShell({ user, signOut, navigate }: any) {
             >
               <Globe className="w-3.5 h-3.5" /> {lang === "en" ? "বাং" : "EN"}
             </button>
+            <button
+              type="button"
+              onClick={() => setGlobalOpen(true)}
+              className="xl:hidden h-9 w-9 rounded-lg grid place-items-center border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition shrink-0"
+              aria-label={t("Search", "খুঁজুন")}
+              title={t("Search", "খুঁজুন")}
+            >
+              <Search className="w-4 h-4" />
+            </button>
             <SearchTrigger
               size="sm"
               onClick={() => setGlobalOpen(true)}
@@ -531,8 +540,8 @@ function AdminShell({ user, signOut, navigate }: any) {
           </div>
         </header>
 
-        <div className="flex-1 p-4 md:p-8 min-w-0 overflow-x-hidden text-[var(--admin-ink)]">
-          <div className="mx-auto max-w-[1400px]">
+        <div className="admin-main-content flex-1 p-3 sm:p-4 md:p-8 min-w-0 w-full overflow-x-hidden text-[var(--admin-ink)]">
+          <div className="mx-auto w-full max-w-[1400px] min-w-0">
             <AdminPageHeader />
             <Outlet />
           </div>

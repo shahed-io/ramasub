@@ -379,20 +379,20 @@ function AdminProducts() {
  };
 
  return (
- <div>
+ <div className="min-w-0">
  {/* Top bar — title + action buttons */}
- <div className="flex flex-wrap items-start justify-between gap-3 mb-5">
- <div>
+ <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] items-start gap-3 mb-5">
+ <div className="min-w-0">
  <h1 className="text-2xl font-bold flex items-center gap-2" style={{ fontFamily: "var(--font-display)" }}>
  <span className="text-2xl">📦</span> পণ্য ম্যানেজমেন্ট
  </h1>
  <p className="text-sm text-muted-foreground mt-0.5">{products.length}টি পণ্য</p>
  </div>
- <div className="flex flex-wrap items-center gap-2">
+ <div className="admin-product-actions grid grid-cols-2 sm:flex sm:flex-wrap sm:items-center sm:justify-end gap-2">
  <button
  onClick={() => runAI("short")}
  disabled={aiBusy || selected.size === 0}
- className="h-10 px-4 inline-flex items-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)] disabled:opacity-60 disabled:cursor-not-allowed"
+ className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)] disabled:opacity-60 disabled:cursor-not-allowed flex-1 sm:flex-none"
  style={{ background: "linear-gradient(135deg, #94a3b8 0%, #94a3b8 100%)" }}
  title={selected.size === 0 ? "আগে পণ্য সিলেক্ট করুন" : "AI Short Description"}
  >
@@ -401,7 +401,7 @@ function AdminProducts() {
  <button
  onClick={() => runAI("rich")}
  disabled={aiBusy || selected.size === 0}
- className="h-10 px-4 inline-flex items-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)] disabled:opacity-60 disabled:cursor-not-allowed"
+ className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)] disabled:opacity-60 disabled:cursor-not-allowed flex-1 sm:flex-none"
  style={{ background: "linear-gradient(135deg, #94a3b8 0%, #94a3b8 100%)" }}
  >
  {aiBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4" />} AI Rich Desc + SEO
@@ -414,7 +414,7 @@ function AdminProducts() {
  <button
  onClick={migrateAllToWebp}
  disabled={webpBusy}
- className="h-10 px-4 inline-flex items-center gap-2 rounded-xl bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
+ className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition disabled:opacity-60 disabled:cursor-not-allowed flex-1 sm:flex-none"
  title="সব প্রোডাক্ট ইমেজ WebP-তে কনভার্ট করুন"
  >
  {webpBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <ImageIcon className="w-4 h-4" />}
@@ -422,7 +422,7 @@ function AdminProducts() {
  </button>
  <button
  onClick={() => { setEditing({ ...empty, name: " Price in Bangladesh", sort_order: (products.at(-1)?.sort_order ?? 0) + 10 }); setIsNew(true); }}
- className="h-10 px-4 inline-flex items-center gap-2 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition"
+ className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition flex-1 sm:flex-none"
  >
  <Plus className="w-4 h-4" /> নতুন পণ্য
  </button>
@@ -431,14 +431,14 @@ function AdminProducts() {
 
 
  {/* Filters */}
- <div className="flex flex-wrap items-center gap-2 mb-4">
+ <div className="grid grid-cols-1 sm:flex sm:flex-wrap sm:items-center gap-2 mb-4">
  <SearchBar
    value={query}
    onChange={setQuery}
    placeholder="পণ্য খুঁজুন…"
    size="md"
    showSubmit={false}
-   className="flex-1 min-w-[220px]"
+   className="w-full sm:flex-1 sm:min-w-[220px]"
  />
 
  <select value={catFilter} onChange={(e) => setCatFilter(e.target.value)} className="h-10 px-3 rounded-xl border border-border bg-white text-sm">
@@ -629,16 +629,16 @@ function BackupMenu({ onExport, onImport }: { onExport: () => void; onImport: ()
  return () => document.removeEventListener("mousedown", h);
  }, [open]);
  return (
- <div className="relative" ref={ref}>
+  <div className="relative flex-1 sm:flex-none" ref={ref}>
  <button
  onClick={() => setOpen((v) => !v)}
- className="h-10 px-4 inline-flex items-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)]"
+  className="h-10 w-full sm:w-auto px-4 inline-flex items-center justify-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)]"
  style={{ background: "linear-gradient(135deg, #94a3b8 0%, #94a3b8 100%)" }}
  >
  <Database className="w-4 h-4" /> Backups & Restore
  </button>
  {open && (
- <div className="absolute right-0 mt-2 w-56 bg-white border border-border rounded-xl shadow-lg z-20 p-1">
+  <div className="absolute right-0 mt-2 w-[min(14rem,86vw)] bg-white border border-border rounded-xl shadow-lg z-20 p-1">
  <button onClick={() => { onExport(); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm hover:bg-slate-50 text-left">
  <Download className="w-4 h-4 text-slate-600" /> ব্যাকআপ ডাউনলোড (.json)
  </button>
