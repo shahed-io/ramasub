@@ -284,22 +284,28 @@ export function ImageBannerCarousel() {
                 <div className="order-2 md:order-1 min-w-0 text-center md:text-left flex flex-col items-center md:items-start gap-4 sm:gap-5 z-10">
                   {eyebrow && (
                     <span
-                      className="inline-flex items-center px-4 py-1.5 rounded-full backdrop-blur-md"
+                      className="inline-flex items-center px-4 py-1.5 rounded-full"
                       style={{
                         fontFamily: BN,
                         wordBreak: "keep-all",
-                        background: p.pillBg,
-                        border: `1px solid ${p.pillBorder}`,
+                        background: "rgba(0,0,0,0.55)",
+                        border: `1px solid rgba(255,255,255,0.35)`,
+                        backdropFilter: "blur(6px)",
+                        boxShadow: "0 2px 10px rgba(0,0,0,0.25)",
                       }}
                     >
                       <span
-                        className="text-[11px] sm:text-xs font-semibold tracking-[0.12em] uppercase"
-                        style={{ color: p.accent }}
+                        className="text-[12px] sm:text-[13px] font-bold tracking-[0.12em] uppercase"
+                        style={{
+                          color: "#ffffff",
+                          textShadow: "0 1px 2px rgba(0,0,0,0.6)",
+                        }}
                       >
                         {eyebrow}
                       </span>
                     </span>
                   )}
+
 
                   <h2
                     className="font-black tracking-tight leading-[1.02]"
