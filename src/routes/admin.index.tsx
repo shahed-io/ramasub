@@ -279,7 +279,7 @@ function AdminDashboard() {
   ];
 
   return (
-    <div className="space-y-6 pb-10">
+    <div className="admin-dashboard space-y-6 pb-10 min-w-0">
       {/* Notifications banner */}
       {stats.newOrders24h > 0 && (
         <div className="rounded-2xl bg-white ring-1 ring-slate-200 p-4 sm:p-5">
@@ -310,7 +310,7 @@ function AdminDashboard() {
       {/* REVENUE OVERVIEW */}
       <section>
         <SectionHeader title={t("REVENUE OVERVIEW", "আয়ের পর্যালোচনা")} />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+        <div className="grid grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
           {revenueKpis.map((k) => (
             <KpiCard key={k.label} kpi={k} loading={loading} />
           ))}
@@ -320,7 +320,7 @@ function AdminDashboard() {
       {/* ORDER STATUS */}
       <section>
         <SectionHeader title={t("ORDER STATUS", "অর্ডার স্ট্যাটাস")} />
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
+        <div className="grid grid-cols-1 min-[360px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
           {statusKpis.map((k) => (
             <KpiCard key={k.label} kpi={k} loading={loading} compact />
           ))}
@@ -330,8 +330,8 @@ function AdminDashboard() {
       {/* Sales Overview + Best Selling */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Sales chart */}
-          <div className="lg:col-span-2 admin-card rounded-2xl p-5 sm:p-6">
-          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 mb-1">
+          <div className="lg:col-span-2 admin-card rounded-2xl p-4 sm:p-6 min-w-0 overflow-hidden">
+          <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] items-start gap-3 mb-1">
             <div className="min-w-0">
               <h3 className="text-[18px] font-extrabold text-slate-900">{t("Sales Overview", "সেল ওভারভিউ")}</h3>
               {stats.monthDelta !== 0 && (
@@ -341,12 +341,12 @@ function AdminDashboard() {
                 </div>
               )}
             </div>
-            <div className="shrink-0 inline-flex rounded-full bg-slate-100 p-1 text-[11.5px] font-bold ring-1 ring-slate-200">
+            <div className="shrink-0 inline-flex w-full sm:w-auto rounded-full bg-slate-100 p-1 text-[11.5px] font-bold ring-1 ring-slate-200 overflow-x-auto">
               {(["daily", "weekly", "monthly"] as Period[]).map((p) => (
                 <button
                   key={p}
                   onClick={() => setPeriod(p)}
-                  className={`px-3 py-1 rounded-full transition ${period === p ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                  className={`px-3 py-1 rounded-full transition shrink-0 flex-1 sm:flex-none ${period === p ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
                 >
                   {t(p[0].toUpperCase() + p.slice(1), p === "daily" ? "দৈনিক" : p === "weekly" ? "সাপ্তাহিক" : "মাসিক")}
                 </button>
