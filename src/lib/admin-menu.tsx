@@ -156,6 +156,18 @@ export const ADMIN_MENU: AdminMenuGroup[] = [
     ],
   },
   {
+    id: "seo",
+    title: "SEO",
+    titleBn: "SEO",
+    icon: ic(Search),
+    items: [
+      { to: "/admin/seo-settings", label: "SEO Settings", labelBn: "SEO সেটিংস", icon: ic(Search), grad: "from-violet-500 to-indigo-600", badge: "NEW" },
+      { to: "/admin/seo-audit", label: "SEO Audit", labelBn: "SEO অডিট", icon: ic(ClipboardList), grad: "from-emerald-500 to-teal-600", badge: "NEW" },
+      { to: "/admin/redirects", label: "Redirects (301/302)", labelBn: "রিডিরেক্ট (301/302)", icon: ic(Share2), grad: "from-amber-500 to-rose-600", badge: "NEW" },
+    ],
+  },
+
+  {
     id: "integrations",
     title: "Integrations",
     titleBn: "ইন্টিগ্রেশন",

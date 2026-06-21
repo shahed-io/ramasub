@@ -50,10 +50,13 @@ import { Route as AdminTrackingRouteImport } from './routes/admin.tracking'
 import { Route as AdminTicketsRouteImport } from './routes/admin.tickets'
 import { Route as AdminThemesRouteImport } from './routes/admin.themes'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminSeoSettingsRouteImport } from './routes/admin.seo-settings'
+import { Route as AdminSeoAuditRouteImport } from './routes/admin.seo-audit'
 import { Route as AdminSecurityRouteImport } from './routes/admin.security'
 import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminReviewGeneratorRouteImport } from './routes/admin.review-generator'
 import { Route as AdminRenewalRemindersRouteImport } from './routes/admin.renewal-reminders'
+import { Route as AdminRedirectsRouteImport } from './routes/admin.redirects'
 import { Route as AdminQuickToolsRouteImport } from './routes/admin.quick-tools'
 import { Route as AdminQuickSaleRouteImport } from './routes/admin.quick-sale'
 import { Route as AdminPromotionsRouteImport } from './routes/admin.promotions'
@@ -296,6 +299,16 @@ const AdminSettingsRoute = AdminSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminSeoSettingsRoute = AdminSeoSettingsRouteImport.update({
+  id: '/seo-settings',
+  path: '/seo-settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSeoAuditRoute = AdminSeoAuditRouteImport.update({
+  id: '/seo-audit',
+  path: '/seo-audit',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminSecurityRoute = AdminSecurityRouteImport.update({
   id: '/security',
   path: '/security',
@@ -314,6 +327,11 @@ const AdminReviewGeneratorRoute = AdminReviewGeneratorRouteImport.update({
 const AdminRenewalRemindersRoute = AdminRenewalRemindersRouteImport.update({
   id: '/renewal-reminders',
   path: '/renewal-reminders',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminRedirectsRoute = AdminRedirectsRouteImport.update({
+  id: '/redirects',
+  path: '/redirects',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminQuickToolsRoute = AdminQuickToolsRouteImport.update({
@@ -553,10 +571,13 @@ export interface FileRoutesByFullPath {
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quick-sale': typeof AdminQuickSaleRoute
   '/admin/quick-tools': typeof AdminQuickToolsRoute
+  '/admin/redirects': typeof AdminRedirectsRoute
   '/admin/renewal-reminders': typeof AdminRenewalRemindersRoute
   '/admin/review-generator': typeof AdminReviewGeneratorRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/security': typeof AdminSecurityRoute
+  '/admin/seo-audit': typeof AdminSeoAuditRoute
+  '/admin/seo-settings': typeof AdminSeoSettingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/themes': typeof AdminThemesRoute
   '/admin/tickets': typeof AdminTicketsRoute
@@ -634,10 +655,13 @@ export interface FileRoutesByTo {
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quick-sale': typeof AdminQuickSaleRoute
   '/admin/quick-tools': typeof AdminQuickToolsRoute
+  '/admin/redirects': typeof AdminRedirectsRoute
   '/admin/renewal-reminders': typeof AdminRenewalRemindersRoute
   '/admin/review-generator': typeof AdminReviewGeneratorRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/security': typeof AdminSecurityRoute
+  '/admin/seo-audit': typeof AdminSeoAuditRoute
+  '/admin/seo-settings': typeof AdminSeoSettingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/themes': typeof AdminThemesRoute
   '/admin/tickets': typeof AdminTicketsRoute
@@ -717,10 +741,13 @@ export interface FileRoutesById {
   '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/quick-sale': typeof AdminQuickSaleRoute
   '/admin/quick-tools': typeof AdminQuickToolsRoute
+  '/admin/redirects': typeof AdminRedirectsRoute
   '/admin/renewal-reminders': typeof AdminRenewalRemindersRoute
   '/admin/review-generator': typeof AdminReviewGeneratorRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/security': typeof AdminSecurityRoute
+  '/admin/seo-audit': typeof AdminSeoAuditRoute
+  '/admin/seo-settings': typeof AdminSeoSettingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/themes': typeof AdminThemesRoute
   '/admin/tickets': typeof AdminTicketsRoute
@@ -801,10 +828,13 @@ export interface FileRouteTypes {
     | '/admin/promotions'
     | '/admin/quick-sale'
     | '/admin/quick-tools'
+    | '/admin/redirects'
     | '/admin/renewal-reminders'
     | '/admin/review-generator'
     | '/admin/reviews'
     | '/admin/security'
+    | '/admin/seo-audit'
+    | '/admin/seo-settings'
     | '/admin/settings'
     | '/admin/themes'
     | '/admin/tickets'
@@ -882,10 +912,13 @@ export interface FileRouteTypes {
     | '/admin/promotions'
     | '/admin/quick-sale'
     | '/admin/quick-tools'
+    | '/admin/redirects'
     | '/admin/renewal-reminders'
     | '/admin/review-generator'
     | '/admin/reviews'
     | '/admin/security'
+    | '/admin/seo-audit'
+    | '/admin/seo-settings'
     | '/admin/settings'
     | '/admin/themes'
     | '/admin/tickets'
@@ -964,10 +997,13 @@ export interface FileRouteTypes {
     | '/admin/promotions'
     | '/admin/quick-sale'
     | '/admin/quick-tools'
+    | '/admin/redirects'
     | '/admin/renewal-reminders'
     | '/admin/review-generator'
     | '/admin/reviews'
     | '/admin/security'
+    | '/admin/seo-audit'
+    | '/admin/seo-settings'
     | '/admin/settings'
     | '/admin/themes'
     | '/admin/tickets'
@@ -1322,6 +1358,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSettingsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/seo-settings': {
+      id: '/admin/seo-settings'
+      path: '/seo-settings'
+      fullPath: '/admin/seo-settings'
+      preLoaderRoute: typeof AdminSeoSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/seo-audit': {
+      id: '/admin/seo-audit'
+      path: '/seo-audit'
+      fullPath: '/admin/seo-audit'
+      preLoaderRoute: typeof AdminSeoAuditRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/security': {
       id: '/admin/security'
       path: '/security'
@@ -1348,6 +1398,13 @@ declare module '@tanstack/react-router' {
       path: '/renewal-reminders'
       fullPath: '/admin/renewal-reminders'
       preLoaderRoute: typeof AdminRenewalRemindersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/redirects': {
+      id: '/admin/redirects'
+      path: '/redirects'
+      fullPath: '/admin/redirects'
+      preLoaderRoute: typeof AdminRedirectsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/quick-tools': {
@@ -1626,10 +1683,13 @@ interface AdminRouteChildren {
   AdminPromotionsRoute: typeof AdminPromotionsRoute
   AdminQuickSaleRoute: typeof AdminQuickSaleRoute
   AdminQuickToolsRoute: typeof AdminQuickToolsRoute
+  AdminRedirectsRoute: typeof AdminRedirectsRoute
   AdminRenewalRemindersRoute: typeof AdminRenewalRemindersRoute
   AdminReviewGeneratorRoute: typeof AdminReviewGeneratorRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
   AdminSecurityRoute: typeof AdminSecurityRoute
+  AdminSeoAuditRoute: typeof AdminSeoAuditRoute
+  AdminSeoSettingsRoute: typeof AdminSeoSettingsRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminThemesRoute: typeof AdminThemesRoute
   AdminTicketsRoute: typeof AdminTicketsRoute
@@ -1668,10 +1728,13 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminPromotionsRoute: AdminPromotionsRoute,
   AdminQuickSaleRoute: AdminQuickSaleRoute,
   AdminQuickToolsRoute: AdminQuickToolsRoute,
+  AdminRedirectsRoute: AdminRedirectsRoute,
   AdminRenewalRemindersRoute: AdminRenewalRemindersRoute,
   AdminReviewGeneratorRoute: AdminReviewGeneratorRoute,
   AdminReviewsRoute: AdminReviewsRoute,
   AdminSecurityRoute: AdminSecurityRoute,
+  AdminSeoAuditRoute: AdminSeoAuditRoute,
+  AdminSeoSettingsRoute: AdminSeoSettingsRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminThemesRoute: AdminThemesRoute,
   AdminTicketsRoute: AdminTicketsRoute,
