@@ -30,6 +30,18 @@ const parsePrice = (p: unknown): number => {
   }
 };
 
+type DeviceIcon = typeof Smartphone;
+function detectDevices(label: string): DeviceIcon[] {
+  const s = label.toLowerCase();
+  const out: DeviceIcon[] = [];
+  if (/(mobile|android|ios|iphone|phone)/.test(s)) out.push(Smartphone);
+  if (/(pc|windows|mac|desktop|laptop|computer)/.test(s)) out.push(Laptop);
+  if (/(tv|smart\s*tv|android\s*tv|firestick|roku)/.test(s)) out.push(Tv);
+  if (/(web|browser|chrome|edge)/.test(s) && !out.includes(Monitor)) out.push(Monitor);
+  if (out.length === 0) out.push(Package);
+  return out;
+}
+
 function toEmbedUrl(raw?: string): string | null {
   const url = (raw ?? "").trim();
   if (!url) return null;
