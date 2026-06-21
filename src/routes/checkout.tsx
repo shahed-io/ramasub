@@ -563,24 +563,43 @@ function CheckoutPage() {
           })}
         </div>
 
-        {/* Wallet */}
-        {walletBalance > 0 && (
-          <div className="mx-5 mt-4 rounded-2xl border border-primary/30 bg-primary/10 p-3.5">
-            <label className="flex items-center gap-3 cursor-pointer">
-              <input type="checkbox" checked={useWallet} onChange={(e) => setUseWallet(e.target.checked)} className="w-4 h-4 accent-primary" />
-              <div className="flex-1">
-                <div className="text-[13px] font-bold text-foreground">💳 ওয়ালেট ব্যালেন্স ব্যবহার করুন</div>
-                <div className="text-[11px] text-muted-foreground">Available: ৳{walletBalance.toLocaleString()}</div>
-              </div>
-              {useWallet && walletApplied > 0 && (
-                <div className="text-[13px] font-bold text-primary tabular-nums">−৳{walletApplied.toLocaleString()}</div>
+        {/* Wallet — always visible */}
+        <div className="mx-5 mt-4 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 p-3.5">
+          {walletBalance > 0 ? (
+            <>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input type="checkbox" checked={useWallet} onChange={(e) => setUseWallet(e.target.checked)} className="w-4 h-4 accent-primary" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] font-bold text-foreground">💳 ওয়ালেট ব্যালেন্স ব্যবহার করুন</div>
+                  <div className="text-[11px] text-muted-foreground">Available: ৳{walletBalance.toLocaleString()}</div>
+                </div>
+                {useWallet && walletApplied > 0 && (
+                  <div className="text-[13px] font-bold text-primary tabular-nums shrink-0">−৳{walletApplied.toLocaleString()}</div>
+                )}
+              </label>
+              {fullyByWallet && (
+                <p className="text-[11px] text-emerald-500 font-semibold mt-2">✓ Wallet দিয়ে সম্পূর্ণ পেমেন্ট হবে — bKash/Nagad লাগবে না</p>
               )}
-            </label>
-            {fullyByWallet && (
-              <p className="text-[11px] text-emerald-500 font-semibold mt-2">✓ Wallet দিয়ে সম্পূর্ণ পেমেন্ট হবে — bKash/Nagad লাগবে না</p>
-            )}
-          </div>
-        )}
+              {useWallet && !fullyByWallet && walletApplied > 0 && (
+                <p className="text-[11px] text-muted-foreground mt-2">বাকি ৳{grandTotal.toLocaleString()} টাকা নিচের পদ্ধতিতে পাঠান</p>
+              )}
+            </>
+          ) : (
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-primary/15 grid place-items-center text-lg shrink-0">💳</div>
+              <div className="flex-1 min-w-0">
+                <div className="text-[13px] font-bold text-foreground">ওয়ালেট ব্যালেন্স: ৳0</div>
+                <div className="text-[11px] text-muted-foreground">আগে থেকে টাকা load করে দ্রুত checkout করুন</div>
+              </div>
+              <Link
+                to="/wallet"
+                className="text-[12px] font-semibold text-primary hover:underline shrink-0 px-2.5 py-1 rounded-full border border-primary/40 hover:bg-primary/10 transition"
+              >
+                Top-up
+              </Link>
+            </div>
+          )}
+        </div>
 
         {/* Brand instruction card */}
         {!fullyByWallet && (
