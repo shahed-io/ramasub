@@ -1,0 +1,10 @@
+ALTER PUBLICATION supabase_realtime ADD TABLE public.products;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.admin_records;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.orders;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.coupons;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.promotions;
+ALTER TABLE public.products REPLICA IDENTITY FULL;
+ALTER TABLE public.admin_records REPLICA IDENTITY FULL;
+ALTER TABLE public.orders REPLICA IDENTITY FULL;
+ALTER TABLE public.coupons REPLICA IDENTITY FULL;
+ALTER TABLE public.promotions REPLICA IDENTITY FULL;
