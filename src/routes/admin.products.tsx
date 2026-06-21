@@ -379,16 +379,16 @@ function AdminProducts() {
  };
 
  return (
- <div>
+ <div className="min-w-0">
  {/* Top bar — title + action buttons */}
- <div className="flex flex-wrap items-start justify-between gap-3 mb-5">
- <div>
+ <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] items-start gap-3 mb-5">
+ <div className="min-w-0">
  <h1 className="text-2xl font-bold flex items-center gap-2" style={{ fontFamily: "var(--font-display)" }}>
  <span className="text-2xl">📦</span> পণ্য ম্যানেজমেন্ট
  </h1>
  <p className="text-sm text-muted-foreground mt-0.5">{products.length}টি পণ্য</p>
  </div>
- <div className="flex flex-wrap items-center gap-2">
+ <div className="flex flex-wrap items-center gap-2 sm:justify-end">
  <button
  onClick={() => runAI("short")}
  disabled={aiBusy || selected.size === 0}
