@@ -369,7 +369,10 @@ function CheckoutPage() {
   };
 
   const firstItem = items[0];
-  const headerTitle = items.length === 1 ? firstItem.name : `${items.length} items`;
+  const firstImage = productImages[firstItem.slug];
+  const headerTitle = firstItem.name;
+  const headerSubtitle = items.length > 1 ? `+${items.length - 1} more item${items.length > 2 ? "s" : ""}` : (firstItem.planPeriod || "");
+
 
   // ============ STEP 1: CONTACT ============
   if (step === 1) {
