@@ -323,12 +323,12 @@ function StatCard({ label, value, icon, tone, loading }: { label: string; value:
     emerald: "bg-emerald-100 text-emerald-700",
   };
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-4">
-      <div className="flex items-start justify-between mb-2">
-        <div className="text-xs text-slate-500 font-medium">{label}</div>
-        <span className={`w-7 h-7 rounded-lg grid place-items-center ${tones[tone]}`}>{icon}</span>
+    <div className="a-stat-card">
+      <div className="flex items-start justify-between">
+        <div className="a-stat-label">{label}</div>
+        <span className={`a-stat-icon ${tones[tone]}`}>{icon}</span>
       </div>
-      <div className="text-2xl font-extrabold text-slate-900 tracking-tight">
+      <div className="a-stat-value">
         {loading ? "…" : value}
       </div>
     </div>
@@ -339,7 +339,7 @@ function Chip({ label, active, onClick, small }: { label: string; active: boolea
   return (
     <button
       onClick={onClick}
-      className={`${small ? "px-2.5 h-7 text-[11px]" : "px-3.5 h-8 text-xs"} rounded-full font-semibold transition border ${active ? "bg-violet-600 text-white border-violet-600 shadow-sm" : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}
+      className={`a-pill ${active ? "a-pill-active" : ""} ${small ? "!h-7 !px-2.5 !text-[11px]" : ""}`}
     >
       {label}
     </button>
@@ -348,22 +348,23 @@ function Chip({ label, active, onClick, small }: { label: string; active: boolea
 
 function StatusBadge({ status }: { status: string }) {
   const { t } = useAdminLang();
-  const m: Record<string, { cls: string; en: string; bn: string }> = {
-    pending:    { cls: "bg-amber-100 text-amber-800 border-amber-300", en: "Pending", bn: "পেন্ডিং" },
-    processing: { cls: "bg-sky-100 text-sky-800 border-sky-300", en: "Processing", bn: "প্রসেসিং" },
-    delivered:  { cls: "bg-violet-100 text-violet-800 border-violet-300", en: "Delivered", bn: "ডেলিভার্ড" },
-    completed:  { cls: "bg-emerald-100 text-emerald-800 border-emerald-300", en: "Completed", bn: "সম্পন্ন" },
-    cancelled:  { cls: "bg-rose-100 text-rose-800 border-rose-300", en: "Cancelled", bn: "বাতিল" },
-    refunded:   { cls: "bg-slate-200 text-slate-800 border-slate-300", en: "Refunded", bn: "রিফান্ড" },
-    failed:     { cls: "bg-red-100 text-red-800 border-red-300", en: "Failed", bn: "ব্যর্থ" },
+  const labels: Record<string, [string, string]> = {
+    pending:    ["Pending", "পেন্ডিং"],
+    processing: ["Processing", "প্রসেসিং"],
+    delivered:  ["Delivered", "ডেলিভার্ড"],
+    completed:  ["Completed", "সম্পন্ন"],
+    cancelled:  ["Cancelled", "বাতিল"],
+    refunded:   ["Refunded", "রিফান্ড"],
+    failed:     ["Failed", "ব্যর্থ"],
   };
-  const v = m[status] || { cls: "bg-slate-200 text-slate-800 border-slate-300", en: status, bn: status };
+  const [en, bn] = labels[status] || [status, status];
   return (
-    <span className={`inline-flex px-2.5 py-1 rounded-full text-[11px] font-semibold border ${v.cls}`}>
-      {t(v.en, v.bn)}
+    <span className={`a-status a-status-${status}`}>
+      {t(en, bn)}
     </span>
   );
 }
+
 
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
