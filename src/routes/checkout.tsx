@@ -386,13 +386,23 @@ function CheckoutPage() {
           {/* Header */}
           <div className="flex items-center justify-between px-5 pt-5 pb-3">
             <div className="flex items-center gap-3 min-w-0">
-              <div className={`w-10 h-10 shrink-0 rounded-xl bg-gradient-to-br ${firstItem.gradient} grid place-items-center text-lg`}>
-                {firstItem.emoji}
+              {firstImage ? (
+                <img src={firstImage} alt={firstItem.name} className="w-11 h-11 shrink-0 rounded-xl object-cover border border-border" loading="lazy" />
+              ) : (
+                <div className={`w-11 h-11 shrink-0 rounded-xl bg-gradient-to-br ${firstItem.gradient} grid place-items-center text-lg`}>
+                  {firstItem.emoji}
+                </div>
+              )}
+              <div className="min-w-0 flex-1">
+                <h1 className="text-[15px] font-semibold truncate leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                  {headerTitle}
+                </h1>
+                {headerSubtitle && (
+                  <p className="text-[11px] text-muted-foreground truncate mt-0.5">{headerSubtitle}</p>
+                )}
               </div>
-              <h1 className="text-[15px] font-semibold truncate" style={{ fontFamily: "var(--font-heading)" }}>
-                {headerTitle}
-              </h1>
             </div>
+
             <button
               onClick={() => navigate({ to: "/cart" })}
               aria-label="Close"
