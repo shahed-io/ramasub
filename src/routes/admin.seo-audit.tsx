@@ -10,7 +10,6 @@ export const Route = createFileRoute("/admin/seo-audit")({
 });
 
 type ProductRow = {
-  id: string;
   slug: string | null;
   name: string | null;
   short_description: string | null;
@@ -19,6 +18,7 @@ type ProductRow = {
   meta: Record<string, unknown> | null;
   is_active: boolean;
 };
+
 
 type AuditRow = {
   url: string;
