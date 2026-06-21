@@ -69,7 +69,7 @@ function auditProduct(p: ProductRow): AuditRow {
   if (p.is_active) { score++; passes.push("Active / indexable"); } else issues.push("Inactive — not in sitemap");
 
   return {
-    url: `/product/${p.slug ?? p.id}`,
+    url: `/product/${p.slug ?? ""}`,
     label: p.name ?? "Untitled",
     score,
     total,
