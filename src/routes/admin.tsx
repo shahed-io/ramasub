@@ -478,7 +478,7 @@ function AdminShell({ user, signOut, navigate }: any) {
 
         {/* Top bar */}
         <header className="h-[64px] sticky top-0 z-20 bg-[var(--admin-panel)] border-b border-[var(--admin-border)] shadow-[0_10px_30px_-24px_rgba(15,23,42,0.35)]">
-          <div className="h-full px-3 md:px-6 flex items-center gap-2 md:gap-3">
+          <div className="h-full px-3 md:px-6 flex items-center gap-2 md:gap-3 min-w-0">
             <button
               onClick={() => setMobileOpen(true)}
               className="lg:hidden h-9 w-9 rounded-lg grid place-items-center border border-slate-200 text-slate-700 hover:bg-slate-50 bg-white"
@@ -517,6 +517,15 @@ function AdminShell({ user, signOut, navigate }: any) {
               className="inline-flex h-9 px-2.5 sm:px-3 rounded-lg text-xs font-bold items-center gap-1.5 border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition shrink-0"
             >
               <Globe className="w-3.5 h-3.5" /> {lang === "en" ? "বাং" : "EN"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setGlobalOpen(true)}
+              className="xl:hidden h-9 w-9 rounded-lg grid place-items-center border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition shrink-0"
+              aria-label={t("Search", "খুঁজুন")}
+              title={t("Search", "খুঁজুন")}
+            >
+              <span className="text-[13px] font-black">⌕</span>
             </button>
             <SearchTrigger
               size="sm"
