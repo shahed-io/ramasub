@@ -3445,40 +3445,34 @@ html.theme-white .admin-search-row .admin-search-sub {
   color: #312e81 !important;
 }
 
-/* ===== Plan picker — animated device chips ===== */
-.plan-row { position: relative; }
-.plan-device-chip {
-  transform: translateY(0) scale(1);
-  transition: transform 320ms cubic-bezier(.34,1.56,.64,1), background-color 200ms ease, color 200ms ease, box-shadow 200ms ease;
-  will-change: transform;
+
+/* ===== Plan picker — click animation ===== */
+.plan-row { position: relative; isolation: isolate; }
+.plan-row-clicked { animation: plan-row-pop 0.5s cubic-bezier(.34,1.56,.64,1); }
+@keyframes plan-row-pop {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(0.97); }
+  70%  { transform: scale(1.02); }
+  100% { transform: scale(1); }
 }
-.plan-row:hover .plan-device-chip {
-  transform: translateY(-3px) scale(1.08) rotate(-4deg);
-  animation: plan-device-bob 1.4s ease-in-out infinite;
-}
-.plan-row:hover .plan-device-chip:nth-child(2) { animation-delay: .15s; }
-.plan-row:hover .plan-device-chip:nth-child(3) { animation-delay: .3s; }
-.plan-row-active .plan-device-chip {
-  animation: plan-device-pulse 1.8s ease-in-out infinite;
-}
-.plan-row-active .plan-device-chip:nth-child(2) { animation-delay: .2s; }
-.plan-row-active .plan-device-chip:nth-child(3) { animation-delay: .4s; }
-.plan-row-active::before {
-  content: "";
-  position: absolute; inset: 0;
-  border-radius: 1rem;
-  background: radial-gradient(420px circle at 12% 50%, rgba(99,102,241,0.10), transparent 60%);
+.plan-ripple {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
   pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle at center, rgba(99,102,241,0.35) 0%, rgba(99,102,241,0.15) 35%, transparent 70%);
+  transform: scale(0);
+  opacity: 0;
+  animation: plan-ripple-out 0.6s ease-out forwards;
 }
-@keyframes plan-device-bob {
-  0%, 100% { transform: translateY(-3px) scale(1.08) rotate(-4deg); }
-  50%      { transform: translateY(-6px) scale(1.12) rotate(4deg); }
+@keyframes plan-ripple-out {
+  0%   { transform: scale(0);   opacity: 0.9; }
+  60%  { opacity: 0.55; }
+  100% { transform: scale(1.4); opacity: 0; }
 }
-@keyframes plan-device-pulse {
-  0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 6px 16px -8px rgba(79,70,229,0.5); }
-  50%      { transform: translateY(-2px) scale(1.06); box-shadow: 0 10px 22px -8px rgba(79,70,229,0.7); }
-}
+.plan-row > *:not(.plan-ripple) { position: relative; z-index: 1; }
 @media (prefers-reduced-motion: reduce) {
-  .plan-row:hover .plan-device-chip,
-  .plan-row-active .plan-device-chip { animation: none; transform: none; }
+  .plan-row-clicked { animation: none; }
+  .plan-ripple { animation: none; opacity: 0; }
 }
