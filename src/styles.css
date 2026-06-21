@@ -617,6 +617,14 @@
   html.theme-white .text-white\/50 { color: oklch(0.48 0.06 280) !important; }
   html.theme-white .text-white\/40 { color: oklch(0.54 0.06 280) !important; }
   html.theme-white .text-foreground { color: oklch(0.22 0.04 285) !important; }
+
+  /* Defensive: any heading without an explicit color/gradient class on
+     the white theme gets the readable dark foreground color so it can't
+     accidentally render as white-on-white from inherited dark-theme styles. */
+  html.theme-white :where(h1, h2, h3, h4, h5, h6):not([class*="text-"]):not([class*="bg-clip-text"]):not([class*="text-aurora"]):not([class*="text-neon"]):not([class*="text-sunset"]):not([class*="gradient-text"]) {
+    color: oklch(0.22 0.04 285);
+  }
+
   /* Tailwind alpha variants like text-foreground/85 become faded ghosts on the
      translucent white-glass cards. Force every opacity variant back to a
      readable violet-tinted dark color. */
