@@ -231,10 +231,34 @@ export function ImageBannerCarousel() {
               <div className="absolute inset-0" style={{ background: p.gradient }} />
               {/* Top-right ambient sweep */}
               <div className="absolute inset-0 pointer-events-none" style={{ background: p.sweep }} />
+              {/* Left scrim — improves text legibility */}
+              <div
+                className="absolute inset-0 pointer-events-none hidden md:block"
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 35%, rgba(0,0,0,0.10) 60%, transparent 80%)",
+                }}
+              />
+              {/* Mobile bottom scrim */}
+              <div
+                className="absolute inset-0 pointer-events-none md:hidden"
+                style={{
+                  background:
+                    "linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.55) 100%)",
+                }}
+              />
+              {/* Vignette */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(120% 80% at 50% 50%, transparent 55%, rgba(0,0,0,0.45) 100%)",
+                }}
+              />
               {/* Diagonal gloss line */}
               <div
                 className="absolute -top-1/2 -left-1/4 h-[200%] w-[55%] rotate-[28deg] blur-3xl pointer-events-none"
-                style={{ background: "linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent)" }}
+                style={{ background: "linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent)" }}
               />
 
               <div className="relative grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] items-center gap-4 sm:gap-6 px-5 sm:px-10 md:px-14 lg:px-20 py-7 sm:py-9 md:py-12 min-h-[360px] sm:min-h-[400px] md:min-h-[460px]">
@@ -260,11 +284,13 @@ export function ImageBannerCarousel() {
                   )}
 
                   <h2
-                    className="text-white font-black tracking-tight leading-[1.02] text-[40px] sm:text-[58px] md:text-[72px] lg:text-[84px] drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)]"
+                    className="text-white font-black tracking-tight leading-[1.02] text-[40px] sm:text-[58px] md:text-[72px] lg:text-[84px]"
                     style={{
                       fontFamily: /[\u0980-\u09FF]/.test(title) ? BN : EN,
                       wordBreak: "keep-all",
                       letterSpacing: "-0.025em",
+                      textShadow:
+                        "0 2px 4px rgba(0,0,0,0.6), 0 8px 32px rgba(0,0,0,0.55)",
                     }}
                   >
                     {tail ? (
@@ -273,7 +299,7 @@ export function ImageBannerCarousel() {
                         <span
                           style={{
                             color: p.accent,
-                            textShadow: `0 0 32px ${p.halo}`,
+                            textShadow: `0 0 28px ${p.halo}, 0 2px 6px rgba(0,0,0,0.55)`,
                           }}
                         >
                           {tail}
@@ -286,8 +312,13 @@ export function ImageBannerCarousel() {
 
                   {subtitle && (
                     <p
-                      className="text-white/85 text-sm sm:text-base md:text-lg max-w-lg mx-auto md:mx-0"
-                      style={{ fontFamily: BN, wordBreak: "keep-all", lineHeight: 1.65 }}
+                      className="text-white text-sm sm:text-base md:text-lg max-w-lg mx-auto md:mx-0"
+                      style={{
+                        fontFamily: BN,
+                        wordBreak: "keep-all",
+                        lineHeight: 1.65,
+                        textShadow: "0 2px 10px rgba(0,0,0,0.65)",
+                      }}
                     >
                       {subtitle}
                     </p>
@@ -298,7 +329,7 @@ export function ImageBannerCarousel() {
                     {TRUST_BADGES.map((b) => (
                       <span
                         key={b.label}
-                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/[0.06] backdrop-blur-md border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/30 backdrop-blur-md border border-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
                         style={{ fontFamily: BN, wordBreak: "keep-all" }}
                       >
                         <span className="w-1.5 h-1.5 rounded-full" style={{ background: b.dot, boxShadow: `0 0 8px ${b.dot}` }} />
@@ -334,28 +365,34 @@ export function ImageBannerCarousel() {
 
                 {/* RIGHT — person with radiant halo */}
                 <div className="order-1 md:order-2 relative flex items-end justify-center md:justify-end self-stretch min-h-[220px] md:min-h-[420px]">
-                  {/* Large soft halo */}
+                  {/* Outer ambient color wash (matches preset) */}
                   <div
-                    className="absolute left-1/2 bottom-[8%] -translate-x-1/2 w-[420px] h-[420px] md:w-[520px] md:h-[520px] rounded-full blur-[110px] pointer-events-none animate-pulse"
-                    style={{ background: p.halo, animationDuration: "5s" }}
+                    className="absolute left-1/2 bottom-[6%] -translate-x-1/2 w-[520px] h-[520px] md:w-[640px] md:h-[640px] rounded-full blur-[120px] pointer-events-none animate-pulse"
+                    style={{ background: p.halo, animationDuration: "6s", opacity: 0.85 }}
                   />
+                  {/* Mid halo */}
                   <div
-                    className="absolute left-1/2 bottom-[15%] -translate-x-1/2 w-[260px] h-[260px] md:w-[340px] md:h-[340px] rounded-full blur-[70px] pointer-events-none"
+                    className="absolute left-1/2 bottom-[14%] -translate-x-1/2 w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full blur-[70px] pointer-events-none"
                     style={{ background: p.halo2 }}
                   />
                   {/* Inner light disc behind subject */}
                   <div
-                    className="absolute left-1/2 bottom-[10%] -translate-x-1/2 w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-full pointer-events-none"
+                    className="absolute left-1/2 bottom-[10%] -translate-x-1/2 w-[220px] h-[220px] md:w-[300px] md:h-[300px] rounded-full pointer-events-none"
                     style={{
-                      background: `radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)`,
+                      background: `radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%)`,
                     }}
                   />
 
+                  {/* Person with ambient color drop shadows to blend into background */}
                   <img
                     src={personSrc}
                     alt={title}
-                    className="relative block h-[240px] sm:h-[320px] md:h-[420px] lg:h-[480px] w-auto object-contain select-none pointer-events-none drop-shadow-[0_30px_50px_rgba(0,0,0,0.65)]"
-                    style={{ maskImage: "linear-gradient(to bottom, black 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 92%, transparent 100%)" }}
+                    className="relative block h-[240px] sm:h-[320px] md:h-[420px] lg:h-[480px] w-auto object-contain select-none pointer-events-none"
+                    style={{
+                      maskImage: "linear-gradient(to bottom, black 94%, transparent 100%)",
+                      WebkitMaskImage: "linear-gradient(to bottom, black 94%, transparent 100%)",
+                      filter: `drop-shadow(0 0 22px ${p.halo}) drop-shadow(0 0 60px ${p.halo2}) drop-shadow(0 30px 40px rgba(0,0,0,0.55))`,
+                    }}
                     draggable={false}
                     loading={idx === 0 ? "eager" : "lazy"}
                     width={900}
