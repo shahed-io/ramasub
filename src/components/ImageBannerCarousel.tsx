@@ -291,40 +291,42 @@ export function ImageBannerCarousel() {
                   )}
 
                   <h2
-                    className="text-white font-black tracking-tight leading-[1.02] text-[40px] sm:text-[58px] md:text-[72px] lg:text-[84px]"
+                    className="font-black tracking-tight leading-[1.02] text-[40px] sm:text-[58px] md:text-[72px] lg:text-[84px]"
                     style={{
+                      color: "#ffffff",
                       fontFamily: /[\u0980-\u09FF]/.test(title) ? BN : EN,
                       wordBreak: "keep-all",
                       letterSpacing: "-0.025em",
                       textShadow:
-                        "0 2px 4px rgba(0,0,0,0.6), 0 8px 32px rgba(0,0,0,0.55)",
+                        "0 2px 6px rgba(0,0,0,0.75), 0 10px 36px rgba(0,0,0,0.65)",
                     }}
                   >
                     {tail ? (
                       <>
-                        {head}{" "}
+                        <span style={{ color: "#ffffff" }}>{head}</span>{" "}
                         <span
                           style={{
                             color: p.accent,
-                            textShadow: `0 0 28px ${p.halo}, 0 2px 6px rgba(0,0,0,0.55)`,
+                            textShadow: `0 0 32px ${p.halo}, 0 2px 8px rgba(0,0,0,0.65)`,
                           }}
                         >
                           {tail}
                         </span>
                       </>
                     ) : (
-                      title
+                      <span style={{ color: "#ffffff" }}>{title}</span>
                     )}
                   </h2>
 
                   {subtitle && (
                     <p
-                      className="text-white text-sm sm:text-base md:text-lg max-w-lg mx-auto md:mx-0"
+                      className="text-sm sm:text-base md:text-lg max-w-lg mx-auto md:mx-0"
                       style={{
+                        color: "rgba(255,255,255,0.95)",
                         fontFamily: BN,
                         wordBreak: "keep-all",
                         lineHeight: 1.65,
-                        textShadow: "0 2px 10px rgba(0,0,0,0.65)",
+                        textShadow: "0 2px 12px rgba(0,0,0,0.85), 0 1px 2px rgba(0,0,0,0.7)",
                       }}
                     >
                       {subtitle}
