@@ -613,35 +613,105 @@ function ImageField({
  onChange: (v: unknown) => void; onBlur?: () => void;
 }) {
  const [uploading, setUploading] = useState(false);
+ const [dragOver, setDragOver] = useState(false);
+ const hasImage = !!value && String(value).length > 0;
+
  const onPick = async (file: File | null) => {
- if (!file) return;
- if (file.size > 5 * 1024 * 1024) return toast.error("Max 5MB");
- setUploading(true);
- // Auto-convert to WebP before upload (skips svg/gif/already-webp).
- const webpFile = await fileToWebp(file, { quality: 0.85, maxDimension: 2000 });
- const ext = webpFile.name.split(".").pop() || "webp";
- const path = `${field.name}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
- const { error } = await supabase.storage.from("admin-uploads").upload(path, webpFile, {
- cacheControl: "3600", upsert: false, contentType: webpFile.type || "image/webp",
- });
- if (error) { setUploading(false); return toast.error(error.message); }
- const { data } = supabase.storage.from("admin-uploads").getPublicUrl(path);
- onChange(data.publicUrl);
- onBlur?.();
- setUploading(false);
- toast.success("Uploaded");
+   if (!file) return;
+   if (!file.type.startsWith("image/")) return toast.error("Only image files");
+   if (file.size > 5 * 1024 * 1024) return toast.error("Max 5MB");
+   setUploading(true);
+   try {
+     const webpFile = await fileToWebp(file, { quality: 0.85, maxDimension: 2000 });
+     const ext = webpFile.name.split(".").pop() || "webp";
+     const path = `${field.name}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+     const { error } = await supabase.storage.from("admin-uploads").upload(path, webpFile, {
+       cacheControl: "3600", upsert: false, contentType: webpFile.type || "image/webp",
+     });
+     if (error) { setUploading(false); return toast.error(error.message); }
+     const { data } = supabase.storage.from("admin-uploads").getPublicUrl(path);
+     onChange(data.publicUrl);
+     onBlur?.();
+     toast.success("Image uploaded");
+   } catch (e) {
+     toast.error((e as Error).message || "Upload failed");
+   } finally {
+     setUploading(false);
+   }
  };
+
  return (
- <div>{label}
- <div className="flex gap-2">
- <input type="url" value={String(value ?? "")} onBlur={onBlur} onChange={(e) => onChange(e.target.value)} placeholder="https://… or upload" className={base} />
- <label className={`shrink-0 inline-flex items-center gap-1.5 h-10 px-3 rounded-lg border border-slate-200 text-sm font-semibold text-slate-700 cursor-pointer hover:bg-slate-50 ${uploading ? "opacity-60 pointer-events-none" : ""}`}>
- {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
- Upload
- <input type="file" accept="image/*" className="hidden" onChange={(e) => onPick(e.target.files?.[0] ?? null)} />
- </label>
- </div>
- {!!value && <img src={String(value)} alt="" className="mt-2 h-20 rounded-lg border border-slate-200 object-cover" />}
- </div>
+   <div>{label}
+     {/* Drop zone with preview */}
+     <div
+       onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+       onDragLeave={() => setDragOver(false)}
+       onDrop={(e) => {
+         e.preventDefault();
+         setDragOver(false);
+         const f = e.dataTransfer.files?.[0];
+         if (f) onPick(f);
+       }}
+       className={`relative mt-1 rounded-xl border-2 border-dashed transition ${
+         dragOver
+           ? "border-violet-500 bg-violet-50/60"
+           : "border-slate-300 bg-slate-50/50 hover:border-slate-400"
+       } ${uploading ? "opacity-70 pointer-events-none" : ""}`}
+     >
+       {hasImage ? (
+         <div className="flex items-center gap-3 p-3">
+           <img
+             src={String(value)}
+             alt=""
+             className="h-20 w-20 rounded-lg border border-slate-200 object-cover bg-white shrink-0"
+           />
+           <div className="min-w-0 flex-1">
+             <p className="text-xs font-semibold text-slate-600 mb-1">Current image</p>
+             <p className="text-xs text-slate-500 truncate">{String(value)}</p>
+             <div className="flex flex-wrap gap-2 mt-2">
+               <label className="inline-flex items-center gap-1.5 h-8 px-3 rounded-lg bg-violet-600 text-white text-xs font-semibold cursor-pointer hover:bg-violet-700 transition">
+                 {uploading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
+                 Replace
+                 <input type="file" accept="image/*" className="hidden" onChange={(e) => onPick(e.target.files?.[0] ?? null)} />
+               </label>
+               <button
+                 type="button"
+                 onClick={() => { onChange(""); onBlur?.(); }}
+                 className="inline-flex items-center gap-1.5 h-8 px-3 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:bg-slate-50 transition"
+               >
+                 <X className="w-3.5 h-3.5" /> Remove
+               </button>
+             </div>
+           </div>
+         </div>
+       ) : (
+         <label className="flex flex-col items-center justify-center gap-2 py-7 px-4 cursor-pointer text-center">
+           <div className="h-11 w-11 rounded-full bg-white border border-slate-200 grid place-items-center shadow-sm">
+             {uploading
+               ? <Loader2 className="w-5 h-5 animate-spin text-violet-600" />
+               : <Upload className="w-5 h-5 text-violet-600" />}
+           </div>
+           <div>
+             <p className="text-sm font-semibold text-slate-700">
+               {uploading ? "Uploading…" : "Drop image here or click to upload"}
+             </p>
+             <p className="text-[11px] text-slate-500 mt-0.5">PNG / JPG / WebP · max 5MB · auto-optimized</p>
+           </div>
+           <input type="file" accept="image/*" className="hidden" onChange={(e) => onPick(e.target.files?.[0] ?? null)} />
+         </label>
+       )}
+     </div>
+     {/* URL fallback */}
+     <div className="mt-2">
+       <input
+         type="url"
+         value={String(value ?? "")}
+         onBlur={onBlur}
+         onChange={(e) => onChange(e.target.value)}
+         placeholder="…or paste an image URL"
+         className={base}
+       />
+     </div>
+   </div>
  );
 }
