@@ -629,16 +629,16 @@ function BackupMenu({ onExport, onImport }: { onExport: () => void; onImport: ()
  return () => document.removeEventListener("mousedown", h);
  }, [open]);
  return (
- <div className="relative" ref={ref}>
+  <div className="relative flex-1 sm:flex-none" ref={ref}>
  <button
  onClick={() => setOpen((v) => !v)}
- className="h-10 px-4 inline-flex items-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)]"
+  className="h-10 w-full sm:w-auto px-4 inline-flex items-center justify-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)]"
  style={{ background: "linear-gradient(135deg, #94a3b8 0%, #94a3b8 100%)" }}
  >
  <Database className="w-4 h-4" /> Backups & Restore
  </button>
  {open && (
- <div className="absolute right-0 mt-2 w-56 bg-white border border-border rounded-xl shadow-lg z-20 p-1">
+  <div className="absolute right-0 mt-2 w-[min(14rem,86vw)] bg-white border border-border rounded-xl shadow-lg z-20 p-1">
  <button onClick={() => { onExport(); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm hover:bg-slate-50 text-left">
  <Download className="w-4 h-4 text-slate-600" /> ব্যাকআপ ডাউনলোড (.json)
  </button>
