@@ -728,7 +728,7 @@ function ServiceList({ kind }: { kind: "active" | "expired" }) {
         {items.map((it) => (
           <Card key={it.n}>
             <div className="flex items-center justify-between mb-3">
-              <div className="font-semibold" style={{ fontFamily: "var(--font-heading)" }}>{it.n}</div>
+              <div className="font-semibold text-foreground" style={{ fontFamily: "var(--font-heading)" }}>{it.n}</div>
               <Badge color={kind === "active" ? "success" : "danger"}>{kind === "active" ? "Active" : "Expired"}</Badge>
             </div>
             <div className="text-xs text-muted-foreground">Expiry: {it.e}</div>
