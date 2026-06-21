@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate, notFound } from "@tanstack/react-router";
-import { Minus, Plus, Star, ArrowLeft, Loader2, CreditCard, MessageCircle, ShoppingCart, Check, Smartphone, Monitor, Laptop, Tv, Package } from "lucide-react";
+import { Minus, Plus, Star, ArrowLeft, Loader2, CreditCard, MessageCircle, ShoppingCart, Check } from "lucide-react";
 import { useProducts, useProduct } from "@/hooks/useProducts";
 import { badgeColorFor } from "@/lib/badgeColor";
 import { useEffect, useState } from "react";
@@ -29,18 +29,6 @@ const parsePrice = (p: unknown): number => {
     return 0;
   }
 };
-
-type DeviceIcon = typeof Smartphone;
-function detectDevices(label: string): DeviceIcon[] {
-  const s = label.toLowerCase();
-  const out: DeviceIcon[] = [];
-  if (/(mobile|android|ios|iphone|phone)/.test(s)) out.push(Smartphone);
-  if (/(pc|windows|mac|desktop|laptop|computer)/.test(s)) out.push(Laptop);
-  if (/(tv|smart\s*tv|android\s*tv|firestick|roku)/.test(s)) out.push(Tv);
-  if (/(web|browser|chrome|edge)/.test(s) && !out.includes(Monitor)) out.push(Monitor);
-  if (out.length === 0) out.push(Package);
-  return out;
-}
 
 function toEmbedUrl(raw?: string): string | null {
   const url = (raw ?? "").trim();
@@ -174,6 +162,7 @@ function ProductPage() {
   useShopConfig();
   const popularIdx = (loaderProduct?.plans ?? product?.plans ?? []).findIndex((p: { popular?: boolean }) => p.popular);
   const [selected, setSelected] = useState(() => (popularIdx > 0 ? popularIdx : 0));
+  const [clickedPlan, setClickedPlan] = useState<number | null>(null);
   const [qty, setQty] = useState(1);
   
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -403,45 +392,35 @@ function ProductPage() {
                   const hasOff = original > price;
                   const off = hasOff ? Math.round(((original - price) / original) * 100) : 0;
                   const label = (p.period?.trim() || (p as { duration?: string; label?: string }).duration?.trim() || (p as { duration?: string; label?: string }).label?.trim() || "Standard Plan");
-                  const devices = detectDevices(label);
+                  const justClicked = clickedPlan === idx;
                   return (
                     <label
                       key={`${idx}-${p.period}`}
+                      onClick={() => {
+                        setClickedPlan(idx);
+                        window.setTimeout(() => setClickedPlan((c) => (c === idx ? null : c)), 600);
+                      }}
                       className={[
                         "plan-row group relative flex items-center justify-between p-4 rounded-2xl cursor-pointer transition-all select-none overflow-hidden",
                         active
-                          ? "plan-row-active bg-indigo-50/60 border-2 border-indigo-600 shadow-[0_8px_24px_-12px_rgba(79,70,229,0.45)]"
-                          : "bg-white border border-slate-200 hover:border-indigo-300 hover:shadow-[0_6px_18px_-12px_rgba(79,70,229,0.35)]",
+                          ? "bg-indigo-50/50 border-2 border-indigo-600"
+                          : "bg-white border border-slate-200 hover:border-slate-300",
+                        justClicked ? "plan-row-clicked" : "",
                       ].join(" ")}
                     >
+                      {justClicked && <span aria-hidden="true" className="plan-ripple" />}
                       <input type="radio" name="plan-period" className="sr-only" checked={active} onChange={() => setSelected(idx)} />
-                      <div className="flex items-center min-w-0">
+                      <div className="flex items-center">
                         <span
                           aria-hidden="true"
                           className={[
                             "w-5 h-5 rounded-full mr-4 shrink-0 transition",
-                            active ? "border-[6px] border-indigo-600 bg-white" : "border border-slate-300 group-hover:border-indigo-400",
+                            active ? "border-4 border-indigo-600 bg-white" : "border border-slate-300",
                           ].join(" ")}
                         />
-                        <span className="plan-devices mr-3 flex items-center gap-1 shrink-0" aria-hidden="true">
-                          {devices.map((D, i) => (
-                            <span
-                              key={i}
-                              className={[
-                                "plan-device-chip grid place-items-center w-8 h-8 rounded-lg transition-all",
-                                active
-                                  ? "bg-indigo-600 text-white shadow-md"
-                                  : "bg-slate-100 text-slate-500 group-hover:bg-indigo-100 group-hover:text-indigo-600",
-                              ].join(" ")}
-                              style={{ transitionDelay: `${i * 60}ms` }}
-                            >
-                              <D className="w-4 h-4" strokeWidth={2.2} />
-                            </span>
-                          ))}
-                        </span>
-                        <span className={`font-semibold truncate ${active ? "text-slate-900" : "text-slate-700"}`}>{label}</span>
+                        <span className={`font-semibold ${active ? "text-slate-900" : "text-slate-700"}`}>{label}</span>
                       </div>
-                      <div className="flex items-center gap-3 shrink-0">
+                      <div className="flex items-center gap-3">
                         {hasOff && (
                           <span className="text-slate-400 line-through text-sm">৳{original.toLocaleString()}</span>
                         )}
