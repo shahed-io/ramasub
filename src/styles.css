@@ -466,6 +466,17 @@
       padding-top: 1rem;
       padding-bottom: 1rem;
     }
+
+    .admin-product-actions > button,
+    .admin-product-actions > .relative > button {
+      width: 100%;
+      min-height: 2.5rem;
+      padding-left: 0.65rem;
+      padding-right: 0.65rem;
+      font-size: 0.75rem;
+      line-height: 1.1;
+      white-space: normal;
+    }
   }
 
   /* GLASS CARDS — premium frosted white over violet/indigo mesh */
