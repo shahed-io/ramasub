@@ -3,7 +3,7 @@ import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { AuthPageEntry } from "@/components/AuthPage";
 import {
   ShieldAlert, LogOut, Globe,
-  PanelLeftClose, PanelLeftOpen, ChevronDown, ChevronRight, ExternalLink, Menu, X,
+  PanelLeftClose, PanelLeftOpen, ChevronDown, ChevronRight, ExternalLink, Menu, Search, X,
 } from "lucide-react";
 import { AdminGlobalSearch, useAdminGlobalSearch } from "@/components/admin/AdminGlobalSearch";
 import { SearchTrigger } from "@/components/SearchBar";
@@ -525,7 +525,7 @@ function AdminShell({ user, signOut, navigate }: any) {
               aria-label={t("Search", "খুঁজুন")}
               title={t("Search", "খুঁজুন")}
             >
-              <span className="text-[13px] font-black">⌕</span>
+              <Search className="w-4 h-4" />
             </button>
             <SearchTrigger
               size="sm"
