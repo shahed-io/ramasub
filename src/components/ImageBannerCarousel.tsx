@@ -254,19 +254,20 @@ export function ImageBannerCarousel() {
                     "linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.55) 100%)",
                 }}
               />
-              {/* Vignette */}
+              {/* Soft white vignette — brightens edges instead of darkening */}
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                   background:
-                    "radial-gradient(120% 80% at 50% 50%, transparent 55%, rgba(0,0,0,0.45) 100%)",
+                    "radial-gradient(120% 80% at 50% 50%, transparent 60%, rgba(255,255,255,0.08) 100%)",
                 }}
               />
               {/* Diagonal gloss line */}
               <div
                 className="absolute -top-1/2 -left-1/4 h-[200%] w-[55%] rotate-[28deg] blur-3xl pointer-events-none"
-                style={{ background: "linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent)" }}
+                style={{ background: "linear-gradient(to right, transparent, rgba(255,255,255,0.10), transparent)" }}
               />
+
 
               <div className="relative grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] items-center gap-4 sm:gap-6 px-5 sm:px-10 md:px-14 lg:px-20 py-7 sm:py-9 md:py-12 min-h-[360px] sm:min-h-[400px] md:min-h-[460px]">
                 {/* LEFT */}
