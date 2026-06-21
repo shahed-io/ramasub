@@ -21,7 +21,7 @@ interface BrandLogoProps {
 
 /**
  * Canonical Rama Sub brand mark — round white logo with spinning gradient ring,
- * gradient "Rama Sub" wordmark and curved-underlined RAMASUB.COM.BD tag.
+ * gradient "Rama Sub" wordmark and curved-underlined RAMASUB.COM tag.
  * Mirrors the SiteHeader design so the same identity is reused everywhere.
  */
 export function BrandLogo({
@@ -81,7 +81,7 @@ export function BrandLogo({
       </span>
       <span className="mt-1.5 relative inline-flex flex-col items-start">
         <span className={`${s.tag} font-bold tracking-[0.22em] uppercase text-current/80 whitespace-nowrap`}>
-          RAMASUB.COM.BD
+          RAMASUB.COM
         </span>
         <svg
           aria-hidden

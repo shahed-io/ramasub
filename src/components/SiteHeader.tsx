@@ -232,7 +232,7 @@ export function SiteHeader() {
                 </span>
                 <span className="mt-1.5 relative inline-flex flex-col items-start">
                   <span className="text-[10px] md:text-[11px] font-bold tracking-[0.22em] uppercase text-white/85 whitespace-nowrap">
-                    RAMASUB.COM.BD
+                    RAMASUB.COM
                   </span>
                   <svg
                     aria-hidden
@@ -383,7 +383,7 @@ export function SiteHeader() {
                       Rama Sub
                     </span>
                     <span className="block text-[9px] font-bold uppercase tracking-[0.22em] text-violet-500/80 mt-0.5">
-                      RAMASUB.COM.BD
+                      RAMASUB.COM
                     </span>
                   </span>
                 </div>
