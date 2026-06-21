@@ -160,21 +160,16 @@ export function SiteHeader() {
   return (
     <>
       <TopUtilityBar />
-      <header className="sticky top-0 z-40 pt-2 sm:pt-3 md:pt-4 pb-1 sm:pb-2">
+      <header className="sticky top-0 z-40">
         <div
           className={[
-            "relative mx-auto max-w-[1440px] px-2 sm:px-3 md:px-5 transition-all duration-300",
+            "relative transition-[background-color,box-shadow,backdrop-filter] duration-300 will-change-[background-color]",
+            scrolled
+              ? "bg-background/65 backdrop-blur-2xl shadow-[0_18px_50px_-24px_rgba(0,0,0,0.7)]"
+              : "bg-background/35 backdrop-blur-xl",
           ].join(" ")}
         >
-          <div
-            className={[
-              "relative rounded-full border bg-white transition-all duration-300",
-              scrolled
-                ? "border-violet-200/70 shadow-[0_14px_40px_-18px_rgba(79,70,229,0.45)]"
-                : "border-[#eef0ff] shadow-[0_10px_30px_-18px_rgba(79,70,229,0.30)]",
-            ].join(" ")}
-          >
-          <div className="px-3 sm:px-4 md:px-6 h-[64px] md:h-[72px] grid grid-cols-[auto_1fr_auto] items-center gap-2 md:flex md:justify-between md:gap-5 md:flex-nowrap">
+          <div className="mx-auto max-w-[1440px] px-3 sm:px-4 md:px-10 h-[64px] md:h-[68px] grid grid-cols-[auto_1fr_auto] items-center gap-2 md:flex md:justify-between md:gap-5 md:flex-nowrap">
             {/* Mobile-only: theme switcher on the left */}
             <div className="md:hidden justify-self-start">
               <ThemeSwitcher />
@@ -233,7 +228,7 @@ export function SiteHeader() {
                   Rama Sub
                 </span>
                 <span className="mt-1.5 relative inline-flex flex-col items-start">
-                  <span className="text-[10px] md:text-[11px] font-bold tracking-[0.22em] uppercase text-violet-500/85 whitespace-nowrap">
+                  <span className="text-[10px] md:text-[11px] font-bold tracking-[0.22em] uppercase text-white/85 whitespace-nowrap">
                     RAMASUB.COM.BD
                   </span>
                   <svg
@@ -277,10 +272,10 @@ export function SiteHeader() {
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="xl:hidden grid place-items-center w-10 h-10 rounded-full bg-violet-50 border border-violet-200 text-violet-600 hover:bg-violet-100 transition shrink-0"
+                className="xl:hidden grid place-items-center w-10 h-10 rounded-full glass-soft border border-white/10 text-white shrink-0"
                 aria-label="Search"
               >
-                <Search className="w-4 h-4" />
+                <Search className="w-4 h-4 text-aqua" />
               </button>
 
               <div className="hidden md:flex items-center gap-1.5 md:gap-2">
@@ -308,7 +303,7 @@ export function SiteHeader() {
                       onClick={handleLogout}
                       aria-label="Logout"
                       title="Logout"
-                      className="grid place-items-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-violet-50 border border-violet-200 text-violet-600 hover:bg-violet-100 transition"
+                      className="grid place-items-center w-10 h-10 sm:w-11 sm:h-11 rounded-full glass-soft border border-white/10 text-white hover:bg-white/10 transition"
                     >
                       <LogOut className="w-4 h-4" />
                     </button>
@@ -326,7 +321,7 @@ export function SiteHeader() {
 
               <button
                 onClick={() => setOpen((o) => !o)}
-                className="md:hidden grid place-items-center w-10 h-10 rounded-full bg-violet-50 border border-violet-200 text-violet-600 shrink-0"
+                className="md:hidden grid place-items-center w-10 h-10 rounded-full glass-soft border border-white/10 text-white shrink-0"
                 aria-label="Menu"
                 aria-expanded={open}
               >
@@ -338,7 +333,6 @@ export function SiteHeader() {
           {/* Mobile horizontal nav strip removed — nav lives in the three-dot menu */}
 
           {/* bottom hairline removed */}
-          </div>
         </div>
 
         {/* Mobile menu — premium slide-in panel */}
