@@ -3220,3 +3220,40 @@ html.theme-white [class*="rounded-full"][class*="border"][class*="bg-white"] {
   backdrop-filter: blur(14px) saturate(170%);
   -webkit-backdrop-filter: blur(14px) saturate(170%);
 }
+
+/* ============================================================
+   Admin global search — result rows (force readable, override any
+   global theme rule that tints buttons inside dialogs).
+   ============================================================ */
+.admin-search-row,
+html.theme-white .admin-search-row,
+[role="dialog"] .admin-search-row {
+  background: #ffffff !important;
+  background-image: none !important;
+  color: #0f172a !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+.admin-search-row:hover,
+html.theme-white .admin-search-row:hover {
+  background: #f8fafc !important; /* slate-50 */
+}
+.admin-search-row[data-active="true"],
+html.theme-white .admin-search-row[data-active="true"] {
+  background: #eef2ff !important; /* indigo-50 */
+  border-color: #c7d2fe !important; /* indigo-200 */
+  box-shadow: 0 0 0 1px #c7d2fe inset !important;
+}
+.admin-search-row .admin-search-title,
+html.theme-white .admin-search-row .admin-search-title {
+  color: #0f172a !important;
+}
+.admin-search-row .admin-search-sub,
+html.theme-white .admin-search-row .admin-search-sub {
+  color: #64748b !important;
+}
+.admin-search-row mark {
+  background: #e0e7ff !important;
+  color: #312e81 !important;
+}

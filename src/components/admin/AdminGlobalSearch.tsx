@@ -254,12 +254,11 @@ export function AdminGlobalSearch({
               <button
                 onClick={() => go({ kind: "search-products", value: needle })}
                 onMouseEnter={() => setActive(0)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition ${
-                  active === 0 ? "bg-indigo-50 ring-1 ring-indigo-200" : "hover:bg-slate-50"
-                }`}
+                data-active={active === 0 ? "true" : "false"}
+                className="admin-search-row w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition"
               >
                 <Search className="w-4 h-4 text-indigo-600 shrink-0" />
-                <span className="flex-1 text-sm text-slate-800 truncate">
+                <span className="admin-search-title flex-1 text-sm truncate">
                   Search products for "<span className="font-semibold">{needle}</span>"
                 </span>
                 <CornerDownLeft className="w-3.5 h-3.5 text-slate-400" />
@@ -279,16 +278,15 @@ export function AdminGlobalSearch({
                           key={h.to}
                           onClick={() => go({ kind: "menu", hit: h })}
                           onMouseEnter={() => setActive(idx)}
-                          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition ${
-                            isActive ? "bg-indigo-50 ring-1 ring-indigo-200" : "hover:bg-slate-50"
-                          }`}
+                          data-active={isActive ? "true" : "false"}
+                          className="admin-search-row w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition"
                         >
                           <Compass className="w-4 h-4 text-indigo-500 shrink-0" />
                           <div className="min-w-0 flex-1">
-                            <div className="text-sm font-semibold text-slate-900 truncate">
+                            <div className="admin-search-title text-sm font-semibold truncate">
                               {highlight(h.label, needle)}
                             </div>
-                            <div className="text-xs text-slate-500 truncate">{h.group}</div>
+                            <div className="admin-search-sub text-xs truncate">{h.group}</div>
                           </div>
                           <CornerDownLeft className="w-3.5 h-3.5 text-slate-400" />
                         </button>
@@ -312,9 +310,8 @@ export function AdminGlobalSearch({
                           key={p.slug}
                           onClick={() => go({ kind: "product", product: p })}
                           onMouseEnter={() => setActive(idx)}
-                          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition ${
-                            isActive ? "bg-indigo-50 ring-1 ring-indigo-200" : "hover:bg-slate-50"
-                          }`}
+                          data-active={isActive ? "true" : "false"}
+                          className="admin-search-row w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition"
                         >
                           <div
                             className={`grid place-items-center w-9 h-9 rounded-lg text-base bg-gradient-to-br ${p.gradient} text-white shadow-sm`}
@@ -322,10 +319,10 @@ export function AdminGlobalSearch({
                             {p.emoji}
                           </div>
                           <div className="min-w-0 flex-1">
-                            <div className="text-sm font-semibold text-slate-900 truncate">
+                            <div className="admin-search-title text-sm font-semibold truncate">
                               {highlight(p.name, needle)}
                             </div>
-                            <div className="text-xs text-slate-500 truncate">{p.category}</div>
+                            <div className="admin-search-sub text-xs truncate">{p.category}</div>
                           </div>
                           <CornerDownLeft className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                         </button>
