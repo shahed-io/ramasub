@@ -159,8 +159,9 @@ export function SiteHeader() {
 
   return (
     <>
-      <div className="sticky top-0 z-50"><TopUtilityBar /></div>
+      <TopUtilityBar />
       <header className="sticky top-0 z-40">
+
 
 
         <div
