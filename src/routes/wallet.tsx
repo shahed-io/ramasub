@@ -238,13 +238,31 @@ function TopupModal({ onClose, onDone, userId }: { onClose: () => void; onDone: 
           <div>
             <label className="text-xs font-semibold text-slate-700">Method</label>
             <div className="mt-1 grid grid-cols-2 gap-2">
-              {(["bkash", "nagad"] as const).map((m) => (
-                <button key={m} onClick={() => setMethod(m)}
-                  className={`h-10 rounded-xl border text-sm font-semibold ${method === m ? "border-violet-500 bg-violet-50 text-violet-700" : "border-slate-200 text-slate-700"}`}>
-                  {m === "bkash" ? "bKash" : "Nagad"}
-                </button>
-              ))}
+              {availableMethods.map((m) => {
+                const id = (m.name || "").toLowerCase();
+                const active = method === id;
+                return (
+                  <button key={id} onClick={() => setMethod(id)}
+                    style={active && m.brand_color ? { borderColor: m.brand_color, color: m.brand_color, background: `${m.brand_color}14` } : undefined}
+                    className={`h-10 rounded-xl border text-sm font-semibold ${active ? "" : "border-slate-200 text-slate-700"}`}>
+                    {m.name}
+                  </button>
+                );
+              })}
             </div>
+            {selected?.number && (
+              <div className="mt-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 flex items-center justify-between">
+                <div>
+                  <div className="text-[11px] uppercase tracking-wider text-slate-500 font-semibold">{selected.send_money_label || "Send Money"} to</div>
+                  <div className="text-base font-extrabold text-slate-900 tabular-nums">{selected.number}</div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => { navigator.clipboard?.writeText(selected.number); }}
+                  className="text-xs font-semibold px-3 h-8 rounded-full bg-white border border-slate-200 hover:bg-slate-100"
+                >Copy</button>
+              </div>
+            )}
           </div>
           <div>
             <label className="text-xs font-semibold text-slate-700">Your sender number</label>
