@@ -201,7 +201,7 @@ export function ImageBannerCarousel() {
   return (
     <section className="px-3 sm:px-5 lg:px-8 pt-4 sm:pt-5 pb-3">
       <div
-        className="relative mx-auto max-w-[1240px] overflow-hidden rounded-[28px] sm:rounded-[36px] md:rounded-[40px] shadow-[0_30px_80px_-30px_rgba(15,23,42,0.55)] ring-1 ring-white/10 bg-[#050505] group"
+        className="relative mx-auto w-full max-w-[1480px] overflow-hidden rounded-[28px] sm:rounded-[36px] md:rounded-[40px] shadow-[0_30px_80px_-30px_rgba(15,23,42,0.55)] ring-1 ring-white/10 bg-[#050505] group"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onTouchStart={onTouchStart}
@@ -269,7 +269,17 @@ export function ImageBannerCarousel() {
               />
 
 
-              <div className="relative grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] items-center gap-4 sm:gap-6 px-5 sm:px-10 md:px-14 lg:px-20 py-7 sm:py-9 md:py-12 min-h-[360px] sm:min-h-[400px] md:min-h-[460px]">
+              <div
+                className="relative grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] items-center"
+                style={{
+                  gap: "clamp(16px, 2vw, 32px)",
+                  paddingLeft: "clamp(20px, 4vw, 80px)",
+                  paddingRight: "clamp(20px, 4vw, 80px)",
+                  paddingTop: "clamp(28px, 3.2vw, 56px)",
+                  paddingBottom: "clamp(28px, 3.2vw, 56px)",
+                  minHeight: "clamp(360px, 38vw, 560px)",
+                }}
+              >
                 {/* LEFT */}
                 <div className="order-2 md:order-1 min-w-0 text-center md:text-left flex flex-col items-center md:items-start gap-4 sm:gap-5 z-10">
                   {eyebrow && (
@@ -292,12 +302,13 @@ export function ImageBannerCarousel() {
                   )}
 
                   <h2
-                    className="font-black tracking-tight leading-[1.02] text-[40px] sm:text-[58px] md:text-[72px] lg:text-[84px]"
+                    className="font-black tracking-tight leading-[1.02]"
                     style={{
                       color: "#ffffff",
                       fontFamily: /[\u0980-\u09FF]/.test(title) ? BN : EN,
                       wordBreak: "keep-all",
                       letterSpacing: "-0.025em",
+                      fontSize: "clamp(36px, 5.5vw, 92px)",
                       textShadow:
                         "0 0 24px rgba(255,255,255,0.45), 0 0 60px rgba(255,255,255,0.25), 0 2px 4px rgba(0,0,0,0.35)",
                     }}
@@ -321,12 +332,13 @@ export function ImageBannerCarousel() {
 
                   {subtitle && (
                     <p
-                      className="text-sm sm:text-base md:text-lg max-w-lg mx-auto md:mx-0"
+                      className="max-w-lg mx-auto md:mx-0"
                       style={{
                         color: "rgba(255,255,255,0.96)",
                         fontFamily: BN,
                         wordBreak: "keep-all",
                         lineHeight: 1.65,
+                        fontSize: "clamp(13px, 1.15vw, 19px)",
                         textShadow: "0 0 18px rgba(255,255,255,0.35), 0 1px 2px rgba(0,0,0,0.3)",
                       }}
                     >
@@ -374,21 +386,35 @@ export function ImageBannerCarousel() {
                 </div>
 
                 {/* RIGHT — person sits flush to bottom with white luminous halo */}
-                <div className="order-1 md:order-2 relative flex items-end justify-center md:justify-end self-stretch min-h-[260px] md:min-h-[460px]">
+                <div
+                  className="order-1 md:order-2 relative flex items-end justify-center md:justify-end self-stretch"
+                  style={{ minHeight: "clamp(240px, 30vw, 520px)" }}
+                >
                   {/* Outer white wash */}
                   <div
-                    className="absolute left-1/2 bottom-0 -translate-x-1/2 w-[520px] h-[520px] md:w-[680px] md:h-[680px] rounded-full blur-[120px] pointer-events-none animate-pulse"
-                    style={{ background: "rgba(255,255,255,0.35)", animationDuration: "6s" }}
+                    className="absolute left-1/2 bottom-0 -translate-x-1/2 rounded-full blur-[120px] pointer-events-none animate-pulse"
+                    style={{
+                      width: "clamp(360px, 38vw, 780px)",
+                      height: "clamp(360px, 38vw, 780px)",
+                      background: "rgba(255,255,255,0.35)",
+                      animationDuration: "6s",
+                    }}
                   />
                   {/* Mid color-tinted halo (still light) */}
                   <div
-                    className="absolute left-1/2 bottom-[8%] -translate-x-1/2 w-[340px] h-[340px] md:w-[440px] md:h-[440px] rounded-full blur-[80px] pointer-events-none"
-                    style={{ background: p.halo2 }}
+                    className="absolute left-1/2 bottom-[8%] -translate-x-1/2 rounded-full blur-[80px] pointer-events-none"
+                    style={{
+                      width: "clamp(240px, 26vw, 520px)",
+                      height: "clamp(240px, 26vw, 520px)",
+                      background: p.halo2,
+                    }}
                   />
                   {/* Inner bright light disc behind subject */}
                   <div
-                    className="absolute left-1/2 bottom-[4%] -translate-x-1/2 w-[240px] h-[240px] md:w-[320px] md:h-[320px] rounded-full pointer-events-none"
+                    className="absolute left-1/2 bottom-[4%] -translate-x-1/2 rounded-full pointer-events-none"
                     style={{
+                      width: "clamp(180px, 18vw, 360px)",
+                      height: "clamp(180px, 18vw, 360px)",
                       background:
                         "radial-gradient(circle, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 45%, transparent 75%)",
                     }}
@@ -398,8 +424,10 @@ export function ImageBannerCarousel() {
                   <img
                     src={personSrc}
                     alt={title}
-                    className="relative block h-[280px] sm:h-[360px] md:h-[490px] lg:h-[560px] w-auto object-contain select-none pointer-events-none -mb-14 sm:-mb-20 md:-mb-28"
+                    className="relative block w-auto object-contain select-none pointer-events-none"
                     style={{
+                      height: "clamp(260px, 36vw, 620px)",
+                      marginBottom: "clamp(-120px, -7vw, -56px)",
                       filter:
                         "drop-shadow(0 0 26px rgba(255,255,255,0.55)) drop-shadow(0 0 70px rgba(255,255,255,0.30)) drop-shadow(0 18px 28px rgba(0,0,0,0.30))",
                     }}
