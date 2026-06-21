@@ -173,40 +173,7 @@ function AdminOrders() {
   };
 
   return (
-    <div className="space-y-4 animate-fade-in">
-      {/* Header bar */}
-      <div className="flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex items-center gap-2 flex-wrap">
-          <div className="text-sm">
-            <span className="font-bold text-slate-900">{orders.length}</span>
-            <span className="text-slate-500"> {t("total orders", "মোট অর্ডার")}</span>
-          </div>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold border border-emerald-300">
-            <MessageCircle className="w-3.5 h-3.5" /> {t("WhatsApp Active", "WhatsApp সক্রিয়")}
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setFilter("cancelled")}
-            className="inline-flex items-center gap-1.5 px-3 h-9 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50"
-          >
-            <Trash2 className="w-3.5 h-3.5" /> {t("Trash", "ট্র্যাশ")}
-          </button>
-          <button
-            onClick={() => toast.info(t("Use Quick Tools to add a manual order", "ম্যানুয়াল অর্ডার যোগ করতে Quick Tools ব্যবহার করুন"))}
-            className="inline-flex items-center gap-1.5 px-3 h-9 rounded-full bg-violet-600 text-white text-xs font-semibold hover:bg-violet-700"
-          >
-            <Plus className="w-3.5 h-3.5" /> {t("New Order", "নতুন অর্ডার")}
-          </button>
-          <button
-            onClick={load}
-            className="inline-flex items-center gap-1.5 px-3 h-9 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} /> {t("Refresh", "রিফ্রেশ")}
-          </button>
-        </div>
-      </div>
-
+    <div className="space-y-5 animate-fade-in">
       {/* Stat cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard label={t("Total Revenue", "মোট রেভিনিউ")} value={fmtMoney(totalRev)} icon={<CreditCard className="w-4 h-4" />} tone="violet" loading={loading} />
@@ -215,7 +182,40 @@ function AdminOrders() {
         <StatCard label={t("Completed", "সম্পন্ন")} value={completedCount} icon={<ShieldCheck className="w-4 h-4" />} tone="emerald" loading={loading} />
       </div>
 
-      {/* Filter chips */}
+      {/* Toolbar — count + actions */}
+      <div className="a-card p-3 sm:p-4 flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-sm">
+            <span className="font-extrabold text-slate-900">{orders.length}</span>
+            <span className="text-slate-500"> {t("total orders", "মোট অর্ডার")}</span>
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200">
+            <MessageCircle className="w-3 h-3" /> {t("WhatsApp Active", "WhatsApp সক্রিয়")}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setFilter("cancelled")}
+            className="inline-flex items-center gap-1.5 px-3 h-9 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50"
+          >
+            <Trash2 className="w-3.5 h-3.5" /> {t("Trash", "ট্র্যাশ")}
+          </button>
+          <button
+            onClick={load}
+            className="inline-flex items-center gap-1.5 px-3 h-9 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} /> {t("Refresh", "রিফ্রেশ")}
+          </button>
+          <button
+            onClick={() => toast.info(t("Use Quick Tools to add a manual order", "ম্যানুয়াল অর্ডার যোগ করতে Quick Tools ব্যবহার করুন"))}
+            className="a-save-btn"
+          >
+            <Plus className="w-3.5 h-3.5" /> {t("New Order", "নতুন অর্ডার")}
+          </button>
+        </div>
+      </div>
+
+      {/* Status filter pills */}
       <div className="flex flex-wrap gap-2">
         <Chip label={`${sLabel("all")} ${orders.length}`} active={filter === "all"} onClick={() => setFilter("all")} />
         {(["pending","processing","delivered","completed","cancelled","refunded","failed"] as const).map((s) => (
@@ -224,27 +224,27 @@ function AdminOrders() {
       </div>
 
       {/* Search */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-3 flex items-center gap-2">
-        <div className="flex items-center gap-2 flex-1 px-3 h-10 rounded-xl bg-slate-50 border border-slate-100">
-          <SearchIcon className="w-4 h-4 text-slate-400" />
+      <div className="a-card p-3 flex items-center gap-2">
+        <div className="relative flex-1">
+          <SearchIcon className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={t("Order ID, name, email, TrxID…", "অর্ডার ID, নাম, ইমেইল, TrxID...")}
-            className="flex-1 bg-transparent outline-none text-sm placeholder:text-slate-400"
+            className="a-search"
           />
         </div>
         <button
           onClick={() => setShowFilters((v) => !v)}
-          className={`inline-flex items-center gap-1.5 px-3 h-10 rounded-xl border text-xs font-semibold ${showFilters ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"}`}
+          className={`inline-flex items-center gap-1.5 px-3.5 h-12 rounded-full border text-xs font-bold transition ${showFilters ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"}`}
         >
           <FilterIcon className="w-3.5 h-3.5" /> {t("Filter", "ফিল্টার")}
         </button>
       </div>
 
       {showFilters && (
-        <div className="bg-white border border-slate-200 rounded-2xl p-3 flex flex-wrap items-center gap-2 text-xs">
-          <span className="text-slate-500 font-semibold mr-1">{t("Payment", "পেমেন্ট")}:</span>
+        <div className="a-card p-3 flex flex-wrap items-center gap-2 text-xs">
+          <span className="text-slate-500 font-bold mr-1">{t("Payment", "পেমেন্ট")}:</span>
           {(["all", ...PAYMENT_STATUSES] as const).map((p) => (
             <Chip key={p} small label={p === "all" ? t("All", "সব") : (p === "verified" ? t("Verified", "ভেরিফাইড") : p === "failed" ? t("Failed", "ব্যর্থ") : t("Pending", "পেন্ডিং"))} active={paymentFilter === p} onClick={() => setPaymentFilter(p)} />
           ))}
@@ -252,7 +252,7 @@ function AdminOrders() {
       )}
 
       {/* Table */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+      <div className="a-card overflow-hidden">
         {loading ? (
           <div className="p-10 grid place-items-center text-slate-400">
             <Loader2 className="w-6 h-6 animate-spin" />
@@ -260,7 +260,7 @@ function AdminOrders() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm min-w-[1100px]">
-              <thead className="bg-slate-50 text-[11px] uppercase tracking-wide text-slate-500">
+              <thead className="text-[11px] uppercase tracking-wide">
                 <tr>
                   <th className="text-left px-4 py-3 w-10"><input type="checkbox" className="rounded" /></th>
                   <th className="text-left px-3 py-3">{t("Order #", "অর্ডার #")}</th>
@@ -300,6 +300,7 @@ function AdminOrders() {
         )}
       </div>
 
+
       {selected && (
         <OrderDetail
           order={selected}
@@ -322,12 +323,12 @@ function StatCard({ label, value, icon, tone, loading }: { label: string; value:
     emerald: "bg-emerald-100 text-emerald-700",
   };
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-4">
-      <div className="flex items-start justify-between mb-2">
-        <div className="text-xs text-slate-500 font-medium">{label}</div>
-        <span className={`w-7 h-7 rounded-lg grid place-items-center ${tones[tone]}`}>{icon}</span>
+    <div className="a-stat-card">
+      <div className="flex items-start justify-between">
+        <div className="a-stat-label">{label}</div>
+        <span className={`a-stat-icon ${tones[tone]}`}>{icon}</span>
       </div>
-      <div className="text-2xl font-extrabold text-slate-900 tracking-tight">
+      <div className="a-stat-value">
         {loading ? "…" : value}
       </div>
     </div>
@@ -338,7 +339,7 @@ function Chip({ label, active, onClick, small }: { label: string; active: boolea
   return (
     <button
       onClick={onClick}
-      className={`${small ? "px-2.5 h-7 text-[11px]" : "px-3.5 h-8 text-xs"} rounded-full font-semibold transition border ${active ? "bg-violet-600 text-white border-violet-600 shadow-sm" : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}
+      className={`a-pill ${active ? "a-pill-active" : ""} ${small ? "!h-7 !px-2.5 !text-[11px]" : ""}`}
     >
       {label}
     </button>
@@ -347,22 +348,23 @@ function Chip({ label, active, onClick, small }: { label: string; active: boolea
 
 function StatusBadge({ status }: { status: string }) {
   const { t } = useAdminLang();
-  const m: Record<string, { cls: string; en: string; bn: string }> = {
-    pending:    { cls: "bg-amber-100 text-amber-800 border-amber-300", en: "Pending", bn: "পেন্ডিং" },
-    processing: { cls: "bg-sky-100 text-sky-800 border-sky-300", en: "Processing", bn: "প্রসেসিং" },
-    delivered:  { cls: "bg-violet-100 text-violet-800 border-violet-300", en: "Delivered", bn: "ডেলিভার্ড" },
-    completed:  { cls: "bg-emerald-100 text-emerald-800 border-emerald-300", en: "Completed", bn: "সম্পন্ন" },
-    cancelled:  { cls: "bg-rose-100 text-rose-800 border-rose-300", en: "Cancelled", bn: "বাতিল" },
-    refunded:   { cls: "bg-slate-200 text-slate-800 border-slate-300", en: "Refunded", bn: "রিফান্ড" },
-    failed:     { cls: "bg-red-100 text-red-800 border-red-300", en: "Failed", bn: "ব্যর্থ" },
+  const labels: Record<string, [string, string]> = {
+    pending:    ["Pending", "পেন্ডিং"],
+    processing: ["Processing", "প্রসেসিং"],
+    delivered:  ["Delivered", "ডেলিভার্ড"],
+    completed:  ["Completed", "সম্পন্ন"],
+    cancelled:  ["Cancelled", "বাতিল"],
+    refunded:   ["Refunded", "রিফান্ড"],
+    failed:     ["Failed", "ব্যর্থ"],
   };
-  const v = m[status] || { cls: "bg-slate-200 text-slate-800 border-slate-300", en: status, bn: status };
+  const [en, bn] = labels[status] || [status, status];
   return (
-    <span className={`inline-flex px-2.5 py-1 rounded-full text-[11px] font-semibold border ${v.cls}`}>
-      {t(v.en, v.bn)}
+    <span className={`a-status a-status-${status}`}>
+      {t(en, bn)}
     </span>
   );
 }
+
 
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -429,12 +431,11 @@ function OrderRow({ order: o, onView, onDelete, onDownload }: { order: Order; on
         <div className="flex items-center justify-end gap-1.5">
           <IconBtn title={t("Download PDF", "PDF ডাউনলোড")} onClick={onDownload} tone="sky"><Download className="w-4 h-4" /></IconBtn>
           {waLink && (
-            <a href={waLink} target="_blank" rel="noreferrer" title="WhatsApp"
-              className="w-8 h-8 grid place-items-center rounded-md bg-emerald-100 text-emerald-700 border border-emerald-200 hover:bg-emerald-200">
+            <a href={waLink} target="_blank" rel="noreferrer" title="WhatsApp" className="a-action a-action-emerald">
               <MessageCircle className="w-4 h-4" />
             </a>
           )}
-          <IconBtn title={t("View", "দেখুন")} onClick={onView} tone="indigo"><Eye className="w-4 h-4" /></IconBtn>
+          <IconBtn title={t("View", "দেখুন")} onClick={onView} tone="violet"><Eye className="w-4 h-4" /></IconBtn>
           <IconBtn title={t("Edit", "এডিট")} onClick={onView} tone="amber"><Pencil className="w-4 h-4" /></IconBtn>
           <IconBtn title={t("Delete", "ডিলিট")} onClick={onDelete} tone="rose"><Trash2 className="w-4 h-4" /></IconBtn>
         </div>
@@ -443,24 +444,14 @@ function OrderRow({ order: o, onView, onDelete, onDownload }: { order: Order; on
   );
 }
 
-function IconBtn({ children, onClick, title, tone = "slate" }: { children: React.ReactNode; onClick: () => void; title: string; tone?: "sky" | "indigo" | "amber" | "rose" | "slate" }) {
-  const tones: Record<string, string> = {
-    sky: "bg-sky-100 text-sky-700 border-sky-200 hover:bg-sky-200",
-    indigo: "bg-indigo-100 text-indigo-700 border-indigo-200 hover:bg-indigo-200",
-    amber: "bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-200",
-    rose: "bg-rose-100 text-rose-700 border-rose-200 hover:bg-rose-200",
-    slate: "bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200",
-  };
+function IconBtn({ children, onClick, title, tone = "violet" }: { children: React.ReactNode; onClick: () => void; title: string; tone?: "sky" | "violet" | "amber" | "rose" | "emerald" }) {
   return (
-    <button
-      onClick={onClick}
-      title={title}
-      className={`w-8 h-8 grid place-items-center rounded-md border transition ${tones[tone]}`}
-    >
+    <button onClick={onClick} title={title} className={`a-action a-action-${tone}`}>
       {children}
     </button>
   );
 }
+
 
 function OrderDetail({ order, onClose, onStatusChange, onPaymentStatusChange, onSaveNote, onDelete }: {
   order: Order;
