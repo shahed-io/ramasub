@@ -162,7 +162,6 @@ function ProductPage() {
   useShopConfig();
   const popularIdx = (loaderProduct?.plans ?? product?.plans ?? []).findIndex((p: { popular?: boolean }) => p.popular);
   const [selected, setSelected] = useState(() => (popularIdx > 0 ? popularIdx : 0));
-  const [clickedPlan, setClickedPlan] = useState<number | null>(null);
   const [qty, setQty] = useState(1);
   
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -391,24 +390,16 @@ function ProductPage() {
                   const original = p.original ? parsePrice(p.original) : 0;
                   const hasOff = original > price;
                   const off = hasOff ? Math.round(((original - price) / original) * 100) : 0;
-                  const label = (p.period?.trim() || (p as { duration?: string; label?: string }).duration?.trim() || (p as { duration?: string; label?: string }).label?.trim() || "Standard Plan");
-                  const justClicked = clickedPlan === idx;
                   return (
                     <label
                       key={`${idx}-${p.period}`}
-                      onClick={() => {
-                        setClickedPlan(idx);
-                        window.setTimeout(() => setClickedPlan((c) => (c === idx ? null : c)), 600);
-                      }}
                       className={[
-                        "plan-row group relative flex items-center justify-between p-4 rounded-2xl cursor-pointer transition-all select-none overflow-hidden",
+                        "group relative flex items-center justify-between p-4 rounded-2xl cursor-pointer transition-all select-none",
                         active
                           ? "bg-indigo-50/50 border-2 border-indigo-600"
                           : "bg-white border border-slate-200 hover:border-slate-300",
-                        justClicked ? "plan-row-clicked" : "",
                       ].join(" ")}
                     >
-                      {justClicked && <span aria-hidden="true" className="plan-ripple" />}
                       <input type="radio" name="plan-period" className="sr-only" checked={active} onChange={() => setSelected(idx)} />
                       <div className="flex items-center">
                         <span
@@ -418,7 +409,7 @@ function ProductPage() {
                             active ? "border-4 border-indigo-600 bg-white" : "border border-slate-300",
                           ].join(" ")}
                         />
-                        <span className={`font-semibold ${active ? "text-slate-900" : "text-slate-700"}`}>{label}</span>
+                        <span className={`font-semibold ${active ? "text-slate-900" : "text-slate-700"}`}>{(p.period?.trim() || (p as { duration?: string; label?: string }).duration?.trim() || (p as { duration?: string; label?: string }).label?.trim() || "Standard Plan")}</span>
                       </div>
                       <div className="flex items-center gap-3">
                         {hasOff && (
