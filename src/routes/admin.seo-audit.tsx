@@ -101,10 +101,11 @@ function SeoAuditPage() {
     (async () => {
       const { data } = await supabase
         .from("products")
-        .select("id, slug, name, short_description, description, image_url, meta, is_active");
-      const productRows = (data ?? []).map(auditProduct);
+        .select("slug, name, short_description, description, image_url, meta, is_active");
+      const productRows = ((data ?? []) as unknown as ProductRow[]).map(auditProduct);
       const staticRows = STATIC_PAGES.map((p) => ({ ...auditStatic(p.label), url: p.url }));
       setRows([...staticRows, ...productRows]);
+
       setLoading(false);
     })();
   }, []);
