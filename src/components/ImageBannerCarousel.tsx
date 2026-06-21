@@ -31,61 +31,61 @@ const PRESET: Record<
 > = {
   ruby: {
     gradient:
-      "radial-gradient(120% 90% at 75% 30%, #b91c4a 0%, #6b0f2a 35%, #2a0610 70%, #100206 100%)",
-    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(255,120,150,0.35), transparent 65%)",
-    halo: "rgba(244,63,94,0.55)",
-    halo2: "rgba(251,113,133,0.38)",
-    accent: "#ffb4c2",
-    pillBg: "rgba(255,255,255,0.12)",
-    pillBorder: "rgba(255,200,210,0.45)",
+      "radial-gradient(120% 95% at 70% 30%, #ff4d6d 0%, #e11d48 30%, #9f1239 60%, #4c0519 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(255,180,200,0.45), transparent 65%)",
+    halo: "rgba(255,100,140,0.65)",
+    halo2: "rgba(255,180,200,0.50)",
+    accent: "#ffd7e0",
+    pillBg: "rgba(255,255,255,0.18)",
+    pillBorder: "rgba(255,220,230,0.55)",
   },
   sapphire: {
     gradient:
-      "radial-gradient(120% 90% at 75% 30%, #1e40af 0%, #1e3a8a 35%, #0c1740 70%, #04060f 100%)",
-    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(125,200,255,0.32), transparent 65%)",
-    halo: "rgba(59,130,246,0.55)",
-    halo2: "rgba(125,211,252,0.38)",
-    accent: "#bae6fd",
-    pillBg: "rgba(255,255,255,0.12)",
-    pillBorder: "rgba(186,230,253,0.45)",
+      "radial-gradient(120% 95% at 70% 30%, #3b82f6 0%, #1d4ed8 30%, #1e3a8a 60%, #0b1538 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(186,230,253,0.45), transparent 65%)",
+    halo: "rgba(96,165,250,0.65)",
+    halo2: "rgba(186,230,253,0.50)",
+    accent: "#dbeafe",
+    pillBg: "rgba(255,255,255,0.18)",
+    pillBorder: "rgba(219,234,254,0.55)",
   },
   emerald: {
     gradient:
-      "radial-gradient(120% 90% at 75% 30%, #047857 0%, #064e3b 35%, #062a22 70%, #03110d 100%)",
-    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(110,231,183,0.32), transparent 65%)",
-    halo: "rgba(16,185,129,0.55)",
-    halo2: "rgba(110,231,183,0.38)",
-    accent: "#a7f3d0",
-    pillBg: "rgba(255,255,255,0.12)",
-    pillBorder: "rgba(167,243,208,0.45)",
+      "radial-gradient(120% 95% at 70% 30%, #10b981 0%, #059669 30%, #047857 60%, #042f23 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(167,243,208,0.45), transparent 65%)",
+    halo: "rgba(52,211,153,0.65)",
+    halo2: "rgba(167,243,208,0.50)",
+    accent: "#d1fae5",
+    pillBg: "rgba(255,255,255,0.18)",
+    pillBorder: "rgba(209,250,229,0.55)",
   },
   ocean: {
     gradient:
-      "radial-gradient(120% 90% at 75% 30%, #1e40af 0%, #1e3a8a 35%, #0c1740 70%, #04060f 100%)",
-    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(125,200,255,0.32), transparent 65%)",
-    halo: "rgba(59,130,246,0.55)", halo2: "rgba(125,211,252,0.38)", accent: "#bae6fd",
-    pillBg: "rgba(255,255,255,0.12)", pillBorder: "rgba(186,230,253,0.45)",
+      "radial-gradient(120% 95% at 70% 30%, #3b82f6 0%, #1d4ed8 30%, #1e3a8a 60%, #0b1538 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(186,230,253,0.45), transparent 65%)",
+    halo: "rgba(96,165,250,0.65)", halo2: "rgba(186,230,253,0.50)", accent: "#dbeafe",
+    pillBg: "rgba(255,255,255,0.18)", pillBorder: "rgba(219,234,254,0.55)",
   },
   violet: {
     gradient:
-      "radial-gradient(120% 90% at 75% 30%, #6d28d9 0%, #4c1d95 35%, #1e0b4a 70%, #07031a 100%)",
-    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(196,181,253,0.32), transparent 65%)",
-    halo: "rgba(139,92,246,0.55)", halo2: "rgba(196,181,253,0.38)", accent: "#ddd6fe",
-    pillBg: "rgba(255,255,255,0.12)", pillBorder: "rgba(221,214,254,0.45)",
+      "radial-gradient(120% 95% at 70% 30%, #a855f7 0%, #7c3aed 30%, #5b21b6 60%, #1e0b4a 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(221,214,254,0.45), transparent 65%)",
+    halo: "rgba(167,139,250,0.65)", halo2: "rgba(221,214,254,0.50)", accent: "#ede9fe",
+    pillBg: "rgba(255,255,255,0.18)", pillBorder: "rgba(237,233,254,0.55)",
   },
   sunset: {
     gradient:
-      "radial-gradient(120% 90% at 75% 30%, #b45309 0%, #7c2d12 35%, #3a1206 70%, #140602 100%)",
-    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(253,186,116,0.35), transparent 65%)",
-    halo: "rgba(245,158,11,0.55)", halo2: "rgba(253,186,116,0.38)", accent: "#fed7aa",
-    pillBg: "rgba(255,255,255,0.12)", pillBorder: "rgba(254,215,170,0.45)",
+      "radial-gradient(120% 95% at 70% 30%, #fb923c 0%, #f97316 30%, #c2410c 60%, #431407 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(254,215,170,0.45), transparent 65%)",
+    halo: "rgba(251,146,60,0.65)", halo2: "rgba(254,215,170,0.50)", accent: "#ffedd5",
+    pillBg: "rgba(255,255,255,0.18)", pillBorder: "rgba(255,237,213,0.55)",
   },
   graphite: {
     gradient:
-      "radial-gradient(120% 90% at 75% 30%, #475569 0%, #1e293b 35%, #0b1220 70%, #04060c 100%)",
-    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(203,213,225,0.28), transparent 65%)",
-    halo: "rgba(148,163,184,0.45)", halo2: "rgba(203,213,225,0.30)", accent: "#e2e8f0",
-    pillBg: "rgba(255,255,255,0.12)", pillBorder: "rgba(226,232,240,0.40)",
+      "radial-gradient(120% 95% at 70% 30%, #94a3b8 0%, #475569 30%, #1e293b 60%, #0b1220 100%)",
+    sweep: "radial-gradient(70% 55% at 80% 25%, rgba(226,232,240,0.35), transparent 65%)",
+    halo: "rgba(203,213,225,0.55)", halo2: "rgba(226,232,240,0.40)", accent: "#f1f5f9",
+    pillBg: "rgba(255,255,255,0.18)", pillBorder: "rgba(241,245,249,0.50)",
   },
 };
 
@@ -398,7 +398,7 @@ export function ImageBannerCarousel() {
                   <img
                     src={personSrc}
                     alt={title}
-                    className="relative block h-[260px] sm:h-[340px] md:h-[460px] lg:h-[520px] w-auto object-contain select-none pointer-events-none -mb-7 sm:-mb-9 md:-mb-12"
+                    className="relative block h-[280px] sm:h-[360px] md:h-[490px] lg:h-[560px] w-auto object-contain select-none pointer-events-none -mb-14 sm:-mb-20 md:-mb-28"
                     style={{
                       filter:
                         "drop-shadow(0 0 26px rgba(255,255,255,0.55)) drop-shadow(0 0 70px rgba(255,255,255,0.30)) drop-shadow(0 18px 28px rgba(0,0,0,0.30))",
