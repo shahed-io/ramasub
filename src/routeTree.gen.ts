@@ -50,6 +50,7 @@ import { Route as AdminTrackingRouteImport } from './routes/admin.tracking'
 import { Route as AdminTicketsRouteImport } from './routes/admin.tickets'
 import { Route as AdminThemesRouteImport } from './routes/admin.themes'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminSeoSettingsRouteImport } from './routes/admin.seo-settings'
 import { Route as AdminSecurityRouteImport } from './routes/admin.security'
 import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminReviewGeneratorRouteImport } from './routes/admin.review-generator'
@@ -294,6 +295,11 @@ const AdminThemesRoute = AdminThemesRouteImport.update({
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSeoSettingsRoute = AdminSeoSettingsRouteImport.update({
+  id: '/seo-settings',
+  path: '/seo-settings',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminSecurityRoute = AdminSecurityRouteImport.update({
@@ -557,6 +563,7 @@ export interface FileRoutesByFullPath {
   '/admin/review-generator': typeof AdminReviewGeneratorRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/security': typeof AdminSecurityRoute
+  '/admin/seo-settings': typeof AdminSeoSettingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/themes': typeof AdminThemesRoute
   '/admin/tickets': typeof AdminTicketsRoute
@@ -638,6 +645,7 @@ export interface FileRoutesByTo {
   '/admin/review-generator': typeof AdminReviewGeneratorRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/security': typeof AdminSecurityRoute
+  '/admin/seo-settings': typeof AdminSeoSettingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/themes': typeof AdminThemesRoute
   '/admin/tickets': typeof AdminTicketsRoute
@@ -721,6 +729,7 @@ export interface FileRoutesById {
   '/admin/review-generator': typeof AdminReviewGeneratorRoute
   '/admin/reviews': typeof AdminReviewsRoute
   '/admin/security': typeof AdminSecurityRoute
+  '/admin/seo-settings': typeof AdminSeoSettingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/themes': typeof AdminThemesRoute
   '/admin/tickets': typeof AdminTicketsRoute
@@ -805,6 +814,7 @@ export interface FileRouteTypes {
     | '/admin/review-generator'
     | '/admin/reviews'
     | '/admin/security'
+    | '/admin/seo-settings'
     | '/admin/settings'
     | '/admin/themes'
     | '/admin/tickets'
@@ -886,6 +896,7 @@ export interface FileRouteTypes {
     | '/admin/review-generator'
     | '/admin/reviews'
     | '/admin/security'
+    | '/admin/seo-settings'
     | '/admin/settings'
     | '/admin/themes'
     | '/admin/tickets'
@@ -968,6 +979,7 @@ export interface FileRouteTypes {
     | '/admin/review-generator'
     | '/admin/reviews'
     | '/admin/security'
+    | '/admin/seo-settings'
     | '/admin/settings'
     | '/admin/themes'
     | '/admin/tickets'
@@ -1322,6 +1334,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSettingsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/seo-settings': {
+      id: '/admin/seo-settings'
+      path: '/seo-settings'
+      fullPath: '/admin/seo-settings'
+      preLoaderRoute: typeof AdminSeoSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/security': {
       id: '/admin/security'
       path: '/security'
@@ -1630,6 +1649,7 @@ interface AdminRouteChildren {
   AdminReviewGeneratorRoute: typeof AdminReviewGeneratorRoute
   AdminReviewsRoute: typeof AdminReviewsRoute
   AdminSecurityRoute: typeof AdminSecurityRoute
+  AdminSeoSettingsRoute: typeof AdminSeoSettingsRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminThemesRoute: typeof AdminThemesRoute
   AdminTicketsRoute: typeof AdminTicketsRoute
@@ -1672,6 +1692,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminReviewGeneratorRoute: AdminReviewGeneratorRoute,
   AdminReviewsRoute: AdminReviewsRoute,
   AdminSecurityRoute: AdminSecurityRoute,
+  AdminSeoSettingsRoute: AdminSeoSettingsRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminThemesRoute: AdminThemesRoute,
   AdminTicketsRoute: AdminTicketsRoute,
