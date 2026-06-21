@@ -10,9 +10,12 @@ import { supabase } from "@/integrations/supabase/client";
  * Tables wired:
  *  - products            → product lists, detail pages
  *  - admin_records       → shop_config, payment_method, banner_slider, support_widget
- *  - orders              → user orders dashboards / admin orders
- *  - coupons             → admin coupons screen
  *  - promotions          → home promotions strip
+ *
+ * NOTE: `orders` and `coupons` are intentionally NOT broadcast over Realtime.
+ * Supabase Realtime has no per-row authorization, so publishing those tables
+ * leaks order PII and coupon codes to every signed-in subscriber. Those
+ * screens refresh via direct queries / Refresh buttons / route loaders.
  */
 export function useRealtimeSync() {
   const qc = useQueryClient();
@@ -58,23 +61,6 @@ export function useRealtimeSync() {
           window.dispatchEvent(
             new CustomEvent("admin-records:changed", { detail: { kind } }),
           );
-        },
-      )
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "orders" },
-        () => {
-          qc.invalidateQueries({ queryKey: ["orders"] });
-          qc.invalidateQueries({ queryKey: ["admin", "orders"] });
-          qc.invalidateQueries({ queryKey: ["user-orders"] });
-        },
-      )
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "coupons" },
-        () => {
-          qc.invalidateQueries({ queryKey: ["coupons"] });
-          qc.invalidateQueries({ queryKey: ["admin", "coupons"] });
         },
       )
       .on(
