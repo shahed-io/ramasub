@@ -173,7 +173,16 @@ function WalletPage() {
 
 function TopupModal({ onClose, onDone, userId }: { onClose: () => void; onDone: () => void; userId: string }) {
   const [amount, setAmount] = useState("");
-  const [method, setMethod] = useState<"bkash" | "nagad">("bkash");
+  const { data: walletMethods } = usePaymentMethods("wallet");
+  const availableMethods = useMemo(() => {
+    const list = (walletMethods ?? []).filter((m) => m.name);
+    return list.length ? list : [
+      { id: "bkash", name: "bKash", number: "01319029214", color: "", brand_color: "#E2136E" },
+      { id: "nagad", name: "Nagad", number: "01319029214", color: "", brand_color: "#EC1C24" },
+    ];
+  }, [walletMethods]);
+  const [method, setMethod] = useState<string>(availableMethods[0]?.name?.toLowerCase() || "bkash");
+  const selected = availableMethods.find((m) => (m.name || "").toLowerCase() === method) || availableMethods[0];
   const [sender, setSender] = useState("");
   const [trx, setTrx] = useState("");
   const [path, setPath] = useState<string>("");
