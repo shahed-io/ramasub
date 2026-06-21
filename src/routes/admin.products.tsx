@@ -392,7 +392,7 @@ function AdminProducts() {
  <button
  onClick={() => runAI("short")}
  disabled={aiBusy || selected.size === 0}
- className="h-10 px-4 inline-flex items-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)] disabled:opacity-60 disabled:cursor-not-allowed"
+ className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)] disabled:opacity-60 disabled:cursor-not-allowed flex-1 sm:flex-none"
  style={{ background: "linear-gradient(135deg, #94a3b8 0%, #94a3b8 100%)" }}
  title={selected.size === 0 ? "আগে পণ্য সিলেক্ট করুন" : "AI Short Description"}
  >
@@ -401,7 +401,7 @@ function AdminProducts() {
  <button
  onClick={() => runAI("rich")}
  disabled={aiBusy || selected.size === 0}
- className="h-10 px-4 inline-flex items-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)] disabled:opacity-60 disabled:cursor-not-allowed"
+ className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)] disabled:opacity-60 disabled:cursor-not-allowed flex-1 sm:flex-none"
  style={{ background: "linear-gradient(135deg, #94a3b8 0%, #94a3b8 100%)" }}
  >
  {aiBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4" />} AI Rich Desc + SEO
@@ -414,7 +414,7 @@ function AdminProducts() {
  <button
  onClick={migrateAllToWebp}
  disabled={webpBusy}
- className="h-10 px-4 inline-flex items-center gap-2 rounded-xl bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
+ className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition disabled:opacity-60 disabled:cursor-not-allowed flex-1 sm:flex-none"
  title="সব প্রোডাক্ট ইমেজ WebP-তে কনভার্ট করুন"
  >
  {webpBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <ImageIcon className="w-4 h-4" />}
@@ -422,7 +422,7 @@ function AdminProducts() {
  </button>
  <button
  onClick={() => { setEditing({ ...empty, name: " Price in Bangladesh", sort_order: (products.at(-1)?.sort_order ?? 0) + 10 }); setIsNew(true); }}
- className="h-10 px-4 inline-flex items-center gap-2 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition"
+ className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition flex-1 sm:flex-none"
  >
  <Plus className="w-4 h-4" /> নতুন পণ্য
  </button>
