@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, ShieldCheck, Zap, Headphones } from "lucide-react";
+import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import personAsset from "@/assets/rama-person-new.png.asset.json";
 
@@ -23,28 +23,44 @@ type BannerRow = {
   data: SlideData;
 };
 
-// Rich radial-mesh backgrounds per preset
-const PRESET_BG: Record<string, string> = {
-  ruby:
-    "radial-gradient(120% 90% at 15% 20%, #c81a1f 0%, #7a0d10 45%, #3d0608 100%)",
-  spotify:
-    "radial-gradient(120% 90% at 15% 20%, #1ed760 0%, #0e7a3d 45%, #04200f 100%)",
-  canva:
-    "radial-gradient(120% 90% at 15% 20%, #6d5cff 0%, #2a1f9c 45%, #0e1442 100%)",
-  eid:
-    "radial-gradient(120% 90% at 15% 20%, #e8407a 0%, #7a0a3a 45%, #2a0510 100%)",
-  ocean:
-    "radial-gradient(120% 90% at 15% 20%, #2b6ad1 0%, #0b1f4a 45%, #060e2a 100%)",
-  violet:
-    "radial-gradient(120% 90% at 15% 20%, #8b5cf6 0%, #4c1d95 45%, #1a0833 100%)",
-  emerald:
-    "radial-gradient(120% 90% at 15% 20%, #10b981 0%, #064e3b 45%, #02211a 100%)",
-  graphite:
-    "radial-gradient(120% 90% at 15% 20%, #4b5563 0%, #1f2937 45%, #0a0c10 100%)",
-  indigo:
-    "radial-gradient(120% 90% at 15% 20%, #6366f1 0%, #1e1b6b 45%, #0a0a3a 100%)",
-  sunset:
-    "radial-gradient(120% 90% at 15% 20%, #f59e0b 0%, #c2410c 45%, #3a0f02 100%)",
+// Cinematic dark backgrounds per preset — premium feel
+const PRESET_BG: Record<string, { base: string; glow1: string; glow2: string; accent: string }> = {
+  ruby: {
+    base: "linear-gradient(to right, #4a0808, #1a0202 55%, #0a0101)",
+    glow1: "rgba(220, 38, 38, 0.18)",
+    glow2: "rgba(127, 29, 29, 0.14)",
+    accent: "#f87171",
+  },
+  ocean: {
+    base: "linear-gradient(to right, #082f4a, #061327 55%, #02060f)",
+    glow1: "rgba(37, 99, 235, 0.20)",
+    glow2: "rgba(30, 58, 138, 0.16)",
+    accent: "#60a5fa",
+  },
+  emerald: {
+    base: "linear-gradient(to right, #052e1c, #03190f 55%, #010a06)",
+    glow1: "rgba(16, 185, 129, 0.18)",
+    glow2: "rgba(6, 78, 59, 0.16)",
+    accent: "#34d399",
+  },
+  violet: {
+    base: "linear-gradient(to right, #2e1065, #1a0a3d 55%, #0a041a)",
+    glow1: "rgba(139, 92, 246, 0.20)",
+    glow2: "rgba(76, 29, 149, 0.16)",
+    accent: "#a78bfa",
+  },
+  sunset: {
+    base: "linear-gradient(to right, #4a1f02, #1a0a01 55%, #0a0501)",
+    glow1: "rgba(245, 158, 11, 0.20)",
+    glow2: "rgba(194, 65, 12, 0.16)",
+    accent: "#fbbf24",
+  },
+  graphite: {
+    base: "linear-gradient(to right, #1f2937, #0b0e14 55%, #050709)",
+    glow1: "rgba(148, 163, 184, 0.14)",
+    glow2: "rgba(71, 85, 105, 0.14)",
+    accent: "#cbd5e1",
+  },
 };
 
 const DEFAULT_SLIDES: BannerRow[] = [
@@ -54,8 +70,8 @@ const DEFAULT_SLIDES: BannerRow[] = [
     sort_order: 1,
     data: {
       category: "বিশ্বস্ততার আরেক নাম",
-      title: "Rama Subscription",
-      subtitle: "প্রিমিয়াম সাবস্ক্রিপশন এখন হাতের মুঠোয় — ১০০% নিরাপদ, ২৪/৭ সাপোর্ট।",
+      title: "Rama Sub",
+      subtitle: "প্রিমিয়াম সাবস্ক্রিপশন এখন হাতের মুঠোয় — ১০০% নিরাপদ ও দ্রুত ডেলিভারি।",
       color_preset: "ruby",
       cta: "এখনই কিনুন",
       link: "/products",
@@ -90,10 +106,13 @@ const DEFAULT_SLIDES: BannerRow[] = [
 ];
 
 const TRUST_BADGES = [
-  { icon: ShieldCheck, label: "১০০% নিরাপদ" },
-  { icon: Zap, label: "ইনস্ট্যান্ট ডেলিভারি" },
-  { icon: Headphones, label: "২৪/৭ সাপোর্ট" },
+  { dot: "bg-green-400", label: "১০০% নিরাপদ" },
+  { dot: "bg-sky-400", label: "ইনস্ট্যান্ট ডেলিভারি" },
+  { dot: "bg-rose-400", label: "২৪/৭ সাপোর্ট" },
 ];
+
+const BN = "'Hind Siliguri', system-ui, sans-serif";
+const EN = "'Inter', system-ui, sans-serif";
 
 export function ImageBannerCarousel() {
   const [rows, setRows] = useState<BannerRow[] | null>(null);
@@ -150,123 +169,154 @@ export function ImageBannerCarousel() {
   }, [active, slides.length]);
 
   return (
-    <section className="px-3 sm:px-6 lg:px-10 pt-4 sm:pt-6 pb-4">
-      <div className="relative mx-auto max-w-[1280px] overflow-hidden rounded-2xl sm:rounded-3xl shadow-[0_24px_70px_-30px_rgba(15,23,42,0.45)] group ring-1 ring-black/5">
+    <section className="px-3 sm:px-5 lg:px-8 pt-4 sm:pt-5 pb-3">
+      <div className="relative mx-auto max-w-[1240px] overflow-hidden rounded-[28px] sm:rounded-[36px] md:rounded-[40px] shadow-[0_30px_80px_-30px_rgba(15,23,42,0.55)] ring-1 ring-white/5 bg-[#0a0101] group">
         {slides.map((s, idx) => {
           const d = s.data || {};
           const eyebrow = d.category || "";
-          const title = d.title || "Rama Subscription";
+          const title = d.title || "Rama Sub";
           const subtitle = d.subtitle || "";
           const cta = d.cta || "এখনই কিনুন";
           const link = d.link || "/products";
-          const bg = d.bg_color
-            ? d.bg_color
-            : PRESET_BG[d.color_preset || "ruby"] || PRESET_BG.ruby;
+          const preset = PRESET_BG[d.color_preset || "ruby"] || PRESET_BG.ruby;
           const personSrc = d.image_url || personAsset.url;
+          const isActive = idx === active;
+
+          // Split title to color the last word with accent
+          const parts = title.trim().split(/\s+/);
+          const head = parts.slice(0, -1).join(" ");
+          const tail = parts.length > 1 ? parts[parts.length - 1] : "";
 
           return (
             <div
               key={s.id}
               className={`${
-                idx === active
+                isActive
                   ? "relative opacity-100 z-10"
                   : "absolute inset-0 opacity-0 z-0 pointer-events-none"
               } transition-opacity duration-700 ease-out`}
-              style={{ background: bg }}
-              aria-hidden={idx === active ? undefined : true}
+              aria-hidden={isActive ? undefined : true}
             >
-              {/* Soft glow blobs */}
+              {/* Cinematic base */}
+              <div className="absolute inset-0" style={{ background: preset.base }} />
+
+              {/* Glow blobs */}
               <div
-                className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full opacity-30 blur-3xl pointer-events-none"
-                style={{ background: "radial-gradient(circle, #fff 0%, transparent 70%)" }}
+                className="absolute -right-20 -top-20 w-[600px] h-[600px] rounded-full blur-[140px] pointer-events-none"
+                style={{ background: preset.glow1 }}
               />
               <div
-                className="absolute -bottom-32 -left-20 w-[360px] h-[360px] rounded-full opacity-20 blur-3xl pointer-events-none"
-                style={{ background: "radial-gradient(circle, #fff 0%, transparent 70%)" }}
+                className="absolute -left-20 bottom-0 w-[400px] h-[400px] rounded-full blur-[100px] pointer-events-none"
+                style={{ background: preset.glow2 }}
               />
 
-              <div className="relative grid grid-cols-1 md:grid-cols-2 items-center gap-3 sm:gap-6 px-4 sm:px-8 md:px-12 py-5 sm:py-8 md:py-10 min-h-[300px] sm:min-h-[380px] md:min-h-[440px]">
-                {/* Text panel — order on mobile keeps image first */}
-                <div className="order-2 md:order-1 min-w-0 text-center md:text-left">
+              <div className="relative grid grid-cols-1 md:grid-cols-2 items-center gap-4 sm:gap-6 px-5 sm:px-10 md:px-14 lg:px-16 py-6 sm:py-8 md:py-10 min-h-[340px] sm:min-h-[380px] md:min-h-[420px]">
+                {/* LEFT — typography + actions */}
+                <div className="order-2 md:order-1 min-w-0 text-center md:text-left flex flex-col items-center md:items-start gap-4 sm:gap-5 z-10">
                   {eyebrow && (
                     <span
-                      className="inline-block text-white/90 text-xs sm:text-sm md:text-base px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm ring-1 ring-white/15"
-                      style={{
-                        fontFamily: "'Hind Siliguri', system-ui, sans-serif",
-                        wordBreak: "keep-all",
-                      }}
+                      className="inline-flex items-center px-3.5 sm:px-4 py-1.5 rounded-full bg-white/[0.06] backdrop-blur-md border border-white/10"
+                      style={{ fontFamily: BN, wordBreak: "keep-all" }}
                     >
-                      {eyebrow}
+                      <span
+                        className="text-xs sm:text-sm font-medium tracking-wide"
+                        style={{ color: preset.accent }}
+                      >
+                        {eyebrow}
+                      </span>
                     </span>
                   )}
 
-                  <h2
-                    className="mt-3 sm:mt-4 font-extrabold text-white leading-[1.05] text-[26px] sm:text-[38px] md:text-[52px] drop-shadow-[0_4px_18px_rgba(0,0,0,0.35)]"
-                    style={{
-                      fontFamily:
-                        "'Poppins', 'Hind Siliguri', system-ui, sans-serif",
-                      letterSpacing: "-0.01em",
-                      wordBreak: "keep-all",
-                    }}
-                  >
-                    {title}
-                  </h2>
-
-                  {subtitle && (
-                    <p
-                      className="mt-2 sm:mt-3 text-white/85 text-sm sm:text-base md:text-lg max-w-xl mx-auto md:mx-0"
+                  <div className="space-y-2 sm:space-y-3">
+                    <h2
+                      className="text-white font-black tracking-tight leading-[1.05] text-[34px] sm:text-[52px] md:text-[68px] lg:text-[76px] drop-shadow-[0_4px_18px_rgba(0,0,0,0.45)]"
                       style={{
-                        fontFamily: "'Hind Siliguri', system-ui, sans-serif",
+                        fontFamily: /[\u0980-\u09FF]/.test(title) ? BN : EN,
                         wordBreak: "keep-all",
-                        lineHeight: 1.55,
+                        letterSpacing: "-0.02em",
                       }}
                     >
-                      {subtitle}
-                    </p>
-                  )}
+                      {tail ? (
+                        <>
+                          {head}{" "}
+                          <span style={{ color: preset.accent }}>{tail}</span>
+                        </>
+                      ) : (
+                        title
+                      )}
+                    </h2>
 
-                  <div className="mt-4 sm:mt-5 flex flex-wrap justify-center md:justify-start gap-2 sm:gap-2.5">
-                    {TRUST_BADGES.map(({ icon: Icon, label }) => (
-                      <span
-                        key={label}
-                        className="inline-flex items-center gap-1.5 text-white/95 text-[11px] sm:text-xs px-2.5 py-1.5 rounded-full bg-white/10 backdrop-blur-sm ring-1 ring-white/15"
-                        style={{ fontFamily: "'Hind Siliguri', system-ui, sans-serif" }}
+                    {subtitle && (
+                      <p
+                        className="text-gray-300/85 text-sm sm:text-base md:text-lg max-w-lg mx-auto md:mx-0"
+                        style={{
+                          fontFamily: BN,
+                          wordBreak: "keep-all",
+                          lineHeight: 1.6,
+                        }}
                       >
-                        <Icon className="w-3.5 h-3.5" />
-                        {label}
+                        {subtitle}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Frosted glass feature pills */}
+                  <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-2.5">
+                    {TRUST_BADGES.map((b) => (
+                      <span
+                        key={b.label}
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/[0.06] backdrop-blur-md border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
+                        style={{ fontFamily: BN, wordBreak: "keep-all" }}
+                      >
+                        <span className={`w-1.5 h-1.5 rounded-full ${b.dot}`} />
+                        <span className="text-[11px] sm:text-xs text-gray-200">
+                          {b.label}
+                        </span>
                       </span>
                     ))}
                   </div>
 
-                  <div className="mt-5 sm:mt-6 flex flex-wrap justify-center md:justify-start gap-2.5">
+                  {/* CTAs */}
+                  <div className="flex flex-wrap justify-center md:justify-start gap-2.5 sm:gap-3 pt-1">
                     <Link
                       to={link as never}
-                      className="inline-flex items-center justify-center rounded-full bg-white text-slate-900 px-6 sm:px-7 py-2.5 sm:py-3 text-sm sm:text-base font-bold shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition"
-                      style={{ fontFamily: "'Hind Siliguri', system-ui, sans-serif" }}
+                      className="inline-flex items-center justify-center rounded-2xl px-7 sm:px-9 py-3 sm:py-3.5 text-sm sm:text-base font-bold text-white transition-all hover:scale-[1.03] active:scale-[0.98]"
+                      style={{
+                        fontFamily: BN,
+                        background: `linear-gradient(135deg, ${preset.accent}, color-mix(in oklab, ${preset.accent} 70%, #000))`,
+                        boxShadow: `0 10px 30px -8px ${preset.accent}55`,
+                      }}
                     >
                       {cta}
                     </Link>
                     <Link
                       to="/categories"
-                      className="inline-flex items-center justify-center rounded-full bg-white/10 text-white px-6 sm:px-7 py-2.5 sm:py-3 text-sm sm:text-base font-semibold ring-1 ring-white/25 hover:bg-white/20 transition"
-                      style={{ fontFamily: "'Hind Siliguri', system-ui, sans-serif" }}
+                      className="inline-flex items-center justify-center rounded-2xl px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-semibold text-white bg-white/[0.06] border border-white/10 backdrop-blur-md hover:bg-white/[0.12] transition-all"
+                      style={{ fontFamily: BN }}
                     >
                       ক্যাটাগরি দেখুন
                     </Link>
                   </div>
                 </div>
 
-                {/* Image panel */}
-                <div className="order-1 md:order-2 relative flex items-end justify-center md:justify-end">
+                {/* RIGHT — visual subject */}
+                <div className="order-1 md:order-2 relative flex items-end justify-center md:justify-end h-full">
+                  {/* Sparkle accents */}
+                  <Sparkles className="absolute top-6 right-8 w-5 h-5 sm:w-6 sm:h-6 text-white/40 animate-pulse" />
+                  <Sparkles className="absolute bottom-10 left-6 w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/30 animate-pulse [animation-delay:600ms]" />
+
                   <div className="relative">
+                    {/* Person glow */}
                     <div
-                      className="absolute inset-0 -m-6 rounded-full opacity-40 blur-2xl"
-                      style={{ background: "radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 65%)" }}
+                      className="absolute inset-0 -m-8 rounded-full blur-3xl opacity-60 pointer-events-none"
+                      style={{
+                        background: `radial-gradient(circle, ${preset.glow1} 0%, transparent 65%)`,
+                      }}
                     />
                     <img
                       src={personSrc}
                       alt={title}
-                      className="relative block h-[200px] sm:h-[300px] md:h-[400px] w-auto object-contain drop-shadow-[0_22px_36px_rgba(0,0,0,0.45)] select-none pointer-events-none"
+                      className="relative block h-[220px] sm:h-[300px] md:h-[380px] lg:h-[420px] w-auto object-contain drop-shadow-[0_25px_40px_rgba(0,0,0,0.55)] select-none pointer-events-none"
                       draggable={false}
                       loading={idx === 0 ? "eager" : "lazy"}
                       width={900}
@@ -285,7 +335,7 @@ export function ImageBannerCarousel() {
               type="button"
               onClick={prev}
               aria-label="Previous"
-              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 h-9 w-9 sm:h-11 sm:w-11 rounded-full bg-white/90 text-slate-800 shadow-md hover:bg-white opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition"
+              className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 h-9 w-9 sm:h-11 sm:w-11 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white hover:bg-white/20 opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition"
             >
               <ChevronLeft className="w-5 h-5 mx-auto" />
             </button>
@@ -293,20 +343,20 @@ export function ImageBannerCarousel() {
               type="button"
               onClick={next}
               aria-label="Next"
-              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 h-9 w-9 sm:h-11 sm:w-11 rounded-full bg-white/90 text-slate-800 shadow-md hover:bg-white opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition"
+              className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 h-9 w-9 sm:h-11 sm:w-11 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white hover:bg-white/20 opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition"
             >
               <ChevronRight className="w-5 h-5 mx-auto" />
             </button>
 
-            <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+            <div className="absolute bottom-5 sm:bottom-6 right-6 sm:right-10 md:right-14 z-20 flex gap-2">
               {slides.map((_, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => setActive(idx)}
                   aria-label={`Go to slide ${idx + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    idx === active ? "w-8 bg-white" : "w-2 bg-white/50 hover:bg-white/80"
+                  className={`h-1 rounded-full transition-all duration-300 ${
+                    idx === active ? "w-10 bg-white" : "w-3 bg-white/25 hover:bg-white/50"
                   }`}
                 />
               ))}
