@@ -188,6 +188,8 @@ function RootComponent() {
               {!isAdmin && <WelcomePopup />}
               {!isAdmin && <InstallAppPrompt />}
               {!isAdmin && <TrackingScripts />}
+              <SeoHead pathname={pathname} />
+
 
             </ShopConfigProvider>
           </CartProvider>
