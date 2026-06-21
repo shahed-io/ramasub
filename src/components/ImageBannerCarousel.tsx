@@ -269,7 +269,17 @@ export function ImageBannerCarousel() {
               />
 
 
-              <div className="relative grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] items-center gap-4 sm:gap-6 px-5 sm:px-10 md:px-14 lg:px-20 py-7 sm:py-9 md:py-12 min-h-[360px] sm:min-h-[400px] md:min-h-[460px]">
+              <div
+                className="relative grid grid-cols-1 md:grid-cols-[1.05fr_0.95fr] items-center"
+                style={{
+                  gap: "clamp(16px, 2vw, 32px)",
+                  paddingLeft: "clamp(20px, 4vw, 80px)",
+                  paddingRight: "clamp(20px, 4vw, 80px)",
+                  paddingTop: "clamp(28px, 3.2vw, 56px)",
+                  paddingBottom: "clamp(28px, 3.2vw, 56px)",
+                  minHeight: "clamp(360px, 38vw, 560px)",
+                }}
+              >
                 {/* LEFT */}
                 <div className="order-2 md:order-1 min-w-0 text-center md:text-left flex flex-col items-center md:items-start gap-4 sm:gap-5 z-10">
                   {eyebrow && (
