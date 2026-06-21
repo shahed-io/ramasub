@@ -289,9 +289,9 @@ export function SiteFooter() {
               ))}
             </div>
 
-            <div className="relative inline-flex max-w-full items-center overflow-x-auto rounded-full border border-[var(--glass-border)] bg-gradient-to-r from-primary/[0.08] via-aqua/[0.06] to-[var(--gold)]/[0.08] px-4 py-1.5 shadow-[0_4px_18px_-10px_rgba(79,70,229,0.35)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <span aria-hidden className="pointer-events-none absolute inset-0 opacity-60" style={{ background: "radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,0.18), transparent 60%)" }} />
-              <p className="relative whitespace-nowrap text-[12px] md:text-[12.5px] leading-6 tracking-[0.01em]">
+            <div className="relative flex max-w-full items-center justify-center rounded-[20px] sm:rounded-full border border-[var(--glass-border)] bg-gradient-to-r from-primary/[0.08] via-aqua/[0.06] to-[var(--gold)]/[0.08] px-3 py-2 sm:px-4 sm:py-1.5 shadow-[0_4px_18px_-10px_rgba(79,70,229,0.35)]">
+              <span aria-hidden className="pointer-events-none absolute inset-0 opacity-60 rounded-[inherit]" style={{ background: "radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,0.18), transparent 60%)" }} />
+              <p className="relative text-center sm:whitespace-nowrap text-[11.5px] md:text-[12.5px] leading-6 tracking-[0.01em] break-words">
                 <span className="text-rose-500">©</span>{" "}
                 <span className="font-bold text-fuchsia-600 dark:text-fuchsia-400">2026</span>
                 <span className="mx-2 text-foreground/25">·</span>
