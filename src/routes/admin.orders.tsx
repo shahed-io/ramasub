@@ -431,12 +431,11 @@ function OrderRow({ order: o, onView, onDelete, onDownload }: { order: Order; on
         <div className="flex items-center justify-end gap-1.5">
           <IconBtn title={t("Download PDF", "PDF ডাউনলোড")} onClick={onDownload} tone="sky"><Download className="w-4 h-4" /></IconBtn>
           {waLink && (
-            <a href={waLink} target="_blank" rel="noreferrer" title="WhatsApp"
-              className="w-8 h-8 grid place-items-center rounded-md bg-emerald-100 text-emerald-700 border border-emerald-200 hover:bg-emerald-200">
+            <a href={waLink} target="_blank" rel="noreferrer" title="WhatsApp" className="a-action a-action-emerald">
               <MessageCircle className="w-4 h-4" />
             </a>
           )}
-          <IconBtn title={t("View", "দেখুন")} onClick={onView} tone="indigo"><Eye className="w-4 h-4" /></IconBtn>
+          <IconBtn title={t("View", "দেখুন")} onClick={onView} tone="violet"><Eye className="w-4 h-4" /></IconBtn>
           <IconBtn title={t("Edit", "এডিট")} onClick={onView} tone="amber"><Pencil className="w-4 h-4" /></IconBtn>
           <IconBtn title={t("Delete", "ডিলিট")} onClick={onDelete} tone="rose"><Trash2 className="w-4 h-4" /></IconBtn>
         </div>
@@ -445,24 +444,14 @@ function OrderRow({ order: o, onView, onDelete, onDownload }: { order: Order; on
   );
 }
 
-function IconBtn({ children, onClick, title, tone = "slate" }: { children: React.ReactNode; onClick: () => void; title: string; tone?: "sky" | "indigo" | "amber" | "rose" | "slate" }) {
-  const tones: Record<string, string> = {
-    sky: "bg-sky-100 text-sky-700 border-sky-200 hover:bg-sky-200",
-    indigo: "bg-indigo-100 text-indigo-700 border-indigo-200 hover:bg-indigo-200",
-    amber: "bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-200",
-    rose: "bg-rose-100 text-rose-700 border-rose-200 hover:bg-rose-200",
-    slate: "bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200",
-  };
+function IconBtn({ children, onClick, title, tone = "violet" }: { children: React.ReactNode; onClick: () => void; title: string; tone?: "sky" | "violet" | "amber" | "rose" | "emerald" }) {
   return (
-    <button
-      onClick={onClick}
-      title={title}
-      className={`w-8 h-8 grid place-items-center rounded-md border transition ${tones[tone]}`}
-    >
+    <button onClick={onClick} title={title} className={`a-action a-action-${tone}`}>
       {children}
     </button>
   );
 }
+
 
 function OrderDetail({ order, onClose, onStatusChange, onPaymentStatusChange, onSaveNote, onDelete }: {
   order: Order;
