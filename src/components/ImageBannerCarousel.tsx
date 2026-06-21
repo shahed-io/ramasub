@@ -101,18 +101,27 @@ export function ImageBannerCarousel() {
 
   useEffect(() => {
     let mounted = true;
-    supabase
-      .from("admin_records")
-      .select("id, is_active, sort_order, data")
-      .eq("kind", "banner_slider")
-      .eq("is_active", true)
-      .order("sort_order", { ascending: true })
-      .then(({ data }) => {
-        if (!mounted) return;
-        setRows((data ?? []) as BannerRow[]);
-      });
+    const load = () => {
+      supabase
+        .from("admin_records")
+        .select("id, is_active, sort_order, data")
+        .eq("kind", "banner_slider")
+        .eq("is_active", true)
+        .order("sort_order", { ascending: true })
+        .then(({ data }) => {
+          if (!mounted) return;
+          setRows((data ?? []) as BannerRow[]);
+        });
+    };
+    load();
+    const onChange = (e: Event) => {
+      const detail = (e as CustomEvent<{ kind?: string }>).detail;
+      if (!detail?.kind || detail.kind === "banner_slider") load();
+    };
+    window.addEventListener("admin-records:changed", onChange);
     return () => {
       mounted = false;
+      window.removeEventListener("admin-records:changed", onChange);
     };
   }, []);
 
