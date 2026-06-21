@@ -354,7 +354,34 @@ function ProductPage() {
             </div>
           </header>
 
-          {/* Plans */}
+          {/* Account Type (from admin meta) */}
+          {(() => {
+            const at = (product.meta as { account_type?: string } | undefined)?.account_type;
+            if (!at || at === "none") return null;
+            const MAP: Record<string, { label: string; icon: string; desc: string }> = {
+              personal:  { label: "Personal",  icon: "👤", desc: "শুধুমাত্র আপনার ব্যক্তিগত ব্যবহারের জন্য" },
+              shared:    { label: "Shared",    icon: "👥", desc: "একাধিক ইউজারে শেয়ার করা অ্যাকাউন্ট" },
+              family:    { label: "Family",    icon: "👪", desc: "পরিবারের সদস্যদের জন্য একসাথে ব্যবহারযোগ্য" },
+              student:   { label: "Student",   icon: "🎓", desc: "শিক্ষার্থীদের জন্য বিশেষ অ্যাকাউন্ট" },
+              business:  { label: "Business",  icon: "🛍️", desc: "বিজনেস ও প্রফেশনাল ব্যবহারের জন্য" },
+            };
+            const info = MAP[at];
+            if (!info) return null;
+            return (
+              <div className="mt-6 space-y-3">
+                <label className="text-xs font-bold text-slate-900 uppercase tracking-widest">অ্যাকাউন্ট টাইপ</label>
+                <div className="flex items-center gap-3 p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/50">
+                  <span className="grid place-items-center w-11 h-11 rounded-xl bg-white border border-indigo-200 text-xl shrink-0" aria-hidden>{info.icon}</span>
+                  <div className="min-w-0">
+                    <div className="font-bold text-slate-900">{info.label}</div>
+                    <div className="text-xs text-slate-600 mt-0.5">{info.desc}</div>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+
+
           {product.plans.length > 0 && (
             <div className="mt-6 space-y-3">
               <label className="text-xs font-bold text-slate-900 uppercase tracking-widest">মেয়াদ ও মূল্য পরিকল্পনা</label>
