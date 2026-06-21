@@ -338,6 +338,7 @@ export function SiteHeader() {
           {/* Mobile horizontal nav strip removed — nav lives in the three-dot menu */}
 
           {/* bottom hairline removed */}
+          </div>
         </div>
 
         {/* Mobile menu — premium slide-in panel */}
