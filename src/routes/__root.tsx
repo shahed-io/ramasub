@@ -120,8 +120,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:title", content: "Rama Sub | Trusted Digital Services in Bangladesh" },
       { property: "og:description", content: "Rama Sub provides digital products, premium subscriptions, hosting, software, with fast support and secure access across Bangladesh." },
       { name: "twitter:description", content: "Rama Sub provides digital products, premium subscriptions, hosting, software, with fast support and secure access across Bangladesh." },
-      { property: "og:image", content: "https://ramasub.com/icons/apple-touch-icon.png" },
-      { name: "twitter:image", content: "https://ramasub.com/icons/apple-touch-icon.png" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/de062542-a538-4372-9e7f-f1f51d5bc8b0" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/de062542-a538-4372-9e7f-f1f51d5bc8b0" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
