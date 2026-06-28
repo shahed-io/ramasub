@@ -54,20 +54,21 @@ function AdminOffersList() {
   const createNew = async () => {
     if (!newTitle.trim()) return toast.error("Title required");
     const slug = slugify(newTitle) + "-" + Math.random().toString(36).slice(2, 6);
+    const payload: any = {
+      title: newTitle.trim(),
+      slug,
+      status: "draft",
+      winner_count: 1,
+      prizes: [{ rank: 1, title: "1st Prize", description: "" }],
+      fields_schema: [
+        { id: "fld_name", type: "text", label: "Your Name", required: true },
+        { id: "fld_email", type: "email", label: "Email", required: true },
+        { id: "fld_phone", type: "phone", label: "WhatsApp / Phone", required: true },
+      ],
+    };
     const { data, error } = await supabase
       .from("offer_campaigns" as never)
-      .insert({ /*cast*/
-        title: newTitle.trim(),
-        slug,
-        status: "draft",
-        winner_count: 1,
-        prizes: [{ rank: 1, title: "1st Prize", description: "" }],
-        fields_schema: [
-          { id: "fld_name", type: "text", label: "Your Name", required: true },
-          { id: "fld_email", type: "email", label: "Email", required: true },
-          { id: "fld_phone", type: "phone", label: "WhatsApp / Phone", required: true },
-        ],
-      })
+      .insert(payload)
       .select("id")
       .single();
     if (error) return toast.error(error.message);
