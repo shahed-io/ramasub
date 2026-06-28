@@ -88,6 +88,7 @@ import { Route as AdminPageRouteImport } from './routes/admin.$page'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicProductsRouteImport } from './routes/api/public/products'
 import { Route as ApiPublicClientErrorsRouteImport } from './routes/api/public/client-errors'
+import { Route as AdminOffersIdRouteImport } from './routes/admin.offers.$id'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -491,6 +492,11 @@ const ApiPublicClientErrorsRoute = ApiPublicClientErrorsRouteImport.update({
   path: '/api/public/client-errors',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminOffersIdRoute = AdminOffersIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminOffersRoute,
+} as any)
 const LovableEmailTransactionalSendRoute =
   LovableEmailTransactionalSendRouteImport.update({
     id: '/lovable/email/transactional/send',
@@ -569,7 +575,7 @@ export interface FileRoutesByFullPath {
   '/admin/license-manager': typeof AdminLicenseManagerRoute
   '/admin/live-chat': typeof AdminLiveChatRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
-  '/admin/offers': typeof AdminOffersRoute
+  '/admin/offers': typeof AdminOffersRouteWithChildren
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
@@ -597,6 +603,7 @@ export interface FileRoutesByFullPath {
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/offers/$id': typeof AdminOffersIdRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -654,7 +661,7 @@ export interface FileRoutesByTo {
   '/admin/license-manager': typeof AdminLicenseManagerRoute
   '/admin/live-chat': typeof AdminLiveChatRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
-  '/admin/offers': typeof AdminOffersRoute
+  '/admin/offers': typeof AdminOffersRouteWithChildren
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
@@ -682,6 +689,7 @@ export interface FileRoutesByTo {
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/offers/$id': typeof AdminOffersIdRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -741,7 +749,7 @@ export interface FileRoutesById {
   '/admin/license-manager': typeof AdminLicenseManagerRoute
   '/admin/live-chat': typeof AdminLiveChatRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
-  '/admin/offers': typeof AdminOffersRoute
+  '/admin/offers': typeof AdminOffersRouteWithChildren
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
@@ -769,6 +777,7 @@ export interface FileRoutesById {
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/offers/$id': typeof AdminOffersIdRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -857,6 +866,7 @@ export interface FileRouteTypes {
     | '/orders/$id'
     | '/product/$slug'
     | '/admin/'
+    | '/admin/offers/$id'
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -942,6 +952,7 @@ export interface FileRouteTypes {
     | '/orders/$id'
     | '/product/$slug'
     | '/admin'
+    | '/admin/offers/$id'
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -1028,6 +1039,7 @@ export interface FileRouteTypes {
     | '/orders/$id'
     | '/product/$slug'
     | '/admin/'
+    | '/admin/offers/$id'
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -1636,6 +1648,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicClientErrorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/offers/$id': {
+      id: '/admin/offers/$id'
+      path: '/$id'
+      fullPath: '/admin/offers/$id'
+      preLoaderRoute: typeof AdminOffersIdRouteImport
+      parentRoute: typeof AdminOffersRoute
+    }
     '/lovable/email/transactional/send': {
       id: '/lovable/email/transactional/send'
       path: '/lovable/email/transactional/send'
@@ -1674,6 +1693,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminOffersRouteChildren {
+  AdminOffersIdRoute: typeof AdminOffersIdRoute
+}
+
+const AdminOffersRouteChildren: AdminOffersRouteChildren = {
+  AdminOffersIdRoute: AdminOffersIdRoute,
+}
+
+const AdminOffersRouteWithChildren = AdminOffersRoute._addFileChildren(
+  AdminOffersRouteChildren,
+)
+
 interface AdminRouteChildren {
   AdminPageRoute: typeof AdminPageRoute
   AdminAbandonedCheckoutRoute: typeof AdminAbandonedCheckoutRoute
@@ -1694,7 +1725,7 @@ interface AdminRouteChildren {
   AdminLicenseManagerRoute: typeof AdminLicenseManagerRoute
   AdminLiveChatRoute: typeof AdminLiveChatRoute
   AdminNewsletterRoute: typeof AdminNewsletterRoute
-  AdminOffersRoute: typeof AdminOffersRoute
+  AdminOffersRoute: typeof AdminOffersRouteWithChildren
   AdminOrderRecoveryRoute: typeof AdminOrderRecoveryRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
   AdminOtherPixelsRoute: typeof AdminOtherPixelsRoute
@@ -1740,7 +1771,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminLicenseManagerRoute: AdminLicenseManagerRoute,
   AdminLiveChatRoute: AdminLiveChatRoute,
   AdminNewsletterRoute: AdminNewsletterRoute,
-  AdminOffersRoute: AdminOffersRoute,
+  AdminOffersRoute: AdminOffersRouteWithChildren,
   AdminOrderRecoveryRoute: AdminOrderRecoveryRoute,
   AdminOrdersRoute: AdminOrdersRoute,
   AdminOtherPixelsRoute: AdminOtherPixelsRoute,

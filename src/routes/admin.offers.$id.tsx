@@ -140,7 +140,7 @@ function AdminOfferEdit() {
       allow_multiple_entries: c.allow_multiple_entries,
       show_winners_publicly: c.show_winners_publicly,
     };
-    const { error } = await supabase.from("offer_campaigns" as never).update(payload).eq("id", c.id);
+    const { error } = await (supabase as any).from("offer_campaigns").update(payload).eq("id", c.id);
     setSaving(false);
     if (error) return toast.error(error.message);
     toast.success("Saved");
