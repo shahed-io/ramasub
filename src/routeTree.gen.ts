@@ -41,6 +41,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as OrdersIdRouteImport } from './routes/orders.$id'
+import { Route as OfferSlugRouteImport } from './routes/offer.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as BlogHowToBuyNetflixInBangladeshRouteImport } from './routes/blog.how-to-buy-netflix-in-bangladesh'
 import { Route as AdminWalletRouteImport } from './routes/admin.wallet'
@@ -254,6 +255,11 @@ const OrdersIdRoute = OrdersIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => OrdersRoute,
+} as any)
+const OfferSlugRoute = OfferSlugRouteImport.update({
+  id: '/offer/$slug',
+  path: '/offer/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
@@ -600,6 +606,7 @@ export interface FileRoutesByFullPath {
   '/admin/wallet': typeof AdminWalletRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/admin/': typeof AdminIndexRoute
@@ -686,6 +693,7 @@ export interface FileRoutesByTo {
   '/admin/wallet': typeof AdminWalletRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/admin': typeof AdminIndexRoute
@@ -774,6 +782,7 @@ export interface FileRoutesById {
   '/admin/wallet': typeof AdminWalletRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/admin/': typeof AdminIndexRoute
@@ -863,6 +872,7 @@ export interface FileRouteTypes {
     | '/admin/wallet'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
+    | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
     | '/admin/'
@@ -949,6 +959,7 @@ export interface FileRouteTypes {
     | '/admin/wallet'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
+    | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
     | '/admin'
@@ -1036,6 +1047,7 @@ export interface FileRouteTypes {
     | '/admin/wallet'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
+    | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
     | '/admin/'
@@ -1082,6 +1094,7 @@ export interface RootRouteChildren {
   WalletRoute: typeof WalletRoute
   BlogHowToBuyNetflixInBangladeshRoute: typeof BlogHowToBuyNetflixInBangladeshRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
+  OfferSlugRoute: typeof OfferSlugRoute
   ProductSlugRoute: typeof ProductSlugRoute
   ApiPublicClientErrorsRoute: typeof ApiPublicClientErrorsRoute
   ApiPublicProductsRoute: typeof ApiPublicProductsRoute
@@ -1318,6 +1331,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/orders/$id'
       preLoaderRoute: typeof OrdersIdRouteImport
       parentRoute: typeof OrdersRoute
+    }
+    '/offer/$slug': {
+      id: '/offer/$slug'
+      path: '/offer/$slug'
+      fullPath: '/offer/$slug'
+      preLoaderRoute: typeof OfferSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/email/unsubscribe': {
       id: '/email/unsubscribe'
@@ -1842,6 +1862,7 @@ const rootRouteChildren: RootRouteChildren = {
   WalletRoute: WalletRoute,
   BlogHowToBuyNetflixInBangladeshRoute: BlogHowToBuyNetflixInBangladeshRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
+  OfferSlugRoute: OfferSlugRoute,
   ProductSlugRoute: ProductSlugRoute,
   ApiPublicClientErrorsRoute: ApiPublicClientErrorsRoute,
   ApiPublicProductsRoute: ApiPublicProductsRoute,
