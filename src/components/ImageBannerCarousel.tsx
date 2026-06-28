@@ -442,6 +442,49 @@ export function ImageBannerCarousel() {
                     width={900}
                     height={900}
                   />
+
+                  {/* CEO badge — elegant glass card floating beside the person */}
+                  <div
+                    className="absolute z-20 pointer-events-none select-none"
+                    style={{
+                      left: "clamp(8px, 2vw, 28px)",
+                      bottom: "clamp(28px, 6vw, 96px)",
+                    }}
+                  >
+                    <div
+                      className="flex items-center gap-2.5 rounded-2xl px-3.5 py-2 backdrop-blur-xl border"
+                      style={{
+                        background: "rgba(255,255,255,0.14)",
+                        borderColor: "rgba(255,255,255,0.32)",
+                        boxShadow:
+                          "0 10px 30px -10px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.35)",
+                      }}
+                    >
+                      <span
+                        className="block rounded-full"
+                        style={{
+                          width: 3,
+                          height: 26,
+                          background: `linear-gradient(180deg, ${p.accent}, rgba(255,255,255,0.35))`,
+                          boxShadow: `0 0 12px ${p.halo}`,
+                        }}
+                      />
+                      <span className="flex flex-col leading-tight" style={{ fontFamily: EN }}>
+                        <span
+                          className="text-[9px] sm:text-[10px] font-bold tracking-[0.22em] uppercase"
+                          style={{ color: p.accent, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
+                        >
+                          CEO
+                        </span>
+                        <span
+                          className="text-[12px] sm:text-[13px] font-extrabold tracking-tight text-white"
+                          style={{ textShadow: "0 1px 3px rgba(0,0,0,0.55)" }}
+                        >
+                          of RamaSub
+                        </span>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
