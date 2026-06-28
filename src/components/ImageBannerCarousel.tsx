@@ -443,44 +443,78 @@ export function ImageBannerCarousel() {
                     height={900}
                   />
 
-                  {/* CEO badge — elegant glass card floating beside the person */}
+                  {/* CEO nameplate — premium horizontal signature */}
                   <div
                     className="absolute z-20 pointer-events-none select-none"
                     style={{
-                      left: "clamp(8px, 2vw, 28px)",
-                      bottom: "clamp(28px, 6vw, 96px)",
+                      left: "clamp(10px, 2.2vw, 32px)",
+                      bottom: "clamp(36px, 7vw, 110px)",
                     }}
                   >
                     <div
-                      className="flex items-center gap-2.5 rounded-2xl px-3.5 py-2 backdrop-blur-xl border"
+                      className="relative flex items-center gap-3 rounded-full pl-1.5 pr-4 sm:pr-5 py-1.5 backdrop-blur-2xl border overflow-hidden"
                       style={{
-                        background: "rgba(255,255,255,0.14)",
-                        borderColor: "rgba(255,255,255,0.32)",
+                        background:
+                          "linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 60%, rgba(255,255,255,0.14) 100%)",
+                        borderColor: "rgba(255,255,255,0.42)",
                         boxShadow:
-                          "0 10px 30px -10px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.35)",
+                          "0 18px 40px -14px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08) inset, inset 0 1px 0 rgba(255,255,255,0.45)",
                       }}
                     >
+                      {/* soft inner sheen */}
                       <span
-                        className="block rounded-full"
+                        aria-hidden
+                        className="absolute inset-0 pointer-events-none"
                         style={{
-                          width: 3,
-                          height: 26,
-                          background: `linear-gradient(180deg, ${p.accent}, rgba(255,255,255,0.35))`,
-                          boxShadow: `0 0 12px ${p.halo}`,
+                          background:
+                            "linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.22) 50%, transparent 70%)",
                         }}
                       />
-                      <span className="flex flex-col leading-tight" style={{ fontFamily: EN }}>
+
+                      {/* Monogram medallion */}
+                      <span
+                        className="relative grid place-items-center rounded-full shrink-0"
+                        style={{
+                          width: 30,
+                          height: 30,
+                          background:
+                            "linear-gradient(135deg, #f7e7a8 0%, #e9c46a 45%, #b8862f 100%)",
+                          boxShadow:
+                            "0 4px 10px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -2px 4px rgba(120,80,10,0.45)",
+                        }}
+                      >
                         <span
-                          className="text-[9px] sm:text-[10px] font-bold tracking-[0.22em] uppercase"
-                          style={{ color: p.accent, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
+                          className="text-[11px] font-black tracking-tight"
+                          style={{
+                            fontFamily: EN,
+                            color: "#3a2606",
+                            textShadow: "0 1px 0 rgba(255,255,255,0.5)",
+                          }}
                         >
-                          CEO
+                          R
+                        </span>
+                      </span>
+
+                      {/* Name + role */}
+                      <span className="relative flex flex-col leading-[1.05]" style={{ fontFamily: EN }}>
+                        <span
+                          className="text-[8.5px] sm:text-[9.5px] font-semibold tracking-[0.32em] uppercase"
+                          style={{
+                            color: "#f3d98a",
+                            textShadow: "0 1px 2px rgba(0,0,0,0.55)",
+                          }}
+                        >
+                          Founder · CEO
                         </span>
                         <span
-                          className="text-[12px] sm:text-[13px] font-extrabold tracking-tight text-white"
-                          style={{ textShadow: "0 1px 3px rgba(0,0,0,0.55)" }}
+                          className="text-[13px] sm:text-[14px] font-extrabold tracking-tight text-white"
+                          style={{
+                            textShadow:
+                              "0 1px 3px rgba(0,0,0,0.6), 0 0 14px rgba(255,255,255,0.25)",
+                            letterSpacing: "-0.005em",
+                          }}
                         >
-                          of RamaSub
+                          RamaSub
                         </span>
                       </span>
                     </div>
