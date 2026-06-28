@@ -464,6 +464,140 @@ export type Database = {
         }
         Relationships: []
       }
+      offer_campaigns: {
+        Row: {
+          ai_selection_prompt: string | null
+          allow_multiple_entries: boolean
+          cover_image: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          ends_at: string | null
+          fields_schema: Json
+          google_form_url: string | null
+          id: string
+          prizes: Json
+          redirect_url: string | null
+          show_winners_publicly: boolean
+          slug: string
+          starts_at: string | null
+          status: string
+          success_message: string | null
+          title: string
+          total_submissions: number
+          updated_at: string
+          winner_count: number
+        }
+        Insert: {
+          ai_selection_prompt?: string | null
+          allow_multiple_entries?: boolean
+          cover_image?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at?: string | null
+          fields_schema?: Json
+          google_form_url?: string | null
+          id?: string
+          prizes?: Json
+          redirect_url?: string | null
+          show_winners_publicly?: boolean
+          slug: string
+          starts_at?: string | null
+          status?: string
+          success_message?: string | null
+          title: string
+          total_submissions?: number
+          updated_at?: string
+          winner_count?: number
+        }
+        Update: {
+          ai_selection_prompt?: string | null
+          allow_multiple_entries?: boolean
+          cover_image?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at?: string | null
+          fields_schema?: Json
+          google_form_url?: string | null
+          id?: string
+          prizes?: Json
+          redirect_url?: string | null
+          show_winners_publicly?: boolean
+          slug?: string
+          starts_at?: string | null
+          status?: string
+          success_message?: string | null
+          title?: string
+          total_submissions?: number
+          updated_at?: string
+          winner_count?: number
+        }
+        Relationships: []
+      }
+      offer_submissions: {
+        Row: {
+          ai_reason: string | null
+          ai_score: number | null
+          answers: Json
+          campaign_id: string
+          created_at: string
+          email: string
+          id: string
+          ip: string | null
+          is_winner: boolean
+          name: string
+          notified_at: string | null
+          phone: string | null
+          user_agent: string | null
+          user_id: string | null
+          winner_rank: number | null
+        }
+        Insert: {
+          ai_reason?: string | null
+          ai_score?: number | null
+          answers?: Json
+          campaign_id: string
+          created_at?: string
+          email: string
+          id?: string
+          ip?: string | null
+          is_winner?: boolean
+          name: string
+          notified_at?: string | null
+          phone?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+          winner_rank?: number | null
+        }
+        Update: {
+          ai_reason?: string | null
+          ai_score?: number | null
+          answers?: Json
+          campaign_id?: string
+          created_at?: string
+          email?: string
+          id?: string
+          ip?: string | null
+          is_winner?: boolean
+          name?: string
+          notified_at?: string | null
+          phone?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+          winner_rank?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "offer_submissions_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "offer_campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       orders: {
         Row: {
           admin_note: string | null

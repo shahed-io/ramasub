@@ -41,6 +41,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as OrdersIdRouteImport } from './routes/orders.$id'
+import { Route as OfferSlugRouteImport } from './routes/offer.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as BlogHowToBuyNetflixInBangladeshRouteImport } from './routes/blog.how-to-buy-netflix-in-bangladesh'
 import { Route as AdminWalletRouteImport } from './routes/admin.wallet'
@@ -65,6 +66,7 @@ import { Route as AdminPaymentLinksRouteImport } from './routes/admin.payment-li
 import { Route as AdminOtherPixelsRouteImport } from './routes/admin.other-pixels'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminOrderRecoveryRouteImport } from './routes/admin.order-recovery'
+import { Route as AdminOffersRouteImport } from './routes/admin.offers'
 import { Route as AdminNewsletterRouteImport } from './routes/admin.newsletter'
 import { Route as AdminLiveChatRouteImport } from './routes/admin.live-chat'
 import { Route as AdminLicenseManagerRouteImport } from './routes/admin.license-manager'
@@ -87,6 +89,7 @@ import { Route as AdminPageRouteImport } from './routes/admin.$page'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicProductsRouteImport } from './routes/api/public/products'
 import { Route as ApiPublicClientErrorsRouteImport } from './routes/api/public/client-errors'
+import { Route as AdminOffersIdRouteImport } from './routes/admin.offers.$id'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -253,6 +256,11 @@ const OrdersIdRoute = OrdersIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => OrdersRoute,
 } as any)
+const OfferSlugRoute = OfferSlugRouteImport.update({
+  id: '/offer/$slug',
+  path: '/offer/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
   path: '/email/unsubscribe',
@@ -374,6 +382,11 @@ const AdminOrderRecoveryRoute = AdminOrderRecoveryRouteImport.update({
   path: '/order-recovery',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminOffersRoute = AdminOffersRouteImport.update({
+  id: '/offers',
+  path: '/offers',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminNewsletterRoute = AdminNewsletterRouteImport.update({
   id: '/newsletter',
   path: '/newsletter',
@@ -485,6 +498,11 @@ const ApiPublicClientErrorsRoute = ApiPublicClientErrorsRouteImport.update({
   path: '/api/public/client-errors',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminOffersIdRoute = AdminOffersIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminOffersRoute,
+} as any)
 const LovableEmailTransactionalSendRoute =
   LovableEmailTransactionalSendRouteImport.update({
     id: '/lovable/email/transactional/send',
@@ -563,6 +581,7 @@ export interface FileRoutesByFullPath {
   '/admin/license-manager': typeof AdminLicenseManagerRoute
   '/admin/live-chat': typeof AdminLiveChatRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
+  '/admin/offers': typeof AdminOffersRouteWithChildren
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
@@ -587,9 +606,11 @@ export interface FileRoutesByFullPath {
   '/admin/wallet': typeof AdminWalletRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/offers/$id': typeof AdminOffersIdRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -647,6 +668,7 @@ export interface FileRoutesByTo {
   '/admin/license-manager': typeof AdminLicenseManagerRoute
   '/admin/live-chat': typeof AdminLiveChatRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
+  '/admin/offers': typeof AdminOffersRouteWithChildren
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
@@ -671,9 +693,11 @@ export interface FileRoutesByTo {
   '/admin/wallet': typeof AdminWalletRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/offers/$id': typeof AdminOffersIdRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -733,6 +757,7 @@ export interface FileRoutesById {
   '/admin/license-manager': typeof AdminLicenseManagerRoute
   '/admin/live-chat': typeof AdminLiveChatRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
+  '/admin/offers': typeof AdminOffersRouteWithChildren
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
@@ -757,9 +782,11 @@ export interface FileRoutesById {
   '/admin/wallet': typeof AdminWalletRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/offers/$id': typeof AdminOffersIdRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -820,6 +847,7 @@ export interface FileRouteTypes {
     | '/admin/license-manager'
     | '/admin/live-chat'
     | '/admin/newsletter'
+    | '/admin/offers'
     | '/admin/order-recovery'
     | '/admin/orders'
     | '/admin/other-pixels'
@@ -844,9 +872,11 @@ export interface FileRouteTypes {
     | '/admin/wallet'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
+    | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
     | '/admin/'
+    | '/admin/offers/$id'
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -904,6 +934,7 @@ export interface FileRouteTypes {
     | '/admin/license-manager'
     | '/admin/live-chat'
     | '/admin/newsletter'
+    | '/admin/offers'
     | '/admin/order-recovery'
     | '/admin/orders'
     | '/admin/other-pixels'
@@ -928,9 +959,11 @@ export interface FileRouteTypes {
     | '/admin/wallet'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
+    | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
     | '/admin'
+    | '/admin/offers/$id'
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -989,6 +1022,7 @@ export interface FileRouteTypes {
     | '/admin/license-manager'
     | '/admin/live-chat'
     | '/admin/newsletter'
+    | '/admin/offers'
     | '/admin/order-recovery'
     | '/admin/orders'
     | '/admin/other-pixels'
@@ -1013,9 +1047,11 @@ export interface FileRouteTypes {
     | '/admin/wallet'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
+    | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
     | '/admin/'
+    | '/admin/offers/$id'
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -1058,6 +1094,7 @@ export interface RootRouteChildren {
   WalletRoute: typeof WalletRoute
   BlogHowToBuyNetflixInBangladeshRoute: typeof BlogHowToBuyNetflixInBangladeshRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
+  OfferSlugRoute: typeof OfferSlugRoute
   ProductSlugRoute: typeof ProductSlugRoute
   ApiPublicClientErrorsRoute: typeof ApiPublicClientErrorsRoute
   ApiPublicProductsRoute: typeof ApiPublicProductsRoute
@@ -1295,6 +1332,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrdersIdRouteImport
       parentRoute: typeof OrdersRoute
     }
+    '/offer/$slug': {
+      id: '/offer/$slug'
+      path: '/offer/$slug'
+      fullPath: '/offer/$slug'
+      preLoaderRoute: typeof OfferSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/email/unsubscribe': {
       id: '/email/unsubscribe'
       path: '/email/unsubscribe'
@@ -1463,6 +1507,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminOrderRecoveryRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/offers': {
+      id: '/admin/offers'
+      path: '/offers'
+      fullPath: '/admin/offers'
+      preLoaderRoute: typeof AdminOffersRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/newsletter': {
       id: '/admin/newsletter'
       path: '/newsletter'
@@ -1617,6 +1668,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicClientErrorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/offers/$id': {
+      id: '/admin/offers/$id'
+      path: '/$id'
+      fullPath: '/admin/offers/$id'
+      preLoaderRoute: typeof AdminOffersIdRouteImport
+      parentRoute: typeof AdminOffersRoute
+    }
     '/lovable/email/transactional/send': {
       id: '/lovable/email/transactional/send'
       path: '/lovable/email/transactional/send'
@@ -1655,6 +1713,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminOffersRouteChildren {
+  AdminOffersIdRoute: typeof AdminOffersIdRoute
+}
+
+const AdminOffersRouteChildren: AdminOffersRouteChildren = {
+  AdminOffersIdRoute: AdminOffersIdRoute,
+}
+
+const AdminOffersRouteWithChildren = AdminOffersRoute._addFileChildren(
+  AdminOffersRouteChildren,
+)
+
 interface AdminRouteChildren {
   AdminPageRoute: typeof AdminPageRoute
   AdminAbandonedCheckoutRoute: typeof AdminAbandonedCheckoutRoute
@@ -1675,6 +1745,7 @@ interface AdminRouteChildren {
   AdminLicenseManagerRoute: typeof AdminLicenseManagerRoute
   AdminLiveChatRoute: typeof AdminLiveChatRoute
   AdminNewsletterRoute: typeof AdminNewsletterRoute
+  AdminOffersRoute: typeof AdminOffersRouteWithChildren
   AdminOrderRecoveryRoute: typeof AdminOrderRecoveryRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
   AdminOtherPixelsRoute: typeof AdminOtherPixelsRoute
@@ -1720,6 +1791,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminLicenseManagerRoute: AdminLicenseManagerRoute,
   AdminLiveChatRoute: AdminLiveChatRoute,
   AdminNewsletterRoute: AdminNewsletterRoute,
+  AdminOffersRoute: AdminOffersRouteWithChildren,
   AdminOrderRecoveryRoute: AdminOrderRecoveryRoute,
   AdminOrdersRoute: AdminOrdersRoute,
   AdminOtherPixelsRoute: AdminOtherPixelsRoute,
@@ -1790,6 +1862,7 @@ const rootRouteChildren: RootRouteChildren = {
   WalletRoute: WalletRoute,
   BlogHowToBuyNetflixInBangladeshRoute: BlogHowToBuyNetflixInBangladeshRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
+  OfferSlugRoute: OfferSlugRoute,
   ProductSlugRoute: ProductSlugRoute,
   ApiPublicClientErrorsRoute: ApiPublicClientErrorsRoute,
   ApiPublicProductsRoute: ApiPublicProductsRoute,

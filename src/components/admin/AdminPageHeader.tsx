@@ -60,6 +60,7 @@ const DESCRIPTIONS: Record<string, Desc> = {
   "/admin/support-widget": { en: "Support chat widget settings", bn: "সাপোর্ট চ্যাট উইজেট সেটিংস" },
 
   "/admin/coupons": { en: "Create and manage discount coupons", bn: "ডিসকাউন্ট কুপন তৈরি ও ম্যানেজ করুন" },
+  "/admin/offers": { en: "Custom giveaway forms with AI winner picker", bn: "নিজস্ব giveaway form ও AI winner picker" },
   "/admin/promotions": { en: "Promotional offers and campaigns", bn: "প্রমোশনাল অফার ও ক্যাম্পেইন" },
   "/admin/review-generator": { en: "Generate authentic looking reviews", bn: "অথেনটিক লুকিং রিভিউ তৈরি করুন" },
   "/admin/security": { en: "Security settings and admin access", bn: "সিকিউরিটি সেটিংস ও অ্যাডমিন অ্যাক্সেস" },
