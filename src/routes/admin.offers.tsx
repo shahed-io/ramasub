@@ -56,7 +56,7 @@ function AdminOffersList() {
     const slug = slugify(newTitle) + "-" + Math.random().toString(36).slice(2, 6);
     const { data, error } = await supabase
       .from("offer_campaigns" as never)
-      .insert(<any>{
+      .insert({ /*cast*/
         title: newTitle.trim(),
         slug,
         status: "draft",
