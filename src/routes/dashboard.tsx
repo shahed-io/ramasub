@@ -195,7 +195,7 @@ function DashboardPage() {
         <WelcomeCard greetingName={greetingName} email={user?.email ?? ""} stats={stats4} />
 
         {/* WELCOME GIFT BANNER */}
-        <GiftBanner onClaim={() => navigate({ to: "/wallet" })} />
+        <GiftBanner onClaim={() => navigate({ to: "/products" })} />
 
         {/* LAYOUT: sidebar + main */}
         <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6">
