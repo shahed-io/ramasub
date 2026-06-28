@@ -1,0 +1,3 @@
+INSERT INTO public.coupons (code, description, type, value, min_subtotal, max_discount, usage_limit, starts_at, ends_at, is_active)
+VALUES ('WELCOME50', 'Welcome gift — ৳50 off your first order', 'flat', 50, 200, NULL, NULL, NULL, NULL, true)
+ON CONFLICT (code) DO UPDATE SET description=EXCLUDED.description, type=EXCLUDED.type, value=EXCLUDED.value, min_subtotal=EXCLUDED.min_subtotal, is_active=true;
