@@ -368,7 +368,54 @@ function StatPill({ icon: Icon, tint, label, value }: { icon: React.ComponentTyp
   );
 }
 
+const WELCOME_COUPON_CODE = "WELCOME50";
+const WELCOME_COUPON_WINDOW_MS = 2 * 60 * 60 * 1000; // 2 hours
+
 function GiftBanner({ onClaim }: { onClaim: () => void }) {
+  const { user } = useAuth();
+  const storageKey = user?.id ? `welcome_coupon_start_${user.id}` : "welcome_coupon_start_guest";
+  const [startedAt, setStartedAt] = useState<number | null>(null);
+  const [remaining, setRemaining] = useState(WELCOME_COUPON_WINDOW_MS);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    try {
+      const existing = localStorage.getItem(storageKey);
+      let ts = existing ? parseInt(existing, 10) : NaN;
+      if (!Number.isFinite(ts)) {
+        ts = Date.now();
+        localStorage.setItem(storageKey, String(ts));
+      }
+      setStartedAt(ts);
+    } catch {
+      setStartedAt(Date.now());
+    }
+  }, [storageKey]);
+
+  useEffect(() => {
+    if (startedAt == null) return;
+    const tick = () => setRemaining(Math.max(0, WELCOME_COUPON_WINDOW_MS - (Date.now() - startedAt)));
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [startedAt]);
+
+  const expired = remaining <= 0;
+  const hh = Math.floor(remaining / 3600000);
+  const mm = Math.floor((remaining % 3600000) / 60000);
+  const ss = Math.floor((remaining % 60000) / 1000);
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(WELCOME_COUPON_CODE);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch { /* ignore */ }
+  };
+
+  if (expired) return null;
+
   return (
     <div className="relative overflow-hidden rounded-3xl p-4 md:p-5 bg-card border border-border shadow-sm">
       <div className="absolute inset-0 opacity-30 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(236,72,153,0.18), rgba(251,191,36,0.18), rgba(139,92,246,0.18))" }} />
@@ -377,17 +424,32 @@ function GiftBanner({ onClaim }: { onClaim: () => void }) {
           <Gift className="w-5 h-5" />
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[10px] font-bold tracking-[0.18em] text-pink-500 dark:text-pink-300">WELCOME GIFT</div>
-          <div className="text-sm md:text-[15px] font-bold text-foreground mt-0.5">🎁 আপনার বিশেষ ছাড় দাবি করুন</div>
-          <div className="text-[11px] text-muted-foreground mt-0.5">Lucky Spin ঘুরিয়ে ৳১০০–১৫০ পর্যন্ত ছাড় পেতে পারেন</div>
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="text-[10px] font-bold tracking-[0.18em] text-pink-500 dark:text-pink-300">WELCOME GIFT</div>
+            <span className="inline-flex items-center gap-1 text-[10px] font-bold tracking-wider text-amber-700 dark:text-amber-300 bg-amber-500/15 border border-amber-500/30 rounded-full px-2 py-0.5 tabular-nums">
+              ⏳ {pad(hh)}:{pad(mm)}:{pad(ss)}
+            </span>
+          </div>
+          <div className="text-sm md:text-[15px] font-bold text-foreground mt-0.5">🎁 ৳৫০ Instant ছাড় — শুধু আপনার জন্য</div>
+          <div className="text-[11px] text-muted-foreground mt-0.5">Checkout-এ কোড apply করুন। সর্বনিম্ন অর্ডার ৳২০০।</div>
         </div>
-        <button
-          onClick={onClaim}
-          className="shrink-0 inline-flex items-center gap-1.5 h-10 px-5 rounded-full text-primary-foreground text-sm font-bold shadow-lg shadow-primary/25 hover:opacity-95 transition"
-          style={{ background: "linear-gradient(90deg,#ec4899,#a855f7)" }}
-        >
-          Claim Now <ChevronRight className="w-4 h-4" />
-        </button>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={copy}
+            className="inline-flex items-center gap-1.5 h-10 px-3 rounded-full border-2 border-dashed border-pink-400/60 dark:border-pink-300/50 bg-white/70 dark:bg-white/5 text-pink-600 dark:text-pink-300 text-sm font-extrabold font-mono tracking-wider hover:bg-pink-50 dark:hover:bg-white/10 transition"
+            title="Copy coupon code"
+          >
+            {WELCOME_COUPON_CODE}
+            {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+          </button>
+          <button
+            onClick={onClaim}
+            className="inline-flex items-center gap-1.5 h-10 px-5 rounded-full text-primary-foreground text-sm font-bold shadow-lg shadow-primary/25 hover:opacity-95 transition"
+            style={{ background: "linear-gradient(90deg,#ec4899,#a855f7)" }}
+          >
+            Use Now <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
       </div>
     </div>
   );
