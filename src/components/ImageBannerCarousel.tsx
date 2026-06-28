@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, UserRound } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import personAsset from "@/assets/rama-person-cutout.png.asset.json";
 
@@ -443,7 +443,7 @@ export function ImageBannerCarousel() {
                     height={900}
                   />
 
-                  {/* CEO nameplate — premium horizontal signature */}
+                  {/* CEO chip — person icon + single line label */}
                   <div
                     className="absolute z-20 pointer-events-none select-none"
                     style={{
@@ -452,16 +452,16 @@ export function ImageBannerCarousel() {
                     }}
                   >
                     <div
-                      className="relative flex items-center gap-3 rounded-full pl-1.5 pr-4 sm:pr-5 py-1.5 backdrop-blur-2xl border overflow-hidden"
+                      className="relative flex items-center gap-2.5 rounded-full pl-1.5 pr-4 py-1.5 backdrop-blur-2xl border overflow-hidden"
                       style={{
                         background:
-                          "linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 60%, rgba(255,255,255,0.14) 100%)",
-                        borderColor: "rgba(255,255,255,0.42)",
+                          "linear-gradient(135deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.08) 60%, rgba(255,255,255,0.14) 100%)",
+                        borderColor: "rgba(255,255,255,0.45)",
                         boxShadow:
-                          "0 18px 40px -14px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08) inset, inset 0 1px 0 rgba(255,255,255,0.45)",
+                          "0 16px 36px -14px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.45)",
                       }}
                     >
-                      {/* soft inner sheen */}
+                      {/* gloss sweep */}
                       <span
                         aria-hidden
                         className="absolute inset-0 pointer-events-none"
@@ -471,51 +471,34 @@ export function ImageBannerCarousel() {
                         }}
                       />
 
-                      {/* Monogram medallion */}
+                      {/* Person icon medallion */}
                       <span
                         className="relative grid place-items-center rounded-full shrink-0"
                         style={{
-                          width: 30,
-                          height: 30,
+                          width: 28,
+                          height: 28,
                           background:
-                            "linear-gradient(135deg, #f7e7a8 0%, #e9c46a 45%, #b8862f 100%)",
+                            "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.65))",
                           boxShadow:
-                            "0 4px 10px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -2px 4px rgba(120,80,10,0.45)",
+                            "0 3px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.9)",
                         }}
                       >
-                        <span
-                          className="text-[11px] font-black tracking-tight"
-                          style={{
-                            fontFamily: EN,
-                            color: "#3a2606",
-                            textShadow: "0 1px 0 rgba(255,255,255,0.5)",
-                          }}
-                        >
-                          R
-                        </span>
+                        <UserRound
+                          className="h-3.5 w-3.5"
+                          strokeWidth={2.5}
+                          style={{ color: "#0f172a" }}
+                        />
                       </span>
 
-                      {/* Name + role */}
-                      <span className="relative flex flex-col leading-[1.05]" style={{ fontFamily: EN }}>
-                        <span
-                          className="text-[8.5px] sm:text-[9.5px] font-semibold tracking-[0.32em] uppercase"
-                          style={{
-                            color: "#f3d98a",
-                            textShadow: "0 1px 2px rgba(0,0,0,0.55)",
-                          }}
-                        >
-                          Founder · CEO
-                        </span>
-                        <span
-                          className="text-[13px] sm:text-[14px] font-extrabold tracking-tight text-white"
-                          style={{
-                            textShadow:
-                              "0 1px 3px rgba(0,0,0,0.6), 0 0 14px rgba(255,255,255,0.25)",
-                            letterSpacing: "-0.005em",
-                          }}
-                        >
-                          RamaSub
-                        </span>
+                      {/* Single-line label */}
+                      <span
+                        className="relative text-[12px] sm:text-[13px] font-bold tracking-wide text-white whitespace-nowrap"
+                        style={{
+                          fontFamily: EN,
+                          textShadow: "0 1px 3px rgba(0,0,0,0.55)",
+                        }}
+                      >
+                        CEO of RamaSub
                       </span>
                     </div>
                   </div>
