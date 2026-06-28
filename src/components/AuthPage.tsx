@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Loader2, Eye, EyeOff, X, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable";
 import { useAuth } from "@/context/AuthContext";
 import { sendTransactionalEmail } from "@/lib/email/send";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -89,11 +90,18 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
   const oauth = async (provider: "google" | "apple") => {
     setErr(null);
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider,
-        options: { redirectTo: `${window.location.origin}${returnTo}` },
+      // Save where to return so we can navigate after session hydrates
+      try {
+        if (returnTo && returnTo !== "/") {
+          window.sessionStorage.setItem("auth:returnTo", returnTo);
+        }
+      } catch { /* ignore */ }
+      const result = await lovable.auth.signInWithOAuth(provider, {
+        redirect_uri: window.location.origin,
       });
-      if (error) throw error;
+      if (result.error) throw new Error(result.error.message || "Social sign-in failed");
+      // If result.redirected, browser is navigating away.
+      // Otherwise tokens are set; the AuthContext listener will pick it up.
     } catch (e: unknown) {
       setErr(e instanceof Error ? e.message : "Social sign-in failed");
     }
