@@ -110,13 +110,13 @@ export const aiPickWinners = createServerFn({ method: "POST" })
     // Reset previous winners then mark new ones
     await supabaseAdmin
       .from("offer_submissions" as never)
-      .update({ is_winner: false, winner_rank: null, ai_score: null, ai_reason: null })
+      .update(<any>{ is_winner: false, winner_rank: null, ai_score: null, ai_reason: null })
       .eq("campaign_id", data.campaignId);
 
     for (const w of selected) {
       await supabaseAdmin
         .from("offer_submissions" as never)
-        .update({
+        .update(<any>{
           is_winner: true,
           winner_rank: w.rank,
           ai_score: w.score,
@@ -143,7 +143,7 @@ export const setWinnerManual = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("offer_submissions" as never)
-      .update({
+      .update(<any>{
         is_winner: data.isWinner,
         winner_rank: data.isWinner ? (data.rank ?? 1) : null,
         ai_reason: data.isWinner ? "Manually selected by admin" : null,
