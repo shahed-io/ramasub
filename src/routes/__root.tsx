@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { installErrorLogger } from "@/lib/error-logger";
 import { startScrollPerfMonitor } from "@/lib/scrollPerfMonitor";
+import { registerServiceWorker } from "@/lib/registerSW";
 
 import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
@@ -161,6 +162,7 @@ function RootComponent() {
 
   useEffect(() => {
     installErrorLogger();
+    registerServiceWorker();
     const stopPerf = startScrollPerfMonitor();
     return () => {
       stopPerf();
