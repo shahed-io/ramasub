@@ -43,6 +43,7 @@ export default defineConfig({
         strategies: "generateSW",
         workbox: {
           globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,woff2}"],
+          maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
           navigateFallback: "/",
           navigateFallbackDenylist: [
             /^\/api\//,
