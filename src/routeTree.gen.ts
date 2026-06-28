@@ -65,6 +65,7 @@ import { Route as AdminPaymentLinksRouteImport } from './routes/admin.payment-li
 import { Route as AdminOtherPixelsRouteImport } from './routes/admin.other-pixels'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminOrderRecoveryRouteImport } from './routes/admin.order-recovery'
+import { Route as AdminOffersRouteImport } from './routes/admin.offers'
 import { Route as AdminNewsletterRouteImport } from './routes/admin.newsletter'
 import { Route as AdminLiveChatRouteImport } from './routes/admin.live-chat'
 import { Route as AdminLicenseManagerRouteImport } from './routes/admin.license-manager'
@@ -374,6 +375,11 @@ const AdminOrderRecoveryRoute = AdminOrderRecoveryRouteImport.update({
   path: '/order-recovery',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminOffersRoute = AdminOffersRouteImport.update({
+  id: '/offers',
+  path: '/offers',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminNewsletterRoute = AdminNewsletterRouteImport.update({
   id: '/newsletter',
   path: '/newsletter',
@@ -563,6 +569,7 @@ export interface FileRoutesByFullPath {
   '/admin/license-manager': typeof AdminLicenseManagerRoute
   '/admin/live-chat': typeof AdminLiveChatRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
+  '/admin/offers': typeof AdminOffersRoute
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
@@ -647,6 +654,7 @@ export interface FileRoutesByTo {
   '/admin/license-manager': typeof AdminLicenseManagerRoute
   '/admin/live-chat': typeof AdminLiveChatRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
+  '/admin/offers': typeof AdminOffersRoute
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
@@ -733,6 +741,7 @@ export interface FileRoutesById {
   '/admin/license-manager': typeof AdminLicenseManagerRoute
   '/admin/live-chat': typeof AdminLiveChatRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
+  '/admin/offers': typeof AdminOffersRoute
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
@@ -820,6 +829,7 @@ export interface FileRouteTypes {
     | '/admin/license-manager'
     | '/admin/live-chat'
     | '/admin/newsletter'
+    | '/admin/offers'
     | '/admin/order-recovery'
     | '/admin/orders'
     | '/admin/other-pixels'
@@ -904,6 +914,7 @@ export interface FileRouteTypes {
     | '/admin/license-manager'
     | '/admin/live-chat'
     | '/admin/newsletter'
+    | '/admin/offers'
     | '/admin/order-recovery'
     | '/admin/orders'
     | '/admin/other-pixels'
@@ -989,6 +1000,7 @@ export interface FileRouteTypes {
     | '/admin/license-manager'
     | '/admin/live-chat'
     | '/admin/newsletter'
+    | '/admin/offers'
     | '/admin/order-recovery'
     | '/admin/orders'
     | '/admin/other-pixels'
@@ -1463,6 +1475,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminOrderRecoveryRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/offers': {
+      id: '/admin/offers'
+      path: '/offers'
+      fullPath: '/admin/offers'
+      preLoaderRoute: typeof AdminOffersRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/newsletter': {
       id: '/admin/newsletter'
       path: '/newsletter'
@@ -1675,6 +1694,7 @@ interface AdminRouteChildren {
   AdminLicenseManagerRoute: typeof AdminLicenseManagerRoute
   AdminLiveChatRoute: typeof AdminLiveChatRoute
   AdminNewsletterRoute: typeof AdminNewsletterRoute
+  AdminOffersRoute: typeof AdminOffersRoute
   AdminOrderRecoveryRoute: typeof AdminOrderRecoveryRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
   AdminOtherPixelsRoute: typeof AdminOtherPixelsRoute
@@ -1720,6 +1740,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminLicenseManagerRoute: AdminLicenseManagerRoute,
   AdminLiveChatRoute: AdminLiveChatRoute,
   AdminNewsletterRoute: AdminNewsletterRoute,
+  AdminOffersRoute: AdminOffersRoute,
   AdminOrderRecoveryRoute: AdminOrderRecoveryRoute,
   AdminOrdersRoute: AdminOrdersRoute,
   AdminOtherPixelsRoute: AdminOtherPixelsRoute,
