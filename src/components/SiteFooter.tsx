@@ -8,6 +8,7 @@ import {
   FileText,
 } from "lucide-react";
 import ramaSubLogoAsset from "@/assets/rama-logo-new.png.asset.json";
+import { InstallAppButton } from "@/components/InstallAppButton";
 const ramaSubLogo = ramaSubLogoAsset.url;
 
 type LinkTo =
@@ -226,6 +227,13 @@ export function SiteFooter() {
                     </span>
                   </a>
                 ))}
+              </div>
+
+              <div className="mt-1">
+                <InstallAppButton className="w-full justify-center sm:w-auto" />
+                <p className="mt-1.5 text-[11px] text-white/60">
+                  সব ডিভাইসে — Android, iPhone, iPad, Windows, Mac
+                </p>
               </div>
             </div>
           </section>
