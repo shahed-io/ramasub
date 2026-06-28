@@ -8,6 +8,7 @@ import {
   FileText,
 } from "lucide-react";
 import ramaSubLogoAsset from "@/assets/rama-logo-new.png.asset.json";
+import { InstallAppButton } from "@/components/InstallAppButton";
 const ramaSubLogo = ramaSubLogoAsset.url;
 
 type LinkTo =
