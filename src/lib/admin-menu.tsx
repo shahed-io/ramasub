@@ -127,6 +127,7 @@ export const ADMIN_MENU: AdminMenuGroup[] = [
     icon: ic(MegaphoneIcon),
     items: [
       { to: "/admin/coupons", label: "Coupons", labelBn: "কুপন", icon: ic(TicketPercent), grad: "from-rose-500 to-pink-500" },
+      { to: "/admin/offers", label: "Offers & Giveaways", labelBn: "অফার ও গিভঅ্যাওয়ে", icon: ic(Gift), grad: "from-pink-500 to-fuchsia-600", badge: "NEW" },
       { to: "/admin/biggest-discount", label: "Biggest Discount", labelBn: "সর্বোচ্চ ডিসকাউন্ট", icon: ic(Percent), grad: "from-rose-500 to-red-600" },
       { to: "/admin/marketing", label: "Marketing Campaigns", labelBn: "মার্কেটিং ক্যাম্পেইন", icon: ic(MegaphoneIcon), grad: "from-orange-500 to-rose-500" },
       { to: "/admin/ad-campaigns", label: "Ad Campaigns", labelBn: "অ্যাড ক্যাম্পেইন", icon: ic(Target), grad: "from-rose-500 to-red-500" },
