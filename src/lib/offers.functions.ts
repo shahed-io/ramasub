@@ -22,7 +22,7 @@ export const aiPickWinners = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { supabaseAdmin: sa } = await import("@/integrations/supabase/client.server"); const supabaseAdmin = sa as any;
 
     const { data: campaign, error: cErr } = await supabaseAdmin
       .from("offer_campaigns" as never)
@@ -110,13 +110,13 @@ export const aiPickWinners = createServerFn({ method: "POST" })
     // Reset previous winners then mark new ones
     await supabaseAdmin
       .from("offer_submissions" as never)
-      .update(<any>{ is_winner: false, winner_rank: null, ai_score: null, ai_reason: null })
+      .update({ is_winner: false, winner_rank: null, ai_score: null, ai_reason: null })
       .eq("campaign_id", data.campaignId);
 
     for (const w of selected) {
       await supabaseAdmin
         .from("offer_submissions" as never)
-        .update(<any>{
+        .update({
           is_winner: true,
           winner_rank: w.rank,
           ai_score: w.score,
@@ -140,10 +140,10 @@ export const setWinnerManual = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { supabaseAdmin: sa } = await import("@/integrations/supabase/client.server"); const supabaseAdmin = sa as any;
     const { error } = await supabaseAdmin
       .from("offer_submissions" as never)
-      .update(<any>{
+      .update({
         is_winner: data.isWinner,
         winner_rank: data.isWinner ? (data.rank ?? 1) : null,
         ai_reason: data.isWinner ? "Manually selected by admin" : null,
