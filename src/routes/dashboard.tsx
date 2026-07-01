@@ -715,8 +715,8 @@ function EditProfile({ profile, onSaved, onCancel }: { profile: { display_name?:
             </div>
           )}
           {okAt && (
-            <div className="md:col-span-2 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-sm px-4 py-3 inline-flex items-center gap-2">
-              <Check className="w-4 h-4" /> সংরক্ষণ হয়েছে
+            <div className="md:col-span-2 rounded-xl bg-emerald-600 text-white text-sm font-semibold px-4 py-3 inline-flex items-center gap-2 shadow-sm border border-emerald-700">
+              <Check className="w-4 h-4" strokeWidth={3} /> সংরক্ষণ হয়েছে
             </div>
           )}
           <div className="md:col-span-2 flex gap-3">
