@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight, UserRound } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import personAsset from "@/assets/rama-person-cutout.png.asset.json";
 
@@ -135,36 +136,41 @@ const BN = "'Hind Siliguri', system-ui, sans-serif";
 const EN = "'Inter', system-ui, sans-serif";
 
 export function ImageBannerCarousel() {
-  const [rows, setRows] = useState<BannerRow[] | null>(null);
+  const queryClient = useQueryClient();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const touchX = useRef<number | null>(null);
 
-  useEffect(() => {
-    let mounted = true;
-    const load = () => {
-      supabase
+  // Cached across page navigations — was previously a bare fetch inside a
+  // useEffect, which re-hit PostgREST on every mount of the home page.
+  const { data: rows } = useQuery({
+    queryKey: ["admin-records", "banner_slider"],
+    queryFn: async (): Promise<BannerRow[]> => {
+      const { data } = await supabase
         .from("admin_records")
         .select("id, is_active, sort_order, data")
         .eq("kind", "banner_slider")
         .eq("is_active", true)
-        .order("sort_order", { ascending: true })
-        .then(({ data }) => {
-          if (!mounted) return;
-          setRows((data ?? []) as BannerRow[]);
-        });
-    };
-    load();
+        .order("sort_order", { ascending: true });
+      return (data ?? []) as BannerRow[];
+    },
+    staleTime: 10 * 60_000,
+    gcTime: 60 * 60_000,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: 1,
+  });
+
+  useEffect(() => {
     const onChange = (e: Event) => {
       const detail = (e as CustomEvent<{ kind?: string }>).detail;
-      if (!detail?.kind || detail.kind === "banner_slider") load();
+      if (!detail?.kind || detail.kind === "banner_slider") {
+        queryClient.invalidateQueries({ queryKey: ["admin-records", "banner_slider"] });
+      }
     };
     window.addEventListener("admin-records:changed", onChange);
-    return () => {
-      mounted = false;
-      window.removeEventListener("admin-records:changed", onChange);
-    };
-  }, []);
+    return () => window.removeEventListener("admin-records:changed", onChange);
+  }, [queryClient]);
 
   const slides = useMemo(
     () => (rows && rows.length > 0 ? rows : DEFAULT_SLIDES),
