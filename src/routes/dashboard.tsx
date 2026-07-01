@@ -1307,7 +1307,7 @@ function SecurityView() {
             </div>
           </Field>
           <Field label="কনফার্ম পাসওয়ার্ড"><Input type={show ? "text" : "password"} value={pw.confirm} onChange={(e) => setPw({ ...pw, confirm: e.target.value })} /></Field>
-          {msg && <div className={`md:col-span-2 text-sm px-3 py-2 rounded-xl ${msg.kind === "ok" ? "bg-emerald-500/10 text-emerald-500" : "bg-rose-500/10 text-rose-500"}`}>{msg.text}</div>}
+          {msg && <div className={`md:col-span-2 text-sm px-3 py-2 rounded-xl ${msg.kind === "ok" ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300" : "bg-rose-500/10 text-rose-700 dark:text-rose-300"}`}>{msg.text}</div>}
           <div className="md:col-span-2"><Btn type="submit" variant="primary">{busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Shield className="w-4 h-4" />}পাসওয়ার্ড আপডেট</Btn></div>
         </form>
       </Card>
