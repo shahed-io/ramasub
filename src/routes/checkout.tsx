@@ -9,6 +9,7 @@ import { useAppliedCoupon, redeemCoupon } from "@/lib/coupons";
 import { usePaymentMethods } from "@/hooks/useShopConfig";
 import { sendTransactionalEmail } from "@/lib/email/send";
 import { trackPurchase } from "@/lib/trackEvent";
+import { notifyTelegram } from "@/lib/telegram";
 
 
 function CheckoutErrorComponent({ error }: { error: Error }) {
@@ -303,6 +304,20 @@ function CheckoutPage() {
       } catch {
         /* ignore */
       }
+      notifyTelegram({
+        event: "order_created",
+        title: "নতুন অর্ডার এসেছে!",
+        lines: [
+          ["Order ID", `ANB-${newId.slice(0, 8).toUpperCase()}`],
+          ["Customer", form.name],
+          ["Phone", form.phone],
+          ["Email", form.email],
+          ["Items", items.map((it) => `${it.name} × ${it.qty}`).join(", ")],
+          ["Payment", fullyByWallet ? "Wallet" : method],
+          ["Total", `৳${subAfterCoupon}`],
+        ],
+        url: `https://ramasub.com/orders/${newId}`,
+      });
       clear();
       navigate({ to: "/orders/$id", params: { id: newId }, search: { new: 1 } });
       return;
