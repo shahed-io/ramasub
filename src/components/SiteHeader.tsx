@@ -418,8 +418,10 @@ export function SiteHeader() {
                 <div className="relative overflow-hidden rounded-2xl p-4 bg-[linear-gradient(120deg,#6d28d9_0%,#a855f7_50%,#ec4899_100%)] shadow-[0_18px_40px_-14px_rgba(168,85,247,0.55)]">
                   <span className="pointer-events-none absolute -right-10 -top-10 w-32 h-32 rounded-full bg-white/20 blur-2xl" />
                   <div className="relative flex items-center gap-3">
-                    <span className="grid place-items-center w-12 h-12 rounded-full bg-white/20 ring-2 ring-white/40 text-white font-extrabold text-base shrink-0">
-                      {user ? friendlyName.charAt(0).toUpperCase() : <UserCircle2 className="w-6 h-6" />}
+                    <span className="grid place-items-center w-12 h-12 rounded-full bg-white/20 ring-2 ring-white/40 text-white font-extrabold text-base shrink-0 overflow-hidden">
+                      {user && avatarUrl ? (
+                        <img src={avatarUrl} alt={friendlyName} referrerPolicy="no-referrer" className="w-full h-full object-cover" onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+                      ) : user ? friendlyName.charAt(0).toUpperCase() : <UserCircle2 className="w-6 h-6" />}
                     </span>
                     <div className="min-w-0 flex-1">
                       <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/80">
