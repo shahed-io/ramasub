@@ -378,26 +378,15 @@ export function ImageBannerCarousel() {
                   <div className="flex flex-wrap justify-center md:justify-start gap-2.5 sm:gap-3 pt-1">
                     <Link
                       to={link as never}
-                      className="inline-flex items-center justify-center rounded-2xl px-8 sm:px-10 py-3.5 text-sm sm:text-base font-bold text-white transition-all hover:translate-y-[-2px] active:translate-y-0"
-                      style={{
-                        fontFamily: BN,
-                        background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
-                        border: "1px solid rgba(255,255,255,0.25)",
-                        boxShadow: "0 14px 32px -10px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.2)",
-                        textShadow: "0 1px 2px rgba(0,0,0,0.5)",
-                      }}
+                      className="hero-cta hero-cta-primary keep-white inline-flex items-center justify-center rounded-2xl px-8 sm:px-10 py-3.5 text-sm sm:text-base font-bold transition-all hover:translate-y-[-2px] active:translate-y-0"
+                      style={{ fontFamily: BN }}
                     >
                       {cta}
                     </Link>
                     <Link
                       to={secLink as never}
-                      className="inline-flex items-center justify-center rounded-2xl px-7 sm:px-9 py-3.5 text-sm sm:text-base font-semibold text-white border border-white/60 backdrop-blur-md transition-all hover:brightness-110"
-                      style={{
-                        fontFamily: BN,
-                        background: "rgba(255,255,255,0.22)",
-                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.35), 0 6px 18px -6px rgba(0,0,0,0.35)",
-                        textShadow: "0 1px 2px rgba(0,0,0,0.45)",
-                      }}
+                      className="hero-cta hero-cta-secondary keep-white inline-flex items-center justify-center rounded-2xl px-7 sm:px-9 py-3.5 text-sm sm:text-base font-semibold transition-all hover:brightness-110"
+                      style={{ fontFamily: BN }}
                     >
                       {secCta}
                     </Link>
