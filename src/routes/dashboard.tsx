@@ -637,7 +637,7 @@ function ProfileField({ label, icon: Icon, value, verified }: { label: string; i
         <Icon className="w-4 h-4 text-muted-foreground shrink-0" />
         <span className="flex-1 text-sm font-medium text-foreground truncate">{value}</span>
         {verified && (
-          <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 shrink-0">
+          <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-800 dark:text-emerald-200 border border-emerald-600/40 shrink-0">
             <Check className="w-3 h-3" strokeWidth={3} /> Verified
           </span>
         )}
