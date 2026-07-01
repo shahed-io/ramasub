@@ -942,32 +942,125 @@ function Downloads({ orders }: { orders: Order[] }) {
 }
 
 
+type LicenseEntry = {
+  orderId: string;
+  createdAt: string;
+  productName: string;
+  planPeriod?: string;
+  emoji?: string;
+  key: string;
+  type?: string;
+  expiry?: string;
+  delivered_via?: string;
+};
+
 function Licenses() {
-  const keys = [
-    { p: "Netflix Premium", k: "NFLX-XXXX-YYYY-ZZZZ-2026" },
-    { p: "Adobe CC", k: "ADBE-AAAA-BBBB-CCCC-2027" },
-  ];
+  const { user } = useAuth();
+  const [rows, setRows] = useState<LicenseEntry[] | null>(null);
+
+  const load = async (uid: string) => {
+    const { data, error } = await supabase
+      .from("orders")
+      .select("id,created_at,items,delivered_credentials,status")
+      .eq("user_id", uid)
+      .order("created_at", { ascending: false });
+    if (error) { setRows([]); return; }
+    const out: LicenseEntry[] = [];
+    for (const o of data ?? []) {
+      const items = (Array.isArray(o.items) ? o.items : []) as OrderItem[];
+      const dc = (o.delivered_credentials as { items?: Array<{ key?: string; type?: string; expiry?: string; delivered_via?: string }> } | null) ?? null;
+      const delivered = Array.isArray(dc?.items) ? dc!.items! : [];
+      items.forEach((it, idx) => {
+        const d = delivered[idx];
+        if (!d || !d.key || !String(d.key).trim()) return;
+        out.push({
+          orderId: o.id,
+          createdAt: o.created_at,
+          productName: it.name || it.slug || "Product",
+          planPeriod: it.planPeriod,
+          emoji: it.emoji,
+          key: String(d.key),
+          type: d.type,
+          expiry: d.expiry,
+          delivered_via: d.delivered_via,
+        });
+      });
+    }
+    setRows(out);
+  };
+
+  useEffect(() => {
+    if (!user?.id) { setRows([]); return; }
+    load(user.id);
+    const ch = supabase
+      .channel(`user-licenses-${user.id}`)
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "orders", filter: `user_id=eq.${user.id}` },
+        () => load(user.id),
+      )
+      .subscribe();
+    return () => { supabase.removeChannel(ch); };
+  }, [user?.id]);
+
   return (
     <div className="space-y-6">
-      <PageHead title="License Keys" desc="Your purchased license keys" />
+      <PageHead title="License Keys" desc="Your purchased license keys — admin delivers, appears here live" />
       <Card>
-        <div className="space-y-2">
-          {keys.map((k) => <CopyRow key={k.p} label={k.p} value={k.k} />)}
-        </div>
+        {rows === null ? (
+          <div className="py-10 grid place-items-center text-muted-foreground text-sm">
+            <Loader2 className="w-5 h-5 animate-spin" />
+          </div>
+        ) : rows.length === 0 ? (
+          <Empty
+            icon={<KeyRound className="w-6 h-6" />}
+            msg="এখনো কোন license key deliver করা হয়নি। order complete হলে admin panel থেকে key add করা হলে এখানে সাথে সাথে দেখাবে।"
+          />
+        ) : (
+          <div className="space-y-2">
+            {rows.map((r, i) => (
+              <LicenseRow key={`${r.orderId}-${i}`} entry={r} />
+            ))}
+          </div>
+        )}
       </Card>
     </div>
   );
 }
-function CopyRow({ label, value }: { label: string; value: string }) {
+
+function LicenseRow({ entry }: { entry: LicenseEntry }) {
   const [c, setC] = useState(false);
+  const [show, setShow] = useState(false);
+  const isExpiryLifetime = !entry.expiry || entry.expiry.toLowerCase() === "lifetime";
+  const expiryLabel = isExpiryLifetime
+    ? "Lifetime"
+    : (() => { const d = new Date(entry.expiry as string); return isNaN(d.getTime()) ? entry.expiry : d.toLocaleDateString(); })();
+  const label = `${entry.emoji ? entry.emoji + " " : ""}${entry.productName}${entry.planPeriod ? " · " + entry.planPeriod : ""}`;
   return (
     <div className="flex flex-wrap items-center gap-3 p-3 rounded-xl glass border border-[var(--glass-border)]">
-      <KeyRound className="w-4 h-4 text-primary" />
+      <KeyRound className="w-4 h-4 text-primary shrink-0" />
       <div className="flex-1 min-w-0">
-        <div className="text-xs text-muted-foreground">{label}</div>
-        <div className="font-mono text-sm truncate">{value}</div>
+        <div className="text-xs text-muted-foreground truncate">{label}</div>
+        <div className="font-mono text-sm truncate text-foreground">
+          {show ? entry.key : "•".repeat(Math.min(24, Math.max(8, entry.key.length)))}
+        </div>
+        <div className="mt-1 flex flex-wrap items-center gap-1.5 text-[10px] text-muted-foreground">
+          {entry.type && <span className="px-1.5 py-0.5 rounded-full bg-muted">{entry.type}</span>}
+          <span className="px-1.5 py-0.5 rounded-full bg-muted">Expires: {expiryLabel}</span>
+          {entry.delivered_via && <span className="px-1.5 py-0.5 rounded-full bg-muted">via {entry.delivered_via}</span>}
+        </div>
       </div>
-      <button onClick={() => { navigator.clipboard.writeText(value); setC(true); setTimeout(() => setC(false), 1500); }} className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline">
+      <button
+        onClick={() => setShow((v) => !v)}
+        className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground"
+        title={show ? "Hide" : "Show"}
+      >
+        {show ? <><EyeOff className="w-3.5 h-3.5" />Hide</> : <><Eye className="w-3.5 h-3.5" />Show</>}
+      </button>
+      <button
+        onClick={() => { navigator.clipboard.writeText(entry.key); setC(true); setTimeout(() => setC(false), 1500); }}
+        className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
+      >
         {c ? <><Check className="w-3.5 h-3.5" />Copied</> : <><Copy className="w-3.5 h-3.5" />Copy</>}
       </button>
     </div>
