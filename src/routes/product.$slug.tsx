@@ -308,6 +308,53 @@ function ProductPage() {
               </div>
             </div>
           )}
+
+          {/* Trust builders — why customers can buy with confidence */}
+          <div className="rounded-3xl overflow-hidden border border-slate-200 bg-gradient-to-br from-white via-indigo-50/40 to-emerald-50/40 shadow-sm">
+            <div className="px-5 md:px-6 py-4 border-b border-slate-200/70 bg-white/60 backdrop-blur-sm flex items-center gap-2">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                <ShieldCheck className="w-4 h-4" />
+              </span>
+              <div className="min-w-0">
+                <div className="text-sm font-bold text-slate-900 leading-tight">কেন RamaSub থেকে কিনবেন?</div>
+                <div className="text-[11px] text-slate-500 leading-tight">১০,০০০+ সন্তুষ্ট গ্রাহকের বিশ্বস্ত পছন্দ</div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2.5 p-3 md:p-4">
+              {[
+                { icon: Zap, title: "ইনস্ট্যান্ট ডেলিভারি", desc: "পেমেন্টের পরপরই অ্যাকাউন্টে", color: "text-amber-600", bg: "bg-amber-50", ring: "ring-amber-100" },
+                { icon: RefreshCw, title: "রিপ্লেসমেন্ট ওয়ারেন্টি", desc: "সমস্যা হলে ফ্রি রিপ্লেস", color: "text-indigo-600", bg: "bg-indigo-50", ring: "ring-indigo-100" },
+                { icon: Lock, title: "সুরক্ষিত পেমেন্ট", desc: "SSL এনক্রিপ্টেড চেকআউট", color: "text-emerald-600", bg: "bg-emerald-50", ring: "ring-emerald-100" },
+                { icon: Headphones, title: "২৪/৭ লাইভ সাপোর্ট", desc: "WhatsApp-এ সাথে সাথে", color: "text-sky-600", bg: "bg-sky-50", ring: "ring-sky-100" },
+              ].map((f) => {
+                const Icon = f.icon;
+                return (
+                  <div key={f.title} className={`flex items-start gap-3 rounded-2xl bg-white p-3 ring-1 ${f.ring} shadow-[0_1px_0_rgba(15,23,42,0.04)]`}>
+                    <span className={`shrink-0 inline-flex h-9 w-9 items-center justify-center rounded-xl ${f.bg} ${f.color}`}>
+                      <Icon className="w-4.5 h-4.5" />
+                    </span>
+                    <div className="min-w-0">
+                      <div className="text-[13px] font-bold text-slate-900 leading-tight truncate">{f.title}</div>
+                      <div className="text-[11px] text-slate-500 leading-snug mt-0.5">{f.desc}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="px-4 md:px-5 pb-4 pt-1 flex items-center justify-between gap-3 flex-wrap">
+              <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-600">
+                <BadgeCheck className="w-4 h-4 text-indigo-600" />
+                <span>Verified Seller · RamaSub.com</span>
+              </div>
+              <div className="flex items-center gap-1">
+                {[0,1,2,3,4].map((i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                ))}
+                <span className="text-[11px] font-bold text-slate-700 ml-1">4.9/5</span>
+                <span className="text-[11px] text-slate-500">(2,400+ রিভিউ)</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Info card */}
