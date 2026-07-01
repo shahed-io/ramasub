@@ -587,15 +587,21 @@ function ProductSkeleton() {
 function FeaturedProducts({ items, isLoading }: { items: Product[]; isLoading?: boolean }) {
   return (
     <section className="mx-auto max-w-[1440px] px-4 md:px-10 py-12">
-      <SectionTitle eyebrow="Popular Picks" title="Today's Bestselling Digital Services" subtitle="The most ordered software and subscriptions, handpicked for you." action="View all digital services" to="/products" />
-      <div className="mt-7 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
-        {items.length
-          ? items.slice(0, 5).map((product) => <ProductCard key={product.slug} product={product} />)
-          : Array.from({ length: 5 }).map((_, i) => <ProductSkeleton key={i} />)}
+      <div className="relative overflow-hidden rounded-[28px] md:rounded-[36px] border border-indigo-100/80 bg-gradient-to-br from-white via-indigo-50/40 to-fuchsia-50/30 p-5 md:p-8 lg:p-10 shadow-[0_20px_60px_-30px_rgba(79,70,229,0.35)]">
+        <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-indigo-200/40 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-fuchsia-200/40 blur-3xl" />
+        <div className="relative">
+          <SectionTitle eyebrow="Hot Picks" title="Today's Bestselling Digital Services" subtitle="The most ordered software and subscriptions, handpicked for you." action="View Collection" to="/products" />
+          <div className="mt-7 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
+            {items.length
+              ? items.slice(0, 5).map((product) => <ProductCard key={product.slug} product={product} />)
+              : Array.from({ length: 5 }).map((_, i) => <ProductSkeleton key={i} />)}
+          </div>
+          {!isLoading && !items.length && (
+            <p className="mt-4 text-center text-sm text-slate-600">প্রোডাক্ট লোড হচ্ছে… একটু পরে রিফ্রেশ করুন।</p>
+          )}
+        </div>
       </div>
-      {!isLoading && !items.length && (
-        <p className="mt-4 text-center text-sm text-white/70">প্রোডাক্ট লোড হচ্ছে… একটু পরে রিফ্রেশ করুন।</p>
-      )}
     </section>
   );
 }
@@ -603,12 +609,17 @@ function FeaturedProducts({ items, isLoading }: { items: Product[]; isLoading?: 
 function ProductRail({ title, items, isLoading }: { title: string; items: Product[]; isLoading?: boolean }) {
   const showSkeleton = isLoading || items.length === 0;
   return (
-    <section className="home-rail mx-auto max-w-[1440px] px-4 md:px-10 py-10">
-      <SectionTitle eyebrow="Collection" title={title} compact />
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
-        {showSkeleton
-          ? Array.from({ length: 4 }).map((_, i) => <ProductSkeleton key={i} />)
-          : items.map((product) => <ProductCard key={product.slug} product={product} />)}
+    <section className="home-rail mx-auto max-w-[1440px] px-4 md:px-10 py-8">
+      <div className="relative overflow-hidden rounded-[28px] md:rounded-[36px] border border-slate-200/80 bg-white p-5 md:p-8 lg:p-10 shadow-[0_18px_50px_-30px_rgba(15,23,42,0.25)]">
+        <div className="pointer-events-none absolute top-0 right-0 h-64 w-64 rounded-full bg-indigo-50/70 blur-3xl -mr-16 -mt-16" />
+        <div className="relative">
+          <SectionTitle eyebrow="Collection" title={title} action="View all" to="/products" />
+          <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
+            {showSkeleton
+              ? Array.from({ length: 4 }).map((_, i) => <ProductSkeleton key={i} />)
+              : items.map((product) => <ProductCard key={product.slug} product={product} />)}
+          </div>
+        </div>
       </div>
     </section>
   );
