@@ -140,6 +140,7 @@ export const ADMIN_MENU: AdminMenuGroup[] = [
     icon: ic(FileEdit),
     items: [
       { to: "/admin/pages", label: "Page Management", labelBn: "পেজ ম্যানেজমেন্ট", icon: ic(FileEdit), grad: "from-orange-500 to-amber-500" },
+      { to: "/admin/zoom-settings", label: "Product Image Zoom", labelBn: "প্রোডাক্ট ইমেজ জুম", icon: ic(FileEdit), grad: "from-fuchsia-500 to-purple-600", badge: "NEW" },
       { to: "/admin/blog", label: "Blog", labelBn: "ব্লগ", icon: ic(Newspaper), grad: "from-rose-500 to-red-500" },
       { to: "/admin/software-downloads", label: "Software Downloads", labelBn: "সফটওয়্যার ডাউনলোড", icon: ic(Download), grad: "from-emerald-500 to-green-600" },
       { to: "/admin/help-center", label: "Help Center", labelBn: "হেল্প সেন্টার", icon: ic(BookOpen), grad: "from-emerald-500 to-teal-600" },
