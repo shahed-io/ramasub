@@ -618,9 +618,10 @@ function ProfileView({ user, profile, onNavigate }: { user: { email?: string; id
 
       {/* Fields */}
       <div className="mt-6 space-y-4">
-        <ProfileField label="FULL NAME" icon={UserIcon} value={profile?.display_name || "—"} />
+        <ProfileField label="FULL NAME" icon={UserIcon} value={profile?.display_name || "—"} verified />
         <ProfileField label="USERNAME" icon={AtSign} value={`@${username}`} />
-        <ProfileField label="EMAIL" icon={Mail} value={user?.email || "—"} verified />
+        <ProfileField label="EMAIL" icon={Mail} value={user?.email || "—"} />
+
         <ProfileField label="PHONE NUMBER" icon={Phone} value={profile?.phone || "—"} />
         <ProfileField label="COUNTRY" icon={MapPin} value="Bangladesh" />
         
