@@ -48,7 +48,7 @@ function PageEditor() {
   }
 
   function updateContent(v: Partial<PageContent>) {
-    setPage((p) => (p ? { ...p, content: { blocks: [], text_zones: {}, section_toggles: {}, ...p.content, ...v } } : p));
+    setPage((p) => (p ? { ...p, content: { blocks: p.content?.blocks ?? [], text_zones: p.content?.text_zones ?? {}, section_toggles: p.content?.section_toggles ?? {}, ...v } } : p));
     setDirty(true);
   }
 
