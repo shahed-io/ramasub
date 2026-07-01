@@ -426,7 +426,7 @@ function GiftBanner({ onClaim }: { onClaim: () => void }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <div className="text-[10px] font-bold tracking-[0.18em] text-pink-500 dark:text-pink-300">WELCOME GIFT</div>
-            <span className="inline-flex items-center gap-1 text-[10px] font-bold tracking-wider text-amber-700 dark:text-amber-300 bg-amber-500/15 border border-amber-500/30 rounded-full px-2 py-0.5 tabular-nums">
+            <span className="inline-flex items-center gap-1 text-[10px] font-bold tracking-wider text-white bg-amber-600 border border-amber-700 rounded-full px-2.5 py-1 tabular-nums shadow-sm">
               ⏳ {pad(hh)}:{pad(mm)}:{pad(ss)}
             </span>
           </div>
