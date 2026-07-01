@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/context/AuthContext";
 import { usePaymentMethods } from "@/hooks/useShopConfig";
 import { rememberReturnTo } from "@/lib/auth-return-to";
+import { notifyTelegram } from "@/lib/telegram";
 
 export const Route = createFileRoute("/wallet")({
   component: WalletPage,
@@ -147,6 +148,18 @@ function WalletPage() {
         screenshot_path: path || null, status: "pending",
       } as any);
       if (error) throw error;
+      notifyTelegram({
+        event: "wallet_topup",
+        title: "নতুন Wallet Top-up রিকোয়েস্ট",
+        lines: [
+          ["User", user.email ?? user.id],
+          ["Amount", `৳${finalAmount}`],
+          ["Method", method],
+          ["Sender", sender],
+          ["TxID", trx.trim().toUpperCase()],
+        ],
+        url: `https://ramasub.com/admin/wallet`,
+      });
       setDone(true);
       // reset form
       setAmount(0); setCustomAmount(""); setSender(""); setTrx(""); setPath("");
