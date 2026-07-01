@@ -50,6 +50,7 @@ import { Route as AdminTrackingPixelsRouteImport } from './routes/admin.tracking
 import { Route as AdminTrackingRouteImport } from './routes/admin.tracking'
 import { Route as AdminTicketsRouteImport } from './routes/admin.tickets'
 import { Route as AdminThemesRouteImport } from './routes/admin.themes'
+import { Route as AdminTelegramRouteImport } from './routes/admin.telegram'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminSeoSettingsRouteImport } from './routes/admin.seo-settings'
 import { Route as AdminSeoAuditRouteImport } from './routes/admin.seo-audit'
@@ -302,6 +303,11 @@ const AdminTicketsRoute = AdminTicketsRouteImport.update({
 const AdminThemesRoute = AdminThemesRouteImport.update({
   id: '/themes',
   path: '/themes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTelegramRoute = AdminTelegramRouteImport.update({
+  id: '/telegram',
+  path: '/telegram',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
@@ -611,6 +617,7 @@ export interface FileRoutesByFullPath {
   '/admin/seo-audit': typeof AdminSeoAuditRoute
   '/admin/seo-settings': typeof AdminSeoSettingsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/telegram': typeof AdminTelegramRoute
   '/admin/themes': typeof AdminThemesRoute
   '/admin/tickets': typeof AdminTicketsRoute
   '/admin/tracking': typeof AdminTrackingRoute
@@ -700,6 +707,7 @@ export interface FileRoutesByTo {
   '/admin/seo-audit': typeof AdminSeoAuditRoute
   '/admin/seo-settings': typeof AdminSeoSettingsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/telegram': typeof AdminTelegramRoute
   '/admin/themes': typeof AdminThemesRoute
   '/admin/tickets': typeof AdminTicketsRoute
   '/admin/tracking': typeof AdminTrackingRoute
@@ -791,6 +799,7 @@ export interface FileRoutesById {
   '/admin/seo-audit': typeof AdminSeoAuditRoute
   '/admin/seo-settings': typeof AdminSeoSettingsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/admin/telegram': typeof AdminTelegramRoute
   '/admin/themes': typeof AdminThemesRoute
   '/admin/tickets': typeof AdminTicketsRoute
   '/admin/tracking': typeof AdminTrackingRoute
@@ -883,6 +892,7 @@ export interface FileRouteTypes {
     | '/admin/seo-audit'
     | '/admin/seo-settings'
     | '/admin/settings'
+    | '/admin/telegram'
     | '/admin/themes'
     | '/admin/tickets'
     | '/admin/tracking'
@@ -972,6 +982,7 @@ export interface FileRouteTypes {
     | '/admin/seo-audit'
     | '/admin/seo-settings'
     | '/admin/settings'
+    | '/admin/telegram'
     | '/admin/themes'
     | '/admin/tickets'
     | '/admin/tracking'
@@ -1062,6 +1073,7 @@ export interface FileRouteTypes {
     | '/admin/seo-audit'
     | '/admin/seo-settings'
     | '/admin/settings'
+    | '/admin/telegram'
     | '/admin/themes'
     | '/admin/tickets'
     | '/admin/tracking'
@@ -1417,6 +1429,13 @@ declare module '@tanstack/react-router' {
       path: '/themes'
       fullPath: '/admin/themes'
       preLoaderRoute: typeof AdminThemesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/telegram': {
+      id: '/admin/telegram'
+      path: '/telegram'
+      fullPath: '/admin/telegram'
+      preLoaderRoute: typeof AdminTelegramRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/settings': {
@@ -1813,6 +1832,7 @@ interface AdminRouteChildren {
   AdminSeoAuditRoute: typeof AdminSeoAuditRoute
   AdminSeoSettingsRoute: typeof AdminSeoSettingsRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminTelegramRoute: typeof AdminTelegramRoute
   AdminThemesRoute: typeof AdminThemesRoute
   AdminTicketsRoute: typeof AdminTicketsRoute
   AdminTrackingRoute: typeof AdminTrackingRoute
@@ -1860,6 +1880,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminSeoAuditRoute: AdminSeoAuditRoute,
   AdminSeoSettingsRoute: AdminSeoSettingsRoute,
   AdminSettingsRoute: AdminSettingsRoute,
+  AdminTelegramRoute: AdminTelegramRoute,
   AdminThemesRoute: AdminThemesRoute,
   AdminTicketsRoute: AdminTicketsRoute,
   AdminTrackingRoute: AdminTrackingRoute,
