@@ -640,11 +640,12 @@ function ProfileField({ label, icon: Icon, value, verified }: { label: string; i
         {verified && (
           <span className="inline-flex items-center justify-center shrink-0" title="Verified" aria-label="Verified">
             <svg viewBox="0 0 24 24" className="w-5 h-5" aria-hidden="true" style={{ filter: "drop-shadow(0 1px 2px rgba(24,119,242,0.45))" }}>
-              <path fill="#1877F2" d="M12 1.5l2.3 1.85 2.94-.31 1.23 2.69 2.69 1.23-.31 2.94L22.5 12l-1.85 2.3.31 2.94-2.69 1.23-1.23 2.69-2.94-.31L12 22.5l-2.3-1.85-2.94.31-1.23-2.69-2.69-1.23.31-2.94L1.5 12l1.85-2.3-.31-2.94 2.69-1.23L6.96 3.04l2.94.31L12 1.5z" />
-              <path fill="none" stroke="#ffffff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" d="M7.75 12.25l2.9 2.9 5.6-5.9" />
+              <path fill="#1877F2" d="M12 2l2.09 1.68 2.66-.38 1.13 2.44 2.44 1.13-.38 2.66L22 12l-1.68 2.09.38 2.66-2.44 1.13-1.13 2.44-2.66-.38L12 22l-2.09-1.68-2.66.38-1.13-2.44-2.44-1.13.38-2.66L2 12l1.68-2.09-.38-2.66 2.44-1.13L6.87 3.68l2.66.38L12 2z"/>
+              <path fill="none" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" d="M8 12.3l2.7 2.7L16 9.5"/>
             </svg>
           </span>
         )}
+
       </div>
     </div>
   );
