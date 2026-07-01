@@ -627,15 +627,24 @@ function ProductRail({ title, items, isLoading }: { title: string; items: Produc
 
 function SectionTitle({ eyebrow, title, subtitle, action, to, compact = false }: { eyebrow: string; title: string; subtitle?: string; action?: string; to?: "/products"; compact?: boolean }) {
   return (
-    <div className={`flex flex-wrap items-end justify-between gap-3 ${compact ? "" : ""}`}>
-      <div>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-primary via-fuchsia-500 to-amber-400 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em] text-white shadow-[0_8px_22px_-10px_rgba(124,58,237,0.55)] ring-1 ring-white/25"><span className="h-1.5 w-1.5 rounded-full bg-white/90 shadow-[0_0_8px_rgba(255,255,255,0.9)]" />{eyebrow}</span>
-        <h2 className="mt-3 text-2xl md:text-4xl font-extrabold text-foreground" style={{ fontFamily: "var(--font-display)", lineHeight: 1.08 }}>{title}</h2>
-        {subtitle && <p className="mt-2 max-w-2xl text-sm md:text-base text-muted-foreground">{subtitle}</p>}
+    <div className={`flex flex-wrap items-end justify-between gap-3 border-b border-slate-200/80 pb-4 ${compact ? "" : ""}`}>
+      <div className="space-y-1.5 min-w-0">
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-[0.2em] text-indigo-600">
+          <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.9)]" />
+          {eyebrow}
+        </span>
+        <h2 className="text-2xl md:text-[32px] font-extrabold tracking-tight text-slate-900" style={{ fontFamily: "var(--font-display)", lineHeight: 1.08 }}>
+          {title}
+        </h2>
+        {subtitle && <p className="max-w-2xl text-sm md:text-[15px] text-slate-500">{subtitle}</p>}
       </div>
       {action && to && (
-        <Link to={to} className="glass inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-bold text-foreground">
-          {action} <ChevronRight className="h-4 w-4" />
+        <Link
+          to={to}
+          className="group inline-flex items-center gap-1.5 text-sm font-bold text-indigo-600 hover:text-indigo-700 transition-colors whitespace-nowrap"
+        >
+          {action}
+          <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </Link>
       )}
     </div>
