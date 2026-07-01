@@ -920,6 +920,54 @@ export type Database = {
           },
         ]
       }
+      site_pages: {
+        Row: {
+          content: Json
+          created_at: string
+          id: string
+          key: string
+          page_type: string
+          path: string
+          seo: Json
+          show_in_menu: boolean
+          sort_order: number
+          status: string
+          title: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          content?: Json
+          created_at?: string
+          id?: string
+          key: string
+          page_type?: string
+          path: string
+          seo?: Json
+          show_in_menu?: boolean
+          sort_order?: number
+          status?: string
+          title: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          id?: string
+          key?: string
+          page_type?: string
+          path?: string
+          seo?: Json
+          show_in_menu?: boolean
+          sort_order?: number
+          status?: string
+          title?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       support_tickets: {
         Row: {
           assigned_to: string | null
