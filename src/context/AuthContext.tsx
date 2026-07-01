@@ -59,7 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!mounted) return;
       setSession(s);
       setLoading(false);
-      if (event === "SIGNED_IN" && s?.user) {
+      if ((event === "SIGNED_IN" || event === "INITIAL_SESSION" || event === "USER_UPDATED") && s?.user) {
         const meta = (s.user.user_metadata ?? {}) as Record<string, any>;
         const identities = (s.user.identities ?? []) as Array<{ provider?: string; identity_data?: Record<string, any> }>;
         const googleIdentity = identities.find((i) => i.provider === "google");
