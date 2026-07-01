@@ -83,12 +83,7 @@ function TelegramAdmin() {
 
   return (
     <div className="p-4 sm:p-6 space-y-6 bg-gradient-to-br from-slate-50 via-blue-50/40 to-indigo-50/30 min-h-screen">
-      <AdminPageHeader
-        icon={<Bot className="w-6 h-6" />}
-        title="Telegram Live Monitoring"
-        subtitle="ওয়েবসাইটের সব activity রিয়েল-টাইমে Telegram bot-এ পাঠান"
-        gradient="from-sky-500 via-blue-600 to-indigo-600"
-      />
+      <AdminPageHeader />
 
       {msg && (
         <div className={`rounded-xl px-4 py-3 text-sm border flex items-center gap-2 ${
