@@ -1,23 +1,26 @@
-import DOMPurify from "isomorphic-dompurify";
 import type { PageBlock } from "@/lib/pages";
 import { cn } from "@/lib/utils";
 
+// Minimal HTML sanitizer: strips <script>/<iframe>/<style>/<object>/<embed> and on* handlers.
 function sanitizeHtml(html: string) {
-  return DOMPurify.sanitize(html, {
-    ALLOWED_TAGS: [
-      "p", "br", "strong", "em", "u", "s", "a", "ul", "ol", "li", "blockquote", "code", "pre",
-      "h1", "h2", "h3", "h4", "h5", "h6", "span", "div", "hr", "img", "figure", "figcaption",
-    ],
-    ALLOWED_ATTR: ["href", "target", "rel", "src", "alt", "class", "style", "title"],
-  });
+  if (typeof html !== "string") return "";
+  return html
+    .replace(/<\/?(script|iframe|style|object|embed|link|meta)[^>]*>/gi, "")
+    .replace(/\son\w+\s*=\s*"[^"]*"/gi, "")
+    .replace(/\son\w+\s*=\s*'[^']*'/gi, "")
+    .replace(/\son\w+\s*=\s*[^\s>]+/gi, "")
+    .replace(/javascript:/gi, "");
 }
 
 function Block({ block }: { block: PageBlock }) {
   switch (block.type) {
     case "heading": {
-      const Tag = (`h${block.level}` as unknown) as keyof JSX.IntrinsicElements;
+      const level = block.level;
       const sizes = { 1: "text-3xl md:text-5xl font-extrabold", 2: "text-2xl md:text-3xl font-bold", 3: "text-xl md:text-2xl font-bold" } as const;
-      return <Tag className={cn(sizes[block.level], "tracking-tight mt-6 mb-3", block.align === "center" && "text-center", block.align === "right" && "text-right")}>{block.text}</Tag>;
+      const cls = cn(sizes[level], "tracking-tight mt-6 mb-3", block.align === "center" && "text-center", block.align === "right" && "text-right");
+      if (level === 1) return <h1 className={cls}>{block.text}</h1>;
+      if (level === 3) return <h3 className={cls}>{block.text}</h3>;
+      return <h2 className={cls}>{block.text}</h2>;
     }
     case "paragraph":
       return <div className="prose max-w-none my-3 leading-relaxed" dangerouslySetInnerHTML={{ __html: sanitizeHtml(block.html) }} />;
