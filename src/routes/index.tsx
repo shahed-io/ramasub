@@ -587,15 +587,21 @@ function ProductSkeleton() {
 function FeaturedProducts({ items, isLoading }: { items: Product[]; isLoading?: boolean }) {
   return (
     <section className="mx-auto max-w-[1440px] px-4 md:px-10 py-12">
-      <SectionTitle eyebrow="Popular Picks" title="Today's Bestselling Digital Services" subtitle="The most ordered software and subscriptions, handpicked for you." action="View all digital services" to="/products" />
-      <div className="mt-7 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
-        {items.length
-          ? items.slice(0, 5).map((product) => <ProductCard key={product.slug} product={product} />)
-          : Array.from({ length: 5 }).map((_, i) => <ProductSkeleton key={i} />)}
+      <div className="relative overflow-hidden rounded-[28px] md:rounded-[36px] border border-indigo-100/80 bg-gradient-to-br from-white via-indigo-50/40 to-fuchsia-50/30 p-5 md:p-8 lg:p-10 shadow-[0_20px_60px_-30px_rgba(79,70,229,0.35)]">
+        <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-indigo-200/40 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-fuchsia-200/40 blur-3xl" />
+        <div className="relative">
+          <SectionTitle eyebrow="Hot Picks" title="Today's Bestselling Digital Services" subtitle="The most ordered software and subscriptions, handpicked for you." action="View Collection" to="/products" />
+          <div className="mt-7 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
+            {items.length
+              ? items.slice(0, 5).map((product) => <ProductCard key={product.slug} product={product} />)
+              : Array.from({ length: 5 }).map((_, i) => <ProductSkeleton key={i} />)}
+          </div>
+          {!isLoading && !items.length && (
+            <p className="mt-4 text-center text-sm text-slate-600">প্রোডাক্ট লোড হচ্ছে… একটু পরে রিফ্রেশ করুন।</p>
+          )}
+        </div>
       </div>
-      {!isLoading && !items.length && (
-        <p className="mt-4 text-center text-sm text-white/70">প্রোডাক্ট লোড হচ্ছে… একটু পরে রিফ্রেশ করুন।</p>
-      )}
     </section>
   );
 }
@@ -603,12 +609,17 @@ function FeaturedProducts({ items, isLoading }: { items: Product[]; isLoading?: 
 function ProductRail({ title, items, isLoading }: { title: string; items: Product[]; isLoading?: boolean }) {
   const showSkeleton = isLoading || items.length === 0;
   return (
-    <section className="home-rail mx-auto max-w-[1440px] px-4 md:px-10 py-10">
-      <SectionTitle eyebrow="Collection" title={title} compact />
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
-        {showSkeleton
-          ? Array.from({ length: 4 }).map((_, i) => <ProductSkeleton key={i} />)
-          : items.map((product) => <ProductCard key={product.slug} product={product} />)}
+    <section className="home-rail mx-auto max-w-[1440px] px-4 md:px-10 py-8">
+      <div className="relative overflow-hidden rounded-[28px] md:rounded-[36px] border border-slate-200/80 bg-white p-5 md:p-8 lg:p-10 shadow-[0_18px_50px_-30px_rgba(15,23,42,0.25)]">
+        <div className="pointer-events-none absolute top-0 right-0 h-64 w-64 rounded-full bg-indigo-50/70 blur-3xl -mr-16 -mt-16" />
+        <div className="relative">
+          <SectionTitle eyebrow="Collection" title={title} action="View all" to="/products" />
+          <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
+            {showSkeleton
+              ? Array.from({ length: 4 }).map((_, i) => <ProductSkeleton key={i} />)
+              : items.map((product) => <ProductCard key={product.slug} product={product} />)}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -616,15 +627,24 @@ function ProductRail({ title, items, isLoading }: { title: string; items: Produc
 
 function SectionTitle({ eyebrow, title, subtitle, action, to, compact = false }: { eyebrow: string; title: string; subtitle?: string; action?: string; to?: "/products"; compact?: boolean }) {
   return (
-    <div className={`flex flex-wrap items-end justify-between gap-3 ${compact ? "" : ""}`}>
-      <div>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-primary via-fuchsia-500 to-amber-400 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em] text-white shadow-[0_8px_22px_-10px_rgba(124,58,237,0.55)] ring-1 ring-white/25"><span className="h-1.5 w-1.5 rounded-full bg-white/90 shadow-[0_0_8px_rgba(255,255,255,0.9)]" />{eyebrow}</span>
-        <h2 className="mt-3 text-2xl md:text-4xl font-extrabold text-foreground" style={{ fontFamily: "var(--font-display)", lineHeight: 1.08 }}>{title}</h2>
-        {subtitle && <p className="mt-2 max-w-2xl text-sm md:text-base text-muted-foreground">{subtitle}</p>}
+    <div className={`flex flex-wrap items-end justify-between gap-3 border-b border-slate-200/80 pb-4 ${compact ? "" : ""}`}>
+      <div className="space-y-1.5 min-w-0">
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-[0.2em] text-indigo-600">
+          <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.9)]" />
+          {eyebrow}
+        </span>
+        <h2 className="text-2xl md:text-[32px] font-extrabold tracking-tight text-slate-900" style={{ fontFamily: "var(--font-display)", lineHeight: 1.08 }}>
+          {title}
+        </h2>
+        {subtitle && <p className="max-w-2xl text-sm md:text-[15px] text-slate-500">{subtitle}</p>}
       </div>
       {action && to && (
-        <Link to={to} className="glass inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-bold text-foreground">
-          {action} <ChevronRight className="h-4 w-4" />
+        <Link
+          to={to}
+          className="group inline-flex items-center gap-1.5 text-sm font-bold text-indigo-600 hover:text-indigo-700 transition-colors whitespace-nowrap"
+        >
+          {action}
+          <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </Link>
       )}
     </div>
