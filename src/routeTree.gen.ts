@@ -90,6 +90,7 @@ import { Route as AdminPageRouteImport } from './routes/admin.$page'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicProductsRouteImport } from './routes/api/public/products'
 import { Route as ApiPublicClientErrorsRouteImport } from './routes/api/public/client-errors'
+import { Route as AdminPagesKeyRouteImport } from './routes/admin.pages.$key'
 import { Route as AdminOffersIdRouteImport } from './routes/admin.offers.$id'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -504,6 +505,11 @@ const ApiPublicClientErrorsRoute = ApiPublicClientErrorsRouteImport.update({
   path: '/api/public/client-errors',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPagesKeyRoute = AdminPagesKeyRouteImport.update({
+  id: '/$key',
+  path: '/$key',
+  getParentRoute: () => AdminPagesRoute,
+} as any)
 const AdminOffersIdRoute = AdminOffersIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -591,7 +597,7 @@ export interface FileRoutesByFullPath {
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
-  '/admin/pages': typeof AdminPagesRoute
+  '/admin/pages': typeof AdminPagesRouteWithChildren
   '/admin/payment-links': typeof AdminPaymentLinksRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
@@ -618,6 +624,7 @@ export interface FileRoutesByFullPath {
   '/product/$slug': typeof ProductSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/offers/$id': typeof AdminOffersIdRoute
+  '/admin/pages/$key': typeof AdminPagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -679,7 +686,7 @@ export interface FileRoutesByTo {
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
-  '/admin/pages': typeof AdminPagesRoute
+  '/admin/pages': typeof AdminPagesRouteWithChildren
   '/admin/payment-links': typeof AdminPaymentLinksRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
@@ -706,6 +713,7 @@ export interface FileRoutesByTo {
   '/product/$slug': typeof ProductSlugRoute
   '/admin': typeof AdminIndexRoute
   '/admin/offers/$id': typeof AdminOffersIdRoute
+  '/admin/pages/$key': typeof AdminPagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -769,7 +777,7 @@ export interface FileRoutesById {
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
-  '/admin/pages': typeof AdminPagesRoute
+  '/admin/pages': typeof AdminPagesRouteWithChildren
   '/admin/payment-links': typeof AdminPaymentLinksRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
@@ -796,6 +804,7 @@ export interface FileRoutesById {
   '/product/$slug': typeof ProductSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/offers/$id': typeof AdminOffersIdRoute
+  '/admin/pages/$key': typeof AdminPagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -887,6 +896,7 @@ export interface FileRouteTypes {
     | '/product/$slug'
     | '/admin/'
     | '/admin/offers/$id'
+    | '/admin/pages/$key'
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -975,6 +985,7 @@ export interface FileRouteTypes {
     | '/product/$slug'
     | '/admin'
     | '/admin/offers/$id'
+    | '/admin/pages/$key'
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -1064,6 +1075,7 @@ export interface FileRouteTypes {
     | '/product/$slug'
     | '/admin/'
     | '/admin/offers/$id'
+    | '/admin/pages/$key'
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -1687,6 +1699,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicClientErrorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/pages/$key': {
+      id: '/admin/pages/$key'
+      path: '/$key'
+      fullPath: '/admin/pages/$key'
+      preLoaderRoute: typeof AdminPagesKeyRouteImport
+      parentRoute: typeof AdminPagesRoute
+    }
     '/admin/offers/$id': {
       id: '/admin/offers/$id'
       path: '/$id'
@@ -1744,6 +1763,18 @@ const AdminOffersRouteWithChildren = AdminOffersRoute._addFileChildren(
   AdminOffersRouteChildren,
 )
 
+interface AdminPagesRouteChildren {
+  AdminPagesKeyRoute: typeof AdminPagesKeyRoute
+}
+
+const AdminPagesRouteChildren: AdminPagesRouteChildren = {
+  AdminPagesKeyRoute: AdminPagesKeyRoute,
+}
+
+const AdminPagesRouteWithChildren = AdminPagesRoute._addFileChildren(
+  AdminPagesRouteChildren,
+)
+
 interface AdminRouteChildren {
   AdminPageRoute: typeof AdminPageRoute
   AdminAbandonedCheckoutRoute: typeof AdminAbandonedCheckoutRoute
@@ -1768,7 +1799,7 @@ interface AdminRouteChildren {
   AdminOrderRecoveryRoute: typeof AdminOrderRecoveryRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
   AdminOtherPixelsRoute: typeof AdminOtherPixelsRoute
-  AdminPagesRoute: typeof AdminPagesRoute
+  AdminPagesRoute: typeof AdminPagesRouteWithChildren
   AdminPaymentLinksRoute: typeof AdminPaymentLinksRoute
   AdminProductsRoute: typeof AdminProductsRoute
   AdminPromotionsRoute: typeof AdminPromotionsRoute
@@ -1815,7 +1846,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminOrderRecoveryRoute: AdminOrderRecoveryRoute,
   AdminOrdersRoute: AdminOrdersRoute,
   AdminOtherPixelsRoute: AdminOtherPixelsRoute,
-  AdminPagesRoute: AdminPagesRoute,
+  AdminPagesRoute: AdminPagesRouteWithChildren,
   AdminPaymentLinksRoute: AdminPaymentLinksRoute,
   AdminProductsRoute: AdminProductsRoute,
   AdminPromotionsRoute: AdminPromotionsRoute,
