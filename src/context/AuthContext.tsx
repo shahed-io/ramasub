@@ -93,6 +93,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           } catch { /* ignore */ }
         }, 0);
 
+        // Redeem pending referral code (captured on /register?ref=CODE)
+        setTimeout(async () => {
+          try {
+            const code = typeof localStorage !== "undefined" ? localStorage.getItem("rs:referral_code") : null;
+            if (!code) return;
+            const { data, error } = await supabase.rpc("redeem_referral", { _code: code });
+            const result = (data ?? {}) as { ok?: boolean; reason?: string };
+            // Clear on success or on definitive failures so we don't retry forever.
+            if (!error && (result.ok || ["already_referred", "referrer_not_found", "invalid_code"].includes(result.reason ?? ""))) {
+              localStorage.removeItem("rs:referral_code");
+            }
+          } catch { /* ignore */ }
+        }, 100);
+
         // Telegram: fire for brand-new signups (user created <60s ago), guarded per-user in sessionStorage.
         try {
           const createdAt = s.user.created_at ? new Date(s.user.created_at).getTime() : 0;
