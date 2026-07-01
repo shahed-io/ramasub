@@ -73,6 +73,21 @@ function AdminOrders() {
     const { error } = await supabase.from("orders").update({ status }).eq("id", id);
     if (error) { setOrders(prev); toast.error(error.message); return; }
     toast.success(t(`Status updated to ${status}`, `স্ট্যাটাস আপডেট: ${status}`));
+    if (target && target.status !== status) {
+      import("@/lib/telegram").then(({ notifyTelegram }) => {
+        notifyTelegram({
+          event: "order_status_changed",
+          title: "অর্ডার স্ট্যাটাস আপডেট",
+          lines: [
+            ["Order", `ANB-${id.slice(0, 8).toUpperCase()}`],
+            ["Customer", target.full_name ?? "—"],
+            ["From", target.status ?? "—"],
+            ["To", status],
+          ],
+          url: `https://ramasub.com/admin/orders`,
+        });
+      });
+    }
     if (target && target.email && target.status !== status) {
       const sid = shortId(id);
       const firstName = target.full_name?.split(" ")[0];
