@@ -637,8 +637,11 @@ function ProfileField({ label, icon: Icon, value, verified }: { label: string; i
         <Icon className="w-4 h-4 text-muted-foreground shrink-0" />
         <span className="flex-1 text-sm font-medium text-foreground truncate">{value}</span>
         {verified && (
-          <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-600 text-white border border-emerald-700 shadow-sm shrink-0">
-            <Check className="w-3 h-3" strokeWidth={3} /> Verified
+          <span className="inline-flex items-center justify-center shrink-0" title="Verified" aria-label="Verified">
+            <svg viewBox="0 0 24 24" className="w-5 h-5" aria-hidden="true" style={{ filter: "drop-shadow(0 1px 2px rgba(24,119,242,0.45))" }}>
+              <path fill="#1877F2" d="M12 1.5l2.3 1.85 2.94-.31 1.23 2.69 2.69 1.23-.31 2.94L22.5 12l-1.85 2.3.31 2.94-2.69 1.23-1.23 2.69-2.94-.31L12 22.5l-2.3-1.85-2.94.31-1.23-2.69-2.69-1.23.31-2.94L1.5 12l1.85-2.3-.31-2.94 2.69-1.23L6.96 3.04l2.94.31L12 1.5z" />
+              <path fill="none" stroke="#ffffff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" d="M7.75 12.25l2.9 2.9 5.6-5.9" />
+            </svg>
           </span>
         )}
       </div>
