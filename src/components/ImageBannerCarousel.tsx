@@ -344,52 +344,48 @@ export function ImageBannerCarousel() {
 
                   {subtitle && (
                     <p
-                      className="max-w-lg mx-auto md:mx-0"
+                      className="max-w-lg mx-auto md:mx-0 font-medium"
                       style={{
-                        color: "rgba(255,255,255,0.96)",
+                        color: "#ffffff",
                         fontFamily: BN,
                         wordBreak: "keep-all",
                         lineHeight: 1.65,
                         fontSize: "clamp(13px, 1.15vw, 19px)",
-                        textShadow: "0 0 18px rgba(255,255,255,0.35), 0 1px 2px rgba(0,0,0,0.3)",
+                        textShadow: "0 1px 3px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.35)",
                       }}
                     >
                       {subtitle}
                     </p>
                   )}
 
-                  {/* Frosted glass pills */}
+                  {/* Frosted glass pills — high contrast */}
                   <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-2.5">
                     {TRUST_BADGES.map((b) => (
                       <span
                         key={b.label}
-                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/15 backdrop-blur-md border border-white/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
-                        style={{ fontFamily: BN, wordBreak: "keep-all" }}
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-white/40 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
+                        style={{ fontFamily: BN, wordBreak: "keep-all", background: "rgba(0,0,0,0.45)" }}
                       >
                         <span className="w-1.5 h-1.5 rounded-full" style={{ background: b.dot, boxShadow: `0 0 8px ${b.dot}` }} />
-                        <span className="text-[11px] sm:text-xs text-white font-medium">
+                        <span className="text-[11px] sm:text-xs text-white font-semibold" style={{ textShadow: "0 1px 2px rgba(0,0,0,0.55)" }}>
                           {b.label}
                         </span>
                       </span>
                     ))}
                   </div>
 
-                  {/* CTAs */}
+                  {/* CTAs — high contrast: solid dark primary, solid glass secondary */}
                   <div className="flex flex-wrap justify-center md:justify-start gap-2.5 sm:gap-3 pt-1">
                     <Link
                       to={link as never}
-                      className="inline-flex items-center justify-center rounded-2xl px-8 sm:px-10 py-3.5 text-sm sm:text-base font-bold text-white transition-all hover:translate-y-[-2px] active:translate-y-0"
-                      style={{
-                        fontFamily: BN,
-                        background: `linear-gradient(135deg, ${p.accent}, color-mix(in oklab, ${p.accent} 60%, #000))`,
-                        boxShadow: `0 12px 32px -8px ${p.halo}`,
-                      }}
+                      className="hero-cta hero-cta-primary keep-white inline-flex items-center justify-center rounded-2xl px-8 sm:px-10 py-3.5 text-sm sm:text-base font-bold transition-all hover:translate-y-[-2px] active:translate-y-0"
+                      style={{ fontFamily: BN }}
                     >
                       {cta}
                     </Link>
                     <Link
                       to={secLink as never}
-                      className="inline-flex items-center justify-center rounded-2xl px-7 sm:px-9 py-3.5 text-sm sm:text-base font-semibold text-white bg-white/[0.06] border border-white/15 backdrop-blur-md hover:bg-white/[0.12] transition-all"
+                      className="hero-cta hero-cta-secondary keep-white inline-flex items-center justify-center rounded-2xl px-7 sm:px-9 py-3.5 text-sm sm:text-base font-semibold transition-all hover:brightness-110"
                       style={{ fontFamily: BN }}
                     >
                       {secCta}
