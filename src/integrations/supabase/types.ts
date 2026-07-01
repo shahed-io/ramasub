@@ -779,6 +779,7 @@ export type Database = {
           display_name: string | null
           id: string
           phone: string | null
+          referred_by: string | null
           updated_at: string
         }
         Insert: {
@@ -787,6 +788,7 @@ export type Database = {
           display_name?: string | null
           id: string
           phone?: string | null
+          referred_by?: string | null
           updated_at?: string
         }
         Update: {
@@ -795,6 +797,7 @@ export type Database = {
           display_name?: string | null
           id?: string
           phone?: string | null
+          referred_by?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -1613,6 +1616,7 @@ export type Database = {
         }[]
       }
       redeem_coupon: { Args: { _code: string }; Returns: undefined }
+      redeem_referral: { Args: { _code: string }; Returns: Json }
       reject_wallet_topup: {
         Args: { _admin_note?: string; _topup_id: string }
         Returns: undefined
