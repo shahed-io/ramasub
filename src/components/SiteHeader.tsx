@@ -132,19 +132,25 @@ export function SiteHeader() {
   const navigate = useNavigate();
   const { open: searchOpen, setOpen: setSearchOpen } = useGlobalSearch();
   const [displayName, setDisplayName] = useState<string | null>(null);
+  const [profileAvatar, setProfileAvatar] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!user) { setDisplayName(null); return; }
+    if (!user) { setDisplayName(null); setProfileAvatar(null); return; }
     let cancelled = false;
     (async () => {
-      const p = await supabase.from("profiles").select("display_name").eq("id", user.id).maybeSingle();
+      const p = await supabase.from("profiles").select("display_name, avatar_url").eq("id", user.id).maybeSingle();
       if (cancelled) return;
-      setDisplayName((p.data as { display_name?: string | null } | null)?.display_name || null);
+      const row = p.data as { display_name?: string | null; avatar_url?: string | null } | null;
+      setDisplayName(row?.display_name || null);
+      setProfileAvatar(row?.avatar_url || null);
     })();
     return () => { cancelled = true; };
   }, [user]);
 
-  const friendlyName = displayName || user?.email?.split("@")[0] || "Member";
+  const friendlyName = displayName || user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split("@")[0] || "Member";
+  const meta = (user?.user_metadata ?? {}) as Record<string, any>;
+  const avatarUrl: string | null = profileAvatar || meta.avatar_url || meta.picture || meta.avatar || null;
+
 
   const handleLogout = async () => {
     await signOut();
@@ -298,7 +304,17 @@ export function SiteHeader() {
                       }}
                       title={friendlyName}
                     >
-                      <UserCircle2 className="w-4 h-4" />
+                      {avatarUrl ? (
+                        <img
+                          src={avatarUrl}
+                          alt={friendlyName}
+                          referrerPolicy="no-referrer"
+                          className="w-6 h-6 rounded-full object-cover ring-2 ring-white/60 shadow-sm shrink-0"
+                          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                        />
+                      ) : (
+                        <UserCircle2 className="w-4 h-4" />
+                      )}
                       <span className="hidden sm:inline max-w-[120px] truncate">Dashboard</span>
                     </Link>
                     <button
@@ -402,8 +418,10 @@ export function SiteHeader() {
                 <div className="relative overflow-hidden rounded-2xl p-4 bg-[linear-gradient(120deg,#6d28d9_0%,#a855f7_50%,#ec4899_100%)] shadow-[0_18px_40px_-14px_rgba(168,85,247,0.55)]">
                   <span className="pointer-events-none absolute -right-10 -top-10 w-32 h-32 rounded-full bg-white/20 blur-2xl" />
                   <div className="relative flex items-center gap-3">
-                    <span className="grid place-items-center w-12 h-12 rounded-full bg-white/20 ring-2 ring-white/40 text-white font-extrabold text-base shrink-0">
-                      {user ? friendlyName.charAt(0).toUpperCase() : <UserCircle2 className="w-6 h-6" />}
+                    <span className="grid place-items-center w-12 h-12 rounded-full bg-white/20 ring-2 ring-white/40 text-white font-extrabold text-base shrink-0 overflow-hidden">
+                      {user && avatarUrl ? (
+                        <img src={avatarUrl} alt={friendlyName} referrerPolicy="no-referrer" className="w-full h-full object-cover" onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+                      ) : user ? friendlyName.charAt(0).toUpperCase() : <UserCircle2 className="w-6 h-6" />}
                     </span>
                     <div className="min-w-0 flex-1">
                       <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/80">
