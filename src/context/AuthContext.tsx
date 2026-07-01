@@ -55,10 +55,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let mounted = true;
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((event, s) => {
       if (!mounted) return;
       setSession(s);
       setLoading(false);
+      if (event === "SIGNED_IN" && s?.user) {
+        // Sync OAuth (Google) avatar & name into profiles so it persists.
+        const meta = (s.user.user_metadata ?? {}) as Record<string, any>;
+        const avatar = meta.avatar_url || meta.picture || meta.avatar || null;
+        const name = meta.full_name || meta.name || null;
+        if (avatar || name) {
+          setTimeout(() => {
+            supabase
+              .from("profiles")
+              .upsert(
+                { id: s.user.id, ...(avatar ? { avatar_url: avatar } : {}), ...(name ? { display_name: name } : {}) },
+                { onConflict: "id" },
+              )
+              .then(() => {});
+          }, 0);
+        }
+      }
     });
     withAuthTimeout(supabase.auth.getSession())
       .then(({ data }) => {
