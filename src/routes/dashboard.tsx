@@ -623,7 +623,7 @@ function ProfileView({ user, profile, onNavigate }: { user: { email?: string; id
         <ProfileField label="EMAIL" icon={Mail} value={user?.email || "—"} verified />
         <ProfileField label="PHONE NUMBER" icon={Phone} value={profile?.phone || "—"} />
         <ProfileField label="COUNTRY" icon={MapPin} value="Bangladesh" />
-        <ProfileField label="USER ID" icon={Hash} value={user?.id ? user.id.slice(0, 12) + "…" : "—"} />
+        
       </div>
     </div>
   );
