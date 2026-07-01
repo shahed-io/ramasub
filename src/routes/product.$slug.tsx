@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate, notFound } from "@tanstack/react-router";
-import { Minus, Plus, Star, ArrowLeft, Loader2, CreditCard, MessageCircle, ShoppingCart, Check } from "lucide-react";
+import { Minus, Plus, Star, ArrowLeft, Loader2, CreditCard, MessageCircle, ShoppingCart, Check, ShieldCheck, Zap, RefreshCw, Headphones, BadgeCheck, Lock } from "lucide-react";
 import { useProducts, useProduct } from "@/hooks/useProducts";
 import { badgeColorFor } from "@/lib/badgeColor";
 import { useEffect, useState } from "react";
