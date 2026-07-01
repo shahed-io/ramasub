@@ -95,6 +95,19 @@ async function logChatMessage(role: "user" | "assistant", content: string) {
       user_id: user?.id ?? null,
       visitor_label,
     });
+    if (role === "user") {
+      const { notifyTelegram } = await import("@/lib/telegram");
+      notifyTelegram({
+        event: "chat_message",
+        title: "নতুন লাইভ চ্যাট মেসেজ",
+        lines: [
+          ["From", visitor_label ?? "Guest"],
+          ["Session", session_id.slice(0, 8)],
+        ],
+        message: content.slice(0, 300),
+        url: `https://ramasub.com/admin/live-chat`,
+      });
+    }
   } catch {
     /* non-blocking */
   }
