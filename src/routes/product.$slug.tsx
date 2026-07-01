@@ -240,29 +240,49 @@ function ProductPage() {
         <div className="md:col-span-6 space-y-4">
           <div className="relative aspect-square overflow-hidden rounded-3xl bg-white shadow-sm border border-slate-200">
             {heroImg ? (
-              <img
-                src={optimizeSupabaseImage(heroImg, { width: 900, quality: 75 })}
-                alt={product.name}
-                className="absolute inset-0 w-full h-full object-cover"
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-                width={900}
-                height={900}
-                onError={(e) => {
-                  const img = e.currentTarget;
-                  if (img.src !== heroImg) img.src = heroImg;
-                }}
-              />
+              <button
+                type="button"
+                onClick={() => setLightboxOpen(true)}
+                className="absolute inset-0 w-full h-full group cursor-zoom-in"
+                aria-label={`${product.name} — click to zoom`}
+              >
+                <img
+                  src={optimizeSupabaseImage(heroImg, { width: 900, quality: 75 })}
+                  alt={product.name}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
+                  width={900}
+                  height={900}
+                  onError={(e) => {
+                    const img = e.currentTarget;
+                    if (img.src !== heroImg) img.src = heroImg;
+                  }}
+                />
+                <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur text-white text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                  Zoom
+                </span>
+              </button>
             ) : (
               <ProductBanner product={product} ratio="1/1" spheres={6} priority className="rounded-3xl overflow-hidden" />
             )}
             {product.badge && (
-              <span className={`absolute top-4 left-4 z-20 ${badgeColorFor(product.badge)} px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm`}>
+              <span className={`absolute top-4 left-4 z-20 ${badgeColorFor(product.badge)} px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm pointer-events-none`}>
                 {product.badge}
               </span>
             )}
           </div>
+
+          {heroImg && (
+            <ImageLightbox
+              src={heroImg}
+              alt={product.name}
+              open={lightboxOpen}
+              onClose={() => setLightboxOpen(false)}
+            />
+          )}
 
           {allImages.length > 1 && (
             <div className="grid grid-cols-4 gap-3">
