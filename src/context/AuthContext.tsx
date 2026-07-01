@@ -60,21 +60,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession(s);
       setLoading(false);
       if (event === "SIGNED_IN" && s?.user) {
-        // Sync OAuth (Google) avatar & name into profiles so it persists.
         const meta = (s.user.user_metadata ?? {}) as Record<string, any>;
-        const avatar = meta.avatar_url || meta.picture || meta.avatar || null;
-        const name = meta.full_name || meta.name || null;
-        if (avatar || name) {
-          setTimeout(() => {
-            supabase
+        const identities = (s.user.identities ?? []) as Array<{ provider?: string; identity_data?: Record<string, any> }>;
+        const googleIdentity = identities.find((i) => i.provider === "google");
+        const gmeta = { ...(googleIdentity?.identity_data ?? {}), ...meta } as Record<string, any>;
+
+        const avatar = gmeta.avatar_url || gmeta.picture || gmeta.avatar || null;
+        const name = gmeta.full_name || gmeta.name ||
+          [gmeta.given_name, gmeta.family_name].filter(Boolean).join(" ") || null;
+        const phone = s.user.phone || gmeta.phone_number || gmeta.phone || null;
+
+        // Smart sync: fill empty profile fields with Google data, and always refresh
+        // the Google avatar so profile pictures updated in Google reflect here too.
+        setTimeout(async () => {
+          try {
+            const { data: existing } = await supabase
               .from("profiles")
-              .upsert(
-                { id: s.user.id, ...(avatar ? { avatar_url: avatar } : {}), ...(name ? { display_name: name } : {}) },
-                { onConflict: "id" },
-              )
-              .then(() => {});
-          }, 0);
-        }
+              .select("id, display_name, phone, avatar_url")
+              .eq("id", s.user.id)
+              .maybeSingle();
+
+            const patch: Record<string, any> = { id: s.user.id };
+            // Avatar: always refresh from Google (source of truth for OAuth users)
+            if (avatar) patch.avatar_url = avatar;
+            // Name / phone: only fill when profile has none, so we don't clobber user edits
+            if (name && !existing?.display_name) patch.display_name = name;
+            if (phone && !existing?.phone) patch.phone = phone;
+
+            if (Object.keys(patch).length > 1) {
+              await supabase.from("profiles").upsert(patch, { onConflict: "id" });
+            }
+          } catch { /* ignore */ }
+        }, 0);
+
         // Telegram: fire for brand-new signups (user created <60s ago), guarded per-user in sessionStorage.
         try {
           const createdAt = s.user.created_at ? new Date(s.user.created_at).getTime() : 0;
@@ -89,13 +107,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 lines: [
                   ["Name", name ?? "—"],
                   ["Email", s.user.email ?? "—"],
-                  ["Provider", meta.provider ?? (meta.iss?.includes("google") ? "google" : "email")],
+                  ["Provider", gmeta.provider ?? (googleIdentity ? "google" : "email")],
                 ],
               });
             });
           }
         } catch { /* ignore */ }
       }
+
     });
     withAuthTimeout(supabase.auth.getSession())
       .then(({ data }) => {
