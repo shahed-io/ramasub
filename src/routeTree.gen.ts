@@ -44,6 +44,7 @@ import { Route as OrdersIdRouteImport } from './routes/orders.$id'
 import { Route as OfferSlugRouteImport } from './routes/offer.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as BlogHowToBuyNetflixInBangladeshRouteImport } from './routes/blog.how-to-buy-netflix-in-bangladesh'
+import { Route as AdminZoomSettingsRouteImport } from './routes/admin.zoom-settings'
 import { Route as AdminWalletRouteImport } from './routes/admin.wallet'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminTrackingPixelsRouteImport } from './routes/admin.tracking-pixels'
@@ -275,6 +276,11 @@ const BlogHowToBuyNetflixInBangladeshRoute =
     path: '/blog/how-to-buy-netflix-in-bangladesh',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AdminZoomSettingsRoute = AdminZoomSettingsRouteImport.update({
+  id: '/zoom-settings',
+  path: '/zoom-settings',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminWalletRoute = AdminWalletRouteImport.update({
   id: '/wallet',
   path: '/wallet',
@@ -624,6 +630,7 @@ export interface FileRoutesByFullPath {
   '/admin/tracking-pixels': typeof AdminTrackingPixelsRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/wallet': typeof AdminWalletRoute
+  '/admin/zoom-settings': typeof AdminZoomSettingsRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/offer/$slug': typeof OfferSlugRoute
@@ -714,6 +721,7 @@ export interface FileRoutesByTo {
   '/admin/tracking-pixels': typeof AdminTrackingPixelsRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/wallet': typeof AdminWalletRoute
+  '/admin/zoom-settings': typeof AdminZoomSettingsRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/offer/$slug': typeof OfferSlugRoute
@@ -806,6 +814,7 @@ export interface FileRoutesById {
   '/admin/tracking-pixels': typeof AdminTrackingPixelsRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/wallet': typeof AdminWalletRoute
+  '/admin/zoom-settings': typeof AdminZoomSettingsRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/offer/$slug': typeof OfferSlugRoute
@@ -899,6 +908,7 @@ export interface FileRouteTypes {
     | '/admin/tracking-pixels'
     | '/admin/users'
     | '/admin/wallet'
+    | '/admin/zoom-settings'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
     | '/offer/$slug'
@@ -989,6 +999,7 @@ export interface FileRouteTypes {
     | '/admin/tracking-pixels'
     | '/admin/users'
     | '/admin/wallet'
+    | '/admin/zoom-settings'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
     | '/offer/$slug'
@@ -1080,6 +1091,7 @@ export interface FileRouteTypes {
     | '/admin/tracking-pixels'
     | '/admin/users'
     | '/admin/wallet'
+    | '/admin/zoom-settings'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
     | '/offer/$slug'
@@ -1388,6 +1400,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/blog/how-to-buy-netflix-in-bangladesh'
       preLoaderRoute: typeof BlogHowToBuyNetflixInBangladeshRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/zoom-settings': {
+      id: '/admin/zoom-settings'
+      path: '/zoom-settings'
+      fullPath: '/admin/zoom-settings'
+      preLoaderRoute: typeof AdminZoomSettingsRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/wallet': {
       id: '/admin/wallet'
@@ -1839,6 +1858,7 @@ interface AdminRouteChildren {
   AdminTrackingPixelsRoute: typeof AdminTrackingPixelsRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AdminWalletRoute: typeof AdminWalletRoute
+  AdminZoomSettingsRoute: typeof AdminZoomSettingsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -1887,6 +1907,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminTrackingPixelsRoute: AdminTrackingPixelsRoute,
   AdminUsersRoute: AdminUsersRoute,
   AdminWalletRoute: AdminWalletRoute,
+  AdminZoomSettingsRoute: AdminZoomSettingsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
