@@ -38,10 +38,10 @@ type SectionId =
   | "active-services" | "expired" | "open-ticket" | "my-tickets";
 
 const statusColors: Record<string, string> = {
-  pending: "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30",
-  processing: "bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/30",
-  delivered: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30",
-  cancelled: "bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30",
+  pending: "bg-amber-500 text-white border-amber-600 shadow-sm",
+  processing: "bg-sky-600 text-white border-sky-700 shadow-sm",
+  delivered: "bg-emerald-600 text-white border-emerald-700 shadow-sm",
+  cancelled: "bg-rose-600 text-white border-rose-700 shadow-sm",
 };
 
 type NavItem = {
@@ -334,7 +334,7 @@ function WelcomeCard({ greetingName, email, stats }: { greetingName: string; ema
                 <Mail className="w-3 h-3" /> {email}
               </div>
               <div className="mt-2 flex flex-wrap gap-1.5">
-                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-800 dark:text-emerald-200 border border-emerald-600/40">
+                <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-600 text-white border border-emerald-700 shadow-sm">
                   <BadgeCheck className="w-3 h-3" /> Verified
                 </span>
                 <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border">
@@ -426,7 +426,7 @@ function GiftBanner({ onClaim }: { onClaim: () => void }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <div className="text-[10px] font-bold tracking-[0.18em] text-pink-500 dark:text-pink-300">WELCOME GIFT</div>
-            <span className="inline-flex items-center gap-1 text-[10px] font-bold tracking-wider text-amber-700 dark:text-amber-300 bg-amber-500/15 border border-amber-500/30 rounded-full px-2 py-0.5 tabular-nums">
+            <span className="inline-flex items-center gap-1 text-[10px] font-bold tracking-wider text-white bg-amber-600 border border-amber-700 rounded-full px-2.5 py-1 tabular-nums shadow-sm">
               ⏳ {pad(hh)}:{pad(mm)}:{pad(ss)}
             </span>
           </div>
@@ -558,9 +558,9 @@ function Empty({ icon, msg }: { icon: React.ReactNode; msg: string }) {
 function Badge({ children, color = "primary" }: { children: React.ReactNode; color?: "primary" | "success" | "warn" | "danger" | "muted" }) {
   const c = {
     primary: "bg-primary/15 text-primary border-primary/30",
-    success: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30",
-    warn: "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30",
-    danger: "bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30",
+    success: "bg-emerald-600 text-white border-emerald-700 shadow-sm",
+    warn: "bg-amber-500 text-white border-amber-600 shadow-sm",
+    danger: "bg-rose-600 text-white border-rose-700 shadow-sm",
     muted: "bg-muted text-muted-foreground border-border",
   }[color];
   return <span className={`inline-block text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded border ${c}`}>{children}</span>;
@@ -637,7 +637,7 @@ function ProfileField({ label, icon: Icon, value, verified }: { label: string; i
         <Icon className="w-4 h-4 text-muted-foreground shrink-0" />
         <span className="flex-1 text-sm font-medium text-foreground truncate">{value}</span>
         {verified && (
-          <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-800 dark:text-emerald-200 border border-emerald-600/40 shrink-0">
+          <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-600 text-white border border-emerald-700 shadow-sm shrink-0">
             <Check className="w-3 h-3" strokeWidth={3} /> Verified
           </span>
         )}
@@ -715,8 +715,8 @@ function EditProfile({ profile, onSaved, onCancel }: { profile: { display_name?:
             </div>
           )}
           {okAt && (
-            <div className="md:col-span-2 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-sm px-4 py-3 inline-flex items-center gap-2">
-              <Check className="w-4 h-4" /> সংরক্ষণ হয়েছে
+            <div className="md:col-span-2 rounded-xl bg-emerald-600 text-white text-sm font-semibold px-4 py-3 inline-flex items-center gap-2 shadow-sm border border-emerald-700">
+              <Check className="w-4 h-4" strokeWidth={3} /> সংরক্ষণ হয়েছে
             </div>
           )}
           <div className="md:col-span-2 flex gap-3">
@@ -1307,7 +1307,7 @@ function SecurityView() {
             </div>
           </Field>
           <Field label="কনফার্ম পাসওয়ার্ড"><Input type={show ? "text" : "password"} value={pw.confirm} onChange={(e) => setPw({ ...pw, confirm: e.target.value })} /></Field>
-          {msg && <div className={`md:col-span-2 text-sm px-3 py-2 rounded-xl ${msg.kind === "ok" ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300" : "bg-rose-500/10 text-rose-700 dark:text-rose-300"}`}>{msg.text}</div>}
+          {msg && <div className={`md:col-span-2 text-sm font-semibold px-3 py-2 rounded-xl shadow-sm ${msg.kind === "ok" ? "bg-emerald-600 text-white border border-emerald-700" : "bg-rose-600 text-white border border-rose-700"}`}>{msg.text}</div>}
           <div className="md:col-span-2"><Btn type="submit" variant="primary">{busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Shield className="w-4 h-4" />}পাসওয়ার্ড আপডেট</Btn></div>
         </form>
       </Card>
@@ -1387,7 +1387,7 @@ function InstallAppView() {
             <div className="text-xs text-muted-foreground mt-0.5">দ্রুত অ্যাক্সেস, অফলাইন সাপোর্ট ও পুশ নোটিফিকেশন</div>
           </div>
           {installed ? (
-            <span className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-500/15 text-emerald-600 border border-emerald-500/30"><Check className="w-3.5 h-3.5" />Installed</span>
+            <span className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-600 text-white border border-emerald-700 shadow-sm"><Check className="w-3.5 h-3.5" strokeWidth={3} />Installed</span>
           ) : deferred ? (
             <Btn variant="primary" onClick={install}><Download className="w-4 h-4" />Install</Btn>
           ) : null}
