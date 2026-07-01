@@ -63,6 +63,7 @@ import { Route as AdminQuickSaleRouteImport } from './routes/admin.quick-sale'
 import { Route as AdminPromotionsRouteImport } from './routes/admin.promotions'
 import { Route as AdminProductsRouteImport } from './routes/admin.products'
 import { Route as AdminPaymentLinksRouteImport } from './routes/admin.payment-links'
+import { Route as AdminPagesRouteImport } from './routes/admin.pages'
 import { Route as AdminOtherPixelsRouteImport } from './routes/admin.other-pixels'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminOrderRecoveryRouteImport } from './routes/admin.order-recovery'
@@ -367,6 +368,11 @@ const AdminPaymentLinksRoute = AdminPaymentLinksRouteImport.update({
   path: '/payment-links',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminPagesRoute = AdminPagesRouteImport.update({
+  id: '/pages',
+  path: '/pages',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminOtherPixelsRoute = AdminOtherPixelsRouteImport.update({
   id: '/other-pixels',
   path: '/other-pixels',
@@ -585,6 +591,7 @@ export interface FileRoutesByFullPath {
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
+  '/admin/pages': typeof AdminPagesRoute
   '/admin/payment-links': typeof AdminPaymentLinksRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
@@ -672,6 +679,7 @@ export interface FileRoutesByTo {
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
+  '/admin/pages': typeof AdminPagesRoute
   '/admin/payment-links': typeof AdminPaymentLinksRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
@@ -761,6 +769,7 @@ export interface FileRoutesById {
   '/admin/order-recovery': typeof AdminOrderRecoveryRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/other-pixels': typeof AdminOtherPixelsRoute
+  '/admin/pages': typeof AdminPagesRoute
   '/admin/payment-links': typeof AdminPaymentLinksRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/promotions': typeof AdminPromotionsRoute
@@ -851,6 +860,7 @@ export interface FileRouteTypes {
     | '/admin/order-recovery'
     | '/admin/orders'
     | '/admin/other-pixels'
+    | '/admin/pages'
     | '/admin/payment-links'
     | '/admin/products'
     | '/admin/promotions'
@@ -938,6 +948,7 @@ export interface FileRouteTypes {
     | '/admin/order-recovery'
     | '/admin/orders'
     | '/admin/other-pixels'
+    | '/admin/pages'
     | '/admin/payment-links'
     | '/admin/products'
     | '/admin/promotions'
@@ -1026,6 +1037,7 @@ export interface FileRouteTypes {
     | '/admin/order-recovery'
     | '/admin/orders'
     | '/admin/other-pixels'
+    | '/admin/pages'
     | '/admin/payment-links'
     | '/admin/products'
     | '/admin/promotions'
@@ -1486,6 +1498,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPaymentLinksRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/pages': {
+      id: '/admin/pages'
+      path: '/pages'
+      fullPath: '/admin/pages'
+      preLoaderRoute: typeof AdminPagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/other-pixels': {
       id: '/admin/other-pixels'
       path: '/other-pixels'
@@ -1749,6 +1768,7 @@ interface AdminRouteChildren {
   AdminOrderRecoveryRoute: typeof AdminOrderRecoveryRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
   AdminOtherPixelsRoute: typeof AdminOtherPixelsRoute
+  AdminPagesRoute: typeof AdminPagesRoute
   AdminPaymentLinksRoute: typeof AdminPaymentLinksRoute
   AdminProductsRoute: typeof AdminProductsRoute
   AdminPromotionsRoute: typeof AdminPromotionsRoute
@@ -1795,6 +1815,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminOrderRecoveryRoute: AdminOrderRecoveryRoute,
   AdminOrdersRoute: AdminOrdersRoute,
   AdminOtherPixelsRoute: AdminOtherPixelsRoute,
+  AdminPagesRoute: AdminPagesRoute,
   AdminPaymentLinksRoute: AdminPaymentLinksRoute,
   AdminProductsRoute: AdminProductsRoute,
   AdminPromotionsRoute: AdminPromotionsRoute,
