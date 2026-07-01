@@ -304,7 +304,17 @@ export function SiteHeader() {
                       }}
                       title={friendlyName}
                     >
-                      <UserCircle2 className="w-4 h-4" />
+                      {avatarUrl ? (
+                        <img
+                          src={avatarUrl}
+                          alt={friendlyName}
+                          referrerPolicy="no-referrer"
+                          className="w-6 h-6 rounded-full object-cover ring-2 ring-white/60 shadow-sm shrink-0"
+                          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                        />
+                      ) : (
+                        <UserCircle2 className="w-4 h-4" />
+                      )}
                       <span className="hidden sm:inline max-w-[120px] truncate">Dashboard</span>
                     </Link>
                     <button
