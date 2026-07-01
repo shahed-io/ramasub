@@ -202,7 +202,7 @@ function ProductPage() {
   const galleryImages = (product.meta?.gallery ?? []).filter(Boolean);
   const allImages = [product.imageUrl, ...galleryImages].filter((u): u is string => !!u);
   const [activeImg, setActiveImg] = useState<string | null>(null);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+  
   const heroImg = activeImg ?? allImages[0] ?? null;
   const videoEmbed = toEmbedUrl(product.meta?.video_url);
 
