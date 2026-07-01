@@ -1387,7 +1387,7 @@ function InstallAppView() {
             <div className="text-xs text-muted-foreground mt-0.5">দ্রুত অ্যাক্সেস, অফলাইন সাপোর্ট ও পুশ নোটিফিকেশন</div>
           </div>
           {installed ? (
-            <span className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-500/15 text-emerald-600 border border-emerald-500/30"><Check className="w-3.5 h-3.5" />Installed</span>
+            <span className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-600 text-white border border-emerald-700 shadow-sm"><Check className="w-3.5 h-3.5" strokeWidth={3} />Installed</span>
           ) : deferred ? (
             <Btn variant="primary" onClick={install}><Download className="w-4 h-4" />Install</Btn>
           ) : null}
