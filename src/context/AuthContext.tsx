@@ -75,6 +75,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               .then(() => {});
           }, 0);
         }
+        // Telegram: fire for brand-new signups (user created <60s ago), guarded per-user in sessionStorage.
+        try {
+          const createdAt = s.user.created_at ? new Date(s.user.created_at).getTime() : 0;
+          const isFresh = createdAt && Date.now() - createdAt < 60_000;
+          const key = `tg_signup_${s.user.id}`;
+          if (isFresh && typeof sessionStorage !== "undefined" && !sessionStorage.getItem(key)) {
+            sessionStorage.setItem(key, "1");
+            import("@/lib/telegram").then(({ notifyTelegram }) => {
+              notifyTelegram({
+                event: "new_signup",
+                title: "নতুন User Signup",
+                lines: [
+                  ["Name", name ?? "—"],
+                  ["Email", s.user.email ?? "—"],
+                  ["Provider", meta.provider ?? (meta.iss?.includes("google") ? "google" : "email")],
+                ],
+              });
+            });
+          }
+        } catch { /* ignore */ }
       }
     });
     withAuthTimeout(supabase.auth.getSession())
