@@ -1257,11 +1257,11 @@ function PointsView() {
 /* ===================== REFERRAL ===================== */
 function ReferralView({ user }: { user: { id?: string; email?: string } | null }) {
   const code = (user?.id || "").slice(0, 8).toUpperCase();
-  const link = typeof window !== "undefined" ? `${window.location.origin}/signup?ref=${code}` : `/signup?ref=${code}`;
+  const link = `https://ramasub.com/register?ref=${code}`;
   const [copied, setCopied] = useState(false);
   const copy = () => { navigator.clipboard.writeText(link); setCopied(true); setTimeout(() => setCopied(false), 1500); };
   const share = async () => {
-    const data = { title: "Rama Sub", text: "আমার রেফারেল লিংক দিয়ে সাইন আপ করুন!", url: link };
+    const data = { title: "RamaSub", text: `আমার রেফারেল কোড ${code} দিয়ে RamaSub এ সাইন আপ করুন এবং প্রিমিয়াম সাবস্ক্রিপশন উপভোগ করুন!`, url: link };
     if ((navigator as any).share) { try { await (navigator as any).share(data); } catch { /* user cancelled */ } }
     else copy();
   };

@@ -76,6 +76,17 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
   });
 
 
+  // Capture ?ref=CODE so we can redeem the referral once the user is signed in.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const ref = new URLSearchParams(window.location.search).get("ref");
+      if (ref && /^[a-z0-9]{6,16}$/i.test(ref)) {
+        window.localStorage.setItem("rs:referral_code", ref.toLowerCase());
+      }
+    } catch { /* ignore */ }
+  }, []);
+
   useEffect(() => {
     setMode(initialMode);
     setErr(null);
