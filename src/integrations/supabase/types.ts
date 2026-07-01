@@ -1073,6 +1073,69 @@ export type Database = {
         }
         Relationships: []
       }
+      telegram_notifications_log: {
+        Row: {
+          created_at: string
+          error: string | null
+          event_type: string
+          id: string
+          message: string | null
+          payload: Json | null
+          success: boolean
+        }
+        Insert: {
+          created_at?: string
+          error?: string | null
+          event_type: string
+          id?: string
+          message?: string | null
+          payload?: Json | null
+          success?: boolean
+        }
+        Update: {
+          created_at?: string
+          error?: string | null
+          event_type?: string
+          id?: string
+          message?: string | null
+          payload?: Json | null
+          success?: boolean
+        }
+        Relationships: []
+      }
+      telegram_settings: {
+        Row: {
+          bot_token: string | null
+          chat_id: string | null
+          created_at: string
+          enabled: boolean
+          events: Json
+          id: string
+          singleton: boolean
+          updated_at: string
+        }
+        Insert: {
+          bot_token?: string | null
+          chat_id?: string | null
+          created_at?: string
+          enabled?: boolean
+          events?: Json
+          id?: string
+          singleton?: boolean
+          updated_at?: string
+        }
+        Update: {
+          bot_token?: string | null
+          chat_id?: string | null
+          created_at?: string
+          enabled?: boolean
+          events?: Json
+          id?: string
+          singleton?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
       ticket_messages: {
         Row: {
           body: string
