@@ -17,6 +17,7 @@ import { GlassCard } from "@/components/ui-glass/GlassCard";
 import { GlassButton } from "@/components/ui-glass/GlassButton";
 import { waOrderUrl } from "@/lib/whatsapp";
 import { ProductReviews } from "@/components/ProductReviews";
+import { ProductImageZoom } from "@/components/ProductImageZoom";
 
 
 const parsePrice = (p: unknown): number => {
@@ -240,33 +241,7 @@ function ProductPage() {
         <div className="md:col-span-6 space-y-4">
           <div className="relative aspect-square overflow-hidden rounded-3xl bg-white shadow-sm border border-slate-200">
             {heroImg ? (
-              <div
-                className="absolute inset-0 w-full h-full overflow-hidden cursor-zoom-in group"
-                onMouseMove={(e) => {
-                  const el = e.currentTarget;
-                  const r = el.getBoundingClientRect();
-                  const x = ((e.clientX - r.left) / r.width) * 100;
-                  const y = ((e.clientY - r.top) / r.height) * 100;
-                  const img = el.querySelector('img') as HTMLImageElement | null;
-                  if (img) img.style.transformOrigin = `${x}% ${y}%`;
-                }}
-                aria-label={`${product.name} — hover to zoom`}
-              >
-                <img
-                  src={optimizeSupabaseImage(heroImg, { width: 1400, quality: 80 })}
-                  alt={product.name}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-150"
-                  loading="eager"
-                  decoding="async"
-                  fetchPriority="high"
-                  width={1400}
-                  height={1400}
-                  onError={(e) => {
-                    const img = e.currentTarget;
-                    if (img.src !== heroImg) img.src = heroImg;
-                  }}
-                />
-              </div>
+              <ProductImageZoom src={heroImg} alt={product.name} />
             ) : (
               <ProductBanner product={product} ratio="1/1" spheres={6} priority className="rounded-3xl overflow-hidden" />
             )}
