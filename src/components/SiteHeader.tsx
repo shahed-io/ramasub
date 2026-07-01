@@ -132,19 +132,25 @@ export function SiteHeader() {
   const navigate = useNavigate();
   const { open: searchOpen, setOpen: setSearchOpen } = useGlobalSearch();
   const [displayName, setDisplayName] = useState<string | null>(null);
+  const [profileAvatar, setProfileAvatar] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!user) { setDisplayName(null); return; }
+    if (!user) { setDisplayName(null); setProfileAvatar(null); return; }
     let cancelled = false;
     (async () => {
-      const p = await supabase.from("profiles").select("display_name").eq("id", user.id).maybeSingle();
+      const p = await supabase.from("profiles").select("display_name, avatar_url").eq("id", user.id).maybeSingle();
       if (cancelled) return;
-      setDisplayName((p.data as { display_name?: string | null } | null)?.display_name || null);
+      const row = p.data as { display_name?: string | null; avatar_url?: string | null } | null;
+      setDisplayName(row?.display_name || null);
+      setProfileAvatar(row?.avatar_url || null);
     })();
     return () => { cancelled = true; };
   }, [user]);
 
-  const friendlyName = displayName || user?.email?.split("@")[0] || "Member";
+  const friendlyName = displayName || user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split("@")[0] || "Member";
+  const meta = (user?.user_metadata ?? {}) as Record<string, any>;
+  const avatarUrl: string | null = profileAvatar || meta.avatar_url || meta.picture || meta.avatar || null;
+
 
   const handleLogout = async () => {
     await signOut();
