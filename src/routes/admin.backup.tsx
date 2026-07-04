@@ -16,13 +16,12 @@ export const Route = createFileRoute("/admin/backup")({
   component: BackupPage,
 });
 
-type Tone = "violet" | "blue" | "emerald" | "violet" | "rose" | "cyan" | "fuchsia" | "indigo" | "teal" | "orange" | "slate";
+type Tone = "violet" | "blue" | "emerald" | "rose" | "cyan" | "fuchsia" | "indigo" | "teal" | "orange" | "slate";
 
 const TONE: Record<Tone, { bg: string; ic: string; ring: string }> = {
-  violet:  { bg: "bg-violet-100",  ic: "text-violet-700",  ring: "ring-violet-200" },
+  violet:  { bg: "bg-violet-200",  ic: "text-violet-800",  ring: "ring-violet-300" },
   blue:    { bg: "bg-blue-100",    ic: "text-blue-700",    ring: "ring-blue-200" },
   emerald: { bg: "bg-emerald-100", ic: "text-emerald-700", ring: "ring-emerald-200" },
-  violet:   { bg: "bg-violet-100",   ic: "text-violet-800",   ring: "ring-violet-200" },
   rose:    { bg: "bg-rose-100",    ic: "text-rose-700",    ring: "ring-rose-200" },
   cyan:    { bg: "bg-cyan-100",    ic: "text-cyan-700",    ring: "ring-cyan-200" },
   fuchsia: { bg: "bg-fuchsia-100", ic: "text-fuchsia-700", ring: "ring-fuchsia-200" },
