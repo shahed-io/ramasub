@@ -96,6 +96,11 @@ function ProductCardImpl({ product }: { product: Product }) {
       card.appendChild(s);
       window.setTimeout(() => s.remove(), 720);
     }
+
+    // Navigate after the animation has had time to be visible
+    window.setTimeout(() => {
+      navigate({ to: "/product/$slug", params: { slug: product.slug } });
+    }, 280);
   };
 
   return (
