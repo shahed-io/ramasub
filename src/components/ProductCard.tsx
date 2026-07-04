@@ -25,6 +25,7 @@ function ratingFor(slug: string): { rating: string; reviews: number } {
 
 function ProductCardImpl({ product }: { product: Product }) {
   const { add } = useCart();
+  const navigate = useNavigate();
   const shopConfig = useShopConfigValue();
 
   const plan = product.plans[0];
