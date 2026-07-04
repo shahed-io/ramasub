@@ -63,7 +63,7 @@ const AVATAR_TONES = [
   "bg-violet-100 text-violet-700",
   "bg-emerald-100 text-emerald-700",
   "bg-sky-100 text-sky-700",
-  "bg-amber-100 text-amber-700",
+  "bg-violet-100 text-violet-700",
   "bg-rose-100 text-rose-700",
 ];
 function toneFor(seed: string): string {
@@ -187,7 +187,7 @@ function AbandonedCheckoutPage() {
       {/* KPI row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <KpiTile accent="slate"    label={t("Total", "মোট")}                 value={counts.all}                sub={t("checkouts", "চেকআউট")}       icon={<FileText className="w-3.5 h-3.5" />} loading={loading} />
-        <KpiTile accent="amber"    label={t("Pending Recovery", "পেন্ডিং")} value={counts.pending}            sub={fmtMoney(lostValue)}             icon={<Clock className="w-3.5 h-3.5" />}    loading={loading} />
+        <KpiTile accent="violet"    label={t("Pending Recovery", "পেন্ডিং")} value={counts.pending}            sub={fmtMoney(lostValue)}             icon={<Clock className="w-3.5 h-3.5" />}    loading={loading} />
         <KpiTile accent="emerald"  label={t("Recovered", "রিকভারড")}         value={counts.recovered}          sub={fmtMoney(recoveredValue)}        icon={<CheckCircle2 className="w-3.5 h-3.5" />} loading={loading} />
         <KpiTile accent="rose"     label={t("Lost Value", "লস্ট ভ্যালু")}    value={fmtMoney(lostValue)}       sub={`${counts.pending + counts.lost} ${t("open", "খোলা")}`} icon={<Package className="w-3.5 h-3.5" />} loading={loading} />
       </div>
@@ -214,7 +214,7 @@ function AbandonedCheckoutPage() {
             </button>
           </div>
           <div className="flex items-center p-1 bg-slate-100/70 rounded-xl gap-1 self-start md:self-auto">
-            <SegTab active={tab === "pending"}   onClick={() => setTab("pending")}   dot="bg-amber-500">   {t("Pending", "পেন্ডিং")} ({counts.pending})</SegTab>
+            <SegTab active={tab === "pending"}   onClick={() => setTab("pending")}   dot="bg-violet-500">   {t("Pending", "পেন্ডিং")} ({counts.pending})</SegTab>
             <SegTab active={tab === "all"}       onClick={() => setTab("all")}       dot="bg-slate-500">   {t("All", "সব")} ({counts.all})</SegTab>
             <SegTab active={tab === "recovered"} onClick={() => setTab("recovered")} dot="bg-emerald-500"> {t("Recovered", "রিকভারড")} ({counts.recovered})</SegTab>
             <SegTab active={tab === "contacted"} onClick={() => setTab("contacted")} dot="bg-sky-500">     {t("Contacted", "কন্টাক্টেড")} ({counts.contacted})</SegTab>
@@ -281,17 +281,17 @@ function AbandonedCheckoutPage() {
 
 function KpiTile({ label, value, sub, icon, accent, loading }: {
   label: string; value: string | number; sub?: string; icon: React.ReactNode;
-  accent: "slate" | "amber" | "emerald" | "rose"; loading?: boolean;
+  accent: "slate" | "violet" | "emerald" | "rose"; loading?: boolean;
 }) {
   const tone: Record<string, string> = {
     slate:    "text-slate-500",
-    amber:    "text-amber-600",
+    violet:   "text-violet-600",
     emerald:  "text-emerald-600",
     rose:     "text-rose-600",
   };
   const bg: Record<string, string> = {
     slate:    "bg-slate-100 text-slate-600",
-    amber:    "bg-amber-100 text-amber-700",
+    violet:   "bg-violet-100 text-violet-700",
     emerald:  "bg-emerald-100 text-emerald-700",
     rose:     "bg-rose-100 text-rose-700",
   };
@@ -326,7 +326,7 @@ function SegTab({ active, onClick, children, dot }: { active: boolean; onClick: 
 function StatusPill({ status }: { status: Row["status"] }) {
   const { t } = useAdminLang();
   const m: Record<Row["status"], { cls: string; dot: string; en: string; bn: string }> = {
-    pending:   { cls: "bg-amber-50 text-amber-700 border-amber-200/70",     dot: "bg-amber-500",   en: "Pending",   bn: "পেন্ডিং" },
+    pending:   { cls: "bg-violet-50 text-violet-700 border-violet-200/70",     dot: "bg-violet-500",   en: "Pending",   bn: "পেন্ডিং" },
     contacted: { cls: "bg-sky-50 text-sky-700 border-sky-200/70",           dot: "bg-sky-500",     en: "Contacted", bn: "কন্টাক্টেড" },
     recovered: { cls: "bg-emerald-50 text-emerald-700 border-emerald-200/70", dot: "bg-emerald-500", en: "Recovered", bn: "রিকভারড" },
     lost:      { cls: "bg-rose-50 text-rose-700 border-rose-200/70",         dot: "bg-rose-500",    en: "Lost",      bn: "লস্ট" },
