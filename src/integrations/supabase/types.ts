@@ -17,55 +17,73 @@ export type Database = {
       abandoned_checkouts: {
         Row: {
           admin_note: string | null
+          checkout_step: number
           contacted_at: string | null
           coupon_code: string | null
           created_at: string
+          customer_note: string | null
           email: string
           full_name: string
           id: string
           items: Json
+          payment_method: string | null
+          payment_screenshot_url: string | null
           phone: string
           recovered_at: string | null
           recovered_order_id: string | null
+          sender_number: string | null
           status: string
           subtotal: number
           total: number
+          transaction_id: string | null
           updated_at: string
           user_id: string | null
         }
         Insert: {
           admin_note?: string | null
+          checkout_step?: number
           contacted_at?: string | null
           coupon_code?: string | null
           created_at?: string
+          customer_note?: string | null
           email: string
           full_name?: string
           id?: string
           items?: Json
+          payment_method?: string | null
+          payment_screenshot_url?: string | null
           phone?: string
           recovered_at?: string | null
           recovered_order_id?: string | null
+          sender_number?: string | null
           status?: string
           subtotal?: number
           total?: number
+          transaction_id?: string | null
           updated_at?: string
           user_id?: string | null
         }
         Update: {
           admin_note?: string | null
+          checkout_step?: number
           contacted_at?: string | null
           coupon_code?: string | null
           created_at?: string
+          customer_note?: string | null
           email?: string
           full_name?: string
           id?: string
           items?: Json
+          payment_method?: string | null
+          payment_screenshot_url?: string | null
           phone?: string
           recovered_at?: string | null
           recovered_order_id?: string | null
+          sender_number?: string | null
           status?: string
           subtotal?: number
           total?: number
+          transaction_id?: string | null
           updated_at?: string
           user_id?: string | null
         }
