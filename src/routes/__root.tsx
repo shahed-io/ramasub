@@ -31,32 +31,86 @@ import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <p className="text-sm font-medium uppercase tracking-widest text-primary">404 Error</p>
-        <h1 className="mt-3 text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">পেজটি খুঁজে পাওয়া যায়নি</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          আপনি যে পেজটি খুঁজছেন সেটি নেই, সরিয়ে ফেলা হয়েছে অথবা URL ভুল হতে পারে।
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+    <div className="page_404 flex min-h-screen items-center justify-center bg-[#0b0b0f] px-4 py-10">
+      <div className="w-full max-w-3xl rounded-2xl bg-white px-6 py-12 shadow-2xl sm:px-12 sm:py-16">
+        <div className="text-center">
+          <h1
+            className="text-[80px] leading-none font-normal text-[#222]"
+            style={{ fontFamily: "'Arvo', Georgia, 'Times New Roman', serif" }}
           >
-            হোমে ফিরে যান
-          </Link>
-          <Link
-            to="/products"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            404
+          </h1>
+
+          {/* Illustration */}
+          <div className="mx-auto mt-6 flex h-56 w-full max-w-lg items-end justify-center gap-6 sm:h-64">
+            <svg viewBox="0 0 480 220" className="h-full w-full" aria-hidden="true">
+              {/* ground */}
+              <ellipse cx="240" cy="205" rx="220" ry="10" fill="#f1f2f4" />
+              {/* left rock stack */}
+              <ellipse cx="90" cy="200" rx="46" ry="10" fill="#e6e8ec" />
+              <path d="M60 200 Q70 150 90 148 Q112 150 120 200 Z" fill="#d5d8df" />
+              <path d="M72 148 Q90 118 108 148 Z" fill="#c9cdd4" />
+              {/* right rock */}
+              <ellipse cx="400" cy="200" rx="60" ry="10" fill="#e6e8ec" />
+              <path d="M350 200 Q360 130 400 128 Q440 132 450 200 Z" fill="#d5d8df" />
+              {/* bushes */}
+              <path d="M140 200 q10 -22 22 -22 q6 -14 20 -12 q10 -14 22 -6 q14 -4 18 12 q10 6 6 28 Z" fill="#2fb14a" />
+              <path d="M300 200 q8 -18 20 -18 q6 -12 18 -10 q8 -12 20 -4 q12 -2 14 10 q10 4 6 22 Z" fill="#2fb14a" />
+              {/* character body */}
+              <g>
+                {/* legs */}
+                <rect x="220" y="160" width="14" height="34" rx="4" fill="#f2b28a" />
+                <rect x="246" y="160" width="14" height="34" rx="4" fill="#f2b28a" />
+                {/* tunic */}
+                <path d="M204 120 L276 120 L282 172 L198 172 Z" fill="#f6a623" />
+                <circle cx="222" cy="140" r="4" fill="#c97b13" />
+                <circle cx="252" cy="150" r="4" fill="#c97b13" />
+                <circle cx="238" cy="128" r="3.5" fill="#c97b13" />
+                {/* arms */}
+                <rect x="192" y="128" width="14" height="40" rx="6" fill="#f2b28a" />
+                <rect x="274" y="128" width="14" height="40" rx="6" fill="#f2b28a" />
+                {/* head */}
+                <circle cx="240" cy="96" r="26" fill="#f2b28a" />
+                {/* hair */}
+                <path d="M216 92 Q220 66 240 64 Q262 66 264 92 Q252 82 240 84 Q228 82 216 92 Z" fill="#5b3a1e" />
+                {/* beard */}
+                <path d="M222 100 Q240 130 258 100 Q256 118 240 122 Q224 118 222 100 Z" fill="#5b3a1e" />
+                {/* eyes */}
+                <circle cx="232" cy="96" r="2" fill="#222" />
+                <circle cx="248" cy="96" r="2" fill="#222" />
+                {/* cable in hands */}
+                <path d="M198 168 C 170 190, 150 150, 168 138" stroke="#222" strokeWidth="3" fill="none" strokeLinecap="round" />
+                <rect x="160" y="130" width="14" height="10" rx="2" fill="#222" />
+                <path d="M282 168 C 310 190, 330 150, 316 140" stroke="#222" strokeWidth="3" fill="none" strokeLinecap="round" />
+                <rect x="308" y="132" width="14" height="10" rx="2" fill="#222" />
+              </g>
+            </svg>
+          </div>
+
+          <h2
+            className="mt-8 text-2xl font-normal text-[#333]"
+            style={{ fontFamily: "'Arvo', Georgia, serif" }}
           >
-            প্রোডাক্ট দেখুন
-          </Link>
+            Look like you're lost
+          </h2>
+          <p className="mt-2 text-sm text-[#777]">
+            the page you are looking for not avaible!
+          </p>
+
+          <div className="mt-8">
+            <Link
+              to="/"
+              className="inline-block rounded-md bg-[#39ac31] px-6 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#2f9528]"
+            >
+              Go to Home
+            </Link>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
