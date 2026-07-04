@@ -332,8 +332,7 @@ function AdminOrders() {
 
 function StatCard({ label, value, icon, tone, loading }: { label: string; value: string | number; icon: React.ReactNode; tone: "violet"|"sky"|"emerald"; loading?: boolean }) {
   const tones: Record<string, string> = {
-    violet: "bg-violet-100 text-violet-700",
-    violet: "bg-violet-100 text-violet-700",
+    violet: "bg-violet-200 text-violet-800",
     sky: "bg-sky-100 text-sky-700",
     emerald: "bg-emerald-100 text-emerald-700",
   };
