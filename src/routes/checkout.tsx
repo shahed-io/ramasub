@@ -189,36 +189,35 @@ function CheckoutPage() {
 
   const applied = useAppliedCoupon(coupon, total);
 
-  // Capture abandoned checkout: debounced upsert as soon as we have valid contact info + items.
+  // Capture abandoned checkout for BOTH signed-in and guest shoppers as soon as
+  // we have valid contact info + items. Runs via a server function (service role)
+  // so anonymous checkouts land in admin too.
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (!user?.id) return; // only capture for signed-in shoppers (RLS scopes rows to user_id)
     if (!items?.length) return;
     if (!form.name.trim() || !emailRe.test(form.email) || !isValidBdPhone(form.phone)) return;
     const handle = window.setTimeout(() => {
-      const payload = {
-        user_id: user.id,
-        full_name: form.name.trim(),
-        email: form.email.trim().toLowerCase(),
-        phone: normalizeBdPhone(form.phone),
-        items: items.map((it) => ({
-          slug: it.slug, name: it.name, planPeriod: it.planPeriod,
-          qty: it.qty, price: it.price, emoji: it.emoji,
-        })),
-        subtotal: total,
-        total: Math.max(0, total),
-        coupon_code: coupon || null,
-        status: "pending",
-      };
-      (supabase.from("abandoned_checkouts" as never) as unknown as { upsert: (p: unknown, o: { onConflict: string }) => Promise<{ error: { message: string } | null }> })
-        .upsert(payload, { onConflict: "user_id" })
-        .then(({ error }) => {
-          if (error && typeof console !== "undefined") console.warn("abandoned capture", error.message);
-        });
-
+      void import("@/lib/abandoned-checkout.functions").then(({ captureAbandonedCheckout }) =>
+        captureAbandonedCheckout({
+          data: {
+            user_id: user?.id ?? null,
+            full_name: form.name.trim(),
+            email: form.email.trim().toLowerCase(),
+            phone: normalizeBdPhone(form.phone),
+            items: items.map((it) => ({
+              slug: it.slug, name: it.name, planPeriod: it.planPeriod,
+              qty: it.qty, price: it.price, emoji: it.emoji,
+            })),
+            subtotal: total,
+            total: Math.max(0, total),
+            coupon_code: coupon || null,
+          },
+        }),
+      ).catch((err) => {
+        if (typeof console !== "undefined") console.warn("abandoned capture", err?.message ?? err);
+      });
     }, 1500);
     return () => window.clearTimeout(handle);
-
   }, [form.name, form.email, form.phone, items, total, coupon, user?.id]);
 
   const subAfterCoupon = Math.max(0, total - applied.discount);
