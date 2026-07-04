@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { ShoppingCart, Star, MessageCircle } from "lucide-react";
 import { memo, useRef } from "react";
 
@@ -25,6 +25,7 @@ function ratingFor(slug: string): { rating: string; reviews: number } {
 
 function ProductCardImpl({ product }: { product: Product }) {
   const { add } = useCart();
+  const navigate = useNavigate();
   const shopConfig = useShopConfigValue();
 
   const plan = product.plans[0];
@@ -54,7 +55,13 @@ function ProductCardImpl({ product }: { product: Product }) {
   const spawnClickAnimation = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const card = cardRef.current;
     if (!card) return;
-    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    const reduced = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
+    // Let user open in new tab / middle-click as usual
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+
+    e.preventDefault();
 
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -89,6 +96,11 @@ function ProductCardImpl({ product }: { product: Product }) {
       card.appendChild(s);
       window.setTimeout(() => s.remove(), 720);
     }
+
+    // Navigate after the animation has had time to be visible
+    window.setTimeout(() => {
+      navigate({ to: "/product/$slug", params: { slug: product.slug } });
+    }, 280);
   };
 
   return (
