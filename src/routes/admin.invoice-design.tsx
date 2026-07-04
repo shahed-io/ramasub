@@ -7,6 +7,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminLang } from "@/context/AdminLangContext";
 import { toast } from "sonner";
+import logoAsset from "@/assets/rama-sub-logo.png.asset.json";
 
 export const Route = createFileRoute("/admin/invoice-design")({
   component: InvoiceDesignPage,
