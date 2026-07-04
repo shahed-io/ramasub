@@ -345,17 +345,19 @@ function InvoicePreview({ design, totalColor }: { design: Design; totalColor: st
       <div className="flex items-start justify-between px-6 pt-6 pb-4">
         <div className="flex items-center gap-3">
           {design.showLogo && (
-            <div
-              className="w-12 h-12 rounded-xl grid place-items-center text-white font-bold shadow"
-              style={{ background: `linear-gradient(135deg, ${design.brandColor}, ${design.brandLight})` }}
-            >
-              {design.companyName.charAt(0) || "S"}
+            <img
+              src={logoAsset.url}
+              alt={design.companyName}
+              className="h-12 w-auto object-contain"
+              style={{ maxWidth: 180 }}
+            />
+          )}
+          {!design.showLogo && (
+            <div>
+              <div className="text-base font-extrabold" style={{ color: design.brandColor }}>{design.companyName}</div>
+              <div className="text-[11px] opacity-70">{design.companyAddress || design.companyWebsite}</div>
             </div>
           )}
-          <div>
-            <div className="text-base font-extrabold" style={{ color: design.brandColor }}>{design.companyName}</div>
-            <div className="text-[11px] opacity-70">{design.companyAddress || design.companyWebsite}</div>
-          </div>
         </div>
         <div className="text-right">
           <div className="text-2xl font-black tracking-wider" style={{ color: design.brandColor }}>{design.invoiceTitle}</div>
