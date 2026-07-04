@@ -23,6 +23,12 @@ type Row = {
   subtotal: number;
   total: number;
   coupon_code: string | null;
+  sender_number: string | null;
+  transaction_id: string | null;
+  payment_method: string | null;
+  payment_screenshot_url: string | null;
+  customer_note: string | null;
+  checkout_step: number;
   status: "pending" | "contacted" | "recovered" | "lost";
   contacted_at: string | null;
   recovered_at: string | null;
@@ -190,13 +196,14 @@ function AbandonedCheckoutPage() {
           <div className="p-14 grid place-items-center text-slate-400"><Loader2 className="w-6 h-6 animate-spin" /></div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[880px]">
+            <table className="w-full text-left border-collapse min-w-[980px]">
               <thead>
                 <tr className="bg-slate-50/50 border-b border-slate-100">
                   <th className="px-5 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t("Customer", "কাস্টমার")}</th>
                   <th className="px-4 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t("Contact", "কন্টাক্ট")}</th>
                   <th className="px-4 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t("Items", "আইটেম")}</th>
                   <th className="px-4 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t("Total", "মোট")}</th>
+                  <th className="px-4 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t("Progress", "প্রগ্রেস")}</th>
                   <th className="px-4 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t("Timeline", "টাইমলাইন")}</th>
                   <th className="px-4 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t("Status", "স্ট্যাটাস")}</th>
                   <th className="px-5 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-right">{t("Actions", "অ্যাকশন")}</th>
@@ -213,7 +220,7 @@ function AbandonedCheckoutPage() {
                   />
                 ))}
                 {filtered.length === 0 && (
-                  <tr><td colSpan={7} className="p-14 text-center text-slate-400 text-sm">{t("No abandoned checkouts.", "কোনো অ্যাবান্ডনড চেকআউট নেই।")}</td></tr>
+                  <tr><td colSpan={8} className="p-14 text-center text-slate-400 text-sm">{t("No abandoned checkouts.", "কোনো অ্যাবান্ডনড চেকআউট নেই।")}</td></tr>
                 )}
               </tbody>
             </table>
@@ -327,6 +334,7 @@ function RowItem({ row: r, onView, onContact, onDelete }: { row: Row; onView: ()
       <td className="px-4 py-3.5 text-xs text-slate-600">
         <div className="flex items-center gap-1.5"><Mail className="w-3 h-3 text-slate-400 shrink-0" /><span className="truncate max-w-[180px]">{r.email}</span></div>
         {r.phone && <div className="flex items-center gap-1.5 mt-1"><Phone className="w-3 h-3 text-slate-400 shrink-0" />{r.phone}</div>}
+        {r.sender_number && <div className="mt-1 text-[10px] text-slate-400">{t("Sender", "পেমেন্ট")}: {r.sender_number}</div>}
       </td>
       <td className="px-4 py-3.5">
         <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-600 border border-slate-200">
@@ -334,6 +342,10 @@ function RowItem({ row: r, onView, onContact, onDelete }: { row: Row; onView: ()
         </span>
       </td>
       <td className="px-4 py-3.5 text-sm font-bold text-slate-900">{fmtMoney(Number(r.total))}</td>
+      <td className="px-4 py-3.5">
+        <div className="text-xs font-semibold text-slate-700">{t("Step", "ধাপ")} {r.checkout_step || 1}/2</div>
+        <div className="text-[10px] text-slate-400 truncate max-w-[120px]">{r.payment_method || t("Contact only", "শুধু তথ্য")}</div>
+      </td>
       <td className="px-4 py-3.5">
         <div className="text-sm text-slate-700">{relativeTime(r.created_at, t)}</div>
         <div className="text-[10px] text-slate-400">{when.toLocaleString("en-GB", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}</div>
@@ -407,6 +419,7 @@ function DetailDrawer({ row, onClose, onUpdate, onDelete }: { row: Row; onClose:
               <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">{t("Contact", "কন্টাক্ট")}</div>
               <div className="text-sm flex items-center gap-2 text-slate-800"><Mail className="w-3.5 h-3.5 text-slate-400" />{row.email}</div>
               {row.phone && <div className="text-sm flex items-center gap-2 mt-1.5 text-slate-800"><Phone className="w-3.5 h-3.5 text-slate-400" />{row.phone}</div>}
+              {row.sender_number && <div className="text-xs text-slate-500 mt-1.5">{t("Sender", "পেমেন্ট নম্বর")}: <span className="font-semibold text-slate-700">{row.sender_number}</span></div>}
             </div>
 
             <div className="bg-slate-50 rounded-xl p-3 border border-slate-100 grid grid-cols-2 gap-3">
@@ -422,6 +435,28 @@ function DetailDrawer({ row, onClose, onUpdate, onDelete }: { row: Row; onClose:
                 <div className="col-span-2">
                   <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{t("Coupon", "কুপন")}</div>
                   <span className="inline-block font-mono text-xs px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700">{row.coupon_code}</span>
+                </div>
+              )}
+              <div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{t("Checkout Step", "চেকআউট ধাপ")}</div>
+                <div className="text-xs font-semibold text-slate-700">{row.checkout_step || 1}/2</div>
+              </div>
+              {row.payment_method && (
+                <div>
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{t("Payment", "পেমেন্ট")}</div>
+                  <div className="text-xs font-semibold text-slate-700 capitalize">{row.payment_method}</div>
+                </div>
+              )}
+              {row.transaction_id && (
+                <div className="col-span-2">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Transaction ID</div>
+                  <span className="inline-block font-mono text-xs px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700">{row.transaction_id}</span>
+                </div>
+              )}
+              {row.customer_note && (
+                <div className="col-span-2">
+                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{t("Customer Note", "কাস্টমার নোট")}</div>
+                  <div className="text-xs text-slate-700 bg-white border border-slate-200 rounded-lg px-2 py-1.5">{row.customer_note}</div>
                 </div>
               )}
             </div>

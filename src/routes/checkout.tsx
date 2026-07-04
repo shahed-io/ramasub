@@ -1,9 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { Check, Copy, Lock, Smartphone, Loader2, X, ChevronRight, Tag, ShieldCheck } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import { rememberReturnTo } from "@/lib/auth-return-to";
+import { captureAbandonedCheckout } from "@/lib/abandoned-checkout.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { useAppliedCoupon, redeemCoupon } from "@/lib/coupons";
 import { usePaymentMethods } from "@/hooks/useShopConfig";
@@ -79,6 +81,7 @@ function CheckoutPage() {
   const { items, total, clear, ready: cartReady } = useCart();
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const captureCheckout = useServerFn(captureAbandonedCheckout);
 
   const { step, coupon } = Route.useSearch();
   const setStep = (n: 1 | 2) =>
@@ -190,35 +193,38 @@ function CheckoutPage() {
   const applied = useAppliedCoupon(coupon, total);
 
   // Capture abandoned checkout for BOTH signed-in and guest shoppers as soon as
-  // we have valid contact info + items. Runs via a server function (service role)
-  // so anonymous checkouts land in admin too.
+  // checkout contact/payment fields are filled, so admins can follow up later.
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!items?.length) return;
     if (!form.name.trim() || !emailRe.test(form.email) || !isValidBdPhone(form.phone)) return;
     const handle = window.setTimeout(() => {
-      void import("@/lib/abandoned-checkout.functions").then(({ captureAbandonedCheckout }) =>
-        captureAbandonedCheckout({
-          data: {
-            user_id: user?.id ?? null,
-            full_name: form.name.trim(),
-            email: form.email.trim().toLowerCase(),
-            phone: normalizeBdPhone(form.phone),
-            items: items.map((it) => ({
-              slug: it.slug, name: it.name, planPeriod: it.planPeriod,
-              qty: it.qty, price: it.price, emoji: it.emoji,
-            })),
-            subtotal: total,
-            total: Math.max(0, total),
-            coupon_code: coupon || null,
-          },
-        }),
-      ).catch((err) => {
+      void captureCheckout({
+        data: {
+          user_id: user?.id ?? null,
+          full_name: form.name.trim(),
+          email: form.email.trim().toLowerCase(),
+          phone: normalizeBdPhone(form.phone),
+          sender_number: form.senderNumber ? normalizeBdPhone(form.senderNumber) : null,
+          transaction_id: form.trxId.trim() || null,
+          payment_method: method || null,
+          payment_screenshot_url: screenshotUrl || null,
+          customer_note: form.notes.trim() || null,
+          checkout_step: step,
+          items: items.map((it) => ({
+            slug: it.slug, name: it.name, planPeriod: it.planPeriod,
+            qty: it.qty, price: it.price, emoji: it.emoji,
+          })),
+          subtotal: total,
+          total: Math.max(0, total),
+          coupon_code: coupon || null,
+        },
+      }).catch((err) => {
         if (typeof console !== "undefined") console.warn("abandoned capture", err?.message ?? err);
       });
     }, 1500);
     return () => window.clearTimeout(handle);
-  }, [form.name, form.email, form.phone, items, total, coupon, user?.id]);
+  }, [captureCheckout, form.name, form.email, form.phone, form.senderNumber, form.trxId, form.notes, items, method, screenshotUrl, step, total, coupon, user?.id]);
 
   const subAfterCoupon = Math.max(0, total - applied.discount);
   const isWalletMethod = method === "wallet";
@@ -334,26 +340,6 @@ function CheckoutPage() {
       <GuardLayout>
         <Loader2 className="mx-auto h-6 w-6 animate-spin text-primary" />
         <p className="mt-3 text-sm text-muted-foreground">Checkout loading…</p>
-      </GuardLayout>
-    );
-  }
-
-  if (!user && items.length > 0) {
-    return (
-      <GuardLayout>
-        <h1 className="text-2xl font-bold text-foreground" style={{ fontFamily: "var(--font-heading)" }}>
-          Login to checkout
-        </h1>
-        <p className="text-sm text-muted-foreground mt-2">
-          Sign in or create an account to place your order and track it later.
-        </p>
-        <button
-          onClick={() => { rememberReturnTo(); navigate({ to: "/login" }); }}
-          className="mt-5 h-11 px-6 rounded-full text-primary-foreground text-sm font-bold inline-flex items-center justify-center hover:opacity-95 transition shadow-lg shadow-primary/25"
-          style={{ background: CTA_GRADIENT }}
-        >
-          Login / Sign up
-        </button>
       </GuardLayout>
     );
   }
