@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ShoppingCart, Star, MessageCircle } from "lucide-react";
-import { memo } from "react";
+import { memo, useRef } from "react";
+
 import { useCart } from "@/context/CartContext";
 import { useShopConfigValue } from "@/context/ShopConfigContext";
 import { badgeColorFor } from "@/lib/badgeColor";
