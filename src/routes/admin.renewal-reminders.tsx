@@ -854,8 +854,6 @@ function StatBox({
     tone === "rose"
       ? "text-rose-600"
       : tone === "violet"
-      ? "text-violet-600"
-      : tone === "violet"
       ? "text-violet-700"
       : "text-slate-900";
   return (
