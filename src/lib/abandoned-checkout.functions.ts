@@ -12,20 +12,24 @@ const itemSchema = z.object({
 
 const inputSchema = z.object({
   user_id: z.string().uuid().nullable().optional(),
-  full_name: z.string().trim().min(1).max(200),
-  email: z.string().trim().email().max(255),
-  phone: z.string().trim().min(6).max(40),
+  session_id: z.string().trim().max(80).nullable().optional(),
+  full_name: z.string().trim().max(200).nullable().optional(),
+  email: z.string().trim().max(255).nullable().optional(),
+  phone: z.string().trim().max(40).nullable().optional(),
   sender_number: z.string().trim().max(40).nullable().optional(),
   transaction_id: z.string().trim().max(120).nullable().optional(),
   payment_method: z.string().trim().max(80).nullable().optional(),
   payment_screenshot_url: z.string().trim().max(500).nullable().optional(),
   customer_note: z.string().trim().max(1000).nullable().optional(),
   checkout_step: z.number().int().min(1).max(2).optional(),
-  items: z.array(itemSchema).min(1).max(50),
-  subtotal: z.number().min(0).max(10_000_000),
-  total: z.number().min(0).max(10_000_000),
+  items: z.array(itemSchema).max(50).optional(),
+  subtotal: z.number().min(0).max(10_000_000).optional(),
+  total: z.number().min(0).max(10_000_000).optional(),
   coupon_code: z.string().trim().max(80).nullable().optional(),
-});
+}).refine(
+  (d) => !!(d.user_id || (d.email && d.email.length > 3) || (d.phone && d.phone.length >= 6) || d.session_id),
+  { message: "at least one identifier required" },
+);
 
 export type CaptureAbandonedInput = z.infer<typeof inputSchema>;
 
