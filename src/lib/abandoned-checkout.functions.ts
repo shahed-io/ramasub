@@ -12,20 +12,24 @@ const itemSchema = z.object({
 
 const inputSchema = z.object({
   user_id: z.string().uuid().nullable().optional(),
-  full_name: z.string().trim().min(1).max(200),
-  email: z.string().trim().email().max(255),
-  phone: z.string().trim().min(6).max(40),
+  session_id: z.string().trim().max(80).nullable().optional(),
+  full_name: z.string().trim().max(200).nullable().optional(),
+  email: z.string().trim().max(255).nullable().optional(),
+  phone: z.string().trim().max(40).nullable().optional(),
   sender_number: z.string().trim().max(40).nullable().optional(),
   transaction_id: z.string().trim().max(120).nullable().optional(),
   payment_method: z.string().trim().max(80).nullable().optional(),
   payment_screenshot_url: z.string().trim().max(500).nullable().optional(),
   customer_note: z.string().trim().max(1000).nullable().optional(),
   checkout_step: z.number().int().min(1).max(2).optional(),
-  items: z.array(itemSchema).min(1).max(50),
-  subtotal: z.number().min(0).max(10_000_000),
-  total: z.number().min(0).max(10_000_000),
+  items: z.array(itemSchema).max(50).optional(),
+  subtotal: z.number().min(0).max(10_000_000).optional(),
+  total: z.number().min(0).max(10_000_000).optional(),
   coupon_code: z.string().trim().max(80).nullable().optional(),
-});
+}).refine(
+  (d) => !!(d.user_id || (d.email && d.email.length > 3) || (d.phone && d.phone.length >= 6) || d.session_id),
+  { message: "at least one identifier required" },
+);
 
 export type CaptureAbandonedInput = z.infer<typeof inputSchema>;
 
@@ -33,28 +37,31 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
   .inputValidator((d: CaptureAbandonedInput) => inputSchema.parse(d))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const email = data.email.toLowerCase();
+    const email = (data.email ?? "").toLowerCase().trim();
+    const phone = (data.phone ?? "").trim();
+    const fullName = (data.full_name ?? "").trim() || "Guest Visitor";
+    const sessionId = (data.session_id ?? "").trim() || null;
 
     const payload = {
       user_id: data.user_id ?? null,
-      full_name: data.full_name,
-      email,
-      phone: data.phone,
+      full_name: fullName,
+      email: email || `guest-${sessionId ?? Date.now()}@pending.local`,
+      phone: phone || "0000000000",
       sender_number: data.sender_number ?? null,
       transaction_id: data.transaction_id ?? null,
       payment_method: data.payment_method ?? null,
       payment_screenshot_url: data.payment_screenshot_url ?? null,
       customer_note: data.customer_note ?? null,
       checkout_step: data.checkout_step ?? 1,
-      items: JSON.parse(JSON.stringify(data.items)),
-      subtotal: data.subtotal,
-      total: data.total,
+      items: JSON.parse(JSON.stringify(data.items ?? [])),
+      subtotal: data.subtotal ?? 0,
+      total: data.total ?? 0,
       coupon_code: data.coupon_code ?? null,
       status: "pending" as const,
       updated_at: new Date().toISOString(),
     };
 
-    // Find existing row: prefer user_id match, then email (case-insensitive).
+    // Find existing row: prefer user_id, then email, then session_id encoded in email placeholder.
     let existingId: string | null = null;
     if (data.user_id) {
       const { data: byUser } = await supabaseAdmin
@@ -64,13 +71,21 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
         .maybeSingle();
       if (byUser?.id && byUser.status !== "recovered") existingId = byUser.id;
     }
-    if (!existingId) {
+    if (!existingId && email) {
       const { data: byEmail } = await supabaseAdmin
         .from("abandoned_checkouts")
         .select("id, status")
         .ilike("email", email)
         .maybeSingle();
       if (byEmail?.id && byEmail.status !== "recovered") existingId = byEmail.id;
+    }
+    if (!existingId && sessionId) {
+      const { data: bySession } = await supabaseAdmin
+        .from("abandoned_checkouts")
+        .select("id, status")
+        .ilike("email", `guest-${sessionId}@pending.local`)
+        .maybeSingle();
+      if (bySession?.id && bySession.status !== "recovered") existingId = bySession.id;
     }
 
     if (existingId) {

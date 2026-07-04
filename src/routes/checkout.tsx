@@ -193,18 +193,34 @@ function CheckoutPage() {
   const applied = useAppliedCoupon(coupon, total);
 
   // Capture abandoned checkout for BOTH signed-in and guest shoppers as soon as
-  // checkout contact/payment fields are filled, so admins can follow up later.
+  // ANY meaningful contact/payment field is filled. Admins can then follow up.
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!items?.length) return;
-    if (!form.name.trim() || !emailRe.test(form.email) || !isValidBdPhone(form.phone)) return;
+    const hasEmail = emailRe.test(form.email.trim());
+    const hasPhone = isValidBdPhone(form.phone);
+    const hasName = form.name.trim().length >= 2;
+    // Need at least one identifier (user, email, or phone) — or a name + something typed
+    if (!user?.id && !hasEmail && !hasPhone) return;
+    if (!user?.id && !hasEmail && !hasPhone && !hasName) return;
+
+    let sessionId: string | null = null;
+    try {
+      sessionId = window.sessionStorage.getItem("checkout_session_id");
+      if (!sessionId) {
+        sessionId = Math.random().toString(36).slice(2, 10).toUpperCase();
+        window.sessionStorage.setItem("checkout_session_id", sessionId);
+      }
+    } catch { /* ignore */ }
+
     const handle = window.setTimeout(() => {
       void captureCheckout({
         data: {
           user_id: user?.id ?? null,
-          full_name: form.name.trim(),
-          email: form.email.trim().toLowerCase(),
-          phone: normalizeBdPhone(form.phone),
+          session_id: sessionId,
+          full_name: form.name.trim() || null,
+          email: hasEmail ? form.email.trim().toLowerCase() : (form.email.trim() || null),
+          phone: hasPhone ? normalizeBdPhone(form.phone) : (form.phone.trim() || null),
           sender_number: form.senderNumber ? normalizeBdPhone(form.senderNumber) : null,
           transaction_id: form.trxId.trim() || null,
           payment_method: method || null,
@@ -222,7 +238,7 @@ function CheckoutPage() {
       }).catch((err) => {
         if (typeof console !== "undefined") console.warn("abandoned capture", err?.message ?? err);
       });
-    }, 1500);
+    }, 900);
     return () => window.clearTimeout(handle);
   }, [captureCheckout, form.name, form.email, form.phone, form.senderNumber, form.trxId, form.notes, items, method, screenshotUrl, step, total, coupon, user?.id]);
 
