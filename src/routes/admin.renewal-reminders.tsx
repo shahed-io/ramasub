@@ -848,7 +848,7 @@ function StatBox({
 }: {
   label: string;
   value: number;
-  tone: "slate" | "rose" | "violet" | "violet";
+  tone: "slate" | "rose" | "violet";
 }) {
   const toneCls =
     tone === "rose"

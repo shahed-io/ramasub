@@ -675,7 +675,7 @@ const KEY_TYPES: { value: string; label: string; hint: string }[] = [
   { value: "Gift Card", label: "🎁 Gift Card", hint: "Gift card / voucher code" },
 ];
 
-function PanelShell({ accent = "violet", title, icon, right, children }: { accent?: "violet" | "violet"; title: React.ReactNode; icon: React.ReactNode; right?: React.ReactNode; children: React.ReactNode }) {
+function PanelShell({ accent = "violet", title, icon, right, children }: { accent?: "violet"; title: React.ReactNode; icon: React.ReactNode; right?: React.ReactNode; children: React.ReactNode }) {
   const bar = accent === "violet" ? "bg-violet-500" : "bg-violet-500";
   return (
     <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">

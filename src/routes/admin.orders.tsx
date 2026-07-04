@@ -330,7 +330,7 @@ function AdminOrders() {
   );
 }
 
-function StatCard({ label, value, icon, tone, loading }: { label: string; value: string | number; icon: React.ReactNode; tone: "violet"|"violet"|"sky"|"emerald"; loading?: boolean }) {
+function StatCard({ label, value, icon, tone, loading }: { label: string; value: string | number; icon: React.ReactNode; tone: "violet"|"sky"|"emerald"; loading?: boolean }) {
   const tones: Record<string, string> = {
     violet: "bg-violet-100 text-violet-700",
     violet: "bg-violet-100 text-violet-700",
@@ -459,7 +459,7 @@ function OrderRow({ order: o, onView, onDelete, onDownload }: { order: Order; on
   );
 }
 
-function IconBtn({ children, onClick, title, tone = "violet" }: { children: React.ReactNode; onClick: () => void; title: string; tone?: "sky" | "violet" | "violet" | "rose" | "emerald" }) {
+function IconBtn({ children, onClick, title, tone = "violet" }: { children: React.ReactNode; onClick: () => void; title: string; tone?: "sky" | "violet" | "rose" | "emerald" }) {
   return (
     <button onClick={onClick} title={title} className={`a-action a-action-${tone}`}>
       {children}
