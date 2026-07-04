@@ -35,6 +35,8 @@ function ProductCardImpl({ product }: { product: Product }) {
   // cache via `initialData`, so individual `?slug=X` fetches are redundant and
   // were causing dozens of duplicate API calls on the homepage.
 
+  const cardRef = useRef<HTMLAnchorElement>(null);
+
   const onAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!plan) return;
@@ -49,13 +51,56 @@ function ProductCardImpl({ product }: { product: Product }) {
     });
   };
 
+  const spawnClickAnimation = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const card = cardRef.current;
+    if (!card) return;
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Pulse the card
+    card.classList.remove("is-clicking");
+    // force reflow so animation restarts
+    void card.offsetWidth;
+    card.classList.add("is-clicking");
+    window.setTimeout(() => card.classList.remove("is-clicking"), 560);
+
+    // Ripple
+    const ripple = document.createElement("span");
+    ripple.className = "product-card-ripple";
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+    card.appendChild(ripple);
+    window.setTimeout(() => ripple.remove(), 700);
+
+    // Sparkles
+    const count = 6;
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement("span");
+      s.className = "product-card-sparkle";
+      const angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
+      const dist = 48 + Math.random() * 42;
+      s.style.left = `${x}px`;
+      s.style.top = `${y}px`;
+      s.style.setProperty("--dx", `${Math.cos(angle) * dist}px`);
+      s.style.setProperty("--dy", `${Math.sin(angle) * dist}px`);
+      card.appendChild(s);
+      window.setTimeout(() => s.remove(), 720);
+    }
+  };
+
   return (
     <Link
+      ref={cardRef}
       to="/product/$slug"
       params={{ slug: product.slug }}
       preload="intent"
+      onClick={spawnClickAnimation}
       className="group product-card-v2 overflow-hidden flex flex-col h-full rounded-lg border border-[var(--glass-border)] bg-card shadow-[var(--shadow-glass-sm)] transition-shadow hover:shadow-[var(--shadow-glass)]"
     >
+
       <div className="relative">
         <ProductBanner product={product} ratio="1/1" />
         {/* Discount + badge row, bottom-left of image — like reference */}
