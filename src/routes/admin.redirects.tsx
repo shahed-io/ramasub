@@ -81,10 +81,10 @@ function RedirectsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-amber-50/40 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-violet-50/40 p-4 md:p-8">
       <div className="max-w-5xl mx-auto space-y-6">
         {/* Header */}
-        <div className="rounded-3xl bg-gradient-to-br from-amber-500 via-orange-500 to-rose-600 p-6 md:p-8 text-white shadow-xl flex items-center justify-between gap-4 flex-wrap">
+        <div className="rounded-3xl bg-gradient-to-br from-violet-500 via-orange-500 to-rose-600 p-6 md:p-8 text-white shadow-xl flex items-center justify-between gap-4 flex-wrap">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur grid place-items-center">
               <Repeat className="w-6 h-6" />
@@ -128,7 +128,7 @@ function RedirectsPage() {
                       <code className="font-mono font-semibold text-slate-900 truncate">{r.from_path}</code>
                       <ArrowRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                       <code className="font-mono text-indigo-600 truncate">{r.to_path}</code>
-                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${r.status_code === 301 ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>{r.status_code}</span>
+                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${r.status_code === 301 ? "bg-emerald-100 text-emerald-700" : "bg-violet-100 text-violet-700"}`}>{r.status_code}</span>
                     </div>
                     {r.notes && <div className="text-[11px] text-slate-500 mt-0.5 truncate">{r.notes}</div>}
                     <div className="text-[10px] text-slate-400 mt-0.5">{r.hits} {t("hits", "হিট")}</div>

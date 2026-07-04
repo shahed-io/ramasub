@@ -40,8 +40,8 @@ const fmt = (n: number | undefined) => "৳" + Math.round(Number(n || 0)).toLoca
 const STATUS_META: Record<string, { label: string; bg: string; text: string; ring: string; icon: React.ComponentType<{ className?: string }> }> = {
   completed: { label: "Completed", bg: "bg-emerald-50", text: "text-emerald-700", ring: "ring-emerald-200", icon: CheckCircle2 },
   success:   { label: "Completed", bg: "bg-emerald-50", text: "text-emerald-700", ring: "ring-emerald-200", icon: CheckCircle2 },
-  initiated: { label: "Initiated", bg: "bg-amber-50",   text: "text-amber-700",   ring: "ring-amber-200",   icon: Clock },
-  pending:   { label: "Pending",   bg: "bg-amber-50",   text: "text-amber-700",   ring: "ring-amber-200",   icon: Clock },
+  initiated: { label: "Initiated", bg: "bg-violet-50",   text: "text-violet-700",   ring: "ring-violet-200",   icon: Clock },
+  pending:   { label: "Pending",   bg: "bg-violet-50",   text: "text-violet-700",   ring: "ring-violet-200",   icon: Clock },
   failed:    { label: "Failed",    bg: "bg-rose-50",    text: "text-rose-700",    ring: "ring-rose-200",    icon: XCircle },
   cancelled: { label: "Cancelled", bg: "bg-slate-100",  text: "text-slate-600",   ring: "ring-slate-200",   icon: AlertTriangle },
 };

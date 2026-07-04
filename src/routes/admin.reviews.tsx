@@ -39,7 +39,7 @@ function StarRow({ value }: { value: number }) {
         <Star
           key={n}
           className={`w-3.5 h-3.5 ${
-            n <= value ? "fill-amber-400 text-amber-400" : "text-slate-300"
+            n <= value ? "fill-violet-400 text-violet-400" : "text-slate-300"
           }`}
         />
       ))}
@@ -137,8 +137,8 @@ function AdminReviewsPage() {
       {/* Stat cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <StatCard
-          icon={<Clock className="w-5 h-5 text-amber-500" />}
-          ring="ring-amber-100"
+          icon={<Clock className="w-5 h-5 text-violet-500" />}
+          ring="ring-violet-100"
           value={counts.pending}
           label={t("Pending", "অপেক্ষায়")}
         />
@@ -297,7 +297,7 @@ function StatusBadge({ approved, t }: { approved: boolean; t: (en: string, bn: s
       {t("Approved", "অনুমোদিত")}
     </span>
   ) : (
-    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-100">
+    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-violet-50 text-violet-700 border border-violet-100">
       {t("Pending", "অপেক্ষায়")}
     </span>
   );

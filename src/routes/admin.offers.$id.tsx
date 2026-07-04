@@ -386,7 +386,7 @@ function AdminOfferEdit() {
           <div className="space-y-2">
             {c.prizes.map((p, i) => (
               <div key={i} className="rounded-xl ring-1 ring-slate-200 bg-white p-3 flex items-center gap-2">
-                <div className="w-10 h-10 grid place-items-center rounded-full bg-amber-100 text-amber-700 font-bold">#{p.rank}</div>
+                <div className="w-10 h-10 grid place-items-center rounded-full bg-violet-100 text-violet-700 font-bold">#{p.rank}</div>
                 <input value={p.title} onChange={(e) => { const arr = [...c.prizes]; arr[i] = { ...arr[i], title: e.target.value }; setC({ ...c, prizes: arr }); }} className="inp flex-1" placeholder="Prize title" />
                 <input value={p.description ?? ""} onChange={(e) => { const arr = [...c.prizes]; arr[i] = { ...arr[i], description: e.target.value }; setC({ ...c, prizes: arr }); }} className="inp flex-1" placeholder="Description" />
                 <button onClick={() => removePrize(i)} className="p-1.5 rounded-lg hover:bg-rose-50 text-rose-500"><Trash2 className="w-3.5 h-3.5" /></button>
@@ -426,7 +426,7 @@ function AdminOfferEdit() {
                     <td className="px-4 py-3 text-slate-500 text-[11px]">{new Date(s.created_at).toLocaleString()}</td>
                     <td className="px-4 py-3">
                       <button onClick={() => toggleWinner(s)} className={`px-2 py-0.5 rounded-full text-[10px] font-bold ring-1 ${
-                        s.is_winner ? "bg-amber-50 text-amber-700 ring-amber-200" : "bg-slate-50 text-slate-500 ring-slate-200"
+                        s.is_winner ? "bg-violet-50 text-violet-700 ring-violet-200" : "bg-slate-50 text-slate-500 ring-slate-200"
                       }`}>{s.is_winner ? `Winner #${s.winner_rank ?? 1}` : "Mark as winner"}</button>
                     </td>
                   </tr>
@@ -482,11 +482,11 @@ function AdminOfferEdit() {
                   const prize = c.prizes.find((p) => p.rank === w.winner_rank);
                   return (
                     <div key={w.id} className="p-4 flex items-start gap-3">
-                      <div className="w-10 h-10 grid place-items-center rounded-full bg-gradient-to-br from-amber-400 to-orange-500 text-white font-bold shadow-sm">#{w.winner_rank}</div>
+                      <div className="w-10 h-10 grid place-items-center rounded-full bg-gradient-to-br from-violet-400 to-orange-500 text-white font-bold shadow-sm">#{w.winner_rank}</div>
                       <div className="flex-1 min-w-0">
                         <div className="font-bold text-slate-900">{w.name}</div>
                         <div className="text-xs text-slate-500">{w.email} · {w.phone ?? "no phone"}</div>
-                        {prize && <div className="text-xs text-amber-700 mt-1">🏆 {prize.title}</div>}
+                        {prize && <div className="text-xs text-violet-700 mt-1">🏆 {prize.title}</div>}
                         {w.ai_reason && <div className="text-[11px] text-slate-600 mt-1 italic">"{w.ai_reason}"</div>}
                         {w.ai_score != null && <div className="text-[10px] text-violet-600 font-bold mt-1">AI score: {w.ai_score}</div>}
                       </div>

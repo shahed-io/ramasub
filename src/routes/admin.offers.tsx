@@ -147,7 +147,7 @@ function AdminOffersList() {
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ring-1 ${
                         c.status === "active" ? "bg-emerald-50 text-emerald-700 ring-emerald-200" :
                         c.status === "ended" ? "bg-slate-100 text-slate-600 ring-slate-200" :
-                        "bg-amber-50 text-amber-700 ring-amber-200"
+                        "bg-violet-50 text-violet-700 ring-violet-200"
                       }`}>
                         {c.status.toUpperCase()}
                       </span>

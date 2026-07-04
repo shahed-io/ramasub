@@ -119,7 +119,7 @@ function TrackingPage() {
         <div className="grid grid-cols-3 gap-3">
           <StatTile label="Total Orders" value={String(stats.total)} icon={Package} grad="from-sky-500 to-indigo-600" />
           <StatTile label="Tracked" value={String(stats.tracked)} icon={CheckCircle2} grad="from-emerald-500 to-teal-600" />
-          <StatTile label="Awaiting Tracking" value={String(stats.untracked)} icon={Clock} grad="from-amber-500 to-orange-600" />
+          <StatTile label="Awaiting Tracking" value={String(stats.untracked)} icon={Clock} grad="from-violet-500 to-orange-600" />
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
@@ -174,7 +174,7 @@ function TrackingPage() {
                         )}
                       </div>
                     ) : (
-                      <span className="px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 text-[11px] font-semibold">No tracking</span>
+                      <span className="px-2 py-0.5 rounded-full bg-violet-50 text-violet-700 text-[11px] font-semibold">No tracking</span>
                     )}
                     <button onClick={() => setEditing(o)} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs text-slate-700 hover:bg-slate-50">
                       {t ? "Edit" : "Add tracking"}

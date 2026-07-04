@@ -138,8 +138,8 @@ function AdminThemesPage() {
                         </span>
                       )}
                       {isDefault && (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">
-                          <Star className="w-3 h-3 fill-amber-500 text-amber-500" /> {t("Default", "ডিফল্ট")}
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-violet-700 bg-violet-50 border border-violet-200 rounded-full px-2 py-0.5">
+                          <Star className="w-3 h-3 fill-violet-500 text-violet-500" /> {t("Default", "ডিফল্ট")}
                         </span>
                       )}
                       {isWhite && !isDefault && (
@@ -158,13 +158,13 @@ function AdminThemesPage() {
                     className={[
                       "inline-flex items-center gap-1.5 text-xs font-semibold rounded-lg px-3 py-1.5 border transition-colors",
                       isDefault
-                        ? "bg-amber-50 border-amber-200 text-amber-700 cursor-default"
+                        ? "bg-violet-50 border-violet-200 text-violet-700 cursor-default"
                         : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50",
                       (!row.is_active || isSavingDefault) ? "opacity-60 cursor-not-allowed" : "",
                     ].join(" ")}
                     title={!row.is_active ? t("Enable first", "আগে চালু করুন") : undefined}
                   >
-                    {isSavingDefault ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Star className={`w-3.5 h-3.5 ${isDefault ? "fill-amber-500 text-amber-500" : ""}`} />}
+                    {isSavingDefault ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Star className={`w-3.5 h-3.5 ${isDefault ? "fill-violet-500 text-violet-500" : ""}`} />}
                     {isDefault ? t("Default", "Default") : t("Make default", "Default করুন")}
                   </button>
 

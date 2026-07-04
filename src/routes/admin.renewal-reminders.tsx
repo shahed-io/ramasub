@@ -457,7 +457,7 @@ function RenewalRemindersPage() {
     if (d < 0)
       return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200">{t("Expired", "মেয়াদোত্তীর্ণ")}</span>;
     if (d <= 7)
-      return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">{d}d {t("left", "বাকি")}</span>;
+      return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200">{d}d {t("left", "বাকি")}</span>;
     if (d <= 30)
       return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200">{d}d {t("left", "বাকি")}</span>;
     return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">{d}d {t("left", "বাকি")}</span>;
@@ -490,7 +490,7 @@ function RenewalRemindersPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <StatBox label={t("Total tracked", "মোট ট্র্যাকড")} value={stats.total} tone="slate" />
         <StatBox label={t("Expired", "মেয়াদোত্তীর্ণ")} value={stats.expired} tone="rose" />
-        <StatBox label={t("Next 7 days", "৭ দিনের মধ্যে")} value={stats.next7} tone="amber" />
+        <StatBox label={t("Next 7 days", "৭ দিনের মধ্যে")} value={stats.next7} tone="violet" />
         <StatBox label={t("Next 30 days", "৩০ দিনের মধ্যে")} value={stats.next30} tone="violet" />
       </div>
 
@@ -848,13 +848,11 @@ function StatBox({
 }: {
   label: string;
   value: number;
-  tone: "slate" | "rose" | "amber" | "violet";
+  tone: "slate" | "rose" | "violet";
 }) {
   const toneCls =
     tone === "rose"
       ? "text-rose-600"
-      : tone === "amber"
-      ? "text-amber-600"
       : tone === "violet"
       ? "text-violet-700"
       : "text-slate-900";
