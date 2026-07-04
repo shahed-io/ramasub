@@ -95,6 +95,35 @@ function AbandonedCheckoutPage() {
 
   useEffect(() => { load(); }, [load]);
 
+  // Realtime: update the list within ~1s when rows are inserted/updated/deleted.
+  useEffect(() => {
+    const channel = supabase
+      .channel("admin-abandoned-checkouts")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "abandoned_checkouts" },
+        (payload) => {
+          const evt = payload.eventType;
+          if (evt === "INSERT") {
+            const row = payload.new as Row;
+            setRows((prev) => (prev.some((r) => r.id === row.id) ? prev : [row, ...prev]));
+          } else if (evt === "UPDATE") {
+            const row = payload.new as Row;
+            setRows((prev) => {
+              const exists = prev.some((r) => r.id === row.id);
+              return exists ? prev.map((r) => (r.id === row.id ? row : r)) : [row, ...prev];
+            });
+            setSelected((s) => (s && s.id === row.id ? row : s));
+          } else if (evt === "DELETE") {
+            const oldRow = payload.old as { id?: string };
+            if (oldRow?.id) setRows((prev) => prev.filter((r) => r.id !== oldRow.id));
+          }
+        },
+      )
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+  }, []);
+
   const updateRow = async (id: string, patch: Partial<Row>) => {
     const prev = rows;
     setRows((r) => r.map((x) => x.id === id ? { ...x, ...patch } as Row : x));
