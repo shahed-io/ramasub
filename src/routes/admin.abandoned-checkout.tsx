@@ -340,7 +340,7 @@ function RowItem({ row: r, onView, onContact, onDelete }: { row: Row; onView: ()
       </td>
       <td className="px-4 py-3.5"><StatusPill status={r.status} /></td>
       <td className="px-5 py-3.5" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-end gap-1 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+        <div className="flex items-center justify-end gap-1">
           <IconBtn title={t("View", "দেখুন")} onClick={onView} tone="indigo"><Eye className="w-4 h-4" /></IconBtn>
           <IconBtn title={t("Mark contacted", "কন্টাক্ট করা হয়েছে")} onClick={onContact} tone="sky"><ArrowRight className="w-4 h-4" /></IconBtn>
           {waLink && (
