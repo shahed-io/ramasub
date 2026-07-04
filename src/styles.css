@@ -2162,10 +2162,10 @@ html.theme-white .product-buy-button,
   border: 0 !important;
   background:
     linear-gradient(180deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.06) 42%, rgba(0,0,0,0.18) 100%),
-    linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #2563eb 100%) !important;
+    linear-gradient(135deg, #14b8a6 0%, #10b981 50%, #047857 100%) !important;
   box-shadow:
-    0 22px 50px -16px rgba(99, 102, 241, 0.85),
-    0 6px 14px -6px rgba(37, 99, 235, 0.55),
+    0 22px 50px -16px rgba(16, 185, 129, 0.85),
+    0 6px 14px -6px rgba(4, 120, 87, 0.55),
     inset 0 1px 0 rgba(255,255,255,0.55),
     inset 0 -1px 0 rgba(0,0,0,0.22) !important;
 }
