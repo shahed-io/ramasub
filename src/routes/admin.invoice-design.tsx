@@ -343,16 +343,15 @@ function InvoicePreview({ design, totalColor }: { design: Design; totalColor: st
     >
       {/* Header */}
       <div className="flex items-start justify-between px-6 pt-6 pb-4">
-        <div className="flex items-center gap-3">
-          {design.showLogo && (
+        <div className="flex items-center gap-3 min-w-0">
+          {design.showLogo ? (
             <img
               src={logoAsset.url}
               alt={design.companyName}
-              className="h-12 w-auto object-contain"
-              style={{ maxWidth: 180 }}
+              className="h-14 w-auto object-contain shrink-0"
+              style={{ maxWidth: 220, background: "transparent", mixBlendMode: "multiply" }}
             />
-          )}
-          {!design.showLogo && (
+          ) : (
             <div>
               <div className="text-base font-extrabold" style={{ color: design.brandColor }}>{design.companyName}</div>
               <div className="text-[11px] opacity-70">{design.companyAddress || design.companyWebsite}</div>
