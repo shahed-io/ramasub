@@ -154,8 +154,7 @@ export function AnalyticsDashboard() {
 
   const toneRing: Record<string, string> = {
     emerald: "bg-emerald-100 text-emerald-700 ring-emerald-200",
-    violet: "bg-violet-100 text-violet-700 ring-violet-200",
-    violet: "bg-violet-100 text-violet-700 ring-violet-200",
+    violet: "bg-violet-200 text-violet-800 ring-violet-300",
     sky: "bg-sky-100 text-sky-700 ring-sky-200",
     indigo: "bg-indigo-100 text-indigo-700 ring-indigo-200",
     rose: "bg-rose-100 text-rose-700 ring-rose-200",
