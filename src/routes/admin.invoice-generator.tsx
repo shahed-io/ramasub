@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAdminLang } from "@/context/AdminLangContext";
 import { toast } from "sonner";
 import jsPDF from "jspdf";
+import logoAsset from "@/assets/rama-sub-logo.png.asset.json";
 
 export const Route = createFileRoute("/admin/invoice-generator")({
   component: InvoiceGeneratorPage,
@@ -80,6 +81,8 @@ function InvoiceGeneratorPage() {
   const [note, setNote] = useState("");
   const [saving, setSaving] = useState(false);
 
+  const [logoDataUrl, setLogoDataUrl] = useState<string | null>(null);
+
   useEffect(() => {
     setMounted(true);
     setInvoiceNo(genInvoiceNo());
@@ -90,6 +93,16 @@ function InvoiceGeneratorPage() {
         .eq("is_active", true)
         .order("name");
       setProducts(((data ?? []) as unknown) as Product[]);
+    })();
+    // Preload the brand logo as a data-URL so jsPDF can embed it synchronously.
+    (async () => {
+      try {
+        const res = await fetch(logoAsset.url);
+        const blob = await res.blob();
+        const reader = new FileReader();
+        reader.onloadend = () => setLogoDataUrl(typeof reader.result === "string" ? reader.result : null);
+        reader.readAsDataURL(blob);
+      } catch { /* logo fetch failed — fall back to text-only header */ }
     })();
   }, []);
 
@@ -141,27 +154,33 @@ function InvoiceGeneratorPage() {
     const margin = 40;
     let y = margin;
 
-    // Header — brand identity
+    // Header — brand identity with real logo
     doc.setFillColor(15, 23, 42); // slate-900
-    doc.rect(0, 0, pageW, 90, "F");
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(24);
-    doc.setTextColor(245, 158, 11);
-    doc.text("Rama", margin, 44);
-    const ramaW = doc.getTextWidth("Rama");
-    doc.setTextColor(56, 189, 248);
-    doc.text(" Sub", margin + ramaW, 44);
+    doc.rect(0, 0, pageW, 100, "F");
+    if (logoDataUrl) {
+      // Preserve aspect ratio; logo image is roughly 3:1 (280×90) — draw at 108×36pt.
+      try { doc.addImage(logoDataUrl, "PNG", margin, 24, 108, 36); } catch { /* ignore */ }
+    } else {
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(24);
+      doc.setTextColor(245, 158, 11);
+      doc.text("Rama", margin, 44);
+      const ramaW = doc.getTextWidth("Rama");
+      doc.setTextColor(56, 189, 248);
+      doc.text(" Sub", margin + ramaW, 44);
+    }
     doc.setFont("helvetica", "bold");
     doc.setFontSize(8);
     doc.setTextColor(203, 213, 225);
-    doc.text("R A M A S U B . C O M . B D", margin, 60);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(11);
+    doc.text("R A M A S U B . C O M", margin, 76);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
     doc.setTextColor(255, 255, 255);
-    doc.text("Invoice", margin, 78);
+    doc.text("INVOICE", pageW - margin, 40, { align: "right" });
+    doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.text(`#${invoiceNo}`, pageW - margin, 42, { align: "right" });
-    doc.text(date, pageW - margin, 60, { align: "right" });
+    doc.text(`#${invoiceNo}`, pageW - margin, 58, { align: "right" });
+    doc.text(date, pageW - margin, 74, { align: "right" });
 
     y = 120;
     doc.setTextColor(30, 41, 59);
