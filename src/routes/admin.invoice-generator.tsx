@@ -81,6 +81,8 @@ function InvoiceGeneratorPage() {
   const [note, setNote] = useState("");
   const [saving, setSaving] = useState(false);
 
+  const [logoDataUrl, setLogoDataUrl] = useState<string | null>(null);
+
   useEffect(() => {
     setMounted(true);
     setInvoiceNo(genInvoiceNo());
@@ -91,6 +93,16 @@ function InvoiceGeneratorPage() {
         .eq("is_active", true)
         .order("name");
       setProducts(((data ?? []) as unknown) as Product[]);
+    })();
+    // Preload the brand logo as a data-URL so jsPDF can embed it synchronously.
+    (async () => {
+      try {
+        const res = await fetch(logoAsset.url);
+        const blob = await res.blob();
+        const reader = new FileReader();
+        reader.onloadend = () => setLogoDataUrl(typeof reader.result === "string" ? reader.result : null);
+        reader.readAsDataURL(blob);
+      } catch { /* logo fetch failed — fall back to text-only header */ }
     })();
   }, []);
 
