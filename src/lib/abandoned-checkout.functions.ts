@@ -34,7 +34,7 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
       full_name: data.full_name,
       email,
       phone: data.phone,
-      items: data.items,
+      items: JSON.parse(JSON.stringify(data.items)),
       subtotal: data.subtotal,
       total: data.total,
       coupon_code: data.coupon_code ?? null,
