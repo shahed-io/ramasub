@@ -191,8 +191,8 @@ function SeoAuditPage() {
 
 function AuditCard({ row }: { row: AuditRow }) {
   const pct = Math.round((row.score / row.total) * 100);
-  const color = pct === 100 ? "emerald" : pct >= 70 ? "amber" : "rose";
-  const ring = { emerald: "ring-emerald-200 bg-emerald-50 text-emerald-700", amber: "ring-amber-200 bg-amber-50 text-amber-700", rose: "ring-rose-200 bg-rose-50 text-rose-700" }[color];
+  const color = pct === 100 ? "emerald" : pct >= 70 ? "violet" : "rose";
+  const ring = { emerald: "ring-emerald-200 bg-emerald-50 text-emerald-700", violet: "ring-violet-200 bg-violet-50 text-violet-700", rose: "ring-rose-200 bg-rose-50 text-rose-700" }[color];
   const Icon = pct === 100 ? CheckCircle2 : pct >= 70 ? AlertTriangle : XCircle;
   return (
     <details className="group rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden open:shadow-md transition">
@@ -210,7 +210,7 @@ function AuditCard({ row }: { row: AuditRow }) {
           </div>
         </div>
         <div className="text-right shrink-0">
-          <div className={`text-lg font-bold ${color === "emerald" ? "text-emerald-600" : color === "amber" ? "text-amber-600" : "text-rose-600"}`}>{pct}%</div>
+          <div className={`text-lg font-bold ${color === "emerald" ? "text-emerald-600" : color === "violet" ? "text-violet-600" : "text-rose-600"}`}>{pct}%</div>
           <div className="text-[10px] text-slate-500">{row.score}/{row.total} {row.score === 1 ? "check" : "checks"}</div>
         </div>
       </summary>

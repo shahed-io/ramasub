@@ -226,7 +226,7 @@ function AdminDashboard() {
       label: t("TOTAL REVENUE (ALL)", "মোট আয় (সব)"),
       value: fmtBDT(stats.revenue),
       Icon: Wallet,
-      iconGrad: "from-orange-500 to-amber-600",
+      iconGrad: "from-orange-500 to-violet-600",
       bgGrad: "from-orange-50/60 via-white to-rose-50/40",
     },
   ];
@@ -245,8 +245,8 @@ function AdminDashboard() {
       label: t("PENDING", "অপেক্ষমাণ"),
       value: stats.pending.toString(),
       Icon: Clock,
-      iconGrad: "from-amber-500 to-yellow-600",
-      bgGrad: "from-amber-50/60 via-white to-cyan-50/30",
+      iconGrad: "from-violet-500 to-violet-700",
+      bgGrad: "from-violet-50/60 via-white to-cyan-50/30",
     },
     {
       label: t("PAYMENT PENDING", "পেমেন্ট অপেক্ষমাণ"),
@@ -260,7 +260,7 @@ function AdminDashboard() {
       value: stats.delivered.toString(),
       Icon: CheckCircle2,
       iconGrad: "from-emerald-500 to-green-600",
-      bgGrad: "from-emerald-50/60 via-white to-amber-50/30",
+      bgGrad: "from-emerald-50/60 via-white to-violet-50/30",
     },
     {
       label: t("CANCELLED", "বাতিল"),

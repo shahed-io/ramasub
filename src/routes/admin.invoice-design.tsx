@@ -207,7 +207,7 @@ function InvoiceDesignPage() {
           </Section>
 
           {/* Labels */}
-          <Section icon={<Tag className="w-4 h-4" />} title={t("Labels", "লেবেল")} accent="from-amber-400 to-orange-500">
+          <Section icon={<Tag className="w-4 h-4" />} title={t("Labels", "লেবেল")} accent="from-violet-400 to-orange-500">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <TextField label={t("Billing block", "বিলিং ব্লক")} value={design.billingLabel} onChange={(v) => update("billingLabel", v)} />
               <TextField label={t("Payment block", "পেমেন্ট ব্লক")} value={design.paymentLabel} onChange={(v) => update("paymentLabel", v)} />

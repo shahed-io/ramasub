@@ -599,12 +599,12 @@ function AdminProducts() {
  );
 }
 
-function StatCard({ icon: Icon, label, value, tint }: { icon: typeof Package; label: string; value: number; tint: "slate" | "emerald" | "rose" | "amber" }) {
+function StatCard({ icon: Icon, label, value, tint }: { icon: typeof Package; label: string; value: number; tint: "slate" | "emerald" | "rose" | "violet" }) {
  const map = {
  slate: " text-slate-600 ring-slate-200",
  emerald: " text-slate-700 ring-slate-200",
  rose: " text-slate-700 ring-slate-200",
- amber: " text-slate-700 ring-slate-200",
+ violet: " text-slate-700 ring-slate-200",
  } as const;
  return (
  <div className="bg-white border border-border rounded-2xl p-4 flex items-center gap-3">
@@ -1012,7 +1012,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
    <button
     type="button"
     onClick={() => { setSlugUnlocked((v) => !v); if (slugUnlocked) setAutoSlug(false); }}
-    className={`text-[11px] font-bold px-2 py-0.5 rounded-full border transition ${slugUnlocked ? "bg-amber-100 text-amber-700 border-amber-300" : "bg-white/60 text-slate-600 border-slate-300 hover:border-violet-300 hover:text-violet-700"}`}
+    className={`text-[11px] font-bold px-2 py-0.5 rounded-full border transition ${slugUnlocked ? "bg-violet-100 text-violet-700 border-violet-300" : "bg-white/60 text-slate-600 border-slate-300 hover:border-violet-300 hover:text-violet-700"}`}
     title={slugUnlocked ? "Lock slug" : "Unlock to edit (warning: changes URL)"}
    >
     {slugUnlocked ? "🔓 Unlocked" : "🔒 Edit"}
@@ -1028,7 +1028,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
       className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm font-mono text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200 disabled:bg-white/30 disabled:text-slate-500 disabled:cursor-not-allowed"
       />
       {!isNew && slugUnlocked && (
-      <p className="text-[11px] text-amber-700 mt-1">⚠️ Slug পরিবর্তন করলে পুরাতন URL আর কাজ করবে না (SEO প্রভাব)</p>
+      <p className="text-[11px] text-violet-700 mt-1">⚠️ Slug পরিবর্তন করলে পুরাতন URL আর কাজ করবে না (SEO প্রভাব)</p>
       )}
       </div>
       <div>
@@ -1318,7 +1318,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
        );
      }
      if (op > 0 && sp > 0 && op <= sp) {
-       return <div className="mt-2 text-[11px] text-amber-700">⚠️ Original price must be higher than selling price</div>;
+       return <div className="mt-2 text-[11px] text-violet-700">⚠️ Original price must be higher than selling price</div>;
     }
     return null;
   })()}

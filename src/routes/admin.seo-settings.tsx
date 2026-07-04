@@ -152,7 +152,7 @@ function Counter({ v, min, max }: { v: string; min: number; max: number }) {
   const n = v?.length ?? 0;
   const ok = n >= min && n <= max;
   return (
-    <div className={`mt-1 text-[11px] font-medium ${n === 0 ? "text-slate-400" : ok ? "text-emerald-600" : "text-amber-600"}`}>
+    <div className={`mt-1 text-[11px] font-medium ${n === 0 ? "text-slate-400" : ok ? "text-emerald-600" : "text-violet-600"}`}>
       {n} / {max} {n > 0 && !ok && `(target ${min}–${max})`}
     </div>
   );

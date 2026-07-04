@@ -31,7 +31,7 @@ type Row = {
 };
 
 const STATUS: Record<string, { label: string; bg: string; text: string; icon: React.ComponentType<{ className?: string }> }> = {
-  pending:   { label: "Abandoned", bg: "bg-amber-50",    text: "text-amber-700",   icon: AlertTriangle },
+  pending:   { label: "Abandoned", bg: "bg-violet-50",    text: "text-violet-700",   icon: AlertTriangle },
   contacted: { label: "Contacted", bg: "bg-sky-50",      text: "text-sky-700",     icon: MessageCircle },
   recovered: { label: "Recovered", bg: "bg-emerald-50",  text: "text-emerald-700", icon: CheckCircle2 },
   lost:      { label: "Lost",      bg: "bg-rose-50",     text: "text-rose-700",    icon: X },
@@ -110,7 +110,7 @@ function OrderRecoveryPage() {
           </button>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <StatTile label="Abandoned" value={String(stats.pending)} icon={AlertTriangle} grad="from-amber-500 to-orange-600" />
+          <StatTile label="Abandoned" value={String(stats.pending)} icon={AlertTriangle} grad="from-violet-500 to-orange-600" />
           <StatTile label="Contacted" value={String(stats.contacted)} icon={MessageCircle} grad="from-sky-500 to-indigo-600" />
           <StatTile label="Recovered" value={String(stats.recovered)} icon={CheckCircle2} grad="from-emerald-500 to-teal-600" />
           <StatTile label="Recovered Value" value={fmt(stats.recoveredValue)} icon={DollarSign} grad="from-violet-500 to-fuchsia-600" />

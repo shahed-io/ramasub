@@ -239,7 +239,7 @@ function BulkUpdatePage() {
               </details>
             </>
           ) : (
-            <p className="text-sm text-amber-600">
+            <p className="text-sm text-violet-600">
               No active template found. Set one in <a className="underline" href="/admin/description-template">Description Template</a>.
             </p>
           )}
@@ -359,7 +359,7 @@ function BulkUpdatePage() {
                   has desc
                 </span>
               ) : (
-                <span className="text-[10px] uppercase tracking-wide rounded bg-amber-100 text-amber-700 px-1.5 py-0.5">
+                <span className="text-[10px] uppercase tracking-wide rounded bg-violet-100 text-violet-700 px-1.5 py-0.5">
                   empty desc
                 </span>
               )}

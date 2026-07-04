@@ -38,7 +38,7 @@ function initials(name?: string | null, fallback?: string) {
 function statusPill(s: Topup["status"]) {
   if (s === "approved") return "bg-emerald-600 text-white ring-1 ring-emerald-700";
   if (s === "rejected") return "bg-rose-600 text-white ring-1 ring-rose-700";
-  return "bg-amber-500 text-white ring-1 ring-amber-600";
+  return "bg-violet-500 text-white ring-1 ring-violet-600";
 }
 
 function AdminWalletPage() {
@@ -115,7 +115,7 @@ function AdminWalletPage() {
           <StatCard label="Total Wallet" icon={Wallet} iconColor="text-violet-500" value={fmt2(stats.totalWallet)} valueColor="text-slate-900" />
           <StatCard label="Total Credits" icon={TrendingUp} iconColor="text-emerald-500" value={fmt(stats.credits)} valueColor="text-emerald-600" />
           <StatCard label="Total Debits" icon={TrendingDown} iconColor="text-rose-500" value={fmt2(stats.debits)} valueColor="text-rose-600" />
-          <StatCard label="Pending" icon={Clock} iconColor="text-amber-500" value={String(stats.pending)} valueColor="text-slate-900" />
+          <StatCard label="Pending" icon={Clock} iconColor="text-violet-500" value={String(stats.pending)} valueColor="text-slate-900" />
         </div>
 
         {/* Body grid */}

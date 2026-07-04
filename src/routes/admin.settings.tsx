@@ -33,7 +33,7 @@ type SettingsData = {
 const TONE = {
   violet:  { bg: "bg-violet-100",    text: "text-violet-700",    border: "border-violet-200",    soft: "bg-violet-50",    ink: "text-violet-900" },
   sky:     { bg: "bg-sky-100",       text: "text-sky-700",       border: "border-sky-200",       soft: "bg-sky-50",       ink: "text-sky-900" },
-  amber:   { bg: "bg-amber-100",     text: "text-amber-700",     border: "border-amber-200",     soft: "bg-amber-50",     ink: "text-amber-900" },
+  violet:   { bg: "bg-violet-100",     text: "text-violet-700",     border: "border-violet-200",     soft: "bg-violet-50",     ink: "text-violet-900" },
   emerald: { bg: "bg-emerald-100",   text: "text-emerald-700",   border: "border-emerald-200",   soft: "bg-emerald-50",   ink: "text-emerald-900" },
   fuchsia: { bg: "bg-fuchsia-100",  text: "text-fuchsia-700",  border: "border-fuchsia-200",  soft: "bg-fuchsia-50",  ink: "text-fuchsia-900" },
   slate:   { bg: "bg-slate-200",      text: "text-slate-700",      border: "border-slate-300",      soft: "bg-slate-100",    ink: "text-slate-800" },
@@ -136,7 +136,7 @@ function GeneralSettingsPage() {
       </Card>
 
       {/* Currency & Payment */}
-      <Card icon={<span className="text-base font-bold">৳</span>} title="Currency & Payment" tone="amber">
+      <Card icon={<span className="text-base font-bold">৳</span>} title="Currency & Payment" tone="violet">
         <Grid2>
           <Field label="Currency code">
             <Input value={data.currency_code ?? ""} onChange={(v) => set("currency_code", v)} placeholder="BDT" />
@@ -193,7 +193,7 @@ function GeneralSettingsPage() {
           </a>
         </div>
 
-        <InfoBox tone="amber">
+        <InfoBox tone="violet">
           <p className="font-semibold">⚡ টিপস:</p>
           <ul className="list-disc pl-5 space-y-0.5">
             <li>প্রথমে Gemini ট্রাই করা হবে — ফ্রি কোটা বেশি।</li>

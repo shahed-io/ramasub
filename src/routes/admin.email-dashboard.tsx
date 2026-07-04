@@ -242,7 +242,7 @@ function EmailDashboardPage() {
         <StatCard icon={<Mail className="w-4 h-4 text-violet-600" />} ring="ring-violet-200" value={counts.total} label={t("Total", "মোট")} valueClass="text-slate-900" />
         <StatCard icon={<Send className="w-4 h-4 text-emerald-600" />} ring="ring-emerald-200" value={counts.sent} label={t("Sent", "পাঠানো")} valueClass="text-slate-900" />
         <StatCard icon={<AlertCircle className="w-4 h-4 text-rose-600" />} ring="ring-rose-200" value={counts.failed} label={t("Failed", "ব্যর্থ")} valueClass="text-rose-600" />
-        <StatCard icon={<Clock className="w-4 h-4 text-amber-600" />} ring="ring-amber-200" value={counts.pending} label={t("Pending", "পেন্ডিং")} valueClass="text-amber-600" />
+        <StatCard icon={<Clock className="w-4 h-4 text-violet-600" />} ring="ring-violet-200" value={counts.pending} label={t("Pending", "পেন্ডিং")} valueClass="text-violet-600" />
         <StatCard icon={<ShieldOff className="w-4 h-4 text-slate-600" />} ring="ring-slate-200" value={counts.suppressed} label={t("Suppressed", "সাপ্রেসড")} valueClass="text-slate-900" />
       </div>
 
@@ -371,7 +371,7 @@ function StatusBadge({ status }: { status: string | null }) {
   }
   if (s === "pending") {
     return (
-      <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+      <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200">
         <Clock className="w-3 h-3" /> Pending
       </span>
     );

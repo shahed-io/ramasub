@@ -675,8 +675,8 @@ const KEY_TYPES: { value: string; label: string; hint: string }[] = [
   { value: "Gift Card", label: "🎁 Gift Card", hint: "Gift card / voucher code" },
 ];
 
-function PanelShell({ accent = "violet", title, icon, right, children }: { accent?: "violet" | "amber"; title: React.ReactNode; icon: React.ReactNode; right?: React.ReactNode; children: React.ReactNode }) {
-  const bar = accent === "amber" ? "bg-amber-500" : "bg-violet-500";
+function PanelShell({ accent = "violet", title, icon, right, children }: { accent?: "violet" | "violet"; title: React.ReactNode; icon: React.ReactNode; right?: React.ReactNode; children: React.ReactNode }) {
+  const bar = accent === "violet" ? "bg-violet-500" : "bg-violet-500";
   return (
     <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
       <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
@@ -811,9 +811,9 @@ function BulkImportPanel({ products, presetSlug, onClose, onSaved }: { products:
 
   return (
     <PanelShell
-      accent="amber"
+      accent="violet"
       title={<>Bulk License Import</>}
-      icon={<Upload className="w-4 h-4 text-amber-600" />}
+      icon={<Upload className="w-4 h-4 text-violet-600" />}
       right={
         <button onClick={() => toast.info("AI Smart Import coming soon")} className="inline-flex items-center gap-1.5 h-9 px-3 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50">
           ✨ AI Smart Import
@@ -823,11 +823,11 @@ function BulkImportPanel({ products, presetSlug, onClose, onSaved }: { products:
       <p className="text-[12px] text-slate-500 mb-3">প্রতি লাইনে একটি করে key লিখুন, অথবা CSV/TXT ফাইল আপলোড করুন।</p>
 
       <div className="grid md:grid-cols-2 gap-4">
-        <select value={productId} onChange={(e) => setProductId(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-amber-400 text-sm">
+        <select value={productId} onChange={(e) => setProductId(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-violet-400 text-sm">
           <option value="">— প্রোডাক্ট বেছে নিন —</option>
           {products.map((p) => <option key={p.slug} value={p.slug}>{p.name}</option>)}
         </select>
-        <select value={keyType} onChange={(e) => setKeyType(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-amber-400 text-sm">
+        <select value={keyType} onChange={(e) => setKeyType(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-violet-400 text-sm">
           {KEY_TYPES.map((k) => <option key={k.value} value={k.value}>{k.label}</option>)}
         </select>
       </div>
@@ -836,13 +836,13 @@ function BulkImportPanel({ products, presetSlug, onClose, onSaved }: { products:
         <div className="text-[12px] font-semibold text-slate-700 mb-1.5 inline-flex items-center gap-1">
           <span className="text-violet-500">🏷️</span> Variant / Option (Optional) <span className="text-slate-400 font-normal">— সব key এই option-এ লাগু হবে</span>
         </div>
-        <input value={variant} onChange={(e) => setVariant(e.target.value)} placeholder="যেমন: 1 Year, 5 Devices, Personal (খালি রাখলে কোনো option থাকবে না)" className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-amber-400 text-sm" />
+        <input value={variant} onChange={(e) => setVariant(e.target.value)} placeholder="যেমন: 1 Year, 5 Devices, Personal (খালি রাখলে কোনো option থাকবে না)" className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-violet-400 text-sm" />
       </div>
 
       <label
         onDragOver={(e) => e.preventDefault()}
         onDrop={onDrop}
-        className="mt-4 flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-dashed border-slate-300 bg-slate-50/60 cursor-pointer hover:border-amber-400 hover:bg-amber-50/40"
+        className="mt-4 flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-dashed border-slate-300 bg-slate-50/60 cursor-pointer hover:border-violet-400 hover:bg-violet-50/40"
       >
         <span className="inline-flex items-center gap-2 text-sm text-slate-600">
           <FileText className="w-4 h-4 text-slate-500" /> CSV বা TXT ফাইল আপলোড করুন
@@ -856,14 +856,14 @@ function BulkImportPanel({ products, presetSlug, onClose, onSaved }: { products:
         onChange={(e) => setText(e.target.value)}
         rows={8}
         placeholder={"XXXXX-XXXXX-XXXXX-XXXXX\nYYYYY-YYYYY-YYYYY-YYYYY\nZZZZZ-ZZZZZ-ZZZZZ-ZZZZZ\n…"}
-        className="mt-3 w-full px-3 py-2.5 rounded-xl border border-slate-200 font-mono text-[12px] outline-none focus:border-amber-400 bg-white"
+        className="mt-3 w-full px-3 py-2.5 rounded-xl border border-slate-200 font-mono text-[12px] outline-none focus:border-violet-400 bg-white"
       />
 
       <div className="mt-4 flex items-center justify-between">
         <div className="text-[12px] text-slate-500"><span className="font-bold text-slate-900">{keys.length}</span> টি key পাওয়া গেছে</div>
         <div className="flex items-center gap-2">
           <button onClick={onClose} className="h-10 px-4 rounded-full bg-white border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50">বাতিল</button>
-          <button onClick={run} disabled={busy || !keys.length} className="inline-flex items-center gap-1.5 h-10 px-5 rounded-full text-white text-sm font-bold shadow bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-95 disabled:opacity-60">
+          <button onClick={run} disabled={busy || !keys.length} className="inline-flex items-center gap-1.5 h-10 px-5 rounded-full text-white text-sm font-bold shadow bg-gradient-to-r from-violet-500 to-orange-500 hover:opacity-95 disabled:opacity-60">
             {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />} Import করুন
           </button>
         </div>

@@ -192,7 +192,7 @@ function AdminOrders() {
       {/* Stat cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard label={t("Total Revenue", "মোট রেভিনিউ")} value={fmtMoney(totalRev)} icon={<CreditCard className="w-4 h-4" />} tone="violet" loading={loading} />
-        <StatCard label={t("Pending", "পেন্ডিং")} value={pendingCount} icon={<AlertCircle className="w-4 h-4" />} tone="amber" loading={loading} />
+        <StatCard label={t("Pending", "পেন্ডিং")} value={pendingCount} icon={<AlertCircle className="w-4 h-4" />} tone="violet" loading={loading} />
         <StatCard label={t("Processing", "প্রসেসিং")} value={processingCount} icon={<RefreshCw className="w-4 h-4" />} tone="sky" loading={loading} />
         <StatCard label={t("Completed", "সম্পন্ন")} value={completedCount} icon={<ShieldCheck className="w-4 h-4" />} tone="emerald" loading={loading} />
       </div>
@@ -330,10 +330,10 @@ function AdminOrders() {
   );
 }
 
-function StatCard({ label, value, icon, tone, loading }: { label: string; value: string | number; icon: React.ReactNode; tone: "violet"|"amber"|"sky"|"emerald"; loading?: boolean }) {
+function StatCard({ label, value, icon, tone, loading }: { label: string; value: string | number; icon: React.ReactNode; tone: "violet"|"violet"|"sky"|"emerald"; loading?: boolean }) {
   const tones: Record<string, string> = {
     violet: "bg-violet-100 text-violet-700",
-    amber: "bg-amber-100 text-amber-700",
+    violet: "bg-violet-100 text-violet-700",
     sky: "bg-sky-100 text-sky-700",
     emerald: "bg-emerald-100 text-emerald-700",
   };
@@ -451,7 +451,7 @@ function OrderRow({ order: o, onView, onDelete, onDownload }: { order: Order; on
             </a>
           )}
           <IconBtn title={t("View", "দেখুন")} onClick={onView} tone="violet"><Eye className="w-4 h-4" /></IconBtn>
-          <IconBtn title={t("Edit", "এডিট")} onClick={onView} tone="amber"><Pencil className="w-4 h-4" /></IconBtn>
+          <IconBtn title={t("Edit", "এডিট")} onClick={onView} tone="violet"><Pencil className="w-4 h-4" /></IconBtn>
           <IconBtn title={t("Delete", "ডিলিট")} onClick={onDelete} tone="rose"><Trash2 className="w-4 h-4" /></IconBtn>
         </div>
       </td>
@@ -459,7 +459,7 @@ function OrderRow({ order: o, onView, onDelete, onDownload }: { order: Order; on
   );
 }
 
-function IconBtn({ children, onClick, title, tone = "violet" }: { children: React.ReactNode; onClick: () => void; title: string; tone?: "sky" | "violet" | "amber" | "rose" | "emerald" }) {
+function IconBtn({ children, onClick, title, tone = "violet" }: { children: React.ReactNode; onClick: () => void; title: string; tone?: "sky" | "violet" | "violet" | "rose" | "emerald" }) {
   return (
     <button onClick={onClick} title={title} className={`a-action a-action-${tone}`}>
       {children}

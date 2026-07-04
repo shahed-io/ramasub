@@ -10,7 +10,7 @@ export const Route = createFileRoute("/admin/pages")({
 
 const STATUS_STYLE: Record<PageStatus, string> = {
   published: "bg-emerald-100 text-emerald-700 ring-emerald-200",
-  draft: "bg-amber-100 text-amber-700 ring-amber-200",
+  draft: "bg-violet-100 text-violet-700 ring-violet-200",
   hidden: "bg-slate-200 text-slate-700 ring-slate-300",
 };
 

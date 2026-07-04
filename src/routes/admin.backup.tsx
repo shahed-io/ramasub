@@ -16,13 +16,13 @@ export const Route = createFileRoute("/admin/backup")({
   component: BackupPage,
 });
 
-type Tone = "violet" | "blue" | "emerald" | "amber" | "rose" | "cyan" | "fuchsia" | "indigo" | "teal" | "orange" | "slate";
+type Tone = "violet" | "blue" | "emerald" | "violet" | "rose" | "cyan" | "fuchsia" | "indigo" | "teal" | "orange" | "slate";
 
 const TONE: Record<Tone, { bg: string; ic: string; ring: string }> = {
   violet:  { bg: "bg-violet-100",  ic: "text-violet-700",  ring: "ring-violet-200" },
   blue:    { bg: "bg-blue-100",    ic: "text-blue-700",    ring: "ring-blue-200" },
   emerald: { bg: "bg-emerald-100", ic: "text-emerald-700", ring: "ring-emerald-200" },
-  amber:   { bg: "bg-amber-100",   ic: "text-amber-800",   ring: "ring-amber-200" },
+  violet:   { bg: "bg-violet-100",   ic: "text-violet-800",   ring: "ring-violet-200" },
   rose:    { bg: "bg-rose-100",    ic: "text-rose-700",    ring: "ring-rose-200" },
   cyan:    { bg: "bg-cyan-100",    ic: "text-cyan-700",    ring: "ring-cyan-200" },
   fuchsia: { bg: "bg-fuchsia-100", ic: "text-fuchsia-700", ring: "ring-fuchsia-200" },
@@ -37,7 +37,7 @@ type TableMeta = { key: string; label: string; file: string; icon: React.ReactNo
 const TABLE_META: TableMeta[] = [
   { key: "products",              label: "Products",         file: "products.json",         icon: <Package className="w-5 h-5" />,    tone: "violet" },
   { key: "admin_records",         label: "Site Settings",    file: "site_settings.json",    icon: <SettingsIcon className="w-5 h-5" />, tone: "slate" },
-  { key: "orders",                label: "Orders",           file: "orders.json",           icon: <ShoppingBag className="w-5 h-5" />, tone: "amber" },
+  { key: "orders",                label: "Orders",           file: "orders.json",           icon: <ShoppingBag className="w-5 h-5" />, tone: "violet" },
   { key: "profiles",              label: "Customers",        file: "customers.json",        icon: <Users className="w-5 h-5" />,      tone: "cyan" },
   { key: "coupons",               label: "Coupons",          file: "coupons.json",          icon: <Ticket className="w-5 h-5" />,     tone: "rose" },
   { key: "promotions",            label: "Promotions",       file: "promotions.json",       icon: <Sparkles className="w-5 h-5" />,   tone: "fuchsia" },
@@ -261,7 +261,7 @@ function BackupPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <StatCard tone="violet"  icon={<Database className="w-4 h-4" />}  label="মোট রেকর্ড"     value={BN(totalRecords)} />
         <StatCard tone="blue"    icon={<FolderTree className="w-4 h-4" />} label="টেবিল"          value={BN(tableCount)} />
-        <StatCard tone="amber"   icon={<History className="w-4 h-4" />}    label="ব্যাকআপ হিস্ট্রি" value={BN(history.length)} />
+        <StatCard tone="violet"   icon={<History className="w-4 h-4" />}    label="ব্যাকআপ হিস্ট্রি" value={BN(history.length)} />
         <StatCard tone="emerald" icon={<CheckCircle2 className="w-4 h-4" />} label="সর্বশেষ ব্যাকআপ" value={lastBackupAt ? new Date(lastBackupAt).toLocaleDateString("bn-BD") : "—"} />
       </div>
 
