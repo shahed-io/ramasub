@@ -3675,6 +3675,5 @@ html.theme-white .product-card-ripple { mix-blend-mode: multiply; }
   .product-banner-clean::after { display: none !important; }
 }
 
-  .product-card-v2::after { display: none; }
-}
+
 
