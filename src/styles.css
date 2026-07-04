@@ -345,86 +345,112 @@
      so text is clearly legible against tinted backgrounds.
      Applies to .admin-clarity + .admin-shell scopes only.
      ============================================================ */
-  :is(.admin-clarity, .admin-shell) :is(span, div, a, button, td, th) {
+  :is(.admin-clarity, .admin-shell) :is(span, div, a, button, td, th, li, p, h1, h2, h3, h4, h5, h6) {
     /* Emerald / green */
-    &.bg-emerald-50, &.bg-emerald-100, &.bg-green-50, &.bg-green-100 {
+    &.bg-emerald-50, &.bg-emerald-100, &.bg-emerald-200,
+    &.bg-green-50,   &.bg-green-100,   &.bg-green-200 {
       background-color: #a7f3d0 !important;
-      border-color: #34d399 !important;
+      border-color: #10b981 !important;
     }
-    &.text-emerald-500, &.text-emerald-600, &.text-emerald-700,
-    &.text-green-500,   &.text-green-600,   &.text-green-700 {
+    &.text-emerald-300, &.text-emerald-400, &.text-emerald-500, &.text-emerald-600, &.text-emerald-700,
+    &.text-green-300,   &.text-green-400,   &.text-green-500,   &.text-green-600,   &.text-green-700 {
       color: #064e3b !important;
-      font-weight: 800 !important;
+      font-weight: 700 !important;
     }
     /* Amber / yellow / orange */
-    &.bg-amber-50, &.bg-amber-100, &.bg-yellow-50, &.bg-yellow-100,
-    &.bg-orange-50, &.bg-orange-100 {
+    &.bg-amber-50, &.bg-amber-100, &.bg-amber-200,
+    &.bg-yellow-50,&.bg-yellow-100,&.bg-yellow-200,
+    &.bg-orange-50,&.bg-orange-100,&.bg-orange-200 {
       background-color: #fde68a !important;
       border-color: #f59e0b !important;
     }
-    &.text-amber-500, &.text-amber-600, &.text-amber-700,
-    &.text-yellow-500,&.text-yellow-600,&.text-yellow-700,
-    &.text-orange-500,&.text-orange-600,&.text-orange-700 {
+    &.text-amber-300, &.text-amber-400, &.text-amber-500, &.text-amber-600, &.text-amber-700,
+    &.text-yellow-300,&.text-yellow-400,&.text-yellow-500,&.text-yellow-600,&.text-yellow-700,
+    &.text-orange-300,&.text-orange-400,&.text-orange-500,&.text-orange-600,&.text-orange-700 {
       color: #78350f !important;
-      font-weight: 800 !important;
+      font-weight: 700 !important;
     }
     /* Sky / blue / cyan */
-    &.bg-sky-50, &.bg-sky-100, &.bg-blue-50, &.bg-blue-100,
-    &.bg-cyan-50, &.bg-cyan-100 {
+    &.bg-sky-50, &.bg-sky-100, &.bg-sky-200,
+    &.bg-blue-50,&.bg-blue-100,&.bg-blue-200,
+    &.bg-cyan-50,&.bg-cyan-100,&.bg-cyan-200 {
       background-color: #bae6fd !important;
-      border-color: #38bdf8 !important;
+      border-color: #0284c7 !important;
     }
-    &.text-sky-500, &.text-sky-600, &.text-sky-700,
-    &.text-blue-500,&.text-blue-600,&.text-blue-700,
-    &.text-cyan-500,&.text-cyan-600,&.text-cyan-700 {
+    &.text-sky-300, &.text-sky-400, &.text-sky-500, &.text-sky-600, &.text-sky-700,
+    &.text-blue-300,&.text-blue-400,&.text-blue-500,&.text-blue-600,&.text-blue-700,
+    &.text-cyan-300,&.text-cyan-400,&.text-cyan-500,&.text-cyan-600,&.text-cyan-700 {
       color: #0c4a6e !important;
-      font-weight: 800 !important;
+      font-weight: 700 !important;
     }
-    /* Violet / indigo / purple */
-    &.bg-violet-50, &.bg-violet-100, &.bg-indigo-50, &.bg-indigo-100,
-    &.bg-purple-50, &.bg-purple-100 {
+    /* Violet / indigo / purple / fuchsia */
+    &.bg-violet-50, &.bg-violet-100, &.bg-violet-200,
+    &.bg-indigo-50, &.bg-indigo-100, &.bg-indigo-200,
+    &.bg-purple-50, &.bg-purple-100, &.bg-purple-200,
+    &.bg-fuchsia-50,&.bg-fuchsia-100,&.bg-fuchsia-200 {
       background-color: #ddd6fe !important;
-      border-color: #8b5cf6 !important;
+      border-color: #7c3aed !important;
     }
-    &.text-violet-500,&.text-violet-600,&.text-violet-700,
-    &.text-indigo-500,&.text-indigo-600,&.text-indigo-700,
-    &.text-purple-500,&.text-purple-600,&.text-purple-700 {
+    &.text-violet-300, &.text-violet-400, &.text-violet-500, &.text-violet-600, &.text-violet-700,
+    &.text-indigo-300, &.text-indigo-400, &.text-indigo-500, &.text-indigo-600, &.text-indigo-700,
+    &.text-purple-300, &.text-purple-400, &.text-purple-500, &.text-purple-600, &.text-purple-700,
+    &.text-fuchsia-300,&.text-fuchsia-400,&.text-fuchsia-500,&.text-fuchsia-600,&.text-fuchsia-700 {
       color: #3b0764 !important;
-      font-weight: 800 !important;
+      font-weight: 700 !important;
     }
     /* Rose / red / pink */
-    &.bg-rose-50, &.bg-rose-100, &.bg-red-50, &.bg-red-100,
-    &.bg-pink-50, &.bg-pink-100 {
+    &.bg-rose-50, &.bg-rose-100, &.bg-rose-200,
+    &.bg-red-50,  &.bg-red-100,  &.bg-red-200,
+    &.bg-pink-50, &.bg-pink-100, &.bg-pink-200 {
       background-color: #fecaca !important;
-      border-color: #f43f5e !important;
+      border-color: #ef4444 !important;
     }
-    &.text-rose-500,&.text-rose-600,&.text-rose-700,
-    &.text-red-500, &.text-red-600, &.text-red-700,
-    &.text-pink-500,&.text-pink-600,&.text-pink-700 {
+    &.text-rose-300, &.text-rose-400, &.text-rose-500, &.text-rose-600, &.text-rose-700,
+    &.text-red-300,  &.text-red-400,  &.text-red-500,  &.text-red-600,  &.text-red-700,
+    &.text-pink-300, &.text-pink-400, &.text-pink-500, &.text-pink-600, &.text-pink-700 {
       color: #7f1d1d !important;
-      font-weight: 800 !important;
+      font-weight: 700 !important;
     }
     /* Teal */
-    &.bg-teal-50, &.bg-teal-100 {
+    &.bg-teal-50, &.bg-teal-100, &.bg-teal-200 {
       background-color: #99f6e4 !important;
       border-color: #14b8a6 !important;
     }
-    &.text-teal-500,&.text-teal-600,&.text-teal-700 {
+    &.text-teal-300,&.text-teal-400,&.text-teal-500,&.text-teal-600,&.text-teal-700 {
       color: #134e4a !important;
-      font-weight: 800 !important;
+      font-weight: 700 !important;
     }
-    /* Slate / gray / zinc — neutral pills */
-    &.bg-slate-50, &.bg-slate-100, &.bg-gray-50, &.bg-gray-100,
-    &.bg-zinc-50,  &.bg-zinc-100,  &.bg-neutral-50, &.bg-neutral-100 {
+    /* Slate / gray / zinc / neutral / stone — neutral pills + faint muted text */
+    &.bg-slate-50, &.bg-slate-100, &.bg-slate-200,
+    &.bg-gray-50,  &.bg-gray-100,  &.bg-gray-200,
+    &.bg-zinc-50,  &.bg-zinc-100,  &.bg-zinc-200,
+    &.bg-neutral-50, &.bg-neutral-100, &.bg-neutral-200,
+    &.bg-stone-50, &.bg-stone-100, &.bg-stone-200 {
       background-color: #e2e8f0 !important;
       border-color: #94a3b8 !important;
     }
-    &.text-slate-400, &.text-slate-500, &.text-slate-600,
-    &.text-gray-400,  &.text-gray-500,  &.text-gray-600,
-    &.text-zinc-400,  &.text-zinc-500,  &.text-zinc-600 {
+    &.text-slate-300, &.text-slate-400, &.text-slate-500, &.text-slate-600,
+    &.text-gray-300,  &.text-gray-400,  &.text-gray-500,  &.text-gray-600,
+    &.text-zinc-300,  &.text-zinc-400,  &.text-zinc-500,  &.text-zinc-600,
+    &.text-neutral-300, &.text-neutral-400, &.text-neutral-500, &.text-neutral-600,
+    &.text-stone-300, &.text-stone-400, &.text-stone-500, &.text-stone-600 {
       color: #1e293b !important;
     }
   }
+
+  /* Translucent white cards over the lavender gradient wash — solidify so
+     text on top stays legible instead of blending with the background. */
+  :is(.admin-clarity, .admin-shell) [class*="bg-white/"],
+  :is(.admin-clarity, .admin-shell) [class*="bg-white\\/"] {
+    background-color: #ffffff !important;
+  }
+  /* Cards that use bg-card / bg-background become fully opaque too */
+  :is(.admin-clarity, .admin-shell) .bg-card,
+  :is(.admin-clarity, .admin-shell) .bg-background { background-color: #ffffff !important; }
+
+  /* Default text on white surfaces defaults to a deep slate for readability */
+  :is(.admin-clarity, .admin-shell) { color: #0f172a; }
+  :is(.admin-clarity, .admin-shell) .text-white { color: #ffffff !important; }
 
   /* Also deepen SVG icons inside those pills so they don't wash out */
   :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-emerald-"] svg,
