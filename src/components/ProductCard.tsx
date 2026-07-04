@@ -55,7 +55,13 @@ function ProductCardImpl({ product }: { product: Product }) {
   const spawnClickAnimation = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const card = cardRef.current;
     if (!card) return;
-    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    const reduced = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
+    // Let user open in new tab / middle-click as usual
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+
+    e.preventDefault();
 
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
