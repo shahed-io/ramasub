@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouterState } from "@tanstack/react-router";
-import { Download, Share, X, Plus, ChevronUp, ChevronDown, Smartphone, Tablet, AlertTriangle } from "lucide-react";
+import { Share, X, Plus, ChevronUp, ChevronDown, Smartphone, Tablet, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,6 +9,13 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import ramaLogoAsset from "@/assets/rama-logo-round.png.asset.json";
+const ramaLogo = ramaLogoAsset.url;
+
+// Auto-hide the install banner after this many milliseconds so it doesn't
+// stay on screen indefinitely.
+const AUTO_HIDE_MS = 12_000;
+
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
