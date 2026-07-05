@@ -342,7 +342,17 @@ function WelcomeCard({ greetingName, email, stats }: { greetingName: string; ema
                 <h1 className="text-xl md:text-2xl font-bold text-foreground truncate" style={{ fontFamily: "var(--font-heading)" }}>
                   {greetingName}
                 </h1>
-                <Check className="w-4 h-4 text-sky-500 shrink-0" strokeWidth={3} />
+                <span
+                  className="shrink-0 inline-grid place-items-center"
+                  title="Verified"
+                  aria-label="Verified"
+                >
+                  <BadgeCheck
+                    className="w-5 h-5"
+                    strokeWidth={2.5}
+                    style={{ color: "#ffffff", fill: "#1d9bf0" }}
+                  />
+                </span>
               </div>
               <div className="text-xs text-muted-foreground truncate mt-0.5 inline-flex items-center gap-1.5">
                 <Mail className="w-3 h-3" /> {email}
