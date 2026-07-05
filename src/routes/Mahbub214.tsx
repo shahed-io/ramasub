@@ -6,7 +6,7 @@ import {
   PanelLeftClose, PanelLeftOpen, ChevronDown, ChevronRight, ExternalLink, Menu, Search, X,
   Home, Frown,
 } from "lucide-react";
-import { ADMIN_GATE_KEY } from "./Mahbub214";
+
 
 import { AdminGlobalSearch, useAdminGlobalSearch } from "@/components/admin/AdminGlobalSearch";
 import { SearchTrigger } from "@/components/SearchBar";
@@ -76,7 +76,6 @@ function AdminLayout() {
   // Secret-URL gate: /admin only opens if the user came in via /Mahbub214
   // (which sets a sessionStorage flag). Otherwise show a 404 page.
   // `null` = still checking on mount (SSR-safe), true/false after hydration.
-  const [gateOk, setGateOk] = useState<boolean | null>(null);
   const [cachedAdmin, setCachedAdmin] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [verified, setVerified] = useState(false);
@@ -90,10 +89,6 @@ function AdminLayout() {
   const [checkedAt, setCheckedAt] = useState<string | null>(null);
 
   useEffect(() => {
-    let ok = false;
-    try { ok = sessionStorage.getItem(ADMIN_GATE_KEY) === "1"; } catch { /* ignore */ }
-    setGateOk(ok);
-    if (!ok) return;
     purgeLegacySplashFlags();
     if (readCachedAdmin()) {
       setCachedAdmin(true);
