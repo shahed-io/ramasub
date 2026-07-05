@@ -105,7 +105,16 @@ export function InstallAppPrompt() {
     return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
+  // Auto-hide the banner after a short delay so it doesn't linger.
+  // The iOS instructions dialog (iosOpen) is exempt so the user can read it.
+  useEffect(() => {
+    if (!visible || iosOpen) return;
+    const t = setTimeout(() => setVisible(false), AUTO_HIDE_MS);
+    return () => clearTimeout(t);
+  }, [visible, iosOpen]);
+
   const isIosDevice = iosKind !== "none";
+
 
   const handleInstall = async () => {
     if (isIosDevice) {
