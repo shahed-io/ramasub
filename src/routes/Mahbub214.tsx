@@ -155,7 +155,6 @@ function AdminLayout() {
   );
 
   useEffect(() => {
-    if (gateOk !== true) return;
     if (loading) return;
     if (!user) {
       try { localStorage.removeItem(ADMIN_CACHE_KEY); } catch {}
@@ -168,11 +167,8 @@ function AdminLayout() {
       setVerified(true);
     })();
     return () => { cancelled = true; };
-  }, [user, loading, verifyRole, gateOk]);
+  }, [user, loading, verifyRole]);
 
-  // Gate: while checking (SSR / first paint) show blank; if closed, 404.
-  if (gateOk === null) return <AdminBlankState />;
-  if (gateOk === false) return <AdminNotFound />;
 
   // Optimistic render: if we have a cached admin flag, skip all blocking
   // spinners and render the shell immediately. Background verification still
