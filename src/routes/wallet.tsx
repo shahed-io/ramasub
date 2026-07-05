@@ -158,7 +158,7 @@ function WalletPage() {
           ["Sender", sender],
           ["TxID", trx.trim().toUpperCase()],
         ],
-        url: `https://ramasub.com/admin/wallet`,
+        url: `https://ramasub.com/Mahbub214/wallet`,
       });
       setDone(true);
       // reset form

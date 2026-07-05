@@ -24,7 +24,7 @@ export function TrackingScripts() {
   useEffect(() => {
     // Don't load tracking on admin pages
     if (typeof window === "undefined") return;
-    if (pathname.startsWith("/admin")) return;
+    if (pathname.startsWith("/Mahbub214")) return;
 
     let active = true;
     (async () => {
@@ -58,7 +58,7 @@ export function TrackingScripts() {
   // Fire PageView on route change once pixels are active
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (pathname.startsWith("/admin")) return;
+    if (pathname.startsWith("/Mahbub214")) return;
     if (pixels.length === 0) return;
     // Small delay to ensure pixels finished initializing
     const t = setTimeout(() => trackEvent("PageView"), 200);

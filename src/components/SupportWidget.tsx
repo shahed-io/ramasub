@@ -105,7 +105,7 @@ async function logChatMessage(role: "user" | "assistant", content: string) {
           ["Session", session_id.slice(0, 8)],
         ],
         message: content.slice(0, 300),
-        url: `https://ramasub.com/admin/live-chat`,
+        url: `https://ramasub.com/Mahbub214/live-chat`,
       });
     }
   } catch {

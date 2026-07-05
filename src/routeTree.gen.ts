@@ -39,62 +39,62 @@ import { Route as AiToolsRouteImport } from './routes/ai-tools'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as Mahbub214RouteImport } from './routes/Mahbub214'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as Mahbub214IndexRouteImport } from './routes/Mahbub214.index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as OrdersIdRouteImport } from './routes/orders.$id'
 import { Route as OfferSlugRouteImport } from './routes/offer.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as BlogHowToBuyNetflixInBangladeshRouteImport } from './routes/blog.how-to-buy-netflix-in-bangladesh'
-import { Route as AdminZoomSettingsRouteImport } from './routes/admin.zoom-settings'
-import { Route as AdminWalletRouteImport } from './routes/admin.wallet'
-import { Route as AdminUsersRouteImport } from './routes/admin.users'
-import { Route as AdminTrackingPixelsRouteImport } from './routes/admin.tracking-pixels'
-import { Route as AdminTrackingRouteImport } from './routes/admin.tracking'
-import { Route as AdminTicketsRouteImport } from './routes/admin.tickets'
-import { Route as AdminThemesRouteImport } from './routes/admin.themes'
-import { Route as AdminTelegramRouteImport } from './routes/admin.telegram'
-import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
-import { Route as AdminSeoSettingsRouteImport } from './routes/admin.seo-settings'
-import { Route as AdminSeoAuditRouteImport } from './routes/admin.seo-audit'
-import { Route as AdminSecurityRouteImport } from './routes/admin.security'
-import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
-import { Route as AdminReviewGeneratorRouteImport } from './routes/admin.review-generator'
-import { Route as AdminRenewalRemindersRouteImport } from './routes/admin.renewal-reminders'
-import { Route as AdminRedirectsRouteImport } from './routes/admin.redirects'
-import { Route as AdminQuickToolsRouteImport } from './routes/admin.quick-tools'
-import { Route as AdminQuickSaleRouteImport } from './routes/admin.quick-sale'
-import { Route as AdminPromotionsRouteImport } from './routes/admin.promotions'
-import { Route as AdminProductsRouteImport } from './routes/admin.products'
-import { Route as AdminPaymentLinksRouteImport } from './routes/admin.payment-links'
-import { Route as AdminPagesRouteImport } from './routes/admin.pages'
-import { Route as AdminOtherPixelsRouteImport } from './routes/admin.other-pixels'
-import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
-import { Route as AdminOrderRecoveryRouteImport } from './routes/admin.order-recovery'
-import { Route as AdminOffersRouteImport } from './routes/admin.offers'
-import { Route as AdminNewsletterRouteImport } from './routes/admin.newsletter'
-import { Route as AdminLiveChatRouteImport } from './routes/admin.live-chat'
-import { Route as AdminLicenseManagerRouteImport } from './routes/admin.license-manager'
-import { Route as AdminInvoiceGeneratorRouteImport } from './routes/admin.invoice-generator'
-import { Route as AdminInvoiceDesignRouteImport } from './routes/admin.invoice-design'
-import { Route as AdminGoogleAdsRouteImport } from './routes/admin.google-ads'
-import { Route as AdminFbPixelRouteImport } from './routes/admin.fb-pixel'
-import { Route as AdminFbAudiencesRouteImport } from './routes/admin.fb-audiences'
-import { Route as AdminEmailDashboardRouteImport } from './routes/admin.email-dashboard'
-import { Route as AdminDescriptionTemplateRouteImport } from './routes/admin.description-template'
-import { Route as AdminDescriptionPreviewRouteImport } from './routes/admin.description-preview'
-import { Route as AdminCustomerLicensesRouteImport } from './routes/admin.customer-licenses'
-import { Route as AdminCouponsRouteImport } from './routes/admin.coupons'
-import { Route as AdminBulkUpdateRouteImport } from './routes/admin.bulk-update'
-import { Route as AdminBkashTransactionsRouteImport } from './routes/admin.bkash-transactions'
-import { Route as AdminBackupRouteImport } from './routes/admin.backup'
-import { Route as AdminAffiliatesRouteImport } from './routes/admin.affiliates'
-import { Route as AdminAbandonedCheckoutRouteImport } from './routes/admin.abandoned-checkout'
-import { Route as AdminPageRouteImport } from './routes/admin.$page'
+import { Route as Mahbub214ZoomSettingsRouteImport } from './routes/Mahbub214.zoom-settings'
+import { Route as Mahbub214WalletRouteImport } from './routes/Mahbub214.wallet'
+import { Route as Mahbub214UsersRouteImport } from './routes/Mahbub214.users'
+import { Route as Mahbub214TrackingPixelsRouteImport } from './routes/Mahbub214.tracking-pixels'
+import { Route as Mahbub214TrackingRouteImport } from './routes/Mahbub214.tracking'
+import { Route as Mahbub214TicketsRouteImport } from './routes/Mahbub214.tickets'
+import { Route as Mahbub214ThemesRouteImport } from './routes/Mahbub214.themes'
+import { Route as Mahbub214TelegramRouteImport } from './routes/Mahbub214.telegram'
+import { Route as Mahbub214SettingsRouteImport } from './routes/Mahbub214.settings'
+import { Route as Mahbub214SeoSettingsRouteImport } from './routes/Mahbub214.seo-settings'
+import { Route as Mahbub214SeoAuditRouteImport } from './routes/Mahbub214.seo-audit'
+import { Route as Mahbub214SecurityRouteImport } from './routes/Mahbub214.security'
+import { Route as Mahbub214ReviewsRouteImport } from './routes/Mahbub214.reviews'
+import { Route as Mahbub214ReviewGeneratorRouteImport } from './routes/Mahbub214.review-generator'
+import { Route as Mahbub214RenewalRemindersRouteImport } from './routes/Mahbub214.renewal-reminders'
+import { Route as Mahbub214RedirectsRouteImport } from './routes/Mahbub214.redirects'
+import { Route as Mahbub214QuickToolsRouteImport } from './routes/Mahbub214.quick-tools'
+import { Route as Mahbub214QuickSaleRouteImport } from './routes/Mahbub214.quick-sale'
+import { Route as Mahbub214PromotionsRouteImport } from './routes/Mahbub214.promotions'
+import { Route as Mahbub214ProductsRouteImport } from './routes/Mahbub214.products'
+import { Route as Mahbub214PaymentLinksRouteImport } from './routes/Mahbub214.payment-links'
+import { Route as Mahbub214PagesRouteImport } from './routes/Mahbub214.pages'
+import { Route as Mahbub214OtherPixelsRouteImport } from './routes/Mahbub214.other-pixels'
+import { Route as Mahbub214OrdersRouteImport } from './routes/Mahbub214.orders'
+import { Route as Mahbub214OrderRecoveryRouteImport } from './routes/Mahbub214.order-recovery'
+import { Route as Mahbub214OffersRouteImport } from './routes/Mahbub214.offers'
+import { Route as Mahbub214NewsletterRouteImport } from './routes/Mahbub214.newsletter'
+import { Route as Mahbub214LiveChatRouteImport } from './routes/Mahbub214.live-chat'
+import { Route as Mahbub214LicenseManagerRouteImport } from './routes/Mahbub214.license-manager'
+import { Route as Mahbub214InvoiceGeneratorRouteImport } from './routes/Mahbub214.invoice-generator'
+import { Route as Mahbub214InvoiceDesignRouteImport } from './routes/Mahbub214.invoice-design'
+import { Route as Mahbub214GoogleAdsRouteImport } from './routes/Mahbub214.google-ads'
+import { Route as Mahbub214FbPixelRouteImport } from './routes/Mahbub214.fb-pixel'
+import { Route as Mahbub214FbAudiencesRouteImport } from './routes/Mahbub214.fb-audiences'
+import { Route as Mahbub214EmailDashboardRouteImport } from './routes/Mahbub214.email-dashboard'
+import { Route as Mahbub214DescriptionTemplateRouteImport } from './routes/Mahbub214.description-template'
+import { Route as Mahbub214DescriptionPreviewRouteImport } from './routes/Mahbub214.description-preview'
+import { Route as Mahbub214CustomerLicensesRouteImport } from './routes/Mahbub214.customer-licenses'
+import { Route as Mahbub214CouponsRouteImport } from './routes/Mahbub214.coupons'
+import { Route as Mahbub214BulkUpdateRouteImport } from './routes/Mahbub214.bulk-update'
+import { Route as Mahbub214BkashTransactionsRouteImport } from './routes/Mahbub214.bkash-transactions'
+import { Route as Mahbub214BackupRouteImport } from './routes/Mahbub214.backup'
+import { Route as Mahbub214AffiliatesRouteImport } from './routes/Mahbub214.affiliates'
+import { Route as Mahbub214AbandonedCheckoutRouteImport } from './routes/Mahbub214.abandoned-checkout'
+import { Route as Mahbub214PageRouteImport } from './routes/Mahbub214.$page'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicProductsRouteImport } from './routes/api/public/products'
 import { Route as ApiPublicClientErrorsRouteImport } from './routes/api/public/client-errors'
-import { Route as AdminPagesKeyRouteImport } from './routes/admin.pages.$key'
-import { Route as AdminOffersIdRouteImport } from './routes/admin.offers.$id'
+import { Route as Mahbub214PagesKeyRouteImport } from './routes/Mahbub214.pages.$key'
+import { Route as Mahbub214OffersIdRouteImport } from './routes/Mahbub214.offers.$id'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -251,10 +251,10 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminIndexRoute = AdminIndexRouteImport.update({
+const Mahbub214IndexRoute = Mahbub214IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
 const ProductSlugRoute = ProductSlugRouteImport.update({
   id: '/product/$slug',
@@ -282,231 +282,238 @@ const BlogHowToBuyNetflixInBangladeshRoute =
     path: '/blog/how-to-buy-netflix-in-bangladesh',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AdminZoomSettingsRoute = AdminZoomSettingsRouteImport.update({
+const Mahbub214ZoomSettingsRoute = Mahbub214ZoomSettingsRouteImport.update({
   id: '/zoom-settings',
   path: '/zoom-settings',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminWalletRoute = AdminWalletRouteImport.update({
+const Mahbub214WalletRoute = Mahbub214WalletRouteImport.update({
   id: '/wallet',
   path: '/wallet',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminUsersRoute = AdminUsersRouteImport.update({
+const Mahbub214UsersRoute = Mahbub214UsersRouteImport.update({
   id: '/users',
   path: '/users',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminTrackingPixelsRoute = AdminTrackingPixelsRouteImport.update({
+const Mahbub214TrackingPixelsRoute = Mahbub214TrackingPixelsRouteImport.update({
   id: '/tracking-pixels',
   path: '/tracking-pixels',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminTrackingRoute = AdminTrackingRouteImport.update({
+const Mahbub214TrackingRoute = Mahbub214TrackingRouteImport.update({
   id: '/tracking',
   path: '/tracking',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminTicketsRoute = AdminTicketsRouteImport.update({
+const Mahbub214TicketsRoute = Mahbub214TicketsRouteImport.update({
   id: '/tickets',
   path: '/tickets',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminThemesRoute = AdminThemesRouteImport.update({
+const Mahbub214ThemesRoute = Mahbub214ThemesRouteImport.update({
   id: '/themes',
   path: '/themes',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminTelegramRoute = AdminTelegramRouteImport.update({
+const Mahbub214TelegramRoute = Mahbub214TelegramRouteImport.update({
   id: '/telegram',
   path: '/telegram',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminSettingsRoute = AdminSettingsRouteImport.update({
+const Mahbub214SettingsRoute = Mahbub214SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminSeoSettingsRoute = AdminSeoSettingsRouteImport.update({
+const Mahbub214SeoSettingsRoute = Mahbub214SeoSettingsRouteImport.update({
   id: '/seo-settings',
   path: '/seo-settings',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminSeoAuditRoute = AdminSeoAuditRouteImport.update({
+const Mahbub214SeoAuditRoute = Mahbub214SeoAuditRouteImport.update({
   id: '/seo-audit',
   path: '/seo-audit',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminSecurityRoute = AdminSecurityRouteImport.update({
+const Mahbub214SecurityRoute = Mahbub214SecurityRouteImport.update({
   id: '/security',
   path: '/security',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminReviewsRoute = AdminReviewsRouteImport.update({
+const Mahbub214ReviewsRoute = Mahbub214ReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminReviewGeneratorRoute = AdminReviewGeneratorRouteImport.update({
-  id: '/review-generator',
-  path: '/review-generator',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminRenewalRemindersRoute = AdminRenewalRemindersRouteImport.update({
-  id: '/renewal-reminders',
-  path: '/renewal-reminders',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminRedirectsRoute = AdminRedirectsRouteImport.update({
+const Mahbub214ReviewGeneratorRoute =
+  Mahbub214ReviewGeneratorRouteImport.update({
+    id: '/review-generator',
+    path: '/review-generator',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214RenewalRemindersRoute =
+  Mahbub214RenewalRemindersRouteImport.update({
+    id: '/renewal-reminders',
+    path: '/renewal-reminders',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214RedirectsRoute = Mahbub214RedirectsRouteImport.update({
   id: '/redirects',
   path: '/redirects',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminQuickToolsRoute = AdminQuickToolsRouteImport.update({
+const Mahbub214QuickToolsRoute = Mahbub214QuickToolsRouteImport.update({
   id: '/quick-tools',
   path: '/quick-tools',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminQuickSaleRoute = AdminQuickSaleRouteImport.update({
+const Mahbub214QuickSaleRoute = Mahbub214QuickSaleRouteImport.update({
   id: '/quick-sale',
   path: '/quick-sale',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminPromotionsRoute = AdminPromotionsRouteImport.update({
+const Mahbub214PromotionsRoute = Mahbub214PromotionsRouteImport.update({
   id: '/promotions',
   path: '/promotions',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminProductsRoute = AdminProductsRouteImport.update({
+const Mahbub214ProductsRoute = Mahbub214ProductsRouteImport.update({
   id: '/products',
   path: '/products',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminPaymentLinksRoute = AdminPaymentLinksRouteImport.update({
+const Mahbub214PaymentLinksRoute = Mahbub214PaymentLinksRouteImport.update({
   id: '/payment-links',
   path: '/payment-links',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminPagesRoute = AdminPagesRouteImport.update({
+const Mahbub214PagesRoute = Mahbub214PagesRouteImport.update({
   id: '/pages',
   path: '/pages',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminOtherPixelsRoute = AdminOtherPixelsRouteImport.update({
+const Mahbub214OtherPixelsRoute = Mahbub214OtherPixelsRouteImport.update({
   id: '/other-pixels',
   path: '/other-pixels',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminOrdersRoute = AdminOrdersRouteImport.update({
+const Mahbub214OrdersRoute = Mahbub214OrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminOrderRecoveryRoute = AdminOrderRecoveryRouteImport.update({
+const Mahbub214OrderRecoveryRoute = Mahbub214OrderRecoveryRouteImport.update({
   id: '/order-recovery',
   path: '/order-recovery',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminOffersRoute = AdminOffersRouteImport.update({
+const Mahbub214OffersRoute = Mahbub214OffersRouteImport.update({
   id: '/offers',
   path: '/offers',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminNewsletterRoute = AdminNewsletterRouteImport.update({
+const Mahbub214NewsletterRoute = Mahbub214NewsletterRouteImport.update({
   id: '/newsletter',
   path: '/newsletter',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminLiveChatRoute = AdminLiveChatRouteImport.update({
+const Mahbub214LiveChatRoute = Mahbub214LiveChatRouteImport.update({
   id: '/live-chat',
   path: '/live-chat',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminLicenseManagerRoute = AdminLicenseManagerRouteImport.update({
+const Mahbub214LicenseManagerRoute = Mahbub214LicenseManagerRouteImport.update({
   id: '/license-manager',
   path: '/license-manager',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminInvoiceGeneratorRoute = AdminInvoiceGeneratorRouteImport.update({
-  id: '/invoice-generator',
-  path: '/invoice-generator',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminInvoiceDesignRoute = AdminInvoiceDesignRouteImport.update({
+const Mahbub214InvoiceGeneratorRoute =
+  Mahbub214InvoiceGeneratorRouteImport.update({
+    id: '/invoice-generator',
+    path: '/invoice-generator',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214InvoiceDesignRoute = Mahbub214InvoiceDesignRouteImport.update({
   id: '/invoice-design',
   path: '/invoice-design',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminGoogleAdsRoute = AdminGoogleAdsRouteImport.update({
+const Mahbub214GoogleAdsRoute = Mahbub214GoogleAdsRouteImport.update({
   id: '/google-ads',
   path: '/google-ads',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminFbPixelRoute = AdminFbPixelRouteImport.update({
+const Mahbub214FbPixelRoute = Mahbub214FbPixelRouteImport.update({
   id: '/fb-pixel',
   path: '/fb-pixel',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminFbAudiencesRoute = AdminFbAudiencesRouteImport.update({
+const Mahbub214FbAudiencesRoute = Mahbub214FbAudiencesRouteImport.update({
   id: '/fb-audiences',
   path: '/fb-audiences',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminEmailDashboardRoute = AdminEmailDashboardRouteImport.update({
+const Mahbub214EmailDashboardRoute = Mahbub214EmailDashboardRouteImport.update({
   id: '/email-dashboard',
   path: '/email-dashboard',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminDescriptionTemplateRoute =
-  AdminDescriptionTemplateRouteImport.update({
+const Mahbub214DescriptionTemplateRoute =
+  Mahbub214DescriptionTemplateRouteImport.update({
     id: '/description-template',
     path: '/description-template',
-    getParentRoute: () => AdminRoute,
+    getParentRoute: () => Mahbub214Route,
   } as any)
-const AdminDescriptionPreviewRoute = AdminDescriptionPreviewRouteImport.update({
-  id: '/description-preview',
-  path: '/description-preview',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminCustomerLicensesRoute = AdminCustomerLicensesRouteImport.update({
-  id: '/customer-licenses',
-  path: '/customer-licenses',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminCouponsRoute = AdminCouponsRouteImport.update({
+const Mahbub214DescriptionPreviewRoute =
+  Mahbub214DescriptionPreviewRouteImport.update({
+    id: '/description-preview',
+    path: '/description-preview',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214CustomerLicensesRoute =
+  Mahbub214CustomerLicensesRouteImport.update({
+    id: '/customer-licenses',
+    path: '/customer-licenses',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214CouponsRoute = Mahbub214CouponsRouteImport.update({
   id: '/coupons',
   path: '/coupons',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminBulkUpdateRoute = AdminBulkUpdateRouteImport.update({
+const Mahbub214BulkUpdateRoute = Mahbub214BulkUpdateRouteImport.update({
   id: '/bulk-update',
   path: '/bulk-update',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminBkashTransactionsRoute = AdminBkashTransactionsRouteImport.update({
-  id: '/bkash-transactions',
-  path: '/bkash-transactions',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminBackupRoute = AdminBackupRouteImport.update({
+const Mahbub214BkashTransactionsRoute =
+  Mahbub214BkashTransactionsRouteImport.update({
+    id: '/bkash-transactions',
+    path: '/bkash-transactions',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214BackupRoute = Mahbub214BackupRouteImport.update({
   id: '/backup',
   path: '/backup',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminAffiliatesRoute = AdminAffiliatesRouteImport.update({
+const Mahbub214AffiliatesRoute = Mahbub214AffiliatesRouteImport.update({
   id: '/affiliates',
   path: '/affiliates',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
-const AdminAbandonedCheckoutRoute = AdminAbandonedCheckoutRouteImport.update({
-  id: '/abandoned-checkout',
-  path: '/abandoned-checkout',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminPageRoute = AdminPageRouteImport.update({
+const Mahbub214AbandonedCheckoutRoute =
+  Mahbub214AbandonedCheckoutRouteImport.update({
+    id: '/abandoned-checkout',
+    path: '/abandoned-checkout',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214PageRoute = Mahbub214PageRouteImport.update({
   id: '/$page',
   path: '/$page',
-  getParentRoute: () => AdminRoute,
+  getParentRoute: () => Mahbub214Route,
 } as any)
 const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   id: '/lovable/email/suppression',
@@ -523,15 +530,15 @@ const ApiPublicClientErrorsRoute = ApiPublicClientErrorsRouteImport.update({
   path: '/api/public/client-errors',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminPagesKeyRoute = AdminPagesKeyRouteImport.update({
+const Mahbub214PagesKeyRoute = Mahbub214PagesKeyRouteImport.update({
   id: '/$key',
   path: '/$key',
-  getParentRoute: () => AdminPagesRoute,
+  getParentRoute: () => Mahbub214PagesRoute,
 } as any)
-const AdminOffersIdRoute = AdminOffersIdRouteImport.update({
+const Mahbub214OffersIdRoute = Mahbub214OffersIdRouteImport.update({
   id: '/$id',
   path: '/$id',
-  getParentRoute: () => AdminOffersRoute,
+  getParentRoute: () => Mahbub214OffersRoute,
 } as any)
 const LovableEmailTransactionalSendRoute =
   LovableEmailTransactionalSendRouteImport.update({
@@ -564,8 +571,8 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/Mahbub214': typeof Mahbub214Route
-  '/admin': typeof AdminRouteWithChildren
+  '/Mahbub214': typeof Mahbub214RouteWithChildren
+  '/admin': typeof AdminRoute
   '/ai-tools': typeof AiToolsRoute
   '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
@@ -593,59 +600,59 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/wallet': typeof WalletRoute
-  '/admin/$page': typeof AdminPageRoute
-  '/admin/abandoned-checkout': typeof AdminAbandonedCheckoutRoute
-  '/admin/affiliates': typeof AdminAffiliatesRoute
-  '/admin/backup': typeof AdminBackupRoute
-  '/admin/bkash-transactions': typeof AdminBkashTransactionsRoute
-  '/admin/bulk-update': typeof AdminBulkUpdateRoute
-  '/admin/coupons': typeof AdminCouponsRoute
-  '/admin/customer-licenses': typeof AdminCustomerLicensesRoute
-  '/admin/description-preview': typeof AdminDescriptionPreviewRoute
-  '/admin/description-template': typeof AdminDescriptionTemplateRoute
-  '/admin/email-dashboard': typeof AdminEmailDashboardRoute
-  '/admin/fb-audiences': typeof AdminFbAudiencesRoute
-  '/admin/fb-pixel': typeof AdminFbPixelRoute
-  '/admin/google-ads': typeof AdminGoogleAdsRoute
-  '/admin/invoice-design': typeof AdminInvoiceDesignRoute
-  '/admin/invoice-generator': typeof AdminInvoiceGeneratorRoute
-  '/admin/license-manager': typeof AdminLicenseManagerRoute
-  '/admin/live-chat': typeof AdminLiveChatRoute
-  '/admin/newsletter': typeof AdminNewsletterRoute
-  '/admin/offers': typeof AdminOffersRouteWithChildren
-  '/admin/order-recovery': typeof AdminOrderRecoveryRoute
-  '/admin/orders': typeof AdminOrdersRoute
-  '/admin/other-pixels': typeof AdminOtherPixelsRoute
-  '/admin/pages': typeof AdminPagesRouteWithChildren
-  '/admin/payment-links': typeof AdminPaymentLinksRoute
-  '/admin/products': typeof AdminProductsRoute
-  '/admin/promotions': typeof AdminPromotionsRoute
-  '/admin/quick-sale': typeof AdminQuickSaleRoute
-  '/admin/quick-tools': typeof AdminQuickToolsRoute
-  '/admin/redirects': typeof AdminRedirectsRoute
-  '/admin/renewal-reminders': typeof AdminRenewalRemindersRoute
-  '/admin/review-generator': typeof AdminReviewGeneratorRoute
-  '/admin/reviews': typeof AdminReviewsRoute
-  '/admin/security': typeof AdminSecurityRoute
-  '/admin/seo-audit': typeof AdminSeoAuditRoute
-  '/admin/seo-settings': typeof AdminSeoSettingsRoute
-  '/admin/settings': typeof AdminSettingsRoute
-  '/admin/telegram': typeof AdminTelegramRoute
-  '/admin/themes': typeof AdminThemesRoute
-  '/admin/tickets': typeof AdminTicketsRoute
-  '/admin/tracking': typeof AdminTrackingRoute
-  '/admin/tracking-pixels': typeof AdminTrackingPixelsRoute
-  '/admin/users': typeof AdminUsersRoute
-  '/admin/wallet': typeof AdminWalletRoute
-  '/admin/zoom-settings': typeof AdminZoomSettingsRoute
+  '/Mahbub214/$page': typeof Mahbub214PageRoute
+  '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
+  '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
+  '/Mahbub214/backup': typeof Mahbub214BackupRoute
+  '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
+  '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
+  '/Mahbub214/coupons': typeof Mahbub214CouponsRoute
+  '/Mahbub214/customer-licenses': typeof Mahbub214CustomerLicensesRoute
+  '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
+  '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
+  '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
+  '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
+  '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
+  '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
+  '/Mahbub214/invoice-design': typeof Mahbub214InvoiceDesignRoute
+  '/Mahbub214/invoice-generator': typeof Mahbub214InvoiceGeneratorRoute
+  '/Mahbub214/license-manager': typeof Mahbub214LicenseManagerRoute
+  '/Mahbub214/live-chat': typeof Mahbub214LiveChatRoute
+  '/Mahbub214/newsletter': typeof Mahbub214NewsletterRoute
+  '/Mahbub214/offers': typeof Mahbub214OffersRouteWithChildren
+  '/Mahbub214/order-recovery': typeof Mahbub214OrderRecoveryRoute
+  '/Mahbub214/orders': typeof Mahbub214OrdersRoute
+  '/Mahbub214/other-pixels': typeof Mahbub214OtherPixelsRoute
+  '/Mahbub214/pages': typeof Mahbub214PagesRouteWithChildren
+  '/Mahbub214/payment-links': typeof Mahbub214PaymentLinksRoute
+  '/Mahbub214/products': typeof Mahbub214ProductsRoute
+  '/Mahbub214/promotions': typeof Mahbub214PromotionsRoute
+  '/Mahbub214/quick-sale': typeof Mahbub214QuickSaleRoute
+  '/Mahbub214/quick-tools': typeof Mahbub214QuickToolsRoute
+  '/Mahbub214/redirects': typeof Mahbub214RedirectsRoute
+  '/Mahbub214/renewal-reminders': typeof Mahbub214RenewalRemindersRoute
+  '/Mahbub214/review-generator': typeof Mahbub214ReviewGeneratorRoute
+  '/Mahbub214/reviews': typeof Mahbub214ReviewsRoute
+  '/Mahbub214/security': typeof Mahbub214SecurityRoute
+  '/Mahbub214/seo-audit': typeof Mahbub214SeoAuditRoute
+  '/Mahbub214/seo-settings': typeof Mahbub214SeoSettingsRoute
+  '/Mahbub214/settings': typeof Mahbub214SettingsRoute
+  '/Mahbub214/telegram': typeof Mahbub214TelegramRoute
+  '/Mahbub214/themes': typeof Mahbub214ThemesRoute
+  '/Mahbub214/tickets': typeof Mahbub214TicketsRoute
+  '/Mahbub214/tracking': typeof Mahbub214TrackingRoute
+  '/Mahbub214/tracking-pixels': typeof Mahbub214TrackingPixelsRoute
+  '/Mahbub214/users': typeof Mahbub214UsersRoute
+  '/Mahbub214/wallet': typeof Mahbub214WalletRoute
+  '/Mahbub214/zoom-settings': typeof Mahbub214ZoomSettingsRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
-  '/admin/': typeof AdminIndexRoute
-  '/admin/offers/$id': typeof AdminOffersIdRoute
-  '/admin/pages/$key': typeof AdminPagesKeyRoute
+  '/Mahbub214/': typeof Mahbub214IndexRoute
+  '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
+  '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -657,7 +664,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/Mahbub214': typeof Mahbub214Route
+  '/admin': typeof AdminRoute
   '/ai-tools': typeof AiToolsRoute
   '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
@@ -685,59 +692,59 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/wallet': typeof WalletRoute
-  '/admin/$page': typeof AdminPageRoute
-  '/admin/abandoned-checkout': typeof AdminAbandonedCheckoutRoute
-  '/admin/affiliates': typeof AdminAffiliatesRoute
-  '/admin/backup': typeof AdminBackupRoute
-  '/admin/bkash-transactions': typeof AdminBkashTransactionsRoute
-  '/admin/bulk-update': typeof AdminBulkUpdateRoute
-  '/admin/coupons': typeof AdminCouponsRoute
-  '/admin/customer-licenses': typeof AdminCustomerLicensesRoute
-  '/admin/description-preview': typeof AdminDescriptionPreviewRoute
-  '/admin/description-template': typeof AdminDescriptionTemplateRoute
-  '/admin/email-dashboard': typeof AdminEmailDashboardRoute
-  '/admin/fb-audiences': typeof AdminFbAudiencesRoute
-  '/admin/fb-pixel': typeof AdminFbPixelRoute
-  '/admin/google-ads': typeof AdminGoogleAdsRoute
-  '/admin/invoice-design': typeof AdminInvoiceDesignRoute
-  '/admin/invoice-generator': typeof AdminInvoiceGeneratorRoute
-  '/admin/license-manager': typeof AdminLicenseManagerRoute
-  '/admin/live-chat': typeof AdminLiveChatRoute
-  '/admin/newsletter': typeof AdminNewsletterRoute
-  '/admin/offers': typeof AdminOffersRouteWithChildren
-  '/admin/order-recovery': typeof AdminOrderRecoveryRoute
-  '/admin/orders': typeof AdminOrdersRoute
-  '/admin/other-pixels': typeof AdminOtherPixelsRoute
-  '/admin/pages': typeof AdminPagesRouteWithChildren
-  '/admin/payment-links': typeof AdminPaymentLinksRoute
-  '/admin/products': typeof AdminProductsRoute
-  '/admin/promotions': typeof AdminPromotionsRoute
-  '/admin/quick-sale': typeof AdminQuickSaleRoute
-  '/admin/quick-tools': typeof AdminQuickToolsRoute
-  '/admin/redirects': typeof AdminRedirectsRoute
-  '/admin/renewal-reminders': typeof AdminRenewalRemindersRoute
-  '/admin/review-generator': typeof AdminReviewGeneratorRoute
-  '/admin/reviews': typeof AdminReviewsRoute
-  '/admin/security': typeof AdminSecurityRoute
-  '/admin/seo-audit': typeof AdminSeoAuditRoute
-  '/admin/seo-settings': typeof AdminSeoSettingsRoute
-  '/admin/settings': typeof AdminSettingsRoute
-  '/admin/telegram': typeof AdminTelegramRoute
-  '/admin/themes': typeof AdminThemesRoute
-  '/admin/tickets': typeof AdminTicketsRoute
-  '/admin/tracking': typeof AdminTrackingRoute
-  '/admin/tracking-pixels': typeof AdminTrackingPixelsRoute
-  '/admin/users': typeof AdminUsersRoute
-  '/admin/wallet': typeof AdminWalletRoute
-  '/admin/zoom-settings': typeof AdminZoomSettingsRoute
+  '/Mahbub214/$page': typeof Mahbub214PageRoute
+  '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
+  '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
+  '/Mahbub214/backup': typeof Mahbub214BackupRoute
+  '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
+  '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
+  '/Mahbub214/coupons': typeof Mahbub214CouponsRoute
+  '/Mahbub214/customer-licenses': typeof Mahbub214CustomerLicensesRoute
+  '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
+  '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
+  '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
+  '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
+  '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
+  '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
+  '/Mahbub214/invoice-design': typeof Mahbub214InvoiceDesignRoute
+  '/Mahbub214/invoice-generator': typeof Mahbub214InvoiceGeneratorRoute
+  '/Mahbub214/license-manager': typeof Mahbub214LicenseManagerRoute
+  '/Mahbub214/live-chat': typeof Mahbub214LiveChatRoute
+  '/Mahbub214/newsletter': typeof Mahbub214NewsletterRoute
+  '/Mahbub214/offers': typeof Mahbub214OffersRouteWithChildren
+  '/Mahbub214/order-recovery': typeof Mahbub214OrderRecoveryRoute
+  '/Mahbub214/orders': typeof Mahbub214OrdersRoute
+  '/Mahbub214/other-pixels': typeof Mahbub214OtherPixelsRoute
+  '/Mahbub214/pages': typeof Mahbub214PagesRouteWithChildren
+  '/Mahbub214/payment-links': typeof Mahbub214PaymentLinksRoute
+  '/Mahbub214/products': typeof Mahbub214ProductsRoute
+  '/Mahbub214/promotions': typeof Mahbub214PromotionsRoute
+  '/Mahbub214/quick-sale': typeof Mahbub214QuickSaleRoute
+  '/Mahbub214/quick-tools': typeof Mahbub214QuickToolsRoute
+  '/Mahbub214/redirects': typeof Mahbub214RedirectsRoute
+  '/Mahbub214/renewal-reminders': typeof Mahbub214RenewalRemindersRoute
+  '/Mahbub214/review-generator': typeof Mahbub214ReviewGeneratorRoute
+  '/Mahbub214/reviews': typeof Mahbub214ReviewsRoute
+  '/Mahbub214/security': typeof Mahbub214SecurityRoute
+  '/Mahbub214/seo-audit': typeof Mahbub214SeoAuditRoute
+  '/Mahbub214/seo-settings': typeof Mahbub214SeoSettingsRoute
+  '/Mahbub214/settings': typeof Mahbub214SettingsRoute
+  '/Mahbub214/telegram': typeof Mahbub214TelegramRoute
+  '/Mahbub214/themes': typeof Mahbub214ThemesRoute
+  '/Mahbub214/tickets': typeof Mahbub214TicketsRoute
+  '/Mahbub214/tracking': typeof Mahbub214TrackingRoute
+  '/Mahbub214/tracking-pixels': typeof Mahbub214TrackingPixelsRoute
+  '/Mahbub214/users': typeof Mahbub214UsersRoute
+  '/Mahbub214/wallet': typeof Mahbub214WalletRoute
+  '/Mahbub214/zoom-settings': typeof Mahbub214ZoomSettingsRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
-  '/admin': typeof AdminIndexRoute
-  '/admin/offers/$id': typeof AdminOffersIdRoute
-  '/admin/pages/$key': typeof AdminPagesKeyRoute
+  '/Mahbub214': typeof Mahbub214IndexRoute
+  '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
+  '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -750,8 +757,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/Mahbub214': typeof Mahbub214Route
-  '/admin': typeof AdminRouteWithChildren
+  '/Mahbub214': typeof Mahbub214RouteWithChildren
+  '/admin': typeof AdminRoute
   '/ai-tools': typeof AiToolsRoute
   '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
@@ -779,59 +786,59 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/wallet': typeof WalletRoute
-  '/admin/$page': typeof AdminPageRoute
-  '/admin/abandoned-checkout': typeof AdminAbandonedCheckoutRoute
-  '/admin/affiliates': typeof AdminAffiliatesRoute
-  '/admin/backup': typeof AdminBackupRoute
-  '/admin/bkash-transactions': typeof AdminBkashTransactionsRoute
-  '/admin/bulk-update': typeof AdminBulkUpdateRoute
-  '/admin/coupons': typeof AdminCouponsRoute
-  '/admin/customer-licenses': typeof AdminCustomerLicensesRoute
-  '/admin/description-preview': typeof AdminDescriptionPreviewRoute
-  '/admin/description-template': typeof AdminDescriptionTemplateRoute
-  '/admin/email-dashboard': typeof AdminEmailDashboardRoute
-  '/admin/fb-audiences': typeof AdminFbAudiencesRoute
-  '/admin/fb-pixel': typeof AdminFbPixelRoute
-  '/admin/google-ads': typeof AdminGoogleAdsRoute
-  '/admin/invoice-design': typeof AdminInvoiceDesignRoute
-  '/admin/invoice-generator': typeof AdminInvoiceGeneratorRoute
-  '/admin/license-manager': typeof AdminLicenseManagerRoute
-  '/admin/live-chat': typeof AdminLiveChatRoute
-  '/admin/newsletter': typeof AdminNewsletterRoute
-  '/admin/offers': typeof AdminOffersRouteWithChildren
-  '/admin/order-recovery': typeof AdminOrderRecoveryRoute
-  '/admin/orders': typeof AdminOrdersRoute
-  '/admin/other-pixels': typeof AdminOtherPixelsRoute
-  '/admin/pages': typeof AdminPagesRouteWithChildren
-  '/admin/payment-links': typeof AdminPaymentLinksRoute
-  '/admin/products': typeof AdminProductsRoute
-  '/admin/promotions': typeof AdminPromotionsRoute
-  '/admin/quick-sale': typeof AdminQuickSaleRoute
-  '/admin/quick-tools': typeof AdminQuickToolsRoute
-  '/admin/redirects': typeof AdminRedirectsRoute
-  '/admin/renewal-reminders': typeof AdminRenewalRemindersRoute
-  '/admin/review-generator': typeof AdminReviewGeneratorRoute
-  '/admin/reviews': typeof AdminReviewsRoute
-  '/admin/security': typeof AdminSecurityRoute
-  '/admin/seo-audit': typeof AdminSeoAuditRoute
-  '/admin/seo-settings': typeof AdminSeoSettingsRoute
-  '/admin/settings': typeof AdminSettingsRoute
-  '/admin/telegram': typeof AdminTelegramRoute
-  '/admin/themes': typeof AdminThemesRoute
-  '/admin/tickets': typeof AdminTicketsRoute
-  '/admin/tracking': typeof AdminTrackingRoute
-  '/admin/tracking-pixels': typeof AdminTrackingPixelsRoute
-  '/admin/users': typeof AdminUsersRoute
-  '/admin/wallet': typeof AdminWalletRoute
-  '/admin/zoom-settings': typeof AdminZoomSettingsRoute
+  '/Mahbub214/$page': typeof Mahbub214PageRoute
+  '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
+  '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
+  '/Mahbub214/backup': typeof Mahbub214BackupRoute
+  '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
+  '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
+  '/Mahbub214/coupons': typeof Mahbub214CouponsRoute
+  '/Mahbub214/customer-licenses': typeof Mahbub214CustomerLicensesRoute
+  '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
+  '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
+  '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
+  '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
+  '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
+  '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
+  '/Mahbub214/invoice-design': typeof Mahbub214InvoiceDesignRoute
+  '/Mahbub214/invoice-generator': typeof Mahbub214InvoiceGeneratorRoute
+  '/Mahbub214/license-manager': typeof Mahbub214LicenseManagerRoute
+  '/Mahbub214/live-chat': typeof Mahbub214LiveChatRoute
+  '/Mahbub214/newsletter': typeof Mahbub214NewsletterRoute
+  '/Mahbub214/offers': typeof Mahbub214OffersRouteWithChildren
+  '/Mahbub214/order-recovery': typeof Mahbub214OrderRecoveryRoute
+  '/Mahbub214/orders': typeof Mahbub214OrdersRoute
+  '/Mahbub214/other-pixels': typeof Mahbub214OtherPixelsRoute
+  '/Mahbub214/pages': typeof Mahbub214PagesRouteWithChildren
+  '/Mahbub214/payment-links': typeof Mahbub214PaymentLinksRoute
+  '/Mahbub214/products': typeof Mahbub214ProductsRoute
+  '/Mahbub214/promotions': typeof Mahbub214PromotionsRoute
+  '/Mahbub214/quick-sale': typeof Mahbub214QuickSaleRoute
+  '/Mahbub214/quick-tools': typeof Mahbub214QuickToolsRoute
+  '/Mahbub214/redirects': typeof Mahbub214RedirectsRoute
+  '/Mahbub214/renewal-reminders': typeof Mahbub214RenewalRemindersRoute
+  '/Mahbub214/review-generator': typeof Mahbub214ReviewGeneratorRoute
+  '/Mahbub214/reviews': typeof Mahbub214ReviewsRoute
+  '/Mahbub214/security': typeof Mahbub214SecurityRoute
+  '/Mahbub214/seo-audit': typeof Mahbub214SeoAuditRoute
+  '/Mahbub214/seo-settings': typeof Mahbub214SeoSettingsRoute
+  '/Mahbub214/settings': typeof Mahbub214SettingsRoute
+  '/Mahbub214/telegram': typeof Mahbub214TelegramRoute
+  '/Mahbub214/themes': typeof Mahbub214ThemesRoute
+  '/Mahbub214/tickets': typeof Mahbub214TicketsRoute
+  '/Mahbub214/tracking': typeof Mahbub214TrackingRoute
+  '/Mahbub214/tracking-pixels': typeof Mahbub214TrackingPixelsRoute
+  '/Mahbub214/users': typeof Mahbub214UsersRoute
+  '/Mahbub214/wallet': typeof Mahbub214WalletRoute
+  '/Mahbub214/zoom-settings': typeof Mahbub214ZoomSettingsRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
-  '/admin/': typeof AdminIndexRoute
-  '/admin/offers/$id': typeof AdminOffersIdRoute
-  '/admin/pages/$key': typeof AdminPagesKeyRoute
+  '/Mahbub214/': typeof Mahbub214IndexRoute
+  '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
+  '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -874,59 +881,59 @@ export interface FileRouteTypes {
     | '/terms'
     | '/unsubscribe'
     | '/wallet'
-    | '/admin/$page'
-    | '/admin/abandoned-checkout'
-    | '/admin/affiliates'
-    | '/admin/backup'
-    | '/admin/bkash-transactions'
-    | '/admin/bulk-update'
-    | '/admin/coupons'
-    | '/admin/customer-licenses'
-    | '/admin/description-preview'
-    | '/admin/description-template'
-    | '/admin/email-dashboard'
-    | '/admin/fb-audiences'
-    | '/admin/fb-pixel'
-    | '/admin/google-ads'
-    | '/admin/invoice-design'
-    | '/admin/invoice-generator'
-    | '/admin/license-manager'
-    | '/admin/live-chat'
-    | '/admin/newsletter'
-    | '/admin/offers'
-    | '/admin/order-recovery'
-    | '/admin/orders'
-    | '/admin/other-pixels'
-    | '/admin/pages'
-    | '/admin/payment-links'
-    | '/admin/products'
-    | '/admin/promotions'
-    | '/admin/quick-sale'
-    | '/admin/quick-tools'
-    | '/admin/redirects'
-    | '/admin/renewal-reminders'
-    | '/admin/review-generator'
-    | '/admin/reviews'
-    | '/admin/security'
-    | '/admin/seo-audit'
-    | '/admin/seo-settings'
-    | '/admin/settings'
-    | '/admin/telegram'
-    | '/admin/themes'
-    | '/admin/tickets'
-    | '/admin/tracking'
-    | '/admin/tracking-pixels'
-    | '/admin/users'
-    | '/admin/wallet'
-    | '/admin/zoom-settings'
+    | '/Mahbub214/$page'
+    | '/Mahbub214/abandoned-checkout'
+    | '/Mahbub214/affiliates'
+    | '/Mahbub214/backup'
+    | '/Mahbub214/bkash-transactions'
+    | '/Mahbub214/bulk-update'
+    | '/Mahbub214/coupons'
+    | '/Mahbub214/customer-licenses'
+    | '/Mahbub214/description-preview'
+    | '/Mahbub214/description-template'
+    | '/Mahbub214/email-dashboard'
+    | '/Mahbub214/fb-audiences'
+    | '/Mahbub214/fb-pixel'
+    | '/Mahbub214/google-ads'
+    | '/Mahbub214/invoice-design'
+    | '/Mahbub214/invoice-generator'
+    | '/Mahbub214/license-manager'
+    | '/Mahbub214/live-chat'
+    | '/Mahbub214/newsletter'
+    | '/Mahbub214/offers'
+    | '/Mahbub214/order-recovery'
+    | '/Mahbub214/orders'
+    | '/Mahbub214/other-pixels'
+    | '/Mahbub214/pages'
+    | '/Mahbub214/payment-links'
+    | '/Mahbub214/products'
+    | '/Mahbub214/promotions'
+    | '/Mahbub214/quick-sale'
+    | '/Mahbub214/quick-tools'
+    | '/Mahbub214/redirects'
+    | '/Mahbub214/renewal-reminders'
+    | '/Mahbub214/review-generator'
+    | '/Mahbub214/reviews'
+    | '/Mahbub214/security'
+    | '/Mahbub214/seo-audit'
+    | '/Mahbub214/seo-settings'
+    | '/Mahbub214/settings'
+    | '/Mahbub214/telegram'
+    | '/Mahbub214/themes'
+    | '/Mahbub214/tickets'
+    | '/Mahbub214/tracking'
+    | '/Mahbub214/tracking-pixels'
+    | '/Mahbub214/users'
+    | '/Mahbub214/wallet'
+    | '/Mahbub214/zoom-settings'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
     | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
-    | '/admin/'
-    | '/admin/offers/$id'
-    | '/admin/pages/$key'
+    | '/Mahbub214/'
+    | '/Mahbub214/offers/$id'
+    | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -938,7 +945,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/Mahbub214'
+    | '/admin'
     | '/ai-tools'
     | '/cart'
     | '/categories'
@@ -966,59 +973,59 @@ export interface FileRouteTypes {
     | '/terms'
     | '/unsubscribe'
     | '/wallet'
-    | '/admin/$page'
-    | '/admin/abandoned-checkout'
-    | '/admin/affiliates'
-    | '/admin/backup'
-    | '/admin/bkash-transactions'
-    | '/admin/bulk-update'
-    | '/admin/coupons'
-    | '/admin/customer-licenses'
-    | '/admin/description-preview'
-    | '/admin/description-template'
-    | '/admin/email-dashboard'
-    | '/admin/fb-audiences'
-    | '/admin/fb-pixel'
-    | '/admin/google-ads'
-    | '/admin/invoice-design'
-    | '/admin/invoice-generator'
-    | '/admin/license-manager'
-    | '/admin/live-chat'
-    | '/admin/newsletter'
-    | '/admin/offers'
-    | '/admin/order-recovery'
-    | '/admin/orders'
-    | '/admin/other-pixels'
-    | '/admin/pages'
-    | '/admin/payment-links'
-    | '/admin/products'
-    | '/admin/promotions'
-    | '/admin/quick-sale'
-    | '/admin/quick-tools'
-    | '/admin/redirects'
-    | '/admin/renewal-reminders'
-    | '/admin/review-generator'
-    | '/admin/reviews'
-    | '/admin/security'
-    | '/admin/seo-audit'
-    | '/admin/seo-settings'
-    | '/admin/settings'
-    | '/admin/telegram'
-    | '/admin/themes'
-    | '/admin/tickets'
-    | '/admin/tracking'
-    | '/admin/tracking-pixels'
-    | '/admin/users'
-    | '/admin/wallet'
-    | '/admin/zoom-settings'
+    | '/Mahbub214/$page'
+    | '/Mahbub214/abandoned-checkout'
+    | '/Mahbub214/affiliates'
+    | '/Mahbub214/backup'
+    | '/Mahbub214/bkash-transactions'
+    | '/Mahbub214/bulk-update'
+    | '/Mahbub214/coupons'
+    | '/Mahbub214/customer-licenses'
+    | '/Mahbub214/description-preview'
+    | '/Mahbub214/description-template'
+    | '/Mahbub214/email-dashboard'
+    | '/Mahbub214/fb-audiences'
+    | '/Mahbub214/fb-pixel'
+    | '/Mahbub214/google-ads'
+    | '/Mahbub214/invoice-design'
+    | '/Mahbub214/invoice-generator'
+    | '/Mahbub214/license-manager'
+    | '/Mahbub214/live-chat'
+    | '/Mahbub214/newsletter'
+    | '/Mahbub214/offers'
+    | '/Mahbub214/order-recovery'
+    | '/Mahbub214/orders'
+    | '/Mahbub214/other-pixels'
+    | '/Mahbub214/pages'
+    | '/Mahbub214/payment-links'
+    | '/Mahbub214/products'
+    | '/Mahbub214/promotions'
+    | '/Mahbub214/quick-sale'
+    | '/Mahbub214/quick-tools'
+    | '/Mahbub214/redirects'
+    | '/Mahbub214/renewal-reminders'
+    | '/Mahbub214/review-generator'
+    | '/Mahbub214/reviews'
+    | '/Mahbub214/security'
+    | '/Mahbub214/seo-audit'
+    | '/Mahbub214/seo-settings'
+    | '/Mahbub214/settings'
+    | '/Mahbub214/telegram'
+    | '/Mahbub214/themes'
+    | '/Mahbub214/tickets'
+    | '/Mahbub214/tracking'
+    | '/Mahbub214/tracking-pixels'
+    | '/Mahbub214/users'
+    | '/Mahbub214/wallet'
+    | '/Mahbub214/zoom-settings'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
     | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
-    | '/admin'
-    | '/admin/offers/$id'
-    | '/admin/pages/$key'
+    | '/Mahbub214'
+    | '/Mahbub214/offers/$id'
+    | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -1059,59 +1066,59 @@ export interface FileRouteTypes {
     | '/terms'
     | '/unsubscribe'
     | '/wallet'
-    | '/admin/$page'
-    | '/admin/abandoned-checkout'
-    | '/admin/affiliates'
-    | '/admin/backup'
-    | '/admin/bkash-transactions'
-    | '/admin/bulk-update'
-    | '/admin/coupons'
-    | '/admin/customer-licenses'
-    | '/admin/description-preview'
-    | '/admin/description-template'
-    | '/admin/email-dashboard'
-    | '/admin/fb-audiences'
-    | '/admin/fb-pixel'
-    | '/admin/google-ads'
-    | '/admin/invoice-design'
-    | '/admin/invoice-generator'
-    | '/admin/license-manager'
-    | '/admin/live-chat'
-    | '/admin/newsletter'
-    | '/admin/offers'
-    | '/admin/order-recovery'
-    | '/admin/orders'
-    | '/admin/other-pixels'
-    | '/admin/pages'
-    | '/admin/payment-links'
-    | '/admin/products'
-    | '/admin/promotions'
-    | '/admin/quick-sale'
-    | '/admin/quick-tools'
-    | '/admin/redirects'
-    | '/admin/renewal-reminders'
-    | '/admin/review-generator'
-    | '/admin/reviews'
-    | '/admin/security'
-    | '/admin/seo-audit'
-    | '/admin/seo-settings'
-    | '/admin/settings'
-    | '/admin/telegram'
-    | '/admin/themes'
-    | '/admin/tickets'
-    | '/admin/tracking'
-    | '/admin/tracking-pixels'
-    | '/admin/users'
-    | '/admin/wallet'
-    | '/admin/zoom-settings'
+    | '/Mahbub214/$page'
+    | '/Mahbub214/abandoned-checkout'
+    | '/Mahbub214/affiliates'
+    | '/Mahbub214/backup'
+    | '/Mahbub214/bkash-transactions'
+    | '/Mahbub214/bulk-update'
+    | '/Mahbub214/coupons'
+    | '/Mahbub214/customer-licenses'
+    | '/Mahbub214/description-preview'
+    | '/Mahbub214/description-template'
+    | '/Mahbub214/email-dashboard'
+    | '/Mahbub214/fb-audiences'
+    | '/Mahbub214/fb-pixel'
+    | '/Mahbub214/google-ads'
+    | '/Mahbub214/invoice-design'
+    | '/Mahbub214/invoice-generator'
+    | '/Mahbub214/license-manager'
+    | '/Mahbub214/live-chat'
+    | '/Mahbub214/newsletter'
+    | '/Mahbub214/offers'
+    | '/Mahbub214/order-recovery'
+    | '/Mahbub214/orders'
+    | '/Mahbub214/other-pixels'
+    | '/Mahbub214/pages'
+    | '/Mahbub214/payment-links'
+    | '/Mahbub214/products'
+    | '/Mahbub214/promotions'
+    | '/Mahbub214/quick-sale'
+    | '/Mahbub214/quick-tools'
+    | '/Mahbub214/redirects'
+    | '/Mahbub214/renewal-reminders'
+    | '/Mahbub214/review-generator'
+    | '/Mahbub214/reviews'
+    | '/Mahbub214/security'
+    | '/Mahbub214/seo-audit'
+    | '/Mahbub214/seo-settings'
+    | '/Mahbub214/settings'
+    | '/Mahbub214/telegram'
+    | '/Mahbub214/themes'
+    | '/Mahbub214/tickets'
+    | '/Mahbub214/tracking'
+    | '/Mahbub214/tracking-pixels'
+    | '/Mahbub214/users'
+    | '/Mahbub214/wallet'
+    | '/Mahbub214/zoom-settings'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
     | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
-    | '/admin/'
-    | '/admin/offers/$id'
-    | '/admin/pages/$key'
+    | '/Mahbub214/'
+    | '/Mahbub214/offers/$id'
+    | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -1124,8 +1131,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  Mahbub214Route: typeof Mahbub214Route
-  AdminRoute: typeof AdminRouteWithChildren
+  Mahbub214Route: typeof Mahbub214RouteWithChildren
+  AdminRoute: typeof AdminRoute
   AiToolsRoute: typeof AiToolsRoute
   CartRoute: typeof CartRoute
   CategoriesRoute: typeof CategoriesRoute
@@ -1379,12 +1386,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/': {
-      id: '/admin/'
+    '/Mahbub214/': {
+      id: '/Mahbub214/'
       path: '/'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/'
+      preLoaderRoute: typeof Mahbub214IndexRouteImport
+      parentRoute: typeof Mahbub214Route
     }
     '/product/$slug': {
       id: '/product/$slug'
@@ -1421,320 +1428,320 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogHowToBuyNetflixInBangladeshRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/zoom-settings': {
-      id: '/admin/zoom-settings'
+    '/Mahbub214/zoom-settings': {
+      id: '/Mahbub214/zoom-settings'
       path: '/zoom-settings'
-      fullPath: '/admin/zoom-settings'
-      preLoaderRoute: typeof AdminZoomSettingsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/zoom-settings'
+      preLoaderRoute: typeof Mahbub214ZoomSettingsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/wallet': {
-      id: '/admin/wallet'
+    '/Mahbub214/wallet': {
+      id: '/Mahbub214/wallet'
       path: '/wallet'
-      fullPath: '/admin/wallet'
-      preLoaderRoute: typeof AdminWalletRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/wallet'
+      preLoaderRoute: typeof Mahbub214WalletRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/users': {
-      id: '/admin/users'
+    '/Mahbub214/users': {
+      id: '/Mahbub214/users'
       path: '/users'
-      fullPath: '/admin/users'
-      preLoaderRoute: typeof AdminUsersRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/users'
+      preLoaderRoute: typeof Mahbub214UsersRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/tracking-pixels': {
-      id: '/admin/tracking-pixels'
+    '/Mahbub214/tracking-pixels': {
+      id: '/Mahbub214/tracking-pixels'
       path: '/tracking-pixels'
-      fullPath: '/admin/tracking-pixels'
-      preLoaderRoute: typeof AdminTrackingPixelsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/tracking-pixels'
+      preLoaderRoute: typeof Mahbub214TrackingPixelsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/tracking': {
-      id: '/admin/tracking'
+    '/Mahbub214/tracking': {
+      id: '/Mahbub214/tracking'
       path: '/tracking'
-      fullPath: '/admin/tracking'
-      preLoaderRoute: typeof AdminTrackingRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/tracking'
+      preLoaderRoute: typeof Mahbub214TrackingRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/tickets': {
-      id: '/admin/tickets'
+    '/Mahbub214/tickets': {
+      id: '/Mahbub214/tickets'
       path: '/tickets'
-      fullPath: '/admin/tickets'
-      preLoaderRoute: typeof AdminTicketsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/tickets'
+      preLoaderRoute: typeof Mahbub214TicketsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/themes': {
-      id: '/admin/themes'
+    '/Mahbub214/themes': {
+      id: '/Mahbub214/themes'
       path: '/themes'
-      fullPath: '/admin/themes'
-      preLoaderRoute: typeof AdminThemesRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/themes'
+      preLoaderRoute: typeof Mahbub214ThemesRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/telegram': {
-      id: '/admin/telegram'
+    '/Mahbub214/telegram': {
+      id: '/Mahbub214/telegram'
       path: '/telegram'
-      fullPath: '/admin/telegram'
-      preLoaderRoute: typeof AdminTelegramRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/telegram'
+      preLoaderRoute: typeof Mahbub214TelegramRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/settings': {
-      id: '/admin/settings'
+    '/Mahbub214/settings': {
+      id: '/Mahbub214/settings'
       path: '/settings'
-      fullPath: '/admin/settings'
-      preLoaderRoute: typeof AdminSettingsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/settings'
+      preLoaderRoute: typeof Mahbub214SettingsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/seo-settings': {
-      id: '/admin/seo-settings'
+    '/Mahbub214/seo-settings': {
+      id: '/Mahbub214/seo-settings'
       path: '/seo-settings'
-      fullPath: '/admin/seo-settings'
-      preLoaderRoute: typeof AdminSeoSettingsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/seo-settings'
+      preLoaderRoute: typeof Mahbub214SeoSettingsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/seo-audit': {
-      id: '/admin/seo-audit'
+    '/Mahbub214/seo-audit': {
+      id: '/Mahbub214/seo-audit'
       path: '/seo-audit'
-      fullPath: '/admin/seo-audit'
-      preLoaderRoute: typeof AdminSeoAuditRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/seo-audit'
+      preLoaderRoute: typeof Mahbub214SeoAuditRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/security': {
-      id: '/admin/security'
+    '/Mahbub214/security': {
+      id: '/Mahbub214/security'
       path: '/security'
-      fullPath: '/admin/security'
-      preLoaderRoute: typeof AdminSecurityRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/security'
+      preLoaderRoute: typeof Mahbub214SecurityRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/reviews': {
-      id: '/admin/reviews'
+    '/Mahbub214/reviews': {
+      id: '/Mahbub214/reviews'
       path: '/reviews'
-      fullPath: '/admin/reviews'
-      preLoaderRoute: typeof AdminReviewsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/reviews'
+      preLoaderRoute: typeof Mahbub214ReviewsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/review-generator': {
-      id: '/admin/review-generator'
+    '/Mahbub214/review-generator': {
+      id: '/Mahbub214/review-generator'
       path: '/review-generator'
-      fullPath: '/admin/review-generator'
-      preLoaderRoute: typeof AdminReviewGeneratorRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/review-generator'
+      preLoaderRoute: typeof Mahbub214ReviewGeneratorRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/renewal-reminders': {
-      id: '/admin/renewal-reminders'
+    '/Mahbub214/renewal-reminders': {
+      id: '/Mahbub214/renewal-reminders'
       path: '/renewal-reminders'
-      fullPath: '/admin/renewal-reminders'
-      preLoaderRoute: typeof AdminRenewalRemindersRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/renewal-reminders'
+      preLoaderRoute: typeof Mahbub214RenewalRemindersRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/redirects': {
-      id: '/admin/redirects'
+    '/Mahbub214/redirects': {
+      id: '/Mahbub214/redirects'
       path: '/redirects'
-      fullPath: '/admin/redirects'
-      preLoaderRoute: typeof AdminRedirectsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/redirects'
+      preLoaderRoute: typeof Mahbub214RedirectsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/quick-tools': {
-      id: '/admin/quick-tools'
+    '/Mahbub214/quick-tools': {
+      id: '/Mahbub214/quick-tools'
       path: '/quick-tools'
-      fullPath: '/admin/quick-tools'
-      preLoaderRoute: typeof AdminQuickToolsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/quick-tools'
+      preLoaderRoute: typeof Mahbub214QuickToolsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/quick-sale': {
-      id: '/admin/quick-sale'
+    '/Mahbub214/quick-sale': {
+      id: '/Mahbub214/quick-sale'
       path: '/quick-sale'
-      fullPath: '/admin/quick-sale'
-      preLoaderRoute: typeof AdminQuickSaleRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/quick-sale'
+      preLoaderRoute: typeof Mahbub214QuickSaleRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/promotions': {
-      id: '/admin/promotions'
+    '/Mahbub214/promotions': {
+      id: '/Mahbub214/promotions'
       path: '/promotions'
-      fullPath: '/admin/promotions'
-      preLoaderRoute: typeof AdminPromotionsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/promotions'
+      preLoaderRoute: typeof Mahbub214PromotionsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/products': {
-      id: '/admin/products'
+    '/Mahbub214/products': {
+      id: '/Mahbub214/products'
       path: '/products'
-      fullPath: '/admin/products'
-      preLoaderRoute: typeof AdminProductsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/products'
+      preLoaderRoute: typeof Mahbub214ProductsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/payment-links': {
-      id: '/admin/payment-links'
+    '/Mahbub214/payment-links': {
+      id: '/Mahbub214/payment-links'
       path: '/payment-links'
-      fullPath: '/admin/payment-links'
-      preLoaderRoute: typeof AdminPaymentLinksRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/payment-links'
+      preLoaderRoute: typeof Mahbub214PaymentLinksRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/pages': {
-      id: '/admin/pages'
+    '/Mahbub214/pages': {
+      id: '/Mahbub214/pages'
       path: '/pages'
-      fullPath: '/admin/pages'
-      preLoaderRoute: typeof AdminPagesRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/pages'
+      preLoaderRoute: typeof Mahbub214PagesRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/other-pixels': {
-      id: '/admin/other-pixels'
+    '/Mahbub214/other-pixels': {
+      id: '/Mahbub214/other-pixels'
       path: '/other-pixels'
-      fullPath: '/admin/other-pixels'
-      preLoaderRoute: typeof AdminOtherPixelsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/other-pixels'
+      preLoaderRoute: typeof Mahbub214OtherPixelsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/orders': {
-      id: '/admin/orders'
+    '/Mahbub214/orders': {
+      id: '/Mahbub214/orders'
       path: '/orders'
-      fullPath: '/admin/orders'
-      preLoaderRoute: typeof AdminOrdersRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/orders'
+      preLoaderRoute: typeof Mahbub214OrdersRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/order-recovery': {
-      id: '/admin/order-recovery'
+    '/Mahbub214/order-recovery': {
+      id: '/Mahbub214/order-recovery'
       path: '/order-recovery'
-      fullPath: '/admin/order-recovery'
-      preLoaderRoute: typeof AdminOrderRecoveryRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/order-recovery'
+      preLoaderRoute: typeof Mahbub214OrderRecoveryRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/offers': {
-      id: '/admin/offers'
+    '/Mahbub214/offers': {
+      id: '/Mahbub214/offers'
       path: '/offers'
-      fullPath: '/admin/offers'
-      preLoaderRoute: typeof AdminOffersRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/offers'
+      preLoaderRoute: typeof Mahbub214OffersRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/newsletter': {
-      id: '/admin/newsletter'
+    '/Mahbub214/newsletter': {
+      id: '/Mahbub214/newsletter'
       path: '/newsletter'
-      fullPath: '/admin/newsletter'
-      preLoaderRoute: typeof AdminNewsletterRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/newsletter'
+      preLoaderRoute: typeof Mahbub214NewsletterRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/live-chat': {
-      id: '/admin/live-chat'
+    '/Mahbub214/live-chat': {
+      id: '/Mahbub214/live-chat'
       path: '/live-chat'
-      fullPath: '/admin/live-chat'
-      preLoaderRoute: typeof AdminLiveChatRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/live-chat'
+      preLoaderRoute: typeof Mahbub214LiveChatRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/license-manager': {
-      id: '/admin/license-manager'
+    '/Mahbub214/license-manager': {
+      id: '/Mahbub214/license-manager'
       path: '/license-manager'
-      fullPath: '/admin/license-manager'
-      preLoaderRoute: typeof AdminLicenseManagerRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/license-manager'
+      preLoaderRoute: typeof Mahbub214LicenseManagerRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/invoice-generator': {
-      id: '/admin/invoice-generator'
+    '/Mahbub214/invoice-generator': {
+      id: '/Mahbub214/invoice-generator'
       path: '/invoice-generator'
-      fullPath: '/admin/invoice-generator'
-      preLoaderRoute: typeof AdminInvoiceGeneratorRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/invoice-generator'
+      preLoaderRoute: typeof Mahbub214InvoiceGeneratorRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/invoice-design': {
-      id: '/admin/invoice-design'
+    '/Mahbub214/invoice-design': {
+      id: '/Mahbub214/invoice-design'
       path: '/invoice-design'
-      fullPath: '/admin/invoice-design'
-      preLoaderRoute: typeof AdminInvoiceDesignRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/invoice-design'
+      preLoaderRoute: typeof Mahbub214InvoiceDesignRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/google-ads': {
-      id: '/admin/google-ads'
+    '/Mahbub214/google-ads': {
+      id: '/Mahbub214/google-ads'
       path: '/google-ads'
-      fullPath: '/admin/google-ads'
-      preLoaderRoute: typeof AdminGoogleAdsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/google-ads'
+      preLoaderRoute: typeof Mahbub214GoogleAdsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/fb-pixel': {
-      id: '/admin/fb-pixel'
+    '/Mahbub214/fb-pixel': {
+      id: '/Mahbub214/fb-pixel'
       path: '/fb-pixel'
-      fullPath: '/admin/fb-pixel'
-      preLoaderRoute: typeof AdminFbPixelRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/fb-pixel'
+      preLoaderRoute: typeof Mahbub214FbPixelRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/fb-audiences': {
-      id: '/admin/fb-audiences'
+    '/Mahbub214/fb-audiences': {
+      id: '/Mahbub214/fb-audiences'
       path: '/fb-audiences'
-      fullPath: '/admin/fb-audiences'
-      preLoaderRoute: typeof AdminFbAudiencesRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/fb-audiences'
+      preLoaderRoute: typeof Mahbub214FbAudiencesRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/email-dashboard': {
-      id: '/admin/email-dashboard'
+    '/Mahbub214/email-dashboard': {
+      id: '/Mahbub214/email-dashboard'
       path: '/email-dashboard'
-      fullPath: '/admin/email-dashboard'
-      preLoaderRoute: typeof AdminEmailDashboardRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/email-dashboard'
+      preLoaderRoute: typeof Mahbub214EmailDashboardRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/description-template': {
-      id: '/admin/description-template'
+    '/Mahbub214/description-template': {
+      id: '/Mahbub214/description-template'
       path: '/description-template'
-      fullPath: '/admin/description-template'
-      preLoaderRoute: typeof AdminDescriptionTemplateRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/description-template'
+      preLoaderRoute: typeof Mahbub214DescriptionTemplateRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/description-preview': {
-      id: '/admin/description-preview'
+    '/Mahbub214/description-preview': {
+      id: '/Mahbub214/description-preview'
       path: '/description-preview'
-      fullPath: '/admin/description-preview'
-      preLoaderRoute: typeof AdminDescriptionPreviewRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/description-preview'
+      preLoaderRoute: typeof Mahbub214DescriptionPreviewRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/customer-licenses': {
-      id: '/admin/customer-licenses'
+    '/Mahbub214/customer-licenses': {
+      id: '/Mahbub214/customer-licenses'
       path: '/customer-licenses'
-      fullPath: '/admin/customer-licenses'
-      preLoaderRoute: typeof AdminCustomerLicensesRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/customer-licenses'
+      preLoaderRoute: typeof Mahbub214CustomerLicensesRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/coupons': {
-      id: '/admin/coupons'
+    '/Mahbub214/coupons': {
+      id: '/Mahbub214/coupons'
       path: '/coupons'
-      fullPath: '/admin/coupons'
-      preLoaderRoute: typeof AdminCouponsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/coupons'
+      preLoaderRoute: typeof Mahbub214CouponsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/bulk-update': {
-      id: '/admin/bulk-update'
+    '/Mahbub214/bulk-update': {
+      id: '/Mahbub214/bulk-update'
       path: '/bulk-update'
-      fullPath: '/admin/bulk-update'
-      preLoaderRoute: typeof AdminBulkUpdateRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/bulk-update'
+      preLoaderRoute: typeof Mahbub214BulkUpdateRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/bkash-transactions': {
-      id: '/admin/bkash-transactions'
+    '/Mahbub214/bkash-transactions': {
+      id: '/Mahbub214/bkash-transactions'
       path: '/bkash-transactions'
-      fullPath: '/admin/bkash-transactions'
-      preLoaderRoute: typeof AdminBkashTransactionsRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/bkash-transactions'
+      preLoaderRoute: typeof Mahbub214BkashTransactionsRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/backup': {
-      id: '/admin/backup'
+    '/Mahbub214/backup': {
+      id: '/Mahbub214/backup'
       path: '/backup'
-      fullPath: '/admin/backup'
-      preLoaderRoute: typeof AdminBackupRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/backup'
+      preLoaderRoute: typeof Mahbub214BackupRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/affiliates': {
-      id: '/admin/affiliates'
+    '/Mahbub214/affiliates': {
+      id: '/Mahbub214/affiliates'
       path: '/affiliates'
-      fullPath: '/admin/affiliates'
-      preLoaderRoute: typeof AdminAffiliatesRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/affiliates'
+      preLoaderRoute: typeof Mahbub214AffiliatesRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/abandoned-checkout': {
-      id: '/admin/abandoned-checkout'
+    '/Mahbub214/abandoned-checkout': {
+      id: '/Mahbub214/abandoned-checkout'
       path: '/abandoned-checkout'
-      fullPath: '/admin/abandoned-checkout'
-      preLoaderRoute: typeof AdminAbandonedCheckoutRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/abandoned-checkout'
+      preLoaderRoute: typeof Mahbub214AbandonedCheckoutRouteImport
+      parentRoute: typeof Mahbub214Route
     }
-    '/admin/$page': {
-      id: '/admin/$page'
+    '/Mahbub214/$page': {
+      id: '/Mahbub214/$page'
       path: '/$page'
-      fullPath: '/admin/$page'
-      preLoaderRoute: typeof AdminPageRouteImport
-      parentRoute: typeof AdminRoute
+      fullPath: '/Mahbub214/$page'
+      preLoaderRoute: typeof Mahbub214PageRouteImport
+      parentRoute: typeof Mahbub214Route
     }
     '/lovable/email/suppression': {
       id: '/lovable/email/suppression'
@@ -1757,19 +1764,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicClientErrorsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/pages/$key': {
-      id: '/admin/pages/$key'
+    '/Mahbub214/pages/$key': {
+      id: '/Mahbub214/pages/$key'
       path: '/$key'
-      fullPath: '/admin/pages/$key'
-      preLoaderRoute: typeof AdminPagesKeyRouteImport
-      parentRoute: typeof AdminPagesRoute
+      fullPath: '/Mahbub214/pages/$key'
+      preLoaderRoute: typeof Mahbub214PagesKeyRouteImport
+      parentRoute: typeof Mahbub214PagesRoute
     }
-    '/admin/offers/$id': {
-      id: '/admin/offers/$id'
+    '/Mahbub214/offers/$id': {
+      id: '/Mahbub214/offers/$id'
       path: '/$id'
-      fullPath: '/admin/offers/$id'
-      preLoaderRoute: typeof AdminOffersIdRouteImport
-      parentRoute: typeof AdminOffersRoute
+      fullPath: '/Mahbub214/offers/$id'
+      preLoaderRoute: typeof Mahbub214OffersIdRouteImport
+      parentRoute: typeof Mahbub214OffersRoute
     }
     '/lovable/email/transactional/send': {
       id: '/lovable/email/transactional/send'
@@ -1809,129 +1816,131 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AdminOffersRouteChildren {
-  AdminOffersIdRoute: typeof AdminOffersIdRoute
+interface Mahbub214OffersRouteChildren {
+  Mahbub214OffersIdRoute: typeof Mahbub214OffersIdRoute
 }
 
-const AdminOffersRouteChildren: AdminOffersRouteChildren = {
-  AdminOffersIdRoute: AdminOffersIdRoute,
+const Mahbub214OffersRouteChildren: Mahbub214OffersRouteChildren = {
+  Mahbub214OffersIdRoute: Mahbub214OffersIdRoute,
 }
 
-const AdminOffersRouteWithChildren = AdminOffersRoute._addFileChildren(
-  AdminOffersRouteChildren,
+const Mahbub214OffersRouteWithChildren = Mahbub214OffersRoute._addFileChildren(
+  Mahbub214OffersRouteChildren,
 )
 
-interface AdminPagesRouteChildren {
-  AdminPagesKeyRoute: typeof AdminPagesKeyRoute
+interface Mahbub214PagesRouteChildren {
+  Mahbub214PagesKeyRoute: typeof Mahbub214PagesKeyRoute
 }
 
-const AdminPagesRouteChildren: AdminPagesRouteChildren = {
-  AdminPagesKeyRoute: AdminPagesKeyRoute,
+const Mahbub214PagesRouteChildren: Mahbub214PagesRouteChildren = {
+  Mahbub214PagesKeyRoute: Mahbub214PagesKeyRoute,
 }
 
-const AdminPagesRouteWithChildren = AdminPagesRoute._addFileChildren(
-  AdminPagesRouteChildren,
+const Mahbub214PagesRouteWithChildren = Mahbub214PagesRoute._addFileChildren(
+  Mahbub214PagesRouteChildren,
 )
 
-interface AdminRouteChildren {
-  AdminPageRoute: typeof AdminPageRoute
-  AdminAbandonedCheckoutRoute: typeof AdminAbandonedCheckoutRoute
-  AdminAffiliatesRoute: typeof AdminAffiliatesRoute
-  AdminBackupRoute: typeof AdminBackupRoute
-  AdminBkashTransactionsRoute: typeof AdminBkashTransactionsRoute
-  AdminBulkUpdateRoute: typeof AdminBulkUpdateRoute
-  AdminCouponsRoute: typeof AdminCouponsRoute
-  AdminCustomerLicensesRoute: typeof AdminCustomerLicensesRoute
-  AdminDescriptionPreviewRoute: typeof AdminDescriptionPreviewRoute
-  AdminDescriptionTemplateRoute: typeof AdminDescriptionTemplateRoute
-  AdminEmailDashboardRoute: typeof AdminEmailDashboardRoute
-  AdminFbAudiencesRoute: typeof AdminFbAudiencesRoute
-  AdminFbPixelRoute: typeof AdminFbPixelRoute
-  AdminGoogleAdsRoute: typeof AdminGoogleAdsRoute
-  AdminInvoiceDesignRoute: typeof AdminInvoiceDesignRoute
-  AdminInvoiceGeneratorRoute: typeof AdminInvoiceGeneratorRoute
-  AdminLicenseManagerRoute: typeof AdminLicenseManagerRoute
-  AdminLiveChatRoute: typeof AdminLiveChatRoute
-  AdminNewsletterRoute: typeof AdminNewsletterRoute
-  AdminOffersRoute: typeof AdminOffersRouteWithChildren
-  AdminOrderRecoveryRoute: typeof AdminOrderRecoveryRoute
-  AdminOrdersRoute: typeof AdminOrdersRoute
-  AdminOtherPixelsRoute: typeof AdminOtherPixelsRoute
-  AdminPagesRoute: typeof AdminPagesRouteWithChildren
-  AdminPaymentLinksRoute: typeof AdminPaymentLinksRoute
-  AdminProductsRoute: typeof AdminProductsRoute
-  AdminPromotionsRoute: typeof AdminPromotionsRoute
-  AdminQuickSaleRoute: typeof AdminQuickSaleRoute
-  AdminQuickToolsRoute: typeof AdminQuickToolsRoute
-  AdminRedirectsRoute: typeof AdminRedirectsRoute
-  AdminRenewalRemindersRoute: typeof AdminRenewalRemindersRoute
-  AdminReviewGeneratorRoute: typeof AdminReviewGeneratorRoute
-  AdminReviewsRoute: typeof AdminReviewsRoute
-  AdminSecurityRoute: typeof AdminSecurityRoute
-  AdminSeoAuditRoute: typeof AdminSeoAuditRoute
-  AdminSeoSettingsRoute: typeof AdminSeoSettingsRoute
-  AdminSettingsRoute: typeof AdminSettingsRoute
-  AdminTelegramRoute: typeof AdminTelegramRoute
-  AdminThemesRoute: typeof AdminThemesRoute
-  AdminTicketsRoute: typeof AdminTicketsRoute
-  AdminTrackingRoute: typeof AdminTrackingRoute
-  AdminTrackingPixelsRoute: typeof AdminTrackingPixelsRoute
-  AdminUsersRoute: typeof AdminUsersRoute
-  AdminWalletRoute: typeof AdminWalletRoute
-  AdminZoomSettingsRoute: typeof AdminZoomSettingsRoute
-  AdminIndexRoute: typeof AdminIndexRoute
+interface Mahbub214RouteChildren {
+  Mahbub214PageRoute: typeof Mahbub214PageRoute
+  Mahbub214AbandonedCheckoutRoute: typeof Mahbub214AbandonedCheckoutRoute
+  Mahbub214AffiliatesRoute: typeof Mahbub214AffiliatesRoute
+  Mahbub214BackupRoute: typeof Mahbub214BackupRoute
+  Mahbub214BkashTransactionsRoute: typeof Mahbub214BkashTransactionsRoute
+  Mahbub214BulkUpdateRoute: typeof Mahbub214BulkUpdateRoute
+  Mahbub214CouponsRoute: typeof Mahbub214CouponsRoute
+  Mahbub214CustomerLicensesRoute: typeof Mahbub214CustomerLicensesRoute
+  Mahbub214DescriptionPreviewRoute: typeof Mahbub214DescriptionPreviewRoute
+  Mahbub214DescriptionTemplateRoute: typeof Mahbub214DescriptionTemplateRoute
+  Mahbub214EmailDashboardRoute: typeof Mahbub214EmailDashboardRoute
+  Mahbub214FbAudiencesRoute: typeof Mahbub214FbAudiencesRoute
+  Mahbub214FbPixelRoute: typeof Mahbub214FbPixelRoute
+  Mahbub214GoogleAdsRoute: typeof Mahbub214GoogleAdsRoute
+  Mahbub214InvoiceDesignRoute: typeof Mahbub214InvoiceDesignRoute
+  Mahbub214InvoiceGeneratorRoute: typeof Mahbub214InvoiceGeneratorRoute
+  Mahbub214LicenseManagerRoute: typeof Mahbub214LicenseManagerRoute
+  Mahbub214LiveChatRoute: typeof Mahbub214LiveChatRoute
+  Mahbub214NewsletterRoute: typeof Mahbub214NewsletterRoute
+  Mahbub214OffersRoute: typeof Mahbub214OffersRouteWithChildren
+  Mahbub214OrderRecoveryRoute: typeof Mahbub214OrderRecoveryRoute
+  Mahbub214OrdersRoute: typeof Mahbub214OrdersRoute
+  Mahbub214OtherPixelsRoute: typeof Mahbub214OtherPixelsRoute
+  Mahbub214PagesRoute: typeof Mahbub214PagesRouteWithChildren
+  Mahbub214PaymentLinksRoute: typeof Mahbub214PaymentLinksRoute
+  Mahbub214ProductsRoute: typeof Mahbub214ProductsRoute
+  Mahbub214PromotionsRoute: typeof Mahbub214PromotionsRoute
+  Mahbub214QuickSaleRoute: typeof Mahbub214QuickSaleRoute
+  Mahbub214QuickToolsRoute: typeof Mahbub214QuickToolsRoute
+  Mahbub214RedirectsRoute: typeof Mahbub214RedirectsRoute
+  Mahbub214RenewalRemindersRoute: typeof Mahbub214RenewalRemindersRoute
+  Mahbub214ReviewGeneratorRoute: typeof Mahbub214ReviewGeneratorRoute
+  Mahbub214ReviewsRoute: typeof Mahbub214ReviewsRoute
+  Mahbub214SecurityRoute: typeof Mahbub214SecurityRoute
+  Mahbub214SeoAuditRoute: typeof Mahbub214SeoAuditRoute
+  Mahbub214SeoSettingsRoute: typeof Mahbub214SeoSettingsRoute
+  Mahbub214SettingsRoute: typeof Mahbub214SettingsRoute
+  Mahbub214TelegramRoute: typeof Mahbub214TelegramRoute
+  Mahbub214ThemesRoute: typeof Mahbub214ThemesRoute
+  Mahbub214TicketsRoute: typeof Mahbub214TicketsRoute
+  Mahbub214TrackingRoute: typeof Mahbub214TrackingRoute
+  Mahbub214TrackingPixelsRoute: typeof Mahbub214TrackingPixelsRoute
+  Mahbub214UsersRoute: typeof Mahbub214UsersRoute
+  Mahbub214WalletRoute: typeof Mahbub214WalletRoute
+  Mahbub214ZoomSettingsRoute: typeof Mahbub214ZoomSettingsRoute
+  Mahbub214IndexRoute: typeof Mahbub214IndexRoute
 }
 
-const AdminRouteChildren: AdminRouteChildren = {
-  AdminPageRoute: AdminPageRoute,
-  AdminAbandonedCheckoutRoute: AdminAbandonedCheckoutRoute,
-  AdminAffiliatesRoute: AdminAffiliatesRoute,
-  AdminBackupRoute: AdminBackupRoute,
-  AdminBkashTransactionsRoute: AdminBkashTransactionsRoute,
-  AdminBulkUpdateRoute: AdminBulkUpdateRoute,
-  AdminCouponsRoute: AdminCouponsRoute,
-  AdminCustomerLicensesRoute: AdminCustomerLicensesRoute,
-  AdminDescriptionPreviewRoute: AdminDescriptionPreviewRoute,
-  AdminDescriptionTemplateRoute: AdminDescriptionTemplateRoute,
-  AdminEmailDashboardRoute: AdminEmailDashboardRoute,
-  AdminFbAudiencesRoute: AdminFbAudiencesRoute,
-  AdminFbPixelRoute: AdminFbPixelRoute,
-  AdminGoogleAdsRoute: AdminGoogleAdsRoute,
-  AdminInvoiceDesignRoute: AdminInvoiceDesignRoute,
-  AdminInvoiceGeneratorRoute: AdminInvoiceGeneratorRoute,
-  AdminLicenseManagerRoute: AdminLicenseManagerRoute,
-  AdminLiveChatRoute: AdminLiveChatRoute,
-  AdminNewsletterRoute: AdminNewsletterRoute,
-  AdminOffersRoute: AdminOffersRouteWithChildren,
-  AdminOrderRecoveryRoute: AdminOrderRecoveryRoute,
-  AdminOrdersRoute: AdminOrdersRoute,
-  AdminOtherPixelsRoute: AdminOtherPixelsRoute,
-  AdminPagesRoute: AdminPagesRouteWithChildren,
-  AdminPaymentLinksRoute: AdminPaymentLinksRoute,
-  AdminProductsRoute: AdminProductsRoute,
-  AdminPromotionsRoute: AdminPromotionsRoute,
-  AdminQuickSaleRoute: AdminQuickSaleRoute,
-  AdminQuickToolsRoute: AdminQuickToolsRoute,
-  AdminRedirectsRoute: AdminRedirectsRoute,
-  AdminRenewalRemindersRoute: AdminRenewalRemindersRoute,
-  AdminReviewGeneratorRoute: AdminReviewGeneratorRoute,
-  AdminReviewsRoute: AdminReviewsRoute,
-  AdminSecurityRoute: AdminSecurityRoute,
-  AdminSeoAuditRoute: AdminSeoAuditRoute,
-  AdminSeoSettingsRoute: AdminSeoSettingsRoute,
-  AdminSettingsRoute: AdminSettingsRoute,
-  AdminTelegramRoute: AdminTelegramRoute,
-  AdminThemesRoute: AdminThemesRoute,
-  AdminTicketsRoute: AdminTicketsRoute,
-  AdminTrackingRoute: AdminTrackingRoute,
-  AdminTrackingPixelsRoute: AdminTrackingPixelsRoute,
-  AdminUsersRoute: AdminUsersRoute,
-  AdminWalletRoute: AdminWalletRoute,
-  AdminZoomSettingsRoute: AdminZoomSettingsRoute,
-  AdminIndexRoute: AdminIndexRoute,
+const Mahbub214RouteChildren: Mahbub214RouteChildren = {
+  Mahbub214PageRoute: Mahbub214PageRoute,
+  Mahbub214AbandonedCheckoutRoute: Mahbub214AbandonedCheckoutRoute,
+  Mahbub214AffiliatesRoute: Mahbub214AffiliatesRoute,
+  Mahbub214BackupRoute: Mahbub214BackupRoute,
+  Mahbub214BkashTransactionsRoute: Mahbub214BkashTransactionsRoute,
+  Mahbub214BulkUpdateRoute: Mahbub214BulkUpdateRoute,
+  Mahbub214CouponsRoute: Mahbub214CouponsRoute,
+  Mahbub214CustomerLicensesRoute: Mahbub214CustomerLicensesRoute,
+  Mahbub214DescriptionPreviewRoute: Mahbub214DescriptionPreviewRoute,
+  Mahbub214DescriptionTemplateRoute: Mahbub214DescriptionTemplateRoute,
+  Mahbub214EmailDashboardRoute: Mahbub214EmailDashboardRoute,
+  Mahbub214FbAudiencesRoute: Mahbub214FbAudiencesRoute,
+  Mahbub214FbPixelRoute: Mahbub214FbPixelRoute,
+  Mahbub214GoogleAdsRoute: Mahbub214GoogleAdsRoute,
+  Mahbub214InvoiceDesignRoute: Mahbub214InvoiceDesignRoute,
+  Mahbub214InvoiceGeneratorRoute: Mahbub214InvoiceGeneratorRoute,
+  Mahbub214LicenseManagerRoute: Mahbub214LicenseManagerRoute,
+  Mahbub214LiveChatRoute: Mahbub214LiveChatRoute,
+  Mahbub214NewsletterRoute: Mahbub214NewsletterRoute,
+  Mahbub214OffersRoute: Mahbub214OffersRouteWithChildren,
+  Mahbub214OrderRecoveryRoute: Mahbub214OrderRecoveryRoute,
+  Mahbub214OrdersRoute: Mahbub214OrdersRoute,
+  Mahbub214OtherPixelsRoute: Mahbub214OtherPixelsRoute,
+  Mahbub214PagesRoute: Mahbub214PagesRouteWithChildren,
+  Mahbub214PaymentLinksRoute: Mahbub214PaymentLinksRoute,
+  Mahbub214ProductsRoute: Mahbub214ProductsRoute,
+  Mahbub214PromotionsRoute: Mahbub214PromotionsRoute,
+  Mahbub214QuickSaleRoute: Mahbub214QuickSaleRoute,
+  Mahbub214QuickToolsRoute: Mahbub214QuickToolsRoute,
+  Mahbub214RedirectsRoute: Mahbub214RedirectsRoute,
+  Mahbub214RenewalRemindersRoute: Mahbub214RenewalRemindersRoute,
+  Mahbub214ReviewGeneratorRoute: Mahbub214ReviewGeneratorRoute,
+  Mahbub214ReviewsRoute: Mahbub214ReviewsRoute,
+  Mahbub214SecurityRoute: Mahbub214SecurityRoute,
+  Mahbub214SeoAuditRoute: Mahbub214SeoAuditRoute,
+  Mahbub214SeoSettingsRoute: Mahbub214SeoSettingsRoute,
+  Mahbub214SettingsRoute: Mahbub214SettingsRoute,
+  Mahbub214TelegramRoute: Mahbub214TelegramRoute,
+  Mahbub214ThemesRoute: Mahbub214ThemesRoute,
+  Mahbub214TicketsRoute: Mahbub214TicketsRoute,
+  Mahbub214TrackingRoute: Mahbub214TrackingRoute,
+  Mahbub214TrackingPixelsRoute: Mahbub214TrackingPixelsRoute,
+  Mahbub214UsersRoute: Mahbub214UsersRoute,
+  Mahbub214WalletRoute: Mahbub214WalletRoute,
+  Mahbub214ZoomSettingsRoute: Mahbub214ZoomSettingsRoute,
+  Mahbub214IndexRoute: Mahbub214IndexRoute,
 }
 
-const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+const Mahbub214RouteWithChildren = Mahbub214Route._addFileChildren(
+  Mahbub214RouteChildren,
+)
 
 interface OrdersRouteChildren {
   OrdersIdRoute: typeof OrdersIdRoute
@@ -1946,8 +1955,8 @@ const OrdersRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  Mahbub214Route: Mahbub214Route,
-  AdminRoute: AdminRouteWithChildren,
+  Mahbub214Route: Mahbub214RouteWithChildren,
+  AdminRoute: AdminRoute,
   AiToolsRoute: AiToolsRoute,
   CartRoute: CartRoute,
   CategoriesRoute: CategoriesRoute,

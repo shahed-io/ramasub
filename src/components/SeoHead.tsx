@@ -10,7 +10,7 @@ import { getSeoSettings, type SeoSettings, DEFAULT_SEO_SETTINGS } from "@/lib/se
  */
 export function SeoHead({ pathname }: { pathname: string }) {
   const [s, setS] = useState<SeoSettings>(DEFAULT_SEO_SETTINGS);
-  const isAdmin = pathname.startsWith("/admin");
+  const isAdmin = pathname.startsWith("/Mahbub214");
 
   useEffect(() => {
     if (isAdmin) return;
