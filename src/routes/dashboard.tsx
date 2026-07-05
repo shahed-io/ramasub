@@ -803,43 +803,152 @@ function OrdersTable({ orders }: { orders: Order[] }) {
   );
 }
 
+type ServiceEntry = {
+  orderId: string;
+  name: string;
+  emoji?: string;
+  planPeriod?: string;
+  createdAt: string;
+  expiry?: string | null;
+  lifetime: boolean;
+  usagePct: number | null;
+  expiryLabel: string;
+};
+
+function buildServicesFromOrders(orders: Array<{ id: string; created_at: string; items: unknown; delivered_credentials: unknown; status: string }>): { active: ServiceEntry[]; expired: ServiceEntry[] } {
+  const now = Date.now();
+  const active: ServiceEntry[] = [];
+  const expired: ServiceEntry[] = [];
+  for (const o of orders) {
+    if (["cancelled", "refunded", "failed"].includes(String(o.status).toLowerCase())) continue;
+    const items = (Array.isArray(o.items) ? o.items : []) as OrderItem[];
+    const dc = (o.delivered_credentials as { items?: Array<{ expiry?: string | null }> } | null) ?? null;
+    const delivered = Array.isArray(dc?.items) ? dc!.items! : [];
+    items.forEach((it, idx) => {
+      const d = delivered[idx];
+      const rawExpiry = d?.expiry ?? null;
+      const isLifetime = !rawExpiry || String(rawExpiry).toLowerCase() === "lifetime";
+      let expiryMs: number | null = null;
+      if (!isLifetime) {
+        const t = new Date(rawExpiry as string).getTime();
+        expiryMs = Number.isFinite(t) ? t : null;
+      }
+      const startMs = new Date(o.created_at).getTime();
+      let usagePct: number | null = null;
+      if (!isLifetime && expiryMs && expiryMs > startMs) {
+        const total = expiryMs - startMs;
+        const used = Math.max(0, Math.min(total, now - startMs));
+        usagePct = Math.round((used / total) * 100);
+      }
+      const expiryLabel = isLifetime
+        ? "Lifetime"
+        : expiryMs
+          ? new Date(expiryMs).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })
+          : String(rawExpiry);
+      const entry: ServiceEntry = {
+        orderId: o.id,
+        name: it.name || it.slug || "Product",
+        emoji: it.emoji,
+        planPeriod: it.planPeriod,
+        createdAt: o.created_at,
+        expiry: rawExpiry,
+        lifetime: isLifetime,
+        usagePct,
+        expiryLabel,
+      };
+      if (isLifetime || (expiryMs && expiryMs > now)) active.push(entry);
+      else if (expiryMs && expiryMs <= now) expired.push(entry);
+    });
+  }
+  return { active, expired };
+}
+
 function ServiceList({ kind }: { kind: "active" | "expired" }) {
-  const items = kind === "active"
-    ? [
-        { n: "Netflix Premium", e: "15 Dec 2026", u: "78%" },
-        { n: "Spotify Family", e: "22 Jan 2027", u: "45%" },
-        { n: "ChatGPT Plus", e: "8 Feb 2027", u: "92%" },
-      ]
-    : [
-        { n: "Disney+", e: "10 Oct 2026", u: "—" },
-        { n: "Canva Pro", e: "5 Sep 2026", u: "—" },
-      ];
+  const { user } = useAuth();
+  const [state, setState] = useState<{ active: ServiceEntry[]; expired: ServiceEntry[] } | null>(null);
+
+  const load = async (uid: string) => {
+    const { data, error } = await supabase
+      .from("orders")
+      .select("id,created_at,items,delivered_credentials,status")
+      .eq("user_id", uid)
+      .order("created_at", { ascending: false });
+    if (error) { setState({ active: [], expired: [] }); return; }
+    setState(buildServicesFromOrders((data ?? []) as never));
+  };
+
+  useEffect(() => {
+    if (!user?.id) { setState({ active: [], expired: [] }); return; }
+    load(user.id);
+    const ch = supabase
+      .channel(`user-services-${user.id}`)
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "orders", filter: `user_id=eq.${user.id}` },
+        () => load(user.id),
+      )
+      .subscribe();
+    return () => { supabase.removeChannel(ch); };
+  }, [user?.id]);
+
+  const items = state ? (kind === "active" ? state.active : state.expired) : null;
+
   return (
     <div className="space-y-6">
-      <PageHead title={kind === "active" ? "Active Services" : "Expired Services"} desc={kind === "active" ? "Currently running subscriptions" : "Subscriptions that need renewal"} />
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {items.map((it) => (
-          <Card key={it.n}>
-            <div className="flex items-center justify-between mb-3">
-              <div className="font-semibold text-foreground" style={{ fontFamily: "var(--font-heading)" }}>{it.n}</div>
-              <Badge color={kind === "active" ? "success" : "danger"}>{kind === "active" ? "Active" : "Expired"}</Badge>
-            </div>
-            <div className="text-xs text-muted-foreground">Expiry: {it.e}</div>
-            {kind === "active" && (
-              <div className="mt-3">
-                <div className="text-xs text-muted-foreground mb-1">Usage: {it.u}</div>
-                <div className="h-2 rounded-full bg-white/5 overflow-hidden">
-                  <div className="h-full rounded-full" style={{ width: it.u, background: "var(--gradient-aurora)" }} />
+      <PageHead
+        title={kind === "active" ? "Active Services" : "Expired Services"}
+        desc={kind === "active" ? "Currently running subscriptions" : "Subscriptions that need renewal"}
+      />
+      {items === null ? (
+        <Card>
+          <div className="py-10 grid place-items-center text-muted-foreground text-sm">
+            <Loader2 className="w-5 h-5 animate-spin" />
+          </div>
+        </Card>
+      ) : items.length === 0 ? (
+        <Card>
+          <Empty
+            icon={<Package className="w-6 h-6" />}
+            msg={kind === "active"
+              ? "এখনো কোনো active subscription নেই। order complete ও delivery হলে এখানে real-time দেখাবে।"
+              : "কোনো expired subscription নেই।"}
+          />
+        </Card>
+      ) : (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {items.map((it, i) => (
+            <Card key={`${it.orderId}-${i}`}>
+              <div className="flex items-center justify-between mb-3 gap-2">
+                <div className="font-semibold text-foreground truncate flex items-center gap-1.5" style={{ fontFamily: "var(--font-heading)" }}>
+                  {it.emoji && <span>{it.emoji}</span>}
+                  <span className="truncate">{it.name}</span>
                 </div>
+                <Badge color={kind === "active" ? "success" : "danger"}>{kind === "active" ? "Active" : "Expired"}</Badge>
               </div>
-            )}
-            <div className="mt-4 flex gap-2">
-              <Btn variant="primary" className="!h-9 !px-4 text-xs flex-1">{kind === "active" ? "Manage" : "Renew"}</Btn>
-              <Btn variant="ghost" className="!h-9 !px-4 text-xs">Details</Btn>
-            </div>
-          </Card>
-        ))}
-      </div>
+              {it.planPeriod && (
+                <div className="text-[11px] text-muted-foreground mb-1">Plan: {it.planPeriod}</div>
+              )}
+              <div className="text-xs text-muted-foreground">Expiry: {it.expiryLabel}</div>
+              {kind === "active" && it.usagePct !== null && (
+                <div className="mt-3">
+                  <div className="text-xs text-muted-foreground mb-1">Usage: {it.usagePct}%</div>
+                  <div className="h-2 rounded-full bg-white/5 overflow-hidden">
+                    <div className="h-full rounded-full" style={{ width: `${it.usagePct}%`, background: "var(--gradient-aurora)" }} />
+                  </div>
+                </div>
+              )}
+              <div className="mt-4 flex gap-2">
+                <Link to="/orders/$id" params={{ id: it.orderId }} className="flex-1">
+                  <Btn variant="primary" className="!h-9 !px-4 text-xs w-full">{kind === "active" ? "Manage" : "Renew"}</Btn>
+                </Link>
+                <Link to="/orders/$id" params={{ id: it.orderId }}>
+                  <Btn variant="ghost" className="!h-9 !px-4 text-xs">Details</Btn>
+                </Link>
+              </div>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
