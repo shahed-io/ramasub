@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouterState } from "@tanstack/react-router";
-import { Download, Share, X, Plus, ChevronUp, ChevronDown, Smartphone, Tablet, AlertTriangle } from "lucide-react";
+import { Share, X, Plus, ChevronUp, ChevronDown, Smartphone, Tablet, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,6 +9,13 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import ramaLogoAsset from "@/assets/rama-logo-round.png.asset.json";
+const ramaLogo = ramaLogoAsset.url;
+
+// Auto-hide the install banner after this many milliseconds so it doesn't
+// stay on screen indefinitely.
+const AUTO_HIDE_MS = 12_000;
+
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -98,7 +105,16 @@ export function InstallAppPrompt() {
     return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
+  // Auto-hide the banner after a short delay so it doesn't linger.
+  // The iOS instructions dialog (iosOpen) is exempt so the user can read it.
+  useEffect(() => {
+    if (!visible || iosOpen) return;
+    const t = setTimeout(() => setVisible(false), AUTO_HIDE_MS);
+    return () => clearTimeout(t);
+  }, [visible, iosOpen]);
+
   const isIosDevice = iosKind !== "none";
+
 
   const handleInstall = async () => {
     if (isIosDevice) {
@@ -142,9 +158,12 @@ export function InstallAppPrompt() {
           <X className="h-4 w-4" />
         </button>
         <div className="flex items-start gap-3 pr-6">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-            {isIosDevice ? <DeviceIcon className="h-5 w-5" /> : <Download className="h-5 w-5" />}
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 to-primary/5 ring-1 ring-primary/20 overflow-hidden">
+            {isIosDevice
+              ? <DeviceIcon className="h-5 w-5 text-primary" />
+              : <img src={ramaLogo} alt="RamaSub" className="h-8 w-8 object-contain" draggable={false} />}
           </div>
+
           <div className="flex-1">
             <p className="text-sm font-semibold text-foreground">
               RamaSub অ্যাপ ইনস্টল করুন
