@@ -2290,13 +2290,13 @@ html.theme-white .product-buy-button,
   overflow: hidden;
   border: 0 !important;
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.05) 42%, rgba(0,0,0,0.28) 100%),
-    linear-gradient(135deg, #7c3aed 0%, #6366f1 45%, #2563eb 100%) !important;
+    linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.03) 45%, rgba(0,0,0,0.30) 100%),
+    #6d28d9 !important;
   box-shadow:
-    0 22px 50px -16px rgba(124, 58, 237, 0.85),
-    0 6px 14px -6px rgba(37, 99, 235, 0.60),
-    inset 0 1px 0 rgba(255,255,255,0.50),
-    inset 0 -1px 0 rgba(0,0,0,0.32) !important;
+    0 22px 50px -14px rgba(109, 40, 217, 0.95),
+    0 8px 18px -6px rgba(76, 29, 149, 0.75),
+    inset 0 1px 0 rgba(255,255,255,0.45),
+    inset 0 -2px 0 rgba(0,0,0,0.35) !important;
 }
 
 html.theme-white .product-cart-button,
