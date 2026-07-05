@@ -145,8 +145,33 @@ function DashboardPage() {
         if (!cancelled) setLoading(false);
         mark("TOTAL dashboard load", t0);
       });
-    return () => { cancelled = true; };
+
+    // Realtime: new orders / status / delivery updates for this user
+    const channel = supabase
+      .channel(`dashboard-orders-${user.id}`)
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "orders", filter: `user_id=eq.${user.id}` },
+        (payload) => {
+          if (cancelled) return;
+          setOrders((prev) => {
+            const row = (payload.new ?? payload.old) as Order;
+            if (!row?.id) return prev;
+            if (payload.eventType === "DELETE") return prev.filter((o) => o.id !== row.id);
+            const next = payload.new as Order;
+            const idx = prev.findIndex((o) => o.id === next.id);
+            if (idx === -1) return [next, ...prev];
+            const copy = prev.slice();
+            copy[idx] = next;
+            return copy;
+          });
+        }
+      )
+      .subscribe();
+
+    return () => { cancelled = true; supabase.removeChannel(channel); };
   }, [user, authLoading, navigate]);
+
 
   const stats = useMemo(() => {
     const total = orders.length;
