@@ -73,11 +73,10 @@ function readCachedAdmin(): boolean {
 function AdminLayout() {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
-  // IMPORTANT: never read localStorage during initial render — SSR has no
-  // localStorage, so the server-rendered HTML would differ from the client and
-  // React would throw a hydration mismatch (wiping the tree and producing a
-  // broken mobile admin shell). We hydrate the cached-admin flag in an effect
-  // after mount so SSR and the first client render always match.
+  // Secret-URL gate: /admin only opens if the user came in via /Mahbub214
+  // (which sets a sessionStorage flag). Otherwise show a 404 page.
+  // `null` = still checking on mount (SSR-safe), true/false after hydration.
+  const [gateOk, setGateOk] = useState<boolean | null>(null);
   const [cachedAdmin, setCachedAdmin] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [verified, setVerified] = useState(false);
@@ -90,9 +89,11 @@ function AdminLayout() {
   } | null>(null);
   const [checkedAt, setCheckedAt] = useState<string | null>(null);
 
-  // Wipe historical splash/admin flags and hydrate the cached-admin flag
-  // post-mount (so SSR markup matches the first client render).
   useEffect(() => {
+    let ok = false;
+    try { ok = sessionStorage.getItem(ADMIN_GATE_KEY) === "1"; } catch { /* ignore */ }
+    setGateOk(ok);
+    if (!ok) return;
     purgeLegacySplashFlags();
     if (readCachedAdmin()) {
       setCachedAdmin(true);
@@ -100,6 +101,7 @@ function AdminLayout() {
       setVerified(true);
     }
   }, []);
+
 
   // Admin panel is always light/white themed regardless of the user-selected
   // site theme. Force `theme-white` on <html> while mounted, then restore on unmount.
