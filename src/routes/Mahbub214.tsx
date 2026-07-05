@@ -188,99 +188,34 @@ function AdminLayout() {
 
 
   if (!isAdmin && verified) {
-    const hasError = !!roleError;
     return (
       <div className="min-h-screen grid place-items-center bg-[#f6f7fb] px-4 py-10">
-        <div className="max-w-xl w-full bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
-          <div className="flex items-start gap-4">
-            <div className="shrink-0 w-12 h-12 rounded-full bg-rose-50 text-rose-600 grid place-items-center">
-              <ShieldAlert className="w-6 h-6" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <h1 className="text-xl font-semibold text-slate-900">
-                {hasError ? "Permission check failed" : "Access denied"}
-              </h1>
-              <p className="text-sm text-slate-600 mt-1">
-                {hasError
-                  ? `We couldn't verify admin permissions for ${user?.email}.`
-                  : `Your account (${user?.email}) does not have admin permissions.`}
-              </p>
-
-              {hasError && (
-                <div className="mt-4 rounded-xl border border-rose-200 bg-rose-50/60 p-4 text-left">
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-rose-700">
-                    has_role error
-                  </div>
-                  <p className="mt-1 text-sm font-medium text-rose-900 break-words">
-                    {roleError!.message}
-                  </p>
-                  <dl className="mt-3 grid grid-cols-[88px_1fr] gap-x-3 gap-y-1.5 text-[12px]">
-                    {roleError!.code && (
-                      <>
-                        <dt className="text-slate-500">Code</dt>
-                        <dd className="font-mono text-slate-800 break-all">{roleError!.code}</dd>
-                      </>
-                    )}
-                    {roleError!.details && (
-                      <>
-                        <dt className="text-slate-500">Details</dt>
-                        <dd className="text-slate-800 break-words">{roleError!.details}</dd>
-                      </>
-                    )}
-                    {roleError!.hint && (
-                      <>
-                        <dt className="text-slate-500">Hint</dt>
-                        <dd className="text-slate-800 break-words">{roleError!.hint}</dd>
-                      </>
-                    )}
-                    <dt className="text-slate-500">User ID</dt>
-                    <dd className="font-mono text-slate-800 break-all">{user?.id}</dd>
-                    <dt className="text-slate-500">Checked</dt>
-                    <dd className="text-slate-800">{checkedAt ?? "—"}</dd>
-                  </dl>
-                  {roleError!.raw !== undefined && (
-                    <details className="mt-3">
-                      <summary className="text-[12px] font-semibold text-rose-700 cursor-pointer">
-                        Raw response
-                      </summary>
-                      <pre className="mt-2 max-h-48 overflow-auto rounded-lg bg-slate-900 text-slate-100 text-[11px] p-3 font-mono whitespace-pre-wrap break-all">
-{JSON.stringify(roleError!.raw, null, 2)}
-                      </pre>
-                    </details>
-                  )}
-                  <p className="mt-3 text-[12px] text-slate-600">
-                    Common causes: not signed in (missing JWT), RPC <code className="font-mono">has_role</code> not deployed, RLS blocking the call, or network/CORS error.
-                  </p>
-                </div>
-              )}
-
-              <div className="mt-5 flex flex-wrap gap-2">
-                {hasError && user && (
-                  <button
-                    onClick={() => verifyRole(user.id)}
-                    className="h-10 px-4 inline-flex items-center rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold"
-                  >
-                    Retry check
-                  </button>
-                )}
-                <Link to="/" className="h-10 px-4 inline-flex items-center rounded-full border border-slate-200 text-sm font-semibold text-slate-700">Home</Link>
-                <button
-                  onClick={async () => {
-                    try { localStorage.removeItem(ADMIN_CACHE_KEY); } catch {}
-                    await signOut();
-                    navigate({ to: "/login" });
-                  }}
-                  className="h-10 px-4 inline-flex items-center gap-1 rounded-full bg-slate-900 text-white text-sm font-semibold"
-                >
-                  <LogOut className="w-4 h-4" /> Sign out
-                </button>
-              </div>
-            </div>
+        <div className="max-w-md w-full bg-white border border-slate-200 rounded-2xl p-8 shadow-sm text-center">
+          <div className="mx-auto w-14 h-14 rounded-full bg-rose-50 text-rose-600 grid place-items-center mb-4">
+            <ShieldAlert className="w-7 h-7" />
+          </div>
+          <h1 className="text-xl font-semibold text-slate-900">Access denied</h1>
+          <p className="text-sm text-slate-600 mt-2">
+            আপনার এই পেজ দেখার অনুমতি নেই।
+          </p>
+          <div className="mt-6 flex flex-wrap gap-2 justify-center">
+            <Link to="/" className="h-10 px-5 inline-flex items-center rounded-full border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50">Home</Link>
+            <button
+              onClick={async () => {
+                try { localStorage.removeItem(ADMIN_CACHE_KEY); } catch {}
+                await signOut();
+                navigate({ to: "/login" });
+              }}
+              className="h-10 px-5 inline-flex items-center gap-1.5 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800"
+            >
+              <LogOut className="w-4 h-4" /> Sign out
+            </button>
           </div>
         </div>
       </div>
     );
   }
+
 
   // MFA gate: requires Authenticator code OR email OTP fallback before admin shell renders.
   return (
