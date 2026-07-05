@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useAdminLang } from "@/context/AdminLangContext";
 
-export const Route = createFileRoute("/admin/abandoned-checkout")({
+export const Route = createFileRoute("/Mahbub214/abandoned-checkout")({
   component: AbandonedCheckoutPage,
 });
 

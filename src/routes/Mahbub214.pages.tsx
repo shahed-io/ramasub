@@ -4,7 +4,7 @@ import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { useAllPages, type SitePage, type PageStatus } from "@/lib/pages";
 import { FileEdit, Search, ExternalLink, Circle } from "lucide-react";
 
-export const Route = createFileRoute("/admin/pages")({
+export const Route = createFileRoute("/Mahbub214/pages")({
   component: AdminPagesList,
 });
 
@@ -108,7 +108,7 @@ function AdminPagesList() {
             <div className="hidden md:block text-xs text-slate-500">{new Date(p.updated_at).toLocaleDateString()}</div>
             <div className="md:text-right">
               <Link
-                to="/admin/pages/$key"
+                to="/Mahbub214/pages/$key"
                 params={{ key: p.key }}
                 className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-xs font-semibold shadow-sm hover:shadow-md"
               >

@@ -6,7 +6,7 @@ import { testTelegramConnection } from "@/lib/telegram.functions";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { Bot, Save, Send, CheckCircle2, XCircle, Loader2, ExternalLink, Eye, EyeOff, RefreshCw } from "lucide-react";
 
-export const Route = createFileRoute("/admin/telegram")({
+export const Route = createFileRoute("/Mahbub214/telegram")({
   component: TelegramAdmin,
   head: () => ({ meta: [{ title: "Telegram Monitoring — Admin" }] }),
 });

@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/admin/fb-audiences")({
+export const Route = createFileRoute("/Mahbub214/fb-audiences")({
   beforeLoad: () => {
-    throw redirect({ to: "/admin/tracking-pixels", search: { tab: "fb_audience" } });
+    throw redirect({ to: "/Mahbub214/tracking-pixels", search: { tab: "fb_audience" } });
   },
 });

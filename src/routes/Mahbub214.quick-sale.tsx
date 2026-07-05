@@ -8,7 +8,7 @@ import {
   CreditCard, MessageCircle, Send, Save, Sparkles, ShoppingCart,
 } from "lucide-react";
 
-export const Route = createFileRoute("/admin/quick-sale")({
+export const Route = createFileRoute("/Mahbub214/quick-sale")({
   component: QuickSalePage,
 });
 

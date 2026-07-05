@@ -15,7 +15,7 @@ import {
 import { revokeAdminMfaGrants, checkAdminMfaGrant } from "@/lib/admin-mfa.functions";
 import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/admin/security")({
+export const Route = createFileRoute("/Mahbub214/security")({
   component: AdminSecurityPage,
 });
 

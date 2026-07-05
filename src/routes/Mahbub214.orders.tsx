@@ -12,7 +12,7 @@ import { downloadReceiptPdf } from "@/lib/receipt";
 import { sendTransactionalEmail } from "@/lib/email/send";
 import { useAdminLang } from "@/context/AdminLangContext";
 
-export const Route = createFileRoute("/admin/orders")({
+export const Route = createFileRoute("/Mahbub214/orders")({
   component: AdminOrders,
 });
 

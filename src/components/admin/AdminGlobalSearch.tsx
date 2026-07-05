@@ -19,11 +19,11 @@ import type { Product } from "@/data/products";
 const RECENT_KEY = "adminSearch:recent";
 
 const QUICK: Array<{ label: string; to: string; hint: string }> = [
-  { label: "Dashboard", to: "/admin", hint: "Overview & metrics" },
-  { label: "All Products", to: "/admin/products", hint: "Manage catalog" },
-  { label: "Add New Product", to: "/admin/add-product", hint: "Create product" },
-  { label: "Orders", to: "/admin/orders", hint: "Manage orders" },
-  { label: "Users", to: "/admin/users", hint: "Manage users" },
+  { label: "Dashboard", to: "/Mahbub214", hint: "Overview & metrics" },
+  { label: "All Products", to: "/Mahbub214/products", hint: "Manage catalog" },
+  { label: "Add New Product", to: "/Mahbub214/add-product", hint: "Create product" },
+  { label: "Orders", to: "/Mahbub214/orders", hint: "Manage orders" },
+  { label: "Users", to: "/Mahbub214/users", hint: "Manage users" },
 ];
 
 function loadRecent(): string[] {
@@ -193,8 +193,8 @@ export function AdminGlobalSearch({
     onOpenChange(false);
     if (item.kind === "menu") navigate({ to: item.hit.to as never });
     else if (item.kind === "product")
-      navigate({ to: "/admin/products", search: { q: item.product.name } as never });
-    else navigate({ to: "/admin/products", search: { q: item.value } as never });
+      navigate({ to: "/Mahbub214/products", search: { q: item.product.name } as never });
+    else navigate({ to: "/Mahbub214/products", search: { q: item.value } as never });
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

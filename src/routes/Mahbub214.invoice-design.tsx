@@ -9,7 +9,7 @@ import { useAdminLang } from "@/context/AdminLangContext";
 import { toast } from "sonner";
 import logoAsset from "@/assets/rama-sub-logo.png.asset.json";
 
-export const Route = createFileRoute("/admin/invoice-design")({
+export const Route = createFileRoute("/Mahbub214/invoice-design")({
   component: InvoiceDesignPage,
 });
 

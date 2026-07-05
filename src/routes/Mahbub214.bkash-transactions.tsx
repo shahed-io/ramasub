@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAdminLang } from "@/context/AdminLangContext";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/admin/bkash-transactions")({
+export const Route = createFileRoute("/Mahbub214/bkash-transactions")({
   component: BkashTransactionsPage,
 });
 

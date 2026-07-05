@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useAdminLang } from "@/context/AdminLangContext";
 
-export const Route = createFileRoute("/admin/payment-links")({
+export const Route = createFileRoute("/Mahbub214/payment-links")({
   component: PaymentLinksPage,
 });
 

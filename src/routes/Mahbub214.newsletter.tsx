@@ -14,7 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useAdminLang } from "@/context/AdminLangContext";
 
-export const Route = createFileRoute("/admin/newsletter")({
+export const Route = createFileRoute("/Mahbub214/newsletter")({
   component: NewsletterPage,
   head: () => ({
     meta: [

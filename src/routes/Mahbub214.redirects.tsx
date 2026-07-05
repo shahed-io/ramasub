@@ -6,7 +6,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { listRedirects, upsertRedirect, deleteRedirect, type Redirect } from "@/lib/redirects.functions";
 import { useAdminLang } from "@/context/AdminLangContext";
 
-export const Route = createFileRoute("/admin/redirects")({
+export const Route = createFileRoute("/Mahbub214/redirects")({
   component: RedirectsPage,
   head: () => ({ meta: [{ title: "Redirects — Admin" }, { name: "robots", content: "noindex,nofollow" }] }),
 });

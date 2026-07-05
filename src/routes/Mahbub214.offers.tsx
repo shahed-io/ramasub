@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { AdminStatCard, AdminStatGrid, AdminGlassCard } from "@/components/admin/AdminStatCard";
 
-export const Route = createFileRoute("/admin/offers")({
+export const Route = createFileRoute("/Mahbub214/offers")({
   component: AdminOffersList,
 });
 
@@ -74,7 +74,7 @@ function AdminOffersList() {
     if (error) return toast.error(error.message);
     setCreating(false);
     setNewTitle("");
-    navigate({ to: "/admin/offers/$id", params: { id: (data as any).id } });
+    navigate({ to: "/Mahbub214/offers/$id", params: { id: (data as any).id } });
   };
 
   const remove = async (id: string) => {
@@ -163,7 +163,7 @@ function AdminOffersList() {
                       <div className="inline-flex gap-1">
                         <button onClick={() => copyLink(c.slug)} title="Copy public link" className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600"><Copy className="w-3.5 h-3.5" /></button>
                         <Link to="/offer/$slug" params={{ slug: c.slug }} target="_blank" className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600"><ExternalLink className="w-3.5 h-3.5" /></Link>
-                        <Link to="/admin/offers/$id" params={{ id: c.id }} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600"><Pencil className="w-3.5 h-3.5" /></Link>
+                        <Link to="/Mahbub214/offers/$id" params={{ id: c.id }} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600"><Pencil className="w-3.5 h-3.5" /></Link>
                         <button onClick={() => remove(c.id)} className="p-1.5 rounded-lg hover:bg-slate-50 text-slate-600"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </td>

@@ -7,7 +7,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/admin/tracking")({
+export const Route = createFileRoute("/Mahbub214/tracking")({
   component: TrackingPage,
 });
 

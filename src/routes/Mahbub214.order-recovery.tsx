@@ -8,7 +8,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/admin/order-recovery")({
+export const Route = createFileRoute("/Mahbub214/order-recovery")({
   component: OrderRecoveryPage,
 });
 

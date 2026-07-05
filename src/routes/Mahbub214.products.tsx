@@ -13,7 +13,7 @@ import { AdminStatCard as PremiumStatCard } from "@/components/admin/AdminStatCa
 import { SearchBar } from "@/components/SearchBar";
 import { fileToWebp, blobToWebp } from "@/lib/image-to-webp";
 
-export const Route = createFileRoute("/admin/products")({
+export const Route = createFileRoute("/Mahbub214/products")({
  component: AdminProducts,
 });
 

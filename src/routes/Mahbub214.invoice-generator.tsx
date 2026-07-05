@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import jsPDF from "jspdf";
 import logoAsset from "@/assets/rama-sub-logo.png.asset.json";
 
-export const Route = createFileRoute("/admin/invoice-generator")({
+export const Route = createFileRoute("/Mahbub214/invoice-generator")({
   component: InvoiceGeneratorPage,
 });
 

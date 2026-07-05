@@ -8,7 +8,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/admin/customer-licenses")({
+export const Route = createFileRoute("/Mahbub214/customer-licenses")({
   component: CustomerLicensesPage,
 });
 

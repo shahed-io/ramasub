@@ -38,7 +38,7 @@ Brief intro paragraph describing what this product does and why customers love i
 Your product details will be delivered to your email within minutes after payment confirmation. For any help, contact us on WhatsApp: **+880 1601-048085**.
 `;
 
-export const Route = createFileRoute("/admin/description-preview")({
+export const Route = createFileRoute("/Mahbub214/description-preview")({
   head: () => ({
     meta: [
       { title: "Description Preview — Admin" },

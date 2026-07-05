@@ -6,7 +6,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { getSeoSettings, saveSeoSettings, DEFAULT_SEO_SETTINGS, type SeoSettings } from "@/lib/seo-settings.functions";
 import { useAdminLang } from "@/context/AdminLangContext";
 
-export const Route = createFileRoute("/admin/seo-settings")({
+export const Route = createFileRoute("/Mahbub214/seo-settings")({
   component: SeoSettingsPage,
   head: () => ({ meta: [{ title: "SEO Settings — Admin" }, { name: "robots", content: "noindex,nofollow" }] }),
 });

@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import { useAdminLang } from "@/context/AdminLangContext";
 import { sendTransactionalEmail } from "@/lib/email/send";
 
-export const Route = createFileRoute("/admin/renewal-reminders")({
+export const Route = createFileRoute("/Mahbub214/renewal-reminders")({
   component: RenewalRemindersPage,
   head: () => ({
     meta: [

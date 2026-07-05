@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { THEMES, type ThemeId } from "@/context/ThemeContext";
 import { useAdminLang } from "@/context/AdminLangContext";
 
-export const Route = createFileRoute("/admin/themes")({
+export const Route = createFileRoute("/Mahbub214/themes")({
   component: AdminThemesPage,
   head: () => ({ meta: [{ title: "Themes — Admin" }] }),
 });

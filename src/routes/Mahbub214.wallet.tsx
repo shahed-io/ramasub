@@ -9,7 +9,7 @@ import { getWalletScreenshotUrl } from "@/lib/wallet.functions";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/admin/wallet")({
+export const Route = createFileRoute("/Mahbub214/wallet")({
   component: AdminWalletPage,
 });
 

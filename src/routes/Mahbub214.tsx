@@ -20,7 +20,7 @@ import { BrandLogo } from "@/components/BrandLogo";
 import ramaSubLogoAsset from "@/assets/rama-logo-new.png.asset.json";
 const ramaSubLogo = ramaSubLogoAsset.url;
 
-export const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/Mahbub214")({
   component: AdminLayout,
   head: () => ({ meta: [{ title: "Admin — Rama Sub" }, { name: "robots", content: "noindex,nofollow" }] }),
 });
@@ -434,7 +434,7 @@ function AdminShell({ user, signOut, navigate }: any) {
             : "h-[68px] flex items-center justify-between px-4",
         ].join(" ")}>
 
-          <Link to="/admin" className={`flex items-center gap-2.5 min-w-0 group ${collapsed ? "justify-center" : ""}`} aria-label="Rama Sub Admin">
+          <Link to="/Mahbub214" className={`flex items-center gap-2.5 min-w-0 group ${collapsed ? "justify-center" : ""}`} aria-label="Rama Sub Admin">
             <BrandLogo size="sm" showWordmark={false} underlineId="adminSidebarUnderline" />
             {!collapsed && (
               <span className="leading-tight min-w-0">

@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import { useAdminLang } from "@/context/AdminLangContext";
 import { DEFAULT_SUPPORT_WIDGET, type SupportWidgetConfig } from "@/hooks/useSupportWidgetConfig";
 
-export const Route = createFileRoute("/admin/live-chat")({
+export const Route = createFileRoute("/Mahbub214/live-chat")({
   component: LiveChatPage,
   head: () => ({ meta: [{ title: "Live Chat — Admin" }, { name: "robots", content: "noindex,nofollow" }] }),
 });

@@ -4,7 +4,7 @@ import { Loader2, ClipboardList, CheckCircle2, AlertTriangle, XCircle, Search, E
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminLang } from "@/context/AdminLangContext";
 
-export const Route = createFileRoute("/admin/seo-audit")({
+export const Route = createFileRoute("/Mahbub214/seo-audit")({
   component: SeoAuditPage,
   head: () => ({ meta: [{ title: "SEO Audit — Admin" }, { name: "robots", content: "noindex,nofollow" }] }),
 });

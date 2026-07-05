@@ -9,7 +9,7 @@ import { AdminGlassCard, AdminStatCard, AdminStatGrid } from "@/components/admin
 import { useAdminLang } from "@/context/AdminLangContext";
 
 
-export const Route = createFileRoute("/admin/review-generator")({
+export const Route = createFileRoute("/Mahbub214/review-generator")({
   component: AdminReviewGenerator,
 });
 

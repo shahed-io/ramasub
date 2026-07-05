@@ -12,7 +12,7 @@ import { ProductMediaGallery } from "@/components/admin/ProductMediaGallery";
 import { BackupRestore } from "@/components/admin/BackupRestore";
 import { AnalyticsDashboard } from "@/components/admin/AnalyticsDashboard";
 
-export const Route = createFileRoute("/admin/$page")({
+export const Route = createFileRoute("/Mahbub214/$page")({
  component: AdminFeaturePage,
 });
 
@@ -27,14 +27,14 @@ type Record = {
 type Record_ = { [k: string]: unknown };
 
 function AdminFeaturePage() {
- const { page } = useParams({ from: "/admin/$page" });
+ const { page } = useParams({ from: "/Mahbub214/$page" });
  const item = findAdminPage(`/admin/${page}`);
  const group = ADMIN_MENU.find((g) => g.items.some((i) => i.to === `/admin/${page}`));
  const cfg = getFeatureConfig(page);
  const { t } = useAdminLang();
 
- if (cfg?.kind === "_redirect_products") return <Navigate to="/admin/products" />;
- if (cfg?.kind === "_redirect_users") return <Navigate to="/admin/users" />;
+ if (cfg?.kind === "_redirect_products") return <Navigate to="/Mahbub214/products" />;
+ if (cfg?.kind === "_redirect_users") return <Navigate to="/Mahbub214/users" />;
 
  if (!item) {
  return (
@@ -43,7 +43,7 @@ function AdminFeaturePage() {
  <Construction className="w-6 h-6" />
  </div>
  <h1 className="text-xl font-bold text-slate-900">{t("Page not found", "পেজ পাওয়া যায়নি")}</h1>
- <Link to="/admin" className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-full bg-slate-900 text-white text-sm font-semibold">
+ <Link to="/Mahbub214" className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-full bg-slate-900 text-white text-sm font-semibold">
  <ArrowLeft className="w-4 h-4" /> {t("Back to dashboard", "ড্যাশবোর্ডে ফিরুন")}
  </Link>
  </div>

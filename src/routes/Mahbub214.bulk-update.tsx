@@ -14,7 +14,7 @@ type Product = {
   warranty?: string;
 };
 
-export const Route = createFileRoute("/admin/bulk-update")({
+export const Route = createFileRoute("/Mahbub214/bulk-update")({
   head: () => ({
     meta: [
       { title: "Bulk Update — Admin" },
@@ -240,7 +240,7 @@ function BulkUpdatePage() {
             </>
           ) : (
             <p className="text-sm text-violet-600">
-              No active template found. Set one in <a className="underline" href="/admin/description-template">Description Template</a>.
+              No active template found. Set one in <a className="underline" href="/Mahbub214/description-template">Description Template</a>.
             </p>
           )}
         </div>

@@ -16,7 +16,7 @@ const SECTION_SNIPPETS: { label: string; body: string }[] = [
   { label: "Note", body: "\n**Note:** {Region-specific availability note}\n" },
 ];
 
-export const Route = createFileRoute("/admin/description-template")({
+export const Route = createFileRoute("/Mahbub214/description-template")({
   head: () => ({
     meta: [
       { title: "Description Template — Admin" },
@@ -89,7 +89,7 @@ function DescriptionTemplatePage() {
       <div className="mb-5 flex items-start justify-between gap-4 flex-wrap">
         <div>
           <div className="text-xs text-muted-foreground mb-1">
-            <Link to="/admin" className="hover:underline">Admin</Link> / Description Template
+            <Link to="/Mahbub214" className="hover:underline">Admin</Link> / Description Template
           </div>
           <h1 className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
             Product Description Template

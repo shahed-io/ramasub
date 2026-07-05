@@ -11,7 +11,7 @@ import {
 } from "@/lib/zoom-settings.functions";
 import { useAdminLang } from "@/context/AdminLangContext";
 
-export const Route = createFileRoute("/admin/zoom-settings")({
+export const Route = createFileRoute("/Mahbub214/zoom-settings")({
   component: ZoomSettingsPage,
   head: () => ({
     meta: [{ title: "Product Image Zoom — Admin" }, { name: "robots", content: "noindex,nofollow" }],

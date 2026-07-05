@@ -19,7 +19,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useAdminLang } from "@/context/AdminLangContext";
 
-export const Route = createFileRoute("/admin/affiliates")({
+export const Route = createFileRoute("/Mahbub214/affiliates")({
   component: AffiliatesPage,
   head: () => ({
     meta: [

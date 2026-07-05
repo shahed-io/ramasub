@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { AdminStatCard, AdminStatGrid, AdminGlassCard } from "@/components/admin/AdminStatCard";
 import { ProductPicker } from "@/components/admin/ProductPicker";
 
-export const Route = createFileRoute("/admin/promotions")({
+export const Route = createFileRoute("/Mahbub214/promotions")({
  component: AdminPromotions,
 });
 

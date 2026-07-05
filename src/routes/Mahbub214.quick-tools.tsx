@@ -9,7 +9,7 @@ import { useShopConfig } from "@/hooks/useShopConfig";
 import { AdminGlassCard } from "@/components/admin/AdminStatCard";
 import { ProductPicker } from "@/components/admin/ProductPicker";
 
-export const Route = createFileRoute("/admin/quick-tools")({
+export const Route = createFileRoute("/Mahbub214/quick-tools")({
   component: QuickToolsPage,
   head: () => ({ meta: [{ title: "Quick Tools — Admin" }, { name: "robots", content: "noindex,nofollow" }] }),
 });

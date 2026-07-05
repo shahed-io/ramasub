@@ -12,7 +12,7 @@ import {
 import { createBackup, restoreBackup, BACKUP_TABLES, type BackupPayload } from "@/lib/backup.functions";
 import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/admin/backup")({
+export const Route = createFileRoute("/Mahbub214/backup")({
   component: BackupPage,
 });
 

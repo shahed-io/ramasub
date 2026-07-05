@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { aiPickWinners, setWinnerManual } from "@/lib/offers.functions";
 
-export const Route = createFileRoute("/admin/offers/$id")({
+export const Route = createFileRoute("/Mahbub214/offers/$id")({
   component: AdminOfferEdit,
 });
 
@@ -232,7 +232,7 @@ function AdminOfferEdit() {
     <div className="space-y-5 animate-fade-in">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-3 min-w-0">
-          <Link to="/admin/offers" className="p-2 rounded-lg hover:bg-slate-100 text-slate-600"><ArrowLeft className="w-4 h-4" /></Link>
+          <Link to="/Mahbub214/offers" className="p-2 rounded-lg hover:bg-slate-100 text-slate-600"><ArrowLeft className="w-4 h-4" /></Link>
           <div className="min-w-0">
             <h1 className="text-xl md:text-2xl font-extrabold tracking-tight text-slate-900 truncate">{c.title}</h1>
             <p className="text-xs text-slate-500 font-mono mt-0.5">/offer/{c.slug}</p>

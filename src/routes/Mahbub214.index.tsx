@@ -8,7 +8,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminLang } from "@/context/AdminLangContext";
 
-export const Route = createFileRoute("/admin/")({
+export const Route = createFileRoute("/Mahbub214/")({
   component: AdminDashboard,
 });
 
@@ -291,7 +291,7 @@ function AdminDashboard() {
             </span>
           </div>
           <Link
-            to="/admin/orders"
+            to="/Mahbub214/orders"
             className="flex items-center gap-3 rounded-xl bg-gradient-to-r from-violet-50 to-pink-50 ring-1 ring-violet-100 px-3.5 py-3 hover:from-violet-100 hover:to-pink-100 transition"
           >
             <span className="w-9 h-9 rounded-xl bg-violet-100 grid place-items-center shrink-0">
@@ -404,7 +404,7 @@ function AdminDashboard() {
             <div className="min-w-0 flex-1">
               <h3 className="text-[18px] font-extrabold text-slate-900">{t("Best Selling Products", "বেস্ট সেলিং প্রোডাক্ট")}</h3>
             </div>
-            <Link to="/admin/products" className="shrink-0 text-xs font-semibold text-violet-600 hover:underline inline-flex items-center gap-0.5">
+            <Link to="/Mahbub214/products" className="shrink-0 text-xs font-semibold text-violet-600 hover:underline inline-flex items-center gap-0.5">
               {t("All", "সব")} <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>

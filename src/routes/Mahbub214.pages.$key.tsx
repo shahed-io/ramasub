@@ -10,7 +10,7 @@ import {
   Type, Image as ImageIcon, MousePointer2, Minus, Code2, HelpCircle, AlignLeft, AlignCenter, AlignRight,
 } from "lucide-react";
 
-export const Route = createFileRoute("/admin/pages/$key")({
+export const Route = createFileRoute("/Mahbub214/pages/$key")({
   component: PageEditor,
 });
 
@@ -21,7 +21,7 @@ const BLOCK_ICONS: Record<string, any> = {
 };
 
 function PageEditor() {
-  const { key } = useParams({ from: "/admin/pages/$key" });
+  const { key } = useParams({ from: "/Mahbub214/pages/$key" });
   const navigate = useNavigate();
   const [page, setPage] = useState<SitePage | null>(null);
   const [loading, setLoading] = useState(true);
@@ -78,7 +78,7 @@ function PageEditor() {
     <div className="max-w-xl mx-auto p-10 text-center">
       <h2 className="text-xl font-bold mb-2">Page not found</h2>
       <p className="text-sm text-slate-500 mb-4">No page exists for key "{key}".</p>
-      <Link to="/admin/pages" className="inline-flex items-center gap-1.5 text-violet-600 font-semibold"><ArrowLeft className="w-4 h-4" /> Back to Pages</Link>
+      <Link to="/Mahbub214/pages" className="inline-flex items-center gap-1.5 text-violet-600 font-semibold"><ArrowLeft className="w-4 h-4" /> Back to Pages</Link>
     </div>
   );
 
@@ -89,7 +89,7 @@ function PageEditor() {
       {/* Top bar */}
       <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
         <div className="flex items-center gap-3 min-w-0 flex-1">
-          <Link to="/admin/pages" className="p-2 rounded-lg hover:bg-slate-100 text-slate-600 shrink-0" title="Back">
+          <Link to="/Mahbub214/pages" className="p-2 rounded-lg hover:bg-slate-100 text-slate-600 shrink-0" title="Back">
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div className="min-w-0">

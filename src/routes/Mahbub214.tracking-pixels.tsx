@@ -55,7 +55,7 @@ const TABS: { key: Provider; en: string; bn: string; icon: typeof BarChart3 }[] 
 
 type Search = { tab?: Provider };
 
-export const Route = createFileRoute("/admin/tracking-pixels")({
+export const Route = createFileRoute("/Mahbub214/tracking-pixels")({
   validateSearch: (s: Record<string, unknown>): Search => ({
     tab: (s.tab as Provider) || undefined,
   }),
@@ -70,7 +70,7 @@ export const Route = createFileRoute("/admin/tracking-pixels")({
 
 function TrackingPixelsPage() {
   const { t } = useAdminLang();
-  const search = useSearch({ from: "/admin/tracking-pixels" });
+  const search = useSearch({ from: "/Mahbub214/tracking-pixels" });
   const [tab, setTab] = useState<Provider>(search.tab || "facebook_pixel");
   const [rows, setRows] = useState<Record<Provider, PixelRow | null>>({
     facebook_pixel: null,
