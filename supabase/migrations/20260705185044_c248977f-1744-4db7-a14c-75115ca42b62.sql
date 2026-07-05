@@ -1,0 +1,1 @@
+UPDATE public.products SET image_url = '/__l5e/assets-v1/7e54df95-44ad-4c59-87a4-545fdbe8081c/freepik.jpg' WHERE slug = 'freepik-price-in-bangladesh';
