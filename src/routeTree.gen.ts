@@ -45,7 +45,6 @@ import { Route as OrdersIdRouteImport } from './routes/orders.$id'
 import { Route as OfferSlugRouteImport } from './routes/offer.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as BlogHowToBuyNetflixInBangladeshRouteImport } from './routes/blog.how-to-buy-netflix-in-bangladesh'
-import { Route as AdminSplatRouteImport } from './routes/admin.$'
 import { Route as Mahbub214ZoomSettingsRouteImport } from './routes/Mahbub214.zoom-settings'
 import { Route as Mahbub214WalletRouteImport } from './routes/Mahbub214.wallet'
 import { Route as Mahbub214UsersRouteImport } from './routes/Mahbub214.users'
@@ -283,11 +282,6 @@ const BlogHowToBuyNetflixInBangladeshRoute =
     path: '/blog/how-to-buy-netflix-in-bangladesh',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AdminSplatRoute = AdminSplatRouteImport.update({
-  id: '/$',
-  path: '/$',
-  getParentRoute: () => AdminRoute,
-} as any)
 const Mahbub214ZoomSettingsRoute = Mahbub214ZoomSettingsRouteImport.update({
   id: '/zoom-settings',
   path: '/zoom-settings',
@@ -578,7 +572,7 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/Mahbub214': typeof Mahbub214RouteWithChildren
-  '/admin': typeof AdminRouteWithChildren
+  '/admin': typeof AdminRoute
   '/ai-tools': typeof AiToolsRoute
   '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
@@ -651,7 +645,6 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/users': typeof Mahbub214UsersRoute
   '/Mahbub214/wallet': typeof Mahbub214WalletRoute
   '/Mahbub214/zoom-settings': typeof Mahbub214ZoomSettingsRoute
-  '/admin/$': typeof AdminSplatRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/offer/$slug': typeof OfferSlugRoute
@@ -671,7 +664,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteWithChildren
+  '/admin': typeof AdminRoute
   '/ai-tools': typeof AiToolsRoute
   '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
@@ -744,7 +737,6 @@ export interface FileRoutesByTo {
   '/Mahbub214/users': typeof Mahbub214UsersRoute
   '/Mahbub214/wallet': typeof Mahbub214WalletRoute
   '/Mahbub214/zoom-settings': typeof Mahbub214ZoomSettingsRoute
-  '/admin/$': typeof AdminSplatRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/offer/$slug': typeof OfferSlugRoute
@@ -766,7 +758,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/Mahbub214': typeof Mahbub214RouteWithChildren
-  '/admin': typeof AdminRouteWithChildren
+  '/admin': typeof AdminRoute
   '/ai-tools': typeof AiToolsRoute
   '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
@@ -839,7 +831,6 @@ export interface FileRoutesById {
   '/Mahbub214/users': typeof Mahbub214UsersRoute
   '/Mahbub214/wallet': typeof Mahbub214WalletRoute
   '/Mahbub214/zoom-settings': typeof Mahbub214ZoomSettingsRoute
-  '/admin/$': typeof AdminSplatRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/offer/$slug': typeof OfferSlugRoute
@@ -935,7 +926,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/users'
     | '/Mahbub214/wallet'
     | '/Mahbub214/zoom-settings'
-    | '/admin/$'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
     | '/offer/$slug'
@@ -1028,7 +1018,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/users'
     | '/Mahbub214/wallet'
     | '/Mahbub214/zoom-settings'
-    | '/admin/$'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
     | '/offer/$slug'
@@ -1122,7 +1111,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/users'
     | '/Mahbub214/wallet'
     | '/Mahbub214/zoom-settings'
-    | '/admin/$'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
     | '/offer/$slug'
@@ -1144,7 +1132,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   Mahbub214Route: typeof Mahbub214RouteWithChildren
-  AdminRoute: typeof AdminRouteWithChildren
+  AdminRoute: typeof AdminRoute
   AiToolsRoute: typeof AiToolsRoute
   CartRoute: typeof CartRoute
   CategoriesRoute: typeof CategoriesRoute
@@ -1439,13 +1427,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/blog/how-to-buy-netflix-in-bangladesh'
       preLoaderRoute: typeof BlogHowToBuyNetflixInBangladeshRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/admin/$': {
-      id: '/admin/$'
-      path: '/$'
-      fullPath: '/admin/$'
-      preLoaderRoute: typeof AdminSplatRouteImport
-      parentRoute: typeof AdminRoute
     }
     '/Mahbub214/zoom-settings': {
       id: '/Mahbub214/zoom-settings'
@@ -1961,16 +1942,6 @@ const Mahbub214RouteWithChildren = Mahbub214Route._addFileChildren(
   Mahbub214RouteChildren,
 )
 
-interface AdminRouteChildren {
-  AdminSplatRoute: typeof AdminSplatRoute
-}
-
-const AdminRouteChildren: AdminRouteChildren = {
-  AdminSplatRoute: AdminSplatRoute,
-}
-
-const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
-
 interface OrdersRouteChildren {
   OrdersIdRoute: typeof OrdersIdRoute
 }
@@ -1985,7 +1956,7 @@ const OrdersRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   Mahbub214Route: Mahbub214RouteWithChildren,
-  AdminRoute: AdminRouteWithChildren,
+  AdminRoute: AdminRoute,
   AiToolsRoute: AiToolsRoute,
   CartRoute: CartRoute,
   CategoriesRoute: CategoriesRoute,
