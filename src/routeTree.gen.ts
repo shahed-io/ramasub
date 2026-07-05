@@ -37,6 +37,7 @@ import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as AiToolsRouteImport } from './routes/ai-tools'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as Mahbub214RouteImport } from './routes/Mahbub214'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
@@ -238,6 +239,11 @@ const AiToolsRoute = AiToolsRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Mahbub214Route = Mahbub214RouteImport.update({
+  id: '/Mahbub214',
+  path: '/Mahbub214',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -558,6 +564,7 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/Mahbub214': typeof Mahbub214Route
   '/admin': typeof AdminRouteWithChildren
   '/ai-tools': typeof AiToolsRoute
   '/cart': typeof CartRoute
@@ -650,6 +657,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/Mahbub214': typeof Mahbub214Route
   '/ai-tools': typeof AiToolsRoute
   '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
@@ -742,6 +750,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/Mahbub214': typeof Mahbub214Route
   '/admin': typeof AdminRouteWithChildren
   '/ai-tools': typeof AiToolsRoute
   '/cart': typeof CartRoute
@@ -836,6 +845,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/Mahbub214'
     | '/admin'
     | '/ai-tools'
     | '/cart'
@@ -928,6 +938,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/Mahbub214'
     | '/ai-tools'
     | '/cart'
     | '/categories'
@@ -1019,6 +1030,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/Mahbub214'
     | '/admin'
     | '/ai-tools'
     | '/cart'
@@ -1112,6 +1124,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  Mahbub214Route: typeof Mahbub214Route
   AdminRoute: typeof AdminRouteWithChildren
   AiToolsRoute: typeof AiToolsRoute
   CartRoute: typeof CartRoute
@@ -1350,6 +1363,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Mahbub214': {
+      id: '/Mahbub214'
+      path: '/Mahbub214'
+      fullPath: '/Mahbub214'
+      preLoaderRoute: typeof Mahbub214RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -1926,6 +1946,7 @@ const OrdersRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  Mahbub214Route: Mahbub214Route,
   AdminRoute: AdminRouteWithChildren,
   AiToolsRoute: AiToolsRoute,
   CartRoute: CartRoute,

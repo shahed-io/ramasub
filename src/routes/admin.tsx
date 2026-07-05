@@ -4,7 +4,10 @@ import { AuthPageEntry } from "@/components/AuthPage";
 import {
   ShieldAlert, LogOut, Globe,
   PanelLeftClose, PanelLeftOpen, ChevronDown, ChevronRight, ExternalLink, Menu, Search, X,
+  Home, Frown,
 } from "lucide-react";
+import { ADMIN_GATE_KEY } from "./Mahbub214";
+
 import { AdminGlobalSearch, useAdminGlobalSearch } from "@/components/admin/AdminGlobalSearch";
 import { SearchTrigger } from "@/components/SearchBar";
 import { useAuth } from "@/context/AuthContext";
