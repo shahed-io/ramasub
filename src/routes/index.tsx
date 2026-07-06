@@ -125,7 +125,10 @@ function Index() {
   const products: Product[] = liveProducts.length ? liveProducts : initialProducts;
   const top = useMemo(() => pickTopProducts(products), [products]);
   const byCategory = useMemo(() => {
-    const desired = [
+    // Preferred display order — matches the pill bar. Any other category found
+    // in the live product list is appended after, so newly created admin
+    // categories automatically appear on the homepage.
+    const preferredOrder = [
       "OTT & Streaming",
       "AI & Education",
       "Microsoft Office",
@@ -135,10 +138,19 @@ function Index() {
       "Windows",
       "Subscription",
     ];
-    return desired
+    const seen = new Set<string>();
+    const ordered: string[] = [];
+    for (const c of preferredOrder) {
+      if (!seen.has(c)) { seen.add(c); ordered.push(c); }
+    }
+    for (const p of products) {
+      const c = (p.category || "").trim();
+      if (c && !seen.has(c)) { seen.add(c); ordered.push(c); }
+    }
+    return ordered
       .map((category) => ({
         category,
-        items: products.filter((p) => p.category === category).slice(0, 8),
+        items: products.filter((p) => (p.category || "").trim() === category).slice(0, 8),
       }))
       .filter((g) => g.items.length > 0);
   }, [products]);
