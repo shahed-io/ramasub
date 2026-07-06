@@ -242,6 +242,8 @@ function TrackingPixelsPage() {
           <Loader2 className="w-5 h-5 animate-spin mx-auto mb-2" />
           {t("Loading…", "লোড হচ্ছে…")}
         </div>
+      ) : tab === "facebook_pixel" ? (
+        <FbPixelsSection pixels={fbPixels} onReload={load} />
       ) : (
         <div className="bg-white border border-slate-200 rounded-3xl shadow-sm p-6 md:p-7 space-y-5">
           <div className="flex items-center justify-between gap-3 flex-wrap">
@@ -264,9 +266,6 @@ function TrackingPixelsPage() {
             </div>
           </div>
 
-          {tab === "facebook_pixel" && (
-            <FbPixelForm row={current} onChange={update} />
-          )}
           {tab === "fb_audience" && (
             <FbAudienceForm row={current} onChange={update} onSync={runSync} syncing={syncing} />
           )}
