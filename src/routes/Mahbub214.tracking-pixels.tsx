@@ -367,37 +367,7 @@ function blankRow(provider: Provider): PixelRow {
   };
 }
 
-function FbPixelForm({
-  row,
-  onChange,
-}: {
-  row: PixelRow | null;
-  onChange: (p: Partial<PixelRow>) => void;
-}) {
-  const { t } = useAdminLang();
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <Field label={t("Pixel ID", "পিক্সেল ID")} hint="e.g. 1234567890123456">
-        <input
-          value={row?.pixel_id ?? ""}
-          onChange={(e) => onChange({ pixel_id: e.target.value })}
-          className="w-full h-11 px-3.5 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
-        />
-      </Field>
-      <Field
-        label={t("CAPI Access Token (optional)", "CAPI অ্যাক্সেস টোকেন (ঐচ্ছিক)")}
-        hint={t("For Conversions API", "Conversions API-এর জন্য")}
-      >
-        <input
-          type="password"
-          value={row?.access_token ?? ""}
-          onChange={(e) => onChange({ access_token: e.target.value })}
-          className="w-full h-11 px-3.5 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
-        />
-      </Field>
-    </div>
-  );
-}
+// FbPixelForm removed — replaced by FbPixelsSection (multi-pixel UI defined at end of file).
 
 function FbAudienceForm({
   row,
