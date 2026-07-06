@@ -198,7 +198,7 @@ function BannerTab() {
 
   const patch = async (id: string, updates: Partial<BannerSlide>) => {
     setBusyId(id);
-    const payload: Record<string, unknown> = {};
+    const payload: { is_active?: boolean; sort_order?: number; data?: import("@/integrations/supabase/types").Json } = {};
     if ("is_active" in updates) payload.is_active = updates.is_active;
     if ("sort_order" in updates) payload.sort_order = updates.sort_order;
     if ("data" in updates) payload.data = JSON.parse(JSON.stringify(updates.data));
