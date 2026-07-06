@@ -1273,6 +1273,36 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  <button onClick={() => removePlan(i)} className="w-7 h-7 grid place-items-center rounded-lg text-slate-500 hover:text-slate-500 hover:bg-slate-50"><X className="w-4 h-4" /></button>
  )}
  </div>
+ {(() => {
+  const selectedTypes: AccountType[] = (meta.account_types && meta.account_types.length)
+   ? meta.account_types
+   : (meta.account_type && meta.account_type !== "none" ? [meta.account_type] : []);
+  if (selectedTypes.length < 1) return null;
+  return (
+   <>
+    <div className="text-xs font-semibold text-slate-600 mb-1.5">Account Type <span className="text-slate-400 font-normal">(এই package কোন type-এর জন্য)</span></div>
+    <div className="flex flex-wrap gap-1.5 mb-3">
+     {selectedTypes.map((id) => {
+      const info = ACCOUNT_TYPES.find((a) => a.id === id);
+      if (!info) return null;
+      const label = id === "custom" && meta.custom_account_type_label ? meta.custom_account_type_label : info.label;
+      const active = (p.account_type ?? selectedTypes[0]) === id;
+      return (
+       <button
+        key={id}
+        onClick={() => setPlan(i, { account_type: id })}
+        className={`px-3 h-7 rounded-full text-xs font-semibold border transition ${
+         active
+          ? "bg-indigo-600 text-white border-indigo-600"
+          : "bg-white text-slate-600 border-slate-200 hover:border-slate-300"
+        }`}
+       >{info.icon} {label}</button>
+      );
+     })}
+    </div>
+   </>
+  );
+ })()}
  <div className="text-xs font-semibold text-slate-600 mb-1.5">Duration</div>
  <div className="flex flex-wrap gap-1.5 mb-3">
  {DURATION_CHIPS.map((d) => {
