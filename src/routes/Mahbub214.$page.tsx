@@ -28,8 +28,8 @@ type Record_ = { [k: string]: unknown };
 
 function AdminFeaturePage() {
  const { page } = useParams({ from: "/Mahbub214/$page" });
- const item = findAdminPage(`/admin/${page}`);
- const group = ADMIN_MENU.find((g) => g.items.some((i) => i.to === `/admin/${page}`));
+ const item = findAdminPage(`/Mahbub214/${page}`) ?? findAdminPage(`/admin/${page}`);
+ const group = ADMIN_MENU.find((g) => g.items.some((i) => i.to === `/Mahbub214/${page}` || i.to === `/admin/${page}`));
  const cfg = getFeatureConfig(page);
  const { t } = useAdminLang();
 
