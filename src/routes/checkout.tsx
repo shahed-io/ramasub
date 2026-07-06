@@ -351,7 +351,7 @@ function CheckoutPage() {
       clear();
       if (isEpsMethod && !fullyByWallet) {
         try {
-          const eps = await createEps({ data: { orderId: newId, amount: grandTotal } });
+          const eps = await createEps({ data: { orderId: newId } });
           if (eps?.redirectURL) {
             window.location.href = eps.redirectURL;
             return;
@@ -363,7 +363,7 @@ function CheckoutPage() {
       }
       if (isSslczMethod && !fullyByWallet) {
         try {
-          const s = await createSslcz({ data: { orderId: newId, amount: grandTotal } });
+          const s = await createSslcz({ data: { orderId: newId } });
           if (s?.redirectURL) {
             window.location.href = s.redirectURL;
             return;
