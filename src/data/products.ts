@@ -6,6 +6,9 @@ export type ProductMeta = {
   tags?: string[];
   gallery?: string[];
   video_url?: string;
+  account_type?: string;
+  account_types?: string[];
+  custom_account_type_label?: string;
 };
 
 export type Product = {
