@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
 import { testTelegramConnection } from "@/lib/telegram.functions";
-import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+
 import { Bot, Save, Send, CheckCircle2, XCircle, Loader2, ExternalLink, Eye, EyeOff, RefreshCw } from "lucide-react";
 
 export const Route = createFileRoute("/Mahbub214/telegram")({
@@ -83,7 +83,6 @@ function TelegramAdmin() {
 
   return (
     <div className="p-4 sm:p-6 space-y-6 bg-gradient-to-br from-slate-50 via-blue-50/40 to-indigo-50/30 min-h-screen">
-      <AdminPageHeader />
 
       {msg && (
         <div className={`rounded-xl px-4 py-3 text-sm border flex items-center gap-2 ${
