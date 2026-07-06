@@ -128,18 +128,6 @@ function SeoAuditPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/40 p-4 md:p-8">
       <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="rounded-3xl bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 p-6 md:p-8 text-white shadow-xl">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur grid place-items-center">
-              <ClipboardList className="w-6 h-6" />
-            </div>
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold">{t("SEO Audit Dashboard", "SEO অডিট ড্যাশবোর্ড")}</h1>
-              <p className="text-white/80 text-sm mt-1">{t("Per-page SEO score — title length, description, OG image, slug, content depth", "প্রতি পেজের SEO স্কোর")}</p>
-            </div>
-          </div>
-        </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
