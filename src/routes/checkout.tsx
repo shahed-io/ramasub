@@ -344,11 +344,20 @@ function CheckoutPage() {
         url: `https://ramasub.com/orders/${newId}`,
       });
       clear();
+      if (isEpsMethod && !fullyByWallet) {
+        try {
+          const eps = await createEps({ data: { orderId: newId, amount: grandTotal } });
+          if (eps?.redirectURL) {
+            window.location.href = eps.redirectURL;
+            return;
+          }
+          setErr("EPS gateway URL পাওয়া যায়নি। Admin panel-এ credentials verify করুন।");
+        } catch (e) {
+          setErr(e instanceof Error ? e.message : "EPS payment failed to start");
+        }
+      }
       navigate({ to: "/orders/$id", params: { id: newId }, search: { new: 1 } });
       return;
-
-    } catch (e: unknown) {
-      setErr(e instanceof Error ? e.message : "Failed to place order");
     } finally {
       setBusy(false);
     }
