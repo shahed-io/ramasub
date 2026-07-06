@@ -603,21 +603,6 @@ const FEATURES: Record<string, AdminFeatureConfig> = {
       { name: "retention_days", label: "Retention (days)", type: "number" },
     ],
   },
-  "order-recovery": {
-    kind: "order_recovery",
-    mode: "list",
-    fields: [
-      { name: "customer", label: "Customer", type: "text", required: true, primary: true },
-      { name: "phone", label: "Phone", type: "text" },
-      { name: "amount", label: "Amount", type: "number" },
-      { name: "stage", label: "Stage", type: "select", options: [
-        { value: "abandoned", label: "Abandoned" },
-        { value: "contacted", label: "Contacted" },
-        { value: "recovered", label: "Recovered" },
-      ] },
-      { name: "note", label: "Note", type: "textarea" },
-    ],
-  },
   "activity-log": {
     kind: "activity",
     mode: "list",

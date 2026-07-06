@@ -65,7 +65,7 @@ export const ADMIN_MENU: AdminMenuGroup[] = [
       { to: "/Mahbub214/bkash-transactions", label: "bKash Transactions", labelBn: "bKash ট্রানজেকশন", icon: ic(Activity), grad: "from-orange-500 to-pink-500", badge: "NEW" },
       { to: "/Mahbub214/license-manager", label: "License Manager", labelBn: "লাইসেন্স ম্যানেজার", icon: ic(ShieldCheck), grad: "from-rose-500 to-red-600" },
       { to: "/Mahbub214/customer-licenses", label: "Customer Licenses", labelBn: "কাস্টমার লাইসেন্স", icon: ic(ShieldCheck), grad: "from-rose-500 to-pink-600", badge: "NEW" },
-      { to: "/Mahbub214/order-recovery", label: "Order Recovery", labelBn: "অর্ডার রিকভারি", icon: ic(ShoppingCart), grad: "from-emerald-500 to-teal-500" },
+      
       { to: "/Mahbub214/tracking", label: "Order Tracking", labelBn: "অর্ডার ট্র্যাকিং", icon: ic(MapPin), grad: "from-emerald-500 to-teal-600" },
       { to: "/Mahbub214/wallet", label: "Wallet", labelBn: "ওয়ালেট", icon: ic(Wallet), grad: "from-amber-400 to-orange-500" },
     ],
