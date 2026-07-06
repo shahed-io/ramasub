@@ -17,11 +17,11 @@ export const Route = createFileRoute("/Mahbub214/products")({
  component: AdminProducts,
 });
 
-type Plan = { label: string; price: number; original_price?: number; duration?: string; note?: string };
+type Plan = { label: string; price: number; original_price?: number; duration?: string; note?: string; account_type?: AccountType };
 type StockStatus = "in_stock" | "out_of_stock" | "preorder";
 
 type ProductType = "digital" | "license" | "account" | "subscription" | "service" | "physical";
-type AccountType = "none" | "personal" | "shared" | "family" | "student" | "business";
+type AccountType = "none" | "personal" | "shared" | "family" | "student" | "business" | "custom";
 type DeliveryType = "instant" | "manual" | "24h";
 type AiCardStyle = "premium-pastel" | "premium-dark" | "glassmorphism" | "soft-aurora" | "dark-neon";
 type CustomField = { label: string; type: "text" | "email" | "password" | "number"; required: boolean };
