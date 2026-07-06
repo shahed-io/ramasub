@@ -25,7 +25,7 @@ const DESCRIPTIONS: Record<string, Desc> = {
   "/Mahbub214/bkash-transactions": { en: "All bKash transactions in one place", bn: "সব bKash লেনদেন এক জায়গায়" },
   "/Mahbub214/license-manager": { en: "Manage product licenses and keys", bn: "প্রোডাক্ট লাইসেন্স ও কী ম্যানেজ করুন" },
   "/Mahbub214/customer-licenses": { en: "Licenses assigned to each customer", bn: "প্রতিটি কাস্টমারের লাইসেন্স দেখুন" },
-  "/Mahbub214/order-recovery": { en: "Recover failed or stuck orders", bn: "ব্যর্থ বা আটকে যাওয়া অর্ডার রিকভার করুন" },
+  
   "/Mahbub214/tracking": { en: "Track order delivery status", bn: "অর্ডার ডেলিভারি স্ট্যাটাস ট্র্যাক করুন" },
   "/Mahbub214/wallet": { en: "Store wallet balance and transactions", bn: "স্টোর ওয়ালেট ব্যালেন্স ও লেনদেন" },
   "/Mahbub214/account-delivery": { en: "Deliver account credentials to buyers", bn: "ক্রেতাকে অ্যাকাউন্ট ক্রেডেনশিয়াল ডেলিভারি দিন" },
