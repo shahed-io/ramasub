@@ -59,7 +59,8 @@ async function fetchInventory(): Promise<Row[]> {
     .select("slug,name,emoji,gradient,image_url,plans,meta")
     .order("sort_order", { ascending: true });
   if (error) throw error;
-  return (data ?? []).map((r: ProductRecord): Row => {
+  return (data ?? []).map((raw): Row => {
+    const r = raw as unknown as ProductRecord;
     const meta = (r.meta ?? {}) as Record<string, unknown>;
     const hasStock = typeof meta.stock === "number";
     const stock = hasStock ? (meta.stock as number) : 0;

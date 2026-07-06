@@ -75,6 +75,7 @@ import { Route as Mahbub214LiveChatRouteImport } from './routes/Mahbub214.live-c
 import { Route as Mahbub214LicenseManagerRouteImport } from './routes/Mahbub214.license-manager'
 import { Route as Mahbub214InvoiceGeneratorRouteImport } from './routes/Mahbub214.invoice-generator'
 import { Route as Mahbub214InvoiceDesignRouteImport } from './routes/Mahbub214.invoice-design'
+import { Route as Mahbub214InventoryRouteImport } from './routes/Mahbub214.inventory'
 import { Route as Mahbub214GoogleAdsRouteImport } from './routes/Mahbub214.google-ads'
 import { Route as Mahbub214FbPixelRouteImport } from './routes/Mahbub214.fb-pixel'
 import { Route as Mahbub214FbAudiencesRouteImport } from './routes/Mahbub214.fb-audiences'
@@ -437,6 +438,11 @@ const Mahbub214InvoiceDesignRoute = Mahbub214InvoiceDesignRouteImport.update({
   path: '/invoice-design',
   getParentRoute: () => Mahbub214Route,
 } as any)
+const Mahbub214InventoryRoute = Mahbub214InventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
+  getParentRoute: () => Mahbub214Route,
+} as any)
 const Mahbub214GoogleAdsRoute = Mahbub214GoogleAdsRouteImport.update({
   id: '/google-ads',
   path: '/google-ads',
@@ -627,6 +633,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
+  '/Mahbub214/inventory': typeof Mahbub214InventoryRoute
   '/Mahbub214/invoice-design': typeof Mahbub214InvoiceDesignRoute
   '/Mahbub214/invoice-generator': typeof Mahbub214InvoiceGeneratorRoute
   '/Mahbub214/license-manager': typeof Mahbub214LicenseManagerRoute
@@ -721,6 +728,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
+  '/Mahbub214/inventory': typeof Mahbub214InventoryRoute
   '/Mahbub214/invoice-design': typeof Mahbub214InvoiceDesignRoute
   '/Mahbub214/invoice-generator': typeof Mahbub214InvoiceGeneratorRoute
   '/Mahbub214/license-manager': typeof Mahbub214LicenseManagerRoute
@@ -817,6 +825,7 @@ export interface FileRoutesById {
   '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
+  '/Mahbub214/inventory': typeof Mahbub214InventoryRoute
   '/Mahbub214/invoice-design': typeof Mahbub214InvoiceDesignRoute
   '/Mahbub214/invoice-generator': typeof Mahbub214InvoiceGeneratorRoute
   '/Mahbub214/license-manager': typeof Mahbub214LicenseManagerRoute
@@ -914,6 +923,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/fb-audiences'
     | '/Mahbub214/fb-pixel'
     | '/Mahbub214/google-ads'
+    | '/Mahbub214/inventory'
     | '/Mahbub214/invoice-design'
     | '/Mahbub214/invoice-generator'
     | '/Mahbub214/license-manager'
@@ -1008,6 +1018,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/fb-audiences'
     | '/Mahbub214/fb-pixel'
     | '/Mahbub214/google-ads'
+    | '/Mahbub214/inventory'
     | '/Mahbub214/invoice-design'
     | '/Mahbub214/invoice-generator'
     | '/Mahbub214/license-manager'
@@ -1103,6 +1114,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/fb-audiences'
     | '/Mahbub214/fb-pixel'
     | '/Mahbub214/google-ads'
+    | '/Mahbub214/inventory'
     | '/Mahbub214/invoice-design'
     | '/Mahbub214/invoice-generator'
     | '/Mahbub214/license-manager'
@@ -1666,6 +1678,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214InvoiceDesignRouteImport
       parentRoute: typeof Mahbub214Route
     }
+    '/Mahbub214/inventory': {
+      id: '/Mahbub214/inventory'
+      path: '/inventory'
+      fullPath: '/Mahbub214/inventory'
+      preLoaderRoute: typeof Mahbub214InventoryRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
     '/Mahbub214/google-ads': {
       id: '/Mahbub214/google-ads'
       path: '/google-ads'
@@ -1897,6 +1916,7 @@ interface Mahbub214RouteChildren {
   Mahbub214FbAudiencesRoute: typeof Mahbub214FbAudiencesRoute
   Mahbub214FbPixelRoute: typeof Mahbub214FbPixelRoute
   Mahbub214GoogleAdsRoute: typeof Mahbub214GoogleAdsRoute
+  Mahbub214InventoryRoute: typeof Mahbub214InventoryRoute
   Mahbub214InvoiceDesignRoute: typeof Mahbub214InvoiceDesignRoute
   Mahbub214InvoiceGeneratorRoute: typeof Mahbub214InvoiceGeneratorRoute
   Mahbub214LicenseManagerRoute: typeof Mahbub214LicenseManagerRoute
@@ -1945,6 +1965,7 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214FbAudiencesRoute: Mahbub214FbAudiencesRoute,
   Mahbub214FbPixelRoute: Mahbub214FbPixelRoute,
   Mahbub214GoogleAdsRoute: Mahbub214GoogleAdsRoute,
+  Mahbub214InventoryRoute: Mahbub214InventoryRoute,
   Mahbub214InvoiceDesignRoute: Mahbub214InvoiceDesignRoute,
   Mahbub214InvoiceGeneratorRoute: Mahbub214InvoiceGeneratorRoute,
   Mahbub214LicenseManagerRoute: Mahbub214LicenseManagerRoute,
