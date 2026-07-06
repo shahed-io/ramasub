@@ -603,15 +603,6 @@ const FEATURES: Record<string, AdminFeatureConfig> = {
       { name: "details", label: "Details", type: "textarea" },
     ],
   },
-  "ai-command": {
-    kind: "ai_command",
-    mode: "list",
-    fields: [
-      { name: "name", label: "Command name", type: "text", required: true, primary: true },
-      { name: "trigger", label: "Trigger phrase", type: "text" },
-      { name: "prompt", label: "AI prompt", type: "textarea" },
-    ],
-  },
   "add-product": {
     kind: "_redirect_products",
     mode: "single",

@@ -192,7 +192,7 @@ export const ADMIN_MENU: AdminMenuGroup[] = [
     titleBn: "AI টুলস",
     icon: ic(Bot),
     items: [
-      { to: "/Mahbub214/ai-command", label: "AI Command Center", labelBn: "AI কমান্ড সেন্টার", icon: ic(Sparkles), grad: "from-violet-500 to-fuchsia-500" },
+      
       { to: "/Mahbub214/review-generator", label: "AI Review Generator", labelBn: "AI রিভিউ জেনারেটর", icon: ic(Sparkles), grad: "from-amber-500 to-orange-600" },
       { to: "/Mahbub214/ai-api", label: "AI API Settings", labelBn: "AI API সেটিংস", icon: ic(Bot), grad: "from-violet-500 to-fuchsia-500" },
     ],
