@@ -1,4 +1,4 @@
-export type Plan = { period: string; price: string; original?: string; popular?: boolean };
+export type Plan = { period: string; price: string; original?: string; popular?: boolean; account_type?: string };
 
 export type ProductMeta = {
   seo_title?: string;
