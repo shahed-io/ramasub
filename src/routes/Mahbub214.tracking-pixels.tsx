@@ -86,6 +86,7 @@ function TrackingPixelsPage() {
     google_ads: null,
     other: null,
   });
+  const [fbPixels, setFbPixels] = useState<PixelRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [logs, setLogs] = useState<EventLog[]>([]);
@@ -96,6 +97,7 @@ function TrackingPixelsPage() {
       .from("tracking_pixels")
       .select("*")
       .in("provider", ["facebook_pixel", "fb_audience", "google_ads", "other"])
+      .order("sort_order", { ascending: true })
       .order("created_at", { ascending: true });
     if (error) toast.error(error.message);
     const next: Record<Provider, PixelRow | null> = {
@@ -104,11 +106,18 @@ function TrackingPixelsPage() {
       google_ads: null,
       other: null,
     };
+    const fb: PixelRow[] = [];
     (data ?? []).forEach((r) => {
       const p = r.provider as Provider;
-      if (p in next && !next[p]) next[p] = r as PixelRow;
+      if (p === "facebook_pixel") {
+        fb.push(r as PixelRow);
+        if (!next.facebook_pixel) next.facebook_pixel = r as PixelRow;
+      } else if (p in next && !next[p]) {
+        next[p] = r as PixelRow;
+      }
     });
     setRows(next);
+    setFbPixels(fb);
     setLoading(false);
   }, []);
 
