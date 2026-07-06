@@ -31,51 +31,62 @@ import type { Product } from "@/data/products";
 export const Route = createFileRoute("/")({
   component: Index,
   loader: async () => {
-    try {
-      const products = await listProducts();
-      return { products };
-    } catch {
-      return { products: [] as Product[] };
-    }
+    const [products, homepageConfig] = await Promise.all([
+      listProducts().catch(() => [] as Product[]),
+      fetchHomepageConfig().catch(() => DEFAULT_CONFIG),
+    ]);
+    return { products, homepageConfig };
   },
-  head: () => ({
-    meta: [
-      { title: "Rama Sub — Digital Products & Software" },
-      { name: "description", content: "Buy verified digital products, subscriptions, software licenses, AI tools, OTT, VPN and education services in Bangladesh with fast delivery." },
-      { property: "og:title", content: "Rama Sub — Digital Products & Software" },
-      { property: "og:description", content: "White glassmorphism digital marketplace for premium software, subscriptions and services." },
+  head: ({ loaderData }) => {
+    const seo = loaderData?.homepageConfig?.seo ?? {};
+    const title = seo.title || "Rama Sub — Digital Products & Software";
+    const description = seo.description || "Buy verified digital products, subscriptions, software licenses, AI tools, OTT, VPN and education services in Bangladesh with fast delivery.";
+    const ogTitle = seo.ogTitle || title;
+    const ogDescription = seo.ogDescription || description;
+    const meta: Array<Record<string, string>> = [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: ogTitle },
+      { property: "og:description", content: ogDescription },
       { property: "og:url", content: "https://ramasub.com/" },
       { property: "og:type", content: "website" },
-    ],
-    links: [{ rel: "canonical", href: "https://ramasub.com/" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "Rama Sub",
-          url: "https://ramasub.com",
-          logo: "https://ramasub.com/icons/apple-touch-icon.png",
-          sameAs: ["https://wa.me/8801601048085"],
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: "Rama Sub",
-          url: "https://ramasub.com",
-          potentialAction: {
-            "@type": "SearchAction",
-            target: "https://ramasub.com/products?q={search_term_string}",
-            "query-input": "required name=search_term_string",
-          },
-        }),
-      },
-    ],
-  }),
+    ];
+    if (seo.ogImage) {
+      meta.push({ property: "og:image", content: seo.ogImage });
+      meta.push({ name: "twitter:image", content: seo.ogImage });
+    }
+    return {
+      meta,
+      links: [{ rel: "canonical", href: "https://ramasub.com/" }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Rama Sub",
+            url: "https://ramasub.com",
+            logo: "https://ramasub.com/icons/apple-touch-icon.png",
+            sameAs: ["https://wa.me/8801601048085"],
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Rama Sub",
+            url: "https://ramasub.com",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://ramasub.com/products?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          }),
+        },
+      ],
+    };
+  },
 });
 
 const CATEGORY_DECK = [
