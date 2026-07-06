@@ -70,14 +70,6 @@ function AdminPayments() {
   const [tab, setTab] = useState<"proof" | "settings">("proof");
   return (
     <div className="min-w-0 space-y-5">
-      <div className="flex items-start justify-between gap-3 flex-wrap">
-        <div className="min-w-0">
-          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
-            <CreditCard className="w-5 h-5 text-violet-600" /> Payments
-          </h2>
-          <p className="text-sm text-slate-500 mt-0.5">Payment proof verification & settings management</p>
-        </div>
-      </div>
 
       <div className="inline-flex items-center gap-2 bg-white/70 backdrop-blur rounded-full p-1 ring-1 ring-slate-200 shadow-sm">
         <button
