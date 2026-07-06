@@ -755,7 +755,7 @@ function CheckoutPage() {
         )}
 
         {/* Brand instruction card */}
-        {!fullyByWallet && !isEpsMethod && (
+        {!fullyByWallet && !isGatewayMethod && (
           <div className="mx-5 mt-5 rounded-3xl border border-border bg-muted p-5 space-y-4">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-2.5 min-w-0">
@@ -813,7 +813,7 @@ function CheckoutPage() {
           </div>
         )}
 
-        {!fullyByWallet && !isEpsMethod && (
+        {!fullyByWallet && !isGatewayMethod && (
           <>
             {/* Sender number */}
             <div className="px-5 mt-5">
@@ -910,7 +910,7 @@ function CheckoutPage() {
         <div className="px-5 py-5">
           <button
             onClick={handleSubmit}
-            disabled={busy || walletInsufficient || (!fullyByWallet && !isEpsMethod && (!!errors.trxId || !form.trxId || !!errors.senderNumber || !form.senderNumber))}
+            disabled={busy || walletInsufficient || (!fullyByWallet && !isGatewayMethod && (!!errors.trxId || !form.trxId || !!errors.senderNumber || !form.senderNumber))}
             className="w-full h-12 rounded-full text-primary-foreground text-[15px] font-semibold inline-flex items-center justify-center gap-2 disabled:opacity-50 hover:opacity-95 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-lg shadow-primary/25"
             style={{ background: CTA_GRADIENT }}
           >
