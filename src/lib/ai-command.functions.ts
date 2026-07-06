@@ -185,7 +185,7 @@ export const adminChat = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const model = getModel("flash");
+    const model = await getModel("flash");
     const tools = buildTools(supabaseAdmin);
 
     const system =
@@ -246,7 +246,7 @@ export const generateContent = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const model = getModel("flash");
+    const model = await getModel("flash");
 
     const lang =
       data.language === "bn"
@@ -295,7 +295,7 @@ export const analyticsAsk = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const model = getModel("pro");
+    const model = await getModel("pro");
     const tools = buildTools(supabaseAdmin);
 
     const system = `You are the analytics brain for Rama Sub admin. Use the tools to fetch real data, then produce a concise insight report.
