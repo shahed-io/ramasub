@@ -65,6 +65,7 @@ import { Route as Mahbub214QuickToolsRouteImport } from './routes/Mahbub214.quic
 import { Route as Mahbub214QuickSaleRouteImport } from './routes/Mahbub214.quick-sale'
 import { Route as Mahbub214PromotionsRouteImport } from './routes/Mahbub214.promotions'
 import { Route as Mahbub214ProductsRouteImport } from './routes/Mahbub214.products'
+import { Route as Mahbub214PaymentsRouteImport } from './routes/Mahbub214.payments'
 import { Route as Mahbub214PaymentLinksRouteImport } from './routes/Mahbub214.payment-links'
 import { Route as Mahbub214PagesRouteImport } from './routes/Mahbub214.pages'
 import { Route as Mahbub214OtherPixelsRouteImport } from './routes/Mahbub214.other-pixels'
@@ -384,6 +385,11 @@ const Mahbub214ProductsRoute = Mahbub214ProductsRouteImport.update({
   path: '/products',
   getParentRoute: () => Mahbub214Route,
 } as any)
+const Mahbub214PaymentsRoute = Mahbub214PaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => Mahbub214Route,
+} as any)
 const Mahbub214PaymentLinksRoute = Mahbub214PaymentLinksRouteImport.update({
   id: '/payment-links',
   path: '/payment-links',
@@ -625,6 +631,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/other-pixels': typeof Mahbub214OtherPixelsRoute
   '/Mahbub214/pages': typeof Mahbub214PagesRouteWithChildren
   '/Mahbub214/payment-links': typeof Mahbub214PaymentLinksRoute
+  '/Mahbub214/payments': typeof Mahbub214PaymentsRoute
   '/Mahbub214/products': typeof Mahbub214ProductsRoute
   '/Mahbub214/promotions': typeof Mahbub214PromotionsRoute
   '/Mahbub214/quick-sale': typeof Mahbub214QuickSaleRoute
@@ -717,6 +724,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/other-pixels': typeof Mahbub214OtherPixelsRoute
   '/Mahbub214/pages': typeof Mahbub214PagesRouteWithChildren
   '/Mahbub214/payment-links': typeof Mahbub214PaymentLinksRoute
+  '/Mahbub214/payments': typeof Mahbub214PaymentsRoute
   '/Mahbub214/products': typeof Mahbub214ProductsRoute
   '/Mahbub214/promotions': typeof Mahbub214PromotionsRoute
   '/Mahbub214/quick-sale': typeof Mahbub214QuickSaleRoute
@@ -811,6 +819,7 @@ export interface FileRoutesById {
   '/Mahbub214/other-pixels': typeof Mahbub214OtherPixelsRoute
   '/Mahbub214/pages': typeof Mahbub214PagesRouteWithChildren
   '/Mahbub214/payment-links': typeof Mahbub214PaymentLinksRoute
+  '/Mahbub214/payments': typeof Mahbub214PaymentsRoute
   '/Mahbub214/products': typeof Mahbub214ProductsRoute
   '/Mahbub214/promotions': typeof Mahbub214PromotionsRoute
   '/Mahbub214/quick-sale': typeof Mahbub214QuickSaleRoute
@@ -906,6 +915,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/other-pixels'
     | '/Mahbub214/pages'
     | '/Mahbub214/payment-links'
+    | '/Mahbub214/payments'
     | '/Mahbub214/products'
     | '/Mahbub214/promotions'
     | '/Mahbub214/quick-sale'
@@ -998,6 +1008,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/other-pixels'
     | '/Mahbub214/pages'
     | '/Mahbub214/payment-links'
+    | '/Mahbub214/payments'
     | '/Mahbub214/products'
     | '/Mahbub214/promotions'
     | '/Mahbub214/quick-sale'
@@ -1091,6 +1102,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/other-pixels'
     | '/Mahbub214/pages'
     | '/Mahbub214/payment-links'
+    | '/Mahbub214/payments'
     | '/Mahbub214/products'
     | '/Mahbub214/promotions'
     | '/Mahbub214/quick-sale'
@@ -1568,6 +1580,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214ProductsRouteImport
       parentRoute: typeof Mahbub214Route
     }
+    '/Mahbub214/payments': {
+      id: '/Mahbub214/payments'
+      path: '/payments'
+      fullPath: '/Mahbub214/payments'
+      preLoaderRoute: typeof Mahbub214PaymentsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
     '/Mahbub214/payment-links': {
       id: '/Mahbub214/payment-links'
       path: '/payment-links'
@@ -1866,6 +1885,7 @@ interface Mahbub214RouteChildren {
   Mahbub214OtherPixelsRoute: typeof Mahbub214OtherPixelsRoute
   Mahbub214PagesRoute: typeof Mahbub214PagesRouteWithChildren
   Mahbub214PaymentLinksRoute: typeof Mahbub214PaymentLinksRoute
+  Mahbub214PaymentsRoute: typeof Mahbub214PaymentsRoute
   Mahbub214ProductsRoute: typeof Mahbub214ProductsRoute
   Mahbub214PromotionsRoute: typeof Mahbub214PromotionsRoute
   Mahbub214QuickSaleRoute: typeof Mahbub214QuickSaleRoute
@@ -1915,6 +1935,7 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214OtherPixelsRoute: Mahbub214OtherPixelsRoute,
   Mahbub214PagesRoute: Mahbub214PagesRouteWithChildren,
   Mahbub214PaymentLinksRoute: Mahbub214PaymentLinksRoute,
+  Mahbub214PaymentsRoute: Mahbub214PaymentsRoute,
   Mahbub214ProductsRoute: Mahbub214ProductsRoute,
   Mahbub214PromotionsRoute: Mahbub214PromotionsRoute,
   Mahbub214QuickSaleRoute: Mahbub214QuickSaleRoute,
