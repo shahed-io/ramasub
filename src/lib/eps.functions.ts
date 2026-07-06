@@ -58,7 +58,7 @@ export const createEpsPayment = createServerFn({ method: "POST" })
     const { supabase, userId } = context;
     const { data: order, error } = await supabase
       .from("orders")
-      .select("id,user_id,total,customer_name,customer_email,customer_phone")
+      .select("id,user_id,total")
       .eq("id", data.orderId)
       .maybeSingle();
     if (error) throw new Error(error.message);
