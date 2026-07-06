@@ -72,3 +72,28 @@ export function usePaymentMethods(audience?: "checkout" | "wallet") {
   });
 }
 
+/** Returns whether the EPS Payment Gateway is enabled from the admin panel.
+ *  Reads /Mahbub214/eps-pgw config (admin_records kind=eps_pgw). */
+export function useEpsPgwEnabled() {
+  return useQuery({
+    queryKey: ["eps-pgw-enabled"],
+    queryFn: async (): Promise<boolean> => {
+      const { data } = await supabase
+        .from("admin_records")
+        .select("data,is_active")
+        .eq("kind", "eps_pgw")
+        .eq("is_active", true)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (!data) return false;
+      const d = (data.data as Record<string, unknown>) || {};
+      return Boolean(d.enabled);
+    },
+    staleTime: 5 * 60_000,
+    gcTime: 30 * 60_000,
+    refetchOnWindowFocus: false,
+  });
+}
+
+
