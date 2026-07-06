@@ -109,6 +109,9 @@ function CheckoutPage() {
     return list.length > 0 ? list : FALLBACK_METHODS;
   }, [dynamicMethods]);
   const [method, setMethod] = useState<string>("bkash");
+  const { data: epsEnabled } = useEpsPgwEnabled();
+  const isEpsMethod = method === "eps";
+  const createEps = useServerFn(createEpsPayment);
   const [copied, setCopied] = useState(false);
   const [couponInput, setCouponInput] = useState(coupon || "");
   const [screenshotUrl, setScreenshotUrl] = useState<string>("");
