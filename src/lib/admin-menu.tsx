@@ -95,7 +95,7 @@ export const ADMIN_MENU: AdminMenuGroup[] = [
       { to: "/Mahbub214/users", label: "Customers", labelBn: "কাস্টমার", icon: ic(Users), grad: "from-cyan-500 to-teal-500" },
       { to: "/Mahbub214/notifications", label: "Notifications", labelBn: "নোটিফিকেশন", icon: ic(Bell), grad: "from-rose-500 to-red-500" },
       { to: "/Mahbub214/reviews", label: "Manage Reviews", labelBn: "রিভিউ ম্যানেজ", icon: ic(Star), grad: "from-amber-400 to-orange-500" },
-      { to: "/Mahbub214/tickets", label: "Support Tickets", labelBn: "সাপোর্ট টিকেট", icon: ic(LifeBuoy), grad: "from-emerald-500 to-green-600" },
+      
       { to: "/Mahbub214/live-chat", label: "Live Chat", labelBn: "লাইভ চ্যাট", icon: ic(MessageCircle), grad: "from-violet-500 to-fuchsia-500" },
       { to: "/Mahbub214/newsletter", label: "Newsletter", labelBn: "নিউজলেটার", icon: ic(Mail), grad: "from-orange-500 to-amber-500" },
       { to: "/Mahbub214/renewal-reminders", label: "Renewal Reminders", labelBn: "রিনিউয়াল রিমাইন্ডার", icon: ic(CalendarDays), grad: "from-orange-500 to-rose-500", badge: "NEW" },
