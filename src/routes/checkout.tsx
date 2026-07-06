@@ -691,16 +691,38 @@ function CheckoutPage() {
               <div className="text-[10px] text-muted-foreground">Cards • Mobile</div>
             </button>
           )}
+
+          {/* SSLCommerz Gateway tile (admin-controlled) */}
+          {sslczEnabled && (
+            <button
+              onClick={() => { setMethod("sslcommerz"); setUseWallet(false); }}
+              role="radio"
+              aria-checked={isSslczMethod}
+              className={`relative rounded-2xl border-2 bg-background px-3 py-3 flex flex-col items-center gap-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                isSslczMethod ? "border-primary ring-2 ring-primary/20" : "border-border hover:border-primary/40"
+              }`}
+            >
+              <div className="w-12 h-12 grid place-items-center">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-600 to-emerald-700 grid place-items-center text-white shadow-md text-[9px] font-bold">
+                  SSL
+                </div>
+              </div>
+              <div className="text-[12px] font-semibold text-foreground text-center leading-tight">SSLCommerz</div>
+              <div className="text-[10px] text-muted-foreground">Card • Bank • MFS</div>
+            </button>
+          )}
         </div>
 
-        {/* EPS-selected info banner */}
-        {isEpsMethod && (
+        {/* Gateway-selected info banner */}
+        {isGatewayMethod && (
           <div className="mx-5 mt-4 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-teal-500/5 p-3.5">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-emerald-500/15 grid place-items-center text-lg shrink-0">🔒</div>
               <div className="flex-1 min-w-0">
-                <div className="text-[13px] font-bold text-foreground">EPS Secure Gateway</div>
-                <div className="text-[11px] text-muted-foreground">Order confirm করলে EPS-এর secure page-এ redirect হবে। সেখানে Card / Mobile Banking দিয়ে payment complete করুন।</div>
+                <div className="text-[13px] font-bold text-foreground">
+                  {isEpsMethod ? "EPS Secure Gateway" : "SSLCommerz Secure Gateway"}
+                </div>
+                <div className="text-[11px] text-muted-foreground">Order confirm করলে {isEpsMethod ? "EPS" : "SSLCommerz"}-এর secure page-এ redirect হবে। সেখানে Card / Mobile Banking / Bank দিয়ে payment complete করুন।</div>
               </div>
             </div>
           </div>
