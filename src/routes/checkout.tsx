@@ -361,6 +361,18 @@ function CheckoutPage() {
           setErr(e instanceof Error ? e.message : "EPS payment failed to start");
         }
       }
+      if (isSslczMethod && !fullyByWallet) {
+        try {
+          const s = await createSslcz({ data: { orderId: newId, amount: grandTotal } });
+          if (s?.redirectURL) {
+            window.location.href = s.redirectURL;
+            return;
+          }
+          setErr("SSLCommerz gateway URL পাওয়া যায়নি। Admin panel-এ credentials verify করুন।");
+        } catch (e) {
+          setErr(e instanceof Error ? e.message : "SSLCommerz payment failed to start");
+        }
+      }
       navigate({ to: "/orders/$id", params: { id: newId }, search: { new: 1 } });
       return;
 
