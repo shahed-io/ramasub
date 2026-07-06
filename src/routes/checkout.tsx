@@ -222,13 +222,13 @@ function CheckoutPage() {
       }
     } catch { /* ignore */ }
 
+    // Only capture abandoned checkouts for signed-in users (server function
+    // requires auth and uses auth.uid()). Guests are skipped silently.
+    if (!user?.id) return;
     const handle = window.setTimeout(() => {
       void captureCheckout({
         data: {
-          user_id: user?.id ?? null,
-          session_id: sessionId,
           full_name: form.name.trim() || null,
-          email: hasEmail ? form.email.trim().toLowerCase() : (form.email.trim() || null),
           phone: hasPhone ? normalizeBdPhone(form.phone) : (form.phone.trim() || null),
           sender_number: form.senderNumber ? normalizeBdPhone(form.senderNumber) : null,
           transaction_id: form.trxId.trim() || null,
@@ -249,7 +249,8 @@ function CheckoutPage() {
       });
     }, 900);
     return () => window.clearTimeout(handle);
-  }, [captureCheckout, form.name, form.email, form.phone, form.senderNumber, form.trxId, form.notes, items, method, screenshotUrl, step, total, coupon, user?.id]);
+  }, [captureCheckout, form.name, form.phone, form.senderNumber, form.trxId, form.notes, items, method, screenshotUrl, step, total, coupon, user?.id]);
+
 
   const subAfterCoupon = Math.max(0, total - applied.discount);
   const isWalletMethod = method === "wallet";
@@ -351,7 +352,7 @@ function CheckoutPage() {
       clear();
       if (isEpsMethod && !fullyByWallet) {
         try {
-          const eps = await createEps({ data: { orderId: newId, amount: grandTotal } });
+          const eps = await createEps({ data: { orderId: newId } });
           if (eps?.redirectURL) {
             window.location.href = eps.redirectURL;
             return;
@@ -363,7 +364,7 @@ function CheckoutPage() {
       }
       if (isSslczMethod && !fullyByWallet) {
         try {
-          const s = await createSslcz({ data: { orderId: newId, amount: grandTotal } });
+          const s = await createSslcz({ data: { orderId: newId } });
           if (s?.redirectURL) {
             window.location.href = s.redirectURL;
             return;

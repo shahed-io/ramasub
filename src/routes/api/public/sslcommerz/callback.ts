@@ -47,18 +47,36 @@ async function handle(request: Request) {
   }
 
   const val_id = params.val_id || params.value_a || "";
-  const status = (params.status || "").toUpperCase();
+
+  // Security: only the SSLCommerz validator API is authoritative. We refuse to
+  // mark as paid based on client-provided `status` alone — require val_id.
+  if (!val_id) {
+    await supabaseAdmin
+      .from("orders")
+      .update({ payment_status: "failed", payment_method: "SSLCommerz" })
+      .eq("id", orderId);
+    return Response.redirect(`${origin}/orders/${orderId}?sslcz=failed`, 302);
+  }
 
   try {
-    let verifiedOk = status === "VALID" || status === "VALIDATED";
-    let trxId = params.tran_id || params.bank_tran_id;
+    const { sslczValidate } = await import("@/lib/sslcommerz.server");
+    const v = await sslczValidate(val_id);
+    const s = String(v?.status || "").toUpperCase();
+    let verifiedOk = s === "VALID" || s === "VALIDATED";
+    const trxId = v?.tran_id || v?.bank_tran_id || params.tran_id || params.bank_tran_id;
 
-    if (val_id) {
-      const { sslczValidate } = await import("@/lib/sslcommerz.server");
-      const v = await sslczValidate(val_id);
-      const s = String(v?.status || "").toUpperCase();
-      verifiedOk = s === "VALID" || s === "VALIDATED";
-      trxId = v?.tran_id || v?.bank_tran_id || trxId;
+    if (verifiedOk) {
+      // Amount binding: the validated amount must match this order's total.
+      const paidAmount = Number(v?.amount ?? v?.store_amount ?? NaN);
+      const { data: order } = await supabaseAdmin
+        .from("orders")
+        .select("total")
+        .eq("id", orderId)
+        .maybeSingle();
+      const total = Number(order?.total ?? NaN);
+      if (Number.isFinite(paidAmount) && Number.isFinite(total)) {
+        if (Math.abs(paidAmount - total) > 0.5) verifiedOk = false;
+      }
     }
 
     await supabaseAdmin

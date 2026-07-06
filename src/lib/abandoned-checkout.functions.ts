@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const itemSchema = z.object({
   slug: z.string().max(200).optional().nullable(),
@@ -10,11 +11,12 @@ const itemSchema = z.object({
   emoji: z.string().max(16).optional().nullable(),
 }).passthrough();
 
+// SECURITY: never accept a caller-supplied user_id or email. The identity of
+// the record is always the authenticated caller (auth.uid()) — RLS + this
+// server function agree, so nobody can attach checkout/payment data to another
+// customer's account.
 const inputSchema = z.object({
-  user_id: z.string().uuid().nullable().optional(),
-  session_id: z.string().trim().max(80).nullable().optional(),
   full_name: z.string().trim().max(200).nullable().optional(),
-  email: z.string().trim().max(255).nullable().optional(),
   phone: z.string().trim().max(40).nullable().optional(),
   sender_number: z.string().trim().max(40).nullable().optional(),
   transaction_id: z.string().trim().max(120).nullable().optional(),
@@ -26,26 +28,24 @@ const inputSchema = z.object({
   subtotal: z.number().min(0).max(10_000_000).optional(),
   total: z.number().min(0).max(10_000_000).optional(),
   coupon_code: z.string().trim().max(80).nullable().optional(),
-}).refine(
-  (d) => !!(d.user_id || (d.email && d.email.length > 3) || (d.phone && d.phone.length >= 6) || d.session_id),
-  { message: "at least one identifier required" },
-);
+});
 
 export type CaptureAbandonedInput = z.infer<typeof inputSchema>;
 
 export const captureAbandonedCheckout = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((d: CaptureAbandonedInput) => inputSchema.parse(d))
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const email = (data.email ?? "").toLowerCase().trim();
+    const userId = context.userId;
+    const email = (context.claims?.email as string | undefined)?.toLowerCase().trim() || `user-${userId}@pending.local`;
     const phone = (data.phone ?? "").trim();
     const fullName = (data.full_name ?? "").trim() || "Guest Visitor";
-    const sessionId = (data.session_id ?? "").trim() || null;
 
     const payload = {
-      user_id: data.user_id ?? null,
+      user_id: userId,
       full_name: fullName,
-      email: email || `guest-${sessionId ?? Date.now()}@pending.local`,
+      email,
       phone: phone || "0000000000",
       sender_number: data.sender_number ?? null,
       transaction_id: data.transaction_id ?? null,
@@ -61,40 +61,20 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
       updated_at: new Date().toISOString(),
     };
 
-    // Find existing row: prefer user_id, then email, then session_id encoded in email placeholder.
-    let existingId: string | null = null;
-    if (data.user_id) {
-      const { data: byUser } = await supabaseAdmin
-        .from("abandoned_checkouts")
-        .select("id, status")
-        .eq("user_id", data.user_id)
-        .maybeSingle();
-      if (byUser?.id && byUser.status !== "recovered") existingId = byUser.id;
-    }
-    if (!existingId && email) {
-      const { data: byEmail } = await supabaseAdmin
-        .from("abandoned_checkouts")
-        .select("id, status")
-        .ilike("email", email)
-        .maybeSingle();
-      if (byEmail?.id && byEmail.status !== "recovered") existingId = byEmail.id;
-    }
-    if (!existingId && sessionId) {
-      const { data: bySession } = await supabaseAdmin
-        .from("abandoned_checkouts")
-        .select("id, status")
-        .ilike("email", `guest-${sessionId}@pending.local`)
-        .maybeSingle();
-      if (bySession?.id && bySession.status !== "recovered") existingId = bySession.id;
-    }
+    // Look up existing pending row for this authenticated user only.
+    const { data: existing } = await supabaseAdmin
+      .from("abandoned_checkouts")
+      .select("id, status")
+      .eq("user_id", userId)
+      .maybeSingle();
 
-    if (existingId) {
+    if (existing?.id && existing.status !== "recovered") {
       const { error } = await supabaseAdmin
         .from("abandoned_checkouts")
         .update(payload)
-        .eq("id", existingId);
+        .eq("id", existing.id);
       if (error) return { ok: false as const, error: error.message };
-      return { ok: true as const, id: existingId, updated: true };
+      return { ok: true as const, id: existing.id, updated: true };
     }
 
     const { data: inserted, error } = await supabaseAdmin

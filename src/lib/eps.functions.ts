@@ -51,9 +51,7 @@ export const testEpsConnection = createServerFn({ method: "POST" })
 /** User: create an EPS payment session and return the redirect URL. */
 export const createEpsPayment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) =>
-    z.object({ orderId: z.string().uuid(), amount: z.number().positive() }).parse(d),
-  )
+  .inputValidator((d) => z.object({ orderId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
     const { data: order, error } = await supabase
@@ -63,6 +61,8 @@ export const createEpsPayment = createServerFn({ method: "POST" })
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!order || order.user_id !== userId) throw new Error("Order not found");
+    const total = Number(order.total);
+    if (!Number.isFinite(total) || total <= 0) throw new Error("Invalid order total");
 
     const { epsCreateSession } = await import("@/lib/eps.server");
     const origin = new URL(
@@ -71,8 +71,9 @@ export const createEpsPayment = createServerFn({ method: "POST" })
         "https://ramasub.com",
     ).origin;
     const callbackURL = `${origin}/api/public/eps/callback?orderId=${order.id}`;
+    // SECURITY: authoritative server-side total, never trust a client amount.
     const res = await epsCreateSession({
-      amount: Number(data.amount).toFixed(2),
+      amount: total.toFixed(2),
       invoice: order.id.slice(0, 8).toUpperCase(),
       callbackURL,
       description: `Order ${order.id.slice(0, 8).toUpperCase()}`,
@@ -86,3 +87,4 @@ export const createEpsPayment = createServerFn({ method: "POST" })
     }
     return { redirectURL, sessionId };
   });
+

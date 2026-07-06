@@ -28,9 +28,34 @@ export const Route = createFileRoute("/api/public/bkash/callback")({
         try {
           const { bkashExecutePayment } = await import("@/lib/bkash.server");
           const exec = await bkashExecutePayment(paymentID);
-          const ok = exec?.transactionStatus === "Completed" && exec?.statusCode === "0000";
+          let ok = exec?.transactionStatus === "Completed" && exec?.statusCode === "0000";
 
           const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+          if (ok) {
+            // Security binding: the executed payment must reference THIS order.
+            // We set merchantInvoiceNumber to order.id.slice(0,8).toUpperCase()
+            // during createPayment; reject anything else to prevent cross-order
+            // payment replay.
+            const expectedInvoice = orderId.slice(0, 8).toUpperCase();
+            const gotInvoice = String(
+              exec?.merchantInvoiceNumber || exec?.payerReference || "",
+            ).toUpperCase();
+            if (gotInvoice && gotInvoice !== expectedInvoice) ok = false;
+
+            // Amount binding: the paid amount must equal the order total.
+            const { data: order } = await supabaseAdmin
+              .from("orders")
+              .select("total")
+              .eq("id", orderId)
+              .maybeSingle();
+            const paidAmount = Number(exec?.amount ?? NaN);
+            const total = Number(order?.total ?? NaN);
+            if (Number.isFinite(paidAmount) && Number.isFinite(total)) {
+              if (Math.abs(paidAmount - total) > 0.5) ok = false;
+            }
+          }
+
           await supabaseAdmin
             .from("orders")
             .update({
