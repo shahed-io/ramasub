@@ -27,6 +27,7 @@ import { PerfReportSection, ProfiledSection } from "@/components/PerfReportSecti
 import { ImageBannerCarousel } from "@/components/ImageBannerCarousel";
 import { RecentlyViewedSection } from "@/components/RecentlyViewedSection";
 import type { Product } from "@/data/products";
+import { fetchHomepageConfig, DEFAULT_CONFIG, type HomepageConfig, type SectionId } from "@/lib/homepage-config";
 
 export const Route = createFileRoute("/")({
   component: Index,
