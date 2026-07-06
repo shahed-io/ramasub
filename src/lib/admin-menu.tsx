@@ -60,6 +60,7 @@ export const ADMIN_MENU: AdminMenuGroup[] = [
       { to: "/Mahbub214/invoice-design", label: "Invoice Design", labelBn: "ইনভয়েস ডিজাইন", icon: ic(FileEdit), grad: "from-fuchsia-500 to-pink-500", badge: "NEW" },
       { to: "/Mahbub214/payments", label: "Payments", labelBn: "পেমেন্ট", icon: ic(CreditCard), grad: "from-emerald-500 to-green-600" },
       { to: "/Mahbub214/bkash-pgw", label: "bKash PGW", labelBn: "bKash PGW", icon: ic(CreditCard), grad: "from-pink-500 to-rose-500", badge: "NEW" },
+      { to: "/Mahbub214/eps-pgw", label: "EPS PGW", labelBn: "EPS PGW", icon: ic(CreditCard), grad: "from-indigo-500 to-blue-600", badge: "NEW" },
       { to: "/Mahbub214/bkash-transactions", label: "bKash Transactions", labelBn: "bKash ট্রানজেকশন", icon: ic(Activity), grad: "from-orange-500 to-pink-500", badge: "NEW" },
       { to: "/Mahbub214/license-manager", label: "License Manager", labelBn: "লাইসেন্স ম্যানেজার", icon: ic(ShieldCheck), grad: "from-rose-500 to-red-600" },
       { to: "/Mahbub214/customer-licenses", label: "Customer Licenses", labelBn: "কাস্টমার লাইসেন্স", icon: ic(ShieldCheck), grad: "from-rose-500 to-pink-600", badge: "NEW" },

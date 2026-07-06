@@ -21,6 +21,7 @@ const DESCRIPTIONS: Record<string, Desc> = {
   "/Mahbub214/invoice-design": { en: "Customize how your invoices look", bn: "ইনভয়েসের ডিজাইন কাস্টমাইজ করুন" },
   "/Mahbub214/payments": { en: "Manage payment methods and transactions", bn: "পেমেন্ট মেথড ও লেনদেন ম্যানেজ করুন" },
   "/Mahbub214/bkash-pgw": { en: "bKash payment gateway configuration", bn: "bKash পেমেন্ট গেটওয়ে কনফিগ" },
+  "/Mahbub214/eps-pgw": { en: "EPS payment gateway configuration", bn: "EPS পেমেন্ট গেটওয়ে কনফিগ" },
   "/Mahbub214/bkash-transactions": { en: "All bKash transactions in one place", bn: "সব bKash লেনদেন এক জায়গায়" },
   "/Mahbub214/license-manager": { en: "Manage product licenses and keys", bn: "প্রোডাক্ট লাইসেন্স ও কী ম্যানেজ করুন" },
   "/Mahbub214/customer-licenses": { en: "Licenses assigned to each customer", bn: "প্রতিটি কাস্টমারের লাইসেন্স দেখুন" },
