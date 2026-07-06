@@ -75,9 +75,6 @@ export const createEpsPayment = createServerFn({ method: "POST" })
       amount: Number(data.amount).toFixed(2),
       invoice: order.id.slice(0, 8).toUpperCase(),
       callbackURL,
-      customerName: (order as any).customer_name || undefined,
-      customerEmail: (order as any).customer_email || undefined,
-      customerPhone: (order as any).customer_phone || undefined,
       description: `Order ${order.id.slice(0, 8).toUpperCase()}`,
     });
     const redirectURL: string | undefined =

@@ -78,7 +78,7 @@ async function handle(request: Request) {
       .from("orders")
       .update({
         payment_status: verifiedOk ? "verified" : "failed",
-        transaction_id: trxId || null,
+        transaction_id: trxId || undefined,
         payment_method: "EPS",
       })
       .eq("id", orderId);
