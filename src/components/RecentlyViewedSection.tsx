@@ -57,7 +57,7 @@ export function RecentlyViewedSection({ limit = 8, excludeSlug, compact = false 
         <button
           type="button"
           onClick={clear}
-          className="inline-flex items-center gap-1.5 rounded-full border border-[var(--glass-border)] bg-background/60 px-3 py-1.5 text-xs font-semibold text-foreground/80 hover:bg-foreground/[0.04] transition"
+          className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-900 shadow-sm hover:bg-slate-50 hover:border-slate-400 transition"
           aria-label="ক্লিয়ার রিসেন্ট হিস্টরি"
         >
           <X className="h-3.5 w-3.5" /> Clear
