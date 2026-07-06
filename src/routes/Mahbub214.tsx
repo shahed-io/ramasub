@@ -22,6 +22,9 @@ const ramaSubLogo = ramaSubLogoAsset.url;
 
 export const Route = createFileRoute("/Mahbub214")({
   component: AdminLayout,
+  // Admin panel is noindex + client-only; skip SSR so we can read cached admin
+  // flag from localStorage on first render and open instantly on click.
+  ssr: false,
   head: () => ({ meta: [{ title: "Admin — Rama Sub" }, { name: "robots", content: "noindex,nofollow" }] }),
 });
 
@@ -76,9 +79,12 @@ function AdminLayout() {
   // Secret-URL gate: /admin only opens if the user came in via /Mahbub214
   // (which sets a sessionStorage flag). Otherwise show a 404 page.
   // `null` = still checking on mount (SSR-safe), true/false after hydration.
-  const [cachedAdmin, setCachedAdmin] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [verified, setVerified] = useState(false);
+  // Initialize from localStorage synchronously so a returning admin sees the
+  // shell on first paint (no blocking spinner). Safe here because the route
+  // is `ssr: false` — this component never runs on the server.
+  const [cachedAdmin, setCachedAdmin] = useState<boolean>(() => readCachedAdmin());
+  const [isAdmin, setIsAdmin] = useState<boolean>(() => readCachedAdmin());
+  const [verified, setVerified] = useState<boolean>(() => readCachedAdmin());
   const [roleError, setRoleError] = useState<{
     message: string;
     code?: string;
@@ -90,12 +96,8 @@ function AdminLayout() {
 
   useEffect(() => {
     purgeLegacySplashFlags();
-    if (readCachedAdmin()) {
-      setCachedAdmin(true);
-      setIsAdmin(true);
-      setVerified(true);
-    }
   }, []);
+
 
 
   // Admin panel is always light/white themed regardless of the user-selected
