@@ -205,7 +205,7 @@ function ProductPage() {
   }
 
   const visiblePlans = enabledAccountTypes.length && selectedType
-    ? product.plans.filter((p: { account_type?: string }) => !p.account_type || p.account_type === selectedType)
+    ? product.plans.filter((p) => !p.account_type || p.account_type === selectedType)
     : product.plans;
   const plansToShow = visiblePlans.length ? visiblePlans : product.plans;
   const activeIdx = Math.min(selected, Math.max(plansToShow.length - 1, 0));
