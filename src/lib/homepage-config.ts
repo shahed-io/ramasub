@@ -96,16 +96,17 @@ export async function saveHomepageConfig(cfg: HomepageConfig): Promise<void> {
     .limit(1)
     .maybeSingle();
 
+  const payload = JSON.parse(JSON.stringify(cfg));
   if (existing?.id) {
     const { error } = await supabase
       .from("admin_records")
-      .update({ data: cfg as unknown as Record<string, unknown>, is_active: true })
+      .update({ data: payload, is_active: true })
       .eq("id", existing.id);
     if (error) throw error;
   } else {
     const { error } = await supabase.from("admin_records").insert({
       kind: HOMEPAGE_CONFIG_KIND,
-      data: cfg as unknown as Record<string, unknown>,
+      data: payload,
       is_active: true,
       sort_order: 0,
     });
