@@ -766,6 +766,23 @@ const FEATURES: Record<string, AdminFeatureConfig> = {
       { name: "callback_url", label: "Callback URL", type: "url" },
     ],
   },
+  "eps-pgw": {
+    kind: "eps_pgw",
+    mode: "single",
+    description: "EPS (eps.com.bd) Payment Gateway credentials. Leave disabled until you receive merchant credentials from EPS.",
+    fields: [
+      { name: "enabled", label: "Enabled", type: "boolean" },
+      { name: "environment", label: "Environment", type: "select", options: [
+        { value: "sandbox", label: "Sandbox (test)" },
+        { value: "live", label: "Live (production)" },
+      ] },
+      { name: "merchant_id", label: "Merchant ID", type: "text" },
+      { name: "store_id", label: "Store ID", type: "text" },
+      { name: "store_password", label: "Store Password", type: "text" },
+      { name: "api_key", label: "API Key", type: "text" },
+      { name: "callback_url", label: "Callback URL", type: "url" },
+    ],
+  },
   "bkash-transactions": {
     kind: "bkash_transaction",
     mode: "list",
