@@ -2284,61 +2284,72 @@ html.theme-white .product-action-button *,
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.18) !important;
 }
 
+/* =====================================================
+   Floating Glass Buttons — Buy Now / WhatsApp / Cart
+   ===================================================== */
 html.theme-white .product-buy-button,
-.product-buy-button {
-  position: relative;
-  overflow: hidden;
-  border: 0 !important;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.03) 45%, rgba(0,0,0,0.30) 100%),
-    #6d28d9 !important;
-  box-shadow:
-    0 22px 50px -14px rgba(109, 40, 217, 0.95),
-    0 8px 18px -6px rgba(76, 29, 149, 0.75),
-    inset 0 1px 0 rgba(255,255,255,0.45),
-    inset 0 -2px 0 rgba(0,0,0,0.35) !important;
-}
-
+.product-buy-button,
 html.theme-white .product-cart-button,
-.product-cart-button {
-  position: relative;
-  overflow: hidden;
-  border: 0 !important;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.04) 45%, rgba(0,0,0,0.30) 100%),
-    linear-gradient(135deg, #1f2937 0%, #0f172a 55%, #020617 100%) !important;
-  box-shadow:
-    0 20px 44px -16px rgba(2, 6, 23, 0.85),
-    0 4px 10px -4px rgba(15, 23, 42, 0.55),
-    inset 0 1px 0 rgba(255,255,255,0.32),
-    inset 0 -1px 0 rgba(0,0,0,0.35) !important;
-}
-
+.product-cart-button,
 html.theme-white .product-whatsapp-button,
 .product-whatsapp-button {
   position: relative;
   overflow: hidden;
-  border: 0 !important;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 45%, rgba(0,0,0,0.22) 100%),
-    linear-gradient(135deg, #34d399 0%, #10b981 45%, #047857 100%) !important;
-  box-shadow:
-    0 22px 50px -16px rgba(16, 185, 129, 0.80),
-    0 6px 14px -6px rgba(5, 150, 105, 0.55),
-    inset 0 1px 0 rgba(255,255,255,0.50),
-    inset 0 -1px 0 rgba(0,0,0,0.25) !important;
+  border: 1px solid rgba(255,255,255,0.28) !important;
+  border-radius: 9999px !important;
+  color: #ffffff !important;
+  isolation: isolate;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, filter .3s ease;
+  will-change: transform;
 }
 
-/* Glossy top-highlight strip */
+html.theme-white .product-buy-button,
+.product-buy-button {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.02) 42%, rgba(0,0,0,0.18) 100%),
+    linear-gradient(120deg, #8b5cf6 0%, #7c3aed 35%, #4f46e5 70%, #3b82f6 100%) !important;
+  box-shadow:
+    0 24px 48px -14px rgba(99, 61, 227, 0.55),
+    0 10px 22px -10px rgba(59, 130, 246, 0.45),
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    inset 0 -2px 6px rgba(30, 27, 75, 0.35) !important;
+}
+
+html.theme-white .product-whatsapp-button,
+.product-whatsapp-button {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.02) 42%, rgba(0,0,0,0.16) 100%),
+    linear-gradient(135deg, #34d399 0%, #10b981 55%, #059669 100%) !important;
+  box-shadow:
+    0 22px 46px -16px rgba(16, 185, 129, 0.55),
+    0 8px 18px -8px rgba(5, 150, 105, 0.45),
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    inset 0 -2px 6px rgba(6, 78, 59, 0.35) !important;
+}
+
+html.theme-white .product-cart-button,
+.product-cart-button {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.02) 42%, rgba(0,0,0,0.32) 100%),
+    linear-gradient(140deg, #2b2f3a 0%, #1c1f2a 55%, #0b0d14 100%) !important;
+  border-color: rgba(255,255,255,0.14) !important;
+  box-shadow:
+    0 22px 44px -16px rgba(2, 6, 23, 0.75),
+    0 6px 14px -6px rgba(15, 23, 42, 0.55),
+    inset 0 1px 0 rgba(255,255,255,0.28),
+    inset 0 -2px 6px rgba(0,0,0,0.45) !important;
+}
+
+/* Glass top-highlight strip */
 .product-buy-button::before,
 .product-cart-button::before,
 .product-whatsapp-button::before {
   content: "";
   position: absolute;
   inset: 1px 1px auto 1px;
-  height: 45%;
+  height: 52%;
   border-radius: inherit;
-  background: linear-gradient(180deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.06) 65%, rgba(255,255,255,0) 100%);
   pointer-events: none;
   z-index: 0;
 }
@@ -2351,18 +2362,18 @@ html.theme-white .product-whatsapp-button,
   position: absolute;
   top: 0;
   left: -120%;
-  width: 60%;
+  width: 55%;
   height: 100%;
-  background: linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.28) 50%, transparent 100%);
+  background: linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.32) 50%, transparent 100%);
   transform: skewX(-18deg);
   pointer-events: none;
   z-index: 0;
-  transition: left 0.7s ease;
+  transition: left .8s ease;
 }
 .product-buy-button:hover::after,
 .product-cart-button:hover::after,
 .product-whatsapp-button:hover::after {
-  left: 130%;
+  left: 135%;
 }
 
 .product-buy-button > *,
@@ -2375,8 +2386,34 @@ html.theme-white .product-whatsapp-button,
 .product-buy-button:hover,
 .product-cart-button:hover,
 .product-whatsapp-button:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.05);
+  transform: translateY(-3px);
+  filter: brightness(1.06) saturate(1.05);
+}
+.product-buy-button:hover {
+  box-shadow:
+    0 30px 60px -14px rgba(99, 61, 227, 0.65),
+    0 14px 28px -10px rgba(59, 130, 246, 0.55),
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    inset 0 -2px 6px rgba(30, 27, 75, 0.35) !important;
+}
+.product-whatsapp-button:hover {
+  box-shadow:
+    0 28px 56px -16px rgba(16, 185, 129, 0.65),
+    0 12px 24px -8px rgba(5, 150, 105, 0.55),
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    inset 0 -2px 6px rgba(6, 78, 59, 0.35) !important;
+}
+.product-cart-button:hover {
+  box-shadow:
+    0 28px 54px -16px rgba(2, 6, 23, 0.85),
+    0 10px 20px -6px rgba(15, 23, 42, 0.65),
+    inset 0 1px 0 rgba(255,255,255,0.32),
+    inset 0 -2px 6px rgba(0,0,0,0.5) !important;
+}
+.product-buy-button:active,
+.product-whatsapp-button:active,
+.product-cart-button:active {
+  transform: translateY(-1px) scale(0.985);
 }
 
 
