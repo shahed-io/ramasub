@@ -783,6 +783,21 @@ const FEATURES: Record<string, AdminFeatureConfig> = {
       { name: "callback_url", label: "Callback URL", type: "url" },
     ],
   },
+  "sslcommerz-pgw": {
+    kind: "sslcommerz_pgw",
+    mode: "single",
+    description: "SSLCommerz Payment Gateway credentials. Get Store ID / Store Password from your SSLCommerz merchant panel.",
+    fields: [
+      { name: "enabled", label: "Enabled", type: "boolean" },
+      { name: "environment", label: "Environment", type: "select", options: [
+        { value: "sandbox", label: "Sandbox (test)" },
+        { value: "live", label: "Live (production)" },
+      ] },
+      { name: "store_id", label: "Store ID", type: "text" },
+      { name: "store_password", label: "Store Password", type: "text" },
+      { name: "callback_url", label: "Callback URL (optional override)", type: "url" },
+    ],
+  },
   "bkash-transactions": {
     kind: "bkash_transaction",
     mode: "list",
