@@ -154,6 +154,72 @@ export function CategoryPage({
           }}
         />
 
+        {/* 3D glass shapes */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+          {/* Glass sphere — top right */}
+          <div
+            className="absolute -top-16 right-[8%] w-56 h-56 rounded-full animate-[float-slow_14s_ease-in-out_infinite]"
+            style={{
+              background:
+                "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55), rgba(255,255,255,0.05) 45%, rgba(124,92,255,0.35) 75%, rgba(20,26,51,0.15))",
+              boxShadow:
+                "inset -10px -20px 40px rgba(124,92,255,0.35), inset 12px 18px 30px rgba(255,255,255,0.25), 0 30px 80px -20px rgba(124,92,255,0.55)",
+              backdropFilter: "blur(6px)",
+              border: "1px solid rgba(255,255,255,0.15)",
+            }}
+          />
+          {/* Glass ring / torus — mid left */}
+          <div
+            className="absolute top-1/2 -translate-y-1/2 -left-16 w-72 h-72 rounded-full animate-[float-slow_18s_ease-in-out_infinite_reverse]"
+            style={{
+              background:
+                "conic-gradient(from 210deg, rgba(56,189,248,0.45), rgba(124,92,255,0.35), rgba(236,72,153,0.35), rgba(56,189,248,0.45))",
+              WebkitMask:
+                "radial-gradient(circle, transparent 42%, #000 43%, #000 62%, transparent 63%)",
+              mask: "radial-gradient(circle, transparent 42%, #000 43%, #000 62%, transparent 63%)",
+              filter: "blur(1px)",
+              opacity: 0.85,
+            }}
+          />
+          {/* Glass cube — bottom center-right */}
+          <div
+            className="absolute bottom-8 right-[28%] w-32 h-32 animate-[float-slow_16s_ease-in-out_infinite]"
+            style={{
+              transform: "rotate3d(1, 1, 0, 35deg) rotate(18deg)",
+              background:
+                "linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04) 45%, rgba(56,189,248,0.25))",
+              borderRadius: "18px",
+              border: "1px solid rgba(255,255,255,0.25)",
+              boxShadow:
+                "inset 6px 6px 20px rgba(255,255,255,0.25), inset -8px -12px 24px rgba(56,189,248,0.28), 0 30px 60px -20px rgba(56,189,248,0.5)",
+              backdropFilter: "blur(8px)",
+            }}
+          />
+          {/* Small orb — top center */}
+          <div
+            className="absolute top-10 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full animate-[float-slow_12s_ease-in-out_infinite_reverse]"
+            style={{
+              background:
+                "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(236,72,153,0.35) 60%, rgba(20,26,51,0.1))",
+              boxShadow:
+                "inset -4px -8px 16px rgba(236,72,153,0.4), 0 20px 40px -10px rgba(236,72,153,0.5)",
+              border: "1px solid rgba(255,255,255,0.2)",
+            }}
+          />
+          {/* Tiny orb — bottom left */}
+          <div
+            className="absolute bottom-16 left-[22%] w-14 h-14 rounded-full animate-[float-slow_10s_ease-in-out_infinite]"
+            style={{
+              background:
+                "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.7), rgba(56,189,248,0.4) 55%, rgba(20,26,51,0.1))",
+              boxShadow:
+                "inset -3px -6px 12px rgba(56,189,248,0.5), 0 15px 30px -8px rgba(56,189,248,0.55)",
+              border: "1px solid rgba(255,255,255,0.25)",
+            }}
+          />
+        </div>
+
+
         <div className="relative mx-auto max-w-[1440px] px-4 md:px-10 py-12 md:py-16">
           {/* Eyebrow badge */}
           <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 backdrop-blur-md px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/85 shadow-[0_8px_30px_-12px_rgba(124,92,255,0.6)]">
