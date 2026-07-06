@@ -871,7 +871,7 @@ function CheckoutPage() {
         <div className="px-5 py-5">
           <button
             onClick={handleSubmit}
-            disabled={busy || walletInsufficient || (!fullyByWallet && (!!errors.trxId || !form.trxId || !!errors.senderNumber || !form.senderNumber))}
+            disabled={busy || walletInsufficient || (!fullyByWallet && !isEpsMethod && (!!errors.trxId || !form.trxId || !!errors.senderNumber || !form.senderNumber))}
             className="w-full h-12 rounded-full text-primary-foreground text-[15px] font-semibold inline-flex items-center justify-center gap-2 disabled:opacity-50 hover:opacity-95 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-lg shadow-primary/25"
             style={{ background: CTA_GRADIENT }}
           >
