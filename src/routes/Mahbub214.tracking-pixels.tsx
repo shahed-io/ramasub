@@ -12,6 +12,14 @@ import {
   XCircle,
   TestTube,
   RefreshCw,
+  Plus,
+  Trash2,
+  Copy,
+  ChevronDown,
+  ChevronUp,
+  Info,
+  Eye,
+  Zap,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
