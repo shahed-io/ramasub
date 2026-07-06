@@ -681,6 +681,8 @@ export type Database = {
       }
       product_reviews: {
         Row: {
+          admin_reply: string | null
+          admin_reply_at: string | null
           comment: string
           created_at: string
           id: string
@@ -688,10 +690,13 @@ export type Database = {
           product_slug: string
           rating: number
           reviewer_name: string
+          status: string
           updated_at: string
           user_id: string | null
         }
         Insert: {
+          admin_reply?: string | null
+          admin_reply_at?: string | null
           comment: string
           created_at?: string
           id?: string
@@ -699,10 +704,13 @@ export type Database = {
           product_slug: string
           rating: number
           reviewer_name: string
+          status?: string
           updated_at?: string
           user_id?: string | null
         }
         Update: {
+          admin_reply?: string | null
+          admin_reply_at?: string | null
           comment?: string
           created_at?: string
           id?: string
@@ -710,6 +718,7 @@ export type Database = {
           product_slug?: string
           rating?: number
           reviewer_name?: string
+          status?: string
           updated_at?: string
           user_id?: string | null
         }
