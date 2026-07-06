@@ -3811,3 +3811,8 @@ html.theme-white .product-card-ripple { mix-blend-mode: multiply; }
   from { transform: translateX(24px); opacity: 0; }
   to   { transform: translateX(0);    opacity: 1; }
 }
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+  50% { transform: translateY(-18px) translateX(8px) rotate(4deg); }
+}
