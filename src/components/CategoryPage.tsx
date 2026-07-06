@@ -136,37 +136,86 @@ export function CategoryPage({
 
   return (
     <div className="min-h-screen">
-      {/* Cinematic header band */}
-      <section className="relative glass-strong overflow-hidden">
-        <div className="pointer-events-none absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-primary/35 blur-[140px]" />
-        <div className="pointer-events-none absolute -bottom-24 -right-24 w-[420px] h-[420px] rounded-full bg-[var(--color-aqua)]/35 blur-[140px]" />
-        <div className="relative mx-auto max-w-[1440px] px-4 md:px-10 py-10 md:py-12">
-          <div className="inline-block max-w-full">
-            <h1
-              className="text-aurora drop-shadow-[0_2px_18px_rgba(124,92,255,0.35)] break-words [hyphens:auto]"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(22px, 5vw, 44px)",
-                fontWeight: 800,
-                letterSpacing: 0,
-                lineHeight: 1.1,
-              }}
-            >
-              {title}
-            </h1>
+      {/* Premium hero band */}
+      <section className="relative overflow-hidden border-b border-[var(--glass-border)] bg-gradient-to-br from-[#0b0f1e] via-[#141a33] to-[#0b1226] dark:from-[#080b18] dark:via-[#0f1428] dark:to-[#080b18]">
+        {/* Ambient light orbs */}
+        <div className="pointer-events-none absolute -top-32 -left-32 w-[520px] h-[520px] rounded-full bg-primary/40 blur-[160px]" />
+        <div className="pointer-events-none absolute -bottom-32 -right-32 w-[520px] h-[520px] rounded-full bg-[var(--color-aqua)]/35 blur-[160px]" />
+        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[360px] rounded-full bg-fuchsia-500/10 blur-[140px]" />
+        {/* Subtle grid */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.4) 1px, transparent 1px)",
+            backgroundSize: "44px 44px",
+            maskImage: "radial-gradient(ellipse at center, black 40%, transparent 75%)",
+          }}
+        />
+
+        <div className="relative mx-auto max-w-[1440px] px-4 md:px-10 py-12 md:py-16">
+          {/* Eyebrow badge */}
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 backdrop-blur-md px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/85 shadow-[0_8px_30px_-12px_rgba(124,92,255,0.6)]">
+            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            <span>Premium Collection</span>
+            <span className="h-1 w-1 rounded-full bg-white/40" />
+            <span className="text-white/70 normal-case tracking-normal">{cat ?? "সব ক্যাটাগরি"}</span>
           </div>
-          <p className="mt-2 text-foreground/70 max-w-2xl font-medium">
-            {(q.trim() ? items.length : totalCount)}টি প্রোডাক্ট পাওয়া গেছে
+
+          <h1
+            className="mt-5 break-words [hyphens:auto] bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent drop-shadow-[0_2px_24px_rgba(124,92,255,0.35)]"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(28px, 6vw, 56px)",
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.05,
+            }}
+          >
+            {title}
+          </h1>
+
+          <p className="mt-4 max-w-2xl text-[14.5px] md:text-base text-white/70 leading-relaxed">
+            {subtitle}
           </p>
-          <p className="mt-1 text-foreground/60 text-sm max-w-2xl">{subtitle}</p>
-          <SearchBar
-            value={q}
-            onChange={updateSearch}
-            onSubmit={updateSearch}
-            placeholder="প্রোডাক্ট সার্চ করুন..."
-            size="lg"
-            className="mt-5 max-w-xl"
-          />
+
+          {/* Stat chips */}
+          <div className="mt-6 flex flex-wrap items-center gap-2.5">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold text-white">
+              <span className="grid place-items-center w-5 h-5 rounded-full bg-gradient-to-br from-primary to-[var(--color-aqua)] text-white">
+                <Package className="w-3 h-3" />
+              </span>
+              <span className="tabular-nums">{q.trim() ? items.length : totalCount}</span>
+              <span className="text-white/70 font-medium">টি প্রোডাক্ট</span>
+            </span>
+            {cats.length > 0 && (
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold text-white">
+                <LayoutGrid className="w-3.5 h-3.5 text-[var(--color-aqua)]" />
+                <span className="tabular-nums">{cats.length}</span>
+                <span className="text-white/70 font-medium">ক্যাটাগরি</span>
+              </span>
+            )}
+            <span className="inline-flex items-center gap-2 rounded-full bg-emerald-400/15 border border-emerald-300/30 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold text-emerald-200">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-300" />
+              </span>
+              Instant Delivery
+            </span>
+          </div>
+
+          {/* Search */}
+          <div className="mt-7 max-w-2xl rounded-2xl bg-white/10 border border-white/20 backdrop-blur-xl p-1.5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)]">
+            <SearchBar
+              value={q}
+              onChange={updateSearch}
+              onSubmit={updateSearch}
+              placeholder="প্রোডাক্ট সার্চ করুন..."
+              size="lg"
+              className=""
+            />
+          </div>
         </div>
       </section>
 
