@@ -27,55 +27,67 @@ import { PerfReportSection, ProfiledSection } from "@/components/PerfReportSecti
 import { ImageBannerCarousel } from "@/components/ImageBannerCarousel";
 import { RecentlyViewedSection } from "@/components/RecentlyViewedSection";
 import type { Product } from "@/data/products";
+import { fetchHomepageConfig, DEFAULT_CONFIG, type HomepageConfig, type SectionId } from "@/lib/homepage-config";
 
 export const Route = createFileRoute("/")({
   component: Index,
   loader: async () => {
-    try {
-      const products = await listProducts();
-      return { products };
-    } catch {
-      return { products: [] as Product[] };
-    }
+    const [products, homepageConfig] = await Promise.all([
+      listProducts().catch(() => [] as Product[]),
+      fetchHomepageConfig().catch(() => DEFAULT_CONFIG),
+    ]);
+    return { products, homepageConfig };
   },
-  head: () => ({
-    meta: [
-      { title: "Rama Sub — Digital Products & Software" },
-      { name: "description", content: "Buy verified digital products, subscriptions, software licenses, AI tools, OTT, VPN and education services in Bangladesh with fast delivery." },
-      { property: "og:title", content: "Rama Sub — Digital Products & Software" },
-      { property: "og:description", content: "White glassmorphism digital marketplace for premium software, subscriptions and services." },
+  head: ({ loaderData }) => {
+    const seo = loaderData?.homepageConfig?.seo ?? {};
+    const title = seo.title || "Rama Sub — Digital Products & Software";
+    const description = seo.description || "Buy verified digital products, subscriptions, software licenses, AI tools, OTT, VPN and education services in Bangladesh with fast delivery.";
+    const ogTitle = seo.ogTitle || title;
+    const ogDescription = seo.ogDescription || description;
+    const meta: Array<Record<string, string>> = [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: ogTitle },
+      { property: "og:description", content: ogDescription },
       { property: "og:url", content: "https://ramasub.com/" },
       { property: "og:type", content: "website" },
-    ],
-    links: [{ rel: "canonical", href: "https://ramasub.com/" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "Rama Sub",
-          url: "https://ramasub.com",
-          logo: "https://ramasub.com/icons/apple-touch-icon.png",
-          sameAs: ["https://wa.me/8801601048085"],
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: "Rama Sub",
-          url: "https://ramasub.com",
-          potentialAction: {
-            "@type": "SearchAction",
-            target: "https://ramasub.com/products?q={search_term_string}",
-            "query-input": "required name=search_term_string",
-          },
-        }),
-      },
-    ],
-  }),
+    ];
+    if (seo.ogImage) {
+      meta.push({ property: "og:image", content: seo.ogImage });
+      meta.push({ name: "twitter:image", content: seo.ogImage });
+    }
+    return {
+      meta,
+      links: [{ rel: "canonical", href: "https://ramasub.com/" }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Rama Sub",
+            url: "https://ramasub.com",
+            logo: "https://ramasub.com/icons/apple-touch-icon.png",
+            sameAs: ["https://wa.me/8801601048085"],
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Rama Sub",
+            url: "https://ramasub.com",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://ramasub.com/products?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          }),
+        },
+      ],
+    };
+  },
 });
 
 const CATEGORY_DECK = [
@@ -121,28 +133,29 @@ const RAIL_PLACEHOLDER_TITLES: string[] = [
 function Index() {
   const loaderData = Route.useLoaderData();
   const initialProducts = (loaderData?.products ?? []) as Product[];
+  const cfg: HomepageConfig = loaderData?.homepageConfig ?? DEFAULT_CONFIG;
   const { products: liveProducts, isLoading } = useProducts(initialProducts);
   const products: Product[] = liveProducts.length ? liveProducts : initialProducts;
-  const top = useMemo(() => pickTopProducts(products), [products]);
+
+  // Featured: manual override wins; empty = auto pickTopProducts.
+  const top = useMemo(() => {
+    const slugs = cfg.featuredProductSlugs;
+    if (slugs && slugs.length > 0) {
+      const map = new Map(products.map((p) => [p.slug, p]));
+      const picked = slugs.map((s) => map.get(s)).filter(Boolean) as Product[];
+      if (picked.length > 0) return picked;
+    }
+    return pickTopProducts(products);
+  }, [products, cfg.featuredProductSlugs]);
+
   const byCategory = useMemo(() => {
-    // Preferred display order — matches the pill bar. Any other category found
-    // in the live product list is appended after, so newly created admin
-    // categories automatically appear on the homepage.
     const preferredOrder = [
-      "OTT & Streaming",
-      "AI & Education",
-      "Microsoft Office",
-      "Editing Tools",
-      "Software & Productivity",
-      "VPN & Security",
-      "Windows",
-      "Subscription",
+      "OTT & Streaming", "AI & Education", "Microsoft Office", "Editing Tools",
+      "Software & Productivity", "VPN & Security", "Windows", "Subscription",
     ];
     const seen = new Set<string>();
     const ordered: string[] = [];
-    for (const c of preferredOrder) {
-      if (!seen.has(c)) { seen.add(c); ordered.push(c); }
-    }
+    for (const c of preferredOrder) if (!seen.has(c)) { seen.add(c); ordered.push(c); }
     for (const p of products) {
       const c = (p.category || "").trim();
       if (c && !seen.has(c)) { seen.add(c); ordered.push(c); }
@@ -155,44 +168,56 @@ function Index() {
       .filter((g) => g.items.length > 0);
   }, [products]);
 
+  const visible = useMemo(() => {
+    const map = new Map<SectionId, boolean>();
+    for (const s of cfg.sections) map.set(s.id, s.visible);
+    return map;
+  }, [cfg.sections]);
+  const isOn = (id: SectionId) => visible.get(id) !== false;
+
+  const renderSection = (id: SectionId, key: string) => {
+    if (!isOn(id)) return null;
+    switch (id) {
+      case "banner":
+        return <ProfiledSection key={key} id="ImageBannerCarousel"><ImageBannerCarousel /></ProfiledSection>;
+      case "pills":
+        return <ProfiledSection key={key} id="CategoryPillBar"><CategoryPillBar /></ProfiledSection>;
+      case "featured":
+        return <ProfiledSection key={key} id="FeaturedProducts"><FeaturedProducts items={top} isLoading={isLoading} /></ProfiledSection>;
+      case "rails":
+        return (
+          <div key={key}>
+            {isLoading && byCategory.length === 0
+              ? RAIL_PLACEHOLDER_TITLES.map((title) => (
+                  <ProductRail key={title} title={title} items={[]} isLoading />
+                ))
+              : byCategory.map((section, idx) => (
+                  <ProgressiveSection
+                    key={section.category}
+                    eager={idx < 2}
+                    fallback={<ProductRail title={section.category} items={[]} isLoading />}
+                  >
+                    <ProfiledSection id={`ProductRail: ${section.category}`}>
+                      <ProductRail title={section.category} items={section.items} />
+                    </ProfiledSection>
+                  </ProgressiveSection>
+                ))}
+          </div>
+        );
+      case "recentlyViewed":
+        return <ProfiledSection key={key} id="RecentlyViewed"><RecentlyViewedSection /></ProfiledSection>;
+      case "reviews":
+        return <CustomerReviews key={key} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="home-scroll-optimized min-h-screen">
-
       <div>
-        <ProfiledSection id="ImageBannerCarousel">
-          <ImageBannerCarousel />
-        </ProfiledSection>
-
-
-        <ProfiledSection id="CategoryPillBar">
-          <CategoryPillBar />
-        </ProfiledSection>
-
-        <ProfiledSection id="FeaturedProducts">
-          <FeaturedProducts items={top} isLoading={isLoading} />
-        </ProfiledSection>
-        {isLoading && byCategory.length === 0
-          ? RAIL_PLACEHOLDER_TITLES.map((title) => (
-              <ProductRail key={title} title={title} items={[]} isLoading />
-            ))
-          : byCategory.map((section, idx) => (
-              <ProgressiveSection
-                key={section.category}
-                /* First two rails mount eagerly so the user sees real
-                   content immediately on initial paint. */
-                eager={idx < 2}
-                fallback={<ProductRail title={section.category} items={[]} isLoading />}
-              >
-                <ProfiledSection id={`ProductRail: ${section.category}`}>
-                  <ProductRail title={section.category} items={section.items} />
-                </ProfiledSection>
-              </ProgressiveSection>
-            ))}
-        <ProfiledSection id="RecentlyViewed">
-          <RecentlyViewedSection />
-        </ProfiledSection>
+        {cfg.sections.map((s) => renderSection(s.id, s.id))}
         <PerfReportSection />
-        <CustomerReviews />
       </div>
       <SiteFooter />
     </div>
