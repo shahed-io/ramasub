@@ -204,8 +204,12 @@ function ProductPage() {
     );
   }
 
-  const activeIdx = Math.min(selected, Math.max(product.plans.length - 1, 0));
-  const plan = product.plans[activeIdx];
+  const visiblePlans = enabledAccountTypes.length && selectedType
+    ? product.plans.filter((p: { account_type?: string }) => !p.account_type || p.account_type === selectedType)
+    : product.plans;
+  const plansToShow = visiblePlans.length ? visiblePlans : product.plans;
+  const activeIdx = Math.min(selected, Math.max(plansToShow.length - 1, 0));
+  const plan = plansToShow[activeIdx];
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 8);
 
   const galleryImages = (product.meta?.gallery ?? []).filter(Boolean);
