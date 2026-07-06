@@ -358,6 +358,9 @@ function CheckoutPage() {
       }
       navigate({ to: "/orders/$id", params: { id: newId }, search: { new: 1 } });
       return;
+
+    } catch (e: unknown) {
+      setErr(e instanceof Error ? e.message : "Failed to place order");
     } finally {
       setBusy(false);
     }
