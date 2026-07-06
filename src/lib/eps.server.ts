@@ -101,37 +101,18 @@ export async function getEpsToken(mode?: EpsMode): Promise<string> {
   return token;
 }
 
-  const res = await fetch(`${epsBase(mode)}/auth/token`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      "X-API-Key": api_key!,
-    },
-    body: JSON.stringify({ store_id, store_password }),
-  });
-  const j = (await res.json().catch(() => ({}))) as any;
-  const token: string | undefined =
-    j?.access_token || j?.token || j?.data?.access_token;
-  if (!res.ok || !token) {
-    throw new Error(j?.message || j?.error || `EPS token failed (${res.status})`);
-  }
-  const ttlSec = Number(j?.expires_in || 3600);
-  cached = { token, exp: Date.now() + Math.min(ttlSec, 3600) * 1000 };
-  return token;
-}
-
 async function epsCall(path: string, body: any, mode?: EpsMode) {
-  const token = await getEpsToken(mode);
-  const { api_key, merchant_id } = getEpsCreds();
-  const res = await fetch(`${epsBase(mode)}${path}`, {
+  const creds = await getEpsCreds();
+  const m = mode || creds.mode;
+  const token = await getEpsToken(m);
+  const res = await fetch(`${epsBase(m)}${path}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
-      "X-API-Key": api_key!,
-      "X-Merchant-Id": merchant_id!,
+      "X-API-Key": creds.api_key!,
+      "X-Merchant-Id": creds.merchant_id!,
     },
     body: JSON.stringify(body),
   });
