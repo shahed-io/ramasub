@@ -8,8 +8,9 @@ import { rememberReturnTo } from "@/lib/auth-return-to";
 import { captureAbandonedCheckout } from "@/lib/abandoned-checkout.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { useAppliedCoupon, redeemCoupon } from "@/lib/coupons";
-import { usePaymentMethods, useEpsPgwEnabled } from "@/hooks/useShopConfig";
+import { usePaymentMethods, useEpsPgwEnabled, useSslczPgwEnabled } from "@/hooks/useShopConfig";
 import { createEpsPayment } from "@/lib/eps.functions";
+import { createSslczPayment } from "@/lib/sslcommerz.functions";
 import { sendTransactionalEmail } from "@/lib/email/send";
 import { trackPurchase } from "@/lib/trackEvent";
 import { notifyTelegram } from "@/lib/telegram";
@@ -110,8 +111,12 @@ function CheckoutPage() {
   }, [dynamicMethods]);
   const [method, setMethod] = useState<string>("bkash");
   const { data: epsEnabled } = useEpsPgwEnabled();
+  const { data: sslczEnabled } = useSslczPgwEnabled();
   const isEpsMethod = method === "eps";
+  const isSslczMethod = method === "sslcommerz";
+  const isGatewayMethod = isEpsMethod || isSslczMethod;
   const createEps = useServerFn(createEpsPayment);
+  const createSslcz = useServerFn(createSslczPayment);
   const [copied, setCopied] = useState(false);
   const [couponInput, setCouponInput] = useState(coupon || "");
   const [screenshotUrl, setScreenshotUrl] = useState<string>("");
@@ -354,6 +359,18 @@ function CheckoutPage() {
           setErr("EPS gateway URL পাওয়া যায়নি। Admin panel-এ credentials verify করুন।");
         } catch (e) {
           setErr(e instanceof Error ? e.message : "EPS payment failed to start");
+        }
+      }
+      if (isSslczMethod && !fullyByWallet) {
+        try {
+          const s = await createSslcz({ data: { orderId: newId, amount: grandTotal } });
+          if (s?.redirectURL) {
+            window.location.href = s.redirectURL;
+            return;
+          }
+          setErr("SSLCommerz gateway URL পাওয়া যায়নি। Admin panel-এ credentials verify করুন।");
+        } catch (e) {
+          setErr(e instanceof Error ? e.message : "SSLCommerz payment failed to start");
         }
       }
       navigate({ to: "/orders/$id", params: { id: newId }, search: { new: 1 } });
@@ -674,16 +691,38 @@ function CheckoutPage() {
               <div className="text-[10px] text-muted-foreground">Cards • Mobile</div>
             </button>
           )}
+
+          {/* SSLCommerz Gateway tile (admin-controlled) */}
+          {sslczEnabled && (
+            <button
+              onClick={() => { setMethod("sslcommerz"); setUseWallet(false); }}
+              role="radio"
+              aria-checked={isSslczMethod}
+              className={`relative rounded-2xl border-2 bg-background px-3 py-3 flex flex-col items-center gap-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                isSslczMethod ? "border-primary ring-2 ring-primary/20" : "border-border hover:border-primary/40"
+              }`}
+            >
+              <div className="w-12 h-12 grid place-items-center">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-600 to-emerald-700 grid place-items-center text-white shadow-md text-[9px] font-bold">
+                  SSL
+                </div>
+              </div>
+              <div className="text-[12px] font-semibold text-foreground text-center leading-tight">SSLCommerz</div>
+              <div className="text-[10px] text-muted-foreground">Card • Bank • MFS</div>
+            </button>
+          )}
         </div>
 
-        {/* EPS-selected info banner */}
-        {isEpsMethod && (
+        {/* Gateway-selected info banner */}
+        {isGatewayMethod && (
           <div className="mx-5 mt-4 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-teal-500/5 p-3.5">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-emerald-500/15 grid place-items-center text-lg shrink-0">🔒</div>
               <div className="flex-1 min-w-0">
-                <div className="text-[13px] font-bold text-foreground">EPS Secure Gateway</div>
-                <div className="text-[11px] text-muted-foreground">Order confirm করলে EPS-এর secure page-এ redirect হবে। সেখানে Card / Mobile Banking দিয়ে payment complete করুন।</div>
+                <div className="text-[13px] font-bold text-foreground">
+                  {isEpsMethod ? "EPS Secure Gateway" : "SSLCommerz Secure Gateway"}
+                </div>
+                <div className="text-[11px] text-muted-foreground">Order confirm করলে {isEpsMethod ? "EPS" : "SSLCommerz"}-এর secure page-এ redirect হবে। সেখানে Card / Mobile Banking / Bank দিয়ে payment complete করুন।</div>
               </div>
             </div>
           </div>
@@ -716,7 +755,7 @@ function CheckoutPage() {
         )}
 
         {/* Brand instruction card */}
-        {!fullyByWallet && !isEpsMethod && (
+        {!fullyByWallet && !isGatewayMethod && (
           <div className="mx-5 mt-5 rounded-3xl border border-border bg-muted p-5 space-y-4">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-2.5 min-w-0">
@@ -774,7 +813,7 @@ function CheckoutPage() {
           </div>
         )}
 
-        {!fullyByWallet && !isEpsMethod && (
+        {!fullyByWallet && !isGatewayMethod && (
           <>
             {/* Sender number */}
             <div className="px-5 mt-5">
@@ -871,7 +910,7 @@ function CheckoutPage() {
         <div className="px-5 py-5">
           <button
             onClick={handleSubmit}
-            disabled={busy || walletInsufficient || (!fullyByWallet && !isEpsMethod && (!!errors.trxId || !form.trxId || !!errors.senderNumber || !form.senderNumber))}
+            disabled={busy || walletInsufficient || (!fullyByWallet && !isGatewayMethod && (!!errors.trxId || !form.trxId || !!errors.senderNumber || !form.senderNumber))}
             className="w-full h-12 rounded-full text-primary-foreground text-[15px] font-semibold inline-flex items-center justify-center gap-2 disabled:opacity-50 hover:opacity-95 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-lg shadow-primary/25"
             style={{ background: CTA_GRADIENT }}
           >

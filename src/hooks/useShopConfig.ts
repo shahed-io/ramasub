@@ -96,4 +96,28 @@ export function useEpsPgwEnabled() {
   });
 }
 
+/** Returns whether the SSLCommerz PGW is enabled from the admin panel. */
+export function useSslczPgwEnabled() {
+  return useQuery({
+    queryKey: ["sslcz-pgw-enabled"],
+    queryFn: async (): Promise<boolean> => {
+      const { data } = await supabase
+        .from("admin_records")
+        .select("data,is_active")
+        .eq("kind", "sslcommerz_pgw")
+        .eq("is_active", true)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (!data) return false;
+      const d = (data.data as Record<string, unknown>) || {};
+      return Boolean(d.enabled);
+    },
+    staleTime: 5 * 60_000,
+    gcTime: 30 * 60_000,
+    refetchOnWindowFocus: false,
+  });
+}
+
+
 
