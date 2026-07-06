@@ -17,13 +17,10 @@ async function assertAdmin(ctx: { supabase: any; userId: string }) {
   if (!data) throw new Error("Forbidden: admin only");
 }
 
-function getModel(preferred: "flash" | "pro" = "flash") {
+async function getModel(preferred: "flash" | "pro" = "flash") {
   const key = process.env.LOVABLE_API_KEY;
   if (!key) throw new Error("Missing LOVABLE_API_KEY");
-  // Import here so a client-imported functions file doesn't try to load the
-  // server-only helper at module scope.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { createLovableAiGatewayProvider } = require("@/lib/ai-gateway.server");
+  const { createLovableAiGatewayProvider } = await import("@/lib/ai-gateway.server");
   const gateway = createLovableAiGatewayProvider(key);
   return preferred === "pro"
     ? gateway("google/gemini-2.5-pro")
