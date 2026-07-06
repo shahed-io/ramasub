@@ -49,9 +49,7 @@ export const testBkashConnection = createServerFn({ method: "POST" })
 /** User: create a bKash payment for a pending order and return the bKashURL to redirect to. */
 export const createBkashPayment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) =>
-    z.object({ orderId: z.string().uuid(), amount: z.number().positive() }).parse(d),
-  )
+  .inputValidator((d) => z.object({ orderId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
     // Verify the order belongs to the caller
@@ -62,14 +60,17 @@ export const createBkashPayment = createServerFn({ method: "POST" })
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!order || order.user_id !== userId) throw new Error("Order not found");
+    const total = Number(order.total);
+    if (!Number.isFinite(total) || total <= 0) throw new Error("Invalid order total");
 
     const { bkashCreatePayment } = await import("@/lib/bkash.server");
     const origin = new URL(
       (globalThis as any).location?.href || process.env.SITE_URL || "https://ramasub.com",
     ).origin;
     const callbackURL = `${origin}/api/public/bkash/callback?orderId=${order.id}`;
+    // SECURITY: use the authoritative server-side total, never a client amount.
     const res = await bkashCreatePayment({
-      amount: Number(data.amount).toFixed(2),
+      amount: total.toFixed(2),
       invoice: order.id.slice(0, 8).toUpperCase(),
       callbackURL,
       merchantAssociationInfo: `order:${order.id}`,
@@ -79,3 +80,4 @@ export const createBkashPayment = createServerFn({ method: "POST" })
     }
     return { bkashURL: res.bkashURL, paymentID: res.paymentID };
   });
+

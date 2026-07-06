@@ -50,9 +50,7 @@ export const testSslczConnection = createServerFn({ method: "POST" })
 /** User: create an SSLCommerz session and return the GatewayPageURL. */
 export const createSslczPayment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) =>
-    z.object({ orderId: z.string().uuid(), amount: z.number().positive() }).parse(d),
-  )
+  .inputValidator((d) => z.object({ orderId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
     const { data: order, error } = await supabase
@@ -62,12 +60,15 @@ export const createSslczPayment = createServerFn({ method: "POST" })
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!order || order.user_id !== userId) throw new Error("Order not found");
+    const total = Number(order.total);
+    if (!Number.isFinite(total) || total <= 0) throw new Error("Invalid order total");
 
     const { sslczCreateSession } = await import("@/lib/sslcommerz.server");
     const origin = process.env.SITE_URL || "https://ramasub.com";
     const cbBase = `${origin}/api/public/sslcommerz/callback?orderId=${order.id}`;
+    // SECURITY: authoritative server-side total, never trust a client amount.
     const res = await sslczCreateSession({
-      amount: Number(data.amount).toFixed(2),
+      amount: total.toFixed(2),
       invoice: `ANB${order.id.slice(0, 8).toUpperCase()}${Date.now().toString().slice(-4)}`,
       successURL: `${cbBase}&result=success`,
       failURL: `${cbBase}&result=fail`,
@@ -83,3 +84,4 @@ export const createSslczPayment = createServerFn({ method: "POST" })
     }
     return { redirectURL, sessionKey: res?.sessionkey };
   });
+
