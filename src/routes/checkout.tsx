@@ -111,8 +111,12 @@ function CheckoutPage() {
   }, [dynamicMethods]);
   const [method, setMethod] = useState<string>("bkash");
   const { data: epsEnabled } = useEpsPgwEnabled();
+  const { data: sslczEnabled } = useSslczPgwEnabled();
   const isEpsMethod = method === "eps";
+  const isSslczMethod = method === "sslcommerz";
+  const isGatewayMethod = isEpsMethod || isSslczMethod;
   const createEps = useServerFn(createEpsPayment);
+  const createSslcz = useServerFn(createSslczPayment);
   const [copied, setCopied] = useState(false);
   const [couponInput, setCouponInput] = useState(coupon || "");
   const [screenshotUrl, setScreenshotUrl] = useState<string>("");
