@@ -80,6 +80,7 @@ import { Route as Mahbub214InvoiceDesignRouteImport } from './routes/Mahbub214.i
 import { Route as Mahbub214GoogleAdsRouteImport } from './routes/Mahbub214.google-ads'
 import { Route as Mahbub214FbPixelRouteImport } from './routes/Mahbub214.fb-pixel'
 import { Route as Mahbub214FbAudiencesRouteImport } from './routes/Mahbub214.fb-audiences'
+import { Route as Mahbub214EpsPgwRouteImport } from './routes/Mahbub214.eps-pgw'
 import { Route as Mahbub214EmailDashboardRouteImport } from './routes/Mahbub214.email-dashboard'
 import { Route as Mahbub214DescriptionTemplateRouteImport } from './routes/Mahbub214.description-template'
 import { Route as Mahbub214DescriptionPreviewRouteImport } from './routes/Mahbub214.description-preview'
@@ -102,6 +103,7 @@ import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/l
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as ApiPublicEpsCallbackRouteImport } from './routes/api/public/eps/callback'
 import { Route as ApiPublicBkashCallbackRouteImport } from './routes/api/public/bkash/callback'
 
 const WalletRoute = WalletRouteImport.update({
@@ -463,6 +465,11 @@ const Mahbub214FbAudiencesRoute = Mahbub214FbAudiencesRouteImport.update({
   path: '/fb-audiences',
   getParentRoute: () => Mahbub214Route,
 } as any)
+const Mahbub214EpsPgwRoute = Mahbub214EpsPgwRouteImport.update({
+  id: '/eps-pgw',
+  path: '/eps-pgw',
+  getParentRoute: () => Mahbub214Route,
+} as any)
 const Mahbub214EmailDashboardRoute = Mahbub214EmailDashboardRouteImport.update({
   id: '/email-dashboard',
   path: '/email-dashboard',
@@ -581,6 +588,11 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   path: '/lovable/email/auth/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicEpsCallbackRoute = ApiPublicEpsCallbackRouteImport.update({
+  id: '/api/public/eps/callback',
+  path: '/api/public/eps/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicBkashCallbackRoute = ApiPublicBkashCallbackRouteImport.update({
   id: '/api/public/bkash/callback',
   path: '/api/public/bkash/callback',
@@ -630,6 +642,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
   '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
+  '/Mahbub214/eps-pgw': typeof Mahbub214EpsPgwRoute
   '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
@@ -677,6 +690,7 @@ export interface FileRoutesByFullPath {
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
+  '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -725,6 +739,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
   '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
+  '/Mahbub214/eps-pgw': typeof Mahbub214EpsPgwRoute
   '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
@@ -772,6 +787,7 @@ export interface FileRoutesByTo {
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
+  '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -822,6 +838,7 @@ export interface FileRoutesById {
   '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
   '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
+  '/Mahbub214/eps-pgw': typeof Mahbub214EpsPgwRoute
   '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
@@ -869,6 +886,7 @@ export interface FileRoutesById {
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
+  '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -920,6 +938,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/description-preview'
     | '/Mahbub214/description-template'
     | '/Mahbub214/email-dashboard'
+    | '/Mahbub214/eps-pgw'
     | '/Mahbub214/fb-audiences'
     | '/Mahbub214/fb-pixel'
     | '/Mahbub214/google-ads'
@@ -967,6 +986,7 @@ export interface FileRouteTypes {
     | '/api/public/products'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
+    | '/api/public/eps/callback'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -1015,6 +1035,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/description-preview'
     | '/Mahbub214/description-template'
     | '/Mahbub214/email-dashboard'
+    | '/Mahbub214/eps-pgw'
     | '/Mahbub214/fb-audiences'
     | '/Mahbub214/fb-pixel'
     | '/Mahbub214/google-ads'
@@ -1062,6 +1083,7 @@ export interface FileRouteTypes {
     | '/api/public/products'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
+    | '/api/public/eps/callback'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -1111,6 +1133,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/description-preview'
     | '/Mahbub214/description-template'
     | '/Mahbub214/email-dashboard'
+    | '/Mahbub214/eps-pgw'
     | '/Mahbub214/fb-audiences'
     | '/Mahbub214/fb-pixel'
     | '/Mahbub214/google-ads'
@@ -1158,6 +1181,7 @@ export interface FileRouteTypes {
     | '/api/public/products'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
+    | '/api/public/eps/callback'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -1204,6 +1228,7 @@ export interface RootRouteChildren {
   ApiPublicProductsRoute: typeof ApiPublicProductsRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicBkashCallbackRoute: typeof ApiPublicBkashCallbackRoute
+  ApiPublicEpsCallbackRoute: typeof ApiPublicEpsCallbackRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
@@ -1710,6 +1735,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214FbAudiencesRouteImport
       parentRoute: typeof Mahbub214Route
     }
+    '/Mahbub214/eps-pgw': {
+      id: '/Mahbub214/eps-pgw'
+      path: '/eps-pgw'
+      fullPath: '/Mahbub214/eps-pgw'
+      preLoaderRoute: typeof Mahbub214EpsPgwRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
     '/Mahbub214/email-dashboard': {
       id: '/Mahbub214/email-dashboard'
       path: '/email-dashboard'
@@ -1864,6 +1896,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/eps/callback': {
+      id: '/api/public/eps/callback'
+      path: '/api/public/eps/callback'
+      fullPath: '/api/public/eps/callback'
+      preLoaderRoute: typeof ApiPublicEpsCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/bkash/callback': {
       id: '/api/public/bkash/callback'
       path: '/api/public/bkash/callback'
@@ -1911,6 +1950,7 @@ interface Mahbub214RouteChildren {
   Mahbub214DescriptionPreviewRoute: typeof Mahbub214DescriptionPreviewRoute
   Mahbub214DescriptionTemplateRoute: typeof Mahbub214DescriptionTemplateRoute
   Mahbub214EmailDashboardRoute: typeof Mahbub214EmailDashboardRoute
+  Mahbub214EpsPgwRoute: typeof Mahbub214EpsPgwRoute
   Mahbub214FbAudiencesRoute: typeof Mahbub214FbAudiencesRoute
   Mahbub214FbPixelRoute: typeof Mahbub214FbPixelRoute
   Mahbub214GoogleAdsRoute: typeof Mahbub214GoogleAdsRoute
@@ -1962,6 +2002,7 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214DescriptionPreviewRoute: Mahbub214DescriptionPreviewRoute,
   Mahbub214DescriptionTemplateRoute: Mahbub214DescriptionTemplateRoute,
   Mahbub214EmailDashboardRoute: Mahbub214EmailDashboardRoute,
+  Mahbub214EpsPgwRoute: Mahbub214EpsPgwRoute,
   Mahbub214FbAudiencesRoute: Mahbub214FbAudiencesRoute,
   Mahbub214FbPixelRoute: Mahbub214FbPixelRoute,
   Mahbub214GoogleAdsRoute: Mahbub214GoogleAdsRoute,
@@ -2054,6 +2095,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicProductsRoute: ApiPublicProductsRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicBkashCallbackRoute: ApiPublicBkashCallbackRoute,
+  ApiPublicEpsCallbackRoute: ApiPublicEpsCallbackRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
