@@ -17,7 +17,7 @@ export const getBkashStatus = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     await assertAdmin(context);
     const { getBkashCreds } = await import("@/lib/bkash.server");
-    const c = getBkashCreds();
+    const c = await getBkashCreds();
     return {
       mode: c.mode,
       has: {
