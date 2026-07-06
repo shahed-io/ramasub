@@ -696,12 +696,12 @@ const PRODUCT_TYPES: { id: ProductType; label: string; icon: string }[] = [
 ];
 
 const ACCOUNT_TYPES: { id: AccountType; label: string; icon: string }[] = [
- { id: "none", label: "— নেই —", icon: "" },
  { id: "personal", label: "Personal", icon: "👤" },
  { id: "shared", label: "Shared", icon: "👥" },
  { id: "family", label: "Family", icon: "👪" },
  { id: "student", label: "Student", icon: "🎓" },
  { id: "business", label: "Business", icon: "🛍️" },
+ { id: "custom", label: "Custom", icon: "✨" },
 ];
 
 const DURATION_CHIPS = [
