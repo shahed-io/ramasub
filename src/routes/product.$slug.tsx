@@ -356,37 +356,53 @@ function ProductPage() {
             </div>
           </header>
 
-          {/* Account Type (from admin meta) */}
-          {(() => {
-            const at = (product.meta as { account_type?: string } | undefined)?.account_type;
-            if (!at || at === "none") return null;
+          {/* Account Type — customer picks when multiple enabled */}
+          {enabledAccountTypes.length > 0 && (() => {
+            const customLabel = rawMeta?.custom_account_type_label?.trim();
             const MAP: Record<string, { label: string; icon: string }> = {
-              personal:  { label: "Personal",  icon: "👤" },
-              shared:    { label: "Shared",    icon: "👥" },
-              family:    { label: "Family",    icon: "👪" },
-              student:   { label: "Student",   icon: "🎓" },
-              business:  { label: "Business",  icon: "🛍️" },
+              personal: { label: "Personal", icon: "👤" },
+              shared: { label: "Shared", icon: "👥" },
+              family: { label: "Family", icon: "👪" },
+              student: { label: "Student", icon: "🎓" },
+              business: { label: "Business", icon: "🛍️" },
+              custom: { label: customLabel || "Custom", icon: "✨" },
             };
-            const info = MAP[at];
-            if (!info) return null;
             return (
               <div className="mt-6 space-y-3">
                 <label className="text-xs font-bold text-slate-900 uppercase tracking-widest">অ্যাকাউন্ট টাইপ</label>
-                <div className="flex items-center gap-3 p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/50">
-                  <span className="grid place-items-center w-11 h-11 rounded-xl bg-white border border-indigo-200 text-xl shrink-0" aria-hidden>{info.icon}</span>
-                  <div className="font-bold text-slate-900">{info.label}</div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2" role="radiogroup" aria-label="Account type">
+                  {enabledAccountTypes.map((id) => {
+                    const info = MAP[id] ?? { label: id, icon: "•" };
+                    const active = selectedType === id;
+                    return (
+                      <button
+                        key={id}
+                        type="button"
+                        onClick={() => { setSelectedType(id); setSelected(0); }}
+                        aria-pressed={active}
+                        className={[
+                          "flex items-center gap-2 px-4 py-3 rounded-2xl border-2 text-sm font-semibold transition text-left",
+                          active
+                            ? "border-indigo-600 bg-indigo-50 text-slate-900"
+                            : "border-slate-200 bg-white text-slate-700 hover:border-slate-300",
+                        ].join(" ")}
+                      >
+                        <span className="text-lg" aria-hidden>{info.icon}</span>
+                        <span className="truncate">{info.label}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
-
             );
           })()}
 
 
-          {product.plans.length > 0 && (
+          {plansToShow.length > 0 && (
             <div className="mt-6 space-y-3">
               <label className="text-xs font-bold text-slate-900 uppercase tracking-widest">মেয়াদ ও মূল্য পরিকল্পনা</label>
               <div role="radiogroup" aria-label="Plan" className="space-y-2">
-                {product.plans.map((p, idx) => {
+                {plansToShow.map((p, idx) => {
                   const active = activeIdx === idx;
                   const price = parsePrice(p.price);
                   const original = p.original ? parsePrice(p.original) : 0;
