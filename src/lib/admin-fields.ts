@@ -416,16 +416,6 @@ const FEATURES: Record<string, AdminFeatureConfig> = {
       { name: "robots_txt", label: "robots.txt content", type: "textarea" },
     ],
   },
-  "tracking": {
-    kind: "tracking_link",
-    mode: "list",
-    fields: [
-      { name: "order_ref", label: "Order ref", type: "text", required: true, primary: true },
-      { name: "courier", label: "Courier", type: "text" },
-      { name: "tracking_no", label: "Tracking no.", type: "text" },
-      { name: "url", label: "Tracking URL", type: "url" },
-    ],
-  },
   "tickets": {
     kind: "ticket",
     mode: "list",
