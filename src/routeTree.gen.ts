@@ -49,7 +49,6 @@ import { Route as Mahbub214ZoomSettingsRouteImport } from './routes/Mahbub214.zo
 import { Route as Mahbub214WalletRouteImport } from './routes/Mahbub214.wallet'
 import { Route as Mahbub214UsersRouteImport } from './routes/Mahbub214.users'
 import { Route as Mahbub214TrackingPixelsRouteImport } from './routes/Mahbub214.tracking-pixels'
-import { Route as Mahbub214TrackingRouteImport } from './routes/Mahbub214.tracking'
 import { Route as Mahbub214TicketsRouteImport } from './routes/Mahbub214.tickets'
 import { Route as Mahbub214ThemesRouteImport } from './routes/Mahbub214.themes'
 import { Route as Mahbub214TelegramRouteImport } from './routes/Mahbub214.telegram'
@@ -303,11 +302,6 @@ const Mahbub214UsersRoute = Mahbub214UsersRouteImport.update({
 const Mahbub214TrackingPixelsRoute = Mahbub214TrackingPixelsRouteImport.update({
   id: '/tracking-pixels',
   path: '/tracking-pixels',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214TrackingRoute = Mahbub214TrackingRouteImport.update({
-  id: '/tracking',
-  path: '/tracking',
   getParentRoute: () => Mahbub214Route,
 } as any)
 const Mahbub214TicketsRoute = Mahbub214TicketsRouteImport.update({
@@ -659,7 +653,6 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/telegram': typeof Mahbub214TelegramRoute
   '/Mahbub214/themes': typeof Mahbub214ThemesRoute
   '/Mahbub214/tickets': typeof Mahbub214TicketsRoute
-  '/Mahbub214/tracking': typeof Mahbub214TrackingRoute
   '/Mahbub214/tracking-pixels': typeof Mahbub214TrackingPixelsRoute
   '/Mahbub214/users': typeof Mahbub214UsersRoute
   '/Mahbub214/wallet': typeof Mahbub214WalletRoute
@@ -754,7 +747,6 @@ export interface FileRoutesByTo {
   '/Mahbub214/telegram': typeof Mahbub214TelegramRoute
   '/Mahbub214/themes': typeof Mahbub214ThemesRoute
   '/Mahbub214/tickets': typeof Mahbub214TicketsRoute
-  '/Mahbub214/tracking': typeof Mahbub214TrackingRoute
   '/Mahbub214/tracking-pixels': typeof Mahbub214TrackingPixelsRoute
   '/Mahbub214/users': typeof Mahbub214UsersRoute
   '/Mahbub214/wallet': typeof Mahbub214WalletRoute
@@ -851,7 +843,6 @@ export interface FileRoutesById {
   '/Mahbub214/telegram': typeof Mahbub214TelegramRoute
   '/Mahbub214/themes': typeof Mahbub214ThemesRoute
   '/Mahbub214/tickets': typeof Mahbub214TicketsRoute
-  '/Mahbub214/tracking': typeof Mahbub214TrackingRoute
   '/Mahbub214/tracking-pixels': typeof Mahbub214TrackingPixelsRoute
   '/Mahbub214/users': typeof Mahbub214UsersRoute
   '/Mahbub214/wallet': typeof Mahbub214WalletRoute
@@ -949,7 +940,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/telegram'
     | '/Mahbub214/themes'
     | '/Mahbub214/tickets'
-    | '/Mahbub214/tracking'
     | '/Mahbub214/tracking-pixels'
     | '/Mahbub214/users'
     | '/Mahbub214/wallet'
@@ -1044,7 +1034,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/telegram'
     | '/Mahbub214/themes'
     | '/Mahbub214/tickets'
-    | '/Mahbub214/tracking'
     | '/Mahbub214/tracking-pixels'
     | '/Mahbub214/users'
     | '/Mahbub214/wallet'
@@ -1140,7 +1129,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/telegram'
     | '/Mahbub214/themes'
     | '/Mahbub214/tickets'
-    | '/Mahbub214/tracking'
     | '/Mahbub214/tracking-pixels'
     | '/Mahbub214/users'
     | '/Mahbub214/wallet'
@@ -1494,13 +1482,6 @@ declare module '@tanstack/react-router' {
       path: '/tracking-pixels'
       fullPath: '/Mahbub214/tracking-pixels'
       preLoaderRoute: typeof Mahbub214TrackingPixelsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/tracking': {
-      id: '/Mahbub214/tracking'
-      path: '/tracking'
-      fullPath: '/Mahbub214/tracking'
-      preLoaderRoute: typeof Mahbub214TrackingRouteImport
       parentRoute: typeof Mahbub214Route
     }
     '/Mahbub214/tickets': {
@@ -1942,7 +1923,6 @@ interface Mahbub214RouteChildren {
   Mahbub214TelegramRoute: typeof Mahbub214TelegramRoute
   Mahbub214ThemesRoute: typeof Mahbub214ThemesRoute
   Mahbub214TicketsRoute: typeof Mahbub214TicketsRoute
-  Mahbub214TrackingRoute: typeof Mahbub214TrackingRoute
   Mahbub214TrackingPixelsRoute: typeof Mahbub214TrackingPixelsRoute
   Mahbub214UsersRoute: typeof Mahbub214UsersRoute
   Mahbub214WalletRoute: typeof Mahbub214WalletRoute
@@ -1991,7 +1971,6 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214TelegramRoute: Mahbub214TelegramRoute,
   Mahbub214ThemesRoute: Mahbub214ThemesRoute,
   Mahbub214TicketsRoute: Mahbub214TicketsRoute,
-  Mahbub214TrackingRoute: Mahbub214TrackingRoute,
   Mahbub214TrackingPixelsRoute: Mahbub214TrackingPixelsRoute,
   Mahbub214UsersRoute: Mahbub214UsersRoute,
   Mahbub214WalletRoute: Mahbub214WalletRoute,
