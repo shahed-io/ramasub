@@ -162,6 +162,14 @@ function ProductPage() {
   const navigate = useNavigate();
   const { add } = useCart();
   useShopConfig();
+  const rawMeta = (loaderProduct?.meta ?? product?.meta) as { account_type?: string; account_types?: string[]; custom_account_type_label?: string } | undefined;
+  const enabledAccountTypes: string[] = (() => {
+    const arr = Array.isArray(rawMeta?.account_types) ? rawMeta!.account_types!.filter(Boolean) : [];
+    if (arr.length) return arr;
+    const single = rawMeta?.account_type;
+    return single && single !== "none" ? [single] : [];
+  })();
+  const [selectedType, setSelectedType] = useState<string | null>(enabledAccountTypes[0] ?? null);
   const popularIdx = (loaderProduct?.plans ?? product?.plans ?? []).findIndex((p: { popular?: boolean }) => p.popular);
   const [selected, setSelected] = useState(() => (popularIdx > 0 ? popularIdx : 0));
   const [qty, setQty] = useState(1);
