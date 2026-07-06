@@ -101,6 +101,7 @@ import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/l
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as ApiPublicSslcommerzCallbackRouteImport } from './routes/api/public/sslcommerz/callback'
 import { Route as ApiPublicEpsCallbackRouteImport } from './routes/api/public/eps/callback'
 import { Route as ApiPublicBkashCallbackRouteImport } from './routes/api/public/bkash/callback'
 
@@ -576,6 +577,12 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   path: '/lovable/email/auth/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicSslcommerzCallbackRoute =
+  ApiPublicSslcommerzCallbackRouteImport.update({
+    id: '/api/public/sslcommerz/callback',
+    path: '/api/public/sslcommerz/callback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicEpsCallbackRoute = ApiPublicEpsCallbackRouteImport.update({
   id: '/api/public/eps/callback',
   path: '/api/public/eps/callback',
@@ -677,6 +684,7 @@ export interface FileRoutesByFullPath {
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
+  '/api/public/sslcommerz/callback': typeof ApiPublicSslcommerzCallbackRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -772,6 +780,7 @@ export interface FileRoutesByTo {
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
+  '/api/public/sslcommerz/callback': typeof ApiPublicSslcommerzCallbackRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -869,6 +878,7 @@ export interface FileRoutesById {
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
+  '/api/public/sslcommerz/callback': typeof ApiPublicSslcommerzCallbackRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -967,6 +977,7 @@ export interface FileRouteTypes {
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
     | '/api/public/eps/callback'
+    | '/api/public/sslcommerz/callback'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -1062,6 +1073,7 @@ export interface FileRouteTypes {
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
     | '/api/public/eps/callback'
+    | '/api/public/sslcommerz/callback'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -1158,6 +1170,7 @@ export interface FileRouteTypes {
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
     | '/api/public/eps/callback'
+    | '/api/public/sslcommerz/callback'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -1205,6 +1218,7 @@ export interface RootRouteChildren {
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicBkashCallbackRoute: typeof ApiPublicBkashCallbackRoute
   ApiPublicEpsCallbackRoute: typeof ApiPublicEpsCallbackRoute
+  ApiPublicSslcommerzCallbackRoute: typeof ApiPublicSslcommerzCallbackRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
@@ -1858,6 +1872,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/sslcommerz/callback': {
+      id: '/api/public/sslcommerz/callback'
+      path: '/api/public/sslcommerz/callback'
+      fullPath: '/api/public/sslcommerz/callback'
+      preLoaderRoute: typeof ApiPublicSslcommerzCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/eps/callback': {
       id: '/api/public/eps/callback'
       path: '/api/public/eps/callback'
@@ -2054,6 +2075,7 @@ const rootRouteChildren: RootRouteChildren = {
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicBkashCallbackRoute: ApiPublicBkashCallbackRoute,
   ApiPublicEpsCallbackRoute: ApiPublicEpsCallbackRoute,
+  ApiPublicSslcommerzCallbackRoute: ApiPublicSslcommerzCallbackRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
