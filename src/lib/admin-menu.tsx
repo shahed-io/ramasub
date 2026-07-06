@@ -82,7 +82,7 @@ export const ADMIN_MENU: AdminMenuGroup[] = [
       { to: "/Mahbub214/categories", label: "Categories", labelBn: "ক্যাটাগরি", icon: ic(FolderTree), grad: "from-slate-600 to-indigo-700" },
       { to: "/Mahbub214/inventory", label: "Inventory", labelBn: "ইনভেন্টরি", icon: ic(Boxes), grad: "from-amber-500 to-orange-500" },
       { to: "/Mahbub214/media-gallery", label: "Media Gallery", labelBn: "মিডিয়া গ্যালারি", icon: ic(Images), grad: "from-blue-500 to-indigo-600" },
-      { to: "/Mahbub214/description-template", label: "Description Template", labelBn: "ডেসক্রিপশন টেমপ্লেট", icon: ic(FileEdit), grad: "from-violet-500 to-fuchsia-500" },
+      
       { to: "/Mahbub214/description-preview", label: "Description Preview", labelBn: "ডেসক্রিপশন প্রিভিউ", icon: ic(FileEdit), grad: "from-fuchsia-500 to-pink-500" },
     ],
   },
