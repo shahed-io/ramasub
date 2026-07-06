@@ -87,6 +87,7 @@ import { Route as Mahbub214CustomerLicensesRouteImport } from './routes/Mahbub21
 import { Route as Mahbub214CouponsRouteImport } from './routes/Mahbub214.coupons'
 import { Route as Mahbub214BulkUpdateRouteImport } from './routes/Mahbub214.bulk-update'
 import { Route as Mahbub214BkashTransactionsRouteImport } from './routes/Mahbub214.bkash-transactions'
+import { Route as Mahbub214BkashPgwRouteImport } from './routes/Mahbub214.bkash-pgw'
 import { Route as Mahbub214BackupRouteImport } from './routes/Mahbub214.backup'
 import { Route as Mahbub214AffiliatesRouteImport } from './routes/Mahbub214.affiliates'
 import { Route as Mahbub214AbandonedCheckoutRouteImport } from './routes/Mahbub214.abandoned-checkout'
@@ -101,6 +102,7 @@ import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/l
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as ApiPublicBkashCallbackRouteImport } from './routes/api/public/bkash/callback'
 
 const WalletRoute = WalletRouteImport.update({
   id: '/wallet',
@@ -500,6 +502,11 @@ const Mahbub214BkashTransactionsRoute =
     path: '/bkash-transactions',
     getParentRoute: () => Mahbub214Route,
   } as any)
+const Mahbub214BkashPgwRoute = Mahbub214BkashPgwRouteImport.update({
+  id: '/bkash-pgw',
+  path: '/bkash-pgw',
+  getParentRoute: () => Mahbub214Route,
+} as any)
 const Mahbub214BackupRoute = Mahbub214BackupRouteImport.update({
   id: '/backup',
   path: '/backup',
@@ -574,6 +581,11 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   path: '/lovable/email/auth/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicBkashCallbackRoute = ApiPublicBkashCallbackRouteImport.update({
+  id: '/api/public/bkash/callback',
+  path: '/api/public/bkash/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -610,6 +622,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
   '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
   '/Mahbub214/backup': typeof Mahbub214BackupRoute
+  '/Mahbub214/bkash-pgw': typeof Mahbub214BkashPgwRoute
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
   '/Mahbub214/coupons': typeof Mahbub214CouponsRoute
@@ -663,6 +676,7 @@ export interface FileRoutesByFullPath {
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -703,6 +717,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
   '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
   '/Mahbub214/backup': typeof Mahbub214BackupRoute
+  '/Mahbub214/bkash-pgw': typeof Mahbub214BkashPgwRoute
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
   '/Mahbub214/coupons': typeof Mahbub214CouponsRoute
@@ -756,6 +771,7 @@ export interface FileRoutesByTo {
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -798,6 +814,7 @@ export interface FileRoutesById {
   '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
   '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
   '/Mahbub214/backup': typeof Mahbub214BackupRoute
+  '/Mahbub214/bkash-pgw': typeof Mahbub214BkashPgwRoute
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
   '/Mahbub214/coupons': typeof Mahbub214CouponsRoute
@@ -851,6 +868,7 @@ export interface FileRoutesById {
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -894,6 +912,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/abandoned-checkout'
     | '/Mahbub214/affiliates'
     | '/Mahbub214/backup'
+    | '/Mahbub214/bkash-pgw'
     | '/Mahbub214/bkash-transactions'
     | '/Mahbub214/bulk-update'
     | '/Mahbub214/coupons'
@@ -947,6 +966,7 @@ export interface FileRouteTypes {
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
+    | '/api/public/bkash/callback'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -987,6 +1007,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/abandoned-checkout'
     | '/Mahbub214/affiliates'
     | '/Mahbub214/backup'
+    | '/Mahbub214/bkash-pgw'
     | '/Mahbub214/bkash-transactions'
     | '/Mahbub214/bulk-update'
     | '/Mahbub214/coupons'
@@ -1040,6 +1061,7 @@ export interface FileRouteTypes {
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
+    | '/api/public/bkash/callback'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -1081,6 +1103,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/abandoned-checkout'
     | '/Mahbub214/affiliates'
     | '/Mahbub214/backup'
+    | '/Mahbub214/bkash-pgw'
     | '/Mahbub214/bkash-transactions'
     | '/Mahbub214/bulk-update'
     | '/Mahbub214/coupons'
@@ -1134,6 +1157,7 @@ export interface FileRouteTypes {
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
+    | '/api/public/bkash/callback'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -1179,6 +1203,7 @@ export interface RootRouteChildren {
   ApiPublicClientErrorsRoute: typeof ApiPublicClientErrorsRoute
   ApiPublicProductsRoute: typeof ApiPublicProductsRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
+  ApiPublicBkashCallbackRoute: typeof ApiPublicBkashCallbackRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
@@ -1734,6 +1759,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214BkashTransactionsRouteImport
       parentRoute: typeof Mahbub214Route
     }
+    '/Mahbub214/bkash-pgw': {
+      id: '/Mahbub214/bkash-pgw'
+      path: '/bkash-pgw'
+      fullPath: '/Mahbub214/bkash-pgw'
+      preLoaderRoute: typeof Mahbub214BkashPgwRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
     '/Mahbub214/backup': {
       id: '/Mahbub214/backup'
       path: '/backup'
@@ -1832,6 +1864,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/bkash/callback': {
+      id: '/api/public/bkash/callback'
+      path: '/api/public/bkash/callback'
+      fullPath: '/api/public/bkash/callback'
+      preLoaderRoute: typeof ApiPublicBkashCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -1864,6 +1903,7 @@ interface Mahbub214RouteChildren {
   Mahbub214AbandonedCheckoutRoute: typeof Mahbub214AbandonedCheckoutRoute
   Mahbub214AffiliatesRoute: typeof Mahbub214AffiliatesRoute
   Mahbub214BackupRoute: typeof Mahbub214BackupRoute
+  Mahbub214BkashPgwRoute: typeof Mahbub214BkashPgwRoute
   Mahbub214BkashTransactionsRoute: typeof Mahbub214BkashTransactionsRoute
   Mahbub214BulkUpdateRoute: typeof Mahbub214BulkUpdateRoute
   Mahbub214CouponsRoute: typeof Mahbub214CouponsRoute
@@ -1914,6 +1954,7 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214AbandonedCheckoutRoute: Mahbub214AbandonedCheckoutRoute,
   Mahbub214AffiliatesRoute: Mahbub214AffiliatesRoute,
   Mahbub214BackupRoute: Mahbub214BackupRoute,
+  Mahbub214BkashPgwRoute: Mahbub214BkashPgwRoute,
   Mahbub214BkashTransactionsRoute: Mahbub214BkashTransactionsRoute,
   Mahbub214BulkUpdateRoute: Mahbub214BulkUpdateRoute,
   Mahbub214CouponsRoute: Mahbub214CouponsRoute,
@@ -2012,6 +2053,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicClientErrorsRoute: ApiPublicClientErrorsRoute,
   ApiPublicProductsRoute: ApiPublicProductsRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
+  ApiPublicBkashCallbackRoute: ApiPublicBkashCallbackRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
