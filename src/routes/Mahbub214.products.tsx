@@ -17,11 +17,11 @@ export const Route = createFileRoute("/Mahbub214/products")({
  component: AdminProducts,
 });
 
-type Plan = { label: string; price: number; original_price?: number; duration?: string; note?: string };
+type Plan = { label: string; price: number; original_price?: number; duration?: string; note?: string; account_type?: AccountType };
 type StockStatus = "in_stock" | "out_of_stock" | "preorder";
 
 type ProductType = "digital" | "license" | "account" | "subscription" | "service" | "physical";
-type AccountType = "none" | "personal" | "shared" | "family" | "student" | "business";
+type AccountType = "none" | "personal" | "shared" | "family" | "student" | "business" | "custom";
 type DeliveryType = "instant" | "manual" | "24h";
 type AiCardStyle = "premium-pastel" | "premium-dark" | "glassmorphism" | "soft-aurora" | "dark-neon";
 type CustomField = { label: string; type: "text" | "email" | "password" | "number"; required: boolean };
@@ -30,6 +30,8 @@ type FaqItem = { q: string; a: string };
 type ProductMeta = {
  product_type?: ProductType;
  account_type?: AccountType;
+ account_types?: AccountType[];
+ custom_account_type_label?: string;
  brand?: string;
  subcategory?: string;
  additional_categories?: string[];
@@ -694,12 +696,12 @@ const PRODUCT_TYPES: { id: ProductType; label: string; icon: string }[] = [
 ];
 
 const ACCOUNT_TYPES: { id: AccountType; label: string; icon: string }[] = [
- { id: "none", label: "— নেই —", icon: "" },
  { id: "personal", label: "Personal", icon: "👤" },
  { id: "shared", label: "Shared", icon: "👥" },
  { id: "family", label: "Family", icon: "👪" },
  { id: "student", label: "Student", icon: "🎓" },
  { id: "business", label: "Business", icon: "🛍️" },
+ { id: "custom", label: "Custom", icon: "✨" },
 ];
 
 const DURATION_CHIPS = [
@@ -985,16 +987,40 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  <p className="text-[11px] text-slate-500 mt-1">প্রোডাক্ট টাইটেলের নিচে এই ছোট টেক্সটটি দেখাবে</p>
  </div>
 
- {/* Account type */}
+ {/* Account type — multi-select */}
  <div>
- <Label>👤 অ্যাকাউন্ট টাইপ <span className="text-slate-500 font-normal">(প্রযোজ্য হলে)</span></Label>
- <div className="flex flex-wrap gap-2">
- {ACCOUNT_TYPES.map((t) => (
- <ChipBig key={t.id} active={(meta.account_type ?? "none") === t.id} onClick={() => setMeta("account_type", t.id)}>
- {t.icon && <span>{t.icon}</span>} {t.label}
- </ChipBig>
- ))}
- </div>
+ <Label>👤 অ্যাকাউন্ট টাইপ <span className="text-slate-500 font-normal">(একাধিক select করতে পারবেন — customer বেছে নেবে)</span></Label>
+ {(() => {
+  const selected: AccountType[] = (meta.account_types && meta.account_types.length)
+   ? meta.account_types
+   : (meta.account_type && meta.account_type !== "none" ? [meta.account_type] : []);
+  const toggle = (id: AccountType) => {
+   const has = selected.includes(id);
+   const next = has ? selected.filter((x) => x !== id) : [...selected, id];
+   setMeta("account_types", next);
+   setMeta("account_type", next[0] ?? "none");
+  };
+  return (
+   <>
+    <div className="flex flex-wrap gap-2">
+     {ACCOUNT_TYPES.map((t) => (
+      <ChipBig key={t.id} active={selected.includes(t.id)} onClick={() => toggle(t.id)}>
+       {t.icon && <span>{t.icon}</span>} {t.label}
+      </ChipBig>
+     ))}
+    </div>
+    {selected.includes("custom") && (
+     <input
+      value={meta.custom_account_type_label ?? ""}
+      onChange={(e) => setMeta("custom_account_type_label", e.target.value)}
+      placeholder="Custom টাইপের নাম লিখুন (e.g. Premium, Gift, ...)"
+      className="mt-2 w-full h-10 px-3 rounded-xl border border-violet-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200"
+     />
+    )}
+    <p className="text-[11px] text-slate-500 mt-1.5">Inventory-এর প্রতিটি Package-এ কোন account type-এর জন্য সেটা set করবেন — customer সেই অনুযায়ী দাম দেখবে।</p>
+   </>
+  );
+ })()}
  </div>
 
  {/* Slug + Brand */}
@@ -1247,6 +1273,36 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  <button onClick={() => removePlan(i)} className="w-7 h-7 grid place-items-center rounded-lg text-slate-500 hover:text-slate-500 hover:bg-slate-50"><X className="w-4 h-4" /></button>
  )}
  </div>
+ {(() => {
+  const selectedTypes: AccountType[] = (meta.account_types && meta.account_types.length)
+   ? meta.account_types
+   : (meta.account_type && meta.account_type !== "none" ? [meta.account_type] : []);
+  if (selectedTypes.length < 1) return null;
+  return (
+   <>
+    <div className="text-xs font-semibold text-slate-600 mb-1.5">Account Type <span className="text-slate-400 font-normal">(এই package কোন type-এর জন্য)</span></div>
+    <div className="flex flex-wrap gap-1.5 mb-3">
+     {selectedTypes.map((id) => {
+      const info = ACCOUNT_TYPES.find((a) => a.id === id);
+      if (!info) return null;
+      const label = id === "custom" && meta.custom_account_type_label ? meta.custom_account_type_label : info.label;
+      const active = (p.account_type ?? selectedTypes[0]) === id;
+      return (
+       <button
+        key={id}
+        onClick={() => setPlan(i, { account_type: id })}
+        className={`px-3 h-7 rounded-full text-xs font-semibold border transition ${
+         active
+          ? "bg-indigo-600 text-white border-indigo-600"
+          : "bg-white text-slate-600 border-slate-200 hover:border-slate-300"
+        }`}
+       >{info.icon} {label}</button>
+      );
+     })}
+    </div>
+   </>
+  );
+ })()}
  <div className="text-xs font-semibold text-slate-600 mb-1.5">Duration</div>
  <div className="flex flex-wrap gap-1.5 mb-3">
  {DURATION_CHIPS.map((d) => {

@@ -1,4 +1,4 @@
-export type Plan = { period: string; price: string; original?: string; popular?: boolean };
+export type Plan = { period: string; price: string; original?: string; popular?: boolean; account_type?: string };
 
 export type ProductMeta = {
   seo_title?: string;
@@ -6,6 +6,9 @@ export type ProductMeta = {
   tags?: string[];
   gallery?: string[];
   video_url?: string;
+  account_type?: string;
+  account_types?: string[];
+  custom_account_type_label?: string;
 };
 
 export type Product = {
