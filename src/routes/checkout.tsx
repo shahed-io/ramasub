@@ -716,7 +716,7 @@ function CheckoutPage() {
         )}
 
         {/* Brand instruction card */}
-        {!fullyByWallet && (
+        {!fullyByWallet && !isEpsMethod && (
           <div className="mx-5 mt-5 rounded-3xl border border-border bg-muted p-5 space-y-4">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-2.5 min-w-0">
