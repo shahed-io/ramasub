@@ -101,6 +101,7 @@ import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/l
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as ApiPublicBkashCallbackRouteImport } from './routes/api/public/bkash/callback'
 
 const WalletRoute = WalletRouteImport.update({
   id: '/wallet',
@@ -574,6 +575,11 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   path: '/lovable/email/auth/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicBkashCallbackRoute = ApiPublicBkashCallbackRouteImport.update({
+  id: '/api/public/bkash/callback',
+  path: '/api/public/bkash/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -663,6 +669,7 @@ export interface FileRoutesByFullPath {
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -756,6 +763,7 @@ export interface FileRoutesByTo {
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -851,6 +859,7 @@ export interface FileRoutesById {
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -947,6 +956,7 @@ export interface FileRouteTypes {
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
+    | '/api/public/bkash/callback'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -1040,6 +1050,7 @@ export interface FileRouteTypes {
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
+    | '/api/public/bkash/callback'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -1134,6 +1145,7 @@ export interface FileRouteTypes {
     | '/api/public/client-errors'
     | '/api/public/products'
     | '/lovable/email/suppression'
+    | '/api/public/bkash/callback'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -1179,6 +1191,7 @@ export interface RootRouteChildren {
   ApiPublicClientErrorsRoute: typeof ApiPublicClientErrorsRoute
   ApiPublicProductsRoute: typeof ApiPublicProductsRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
+  ApiPublicBkashCallbackRoute: typeof ApiPublicBkashCallbackRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
@@ -1832,6 +1845,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/bkash/callback': {
+      id: '/api/public/bkash/callback'
+      path: '/api/public/bkash/callback'
+      fullPath: '/api/public/bkash/callback'
+      preLoaderRoute: typeof ApiPublicBkashCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -2012,6 +2032,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicClientErrorsRoute: ApiPublicClientErrorsRoute,
   ApiPublicProductsRoute: ApiPublicProductsRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
+  ApiPublicBkashCallbackRoute: ApiPublicBkashCallbackRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
