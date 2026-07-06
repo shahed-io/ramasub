@@ -56,22 +56,49 @@ async function handle(request: Request) {
     );
   }
 
-  try {
-    let verifiedOk = status === "success" || status === "completed" || status === "valid";
-    let trxId = transactionId;
+  // Security: never trust client-supplied `status`. A successful verification
+  // REQUIRES a real transaction id that we can validate with EPS.
+  if (!transactionId) {
+    await supabaseAdmin
+      .from("orders")
+      .update({ payment_status: "failed" })
+      .eq("id", orderId);
+    return Response.redirect(`${origin}/orders/${orderId}?eps=failed`, 302);
+  }
 
-    if (transactionId) {
-      const { epsVerifyPayment } = await import("@/lib/eps.server");
-      const v = await epsVerifyPayment(transactionId);
-      const vStatus = String(
-        v?.status || v?.payment_status || v?.data?.status || "",
-      ).toLowerCase();
-      verifiedOk =
-        vStatus === "success" ||
-        vStatus === "completed" ||
-        vStatus === "valid" ||
-        v?.verified === true;
-      trxId = v?.transaction_id || v?.data?.transaction_id || transactionId;
+  try {
+    const { epsVerifyPayment } = await import("@/lib/eps.server");
+    const v = await epsVerifyPayment(transactionId);
+    const vStatus = String(
+      v?.status || v?.payment_status || v?.data?.status || "",
+    ).toLowerCase();
+    let verifiedOk =
+      vStatus === "success" ||
+      vStatus === "completed" ||
+      vStatus === "valid" ||
+      v?.verified === true;
+    const trxId = v?.transaction_id || v?.data?.transaction_id || transactionId;
+
+    // Amount check: gateway-reported paid amount must match order total.
+    if (verifiedOk) {
+      const paidAmount = Number(
+        v?.amount ?? v?.paid_amount ?? v?.data?.amount ?? v?.data?.paid_amount ?? NaN,
+      );
+      const { data: order } = await supabaseAdmin
+        .from("orders")
+        .select("total")
+        .eq("id", orderId)
+        .maybeSingle();
+      const total = Number(order?.total ?? NaN);
+      if (Number.isFinite(paidAmount) && Number.isFinite(total)) {
+        if (Math.abs(paidAmount - total) > 0.5) verifiedOk = false;
+      }
+      // Invoice binding: reject if response's invoice/orderId doesn't match this order
+      const invoice = String(
+        v?.invoice || v?.merchant_invoice || v?.data?.invoice || "",
+      ).toUpperCase();
+      const expected = orderId.slice(0, 8).toUpperCase();
+      if (invoice && invoice !== expected) verifiedOk = false;
     }
 
     await supabaseAdmin
