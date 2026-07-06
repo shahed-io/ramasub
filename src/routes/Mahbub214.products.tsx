@@ -987,16 +987,40 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  <p className="text-[11px] text-slate-500 mt-1">প্রোডাক্ট টাইটেলের নিচে এই ছোট টেক্সটটি দেখাবে</p>
  </div>
 
- {/* Account type */}
+ {/* Account type — multi-select */}
  <div>
- <Label>👤 অ্যাকাউন্ট টাইপ <span className="text-slate-500 font-normal">(প্রযোজ্য হলে)</span></Label>
- <div className="flex flex-wrap gap-2">
- {ACCOUNT_TYPES.map((t) => (
- <ChipBig key={t.id} active={(meta.account_type ?? "none") === t.id} onClick={() => setMeta("account_type", t.id)}>
- {t.icon && <span>{t.icon}</span>} {t.label}
- </ChipBig>
- ))}
- </div>
+ <Label>👤 অ্যাকাউন্ট টাইপ <span className="text-slate-500 font-normal">(একাধিক select করতে পারবেন — customer বেছে নেবে)</span></Label>
+ {(() => {
+  const selected: AccountType[] = (meta.account_types && meta.account_types.length)
+   ? meta.account_types
+   : (meta.account_type && meta.account_type !== "none" ? [meta.account_type] : []);
+  const toggle = (id: AccountType) => {
+   const has = selected.includes(id);
+   const next = has ? selected.filter((x) => x !== id) : [...selected, id];
+   setMeta("account_types", next);
+   setMeta("account_type", next[0] ?? "none");
+  };
+  return (
+   <>
+    <div className="flex flex-wrap gap-2">
+     {ACCOUNT_TYPES.map((t) => (
+      <ChipBig key={t.id} active={selected.includes(t.id)} onClick={() => toggle(t.id)}>
+       {t.icon && <span>{t.icon}</span>} {t.label}
+      </ChipBig>
+     ))}
+    </div>
+    {selected.includes("custom") && (
+     <input
+      value={meta.custom_account_type_label ?? ""}
+      onChange={(e) => setMeta("custom_account_type_label", e.target.value)}
+      placeholder="Custom টাইপের নাম লিখুন (e.g. Premium, Gift, ...)"
+      className="mt-2 w-full h-10 px-3 rounded-xl border border-violet-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200"
+     />
+    )}
+    <p className="text-[11px] text-slate-500 mt-1.5">Inventory-এর প্রতিটি Package-এ কোন account type-এর জন্য সেটা set করবেন — customer সেই অনুযায়ী দাম দেখবে।</p>
+   </>
+  );
+ })()}
  </div>
 
  {/* Slug + Brand */}
