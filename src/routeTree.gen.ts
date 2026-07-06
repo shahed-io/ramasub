@@ -70,7 +70,6 @@ import { Route as Mahbub214PaymentLinksRouteImport } from './routes/Mahbub214.pa
 import { Route as Mahbub214PagesRouteImport } from './routes/Mahbub214.pages'
 import { Route as Mahbub214OtherPixelsRouteImport } from './routes/Mahbub214.other-pixels'
 import { Route as Mahbub214OrdersRouteImport } from './routes/Mahbub214.orders'
-import { Route as Mahbub214OrderRecoveryRouteImport } from './routes/Mahbub214.order-recovery'
 import { Route as Mahbub214OffersRouteImport } from './routes/Mahbub214.offers'
 import { Route as Mahbub214NewsletterRouteImport } from './routes/Mahbub214.newsletter'
 import { Route as Mahbub214LiveChatRouteImport } from './routes/Mahbub214.live-chat'
@@ -413,11 +412,6 @@ const Mahbub214OrdersRoute = Mahbub214OrdersRouteImport.update({
   path: '/orders',
   getParentRoute: () => Mahbub214Route,
 } as any)
-const Mahbub214OrderRecoveryRoute = Mahbub214OrderRecoveryRouteImport.update({
-  id: '/order-recovery',
-  path: '/order-recovery',
-  getParentRoute: () => Mahbub214Route,
-} as any)
 const Mahbub214OffersRoute = Mahbub214OffersRouteImport.update({
   id: '/offers',
   path: '/offers',
@@ -645,7 +639,6 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/live-chat': typeof Mahbub214LiveChatRoute
   '/Mahbub214/newsletter': typeof Mahbub214NewsletterRoute
   '/Mahbub214/offers': typeof Mahbub214OffersRouteWithChildren
-  '/Mahbub214/order-recovery': typeof Mahbub214OrderRecoveryRoute
   '/Mahbub214/orders': typeof Mahbub214OrdersRoute
   '/Mahbub214/other-pixels': typeof Mahbub214OtherPixelsRoute
   '/Mahbub214/pages': typeof Mahbub214PagesRouteWithChildren
@@ -741,7 +734,6 @@ export interface FileRoutesByTo {
   '/Mahbub214/live-chat': typeof Mahbub214LiveChatRoute
   '/Mahbub214/newsletter': typeof Mahbub214NewsletterRoute
   '/Mahbub214/offers': typeof Mahbub214OffersRouteWithChildren
-  '/Mahbub214/order-recovery': typeof Mahbub214OrderRecoveryRoute
   '/Mahbub214/orders': typeof Mahbub214OrdersRoute
   '/Mahbub214/other-pixels': typeof Mahbub214OtherPixelsRoute
   '/Mahbub214/pages': typeof Mahbub214PagesRouteWithChildren
@@ -839,7 +831,6 @@ export interface FileRoutesById {
   '/Mahbub214/live-chat': typeof Mahbub214LiveChatRoute
   '/Mahbub214/newsletter': typeof Mahbub214NewsletterRoute
   '/Mahbub214/offers': typeof Mahbub214OffersRouteWithChildren
-  '/Mahbub214/order-recovery': typeof Mahbub214OrderRecoveryRoute
   '/Mahbub214/orders': typeof Mahbub214OrdersRoute
   '/Mahbub214/other-pixels': typeof Mahbub214OtherPixelsRoute
   '/Mahbub214/pages': typeof Mahbub214PagesRouteWithChildren
@@ -938,7 +929,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/live-chat'
     | '/Mahbub214/newsletter'
     | '/Mahbub214/offers'
-    | '/Mahbub214/order-recovery'
     | '/Mahbub214/orders'
     | '/Mahbub214/other-pixels'
     | '/Mahbub214/pages'
@@ -1034,7 +1024,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/live-chat'
     | '/Mahbub214/newsletter'
     | '/Mahbub214/offers'
-    | '/Mahbub214/order-recovery'
     | '/Mahbub214/orders'
     | '/Mahbub214/other-pixels'
     | '/Mahbub214/pages'
@@ -1131,7 +1120,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/live-chat'
     | '/Mahbub214/newsletter'
     | '/Mahbub214/offers'
-    | '/Mahbub214/order-recovery'
     | '/Mahbub214/orders'
     | '/Mahbub214/other-pixels'
     | '/Mahbub214/pages'
@@ -1655,13 +1643,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214OrdersRouteImport
       parentRoute: typeof Mahbub214Route
     }
-    '/Mahbub214/order-recovery': {
-      id: '/Mahbub214/order-recovery'
-      path: '/order-recovery'
-      fullPath: '/Mahbub214/order-recovery'
-      preLoaderRoute: typeof Mahbub214OrderRecoveryRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
     '/Mahbub214/offers': {
       id: '/Mahbub214/offers'
       path: '/offers'
@@ -1941,7 +1922,6 @@ interface Mahbub214RouteChildren {
   Mahbub214LiveChatRoute: typeof Mahbub214LiveChatRoute
   Mahbub214NewsletterRoute: typeof Mahbub214NewsletterRoute
   Mahbub214OffersRoute: typeof Mahbub214OffersRouteWithChildren
-  Mahbub214OrderRecoveryRoute: typeof Mahbub214OrderRecoveryRoute
   Mahbub214OrdersRoute: typeof Mahbub214OrdersRoute
   Mahbub214OtherPixelsRoute: typeof Mahbub214OtherPixelsRoute
   Mahbub214PagesRoute: typeof Mahbub214PagesRouteWithChildren
@@ -1991,7 +1971,6 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214LiveChatRoute: Mahbub214LiveChatRoute,
   Mahbub214NewsletterRoute: Mahbub214NewsletterRoute,
   Mahbub214OffersRoute: Mahbub214OffersRouteWithChildren,
-  Mahbub214OrderRecoveryRoute: Mahbub214OrderRecoveryRoute,
   Mahbub214OrdersRoute: Mahbub214OrdersRoute,
   Mahbub214OtherPixelsRoute: Mahbub214OtherPixelsRoute,
   Mahbub214PagesRoute: Mahbub214PagesRouteWithChildren,
