@@ -249,7 +249,7 @@ function CheckoutPage() {
       });
     }, 900);
     return () => window.clearTimeout(handle);
-  }, [captureCheckout, form.name, form.phone, form.senderNumber, form.trxId, form.notes, items, method, screenshotUrl, step, total, coupon, user?.id, hasPhone]);
+  }, [captureCheckout, form.name, form.phone, form.senderNumber, form.trxId, form.notes, items, method, screenshotUrl, step, total, coupon, user?.id]);
 
 
   const subAfterCoupon = Math.max(0, total - applied.discount);
