@@ -17,7 +17,7 @@ export const getEpsStatus = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     await assertAdmin(context);
     const { getEpsCreds } = await import("@/lib/eps.server");
-    const c = getEpsCreds();
+    const c = await getEpsCreds();
     return {
       mode: c.mode,
       has: {
