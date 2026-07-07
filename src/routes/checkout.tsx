@@ -118,6 +118,7 @@ function CheckoutPage() {
   const isGatewayMethod = isEpsMethod || isSslczMethod;
   const createEps = useServerFn(createEpsPayment);
   const createSslcz = useServerFn(createSslczPayment);
+  const submitOrder = useServerFn(createOrder);
   const [copied, setCopied] = useState(false);
   const [couponInput, setCouponInput] = useState(coupon || "");
   const [screenshotUrl, setScreenshotUrl] = useState<string>("");
