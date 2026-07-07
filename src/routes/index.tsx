@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useProducts } from "@/hooks/useProducts";
 import { listProducts } from "@/lib/products.functions";
+import { listCategories, type SiteCategory } from "@/lib/categories.functions";
 import { ProductCard } from "@/components/ProductCard";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ProgressiveSection } from "@/components/ProgressiveSection";
@@ -32,12 +33,14 @@ import { fetchHomepageConfig, DEFAULT_CONFIG, type HomepageConfig, type SectionI
 export const Route = createFileRoute("/")({
   component: Index,
   loader: async () => {
-    const [products, homepageConfig] = await Promise.all([
+    const [products, homepageConfig, categories] = await Promise.all([
       listProducts().catch(() => [] as Product[]),
       fetchHomepageConfig().catch(() => DEFAULT_CONFIG),
+      listCategories().catch(() => [] as SiteCategory[]),
     ]);
-    return { products, homepageConfig };
+    return { products, homepageConfig, categories };
   },
+
   head: ({ loaderData }) => {
     const seo = loaderData?.homepageConfig?.seo ?? {};
     const title = seo.title || "Rama Sub — Digital Products & Software";
@@ -134,6 +137,7 @@ function Index() {
   const loaderData = Route.useLoaderData();
   const initialProducts = (loaderData?.products ?? []) as Product[];
   const cfg: HomepageConfig = loaderData?.homepageConfig ?? DEFAULT_CONFIG;
+  const adminCategories = (loaderData?.categories ?? []) as SiteCategory[];
   const { products: liveProducts, isLoading } = useProducts(initialProducts);
   const products: Product[] = liveProducts.length ? liveProducts : initialProducts;
 
@@ -150,25 +154,25 @@ function Index() {
     return [...picked, ...fillers].slice(0, 5);
   }, [products, cfg.featuredProductSlugs]);
 
+  // Rails driven by admin-managed categories (name-matched to product.category).
+  // If admin has categories, use them exclusively; otherwise fall back to product-derived groups.
   const byCategory = useMemo(() => {
-    const preferredOrder = [
-      "OTT & Streaming", "AI & Education", "Microsoft Office", "Editing Tools",
-      "Software & Productivity", "VPN & Security", "Windows", "Subscription",
-    ];
+    const groupProducts = (name: string) =>
+      products.filter((p) => (p.category || "").trim() === name).slice(0, 8);
+    if (adminCategories.length > 0) {
+      return adminCategories
+        .map((c) => ({ category: c.name, items: groupProducts(c.name) }))
+        .filter((g) => g.items.length > 0);
+    }
     const seen = new Set<string>();
     const ordered: string[] = [];
-    for (const c of preferredOrder) if (!seen.has(c)) { seen.add(c); ordered.push(c); }
     for (const p of products) {
       const c = (p.category || "").trim();
       if (c && !seen.has(c)) { seen.add(c); ordered.push(c); }
     }
-    return ordered
-      .map((category) => ({
-        category,
-        items: products.filter((p) => (p.category || "").trim() === category).slice(0, 8),
-      }))
-      .filter((g) => g.items.length > 0);
-  }, [products]);
+    return ordered.map((category) => ({ category, items: groupProducts(category) })).filter((g) => g.items.length > 0);
+  }, [products, adminCategories]);
+
 
   const visible = useMemo(() => {
     const map = new Map<SectionId, boolean>();
@@ -183,16 +187,17 @@ function Index() {
       case "banner":
         return <ProfiledSection key={key} id="ImageBannerCarousel"><ImageBannerCarousel /></ProfiledSection>;
       case "pills":
-        return <ProfiledSection key={key} id="CategoryPillBar"><CategoryPillBar /></ProfiledSection>;
+        return <ProfiledSection key={key} id="CategoryPillBar"><CategoryPillBar categories={adminCategories} /></ProfiledSection>;
       case "featured":
         return <ProfiledSection key={key} id="FeaturedProducts"><FeaturedProducts items={top} allProducts={products} isLoading={isLoading} /></ProfiledSection>;
       case "rails":
         return (
           <div key={key}>
             {isLoading && byCategory.length === 0
-              ? RAIL_PLACEHOLDER_TITLES.map((title) => (
+              ? (adminCategories.length > 0 ? adminCategories.map((c) => c.name) : RAIL_PLACEHOLDER_TITLES).map((title) => (
                   <ProductRail key={title} title={title} items={[]} isLoading />
                 ))
+
               : byCategory.map((section, idx) => (
                   <ProgressiveSection
                     key={section.category}
@@ -232,15 +237,18 @@ const STATIC_PILLS = [
   { id: "top-picks", label: "⭐ Top Picks", to: "/products" as const },
 ];
 
-function CategoryPillBar() {
+function CategoryPillBar({ categories }: { categories: SiteCategory[] }) {
   const { products } = useProducts();
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const [activeId, setActiveId] = useState<string>("home");
   const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(false);
 
-  // Dynamic category pills sourced from live products — auto add/remove.
+  // Pills sourced from admin-managed categories (fallback to product-derived if none).
   const dynamicPills = useMemo(() => {
+    if (categories.length > 0) {
+      return categories.map((c) => ({ id: `cat-${c.slug}`, label: c.name, cat: c.name }));
+    }
     const seen = new Set<string>();
     const out: { id: string; label: string; cat: string }[] = [];
     for (const p of products) {
@@ -251,7 +259,8 @@ function CategoryPillBar() {
     }
     out.sort((a, b) => a.label.localeCompare(b.label));
     return out;
-  }, [products]);
+  }, [categories, products]);
+
 
   const updateArrows = () => {
     const el = scrollerRef.current;
