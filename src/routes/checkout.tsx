@@ -296,9 +296,10 @@ function CheckoutPage() {
       const newId = created.id;
       // Server is the source of truth for pricing now.
       const serverTotal = created.total;
-      if (walletApplied > 0) {
+      const serverWalletApplied = Math.min(walletApplied, serverTotal);
+      if (serverWalletApplied > 0) {
         const { error: wErr } = await supabase.rpc("spend_wallet" as any, {
-          _amount: walletApplied,
+          _amount: serverWalletApplied,
           _ref_order: newId,
           _reason: `Order ANB-${newId.slice(0, 8).toUpperCase()}`,
         });
@@ -316,22 +317,22 @@ function CheckoutPage() {
         templateData: {
           name: form.name?.split(" ")[0],
           orderId: `ANB-${newId.slice(0, 8).toUpperCase()}`,
-          items: items.map((it) => ({ name: it.name || it.slug, qty: it.qty, price: (it.price ?? 0) * it.qty })),
-          subtotal: total,
-          discount: applied.discount || 0,
-          total: subAfterCoupon,
+          items: created.items.map((it) => ({ name: it.name || it.slug, qty: it.qty, price: it.price * it.qty })),
+          subtotal: created.subtotal,
+          discount: created.discount,
+          total: serverTotal,
           paymentMethod: fullyByWallet ? "wallet" : method,
           estimatedDelivery: "১৫–৩০ মিনিট",
         },
       }).catch((err) => console.warn("Order confirmation email failed", err));
       try {
         trackPurchase({
-          value: subAfterCoupon,
+          value: serverTotal,
           currency: "BDT",
           orderId: `ANB-${newId.slice(0, 8).toUpperCase()}`,
-          items: items.map((it) => ({
+          items: created.items.map((it) => ({
             id: it.slug,
-            name: it.name,
+            name: it.name || it.slug,
             price: it.price,
             quantity: it.qty,
           })),
@@ -347,9 +348,9 @@ function CheckoutPage() {
           ["Customer", form.name],
           ["Phone", form.phone],
           ["Email", form.email],
-          ["Items", items.map((it) => `${it.name} × ${it.qty}`).join(", ")],
+          ["Items", created.items.map((it) => `${it.name || it.slug} × ${it.qty}`).join(", ")],
           ["Payment", fullyByWallet ? "Wallet" : method],
-          ["Total", `৳${subAfterCoupon}`],
+          ["Total", `৳${serverTotal}`],
         ],
         url: `https://ramasub.com/orders/${newId}`,
       });
