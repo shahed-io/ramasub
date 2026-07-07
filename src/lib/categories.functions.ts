@@ -44,22 +44,23 @@ export const listCategories = createServerFn({ method: "GET" }).handler(
       .order("sort_order", { ascending: true });
     if (error) throw new Error("Categories could not be loaded");
     const rows = (data ?? []) as Array<{ id: string; data: Record<string, unknown>; sort_order: number | null }>;
-    return rows
-      .map((r) => {
-        const d = r.data ?? {};
-        const name = String((d as { name?: string }).name ?? "").trim();
-        if (!name) return null;
-        const slug = String((d as { slug?: string }).slug ?? "").trim() || slugify(name);
-        return {
-          id: r.id,
-          name,
-          slug,
-          image_url: (d as { image_url?: string }).image_url || undefined,
-          icon: (d as { icon?: string }).icon || undefined,
-          description: (d as { description?: string }).description || undefined,
-          sort_order: r.sort_order ?? 0,
-        } satisfies SiteCategory;
-      })
-      .filter((x): x is SiteCategory => x !== null);
+    const out: SiteCategory[] = [];
+    for (const r of rows) {
+      const d = r.data ?? {};
+      const name = String((d as { name?: string }).name ?? "").trim();
+      if (!name) continue;
+      const slug = String((d as { slug?: string }).slug ?? "").trim() || slugify(name);
+      out.push({
+        id: r.id,
+        name,
+        slug,
+        image_url: (d as { image_url?: string }).image_url || undefined,
+        icon: (d as { icon?: string }).icon || undefined,
+        description: (d as { description?: string }).description || undefined,
+        sort_order: r.sort_order ?? 0,
+      });
+    }
+    return out;
   },
 );
+
