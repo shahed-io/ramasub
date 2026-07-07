@@ -292,21 +292,10 @@ export function CategoryPage({
             </span>
           </div>
 
-          {/* Search */}
-          <div className="mt-7 max-w-2xl rounded-2xl bg-white/10 border border-white/20 backdrop-blur-xl p-1.5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)]">
-            <SearchBar
-              value={q}
-              onChange={updateSearch}
-              onSubmit={updateSearch}
-              placeholder="প্রোডাক্ট সার্চ করুন..."
-              size="lg"
-              className=""
-            />
-          </div>
         </div>
       </section>
 
-      {!q.trim() && <RecentlyViewedSection compact />}
+
 
       <section className="mx-auto max-w-[1440px] px-4 md:px-10 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-6">
