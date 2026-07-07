@@ -185,7 +185,7 @@ function Index() {
       case "pills":
         return <ProfiledSection key={key} id="CategoryPillBar"><CategoryPillBar /></ProfiledSection>;
       case "featured":
-        return <ProfiledSection key={key} id="FeaturedProducts"><FeaturedProducts items={top} isLoading={isLoading} /></ProfiledSection>;
+        return <ProfiledSection key={key} id="FeaturedProducts"><FeaturedProducts items={top} allProducts={products} isLoading={isLoading} /></ProfiledSection>;
       case "rails":
         return (
           <div key={key}>
@@ -369,7 +369,9 @@ function pickTopProducts(products: Product[]) {
     }
     if (picked.length >= 8) break;
   }
-  return picked.length ? picked : products.slice(0, 8);
+  if (picked.length >= 8) return picked;
+  const fillers = products.filter((product) => !picked.some((item) => item.slug === product.slug));
+  return [...picked, ...fillers].slice(0, 8);
 }
 
 const HERO_BRANDS: { name: string; domain: string; color: string; logo?: string }[] = [
@@ -623,16 +625,25 @@ function ProductSkeleton() {
   );
 }
 
-function FeaturedProducts({ items, isLoading }: { items: Product[]; isLoading?: boolean }) {
+function FeaturedProducts({ items, allProducts, isLoading }: { items: Product[]; allProducts: Product[]; isLoading?: boolean }) {
+  const displayItems = useMemo(() => {
+    const list = [...items];
+    for (const product of allProducts) {
+      if (list.length >= 5) break;
+      if (!list.some((item) => item.slug === product.slug)) list.push(product);
+    }
+    return list.slice(0, 5);
+  }, [items, allProducts]);
+
   return (
     <section className="mx-auto max-w-[1440px] px-4 md:px-10 py-12">
       <SectionTitle eyebrow="Popular Picks" title="Today's Bestselling Digital Services" subtitle="The most ordered software and subscriptions, handpicked for you." action="View all digital services" to="/products" />
       <div className="mt-7 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
-        {items.length
-          ? items.slice(0, 5).map((product) => <ProductCard key={product.slug} product={product} />)
+        {displayItems.length
+          ? displayItems.map((product) => <ProductCard key={product.slug} product={product} />)
           : Array.from({ length: 5 }).map((_, i) => <ProductSkeleton key={i} />)}
       </div>
-      {!isLoading && !items.length && (
+      {!isLoading && !displayItems.length && (
         <p className="mt-4 text-center text-sm text-white/70">প্রোডাক্ট লোড হচ্ছে… একটু পরে রিফ্রেশ করুন।</p>
       )}
     </section>
