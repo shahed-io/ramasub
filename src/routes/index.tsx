@@ -237,15 +237,18 @@ const STATIC_PILLS = [
   { id: "top-picks", label: "⭐ Top Picks", to: "/products" as const },
 ];
 
-function CategoryPillBar() {
+function CategoryPillBar({ categories }: { categories: SiteCategory[] }) {
   const { products } = useProducts();
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const [activeId, setActiveId] = useState<string>("home");
   const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(false);
 
-  // Dynamic category pills sourced from live products — auto add/remove.
+  // Pills sourced from admin-managed categories (fallback to product-derived if none).
   const dynamicPills = useMemo(() => {
+    if (categories.length > 0) {
+      return categories.map((c) => ({ id: `cat-${c.slug}`, label: c.name, cat: c.name }));
+    }
     const seen = new Set<string>();
     const out: { id: string; label: string; cat: string }[] = [];
     for (const p of products) {
@@ -256,7 +259,8 @@ function CategoryPillBar() {
     }
     out.sort((a, b) => a.label.localeCompare(b.label));
     return out;
-  }, [products]);
+  }, [categories, products]);
+
 
   const updateArrows = () => {
     const el = scrollerRef.current;
