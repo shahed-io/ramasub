@@ -387,25 +387,50 @@ export function CategoryPage({
 
           {/* Main */}
           <div className="min-w-0">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
-              <div className="text-xs text-foreground/60">
-                {cat ? <span><span className="text-foreground/80 font-semibold">{cat}</span> · </span> : null}
-                <span className="font-semibold text-foreground/80">{items.length}</span> products
+            {/* In-page search + sort toolbar */}
+            <div className="mb-5 flex flex-col md:flex-row md:items-center gap-3">
+              <div className="flex-1 min-w-0">
+                <SearchBar
+                  value={q}
+                  onChange={updateSearch}
+                  onSubmit={updateSearch}
+                  placeholder="প্রোডাক্ট খুঁজুন..."
+                  size="md"
+                />
               </div>
-              <label className="relative inline-flex items-center">
+              <label className="relative inline-flex items-center shrink-0">
                 <select
                   value={sort}
                   onChange={(e) => setSort(e.target.value as SortKey)}
-                  className="appearance-none rounded-full border border-[var(--glass-border)] bg-white dark:bg-slate-900 px-4 pr-9 py-2 text-xs font-semibold text-slate-800 dark:text-slate-100 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
+                  aria-label="Sort products"
+                  className="appearance-none rounded-full border border-slate-200 bg-white px-4 pr-10 h-12 text-sm font-semibold text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
                 >
-                  <option value="latest" className="text-slate-800">সর্বশেষ</option>
-                  <option value="price-asc" className="text-slate-800">দাম: কম থেকে বেশি</option>
-                  <option value="price-desc" className="text-slate-800">দাম: বেশি থেকে কম</option>
-                  <option value="name" className="text-slate-800">নাম (A–Z)</option>
+                  <option value="latest">সর্বশেষ</option>
+                  <option value="price-asc">দাম: কম থেকে বেশি</option>
+                  <option value="price-desc">দাম: বেশি থেকে কম</option>
+                  <option value="name">নাম (A–Z)</option>
                 </select>
-                <ChevronDown className="w-3.5 h-3.5 pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-300" />
+                <ChevronDown className="w-4 h-4 pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
               </label>
             </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 text-xs text-foreground/60">
+              <div>
+                {cat ? <span><span className="text-foreground/80 font-semibold">{cat}</span> · </span> : null}
+                <span className="font-semibold text-foreground/80">{items.length}</span> products
+                {q.trim() && <span> · "<span className="text-foreground/80 font-semibold">{q.trim()}</span>"</span>}
+              </div>
+              {(q.trim() || cat) && (
+                <button
+                  type="button"
+                  onClick={() => { setQ(""); setCat(null); }}
+                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-semibold text-slate-700 hover:border-primary/40 hover:text-primary transition"
+                >
+                  Clear filters
+                </button>
+              )}
+            </div>
+
 
             {isLoading ? (
               <div className="py-20 text-center text-muted-foreground text-sm">Loading...</div>
