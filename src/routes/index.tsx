@@ -187,16 +187,17 @@ function Index() {
       case "banner":
         return <ProfiledSection key={key} id="ImageBannerCarousel"><ImageBannerCarousel /></ProfiledSection>;
       case "pills":
-        return <ProfiledSection key={key} id="CategoryPillBar"><CategoryPillBar /></ProfiledSection>;
+        return <ProfiledSection key={key} id="CategoryPillBar"><CategoryPillBar categories={adminCategories} /></ProfiledSection>;
       case "featured":
         return <ProfiledSection key={key} id="FeaturedProducts"><FeaturedProducts items={top} allProducts={products} isLoading={isLoading} /></ProfiledSection>;
       case "rails":
         return (
           <div key={key}>
             {isLoading && byCategory.length === 0
-              ? RAIL_PLACEHOLDER_TITLES.map((title) => (
+              ? (adminCategories.length > 0 ? adminCategories.map((c) => c.name) : RAIL_PLACEHOLDER_TITLES).map((title) => (
                   <ProductRail key={title} title={title} items={[]} isLoading />
                 ))
+
               : byCategory.map((section, idx) => (
                   <ProgressiveSection
                     key={section.category}
