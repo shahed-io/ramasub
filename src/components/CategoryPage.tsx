@@ -5,7 +5,7 @@ import { useProducts } from "@/hooks/useProducts";
 import { ProductCard } from "@/components/ProductCard";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SearchBar } from "@/components/SearchBar";
-import { RecentlyViewedSection } from "@/components/RecentlyViewedSection";
+
 import { listCategories } from "@/lib/categories.functions";
 import {
   LayoutGrid, Sparkles, MonitorPlay, FileText, AppWindow, Music, GraduationCap,
