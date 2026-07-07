@@ -84,14 +84,32 @@ export function CategoryPage({
 
   const updateSearch = (value: string) => setQ(value);
 
+  const adminCategoriesQuery = useQuery({
+    queryKey: ["site-categories"],
+    queryFn: () => listCategories(),
+    staleTime: 60_000,
+  });
+  const adminCategories = adminCategoriesQuery.data ?? [];
+
   const cats = useMemo(() => {
+    const countFor = (name: string) =>
+      products.reduce((acc, p) => {
+        if (filter && !filter(p.category)) return acc;
+        return (p.category || "").trim() === name ? acc + 1 : acc;
+      }, 0);
+    if (adminCategories.length > 0) {
+      return adminCategories.map((c) => ({ name: c.name, count: countFor(c.name) }));
+    }
     const map = new Map<string, number>();
     for (const p of products) {
-      if (filter && !filter(p.category)) continue;
-      map.set(p.category, (map.get(p.category) ?? 0) + 1);
+      const name = (p.category || "").trim();
+      if (!name) continue;
+      if (filter && !filter(name)) continue;
+      map.set(name, (map.get(name) ?? 0) + 1);
     }
     return Array.from(map.entries()).map(([name, count]) => ({ name, count }));
-  }, [products, filter]);
+  }, [products, filter, adminCategories]);
+
 
   const totalCount = useMemo(
     () => products.filter((p) => !filter || filter(p.category)).length,
