@@ -137,6 +137,7 @@ function Index() {
   const loaderData = Route.useLoaderData();
   const initialProducts = (loaderData?.products ?? []) as Product[];
   const cfg: HomepageConfig = loaderData?.homepageConfig ?? DEFAULT_CONFIG;
+  const adminCategories = (loaderData?.categories ?? []) as SiteCategory[];
   const { products: liveProducts, isLoading } = useProducts(initialProducts);
   const products: Product[] = liveProducts.length ? liveProducts : initialProducts;
 
@@ -153,25 +154,25 @@ function Index() {
     return [...picked, ...fillers].slice(0, 5);
   }, [products, cfg.featuredProductSlugs]);
 
+  // Rails driven by admin-managed categories (name-matched to product.category).
+  // If admin has categories, use them exclusively; otherwise fall back to product-derived groups.
   const byCategory = useMemo(() => {
-    const preferredOrder = [
-      "OTT & Streaming", "AI & Education", "Microsoft Office", "Editing Tools",
-      "Software & Productivity", "VPN & Security", "Windows", "Subscription",
-    ];
+    const groupProducts = (name: string) =>
+      products.filter((p) => (p.category || "").trim() === name).slice(0, 8);
+    if (adminCategories.length > 0) {
+      return adminCategories
+        .map((c) => ({ category: c.name, items: groupProducts(c.name) }))
+        .filter((g) => g.items.length > 0);
+    }
     const seen = new Set<string>();
     const ordered: string[] = [];
-    for (const c of preferredOrder) if (!seen.has(c)) { seen.add(c); ordered.push(c); }
     for (const p of products) {
       const c = (p.category || "").trim();
       if (c && !seen.has(c)) { seen.add(c); ordered.push(c); }
     }
-    return ordered
-      .map((category) => ({
-        category,
-        items: products.filter((p) => (p.category || "").trim() === category).slice(0, 8),
-      }))
-      .filter((g) => g.items.length > 0);
-  }, [products]);
+    return ordered.map((category) => ({ category, items: groupProducts(category) })).filter((g) => g.items.length > 0);
+  }, [products, adminCategories]);
+
 
   const visible = useMemo(() => {
     const map = new Map<SectionId, boolean>();
