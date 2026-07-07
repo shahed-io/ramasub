@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useProducts } from "@/hooks/useProducts";
 import { listProducts } from "@/lib/products.functions";
+import { listCategories, type SiteCategory } from "@/lib/categories.functions";
 import { ProductCard } from "@/components/ProductCard";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ProgressiveSection } from "@/components/ProgressiveSection";
@@ -32,12 +33,14 @@ import { fetchHomepageConfig, DEFAULT_CONFIG, type HomepageConfig, type SectionI
 export const Route = createFileRoute("/")({
   component: Index,
   loader: async () => {
-    const [products, homepageConfig] = await Promise.all([
+    const [products, homepageConfig, categories] = await Promise.all([
       listProducts().catch(() => [] as Product[]),
       fetchHomepageConfig().catch(() => DEFAULT_CONFIG),
+      listCategories().catch(() => [] as SiteCategory[]),
     ]);
-    return { products, homepageConfig };
+    return { products, homepageConfig, categories };
   },
+
   head: ({ loaderData }) => {
     const seo = loaderData?.homepageConfig?.seo ?? {};
     const title = seo.title || "Rama Sub — Digital Products & Software";
