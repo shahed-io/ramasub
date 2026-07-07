@@ -277,23 +277,25 @@ function CheckoutPage() {
     setErr(null);
     setBusy(true);
     try {
-      const { data, error } = await supabase
-        .from("orders")
-        .insert({
-          user_id: user.id,
+      const created = await submitOrder({
+        data: {
           full_name: form.name,
           email: form.email,
           phone: form.phone,
           payment_method: fullyByWallet ? "wallet" : method,
           transaction_id: fullyByWallet ? `WALLET-${Date.now()}` : form.trxId,
           payment_screenshot_url: screenshotUrl || null,
-          items: items.map((it) => ({ slug: it.slug, planPeriod: it.planPeriod, qty: it.qty, name: it.name, emoji: it.emoji, gradient: it.gradient, price: it.price })),
-          total: subAfterCoupon,
-        })
-        .select("id")
-        .single();
-      if (error) throw error;
-      const newId = data.id as string;
+          items: items.map((it) => ({
+            slug: it.slug,
+            planPeriod: it.planPeriod,
+            qty: it.qty,
+          })),
+          coupon_code: applied.valid && applied.code ? applied.code : null,
+        },
+      });
+      const newId = created.id;
+      // Server is the source of truth for pricing now.
+      const serverTotal = created.total;
       if (walletApplied > 0) {
         const { error: wErr } = await supabase.rpc("spend_wallet" as any, {
           _amount: walletApplied,
