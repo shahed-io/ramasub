@@ -1,14 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { useProducts } from "@/hooks/useProducts";
 import { ProductCard } from "@/components/ProductCard";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SearchBar } from "@/components/SearchBar";
 import { RecentlyViewedSection } from "@/components/RecentlyViewedSection";
+import { listCategories } from "@/lib/categories.functions";
 import {
   LayoutGrid, Sparkles, MonitorPlay, FileText, AppWindow, Music, GraduationCap,
   Shield, Gamepad2, Image as ImageIcon, Package, ChevronDown,
 } from "lucide-react";
+
 
 type IconType = typeof LayoutGrid;
 
@@ -81,14 +84,32 @@ export function CategoryPage({
 
   const updateSearch = (value: string) => setQ(value);
 
+  const adminCategoriesQuery = useQuery({
+    queryKey: ["site-categories"],
+    queryFn: () => listCategories(),
+    staleTime: 60_000,
+  });
+  const adminCategories = adminCategoriesQuery.data ?? [];
+
   const cats = useMemo(() => {
+    const countFor = (name: string) =>
+      products.reduce((acc, p) => {
+        if (filter && !filter(p.category)) return acc;
+        return (p.category || "").trim() === name ? acc + 1 : acc;
+      }, 0);
+    if (adminCategories.length > 0) {
+      return adminCategories.map((c) => ({ name: c.name, count: countFor(c.name) }));
+    }
     const map = new Map<string, number>();
     for (const p of products) {
-      if (filter && !filter(p.category)) continue;
-      map.set(p.category, (map.get(p.category) ?? 0) + 1);
+      const name = (p.category || "").trim();
+      if (!name) continue;
+      if (filter && !filter(name)) continue;
+      map.set(name, (map.get(name) ?? 0) + 1);
     }
     return Array.from(map.entries()).map(([name, count]) => ({ name, count }));
-  }, [products, filter]);
+  }, [products, filter, adminCategories]);
+
 
   const totalCount = useMemo(
     () => products.filter((p) => !filter || filter(p.category)).length,
