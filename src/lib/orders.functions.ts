@@ -128,7 +128,7 @@ export const createOrder = createServerFn({ method: "POST" })
         email: data.email,
         phone: data.phone,
         payment_method: data.payment_method,
-        transaction_id: data.transaction_id ?? null,
+        transaction_id: data.transaction_id ?? "",
         payment_screenshot_url: data.payment_screenshot_url ?? null,
         items: richItems,
         total,
