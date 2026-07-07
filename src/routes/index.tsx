@@ -140,12 +140,14 @@ function Index() {
   // Featured: manual override wins; empty = auto pickTopProducts.
   const top = useMemo(() => {
     const slugs = cfg.featuredProductSlugs;
-    if (slugs && slugs.length > 0) {
-      const map = new Map(products.map((p) => [p.slug, p]));
-      const picked = slugs.map((s) => map.get(s)).filter(Boolean) as Product[];
-      if (picked.length > 0) return picked;
-    }
-    return pickTopProducts(products);
+    const map = new Map(products.map((p) => [p.slug, p]));
+    const picked = (slugs && slugs.length > 0
+      ? (slugs.map((s) => map.get(s)).filter(Boolean) as Product[])
+      : []);
+    // Always aim for 5 on desktop — pad from pickTopProducts if admin picked fewer.
+    if (picked.length >= 5) return picked.slice(0, 5);
+    const fillers = pickTopProducts(products).filter((p) => !picked.some((x) => x.slug === p.slug));
+    return [...picked, ...fillers].slice(0, 5);
   }, [products, cfg.featuredProductSlugs]);
 
   const byCategory = useMemo(() => {
