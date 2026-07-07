@@ -38,6 +38,14 @@ export function RecentlyViewedSection({ limit = 8, excludeSlug, compact = false 
       aria-labelledby="recently-viewed-title"
     >
       <div className="flex flex-wrap items-end justify-between gap-3">
+        <button
+          type="button"
+          onClick={clear}
+          className="order-first inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-900 shadow-sm hover:bg-slate-50 hover:border-slate-400 transition"
+          aria-label="ক্লিয়ার রিসেন্ট হিস্টরি"
+        >
+          <X className="h-3.5 w-3.5" /> Clear
+        </button>
         <div>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-sky-500 via-violet-500 to-fuchsia-500 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em] text-white shadow-[0_8px_22px_-10px_rgba(124,58,237,0.55)] ring-1 ring-white/25">
             <History className="h-3 w-3" />
@@ -54,15 +62,8 @@ export function RecentlyViewedSection({ limit = 8, excludeSlug, compact = false 
             Products you viewed before — quickly access them again.
           </p>
         </div>
-        <button
-          type="button"
-          onClick={clear}
-          className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-900 shadow-sm hover:bg-slate-50 hover:border-slate-400 transition"
-          aria-label="ক্লিয়ার রিসেন্ট হিস্টরি"
-        >
-          <X className="h-3.5 w-3.5" /> Clear
-        </button>
       </div>
+
 
       <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
         {items.map((product) => (
