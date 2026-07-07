@@ -104,11 +104,14 @@ export const createOrder = createServerFn({ method: "POST" })
     // 3. Re-derive coupon discount server-side.
     let discount = 0;
     if (data.coupon_code) {
-      const { data: coupon } = await supabaseAdmin.rpc("validate_coupon" as never, {
-        _code: data.coupon_code,
-        _subtotal: subtotal,
-      });
-      const row = Array.isArray(coupon) ? coupon[0] : coupon;
+      const { data: coupon } = await (supabaseAdmin.rpc as unknown as (
+        fn: string,
+        args: Record<string, unknown>,
+      ) => Promise<{ data: Array<{ valid?: boolean; discount?: number | string }> | null }>)(
+        "validate_coupon",
+        { _code: data.coupon_code, _subtotal: subtotal },
+      );
+      const row = Array.isArray(coupon) ? coupon[0] : (coupon as { valid?: boolean; discount?: number | string } | null);
       if (row?.valid) {
         const d = Number(row.discount);
         if (Number.isFinite(d) && d > 0) discount = Math.min(d, subtotal);
