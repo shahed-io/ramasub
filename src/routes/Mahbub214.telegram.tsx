@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
 import { testTelegramConnection } from "@/lib/telegram.functions";
+import { setCustomerBotWebhook } from "@/lib/telegram-customer.functions";
 
-import { Bot, Save, Send, CheckCircle2, XCircle, Loader2, ExternalLink, Eye, EyeOff, RefreshCw } from "lucide-react";
+import { Bot, Save, Send, CheckCircle2, XCircle, Loader2, ExternalLink, Eye, EyeOff, RefreshCw, Users, Link2 } from "lucide-react";
 
 export const Route = createFileRoute("/Mahbub214/telegram")({
   component: TelegramAdmin,
@@ -33,7 +34,17 @@ function TelegramAdmin() {
   const [enabled, setEnabled] = useState(false);
   const [events, setEvents] = useState<Record<string, boolean>>({});
   const [logs, setLogs] = useState<any[]>([]);
+
+  // Customer bot
+  const [custToken, setCustToken] = useState("");
+  const [custUsername, setCustUsername] = useState("");
+  const [custEnabled, setCustEnabled] = useState(false);
+  const [showCustToken, setShowCustToken] = useState(false);
+  const [linkCount, setLinkCount] = useState<number>(0);
+  const [webhookBusy, setWebhookBusy] = useState(false);
+
   const test = useServerFn(testTelegramConnection);
+  const setWebhook = useServerFn(setCustomerBotWebhook);
 
   const load = async () => {
     setLoading(true);
@@ -44,6 +55,9 @@ function TelegramAdmin() {
       setChatId(s.chat_id ?? "");
       setEnabled(!!s.enabled);
       setEvents(s.events ?? {});
+      setCustToken(s.customer_bot_token ?? "");
+      setCustUsername(s.customer_bot_username ?? "");
+      setCustEnabled(!!s.customer_bot_enabled);
     }
     const { data: l } = await supabase
       .from("telegram_notifications_log" as any)
@@ -51,6 +65,10 @@ function TelegramAdmin() {
       .order("created_at", { ascending: false })
       .limit(20);
     setLogs((l as any[]) ?? []);
+    const { count } = await supabase
+      .from("telegram_customer_links" as any)
+      .select("*", { count: "exact", head: true });
+    setLinkCount(count ?? 0);
     setLoading(false);
   };
 
@@ -60,7 +78,15 @@ function TelegramAdmin() {
     setSaving(true); setMsg(null);
     const { error } = await supabase
       .from("telegram_settings" as any)
-      .update({ bot_token: botToken.trim() || null, chat_id: chatId.trim() || null, enabled, events })
+      .update({
+        bot_token: botToken.trim() || null,
+        chat_id: chatId.trim() || null,
+        enabled,
+        events,
+        customer_bot_token: custToken.trim() || null,
+        customer_bot_username: custUsername.trim().replace(/^@/, "") || null,
+        customer_bot_enabled: custEnabled,
+      } as any)
       .eq("singleton", true);
     setSaving(false);
     if (error) setMsg({ tone: "err", text: error.message });
@@ -72,7 +98,7 @@ function TelegramAdmin() {
     if (botToken.trim() || chatId.trim() || Object.keys(events).length) {
       await supabase.from("telegram_settings" as any).update({
         bot_token: botToken.trim() || null, chat_id: chatId.trim() || null, enabled, events,
-      }).eq("singleton", true);
+      } as any).eq("singleton", true);
     }
     const r = await test().catch((e) => ({ ok: false, error: String(e) }));
     setTesting(false);
@@ -80,6 +106,17 @@ function TelegramAdmin() {
     else setMsg({ tone: "err", text: (r as any).error ?? "Failed" });
     void load();
   };
+
+  const registerWebhook = async () => {
+    setWebhookBusy(true); setMsg(null);
+    const publicUrl = window.location.origin;
+    const r = await setWebhook({ data: { publicUrl } }).catch((e) => ({ ok: false, error: String(e), url: "" }));
+    setWebhookBusy(false);
+    const rr = r as any;
+    if (rr.ok) setMsg({ tone: "ok", text: `Webhook registered: ${rr.url}` });
+    else setMsg({ tone: "err", text: rr.error ?? "Failed to register webhook" });
+  };
+
 
   return (
     <div className="p-4 sm:p-6 space-y-6 bg-gradient-to-br from-slate-50 via-blue-50/40 to-indigo-50/30 min-h-screen">
