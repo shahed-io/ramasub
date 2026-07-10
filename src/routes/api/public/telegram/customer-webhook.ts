@@ -150,7 +150,7 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
           }
           // Otherwise send OTP (shouldn't usually happen — Telegram only lets you share own contact via button)
           const code = String(Math.floor(100000 + Math.random() * 900000));
-          await admin().from("telegram_phone_otps" as any).insert({ chat_id: chatId, phone, code });
+          await admin().from("telegram_phone_otps" as any).insert({ chat_id: chatId, phone, code } as any);
           await reply(token, chatId, `🔐 <b>Verification code sent</b>\n\nআপনার SMS-এ পাঠানো 6-digit code এখানে পাঠান।`);
           return Response.json({ ok: true });
         }
@@ -178,7 +178,7 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
               await linkUser(lc.user_id, chatId, info);
               await admin()
                 .from("telegram_link_codes" as any)
-                .update({ consumed_at: new Date().toISOString() })
+                .update({ consumed_at: new Date().toISOString() } as any)
                 .eq("code", code);
               await reply(
                 token,
@@ -230,7 +230,7 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
           if (p.code !== text) {
             await admin()
               .from("telegram_phone_otps" as any)
-              .update({ attempts: (p.attempts ?? 0) + 1 })
+              .update({ attempts: (p.attempts ?? 0) + 1 } as any)
               .eq("id", p.id);
             await reply(token, chatId, "❌ ভুল code। আবার চেষ্টা করুন।");
             return Response.json({ ok: true });
@@ -243,7 +243,7 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
           await linkUser(userId, chatId, { ...info, phone: p.phone });
           await admin()
             .from("telegram_phone_otps" as any)
-            .update({ verified_at: new Date().toISOString() })
+            .update({ verified_at: new Date().toISOString() } as any)
             .eq("id", p.id);
           await reply(token, chatId, "✅ <b>Connected!</b> আপনার account সফলভাবে link হয়েছে।");
           return Response.json({ ok: true });
