@@ -84,7 +84,6 @@ async function linkUser(
   await admin()
     .from("telegram_customer_links" as any)
     .upsert(
-      (
       {
         user_id: userId,
         chat_id: chatId,
@@ -94,7 +93,7 @@ async function linkUser(
         phone: info.phone ?? null,
         linked_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-      },
+      } as any,
       { onConflict: "user_id" },
     );
 }
