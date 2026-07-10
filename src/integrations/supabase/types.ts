@@ -1574,6 +1574,26 @@ export type Database = {
           },
         ]
       }
+      public_contest_winners: {
+        Row: {
+          ai_reason: string | null
+          campaign_id: string | null
+          created_at: string | null
+          id: string | null
+          is_winner: boolean | null
+          name: string | null
+          winner_rank: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "offer_submissions_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "offer_campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tracking_pixels_public: {
         Row: {
           account_id: string | null
