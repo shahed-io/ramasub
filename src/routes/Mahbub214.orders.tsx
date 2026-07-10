@@ -87,6 +87,20 @@ function AdminOrders() {
           url: `https://ramasub.com/admin/orders`,
         });
       });
+      // Also notify the customer via their Telegram (if linked)
+      if (target.user_id) {
+        import("@/lib/telegram-customer.functions").then(({ notifyCustomerOrderStatus }) => {
+          notifyCustomerOrderStatus({
+            data: {
+              orderId: id,
+              userId: target.user_id,
+              status,
+              fromStatus: target.status ?? null,
+              fullName: target.full_name ?? null,
+            },
+          }).catch(() => {});
+        });
+      }
     }
     if (target && target.email && target.status !== status) {
       const sid = shortId(id);

@@ -32,6 +32,7 @@ import { Route as DeveloperRouteImport } from './routes/developer'
 import { Route as DeliveryInfoRouteImport } from './routes/delivery-info'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ConnectTelegramRouteImport } from './routes/connect-telegram'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as CartRouteImport } from './routes/cart'
@@ -101,6 +102,7 @@ import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/l
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as ApiPublicTelegramCustomerWebhookRouteImport } from './routes/api/public/telegram/customer-webhook'
 import { Route as ApiPublicSslcommerzCallbackRouteImport } from './routes/api/public/sslcommerz/callback'
 import { Route as ApiPublicEpsCallbackRouteImport } from './routes/api/public/eps/callback'
 import { Route as ApiPublicBkashCallbackRouteImport } from './routes/api/public/bkash/callback'
@@ -218,6 +220,11 @@ const DashboardRoute = DashboardRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnectTelegramRoute = ConnectTelegramRouteImport.update({
+  id: '/connect-telegram',
+  path: '/connect-telegram',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CheckoutRoute = CheckoutRouteImport.update({
@@ -577,6 +584,12 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   path: '/lovable/email/auth/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicTelegramCustomerWebhookRoute =
+  ApiPublicTelegramCustomerWebhookRouteImport.update({
+    id: '/api/public/telegram/customer-webhook',
+    path: '/api/public/telegram/customer-webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicSslcommerzCallbackRoute =
   ApiPublicSslcommerzCallbackRouteImport.update({
     id: '/api/public/sslcommerz/callback',
@@ -602,6 +615,7 @@ export interface FileRoutesByFullPath {
   '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
   '/checkout': typeof CheckoutRoute
+  '/connect-telegram': typeof ConnectTelegramRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/delivery-info': typeof DeliveryInfoRoute
@@ -685,6 +699,7 @@ export interface FileRoutesByFullPath {
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
   '/api/public/sslcommerz/callback': typeof ApiPublicSslcommerzCallbackRoute
+  '/api/public/telegram/customer-webhook': typeof ApiPublicTelegramCustomerWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -698,6 +713,7 @@ export interface FileRoutesByTo {
   '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
   '/checkout': typeof CheckoutRoute
+  '/connect-telegram': typeof ConnectTelegramRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/delivery-info': typeof DeliveryInfoRoute
@@ -781,6 +797,7 @@ export interface FileRoutesByTo {
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
   '/api/public/sslcommerz/callback': typeof ApiPublicSslcommerzCallbackRoute
+  '/api/public/telegram/customer-webhook': typeof ApiPublicTelegramCustomerWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -796,6 +813,7 @@ export interface FileRoutesById {
   '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
   '/checkout': typeof CheckoutRoute
+  '/connect-telegram': typeof ConnectTelegramRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/delivery-info': typeof DeliveryInfoRoute
@@ -879,6 +897,7 @@ export interface FileRoutesById {
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
   '/api/public/sslcommerz/callback': typeof ApiPublicSslcommerzCallbackRoute
+  '/api/public/telegram/customer-webhook': typeof ApiPublicTelegramCustomerWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -895,6 +914,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/categories'
     | '/checkout'
+    | '/connect-telegram'
     | '/contact'
     | '/dashboard'
     | '/delivery-info'
@@ -978,6 +998,7 @@ export interface FileRouteTypes {
     | '/api/public/bkash/callback'
     | '/api/public/eps/callback'
     | '/api/public/sslcommerz/callback'
+    | '/api/public/telegram/customer-webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -991,6 +1012,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/categories'
     | '/checkout'
+    | '/connect-telegram'
     | '/contact'
     | '/dashboard'
     | '/delivery-info'
@@ -1074,6 +1096,7 @@ export interface FileRouteTypes {
     | '/api/public/bkash/callback'
     | '/api/public/eps/callback'
     | '/api/public/sslcommerz/callback'
+    | '/api/public/telegram/customer-webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -1088,6 +1111,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/categories'
     | '/checkout'
+    | '/connect-telegram'
     | '/contact'
     | '/dashboard'
     | '/delivery-info'
@@ -1171,6 +1195,7 @@ export interface FileRouteTypes {
     | '/api/public/bkash/callback'
     | '/api/public/eps/callback'
     | '/api/public/sslcommerz/callback'
+    | '/api/public/telegram/customer-webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -1186,6 +1211,7 @@ export interface RootRouteChildren {
   CartRoute: typeof CartRoute
   CategoriesRoute: typeof CategoriesRoute
   CheckoutRoute: typeof CheckoutRoute
+  ConnectTelegramRoute: typeof ConnectTelegramRoute
   ContactRoute: typeof ContactRoute
   DashboardRoute: typeof DashboardRoute
   DeliveryInfoRoute: typeof DeliveryInfoRoute
@@ -1219,6 +1245,7 @@ export interface RootRouteChildren {
   ApiPublicBkashCallbackRoute: typeof ApiPublicBkashCallbackRoute
   ApiPublicEpsCallbackRoute: typeof ApiPublicEpsCallbackRoute
   ApiPublicSslcommerzCallbackRoute: typeof ApiPublicSslcommerzCallbackRoute
+  ApiPublicTelegramCustomerWebhookRoute: typeof ApiPublicTelegramCustomerWebhookRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
@@ -1387,6 +1414,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connect-telegram': {
+      id: '/connect-telegram'
+      path: '/connect-telegram'
+      fullPath: '/connect-telegram'
+      preLoaderRoute: typeof ConnectTelegramRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/checkout': {
@@ -1872,6 +1906,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/telegram/customer-webhook': {
+      id: '/api/public/telegram/customer-webhook'
+      path: '/api/public/telegram/customer-webhook'
+      fullPath: '/api/public/telegram/customer-webhook'
+      preLoaderRoute: typeof ApiPublicTelegramCustomerWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/sslcommerz/callback': {
       id: '/api/public/sslcommerz/callback'
       path: '/api/public/sslcommerz/callback'
@@ -2043,6 +2084,7 @@ const rootRouteChildren: RootRouteChildren = {
   CartRoute: CartRoute,
   CategoriesRoute: CategoriesRoute,
   CheckoutRoute: CheckoutRoute,
+  ConnectTelegramRoute: ConnectTelegramRoute,
   ContactRoute: ContactRoute,
   DashboardRoute: DashboardRoute,
   DeliveryInfoRoute: DeliveryInfoRoute,
@@ -2076,6 +2118,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicBkashCallbackRoute: ApiPublicBkashCallbackRoute,
   ApiPublicEpsCallbackRoute: ApiPublicEpsCallbackRoute,
   ApiPublicSslcommerzCallbackRoute: ApiPublicSslcommerzCallbackRoute,
+  ApiPublicTelegramCustomerWebhookRoute: ApiPublicTelegramCustomerWebhookRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
@@ -2085,13 +2128,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

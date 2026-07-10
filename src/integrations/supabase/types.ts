@@ -1103,6 +1103,66 @@ export type Database = {
         }
         Relationships: []
       }
+      telegram_customer_links: {
+        Row: {
+          chat_id: number
+          first_name: string | null
+          id: string
+          last_name: string | null
+          linked_at: string
+          phone: string | null
+          telegram_username: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          chat_id: number
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          linked_at?: string
+          phone?: string | null
+          telegram_username?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          chat_id?: number
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          linked_at?: string
+          phone?: string | null
+          telegram_username?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      telegram_link_codes: {
+        Row: {
+          code: string
+          consumed_at: string | null
+          created_at: string
+          expires_at: string
+          user_id: string
+        }
+        Insert: {
+          code: string
+          consumed_at?: string | null
+          created_at?: string
+          expires_at?: string
+          user_id: string
+        }
+        Update: {
+          code?: string
+          consumed_at?: string | null
+          created_at?: string
+          expires_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       telegram_notifications_log: {
         Row: {
           created_at: string
@@ -1133,11 +1193,49 @@ export type Database = {
         }
         Relationships: []
       }
+      telegram_phone_otps: {
+        Row: {
+          attempts: number
+          chat_id: number
+          code: string
+          created_at: string
+          expires_at: string
+          id: string
+          phone: string
+          verified_at: string | null
+        }
+        Insert: {
+          attempts?: number
+          chat_id: number
+          code: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          phone: string
+          verified_at?: string | null
+        }
+        Update: {
+          attempts?: number
+          chat_id?: number
+          code?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          phone?: string
+          verified_at?: string | null
+        }
+        Relationships: []
+      }
       telegram_settings: {
         Row: {
           bot_token: string | null
           chat_id: string | null
           created_at: string
+          customer_bot_enabled: boolean
+          customer_bot_token: string | null
+          customer_bot_username: string | null
+          customer_events: Json
+          customer_webhook_secret: string | null
           enabled: boolean
           events: Json
           id: string
@@ -1148,6 +1246,11 @@ export type Database = {
           bot_token?: string | null
           chat_id?: string | null
           created_at?: string
+          customer_bot_enabled?: boolean
+          customer_bot_token?: string | null
+          customer_bot_username?: string | null
+          customer_events?: Json
+          customer_webhook_secret?: string | null
           enabled?: boolean
           events?: Json
           id?: string
@@ -1158,6 +1261,11 @@ export type Database = {
           bot_token?: string | null
           chat_id?: string | null
           created_at?: string
+          customer_bot_enabled?: boolean
+          customer_bot_token?: string | null
+          customer_bot_username?: string | null
+          customer_events?: Json
+          customer_webhook_secret?: string | null
           enabled?: boolean
           events?: Json
           id?: string
