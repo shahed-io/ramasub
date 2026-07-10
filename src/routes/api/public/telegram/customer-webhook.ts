@@ -84,6 +84,7 @@ async function linkUser(
   await admin()
     .from("telegram_customer_links" as any)
     .upsert(
+      (
       {
         user_id: userId,
         chat_id: chatId,
