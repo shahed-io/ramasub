@@ -176,9 +176,8 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
               await reply(token, chatId, "❌ এই link code-এর সময় শেষ। আবার নতুন link generate করুন।");
             } else {
               await linkUser(lc.user_id, chatId, info);
-              await admin()
-                .from("telegram_link_codes" as any)
-                .update({ consumed_at: new Date().toISOString() } as any)
+              await (admin().from("telegram_link_codes" as any) as any)
+                .update({ consumed_at: new Date().toISOString() })
                 .eq("code", code);
               await reply(
                 token,
@@ -228,9 +227,8 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
             return Response.json({ ok: true });
           }
           if (p.code !== text) {
-            await admin()
-              .from("telegram_phone_otps" as any)
-              .update({ attempts: (p.attempts ?? 0) + 1 } as any)
+            await (admin().from("telegram_phone_otps" as any) as any)
+              .update({ attempts: (p.attempts ?? 0) + 1 })
               .eq("id", p.id);
             await reply(token, chatId, "❌ ভুল code। আবার চেষ্টা করুন।");
             return Response.json({ ok: true });
@@ -241,9 +239,8 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
             return Response.json({ ok: true });
           }
           await linkUser(userId, chatId, { ...info, phone: p.phone });
-          await admin()
-            .from("telegram_phone_otps" as any)
-            .update({ verified_at: new Date().toISOString() } as any)
+          await (admin().from("telegram_phone_otps" as any) as any)
+            .update({ verified_at: new Date().toISOString() })
             .eq("id", p.id);
           await reply(token, chatId, "✅ <b>Connected!</b> আপনার account সফলভাবে link হয়েছে।");
           return Response.json({ ok: true });
