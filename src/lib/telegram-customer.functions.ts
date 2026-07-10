@@ -81,7 +81,7 @@ export const createLinkCode = createServerFn({ method: "POST" })
     const { error } = await supabaseAdmin.from("telegram_link_codes" as any).insert({
       code,
       user_id: context.userId,
-    });
+    } as any);
     if (error) return { ok: false as const, error: error.message };
 
     return {
