@@ -217,6 +217,84 @@ function TelegramAdmin() {
         </div>
       </div>
 
+      {/* Customer Bot */}
+      <div className="rounded-2xl border-2 border-sky-200 bg-gradient-to-br from-sky-50/60 to-white p-5 shadow-sm space-y-5">
+        <div className="flex items-center justify-between flex-wrap gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center shadow">
+              <Users className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="font-bold text-slate-900">Customer Bot (Rama Sub)</h3>
+              <div className="text-xs text-slate-600">Customer-দের সরাসরি order status update পাঠান</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-slate-500">{linkCount} linked user{linkCount === 1 ? "" : "s"}</span>
+            <label className="inline-flex items-center gap-2 cursor-pointer select-none">
+              <span className="text-sm text-slate-600">Enable</span>
+              <input type="checkbox" className="sr-only peer" checked={custEnabled} onChange={(e) => setCustEnabled(e.target.checked)} />
+              <div className="w-11 h-6 bg-slate-300 rounded-full peer-checked:bg-emerald-500 relative transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:bg-white after:rounded-full after:transition-transform peer-checked:after:translate-x-5" />
+            </label>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-sky-200 bg-white/70 p-3 text-xs text-slate-700 space-y-1">
+          <div className="font-semibold text-slate-900">Setup steps:</div>
+          <ol className="list-decimal ml-5 space-y-0.5">
+            <li>BotFather-এ <code className="bg-slate-100 px-1 rounded">/newbot</code> দিয়ে আরেকটা bot বানান (admin bot থেকে আলাদা)।</li>
+            <li>Token + username নিচে দিয়ে <b>Save</b> করুন → <b>Enable</b> করুন।</li>
+            <li><b>Register Webhook</b> চাপুন — এটা bot-কে বলে কোথায় incoming message পাঠাতে হবে।</li>
+            <li>Users <a className="text-sky-600 underline" href="/connect-telegram" target="_blank" rel="noopener">/connect-telegram</a> থেকে link করবে।</li>
+          </ol>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="block">
+            <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Customer Bot Token</span>
+            <div className="relative mt-1">
+              <input
+                type={showCustToken ? "text" : "password"}
+                value={custToken}
+                onChange={(e) => setCustToken(e.target.value)}
+                placeholder="123456789:ABCdef..."
+                className="w-full rounded-lg border border-slate-300 px-3 py-2.5 pr-10 text-sm font-mono focus:border-sky-500 focus:ring-2 focus:ring-sky-100 outline-none"
+              />
+              <button type="button" onClick={() => setShowCustToken((v) => !v)} className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-slate-500 hover:text-slate-700">
+                {showCustToken ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+          </label>
+          <label className="block">
+            <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Bot Username (without @)</span>
+            <input
+              value={custUsername}
+              onChange={(e) => setCustUsername(e.target.value)}
+              placeholder="RamaSubBot"
+              className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm font-mono focus:border-sky-500 focus:ring-2 focus:ring-sky-100 outline-none"
+            />
+          </label>
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <button onClick={save} disabled={saving || loading} className="inline-flex items-center gap-2 rounded-lg bg-sky-600 text-white px-4 py-2.5 text-sm font-semibold hover:bg-sky-700 disabled:opacity-50">
+            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+            Save Customer Bot
+          </button>
+          <button onClick={registerWebhook} disabled={webhookBusy || !custToken || !custEnabled} className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 text-white px-4 py-2.5 text-sm font-semibold hover:bg-indigo-700 disabled:opacity-50">
+            {webhookBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Link2 className="w-4 h-4" />}
+            Register Webhook
+          </button>
+          {custUsername && (
+            <a href={`https://t.me/${custUsername.replace(/^@/, "")}`} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white text-slate-700 px-4 py-2.5 text-sm font-semibold hover:bg-slate-50">
+              <ExternalLink className="w-4 h-4" /> Open bot
+            </a>
+          )}
+        </div>
+      </div>
+
+
+
       {/* Recent log */}
       <div className="rounded-2xl border bg-white p-5 shadow-sm">
         <div className="flex items-center justify-between mb-3">
