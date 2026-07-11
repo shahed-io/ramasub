@@ -181,7 +181,7 @@ const FEATURES: Record<string, AdminFeatureConfig> = {
       { name: "product_slug", label: "Product slug", type: "text" },
       { name: "image_url", label: "Banner / product image", type: "image" },
       { name: "cta_text", label: "CTA button text", type: "text", placeholder: "Grab the deal" },
-      { name: "link", label: "Link URL", type: "url" },
+      { name: "link", label: "Link URL (relative /product/… or full https://…)", type: "text", placeholder: "/product/slug" },
       { name: "ends_at", label: "Ends at", type: "date" },
       { name: "badge_text", label: "Badge text", type: "text", placeholder: "Limited time" },
       { name: "background_color", label: "Background color", type: "color" },
