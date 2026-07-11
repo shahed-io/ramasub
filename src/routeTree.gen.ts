@@ -40,12 +40,14 @@ import { Route as AiToolsRouteImport } from './routes/ai-tools'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as Mahbub214RouteImport } from './routes/Mahbub214'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as Mahbub214IndexRouteImport } from './routes/Mahbub214.index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as OrdersIdRouteImport } from './routes/orders.$id'
 import { Route as OfferSlugRouteImport } from './routes/offer.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as BlogHowToBuyNetflixInBangladeshRouteImport } from './routes/blog.how-to-buy-netflix-in-bangladesh'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as Mahbub214ZoomSettingsRouteImport } from './routes/Mahbub214.zoom-settings'
 import { Route as Mahbub214WalletRouteImport } from './routes/Mahbub214.wallet'
 import { Route as Mahbub214UsersRouteImport } from './routes/Mahbub214.users'
@@ -264,6 +266,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Mahbub214IndexRoute = Mahbub214IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -295,6 +302,11 @@ const BlogHowToBuyNetflixInBangladeshRoute =
     path: '/blog/how-to-buy-netflix-in-bangladesh',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Mahbub214ZoomSettingsRoute = Mahbub214ZoomSettingsRouteImport.update({
   id: '/zoom-settings',
   path: '/zoom-settings',
@@ -698,12 +710,14 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/users': typeof Mahbub214UsersRoute
   '/Mahbub214/wallet': typeof Mahbub214WalletRoute
   '/Mahbub214/zoom-settings': typeof Mahbub214ZoomSettingsRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/Mahbub214/': typeof Mahbub214IndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
@@ -798,12 +812,14 @@ export interface FileRoutesByTo {
   '/Mahbub214/users': typeof Mahbub214UsersRoute
   '/Mahbub214/wallet': typeof Mahbub214WalletRoute
   '/Mahbub214/zoom-settings': typeof Mahbub214ZoomSettingsRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/Mahbub214': typeof Mahbub214IndexRoute
+  '/blog': typeof BlogIndexRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
@@ -900,12 +916,14 @@ export interface FileRoutesById {
   '/Mahbub214/users': typeof Mahbub214UsersRoute
   '/Mahbub214/wallet': typeof Mahbub214WalletRoute
   '/Mahbub214/zoom-settings': typeof Mahbub214ZoomSettingsRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/Mahbub214/': typeof Mahbub214IndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
@@ -1003,12 +1021,14 @@ export interface FileRouteTypes {
     | '/Mahbub214/users'
     | '/Mahbub214/wallet'
     | '/Mahbub214/zoom-settings'
+    | '/blog/$slug'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
     | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
     | '/Mahbub214/'
+    | '/blog/'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
@@ -1103,12 +1123,14 @@ export interface FileRouteTypes {
     | '/Mahbub214/users'
     | '/Mahbub214/wallet'
     | '/Mahbub214/zoom-settings'
+    | '/blog/$slug'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
     | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
     | '/Mahbub214'
+    | '/blog'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
@@ -1204,12 +1226,14 @@ export interface FileRouteTypes {
     | '/Mahbub214/users'
     | '/Mahbub214/wallet'
     | '/Mahbub214/zoom-settings'
+    | '/blog/$slug'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
     | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
     | '/Mahbub214/'
+    | '/blog/'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
@@ -1259,10 +1283,12 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
   WalletRoute: typeof WalletRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   BlogHowToBuyNetflixInBangladeshRoute: typeof BlogHowToBuyNetflixInBangladeshRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   OfferSlugRoute: typeof OfferSlugRoute
   ProductSlugRoute: typeof ProductSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   ApiPublicClientErrorsRoute: typeof ApiPublicClientErrorsRoute
   ApiPublicGenerateBlogsRoute: typeof ApiPublicGenerateBlogsRoute
   ApiPublicProductsRoute: typeof ApiPublicProductsRoute
@@ -1497,6 +1523,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/Mahbub214/': {
       id: '/Mahbub214/'
       path: '/'
@@ -1537,6 +1570,13 @@ declare module '@tanstack/react-router' {
       path: '/blog/how-to-buy-netflix-in-bangladesh'
       fullPath: '/blog/how-to-buy-netflix-in-bangladesh'
       preLoaderRoute: typeof BlogHowToBuyNetflixInBangladeshRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/Mahbub214/zoom-settings': {
@@ -2149,10 +2189,12 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   UnsubscribeRoute: UnsubscribeRoute,
   WalletRoute: WalletRoute,
+  BlogSlugRoute: BlogSlugRoute,
   BlogHowToBuyNetflixInBangladeshRoute: BlogHowToBuyNetflixInBangladeshRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   OfferSlugRoute: OfferSlugRoute,
   ProductSlugRoute: ProductSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
   ApiPublicClientErrorsRoute: ApiPublicClientErrorsRoute,
   ApiPublicGenerateBlogsRoute: ApiPublicGenerateBlogsRoute,
   ApiPublicProductsRoute: ApiPublicProductsRoute,

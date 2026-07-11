@@ -76,7 +76,7 @@ function BlogIndexPage() {
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((p) => {
+            {posts.map((p: BlogRow) => {
               const d = p.data || {};
               const slug = d.slug || "";
               return (
