@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { DEFAULT_SEO_SETTINGS, type SeoSettings } from "@/lib/seo-settings.functions";
 
 const GATEWAY = "https://connector-gateway.lovable.dev/google_search_console";
 
