@@ -73,6 +73,8 @@ function AdminFeaturePage() {
  <BackupRestore />
  ) : page === "analytics" ? (
  <AnalyticsDashboard />
+ ) : page === "software-downloads" ? (
+ <SoftwareDownloadsManager />
  ) : cfg ? (
   cfg.mode === "list" ? (
     <>
