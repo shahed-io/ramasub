@@ -544,11 +544,14 @@ const FEATURES: Record<string, AdminFeatureConfig> = {
     fields: [
       { name: "title", label: "Title", type: "text", required: true, primary: true },
       { name: "slug", label: "Slug (auto from title)", type: "text", autoFrom: "title", autoTransform: "slug", hint: "Leave blank to auto-generate." },
-
       { name: "excerpt", label: "Excerpt", type: "textarea" },
-      { name: "cover_url", label: "Cover image URL", type: "image" },
-      { name: "body", label: "Body", type: "textarea" },
+      { name: "meta_title", label: "Meta title (SEO)", type: "text", hint: "≤60 chars" },
+      { name: "meta_description", label: "Meta description (SEO)", type: "textarea", hint: "≤160 chars" },
+      { name: "cover_url", label: "Cover image", type: "image" },
+      { name: "body", label: "Body (HTML)", type: "textarea", hint: "Supports HTML: <h2>, <p>, <ul>, <table>…" },
       { name: "author", label: "Author", type: "text" },
+      { name: "product_slug", label: "Linked product slug (optional)", type: "text", hint: "e.g. netflix-price-in-bangladesh" },
+      { name: "published_at", label: "Published at", type: "text", hint: "ISO date, auto-set on create" },
     ],
   },
   "ceo-message": {
