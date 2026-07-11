@@ -68,7 +68,7 @@ function SearchConsolePage() {
   const [sites, setSites] = useState<Site[]>([]);
   const [prefs, setPrefs] = useState<Prefs>(DEFAULT_PREFS);
   const [siteUrl, setSiteUrl] = useState<string>("");
-  const [tab, setTab] = useState<"overview" | "queries" | "pages" | "sitemaps" | "inspect" | "settings">("overview");
+  const [tab, setTab] = useState<"overview" | "queries" | "pages" | "sitemaps" | "inspect" | "verify" | "settings">("overview");
 
   const [overview, setOverview] = useState<SARow[]>([]);
   const [queries, setQueries] = useState<SARow[]>([]);
