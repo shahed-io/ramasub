@@ -57,6 +57,7 @@ import { Route as Mahbub214SettingsRouteImport } from './routes/Mahbub214.settin
 import { Route as Mahbub214SeoSettingsRouteImport } from './routes/Mahbub214.seo-settings'
 import { Route as Mahbub214SeoAuditRouteImport } from './routes/Mahbub214.seo-audit'
 import { Route as Mahbub214SecurityRouteImport } from './routes/Mahbub214.security'
+import { Route as Mahbub214SearchConsoleRouteImport } from './routes/Mahbub214.search-console'
 import { Route as Mahbub214ReviewsRouteImport } from './routes/Mahbub214.reviews'
 import { Route as Mahbub214ReviewGeneratorRouteImport } from './routes/Mahbub214.review-generator'
 import { Route as Mahbub214RenewalRemindersRouteImport } from './routes/Mahbub214.renewal-reminders'
@@ -346,6 +347,11 @@ const Mahbub214SeoAuditRoute = Mahbub214SeoAuditRouteImport.update({
 const Mahbub214SecurityRoute = Mahbub214SecurityRouteImport.update({
   id: '/security',
   path: '/security',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214SearchConsoleRoute = Mahbub214SearchConsoleRouteImport.update({
+  id: '/search-console',
+  path: '/search-console',
   getParentRoute: () => Mahbub214Route,
 } as any)
 const Mahbub214ReviewsRoute = Mahbub214ReviewsRouteImport.update({
@@ -674,6 +680,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/renewal-reminders': typeof Mahbub214RenewalRemindersRoute
   '/Mahbub214/review-generator': typeof Mahbub214ReviewGeneratorRoute
   '/Mahbub214/reviews': typeof Mahbub214ReviewsRoute
+  '/Mahbub214/search-console': typeof Mahbub214SearchConsoleRoute
   '/Mahbub214/security': typeof Mahbub214SecurityRoute
   '/Mahbub214/seo-audit': typeof Mahbub214SeoAuditRoute
   '/Mahbub214/seo-settings': typeof Mahbub214SeoSettingsRoute
@@ -772,6 +779,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/renewal-reminders': typeof Mahbub214RenewalRemindersRoute
   '/Mahbub214/review-generator': typeof Mahbub214ReviewGeneratorRoute
   '/Mahbub214/reviews': typeof Mahbub214ReviewsRoute
+  '/Mahbub214/search-console': typeof Mahbub214SearchConsoleRoute
   '/Mahbub214/security': typeof Mahbub214SecurityRoute
   '/Mahbub214/seo-audit': typeof Mahbub214SeoAuditRoute
   '/Mahbub214/seo-settings': typeof Mahbub214SeoSettingsRoute
@@ -872,6 +880,7 @@ export interface FileRoutesById {
   '/Mahbub214/renewal-reminders': typeof Mahbub214RenewalRemindersRoute
   '/Mahbub214/review-generator': typeof Mahbub214ReviewGeneratorRoute
   '/Mahbub214/reviews': typeof Mahbub214ReviewsRoute
+  '/Mahbub214/search-console': typeof Mahbub214SearchConsoleRoute
   '/Mahbub214/security': typeof Mahbub214SecurityRoute
   '/Mahbub214/seo-audit': typeof Mahbub214SeoAuditRoute
   '/Mahbub214/seo-settings': typeof Mahbub214SeoSettingsRoute
@@ -973,6 +982,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/renewal-reminders'
     | '/Mahbub214/review-generator'
     | '/Mahbub214/reviews'
+    | '/Mahbub214/search-console'
     | '/Mahbub214/security'
     | '/Mahbub214/seo-audit'
     | '/Mahbub214/seo-settings'
@@ -1071,6 +1081,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/renewal-reminders'
     | '/Mahbub214/review-generator'
     | '/Mahbub214/reviews'
+    | '/Mahbub214/search-console'
     | '/Mahbub214/security'
     | '/Mahbub214/seo-audit'
     | '/Mahbub214/seo-settings'
@@ -1170,6 +1181,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/renewal-reminders'
     | '/Mahbub214/review-generator'
     | '/Mahbub214/reviews'
+    | '/Mahbub214/search-console'
     | '/Mahbub214/security'
     | '/Mahbub214/seo-audit'
     | '/Mahbub214/seo-settings'
@@ -1591,6 +1603,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214SecurityRouteImport
       parentRoute: typeof Mahbub214Route
     }
+    '/Mahbub214/search-console': {
+      id: '/Mahbub214/search-console'
+      path: '/search-console'
+      fullPath: '/Mahbub214/search-console'
+      preLoaderRoute: typeof Mahbub214SearchConsoleRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
     '/Mahbub214/reviews': {
       id: '/Mahbub214/reviews'
       path: '/reviews'
@@ -1997,6 +2016,7 @@ interface Mahbub214RouteChildren {
   Mahbub214RenewalRemindersRoute: typeof Mahbub214RenewalRemindersRoute
   Mahbub214ReviewGeneratorRoute: typeof Mahbub214ReviewGeneratorRoute
   Mahbub214ReviewsRoute: typeof Mahbub214ReviewsRoute
+  Mahbub214SearchConsoleRoute: typeof Mahbub214SearchConsoleRoute
   Mahbub214SecurityRoute: typeof Mahbub214SecurityRoute
   Mahbub214SeoAuditRoute: typeof Mahbub214SeoAuditRoute
   Mahbub214SeoSettingsRoute: typeof Mahbub214SeoSettingsRoute
@@ -2047,6 +2067,7 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214RenewalRemindersRoute: Mahbub214RenewalRemindersRoute,
   Mahbub214ReviewGeneratorRoute: Mahbub214ReviewGeneratorRoute,
   Mahbub214ReviewsRoute: Mahbub214ReviewsRoute,
+  Mahbub214SearchConsoleRoute: Mahbub214SearchConsoleRoute,
   Mahbub214SecurityRoute: Mahbub214SecurityRoute,
   Mahbub214SeoAuditRoute: Mahbub214SeoAuditRoute,
   Mahbub214SeoSettingsRoute: Mahbub214SeoSettingsRoute,
