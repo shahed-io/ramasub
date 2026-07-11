@@ -50,6 +50,44 @@ async function fetchFeaturedProduct(): Promise<{ slug: string; name: string; ima
   };
 }
 
+type BiggestDiscount = {
+  slug: string;
+  name: string;
+  image_url?: string;
+  percent: number;
+  original_price: number;
+  sale_price: number;
+};
+
+async function fetchBiggestDiscount(): Promise<BiggestDiscount | null> {
+  const { data } = await supabase
+    .from("products")
+    .select("slug,name,image_url,plans")
+    .eq("is_active", true);
+  if (!data) return null;
+  let best: BiggestDiscount | null = null;
+  for (const p of data) {
+    const plans = Array.isArray(p.plans) ? (p.plans as Array<Record<string, unknown>>) : [];
+    for (const plan of plans) {
+      const orig = Number(plan?.original_price ?? 0);
+      const price = Number(plan?.price ?? 0);
+      if (!orig || !price || orig <= price) continue;
+      const pct = Math.round(((orig - price) / orig) * 100);
+      if (!best || pct > best.percent) {
+        best = {
+          slug: String(p.slug),
+          name: String(p.name),
+          image_url: p.image_url ? String(p.image_url) : undefined,
+          percent: pct,
+          original_price: orig,
+          sale_price: price,
+        };
+      }
+    }
+  }
+  return best;
+}
+
 function siteOrigin(): string {
   if (typeof window !== "undefined" && window.location?.origin) return window.location.origin;
   return "https://ramasub.com";
