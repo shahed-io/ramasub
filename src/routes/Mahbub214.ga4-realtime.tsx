@@ -273,7 +273,7 @@ function GA4RealtimePage() {
                     <span className="px-1.5 py-0.5 rounded bg-purple-100 text-purple-700 text-[10px] font-black uppercase">Ticket</span>
                     <span className="text-sm font-bold text-slate-900 truncate">{t2.subject || "—"}</span>
                   </div>
-                  <div className="text-[11px] font-semibold text-slate-500 mt-0.5">{t2.email} · {timeAgo(t2.created_at, t)}</div>
+                  <div className="text-[11px] font-semibold text-slate-500 mt-0.5">{t2.status} · {timeAgo(t2.created_at, t)}</div>
                 </div>
               ))}
               {(rt?.chat ?? []).map((m) => (
