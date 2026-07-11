@@ -4,7 +4,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import {
   Loader2, Search, RefreshCw, ExternalLink, CheckCircle2, XCircle, Globe,
-  BarChart3, FileText, Link as LinkIcon, Send, Trash2, PlugZap,
+  BarChart3, FileText, Link as LinkIcon, Send, Trash2, PlugZap, Settings2,
+  Save, X, Plus,
 } from "lucide-react";
 import {
   listSites, searchAnalytics, listSitemaps, submitSitemap, deleteSitemap,
@@ -18,11 +19,38 @@ export const Route = createFileRoute("/Mahbub214/search-console")({
 });
 
 type Site = { siteUrl: string; permissionLevel: string };
-type Sitemap = { path: string; lastSubmitted?: string; isPending?: boolean; errors?: string; warnings?: string; contents?: any[] };
+type Sitemap = { path: string; lastSubmitted?: string; isPending?: boolean; errors?: string; warnings?: string };
 type SARow = { keys?: string[]; clicks: number; impressions: number; ctr: number; position: number };
+type FilterOp = "equals" | "notEquals" | "contains" | "notContains";
+type Filter = { dimension: string; operator: FilterOp; expression: string };
+
+type Prefs = {
+  siteUrl?: string;
+  rangeDays: number;                // 7 | 28 | 90 | -1 (custom)
+  customStart?: string;
+  customEnd?: string;
+  rowLimit: number;
+  searchType: "web" | "image" | "video" | "news" | "discover";
+  filters: Filter[];
+  sitemapPaths: string[];           // saved custom sitemap paths
+};
+
+const PREFS_KEY = "gsc:prefs:v1";
+const DEFAULT_PREFS: Prefs = {
+  rangeDays: 28,
+  rowLimit: 25,
+  searchType: "web",
+  filters: [],
+  sitemapPaths: [`${SITE_URL}/sitemap.xml`],
+};
 
 function daysAgo(n: number) {
   const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString().slice(0, 10);
+}
+function loadPrefs(): Prefs {
+  if (typeof window === "undefined") return DEFAULT_PREFS;
+  try { return { ...DEFAULT_PREFS, ...JSON.parse(localStorage.getItem(PREFS_KEY) ?? "{}") }; }
+  catch { return DEFAULT_PREFS; }
 }
 
 function SearchConsolePage() {
@@ -37,21 +65,29 @@ function SearchConsolePage() {
   const [loading, setLoading] = useState(true);
   const [connected, setConnected] = useState(false);
   const [sites, setSites] = useState<Site[]>([]);
+  const [prefs, setPrefs] = useState<Prefs>(DEFAULT_PREFS);
   const [siteUrl, setSiteUrl] = useState<string>("");
-  const [tab, setTab] = useState<"overview" | "queries" | "pages" | "sitemaps" | "inspect">("overview");
+  const [tab, setTab] = useState<"overview" | "queries" | "pages" | "sitemaps" | "inspect" | "settings">("overview");
 
-  // Data
   const [overview, setOverview] = useState<SARow[]>([]);
   const [queries, setQueries] = useState<SARow[]>([]);
   const [pages, setPages] = useState<SARow[]>([]);
   const [sitemaps, setSitemaps] = useState<Sitemap[]>([]);
   const [busy, setBusy] = useState(false);
 
-  // Inspect
   const [inspectInput, setInspectInput] = useState(SITE_URL + "/");
   const [inspectResult, setInspectResult] = useState<any>(null);
+  const [newSmPath, setNewSmPath] = useState("");
 
-  const range = { start: daysAgo(28), end: daysAgo(1) };
+  // Compute active date range from prefs
+  const range = useMemo(() => {
+    if (prefs.rangeDays === -1 && prefs.customStart && prefs.customEnd) {
+      return { start: prefs.customStart, end: prefs.customEnd };
+    }
+    return { start: daysAgo(prefs.rangeDays), end: daysAgo(1) };
+  }, [prefs.rangeDays, prefs.customStart, prefs.customEnd]);
+
+  useEffect(() => { setPrefs(loadPrefs()); }, []);
 
   useEffect(() => {
     (async () => {
@@ -61,11 +97,11 @@ function SearchConsolePage() {
         if (h.connected) {
           const { sites } = await fnListSites();
           setSites(sites);
-          // Prefer exact match with our SITE_URL
-          const preferred =
-            sites.find((s) => s.siteUrl.replace(/\/$/, "") === SITE_URL.replace(/\/$/, "")) ??
-            sites.find((s) => s.siteUrl.startsWith("sc-domain:ramasub")) ??
-            sites[0];
+          const saved = prefs.siteUrl && sites.find((s) => s.siteUrl === prefs.siteUrl);
+          const preferred = saved
+            ?? sites.find((s) => s.siteUrl.replace(/\/$/, "") === SITE_URL.replace(/\/$/, ""))
+            ?? sites.find((s) => s.siteUrl.startsWith("sc-domain:ramasub"))
+            ?? sites[0];
           if (preferred) setSiteUrl(preferred.siteUrl);
         }
       } catch (e) {
@@ -74,20 +110,28 @@ function SearchConsolePage() {
         setLoading(false);
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (!siteUrl) return;
     loadAll();
-  }, [siteUrl]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [siteUrl, prefs.rangeDays, prefs.customStart, prefs.customEnd, prefs.rowLimit, prefs.searchType, JSON.stringify(prefs.filters)]);
+
+  function savePrefs(next: Prefs) {
+    setPrefs(next);
+    try { localStorage.setItem(PREFS_KEY, JSON.stringify(next)); } catch {}
+  }
 
   async function loadAll() {
     setBusy(true);
     try {
+      const shared = { siteUrl, startDate: range.start, endDate: range.end, searchType: prefs.searchType, filters: prefs.filters };
       const [ov, q, p, sm] = await Promise.all([
-        fnSA({ data: { siteUrl, startDate: range.start, endDate: range.end, dimensions: ["date"], rowLimit: 100 } }),
-        fnSA({ data: { siteUrl, startDate: range.start, endDate: range.end, dimensions: ["query"], rowLimit: 25 } }),
-        fnSA({ data: { siteUrl, startDate: range.start, endDate: range.end, dimensions: ["page"], rowLimit: 25 } }),
+        fnSA({ data: { ...shared, dimensions: ["date"], rowLimit: 1000 } }),
+        fnSA({ data: { ...shared, dimensions: ["query"], rowLimit: prefs.rowLimit } }),
+        fnSA({ data: { ...shared, dimensions: ["page"], rowLimit: prefs.rowLimit } }),
         fnListSm({ data: { siteUrl } }),
       ]);
       setOverview(ov.rows as SARow[]);
@@ -101,28 +145,24 @@ function SearchConsolePage() {
     }
   }
 
-  const totals = useMemo(() => {
-    return overview.reduce(
-      (a, r) => ({
-        clicks: a.clicks + (r.clicks ?? 0),
-        impressions: a.impressions + (r.impressions ?? 0),
-        ctr: 0, position: 0,
-      }),
-      { clicks: 0, impressions: 0, ctr: 0, position: 0 },
-    );
-  }, [overview]);
-
+  const totals = useMemo(() => overview.reduce(
+    (a, r) => ({ clicks: a.clicks + (r.clicks ?? 0), impressions: a.impressions + (r.impressions ?? 0) }),
+    { clicks: 0, impressions: 0 },
+  ), [overview]);
   const avgCtr = totals.impressions ? (totals.clicks / totals.impressions) * 100 : 0;
   const avgPos = overview.length ? overview.reduce((a, r) => a + (r.position ?? 0), 0) / overview.length : 0;
 
-  async function submitDefaultSitemap() {
-    if (!siteUrl) return;
+  async function submitPath(feedpath: string) {
+    if (!siteUrl || !feedpath) return;
     try {
       setBusy(true);
-      await fnSubmitSm({ data: { siteUrl, feedpath: `${SITE_URL}/sitemap.xml` } });
+      await fnSubmitSm({ data: { siteUrl, feedpath } });
       toast.success("Sitemap submitted");
       const sm = await fnListSm({ data: { siteUrl } });
       setSitemaps(sm.sitemaps as Sitemap[]);
+      if (!prefs.sitemapPaths.includes(feedpath)) {
+        savePrefs({ ...prefs, sitemapPaths: [...prefs.sitemapPaths, feedpath] });
+      }
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Submit failed");
     } finally { setBusy(false); }
@@ -158,7 +198,6 @@ function SearchConsolePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/40 p-4 md:p-8">
       <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
         <div className="rounded-3xl bg-gradient-to-br from-cyan-600 via-sky-600 to-blue-700 p-6 md:p-8 text-white shadow-xl">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur grid place-items-center">
@@ -166,7 +205,7 @@ function SearchConsolePage() {
             </div>
             <div className="flex-1">
               <h1 className="text-2xl md:text-3xl font-bold">Google Search Console</h1>
-              <p className="text-white/80 text-sm mt-1">Search analytics, sitemap submission ও URL inspection — সরাসরি admin panel থেকে</p>
+              <p className="text-white/80 text-sm mt-1">Analytics, sitemap, URL inspection — সব customizable admin থেকে</p>
             </div>
             <div className={`hidden md:flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold ${connected ? "bg-emerald-400/20 text-emerald-50" : "bg-rose-400/20 text-rose-50"}`}>
               {connected ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
@@ -180,24 +219,34 @@ function SearchConsolePage() {
             <PlugZap className="w-5 h-5 text-amber-600 mt-0.5" />
             <div className="text-sm text-amber-900">
               <p className="font-semibold">Search Console connector connect করা নেই</p>
-              <p className="mt-1">Lovable এর Connectors → Google Search Console থেকে account link করুন। এরপর এই page reload দিন।</p>
+              <p className="mt-1">Connectors → Google Search Console থেকে account link করে page reload দিন।</p>
             </div>
           </div>
         )}
 
         {connected && (
           <>
-            {/* Site + Tabs */}
             <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-4 md:p-5 space-y-4">
               <div className="flex flex-col md:flex-row md:items-center gap-3">
                 <label className="text-xs font-semibold text-slate-600 flex items-center gap-1.5"><Globe className="w-3.5 h-3.5" /> Site</label>
                 <select
                   className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
                   value={siteUrl}
-                  onChange={(e) => setSiteUrl(e.target.value)}
+                  onChange={(e) => { setSiteUrl(e.target.value); savePrefs({ ...prefs, siteUrl: e.target.value }); }}
                 >
                   {sites.length === 0 && <option>No verified sites</option>}
                   {sites.map((s) => <option key={s.siteUrl} value={s.siteUrl}>{s.siteUrl} — {s.permissionLevel}</option>)}
+                </select>
+                <select
+                  className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+                  value={prefs.rangeDays}
+                  onChange={(e) => savePrefs({ ...prefs, rangeDays: Number(e.target.value) })}
+                >
+                  <option value={7}>Last 7 days</option>
+                  <option value={28}>Last 28 days</option>
+                  <option value={90}>Last 90 days</option>
+                  <option value={180}>Last 6 months</option>
+                  <option value={-1}>Custom range</option>
                 </select>
                 <button
                   onClick={loadAll}
@@ -207,6 +256,16 @@ function SearchConsolePage() {
                   {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />} Refresh
                 </button>
               </div>
+
+              {prefs.rangeDays === -1 && (
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <input type="date" className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+                    value={prefs.customStart ?? daysAgo(28)} onChange={(e) => savePrefs({ ...prefs, customStart: e.target.value })} />
+                  <input type="date" className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+                    value={prefs.customEnd ?? daysAgo(1)} onChange={(e) => savePrefs({ ...prefs, customEnd: e.target.value })} />
+                </div>
+              )}
+
               <div className="flex flex-wrap gap-2">
                 {[
                   { k: "overview", label: "Overview", icon: BarChart3 },
@@ -214,17 +273,14 @@ function SearchConsolePage() {
                   { k: "pages", label: "Top Pages", icon: FileText },
                   { k: "sitemaps", label: "Sitemaps", icon: LinkIcon },
                   { k: "inspect", label: "URL Inspection", icon: ExternalLink },
+                  { k: "settings", label: "Settings", icon: Settings2 },
                 ].map((t) => {
-                  const Icon = t.icon;
-                  const active = tab === t.k;
+                  const Icon = t.icon; const active = tab === t.k;
                   return (
-                    <button
-                      key={t.k}
-                      onClick={() => setTab(t.k as any)}
+                    <button key={t.k} onClick={() => setTab(t.k as any)}
                       className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
                         active ? "bg-cyan-600 text-white shadow" : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                      }`}
-                    >
+                      }`}>
                       <Icon className="w-3.5 h-3.5" /> {t.label}
                     </button>
                   );
@@ -232,7 +288,6 @@ function SearchConsolePage() {
               </div>
             </div>
 
-            {/* Overview */}
             {tab === "overview" && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <Stat title="Clicks" value={totals.clicks.toLocaleString()} tone="from-cyan-500 to-sky-600" />
@@ -240,30 +295,44 @@ function SearchConsolePage() {
                 <Stat title="Avg CTR" value={`${avgCtr.toFixed(2)}%`} tone="from-emerald-500 to-teal-600" />
                 <Stat title="Avg Position" value={avgPos.toFixed(1)} tone="from-amber-500 to-orange-600" />
                 <div className="col-span-2 md:col-span-4 rounded-2xl bg-white border border-slate-200 p-4 text-xs text-slate-500">
-                  Data range: {range.start} → {range.end} · Source: Google Search Console
+                  Range: {range.start} → {range.end} · Type: {prefs.searchType} · Filters: {prefs.filters.length}
                 </div>
               </div>
             )}
 
-            {/* Top Queries */}
             {tab === "queries" && <SATable rows={queries} col="Query" />}
-
-            {/* Top Pages */}
             {tab === "pages" && <SATable rows={pages} col="Page" isPage />}
 
-            {/* Sitemaps */}
             {tab === "sitemaps" && (
               <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-5 space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <h2 className="text-base font-bold text-slate-900">Submitted sitemaps</h2>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-mono"
+                    placeholder={`${SITE_URL}/sitemap.xml`}
+                    value={newSmPath}
+                    onChange={(e) => setNewSmPath(e.target.value)}
+                  />
                   <button
-                    onClick={submitDefaultSitemap}
+                    onClick={() => { const p = newSmPath.trim() || `${SITE_URL}/sitemap.xml`; submitPath(p); setNewSmPath(""); }}
                     disabled={busy}
                     className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-sm font-semibold shadow disabled:opacity-50"
                   >
-                    <Send className="w-4 h-4" /> Submit /sitemap.xml
+                    <Send className="w-4 h-4" /> Submit
                   </button>
                 </div>
+                {prefs.sitemapPaths.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {prefs.sitemapPaths.map((p) => (
+                      <button key={p} onClick={() => submitPath(p)}
+                        className="inline-flex items-center gap-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs px-3 py-1 font-mono">
+                        <Send className="w-3 h-3" /> {p}
+                      </button>
+                    ))}
+                  </div>
+                )}
                 {sitemaps.length === 0 ? (
                   <p className="text-sm text-slate-500">এখনো কোনো sitemap submit করা হয়নি।</p>
                 ) : (
@@ -293,22 +362,14 @@ function SearchConsolePage() {
               </div>
             )}
 
-            {/* URL Inspection */}
             {tab === "inspect" && (
               <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-5 space-y-4">
                 <h2 className="text-base font-bold text-slate-900">URL Inspection</h2>
                 <div className="flex flex-col sm:flex-row gap-2">
-                  <input
-                    className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
-                    value={inspectInput}
-                    onChange={(e) => setInspectInput(e.target.value)}
-                    placeholder="https://ramasub.com/page"
-                  />
-                  <button
-                    onClick={runInspect}
-                    disabled={busy || !inspectInput}
-                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-slate-900 text-white text-sm font-semibold disabled:opacity-50"
-                  >
+                  <input className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+                    value={inspectInput} onChange={(e) => setInspectInput(e.target.value)} placeholder="https://ramasub.com/page" />
+                  <button onClick={runInspect} disabled={busy || !inspectInput}
+                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-slate-900 text-white text-sm font-semibold disabled:opacity-50">
                     {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />} Inspect
                   </button>
                 </div>
@@ -318,6 +379,10 @@ function SearchConsolePage() {
                   </pre>
                 )}
               </div>
+            )}
+
+            {tab === "settings" && (
+              <SettingsPanel prefs={prefs} save={savePrefs} />
             )}
           </>
         )}
@@ -373,5 +438,114 @@ function SATable({ rows, col, isPage }: { rows: SARow[]; col: string; isPage?: b
         </table>
       </div>
     </div>
+  );
+}
+
+function SettingsPanel({ prefs, save }: { prefs: Prefs; save: (p: Prefs) => void }) {
+  const [local, setLocal] = useState<Prefs>(prefs);
+  useEffect(() => setLocal(prefs), [prefs]);
+
+  function addFilter() {
+    setLocal({ ...local, filters: [...local.filters, { dimension: "country", operator: "equals", expression: "bgd" }] });
+  }
+  function removeFilter(i: number) {
+    setLocal({ ...local, filters: local.filters.filter((_, idx) => idx !== i) });
+  }
+  function updateFilter(i: number, patch: Partial<Filter>) {
+    setLocal({ ...local, filters: local.filters.map((f, idx) => idx === i ? { ...f, ...patch } : f) });
+  }
+  function addSitemap() {
+    setLocal({ ...local, sitemapPaths: [...local.sitemapPaths, `${SITE_URL}/sitemap.xml`] });
+  }
+
+  return (
+    <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-5 space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-base font-bold text-slate-900 flex items-center gap-2"><Settings2 className="w-4 h-4" /> Customize</h2>
+          <p className="text-xs text-slate-500 mt-1">Preferences browser এ locally save হবে।</p>
+        </div>
+        <button onClick={() => save(local)}
+          className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-emerald-600 text-white text-sm font-semibold shadow">
+          <Save className="w-4 h-4" /> Save
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Field label="Row limit (top queries/pages)">
+          <input type="number" min={1} max={1000} className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm"
+            value={local.rowLimit} onChange={(e) => setLocal({ ...local, rowLimit: Math.max(1, Math.min(1000, Number(e.target.value) || 25)) })} />
+        </Field>
+        <Field label="Search type">
+          <select className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm"
+            value={local.searchType} onChange={(e) => setLocal({ ...local, searchType: e.target.value as Prefs["searchType"] })}>
+            <option value="web">Web</option>
+            <option value="image">Image</option>
+            <option value="video">Video</option>
+            <option value="news">News</option>
+            <option value="discover">Discover</option>
+          </select>
+        </Field>
+      </div>
+
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-slate-800">Filters</h3>
+          <button onClick={addFilter} className="inline-flex items-center gap-1 text-xs text-cyan-700 hover:text-cyan-900 font-semibold">
+            <Plus className="w-3.5 h-3.5" /> Add filter
+          </button>
+        </div>
+        {local.filters.length === 0 && <p className="text-xs text-slate-500">কোনো filter নেই — সব data দেখানো হবে।</p>}
+        {local.filters.map((f, i) => (
+          <div key={i} className="grid grid-cols-12 gap-2 items-center">
+            <select className="col-span-3 rounded-lg border border-slate-200 px-2 py-1.5 text-xs"
+              value={f.dimension} onChange={(e) => updateFilter(i, { dimension: e.target.value })}>
+              <option value="country">Country</option>
+              <option value="device">Device</option>
+              <option value="page">Page</option>
+              <option value="query">Query</option>
+              <option value="searchAppearance">Search appearance</option>
+            </select>
+            <select className="col-span-3 rounded-lg border border-slate-200 px-2 py-1.5 text-xs"
+              value={f.operator} onChange={(e) => updateFilter(i, { operator: e.target.value as FilterOp })}>
+              <option value="equals">equals</option>
+              <option value="notEquals">not equals</option>
+              <option value="contains">contains</option>
+              <option value="notContains">not contains</option>
+            </select>
+            <input className="col-span-5 rounded-lg border border-slate-200 px-2 py-1.5 text-xs"
+              placeholder={f.dimension === "country" ? "bgd / usa / ind" : f.dimension === "device" ? "MOBILE / DESKTOP / TABLET" : "value"}
+              value={f.expression} onChange={(e) => updateFilter(i, { expression: e.target.value })} />
+            <button onClick={() => removeFilter(i)} className="col-span-1 text-rose-500 hover:text-rose-700"><X className="w-4 h-4" /></button>
+          </div>
+        ))}
+      </div>
+
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-slate-800">Sitemap quick-submit list</h3>
+          <button onClick={addSitemap} className="inline-flex items-center gap-1 text-xs text-cyan-700 hover:text-cyan-900 font-semibold">
+            <Plus className="w-3.5 h-3.5" /> Add
+          </button>
+        </div>
+        {local.sitemapPaths.map((p, i) => (
+          <div key={i} className="flex gap-2">
+            <input className="flex-1 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-mono"
+              value={p} onChange={(e) => setLocal({ ...local, sitemapPaths: local.sitemapPaths.map((x, idx) => idx === i ? e.target.value : x) })} />
+            <button onClick={() => setLocal({ ...local, sitemapPaths: local.sitemapPaths.filter((_, idx) => idx !== i) })}
+              className="text-rose-500 hover:text-rose-700"><X className="w-4 h-4" /></button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="block">
+      <span className="text-xs font-semibold text-slate-600 block mb-1.5">{label}</span>
+      {children}
+    </label>
   );
 }
