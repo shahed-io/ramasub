@@ -34,6 +34,9 @@ type Order = {
   total: number;
   status: string;
   created_at: string;
+  delivered_credentials?: {
+    downloads?: Array<{ label: string; url: string; platform?: string; version?: string; size?: string; notes?: string; product?: string; productSlug?: string }>;
+  } | null;
 };
 
 const statusStyles: Record<string, string> = {
@@ -316,7 +319,38 @@ function OrderDetailPage() {
             </div>
           </div>
 
-          {/* Sidebar — payment + customer */}
+          {/* Software downloads — populated when admin marks the order completed */}
+          {Array.isArray(order.delivered_credentials?.downloads) && order.delivered_credentials!.downloads!.length > 0 && (
+            <div className="md:col-span-3 glass rounded-2xl p-5">
+              <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-2">
+                <Download className="w-4 h-4" /> Your downloads
+              </h2>
+              <div className="space-y-2">
+                {order.delivered_credentials!.downloads!.map((d, i) => (
+                  <div key={i} className="flex flex-wrap items-center gap-3 p-3 rounded-xl bg-white/50 border border-white/60">
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-bold truncate">
+                        {d.product || d.label}
+                        {d.platform ? <span className="ml-2 text-xs font-normal text-muted-foreground">· {d.platform}</span> : null}
+                        {d.version ? <span className="ml-2 text-xs font-normal text-muted-foreground">· v{d.version}</span> : null}
+                        {d.size ? <span className="ml-2 text-xs font-normal text-muted-foreground">· {d.size}</span> : null}
+                      </div>
+                      {d.notes && <div className="text-xs text-muted-foreground">{d.notes}</div>}
+                    </div>
+                    <a
+                      href={d.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-primary text-primary-foreground text-xs font-bold hover:opacity-90"
+                    >
+                      <Download className="w-3.5 h-3.5" /> Download
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className="space-y-5">
             <div className="glass rounded-2xl p-5">
               <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-3">Payment</h2>
