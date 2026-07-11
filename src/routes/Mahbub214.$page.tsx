@@ -74,11 +74,12 @@ function AdminFeaturePage() {
  ) : page === "analytics" ? (
  <AnalyticsDashboard />
  ) : cfg ? (
- cfg.mode === "list" ? (
-   <>
-     {cfg.kind === "ad_campaign" && <AdCampaignMetrics />}
-     <ListCrud kind={cfg.kind} fields={cfg.fields} />
-   </>
+  cfg.mode === "list" ? (
+    <>
+      {cfg.kind === "ad_campaign" && <AdCampaignMetrics />}
+      {cfg.kind === "blog_post" && <BlogAIPanel />}
+      <ListCrud kind={cfg.kind} fields={cfg.fields} />
+    </>
  ) : (
  <SingleSettings kind={cfg.kind} fields={cfg.fields} />
  )
