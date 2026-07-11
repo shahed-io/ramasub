@@ -120,6 +120,20 @@ export async function getSmartDefaults(kind: string, fields: AdminField[]): Prom
       map.phone = wa;
       map.message = `হ্যালো ${brand}, আমি একটি product সম্পর্কে জানতে চাই।`;
       map.position = "bottom-right";
+      map.background_color = "#25D366";
+      map.icon_color = "#ffffff";
+      map.size = 56;
+      map.offset_x = 20;
+      map.offset_y = 20;
+      map.show_greeting = true;
+      map.greeting_title = `${brand} Support`;
+      map.greeting_subtitle = shop.support_hours
+        ? `Online: ${shop.support_hours}`
+        : "Typically replies within minutes";
+      map.greeting_message = `হ্যালো! ${brand}-এ স্বাগতম। কীভাবে সাহায্য করতে পারি?`;
+      map.pulse_animation = true;
+      map.show_on_mobile = true;
+      map.show_on_desktop = true;
       break;
 
     case "welcome_popup":
