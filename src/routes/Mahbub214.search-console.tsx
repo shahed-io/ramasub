@@ -5,11 +5,12 @@ import { toast } from "sonner";
 import {
   Loader2, Search, RefreshCw, ExternalLink, CheckCircle2, XCircle, Globe,
   BarChart3, FileText, Link as LinkIcon, Send, Trash2, PlugZap, Settings2,
-  Save, X, Plus,
+  Save, X, Plus, ShieldCheck, Copy,
 } from "lucide-react";
 import {
   listSites, searchAnalytics, listSitemaps, submitSitemap, deleteSitemap,
   inspectUrl, gscHealthCheck,
+  startMetaVerification, completeMetaVerification, listVerifiedResources, getVerificationStatus,
 } from "@/lib/search-console.functions";
 import { SITE_URL } from "@/lib/site";
 
@@ -67,7 +68,7 @@ function SearchConsolePage() {
   const [sites, setSites] = useState<Site[]>([]);
   const [prefs, setPrefs] = useState<Prefs>(DEFAULT_PREFS);
   const [siteUrl, setSiteUrl] = useState<string>("");
-  const [tab, setTab] = useState<"overview" | "queries" | "pages" | "sitemaps" | "inspect" | "settings">("overview");
+  const [tab, setTab] = useState<"overview" | "queries" | "pages" | "sitemaps" | "inspect" | "verify" | "settings">("overview");
 
   const [overview, setOverview] = useState<SARow[]>([]);
   const [queries, setQueries] = useState<SARow[]>([]);
@@ -273,6 +274,7 @@ function SearchConsolePage() {
                   { k: "pages", label: "Top Pages", icon: FileText },
                   { k: "sitemaps", label: "Sitemaps", icon: LinkIcon },
                   { k: "inspect", label: "URL Inspection", icon: ExternalLink },
+                  { k: "verify", label: "Verify Site", icon: ShieldCheck },
                   { k: "settings", label: "Settings", icon: Settings2 },
                 ].map((t) => {
                   const Icon = t.icon; const active = tab === t.k;
@@ -380,6 +382,8 @@ function SearchConsolePage() {
                 )}
               </div>
             )}
+
+            {tab === "verify" && <VerifyPanel />}
 
             {tab === "settings" && (
               <SettingsPanel prefs={prefs} save={savePrefs} />
@@ -547,5 +551,142 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       <span className="text-xs font-semibold text-slate-600 block mb-1.5">{label}</span>
       {children}
     </label>
+  );
+}
+
+function VerifyPanel() {
+  const fnStart = useServerFn(startMetaVerification);
+  const fnComplete = useServerFn(completeMetaVerification);
+  const fnList = useServerFn(listVerifiedResources);
+  const fnStatus = useServerFn(getVerificationStatus);
+
+  const [identifier, setIdentifier] = useState(SITE_URL + "/");
+  const [token, setToken] = useState("");
+  const [busy, setBusy] = useState<"" | "start" | "verify" | "refresh">("");
+  const [verified, setVerified] = useState<Array<{ id: string; site: { identifier: string; type: string } }>>([]);
+
+  async function refresh() {
+    setBusy("refresh");
+    try {
+      const [s, v] = await Promise.all([fnStatus(), fnList()]);
+      setToken(s.metaToken ?? "");
+      setVerified(v.items ?? []);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Load failed");
+    } finally { setBusy(""); }
+  }
+
+  useEffect(() => { refresh(); }, []);
+
+  async function generate() {
+    if (!identifier.trim()) return;
+    setBusy("start");
+    try {
+      const r = await fnStart({ data: { identifier } });
+      setToken(r.token);
+      toast.success("Token generated ও site এ auto-inject হয়েছে। Publish/deploy দিয়ে Verify চাপুন।");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Failed");
+    } finally { setBusy(""); }
+  }
+
+  async function verify() {
+    if (!identifier.trim()) return;
+    setBusy("verify");
+    try {
+      await fnComplete({ data: { identifier } });
+      toast.success("Verified! Site Search Console এ যুক্ত হয়েছে।");
+      await refresh();
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "Verify failed";
+      toast.error(msg.includes("failedToFindMetaTag")
+        ? "Google meta tag খুঁজে পায়নি — site publish/deploy হয়েছে কিনা নিশ্চিত করুন, তারপর আবার চেষ্টা করুন।"
+        : msg);
+    } finally { setBusy(""); }
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-5 space-y-4">
+        <div className="flex items-start gap-3">
+          <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 grid place-items-center"><ShieldCheck className="w-5 h-5" /></div>
+          <div className="flex-1">
+            <h2 className="text-base font-bold text-slate-900">Site ownership verification</h2>
+            <p className="text-xs text-slate-500 mt-1">
+              Token generate করলে সেটা automatically SEO Settings এ save হয় এবং site এর `&lt;head&gt;` এ meta tag হিসেবে render হয়।
+              এরপর Publish দিয়ে Verify চাপলে Google check করে site Search Console এ যুক্ত করে।
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] gap-2">
+          <input
+            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+            value={identifier}
+            onChange={(e) => setIdentifier(e.target.value)}
+            placeholder="https://ramasub.com/"
+          />
+          <button
+            onClick={generate}
+            disabled={busy !== ""}
+            className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-slate-900 text-white text-sm font-semibold disabled:opacity-50"
+          >
+            {busy === "start" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />} 1. Generate token
+          </button>
+          <button
+            onClick={verify}
+            disabled={busy !== "" || !token}
+            className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-sm font-semibold disabled:opacity-50"
+          >
+            {busy === "verify" ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />} 2. Verify & add
+          </button>
+        </div>
+
+        {token && (
+          <div className="rounded-xl bg-slate-50 border border-slate-200 p-3 space-y-2">
+            <div className="text-xs font-semibold text-slate-600 flex items-center justify-between">
+              <span>Active meta token (auto-injected)</span>
+              <button
+                onClick={() => { navigator.clipboard.writeText(token); toast.success("Copied"); }}
+                className="inline-flex items-center gap-1 text-cyan-700 hover:text-cyan-900"
+              ><Copy className="w-3 h-3" /> Copy</button>
+            </div>
+            <code className="block text-xs font-mono break-all text-slate-800">
+              &lt;meta name="google-site-verification" content="{token}" /&gt;
+            </code>
+          </div>
+        )}
+
+        <div className="rounded-xl bg-amber-50 border border-amber-200 p-3 text-xs text-amber-900 space-y-1">
+          <p className="font-semibold">গুরুত্বপূর্ণ:</p>
+          <ol className="list-decimal ml-4 space-y-0.5">
+            <li>Token generate করার পর project অবশ্যই <b>Publish</b> করতে হবে যাতে meta tag live হয়।</li>
+            <li>Custom domain ব্যবহার করলে DNS propagate হয়ে site accessible থাকতে হবে।</li>
+            <li>এরপর <b>Verify & add</b> চাপলে Google fetch করে ownership confirm করবে ও Search Console এ site যুক্ত হবে।</li>
+          </ol>
+        </div>
+      </div>
+
+      <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-5">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-sm font-bold text-slate-900">Already verified with this Google account</h3>
+          <button onClick={refresh} disabled={busy !== ""} className="inline-flex items-center gap-1 text-xs text-slate-600 hover:text-slate-900">
+            {busy === "refresh" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <RefreshCw className="w-3.5 h-3.5" />} Refresh
+          </button>
+        </div>
+        {verified.length === 0 ? (
+          <p className="text-sm text-slate-500">এখনো কোনো site verified নেই।</p>
+        ) : (
+          <ul className="divide-y divide-slate-100">
+            {verified.map((v) => (
+              <li key={v.id} className="py-2 flex items-center justify-between text-sm">
+                <span className="font-mono text-xs text-slate-700">{v.site.identifier}</span>
+                <span className="inline-flex items-center gap-1 text-emerald-700 text-xs font-semibold"><CheckCircle2 className="w-3.5 h-3.5" /> Verified</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
   );
 }
