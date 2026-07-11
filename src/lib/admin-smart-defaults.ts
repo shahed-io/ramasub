@@ -33,6 +33,23 @@ async function fetchShop() {
   };
 }
 
+async function fetchFeaturedProduct(): Promise<{ slug: string; name: string; image_url?: string } | null> {
+  const { data } = await supabase
+    .from("products")
+    .select("slug,name,image_url")
+    .eq("is_active", true)
+    .order("sort_order", { ascending: true, nullsFirst: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (!data?.slug || !data?.name) return null;
+  return {
+    slug: String(data.slug),
+    name: String(data.name),
+    image_url: data.image_url ? String(data.image_url) : undefined,
+  };
+}
+
 function siteOrigin(): string {
   if (typeof window !== "undefined" && window.location?.origin) return window.location.origin;
   return "https://ramasub.com";
@@ -43,17 +60,24 @@ function siteOrigin(): string {
  * `fields` are returned, so unknown fields never leak through.
  */
 export async function getSmartDefaults(kind: string, fields: AdminField[]): Promise<Rec> {
-  const shop = await fetchShop();
   const origin = siteOrigin();
+  const [shop, footerRow, supportRow, seoRow, siteRow, featuredProduct] = await Promise.all([
+    fetchShop(),
+    fetchKind("footer"),
+    fetchKind("support_channels"),
+    fetchKind("seo_settings"),
+    fetchKind("site_settings"),
+    fetchFeaturedProduct(),
+  ]);
   const host = origin.replace(/^https?:\/\//, "");
   const brand = shop.shop_name;
   const wa = shop.whatsapp_number;
 
   // Also pull optional sibling records so downstream kinds can inherit them.
-  const footer = (await fetchKind("footer")) ?? {};
-  const support = (await fetchKind("support_channels")) ?? {};
-  const seo = (await fetchKind("seo_settings")) ?? {};
-  const site = (await fetchKind("site_settings")) ?? {};
+  const footer = footerRow ?? {};
+  const support = supportRow ?? {};
+  const seo = seoRow ?? {};
+  const site = siteRow ?? {};
 
   // Full defaults map keyed by admin_records.kind
   const map: Rec = {};
@@ -99,11 +123,14 @@ export async function getSmartDefaults(kind: string, fields: AdminField[]): Prom
       break;
 
     case "welcome_popup":
-      map.enabled = false;
+      map.enabled = true;
       map.title = `${brand}-এ স্বাগতম!`;
-      map.message = "প্রথম অর্ডারে বিশেষ ছাড় পেতে এখনই কেনাকাটা শুরু করুন।";
-      map.cta_text = "এখনই দেখুন";
-      map.cta_link = "/";
+      map.message = featuredProduct
+        ? `${featuredProduct.name} সহ জনপ্রিয় digital product এখন instant delivery ও support সহ অর্ডার করুন।`
+        : "প্রথম অর্ডারে বিশেষ ছাড় পেতে এখনই কেনাকাটা শুরু করুন।";
+      map.image_url = featuredProduct?.image_url || site.logo_url || "";
+      map.cta_text = "Shop now";
+      map.cta_link = featuredProduct ? `/product/${featuredProduct.slug}` : "/";
       break;
 
     case "announcement_bar":

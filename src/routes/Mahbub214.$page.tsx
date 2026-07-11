@@ -26,6 +26,16 @@ type Record = {
 };
 type Record_ = { [k: string]: unknown };
 
+const isBlankValue = (value: unknown) => value == null || value === "";
+
+const mergeMissingValues = (base: Record_, defaults: Record_) => {
+ const merged: Record_ = { ...base };
+ for (const [key, value] of Object.entries(defaults)) {
+ if (isBlankValue(merged[key])) merged[key] = value;
+ }
+ return merged;
+};
+
 function AdminFeaturePage() {
  const { page } = useParams({ from: "/Mahbub214/$page" });
  const item = findAdminPage(`/Mahbub214/${page}`) ?? findAdminPage(`/admin/${page}`);
@@ -455,20 +465,17 @@ function SingleSettings({ kind, fields }: { kind: string; fields: AdminField[] }
  .from("admin_records").select("*").eq("kind", kind).limit(1);
  if (error) toast.error(error.message);
  const row = rows?.[0];
- if (row) {
- setData(row.data as Record_);
- setRecordId(row.id);
- } else {
- // No saved row yet — prefill from site data so the form is not blank.
+ const savedData = row ? (row.data as Record_) : {};
+ if (row) setRecordId(row.id);
+ // No saved row yet, or saved row has blank fields — fill missing values from site data.
  try {
  const { getSmartDefaults } = await import("@/lib/admin-smart-defaults");
  const defaults = await getSmartDefaults(kind, fields);
- if (Object.keys(defaults).length) {
- setData(defaults as Record_);
- setPrefilled(true);
- }
- } catch { /* non-fatal */ }
- }
+  const merged = mergeMissingValues(savedData, defaults as Record_);
+  const filledFromDefaults = Object.keys(defaults).some((key) => isBlankValue(savedData[key]) && !isBlankValue(defaults[key]));
+  setData(merged);
+  setPrefilled(filledFromDefaults);
+ } catch { setData(savedData); }
  setLoading(false);
  })();
  // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -503,7 +510,20 @@ function SingleSettings({ kind, fields }: { kind: string; fields: AdminField[] }
  toast.success(t("Saved", "সংরক্ষিত হয়েছে"));
  };
 
- if (loading) return null;
+ if (loading) return (
+  <div className="admin-card rounded-2xl p-4 sm:p-6 space-y-4">
+  <div className="h-9 rounded-xl bg-slate-100 animate-pulse" />
+  <div className="grid sm:grid-cols-2 gap-4">
+  {fields.slice(0, 6).map((f) => (
+  <div key={f.name} className={f.type === "textarea" ? "sm:col-span-2" : ""}>
+  <div className="h-3 w-24 rounded bg-slate-100 mb-2 animate-pulse" />
+  <div className={`${f.type === "textarea" || f.type === "image" ? "h-24" : "h-10"} rounded-lg bg-slate-100 animate-pulse`} />
+  </div>
+  ))}
+  </div>
+  <p className="text-xs font-semibold text-slate-500">{t("Loading settings…", "সেটিংস লোড হচ্ছে…")}</p>
+  </div>
+ );
 
  return (
    <div className="admin-card rounded-2xl p-4 sm:p-6 space-y-5">
