@@ -95,6 +95,7 @@ import { Route as Mahbub214AbandonedCheckoutRouteImport } from './routes/Mahbub2
 import { Route as Mahbub214PageRouteImport } from './routes/Mahbub214.$page'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicProductsRouteImport } from './routes/api/public/products'
+import { Route as ApiPublicGenerateBlogsRouteImport } from './routes/api/public/generate-blogs'
 import { Route as ApiPublicClientErrorsRouteImport } from './routes/api/public/client-errors'
 import { Route as Mahbub214PagesKeyRouteImport } from './routes/Mahbub214.pages.$key'
 import { Route as Mahbub214OffersIdRouteImport } from './routes/Mahbub214.offers.$id'
@@ -547,6 +548,11 @@ const ApiPublicProductsRoute = ApiPublicProductsRouteImport.update({
   path: '/api/public/products',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicGenerateBlogsRoute = ApiPublicGenerateBlogsRouteImport.update({
+  id: '/api/public/generate-blogs',
+  path: '/api/public/generate-blogs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicClientErrorsRoute = ApiPublicClientErrorsRouteImport.update({
   id: '/api/public/client-errors',
   path: '/api/public/client-errors',
@@ -701,6 +707,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
+  '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
@@ -800,6 +807,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
+  '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
@@ -901,6 +909,7 @@ export interface FileRoutesById {
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
+  '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
@@ -1003,6 +1012,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
+    | '/api/public/generate-blogs'
     | '/api/public/products'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
@@ -1102,6 +1112,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
+    | '/api/public/generate-blogs'
     | '/api/public/products'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
@@ -1202,6 +1213,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
+    | '/api/public/generate-blogs'
     | '/api/public/products'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
@@ -1252,6 +1264,7 @@ export interface RootRouteChildren {
   OfferSlugRoute: typeof OfferSlugRoute
   ProductSlugRoute: typeof ProductSlugRoute
   ApiPublicClientErrorsRoute: typeof ApiPublicClientErrorsRoute
+  ApiPublicGenerateBlogsRoute: typeof ApiPublicGenerateBlogsRoute
   ApiPublicProductsRoute: typeof ApiPublicProductsRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicBkashCallbackRoute: typeof ApiPublicBkashCallbackRoute
@@ -1869,6 +1882,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/generate-blogs': {
+      id: '/api/public/generate-blogs'
+      path: '/api/public/generate-blogs'
+      fullPath: '/api/public/generate-blogs'
+      preLoaderRoute: typeof ApiPublicGenerateBlogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/client-errors': {
       id: '/api/public/client-errors'
       path: '/api/public/client-errors'
@@ -2134,6 +2154,7 @@ const rootRouteChildren: RootRouteChildren = {
   OfferSlugRoute: OfferSlugRoute,
   ProductSlugRoute: ProductSlugRoute,
   ApiPublicClientErrorsRoute: ApiPublicClientErrorsRoute,
+  ApiPublicGenerateBlogsRoute: ApiPublicGenerateBlogsRoute,
   ApiPublicProductsRoute: ApiPublicProductsRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicBkashCallbackRoute: ApiPublicBkashCallbackRoute,
@@ -2149,13 +2170,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
