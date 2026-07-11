@@ -211,7 +211,7 @@ export const enableAutoBlogCron = createServerFn({ method: "POST" })
 
     const endpoint =
       (existing?.[0]?.data as any)?.endpoint ||
-      "https://project--bvoeflkypmonhbmwfbmx.lovable.app/api/public/generate-blogs";
+      "https://ramasub.com/api/public/generate-blogs";
 
     const data = { endpoint, secret, updated_at: new Date().toISOString() };
 
