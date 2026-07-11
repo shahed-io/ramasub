@@ -192,6 +192,44 @@ export const generateBlogFromTopic = createServerFn({ method: "POST" })
     return saveBlog(sa as any, ai);
   });
 
+/** One-time: push BLOG_AUTOGEN_SECRET into admin_records so pg_cron can authenticate. Admin-only. */
+export const enableAutoBlogCron = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const secret = process.env.BLOG_AUTOGEN_SECRET;
+    if (!secret) throw new Error("BLOG_AUTOGEN_SECRET is not configured on the server");
+    const { supabaseAdmin: sa } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = sa as any;
+
+    const { data: existing } = await supabaseAdmin
+      .from("admin_records")
+      .select("id,data")
+      .eq("kind", "blog_autogen_config")
+      .order("created_at", { ascending: true })
+      .limit(1);
+
+    const endpoint =
+      (existing?.[0]?.data as any)?.endpoint ||
+      "https://project--bvoeflkypmonhbmwfbmx.lovable.app/api/public/generate-blogs";
+
+    const data = { endpoint, secret, updated_at: new Date().toISOString() };
+
+    if (existing && existing.length > 0) {
+      const { error } = await supabaseAdmin
+        .from("admin_records")
+        .update({ data: data as never, is_active: true })
+        .eq("id", existing[0].id);
+      if (error) throw new Error(error.message);
+    } else {
+      const { error } = await supabaseAdmin
+        .from("admin_records")
+        .insert({ kind: "blog_autogen_config", data: data as never, is_active: true } as never);
+      if (error) throw new Error(error.message);
+    }
+    return { ok: true, endpoint };
+  });
+
 /** Shared: iterate products missing blog and generate up to `limit` posts. */
 export async function runMissingGeneration(sa: any, limit: number) {
   const { data: products, error } = await sa
