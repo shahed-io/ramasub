@@ -1,0 +1,224 @@
+// Smart defaults for admin single-settings forms.
+// When an admin_records row for a `kind` does not exist yet, we prefill the
+// form from data that already lives elsewhere on the site (shop config,
+// footer, contact, site URL, product/customer counts, etc.) so the admin
+// sees populated fields instead of blank inputs.
+//
+// The values returned here are ONLY used as initial UI state — nothing is
+// written to the database until the admin clicks "Save settings".
+
+import { supabase } from "@/integrations/supabase/client";
+import type { AdminField } from "@/lib/admin-fields";
+import { DEFAULT_SHOP_CONFIG } from "@/hooks/useShopConfig";
+
+type Rec = Record<string, unknown>;
+
+async function fetchKind(kind: string): Promise<Rec | null> {
+  const { data } = await supabase
+    .from("admin_records")
+    .select("data")
+    .eq("kind", kind)
+    .order("sort_order", { ascending: true })
+    .limit(1)
+    .maybeSingle();
+  return (data?.data as Rec) ?? null;
+}
+
+async function fetchShop() {
+  const row = (await fetchKind("shop_config")) ?? {};
+  return {
+    whatsapp_number: (row.whatsapp_number as string) || DEFAULT_SHOP_CONFIG.whatsapp_number,
+    shop_name: (row.shop_name as string) || DEFAULT_SHOP_CONFIG.shop_name,
+    support_hours: (row.support_hours as string) || DEFAULT_SHOP_CONFIG.support_hours,
+  };
+}
+
+function siteOrigin(): string {
+  if (typeof window !== "undefined" && window.location?.origin) return window.location.origin;
+  return "https://ramasub.com";
+}
+
+/**
+ * Compute prefilled values for a given `kind`. Only keys that appear in
+ * `fields` are returned, so unknown fields never leak through.
+ */
+export async function getSmartDefaults(kind: string, fields: AdminField[]): Promise<Rec> {
+  const shop = await fetchShop();
+  const origin = siteOrigin();
+  const host = origin.replace(/^https?:\/\//, "");
+  const brand = shop.shop_name;
+  const wa = shop.whatsapp_number;
+
+  // Also pull optional sibling records so downstream kinds can inherit them.
+  const footer = (await fetchKind("footer")) ?? {};
+  const support = (await fetchKind("support_channels")) ?? {};
+  const seo = (await fetchKind("seo_settings")) ?? {};
+  const site = (await fetchKind("site_settings")) ?? {};
+
+  // Full defaults map keyed by admin_records.kind
+  const map: Rec = {};
+
+  switch (kind) {
+    case "shop_config":
+      Object.assign(map, shop);
+      break;
+
+    case "site_settings":
+      map.site_name = brand;
+      map.logo_url = site.logo_url || "";
+      map.favicon_url = site.favicon_url || "";
+      map.currency = "BDT";
+      map.timezone = "Asia/Dhaka";
+      map.maintenance_mode = false;
+      break;
+
+    case "footer":
+      map.about = footer.about || `${brand} — Bangladesh এর বিশ্বস্ত ডিজিটাল সাবস্ক্রিপশন ও সফটওয়্যার শপ।`;
+      map.address = footer.address || "Dhaka, Bangladesh";
+      map.email = footer.email || `support@${host.replace(/^www\./, "")}`;
+      map.phone = footer.phone || `+${wa}`;
+      map.facebook = footer.facebook || "";
+      map.youtube = footer.youtube || "";
+      map.telegram = footer.telegram || "";
+      break;
+
+    case "support_channels":
+      map.phone = support.phone || `+${wa}`;
+      map.email = support.email || `support@${host.replace(/^www\./, "")}`;
+      map.whatsapp = support.whatsapp || wa;
+      map.telegram = support.telegram || "";
+      map.messenger = support.messenger || "";
+      map.hours = support.hours || shop.support_hours;
+      break;
+
+    case "whatsapp_button":
+      map.enabled = true;
+      map.phone = wa;
+      map.message = `হ্যালো ${brand}, আমি একটি product সম্পর্কে জানতে চাই।`;
+      map.position = "bottom-right";
+      break;
+
+    case "welcome_popup":
+      map.enabled = false;
+      map.title = `${brand}-এ স্বাগতম!`;
+      map.message = "প্রথম অর্ডারে বিশেষ ছাড় পেতে এখনই কেনাকাটা শুরু করুন।";
+      map.cta_text = "এখনই দেখুন";
+      map.cta_link = "/";
+      break;
+
+    case "announcement_bar":
+      map.enabled = true;
+      map.text = `⚡ ${brand} — Instant delivery, 24/7 support। WhatsApp: +${wa}`;
+      map.background = "#0f172a";
+      map.color = "#ffffff";
+      break;
+
+    case "biggest_discount":
+      map.enabled = false;
+      map.title = "Biggest Discount of the Season";
+      map.percent = 20;
+      map.link = "/";
+      break;
+
+    case "homepage":
+      map.hero_title = `${brand} — Trusted Digital Store`;
+      map.hero_subtitle = "Premium subscriptions ও software instant delivery, verified & guaranteed।";
+      map.hero_cta = "Shop Now";
+      map.hero_cta_link = "/";
+      map.show_featured = true;
+      map.show_reviews = true;
+      break;
+
+    case "ceo_message":
+      map.name = "Mahbub";
+      map.title = `Founder & CEO, ${brand}`;
+      map.message = `${brand}-এর যাত্রায় আপনাকে স্বাগতম। আমরা বাংলাদেশের গ্রাহকদের জন্য বিশ্বস্ত ডিজিটাল সেবা দিতে প্রতিশ্রুতিবদ্ধ।`;
+      break;
+
+    case "checkout_policy":
+      map.min_order = 50;
+      map.terms = `${brand}-এ অর্ডার করার মাধ্যমে আপনি আমাদের terms ও refund policy মেনে নিচ্ছেন।`;
+      map.require_phone = true;
+      map.require_email = false;
+      break;
+
+    case "invoice_settings":
+    case "invoice_design":
+      map.company_name = brand;
+      map.address = (footer.address as string) || "Dhaka, Bangladesh";
+      map.tagline = "Trusted Digital Store";
+      map.primary_color = "#7c3aed";
+      map.accent_color = "#0ea5e9";
+      map.show_logo = true;
+      map.show_signature = true;
+      map.footer_note = `ধন্যবাদ ${brand}-এ কেনাকাটার জন্য। যেকোনো সহায়তায়: +${wa}`;
+      map.thank_you_text = "Thank you for your order!";
+      break;
+
+    case "seo_settings":
+      map.site_url = seo.site_url || origin;
+      map.default_title = seo.default_title || `${brand} — Trusted Digital Store in Bangladesh`;
+      map.default_description = seo.default_description || `${brand}-এ পাচ্ছেন premium subscriptions ও software, instant delivery ও 24/7 support সহ।`;
+      map.robots_txt = seo.robots_txt || `User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml`;
+      break;
+
+    case "analytics_settings":
+      map.show_revenue = true;
+      map.show_orders = true;
+      map.show_traffic = true;
+      break;
+
+    case "ai_api_settings":
+      map.default_model = "google/gemini-2.5-flash";
+      map.system_prompt = `You are the assistant for ${brand}, a digital subscription store in Bangladesh. Reply concisely and helpfully in Bangla or English matching the user.`;
+      map.temperature = 0.7;
+      break;
+
+    case "backup_settings":
+      map.auto_backup = true;
+      map.frequency = "weekly";
+      map.retention_days = 30;
+      break;
+
+    case "support_widget":
+      map.orb_from = "#7c3aed";
+      map.orb_via = "#a855f7";
+      map.orb_to = "#0ea5e9";
+      map.ring_color = "#a855f7";
+      map.spin_color_1 = "#7c3aed";
+      map.spin_color_2 = "#0ea5e9";
+      map.icon_color = "#ffffff";
+      break;
+
+    case "referral_settings":
+      map.enabled = true;
+      map.reward_amount = 50;
+      map.min_purchase = 100;
+      map.terms = `প্রতি successful referral-এ আপনি ৳50 wallet credit পাবেন। Referred customer এর প্রথম অর্ডার ৳100 বা তার বেশি হতে হবে। ${brand} যেকোনো সময় terms পরিবর্তনের অধিকার রাখে।`;
+      break;
+
+    case "bkash_pgw":
+    case "eps_pgw":
+    case "sslcommerz_pgw":
+      map.enabled = false;
+      map.environment = "sandbox";
+      map.callback_url = `${origin}/api/public/${kind.replace("_pgw", "")}/callback`;
+      break;
+
+    case "fb_pixel":
+    case "google_ads":
+    case "ga4_realtime":
+      // Nothing sensible to prefill without user creds — leave blank.
+      break;
+  }
+
+  // Filter to only fields that exist on this form, drop empty values.
+  const allowed = new Set(fields.map((f) => f.name));
+  const out: Rec = {};
+  for (const [k, v] of Object.entries(map)) {
+    if (!allowed.has(k)) continue;
+    if (v === undefined || v === null || v === "") continue;
+    out[k] = v;
+  }
+  return out;
+}

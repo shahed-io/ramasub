@@ -442,6 +442,7 @@ function SingleSettings({ kind, fields }: { kind: string; fields: AdminField[] }
  const [recordId, setRecordId] = useState<string | null>(null);
  const [loading, setLoading] = useState(true);
  const [saving, setSaving] = useState(false);
+ const [prefilled, setPrefilled] = useState(false);
  const [errors, setErrors] = useState<{ [k: string]: string }>({});
  const [touched, setTouched] = useState<{ [k: string]: boolean }>({});
  const { t } = useAdminLang();
@@ -449,13 +450,28 @@ function SingleSettings({ kind, fields }: { kind: string; fields: AdminField[] }
  useEffect(() => {
  (async () => {
  setLoading(true);
+ setPrefilled(false);
  const { data: rows, error } = await supabase
  .from("admin_records").select("*").eq("kind", kind).limit(1);
  if (error) toast.error(error.message);
  const row = rows?.[0];
- if (row) { setData(row.data as Record_); setRecordId(row.id); }
+ if (row) {
+ setData(row.data as Record_);
+ setRecordId(row.id);
+ } else {
+ // No saved row yet — prefill from site data so the form is not blank.
+ try {
+ const { getSmartDefaults } = await import("@/lib/admin-smart-defaults");
+ const defaults = await getSmartDefaults(kind, fields);
+ if (Object.keys(defaults).length) {
+ setData(defaults as Record_);
+ setPrefilled(true);
+ }
+ } catch { /* non-fatal */ }
+ }
  setLoading(false);
  })();
+ // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [kind]);
 
  const setField = (name: string, value: unknown) => {
@@ -483,7 +499,7 @@ function SingleSettings({ kind, fields }: { kind: string; fields: AdminField[] }
  : await supabase.from("admin_records").insert(payload).select().single();
  setSaving(false);
  if (error) return toast.error(error.message);
- if (out) setRecordId(out.id);
+ if (out) { setRecordId(out.id); setPrefilled(false); }
  toast.success(t("Saved", "সংরক্ষিত হয়েছে"));
  };
 
@@ -491,6 +507,15 @@ function SingleSettings({ kind, fields }: { kind: string; fields: AdminField[] }
 
  return (
    <div className="admin-card rounded-2xl p-4 sm:p-6 space-y-5">
+ {prefilled && (
+ <div className="rounded-xl border border-violet-200 bg-violet-50 px-4 py-2.5 text-[13px] text-violet-900 flex items-center gap-2">
+ <span className="inline-block w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
+ {t(
+ "Auto-filled from your site data — review and click Save settings to keep it.",
+ "আপনার ওয়েবসাইটের তথ্য থেকে auto-fill করা হয়েছে — check করে Save settings চাপুন।"
+ )}
+ </div>
+ )}
  <div className="grid sm:grid-cols-2 gap-4">
  {fields.map((f) => (
  <div key={f.name} className={f.type === "textarea" ? "sm:col-span-2" : ""}>
