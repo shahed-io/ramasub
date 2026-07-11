@@ -3,7 +3,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { MessageCircle, ArrowLeft } from "lucide-react";
-import { SiteHeader } from "@/components/SiteHeader";
+
 import { SiteFooter } from "@/components/SiteFooter";
 import { SITE_URL } from "@/lib/site";
 
@@ -106,7 +106,7 @@ export const Route = createFileRoute("/help/$slug")({
   component: HelpArticlePage,
   notFoundComponent: () => (
     <div className="min-h-screen bg-white">
-      <SiteHeader />
+      
       <main className="max-w-3xl mx-auto px-4 py-24 text-center">
         <h1 className="text-3xl font-bold text-slate-900">Article not found</h1>
         <p className="mt-3 text-slate-600">এই article-টি খুঁজে পাওয়া যায়নি।</p>
@@ -119,7 +119,7 @@ export const Route = createFileRoute("/help/$slug")({
   ),
   errorComponent: ({ error }) => (
     <div className="min-h-screen bg-white">
-      <SiteHeader />
+      
       <main className="max-w-3xl mx-auto px-4 py-24 text-center">
         <h1 className="text-3xl font-bold text-slate-900">Something went wrong</h1>
         <p className="mt-3 text-slate-600">{error?.message || "Please try again."}</p>
@@ -141,7 +141,7 @@ function HelpArticlePage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <SiteHeader />
+      
       <main className="max-w-3xl mx-auto px-4 py-10">
         <nav className="text-xs text-slate-500 mb-4">
           <Link to="/" className="hover:text-slate-700">Home</Link>

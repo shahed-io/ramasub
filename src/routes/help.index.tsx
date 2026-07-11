@@ -3,7 +3,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { useMemo, useState } from "react";
 import { Search, BookOpen, MessageCircle, Sparkles } from "lucide-react";
-import { SiteHeader } from "@/components/SiteHeader";
+
 import { SiteFooter } from "@/components/SiteFooter";
 import { SITE_URL } from "@/lib/site";
 
@@ -97,7 +97,7 @@ function HelpIndexPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <SiteHeader />
+      
 
       <section className="relative overflow-hidden bg-gradient-to-br from-violet-700 via-fuchsia-600 to-indigo-700 text-white">
         <div className="absolute inset-0 opacity-20"
