@@ -1527,6 +1527,25 @@ export type Database = {
       }
     }
     Views: {
+      offer_winners_public: {
+        Row: {
+          ai_reason: string | null
+          campaign_id: string | null
+          created_at: string | null
+          id: string | null
+          name: string | null
+          winner_rank: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "offer_submissions_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "offer_campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       promotions_public: {
         Row: {
           badge: string | null
@@ -1737,6 +1756,10 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      check_offer_email_submitted: {
+        Args: { _campaign_id: string; _email: string }
+        Returns: boolean
       }
       delete_email: {
         Args: { message_id: number; queue_name: string }

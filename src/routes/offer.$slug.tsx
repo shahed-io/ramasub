@@ -80,10 +80,9 @@ function OfferPage() {
       setC(camp);
       if (camp.status === "ended" && camp.show_winners_publicly) {
         const { data: w } = await supabase
-          .from("offer_submissions" as never)
+          .from("offer_winners_public" as never)
           .select("id,name,winner_rank,ai_reason")
           .eq("campaign_id", camp.id)
-          .eq("is_winner", true)
           .order("winner_rank", { ascending: true });
         setWinners(((w ?? []) as unknown) as Winner[]);
       }
@@ -106,14 +105,11 @@ function OfferPage() {
     }
     // Dedupe check
     if (!c.allow_multiple_entries) {
-      const { data: existing } = await supabase
-        .from("offer_submissions" as never)
-        .select("id")
-        .eq("campaign_id", c.id)
-        .ilike("email", email)
-        .limit(1)
-        .maybeSingle();
-      if (existing) return toast.error("আপনি এই offer-এ ইতিমধ্যে অংশগ্রহণ করেছেন।");
+      const { data: exists } = await supabase.rpc(
+        "check_offer_email_submitted" as never,
+        { _campaign_id: c.id, _email: email } as never,
+      );
+      if (exists) return toast.error("আপনি এই offer-এ ইতিমধ্যে অংশগ্রহণ করেছেন।");
     }
     setSubmitting(true);
     const payload: any = {
