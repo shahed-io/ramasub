@@ -5,11 +5,12 @@ import { toast } from "sonner";
 import {
   Loader2, Search, RefreshCw, ExternalLink, CheckCircle2, XCircle, Globe,
   BarChart3, FileText, Link as LinkIcon, Send, Trash2, PlugZap, Settings2,
-  Save, X, Plus,
+  Save, X, Plus, ShieldCheck, Copy,
 } from "lucide-react";
 import {
   listSites, searchAnalytics, listSitemaps, submitSitemap, deleteSitemap,
   inspectUrl, gscHealthCheck,
+  startMetaVerification, completeMetaVerification, listVerifiedResources, getVerificationStatus,
 } from "@/lib/search-console.functions";
 import { SITE_URL } from "@/lib/site";
 
