@@ -80,8 +80,8 @@ async function fetchRealtime() {
   const [orders30, orders24h, tickets, reviews, subs, chat] = await Promise.all([
     supabase.from("orders").select("id,email,full_name,total,status,created_at,items").gte("created_at", min30).order("created_at", { ascending: false }),
     supabase.from("orders").select("id,total,status,created_at").gte("created_at", hour24).order("created_at", { ascending: false }),
-    supabase.from("support_tickets").select("id,subject,status,created_at,email").gte("created_at", hour24).order("created_at", { ascending: false }).limit(10),
-    supabase.from("product_reviews").select("id,rating,body,created_at,name,product_slug").gte("created_at", hour24).order("created_at", { ascending: false }).limit(10),
+    supabase.from("support_tickets").select("id,subject,status,created_at,user_id").gte("created_at", hour24).order("created_at", { ascending: false }).limit(10),
+    supabase.from("product_reviews").select("id,rating,comment,created_at,reviewer_name,product_slug").gte("created_at", hour24).order("created_at", { ascending: false }).limit(10),
     supabase.from("newsletter_subscribers").select("id,email,created_at").gte("created_at", hour24).order("created_at", { ascending: false }).limit(10),
     supabase.from("live_chat_messages").select("id,content,created_at,role").gte("created_at", min30).order("created_at", { ascending: false }).limit(10),
   ]);
