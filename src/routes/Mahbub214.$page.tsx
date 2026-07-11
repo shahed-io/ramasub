@@ -971,6 +971,28 @@ function BlogAIPanel() {
         </button>
       </div>
 
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-violet-100">
+        <p className="text-[11px] text-slate-500">
+          {t("Auto-blog for future products (runs hourly).", "নতুন প্রোডাক্টের জন্য auto-blog (প্রতি ঘণ্টায় চলবে)।")}
+        </p>
+        <button
+          onClick={async () => {
+            setBusy("cron");
+            try {
+              const mod = await import("@/lib/blogs.functions");
+              await mod.enableAutoBlogCron();
+              toast.success(t("Auto-blog enabled", "Auto-blog চালু হয়েছে"));
+            } catch (e: any) { toast.error(e?.message || String(e)); }
+            finally { setBusy(null); }
+          }}
+          disabled={busy !== null}
+          className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border border-violet-300 text-violet-700 text-xs font-semibold hover:bg-violet-50 disabled:opacity-60"
+        >
+          {busy === "cron" ? <Loader2 className="w-3 h-3 animate-spin" /> : "🔁"}
+          {t("Enable auto-blog", "Auto-blog চালু করুন")}
+        </button>
+      </div>
+
       {result && <div className="text-sm text-slate-700 bg-white rounded-lg border border-slate-100 px-3 py-2">{result}</div>}
     </div>
   );
