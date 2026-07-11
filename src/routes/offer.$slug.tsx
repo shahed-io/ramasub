@@ -105,14 +105,11 @@ function OfferPage() {
     }
     // Dedupe check
     if (!c.allow_multiple_entries) {
-      const { data: existing } = await supabase
-        .from("offer_submissions" as never)
-        .select("id")
-        .eq("campaign_id", c.id)
-        .ilike("email", email)
-        .limit(1)
-        .maybeSingle();
-      if (existing) return toast.error("আপনি এই offer-এ ইতিমধ্যে অংশগ্রহণ করেছেন।");
+      const { data: exists } = await supabase.rpc(
+        "check_offer_email_submitted" as never,
+        { _campaign_id: c.id, _email: email } as never,
+      );
+      if (exists) return toast.error("আপনি এই offer-এ ইতিমধ্যে অংশগ্রহণ করেছেন।");
     }
     setSubmitting(true);
     const payload: any = {
