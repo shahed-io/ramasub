@@ -615,19 +615,7 @@ const FEATURES: Record<string, AdminFeatureConfig> = {
       { name: "criteria", label: "Criteria", type: "textarea" },
     ],
   },
-  "reports": {
-    kind: "report",
-    mode: "list",
-    fields: [
-      { name: "name", label: "Report name", type: "text", required: true, primary: true },
-      { name: "type", label: "Type", type: "select", options: [
-        { value: "sales", label: "Sales" },
-        { value: "customers", label: "Customers" },
-        { value: "products", label: "Products" },
-      ] },
-      { name: "schedule", label: "Schedule", type: "text" },
-    ],
-  },
+  // "reports" is served by the dedicated route src/routes/Mahbub214.reports.tsx (live analytics)
   "ai-api": {
     kind: "ai_api_settings",
     mode: "single",

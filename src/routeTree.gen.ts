@@ -64,6 +64,7 @@ import { Route as Mahbub214SecurityRouteImport } from './routes/Mahbub214.securi
 import { Route as Mahbub214SearchConsoleRouteImport } from './routes/Mahbub214.search-console'
 import { Route as Mahbub214ReviewsRouteImport } from './routes/Mahbub214.reviews'
 import { Route as Mahbub214ReviewGeneratorRouteImport } from './routes/Mahbub214.review-generator'
+import { Route as Mahbub214ReportsRouteImport } from './routes/Mahbub214.reports'
 import { Route as Mahbub214RenewalRemindersRouteImport } from './routes/Mahbub214.renewal-reminders'
 import { Route as Mahbub214RedirectsRouteImport } from './routes/Mahbub214.redirects'
 import { Route as Mahbub214QuickToolsRouteImport } from './routes/Mahbub214.quick-tools'
@@ -391,6 +392,11 @@ const Mahbub214ReviewGeneratorRoute =
     path: '/review-generator',
     getParentRoute: () => Mahbub214Route,
   } as any)
+const Mahbub214ReportsRoute = Mahbub214ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => Mahbub214Route,
+} as any)
 const Mahbub214RenewalRemindersRoute =
   Mahbub214RenewalRemindersRouteImport.update({
     id: '/renewal-reminders',
@@ -715,6 +721,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/quick-tools': typeof Mahbub214QuickToolsRoute
   '/Mahbub214/redirects': typeof Mahbub214RedirectsRoute
   '/Mahbub214/renewal-reminders': typeof Mahbub214RenewalRemindersRoute
+  '/Mahbub214/reports': typeof Mahbub214ReportsRoute
   '/Mahbub214/review-generator': typeof Mahbub214ReviewGeneratorRoute
   '/Mahbub214/reviews': typeof Mahbub214ReviewsRoute
   '/Mahbub214/search-console': typeof Mahbub214SearchConsoleRoute
@@ -820,6 +827,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/quick-tools': typeof Mahbub214QuickToolsRoute
   '/Mahbub214/redirects': typeof Mahbub214RedirectsRoute
   '/Mahbub214/renewal-reminders': typeof Mahbub214RenewalRemindersRoute
+  '/Mahbub214/reports': typeof Mahbub214ReportsRoute
   '/Mahbub214/review-generator': typeof Mahbub214ReviewGeneratorRoute
   '/Mahbub214/reviews': typeof Mahbub214ReviewsRoute
   '/Mahbub214/search-console': typeof Mahbub214SearchConsoleRoute
@@ -927,6 +935,7 @@ export interface FileRoutesById {
   '/Mahbub214/quick-tools': typeof Mahbub214QuickToolsRoute
   '/Mahbub214/redirects': typeof Mahbub214RedirectsRoute
   '/Mahbub214/renewal-reminders': typeof Mahbub214RenewalRemindersRoute
+  '/Mahbub214/reports': typeof Mahbub214ReportsRoute
   '/Mahbub214/review-generator': typeof Mahbub214ReviewGeneratorRoute
   '/Mahbub214/reviews': typeof Mahbub214ReviewsRoute
   '/Mahbub214/search-console': typeof Mahbub214SearchConsoleRoute
@@ -1035,6 +1044,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/quick-tools'
     | '/Mahbub214/redirects'
     | '/Mahbub214/renewal-reminders'
+    | '/Mahbub214/reports'
     | '/Mahbub214/review-generator'
     | '/Mahbub214/reviews'
     | '/Mahbub214/search-console'
@@ -1140,6 +1150,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/quick-tools'
     | '/Mahbub214/redirects'
     | '/Mahbub214/renewal-reminders'
+    | '/Mahbub214/reports'
     | '/Mahbub214/review-generator'
     | '/Mahbub214/reviews'
     | '/Mahbub214/search-console'
@@ -1246,6 +1257,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/quick-tools'
     | '/Mahbub214/redirects'
     | '/Mahbub214/renewal-reminders'
+    | '/Mahbub214/reports'
     | '/Mahbub214/review-generator'
     | '/Mahbub214/reviews'
     | '/Mahbub214/search-console'
@@ -1731,6 +1743,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214ReviewGeneratorRouteImport
       parentRoute: typeof Mahbub214Route
     }
+    '/Mahbub214/reports': {
+      id: '/Mahbub214/reports'
+      path: '/reports'
+      fullPath: '/Mahbub214/reports'
+      preLoaderRoute: typeof Mahbub214ReportsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
     '/Mahbub214/renewal-reminders': {
       id: '/Mahbub214/renewal-reminders'
       path: '/renewal-reminders'
@@ -2135,6 +2154,7 @@ interface Mahbub214RouteChildren {
   Mahbub214QuickToolsRoute: typeof Mahbub214QuickToolsRoute
   Mahbub214RedirectsRoute: typeof Mahbub214RedirectsRoute
   Mahbub214RenewalRemindersRoute: typeof Mahbub214RenewalRemindersRoute
+  Mahbub214ReportsRoute: typeof Mahbub214ReportsRoute
   Mahbub214ReviewGeneratorRoute: typeof Mahbub214ReviewGeneratorRoute
   Mahbub214ReviewsRoute: typeof Mahbub214ReviewsRoute
   Mahbub214SearchConsoleRoute: typeof Mahbub214SearchConsoleRoute
@@ -2186,6 +2206,7 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214QuickToolsRoute: Mahbub214QuickToolsRoute,
   Mahbub214RedirectsRoute: Mahbub214RedirectsRoute,
   Mahbub214RenewalRemindersRoute: Mahbub214RenewalRemindersRoute,
+  Mahbub214ReportsRoute: Mahbub214ReportsRoute,
   Mahbub214ReviewGeneratorRoute: Mahbub214ReviewGeneratorRoute,
   Mahbub214ReviewsRoute: Mahbub214ReviewsRoute,
   Mahbub214SearchConsoleRoute: Mahbub214SearchConsoleRoute,
