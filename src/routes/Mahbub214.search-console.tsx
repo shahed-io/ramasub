@@ -274,6 +274,7 @@ function SearchConsolePage() {
                   { k: "pages", label: "Top Pages", icon: FileText },
                   { k: "sitemaps", label: "Sitemaps", icon: LinkIcon },
                   { k: "inspect", label: "URL Inspection", icon: ExternalLink },
+                  { k: "verify", label: "Verify Site", icon: ShieldCheck },
                   { k: "settings", label: "Settings", icon: Settings2 },
                 ].map((t) => {
                   const Icon = t.icon; const active = tab === t.k;
