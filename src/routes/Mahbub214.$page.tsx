@@ -75,7 +75,10 @@ function AdminFeaturePage() {
  <AnalyticsDashboard />
  ) : cfg ? (
  cfg.mode === "list" ? (
- <ListCrud kind={cfg.kind} fields={cfg.fields} />
+   <>
+     {cfg.kind === "ad_campaign" && <AdCampaignMetrics />}
+     <ListCrud kind={cfg.kind} fields={cfg.fields} />
+   </>
  ) : (
  <SingleSettings kind={cfg.kind} fields={cfg.fields} />
  )
