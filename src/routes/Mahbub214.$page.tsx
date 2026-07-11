@@ -73,6 +73,8 @@ function AdminFeaturePage() {
  <BackupRestore />
  ) : page === "analytics" ? (
  <AnalyticsDashboard />
+ ) : page === "software-downloads" ? (
+ <SoftwareDownloadsManager />
  ) : cfg ? (
   cfg.mode === "list" ? (
     <>
@@ -994,6 +996,248 @@ function BlogAIPanel() {
       </div>
 
       {result && <div className="text-sm text-slate-700 bg-white rounded-lg border border-slate-100 px-3 py-2">{result}</div>}
+    </div>
+  );
+}
+
+/* ============================== SOFTWARE DOWNLOADS MANAGER ============================== */
+
+type SDProduct = {
+  slug: string;
+  name: string;
+  image_url: string | null;
+  category: string | null;
+  is_active: boolean;
+  downloads: Array<{ label: string; url: string; platform?: string; version?: string; size?: string; notes?: string }>;
+};
+
+const PLATFORMS = ["windows", "mac", "android", "ios", "web", "other"] as const;
+
+function SoftwareDownloadsManager() {
+  const { t } = useAdminLang();
+  const [products, setProducts] = useState<SDProduct[] | null>(null);
+  const [query, setQuery] = useState("");
+  const [openSlug, setOpenSlug] = useState<string | null>(null);
+
+  const load = useCallback(async () => {
+    try {
+      const mod = await import("@/lib/software-downloads.functions");
+      const list = await mod.listProductsWithDownloads();
+      setProducts(list);
+    } catch (e: any) {
+      toast.error(e?.message || String(e));
+      setProducts([]);
+    }
+  }, []);
+
+  useEffect(() => { load(); }, [load]);
+
+  const visible = useMemo(() => {
+    if (!products) return [];
+    const q = query.trim().toLowerCase();
+    return products.filter((p) =>
+      !q ||
+      p.name.toLowerCase().includes(q) ||
+      p.slug.toLowerCase().includes(q) ||
+      (p.category || "").toLowerCase().includes(q),
+    );
+  }, [products, query]);
+
+  const configured = products?.filter((p) => p.downloads.length > 0).length ?? 0;
+  const total = products?.length ?? 0;
+
+  return (
+    <div className="space-y-4">
+      <div className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-teal-50 p-5">
+        <div className="flex items-start justify-between gap-3 flex-wrap">
+          <div>
+            <h3 className="font-black text-slate-900">
+              💾 {t("Software Download Manager", "সফটওয়্যার ডাউনলোড ম্যানেজার")}
+            </h3>
+            <p className="text-xs text-slate-600 mt-1 max-w-xl">
+              {t(
+                "Attach one or more download links per product. When an order is marked completed, the link is auto-emailed to the customer and shown in their dashboard.",
+                "প্রতিটি প্রোডাক্টে এক বা একাধিক download link যুক্ত করুন। অর্ডার completed হলে link গ্রাহকের ইমেইলে যাবে এবং তাদের dashboard-এ দেখাবে।",
+              )}
+            </p>
+          </div>
+          <div className="text-right text-xs">
+            <div className="text-slate-500">{t("Products with downloads", "ডাউনলোডসহ প্রোডাক্ট")}</div>
+            <div className="text-2xl font-black text-emerald-700">{configured}<span className="text-slate-400 text-sm">/{total}</span></div>
+          </div>
+        </div>
+      </div>
+
+      <SearchBar
+        value={query}
+        onChange={setQuery}
+        placeholder={t("Search product name, slug, category…", "প্রোডাক্ট খুঁজুন…")}
+        size="md"
+        className="w-full"
+      />
+
+      {products === null ? (
+        <div className="text-center py-10 text-slate-500 flex items-center justify-center gap-2">
+          <Loader2 className="w-4 h-4 animate-spin" /> {t("Loading products…", "লোড হচ্ছে…")}
+        </div>
+      ) : visible.length === 0 ? (
+        <div className="admin-card rounded-2xl p-10 text-center text-slate-500">
+          {t("No products match your search.", "কোনো প্রোডাক্ট পাওয়া যায়নি।")}
+        </div>
+      ) : (
+        <div className="admin-card rounded-2xl divide-y divide-slate-100">
+          {visible.map((p) => (
+            <div key={p.slug}>
+              <button
+                onClick={() => setOpenSlug(openSlug === p.slug ? null : p.slug)}
+                className="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-50 text-left"
+              >
+                {p.image_url ? (
+                  <img src={p.image_url} alt="" className="w-11 h-11 rounded-lg object-cover border border-slate-200" />
+                ) : (
+                  <div className="w-11 h-11 rounded-lg bg-slate-100 grid place-items-center text-slate-500 text-lg">📦</div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-slate-900 truncate">{p.name}</div>
+                  <div className="text-xs text-slate-500 truncate">{p.slug} {p.category ? `· ${p.category}` : ""}</div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  {p.downloads.length > 0 ? (
+                    <span className="inline-flex items-center gap-1 px-2 h-6 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200">
+                      {p.downloads.length} {t("link", "লিংক")}
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 px-2 h-6 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">
+                      {t("no link", "লিংক নেই")}
+                    </span>
+                  )}
+                  <span className={`text-slate-400 transition-transform ${openSlug === p.slug ? "rotate-90" : ""}`}>›</span>
+                </div>
+              </button>
+              {openSlug === p.slug && (
+                <DownloadEditor
+                  product={p}
+                  onSaved={(next) => {
+                    setProducts((prev) => (prev ? prev.map((x) => (x.slug === p.slug ? { ...x, downloads: next } : x)) : prev));
+                  }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DownloadEditor({
+  product,
+  onSaved,
+}: {
+  product: SDProduct;
+  onSaved: (next: SDProduct["downloads"]) => void;
+}) {
+  const { t } = useAdminLang();
+  const [rows, setRows] = useState(product.downloads);
+  const [saving, setSaving] = useState(false);
+
+  const add = () => setRows((r) => [...r, { label: "Setup file", url: "", platform: "windows" }]);
+  const patch = (i: number, k: string, v: string) =>
+    setRows((r) => r.map((row, idx) => (idx === i ? { ...row, [k]: v } : row)));
+  const remove = (i: number) => setRows((r) => r.filter((_, idx) => idx !== i));
+
+  const save = async () => {
+    for (const r of rows) {
+      if (!r.label.trim()) return toast.error(t("Label is required", "Label লাগবে"));
+      if (!/^https?:\/\//i.test(r.url)) return toast.error(t("URL must start with http(s)://", "URL http(s):// দিয়ে শুরু হতে হবে"));
+    }
+    setSaving(true);
+    try {
+      const mod = await import("@/lib/software-downloads.functions");
+      await mod.setProductDownloads({ data: { slug: product.slug, downloads: rows } });
+      toast.success(t("Saved", "সংরক্ষিত"));
+      onSaved(rows);
+    } catch (e: any) {
+      toast.error(e?.message || String(e));
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="bg-slate-50/60 border-t border-slate-100 px-4 py-4 space-y-3">
+      {rows.length === 0 && (
+        <div className="text-xs text-slate-500 text-center py-4">
+          {t("No download links yet. Click ‘Add link’ below.", "কোনো download link নেই। নিচের ‘Add link’ ক্লিক করুন।")}
+        </div>
+      )}
+      {rows.map((r, i) => (
+        <div key={i} className="grid grid-cols-12 gap-2 items-start bg-white p-3 rounded-xl border border-slate-200">
+          <input
+            className="col-span-12 md:col-span-3 h-9 px-3 rounded-lg border border-slate-200 text-sm"
+            placeholder={t("Label (e.g. Setup file)", "Label")}
+            value={r.label}
+            onChange={(e) => patch(i, "label", e.target.value)}
+          />
+          <select
+            className="col-span-6 md:col-span-2 h-9 px-2 rounded-lg border border-slate-200 text-sm bg-white"
+            value={r.platform || ""}
+            onChange={(e) => patch(i, "platform", e.target.value)}
+          >
+            <option value="">{t("Platform", "প্ল্যাটফর্ম")}</option>
+            {PLATFORMS.map((p) => <option key={p} value={p}>{p}</option>)}
+          </select>
+          <input
+            className="col-span-6 md:col-span-2 h-9 px-3 rounded-lg border border-slate-200 text-sm"
+            placeholder={t("Version", "Version")}
+            value={r.version || ""}
+            onChange={(e) => patch(i, "version", e.target.value)}
+          />
+          <input
+            className="col-span-12 md:col-span-4 h-9 px-3 rounded-lg border border-slate-200 text-sm"
+            placeholder="https://…"
+            value={r.url}
+            onChange={(e) => patch(i, "url", e.target.value)}
+          />
+          <button
+            onClick={() => remove(i)}
+            title={t("Remove", "মুছুন")}
+            className="col-span-12 md:col-span-1 h-9 grid place-items-center rounded-lg border border-slate-200 text-slate-500 hover:text-rose-600 hover:border-rose-200"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+          <div className="col-span-12 grid grid-cols-2 gap-2">
+            <input
+              className="h-9 px-3 rounded-lg border border-slate-200 text-sm"
+              placeholder={t("Size (e.g. 2.4 GB)", "সাইজ")}
+              value={r.size || ""}
+              onChange={(e) => patch(i, "size", e.target.value)}
+            />
+            <input
+              className="h-9 px-3 rounded-lg border border-slate-200 text-sm"
+              placeholder={t("Notes (optional)", "নোট")}
+              value={r.notes || ""}
+              onChange={(e) => patch(i, "notes", e.target.value)}
+            />
+          </div>
+        </div>
+      ))}
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <button
+          onClick={add}
+          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-full border border-emerald-300 text-emerald-700 text-xs font-semibold hover:bg-emerald-50"
+        >
+          <Plus className="w-3.5 h-3.5" /> {t("Add link", "Link যোগ করুন")}
+        </button>
+        <button
+          onClick={save}
+          disabled={saving}
+          className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow disabled:opacity-60"
+        >
+          {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+          {t("Save", "সংরক্ষণ")}
+        </button>
+      </div>
     </div>
   );
 }

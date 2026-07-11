@@ -120,6 +120,11 @@ function AdminOrders() {
             manageUrl: "https://ramasub.com/orders",
           },
         }).catch(() => {});
+        // Auto-deliver any configured software download links + email
+        import("@/lib/software-downloads.functions")
+          .then((m) => m.deliverDownloadsForOrder({ data: { orderId: id } }))
+          .then((r: any) => { if (r?.ok) toast.success(t(`Sent ${r.sent} download link(s)`, `${r.sent} টি ডাউনলোড লিংক পাঠানো হয়েছে`)); })
+          .catch(() => {});
       } else {
         sendTransactionalEmail({
           templateName: "order-status-update",
