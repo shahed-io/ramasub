@@ -193,12 +193,35 @@ export async function getSmartDefaults(kind: string, fields: AdminField[]): Prom
       map.color = "#ffffff";
       break;
 
-    case "biggest_discount":
-      map.enabled = false;
-      map.title = "Biggest Discount of the Season";
-      map.percent = 20;
-      map.link = "/";
+    case "biggest_discount": {
+      const bd = biggestDiscount;
+      const pct = bd?.percent ?? 20;
+      const endsAt = new Date();
+      endsAt.setDate(endsAt.getDate() + 7);
+      map.enabled = !!bd;
+      map.title = bd
+        ? `${bd.name.trim()} — up to ${pct}% off`
+        : "Biggest Discount of the Season";
+      map.subtitle = bd
+        ? `Save ৳${bd.original_price - bd.sale_price} on ${bd.name.trim()}`
+        : `${brand}-এর সেরা ডিসকাউন্ট অফার`;
+      map.description = bd
+        ? `${bd.name.trim()} এখন মাত্র ৳${bd.sale_price} (আগে ৳${bd.original_price})। Instant delivery, verified access, ${brand} guarantee।`
+        : `${brand}-এর জনপ্রিয় digital subscription গুলোতে বিশাল ছাড়। Instant delivery ও 24/7 support।`;
+      map.percent = pct;
+      map.original_price = bd?.original_price ?? 0;
+      map.sale_price = bd?.sale_price ?? 0;
+      map.product_slug = bd?.slug ?? "";
+      map.image_url = bd?.image_url || featuredProduct?.image_url || site.logo_url || "";
+      map.cta_text = "Grab the deal";
+      map.link = bd ? `/product/${bd.slug}` : "/";
+      map.ends_at = endsAt.toISOString().slice(0, 10);
+      map.badge_text = "Limited time";
+      map.background_color = "#fef2f2";
+      map.text_color = "#7f1d1d";
+      map.accent_color = "#dc2626";
       break;
+    }
 
     case "homepage":
       map.hero_title = `${brand} — Trusted Digital Store`;
