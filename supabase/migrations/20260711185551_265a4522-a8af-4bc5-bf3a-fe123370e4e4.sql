@@ -1,0 +1,1 @@
+DELETE FROM public.admin_records WHERE kind='shop_config' AND id NOT IN (SELECT id FROM public.admin_records WHERE kind='shop_config' ORDER BY created_at ASC LIMIT 1);
