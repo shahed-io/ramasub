@@ -468,15 +468,30 @@ function SingleSettings({ kind, fields }: { kind: string; fields: AdminField[] }
  const savedData = row ? (row.data as Record_) : {};
  if (row) setRecordId(row.id);
  // No saved row yet, or saved row has blank fields — fill missing values from site data.
+ let mergedFinal: Record_ = savedData;
+ let filledFromDefaults = false;
  try {
  const { getSmartDefaults } = await import("@/lib/admin-smart-defaults");
  const defaults = await getSmartDefaults(kind, fields);
-  const merged = mergeMissingValues(savedData, defaults as Record_);
-  const filledFromDefaults = Object.keys(defaults).some((key) => isBlankValue(savedData[key]) && !isBlankValue(defaults[key]));
-  setData(merged);
+  mergedFinal = mergeMissingValues(savedData, defaults as Record_);
+  filledFromDefaults = Object.keys(defaults).some((key) => isBlankValue(savedData[key]) && !isBlankValue(defaults[key]));
+  setData(mergedFinal);
   setPrefilled(filledFromDefaults);
  } catch { setData(savedData); }
  setLoading(false);
+
+ // Auto-save prefilled values so the DB stays in sync with what admins see.
+ if (filledFromDefaults) {
+   // Validate — only auto-save if every required field is satisfied by defaults.
+   const allValid = fields.every((f) => !validateField(f, mergedFinal[f.name]));
+   if (allValid) {
+     const payload = { kind, data: mergedFinal as never, is_active: true };
+     const { data: out } = row
+       ? await supabase.from("admin_records").update(payload).eq("id", row.id).select().single()
+       : await supabase.from("admin_records").insert(payload).select().single();
+     if (out) { setRecordId(out.id); setPrefilled(false); }
+   }
+ }
  })();
  // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [kind]);
