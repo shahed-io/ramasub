@@ -78,6 +78,26 @@ export const Route = createFileRoute("/sitemap.xml")({
               });
             }
           }
+
+          // Blog posts stored as admin_records kind=blog_post
+          entries.push({ path: "/blog", changefreq: "daily", priority: "0.7" });
+          const { data: blogs } = await sb
+            .from("admin_records")
+            .select("data, updated_at")
+            .eq("kind", "blog_post")
+            .eq("is_active", true);
+          if (blogs) {
+            for (const b of blogs) {
+              const slug = (b.data as { slug?: string } | null)?.slug;
+              if (!slug) continue;
+              entries.push({
+                path: `/blog/${slug}`,
+                lastmod: b.updated_at ? new Date(b.updated_at).toISOString().slice(0, 10) : undefined,
+                changefreq: "weekly",
+                priority: "0.6",
+              });
+            }
+          }
         } catch (e) {
           console.error("[sitemap] dynamic fetch failed", e);
         }
