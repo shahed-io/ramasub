@@ -456,14 +456,17 @@ function SingleSettings({ kind, fields }: { kind: string; fields: AdminField[] }
  const [errors, setErrors] = useState<{ [k: string]: string }>({});
  const [touched, setTouched] = useState<{ [k: string]: boolean }>({});
  const { t } = useAdminLang();
+ const autoSaveGuard = useRef<Set<string>>(new Set());
 
  useEffect(() => {
+ let cancelled = false;
  (async () => {
  setLoading(true);
  setPrefilled(false);
  const { data: rows, error } = await supabase
- .from("admin_records").select("*").eq("kind", kind).limit(1);
+ .from("admin_records").select("*").eq("kind", kind).order("created_at", { ascending: true }).limit(1);
  if (error) toast.error(error.message);
+ if (cancelled) return;
  const row = rows?.[0];
  const savedData = row ? (row.data as Record_) : {};
  if (row) setRecordId(row.id);
@@ -475,24 +478,32 @@ function SingleSettings({ kind, fields }: { kind: string; fields: AdminField[] }
  const defaults = await getSmartDefaults(kind, fields);
   mergedFinal = mergeMissingValues(savedData, defaults as Record_);
   filledFromDefaults = Object.keys(defaults).some((key) => isBlankValue(savedData[key]) && !isBlankValue(defaults[key]));
+  if (cancelled) return;
   setData(mergedFinal);
   setPrefilled(filledFromDefaults);
- } catch { setData(savedData); }
+ } catch { if (!cancelled) setData(savedData); }
+ if (cancelled) return;
  setLoading(false);
 
  // Auto-save prefilled values so the DB stays in sync with what admins see.
- if (filledFromDefaults) {
-   // Validate — only auto-save if every required field is satisfied by defaults.
+ // Guard against React StrictMode double-invoke of the effect.
+ if (filledFromDefaults && !autoSaveGuard.current.has(kind)) {
+   autoSaveGuard.current.add(kind);
    const allValid = fields.every((f) => !validateField(f, mergedFinal[f.name]));
    if (allValid) {
+     // Re-check in case another mount just inserted the row.
+     const { data: fresh } = await supabase
+       .from("admin_records").select("id").eq("kind", kind).order("created_at", { ascending: true }).limit(1);
+     const existingId = fresh?.[0]?.id ?? row?.id ?? null;
      const payload = { kind, data: mergedFinal as never, is_active: true };
-     const { data: out } = row
-       ? await supabase.from("admin_records").update(payload).eq("id", row.id).select().single()
+     const { data: out } = existingId
+       ? await supabase.from("admin_records").update(payload).eq("id", existingId).select().single()
        : await supabase.from("admin_records").insert(payload).select().single();
-     if (out) { setRecordId(out.id); setPrefilled(false); }
+     if (out && !cancelled) { setRecordId(out.id); setPrefilled(false); }
    }
  }
  })();
+ return () => { cancelled = true; };
  // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [kind]);
 
