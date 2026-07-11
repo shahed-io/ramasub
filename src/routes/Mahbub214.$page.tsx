@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useParams, Navigate } from "@tanstack/react-router";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Construction, ArrowLeft, Plus, Trash2, Pencil, Loader2, X, Check, Save, GripVertical, Upload } from "lucide-react";
 import { SearchBar } from "@/components/SearchBar";
 import { findAdminPage, ADMIN_MENU } from "@/lib/admin-menu";
