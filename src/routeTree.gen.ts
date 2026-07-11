@@ -85,6 +85,7 @@ import { Route as Mahbub214InvoiceDesignRouteImport } from './routes/Mahbub214.i
 import { Route as Mahbub214InventoryRouteImport } from './routes/Mahbub214.inventory'
 import { Route as Mahbub214HomepageEditorRouteImport } from './routes/Mahbub214.homepage-editor'
 import { Route as Mahbub214GoogleAdsRouteImport } from './routes/Mahbub214.google-ads'
+import { Route as Mahbub214Ga4RealtimeRouteImport } from './routes/Mahbub214.ga4-realtime'
 import { Route as Mahbub214FbPixelRouteImport } from './routes/Mahbub214.fb-pixel'
 import { Route as Mahbub214FbAudiencesRouteImport } from './routes/Mahbub214.fb-audiences'
 import { Route as Mahbub214EmailDashboardRouteImport } from './routes/Mahbub214.email-dashboard'
@@ -499,6 +500,11 @@ const Mahbub214GoogleAdsRoute = Mahbub214GoogleAdsRouteImport.update({
   path: '/google-ads',
   getParentRoute: () => Mahbub214Route,
 } as any)
+const Mahbub214Ga4RealtimeRoute = Mahbub214Ga4RealtimeRouteImport.update({
+  id: '/ga4-realtime',
+  path: '/ga4-realtime',
+  getParentRoute: () => Mahbub214Route,
+} as any)
 const Mahbub214FbPixelRoute = Mahbub214FbPixelRouteImport.update({
   id: '/fb-pixel',
   path: '/fb-pixel',
@@ -701,6 +707,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
   '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
+  '/Mahbub214/ga4-realtime': typeof Mahbub214Ga4RealtimeRoute
   '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
   '/Mahbub214/homepage-editor': typeof Mahbub214HomepageEditorRoute
   '/Mahbub214/inventory': typeof Mahbub214InventoryRoute
@@ -807,6 +814,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
   '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
+  '/Mahbub214/ga4-realtime': typeof Mahbub214Ga4RealtimeRoute
   '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
   '/Mahbub214/homepage-editor': typeof Mahbub214HomepageEditorRoute
   '/Mahbub214/inventory': typeof Mahbub214InventoryRoute
@@ -915,6 +923,7 @@ export interface FileRoutesById {
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
   '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
+  '/Mahbub214/ga4-realtime': typeof Mahbub214Ga4RealtimeRoute
   '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
   '/Mahbub214/homepage-editor': typeof Mahbub214HomepageEditorRoute
   '/Mahbub214/inventory': typeof Mahbub214InventoryRoute
@@ -1024,6 +1033,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/email-dashboard'
     | '/Mahbub214/fb-audiences'
     | '/Mahbub214/fb-pixel'
+    | '/Mahbub214/ga4-realtime'
     | '/Mahbub214/google-ads'
     | '/Mahbub214/homepage-editor'
     | '/Mahbub214/inventory'
@@ -1130,6 +1140,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/email-dashboard'
     | '/Mahbub214/fb-audiences'
     | '/Mahbub214/fb-pixel'
+    | '/Mahbub214/ga4-realtime'
     | '/Mahbub214/google-ads'
     | '/Mahbub214/homepage-editor'
     | '/Mahbub214/inventory'
@@ -1237,6 +1248,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/email-dashboard'
     | '/Mahbub214/fb-audiences'
     | '/Mahbub214/fb-pixel'
+    | '/Mahbub214/ga4-realtime'
     | '/Mahbub214/google-ads'
     | '/Mahbub214/homepage-editor'
     | '/Mahbub214/inventory'
@@ -1890,6 +1902,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214GoogleAdsRouteImport
       parentRoute: typeof Mahbub214Route
     }
+    '/Mahbub214/ga4-realtime': {
+      id: '/Mahbub214/ga4-realtime'
+      path: '/ga4-realtime'
+      fullPath: '/Mahbub214/ga4-realtime'
+      preLoaderRoute: typeof Mahbub214Ga4RealtimeRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
     '/Mahbub214/fb-pixel': {
       id: '/Mahbub214/fb-pixel'
       path: '/fb-pixel'
@@ -2134,6 +2153,7 @@ interface Mahbub214RouteChildren {
   Mahbub214EmailDashboardRoute: typeof Mahbub214EmailDashboardRoute
   Mahbub214FbAudiencesRoute: typeof Mahbub214FbAudiencesRoute
   Mahbub214FbPixelRoute: typeof Mahbub214FbPixelRoute
+  Mahbub214Ga4RealtimeRoute: typeof Mahbub214Ga4RealtimeRoute
   Mahbub214GoogleAdsRoute: typeof Mahbub214GoogleAdsRoute
   Mahbub214HomepageEditorRoute: typeof Mahbub214HomepageEditorRoute
   Mahbub214InventoryRoute: typeof Mahbub214InventoryRoute
@@ -2186,6 +2206,7 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214EmailDashboardRoute: Mahbub214EmailDashboardRoute,
   Mahbub214FbAudiencesRoute: Mahbub214FbAudiencesRoute,
   Mahbub214FbPixelRoute: Mahbub214FbPixelRoute,
+  Mahbub214Ga4RealtimeRoute: Mahbub214Ga4RealtimeRoute,
   Mahbub214GoogleAdsRoute: Mahbub214GoogleAdsRoute,
   Mahbub214HomepageEditorRoute: Mahbub214HomepageEditorRoute,
   Mahbub214InventoryRoute: Mahbub214InventoryRoute,
