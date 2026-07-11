@@ -75,7 +75,10 @@ function AdminFeaturePage() {
  <AnalyticsDashboard />
  ) : cfg ? (
  cfg.mode === "list" ? (
- <ListCrud kind={cfg.kind} fields={cfg.fields} />
+   <>
+     {cfg.kind === "ad_campaign" && <AdCampaignMetrics />}
+     <ListCrud kind={cfg.kind} fields={cfg.fields} />
+   </>
  ) : (
  <SingleSettings kind={cfg.kind} fields={cfg.fields} />
  )
@@ -787,4 +790,91 @@ function ImageField({
      </div>
    </div>
  );
+}
+
+/* ============================== AD CAMPAIGN METRICS ============================== */
+
+function AdCampaignMetrics() {
+  const [rows, setRows] = useState<Record[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { t } = useAdminLang();
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase
+        .from("admin_records").select("*").eq("kind", "ad_campaign");
+      setRows((data as Record[]) ?? []);
+      setLoading(false);
+    })();
+  }, []);
+
+  const metrics = useMemo(() => {
+    let active = 0, spend = 0, budget = 0, revenue = 0, impressions = 0, clicks = 0, conversions = 0;
+    for (const r of rows) {
+      const d = r.data ?? {};
+      if (r.is_active && String(d.status ?? "") !== "paused" && String(d.status ?? "") !== "completed") active++;
+      spend += Number(d.spend_to_date ?? 0) || 0;
+      budget += Number(d.total_budget ?? 0) || 0;
+      revenue += Number(d.revenue ?? 0) || 0;
+      impressions += Number(d.impressions ?? 0) || 0;
+      clicks += Number(d.clicks ?? 0) || 0;
+      conversions += Number(d.conversions ?? 0) || 0;
+    }
+    const roas = spend > 0 ? revenue / spend : 0;
+    const ctr = impressions > 0 ? (clicks / impressions) * 100 : 0;
+    const cvr = clicks > 0 ? (conversions / clicks) * 100 : 0;
+    const cpc = clicks > 0 ? spend / clicks : 0;
+    return { active, spend, budget, revenue, impressions, clicks, conversions, roas, ctr, cvr, cpc };
+  }, [rows]);
+
+  const fmt = (n: number) => n.toLocaleString("en-BD", { maximumFractionDigits: 0 });
+  const money = (n: number) => `৳${fmt(n)}`;
+
+  const cards: Array<{ label: string; labelBn: string; value: string; hint?: string; tone: string }> = [
+    { label: "Active campaigns", labelBn: "সক্রিয় ক্যাম্পেইন", value: fmt(metrics.active), tone: "from-emerald-500 to-green-600" },
+    { label: "Total spend", labelBn: "মোট খরচ", value: money(metrics.spend), hint: `budget ${money(metrics.budget)}`, tone: "from-rose-500 to-red-600" },
+    { label: "Revenue", labelBn: "আয়", value: money(metrics.revenue), tone: "from-violet-500 to-purple-600" },
+    { label: "ROAS", labelBn: "ROAS", value: metrics.roas ? `${metrics.roas.toFixed(2)}x` : "—", hint: "revenue ÷ spend", tone: "from-amber-500 to-orange-600" },
+    { label: "Impressions", labelBn: "ইম্প্রেশন", value: fmt(metrics.impressions), tone: "from-sky-500 to-blue-600" },
+    { label: "Clicks · CTR", labelBn: "ক্লিক · CTR", value: `${fmt(metrics.clicks)} · ${metrics.ctr.toFixed(2)}%`, tone: "from-indigo-500 to-blue-700" },
+    { label: "Conversions · CVR", labelBn: "কনভার্সন · CVR", value: `${fmt(metrics.conversions)} · ${metrics.cvr.toFixed(1)}%`, tone: "from-fuchsia-500 to-pink-600" },
+    { label: "Cost per click", labelBn: "প্রতি ক্লিকে খরচ", value: metrics.cpc ? money(metrics.cpc) : "—", tone: "from-slate-600 to-slate-800" },
+  ];
+
+  if (loading) {
+    return (
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} className="h-24 rounded-2xl bg-slate-100 animate-pulse" />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="admin-card rounded-2xl p-4 sm:p-5">
+      <div className="flex items-center justify-between mb-3">
+        <div>
+          <div className="text-[13px] font-black text-slate-900">{t("Performance overview", "পারফরম্যান্স ওভারভিউ")}</div>
+          <div className="text-[11px] text-slate-500">{t("Live totals across all campaigns", "সব ক্যাম্পেইনের সম্মিলিত হিসাব")}</div>
+        </div>
+        {metrics.spend > 0 && (
+          <div className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${metrics.roas >= 2 ? "bg-emerald-50 text-emerald-700" : metrics.roas >= 1 ? "bg-amber-50 text-amber-700" : "bg-rose-50 text-rose-700"}`}>
+            {metrics.roas >= 2 ? t("Profitable", "লাভজনক") : metrics.roas >= 1 ? t("Break-even", "সমতাল") : t("Losing money", "লস হচ্ছে")}
+          </div>
+        )}
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {cards.map((c) => (
+          <div key={c.label} className="rounded-xl border border-slate-100 bg-white p-3">
+            <div className={`inline-block text-[10px] font-black uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r ${c.tone}`}>
+              {t(c.label, c.labelBn)}
+            </div>
+            <div className="mt-1 text-lg font-black text-slate-900">{c.value}</div>
+            {c.hint && <div className="text-[10px] text-slate-400 mt-0.5">{c.hint}</div>}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
