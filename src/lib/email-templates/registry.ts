@@ -19,6 +19,7 @@ import { template as supportTicketClosedTemplate } from './support-ticket-closed
 import { template as contactConfirmationTemplate } from './contact-confirmation'
 import { template as maintenanceNoticeTemplate } from './maintenance-notice'
 import { template as systemNotificationTemplate } from './system-notification'
+import { template as softwareDownloadReadyTemplate } from './software-download-ready'
 
 export interface TemplateEntry {
   component: ComponentType<any>
@@ -54,4 +55,5 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'contact-confirmation': contactConfirmationTemplate,
   'maintenance-notice': maintenanceNoticeTemplate,
   'system-notification': systemNotificationTemplate,
+  'software-download-ready': softwareDownloadReadyTemplate,
 }

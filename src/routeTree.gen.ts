@@ -98,6 +98,7 @@ import { Route as Mahbub214PageRouteImport } from './routes/Mahbub214.$page'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicProductsRouteImport } from './routes/api/public/products'
 import { Route as ApiPublicGenerateBlogsRouteImport } from './routes/api/public/generate-blogs'
+import { Route as ApiPublicDeliverDownloadsRouteImport } from './routes/api/public/deliver-downloads'
 import { Route as ApiPublicClientErrorsRouteImport } from './routes/api/public/client-errors'
 import { Route as Mahbub214PagesKeyRouteImport } from './routes/Mahbub214.pages.$key'
 import { Route as Mahbub214OffersIdRouteImport } from './routes/Mahbub214.offers.$id'
@@ -565,6 +566,12 @@ const ApiPublicGenerateBlogsRoute = ApiPublicGenerateBlogsRouteImport.update({
   path: '/api/public/generate-blogs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicDeliverDownloadsRoute =
+  ApiPublicDeliverDownloadsRouteImport.update({
+    id: '/api/public/deliver-downloads',
+    path: '/api/public/deliver-downloads',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicClientErrorsRoute = ApiPublicClientErrorsRouteImport.update({
   id: '/api/public/client-errors',
   path: '/api/public/client-errors',
@@ -721,6 +728,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
+  '/api/public/deliver-downloads': typeof ApiPublicDeliverDownloadsRoute
   '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -823,6 +831,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
+  '/api/public/deliver-downloads': typeof ApiPublicDeliverDownloadsRoute
   '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -927,6 +936,7 @@ export interface FileRoutesById {
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
+  '/api/public/deliver-downloads': typeof ApiPublicDeliverDownloadsRoute
   '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -1032,6 +1042,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
+    | '/api/public/deliver-downloads'
     | '/api/public/generate-blogs'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -1134,6 +1145,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
+    | '/api/public/deliver-downloads'
     | '/api/public/generate-blogs'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -1237,6 +1249,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
+    | '/api/public/deliver-downloads'
     | '/api/public/generate-blogs'
     | '/api/public/products'
     | '/lovable/email/suppression'
@@ -1290,6 +1303,7 @@ export interface RootRouteChildren {
   ProductSlugRoute: typeof ProductSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ApiPublicClientErrorsRoute: typeof ApiPublicClientErrorsRoute
+  ApiPublicDeliverDownloadsRoute: typeof ApiPublicDeliverDownloadsRoute
   ApiPublicGenerateBlogsRoute: typeof ApiPublicGenerateBlogsRoute
   ApiPublicProductsRoute: typeof ApiPublicProductsRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
@@ -1929,6 +1943,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicGenerateBlogsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/deliver-downloads': {
+      id: '/api/public/deliver-downloads'
+      path: '/api/public/deliver-downloads'
+      fullPath: '/api/public/deliver-downloads'
+      preLoaderRoute: typeof ApiPublicDeliverDownloadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/client-errors': {
       id: '/api/public/client-errors'
       path: '/api/public/client-errors'
@@ -2196,6 +2217,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductSlugRoute: ProductSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ApiPublicClientErrorsRoute: ApiPublicClientErrorsRoute,
+  ApiPublicDeliverDownloadsRoute: ApiPublicDeliverDownloadsRoute,
   ApiPublicGenerateBlogsRoute: ApiPublicGenerateBlogsRoute,
   ApiPublicProductsRoute: ApiPublicProductsRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
