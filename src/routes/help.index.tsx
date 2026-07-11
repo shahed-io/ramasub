@@ -75,7 +75,7 @@ function HelpIndexPage() {
 
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
-    return articles.filter((a) => {
+    return articles.filter((a: HelpRow) => {
       const d = a.data || {};
       if (cat && d.category !== cat) return false;
       if (!query) return true;
@@ -85,7 +85,7 @@ function HelpIndexPage() {
     });
   }, [articles, q, cat]);
 
-  const featured = articles.filter((a) => a.data?.is_featured).slice(0, 3);
+  const featured = articles.filter((a: HelpRow) => a.data?.is_featured).slice(0, 3);
   const counts = useMemo(() => {
     const m: Record<string, number> = {};
     for (const a of articles) {
@@ -153,7 +153,7 @@ function HelpIndexPage() {
               <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500">Featured</h2>
             </div>
             <div className="grid gap-4 md:grid-cols-3">
-              {featured.map((a) => <ArticleCard key={a.id} article={a} featured />)}
+              {featured.map((a: HelpRow) => <ArticleCard key={a.id} article={a} featured />)}
             </div>
           </div>
         )}
@@ -174,7 +174,7 @@ function HelpIndexPage() {
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {filtered.map((a) => <ArticleCard key={a.id} article={a} />)}
+              {filtered.map((a: HelpRow) => <ArticleCard key={a.id} article={a} />)}
             </div>
           )}
         </div>

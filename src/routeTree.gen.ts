@@ -40,6 +40,7 @@ import { Route as AiToolsRouteImport } from './routes/ai-tools'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as Mahbub214RouteImport } from './routes/Mahbub214'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HelpIndexRouteImport } from './routes/help.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as Mahbub214IndexRouteImport } from './routes/Mahbub214.index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
@@ -265,6 +266,11 @@ const Mahbub214Route = Mahbub214RouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpIndexRoute = HelpIndexRouteImport.update({
+  id: '/help/',
+  path: '/help/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
@@ -725,6 +731,7 @@ export interface FileRoutesByFullPath {
   '/product/$slug': typeof ProductSlugRoute
   '/Mahbub214/': typeof Mahbub214IndexRoute
   '/blog/': typeof BlogIndexRoute
+  '/help/': typeof HelpIndexRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
@@ -828,6 +835,7 @@ export interface FileRoutesByTo {
   '/product/$slug': typeof ProductSlugRoute
   '/Mahbub214': typeof Mahbub214IndexRoute
   '/blog': typeof BlogIndexRoute
+  '/help': typeof HelpIndexRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
@@ -933,6 +941,7 @@ export interface FileRoutesById {
   '/product/$slug': typeof ProductSlugRoute
   '/Mahbub214/': typeof Mahbub214IndexRoute
   '/blog/': typeof BlogIndexRoute
+  '/help/': typeof HelpIndexRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
@@ -1039,6 +1048,7 @@ export interface FileRouteTypes {
     | '/product/$slug'
     | '/Mahbub214/'
     | '/blog/'
+    | '/help/'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
@@ -1142,6 +1152,7 @@ export interface FileRouteTypes {
     | '/product/$slug'
     | '/Mahbub214'
     | '/blog'
+    | '/help'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
@@ -1246,6 +1257,7 @@ export interface FileRouteTypes {
     | '/product/$slug'
     | '/Mahbub214/'
     | '/blog/'
+    | '/help/'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
@@ -1302,6 +1314,7 @@ export interface RootRouteChildren {
   OfferSlugRoute: typeof OfferSlugRoute
   ProductSlugRoute: typeof ProductSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  HelpIndexRoute: typeof HelpIndexRoute
   ApiPublicClientErrorsRoute: typeof ApiPublicClientErrorsRoute
   ApiPublicDeliverDownloadsRoute: typeof ApiPublicDeliverDownloadsRoute
   ApiPublicGenerateBlogsRoute: typeof ApiPublicGenerateBlogsRoute
@@ -1535,6 +1548,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help/': {
+      id: '/help/'
+      path: '/help'
+      fullPath: '/help/'
+      preLoaderRoute: typeof HelpIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
@@ -2216,6 +2236,7 @@ const rootRouteChildren: RootRouteChildren = {
   OfferSlugRoute: OfferSlugRoute,
   ProductSlugRoute: ProductSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
+  HelpIndexRoute: HelpIndexRoute,
   ApiPublicClientErrorsRoute: ApiPublicClientErrorsRoute,
   ApiPublicDeliverDownloadsRoute: ApiPublicDeliverDownloadsRoute,
   ApiPublicGenerateBlogsRoute: ApiPublicGenerateBlogsRoute,
