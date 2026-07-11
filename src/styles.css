@@ -2021,24 +2021,25 @@ html:not(.theme-white) .animate-pulse {
     border-color: rgba(79, 70, 229, 0.22) !important;
   }
 
-  /* Tailwind gradient stops with cyan/teal/sky → indigo/blue */
+  /* Tailwind gradient stops with cyan/teal/sky → indigo/violet on white theme.
+     IMPORTANT: --tw-gradient-{from,via,to} are @property-typed as <color>,
+     so we assign a bare color only (no position). Appending a position
+     invalidates the value and the browser falls back to transparent,
+     which was silently breaking every cyan/sky/teal hero + stat card. */
   html.theme-white [class*="from-cyan-"],
   html.theme-white [class*="from-teal-"],
   html.theme-white [class*="from-sky-"] {
-    --tw-gradient-from: #6D28D9 var(--tw-gradient-from-position) !important;
-    --tw-gradient-to: rgb(109 40 217 / 0) var(--tw-gradient-to-position) !important;
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+    --tw-gradient-from: #6D28D9 !important;
   }
   html.theme-white [class*="via-cyan-"],
   html.theme-white [class*="via-teal-"],
   html.theme-white [class*="via-sky-"] {
-    --tw-gradient-via: #4F46E5 var(--tw-gradient-via-position) !important;
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-via), var(--tw-gradient-to) !important;
+    --tw-gradient-via: #4F46E5 !important;
   }
   html.theme-white [class*="to-cyan-"],
   html.theme-white [class*="to-teal-"],
   html.theme-white [class*="to-sky-"] {
-    --tw-gradient-to: #2563EB var(--tw-gradient-to-position) !important;
+    --tw-gradient-to: #2563EB !important;
   }
 
   /* Borders/rings */
