@@ -209,7 +209,7 @@ function HelpArticlePage() {
           <div className="mt-12">
             <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3">Related articles</h2>
             <div className="grid gap-3 sm:grid-cols-2">
-              {related.map((r) => (
+              {related.map((r: { id: string; data: HelpData }) => (
                 <Link
                   key={r.id}
                   to="/help/$slug"

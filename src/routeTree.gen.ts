@@ -46,6 +46,7 @@ import { Route as Mahbub214IndexRouteImport } from './routes/Mahbub214.index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as OrdersIdRouteImport } from './routes/orders.$id'
 import { Route as OfferSlugRouteImport } from './routes/offer.$slug'
+import { Route as HelpSlugRouteImport } from './routes/help.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as BlogHowToBuyNetflixInBangladeshRouteImport } from './routes/blog.how-to-buy-netflix-in-bangladesh'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -296,6 +297,11 @@ const OrdersIdRoute = OrdersIdRouteImport.update({
 const OfferSlugRoute = OfferSlugRouteImport.update({
   id: '/offer/$slug',
   path: '/offer/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpSlugRoute = HelpSlugRouteImport.update({
+  id: '/help/$slug',
+  path: '/help/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
@@ -726,6 +732,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/help/$slug': typeof HelpSlugRoute
   '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -830,6 +837,7 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/help/$slug': typeof HelpSlugRoute
   '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -936,6 +944,7 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/help/$slug': typeof HelpSlugRoute
   '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -1043,6 +1052,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
+    | '/help/$slug'
     | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
@@ -1147,6 +1157,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
+    | '/help/$slug'
     | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
@@ -1252,6 +1263,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
+    | '/help/$slug'
     | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
@@ -1311,6 +1323,7 @@ export interface RootRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
   BlogHowToBuyNetflixInBangladeshRoute: typeof BlogHowToBuyNetflixInBangladeshRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
+  HelpSlugRoute: typeof HelpSlugRoute
   OfferSlugRoute: typeof OfferSlugRoute
   ProductSlugRoute: typeof ProductSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -1590,6 +1603,13 @@ declare module '@tanstack/react-router' {
       path: '/offer/$slug'
       fullPath: '/offer/$slug'
       preLoaderRoute: typeof OfferSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help/$slug': {
+      id: '/help/$slug'
+      path: '/help/$slug'
+      fullPath: '/help/$slug'
+      preLoaderRoute: typeof HelpSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/email/unsubscribe': {
@@ -2233,6 +2253,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   BlogHowToBuyNetflixInBangladeshRoute: BlogHowToBuyNetflixInBangladeshRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
+  HelpSlugRoute: HelpSlugRoute,
   OfferSlugRoute: OfferSlugRoute,
   ProductSlugRoute: ProductSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
