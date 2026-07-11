@@ -16,10 +16,11 @@ export type SeoSettings = {
 };
 
 export const DEFAULT_SEO_SETTINGS: SeoSettings = {
-  site_title: "",
-  site_description: "",
-  og_image: "",
-  twitter_handle: "",
+  site_title: "Rama Sub — Premium Subscriptions at BD Prices",
+  site_description:
+    "Rama Sub — Bangladesh এর trusted premium subscription shop। ChatGPT Plus, Claude, Adobe, Office 365, Zoom, Coursera, Canva সহ সব premium tool সবচেয়ে কম দামে। Instant delivery, warranty ও 24/7 support।",
+  og_image: "https://ramasub.com/og-cover.jpg",
+  twitter_handle: "@ramasub",
   google_site_verification: "",
   bing_site_verification: "",
   yandex_site_verification: "",
