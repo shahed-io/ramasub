@@ -99,13 +99,14 @@ function siteOrigin(): string {
  */
 export async function getSmartDefaults(kind: string, fields: AdminField[]): Promise<Rec> {
   const origin = siteOrigin();
-  const [shop, footerRow, supportRow, seoRow, siteRow, featuredProduct] = await Promise.all([
+  const [shop, footerRow, supportRow, seoRow, siteRow, featuredProduct, biggestDiscount] = await Promise.all([
     fetchShop(),
     fetchKind("footer"),
     fetchKind("support_channels"),
     fetchKind("seo_settings"),
     fetchKind("site_settings"),
     fetchFeaturedProduct(),
+    fetchBiggestDiscount(),
   ]);
   const host = origin.replace(/^https?:\/\//, "");
   const brand = shop.shop_name;
