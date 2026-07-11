@@ -883,7 +883,7 @@ function AdCampaignMetrics() {
 /* ============================== BLOG AI PANEL ============================== */
 
 function BlogAIPanel() {
-  const [busy, setBusy] = useState<null | "all" | "topic">(null);
+  const [busy, setBusy] = useState<null | "all" | "topic" | "cron">(null);
   const [topic, setTopic] = useState("");
   const [result, setResult] = useState<string>("");
   const { t } = useAdminLang();
