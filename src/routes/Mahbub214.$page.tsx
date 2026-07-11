@@ -26,6 +26,16 @@ type Record = {
 };
 type Record_ = { [k: string]: unknown };
 
+const isBlankValue = (value: unknown) => value == null || value === "";
+
+const mergeMissingValues = (base: Record_, defaults: Record_) => {
+ const merged: Record_ = { ...base };
+ for (const [key, value] of Object.entries(defaults)) {
+ if (isBlankValue(merged[key])) merged[key] = value;
+ }
+ return merged;
+};
+
 function AdminFeaturePage() {
  const { page } = useParams({ from: "/Mahbub214/$page" });
  const item = findAdminPage(`/Mahbub214/${page}`) ?? findAdminPage(`/admin/${page}`);
@@ -455,20 +465,17 @@ function SingleSettings({ kind, fields }: { kind: string; fields: AdminField[] }
  .from("admin_records").select("*").eq("kind", kind).limit(1);
  if (error) toast.error(error.message);
  const row = rows?.[0];
- if (row) {
- setData(row.data as Record_);
- setRecordId(row.id);
- } else {
- // No saved row yet — prefill from site data so the form is not blank.
+ const savedData = row ? (row.data as Record_) : {};
+ if (row) setRecordId(row.id);
+ // No saved row yet, or saved row has blank fields — fill missing values from site data.
  try {
  const { getSmartDefaults } = await import("@/lib/admin-smart-defaults");
  const defaults = await getSmartDefaults(kind, fields);
- if (Object.keys(defaults).length) {
- setData(defaults as Record_);
- setPrefilled(true);
- }
+  const merged = mergeMissingValues(savedData, defaults as Record_);
+  const filledFromDefaults = Object.keys(defaults).some((key) => isBlankValue(savedData[key]) && !isBlankValue(defaults[key]));
+  setData(merged);
+  setPrefilled(filledFromDefaults);
  } catch { /* non-fatal */ }
- }
  setLoading(false);
  })();
  // eslint-disable-next-line react-hooks/exhaustive-deps
