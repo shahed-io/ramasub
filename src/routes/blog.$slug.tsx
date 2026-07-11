@@ -161,7 +161,7 @@ function BlogPostPage() {
             <>
               <span>·</span>
               <div className="flex flex-wrap gap-1.5">
-                {d.tags.slice(0, 5).map((t) => (
+                {d.tags.slice(0, 5).map((t: string) => (
                   <span key={t} className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[11px]">{t}</span>
                 ))}
               </div>
