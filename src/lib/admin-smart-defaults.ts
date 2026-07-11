@@ -60,18 +60,24 @@ function siteOrigin(): string {
  * `fields` are returned, so unknown fields never leak through.
  */
 export async function getSmartDefaults(kind: string, fields: AdminField[]): Promise<Rec> {
-  const shop = await fetchShop();
   const origin = siteOrigin();
+  const [shop, footerRow, supportRow, seoRow, siteRow, featuredProduct] = await Promise.all([
+    fetchShop(),
+    fetchKind("footer"),
+    fetchKind("support_channels"),
+    fetchKind("seo_settings"),
+    fetchKind("site_settings"),
+    fetchFeaturedProduct(),
+  ]);
   const host = origin.replace(/^https?:\/\//, "");
   const brand = shop.shop_name;
   const wa = shop.whatsapp_number;
 
   // Also pull optional sibling records so downstream kinds can inherit them.
-  const footer = (await fetchKind("footer")) ?? {};
-  const support = (await fetchKind("support_channels")) ?? {};
-  const seo = (await fetchKind("seo_settings")) ?? {};
-  const site = (await fetchKind("site_settings")) ?? {};
-  const featuredProduct = await fetchFeaturedProduct();
+  const footer = footerRow ?? {};
+  const support = supportRow ?? {};
+  const seo = seoRow ?? {};
+  const site = siteRow ?? {};
 
   // Full defaults map keyed by admin_records.kind
   const map: Rec = {};
