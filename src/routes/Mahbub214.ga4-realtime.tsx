@@ -304,10 +304,10 @@ function GA4RealtimePage() {
                 <div key={r.id} className="py-2.5">
                   <div className="flex items-center gap-2">
                     <span className="text-amber-500 text-xs font-black">{"★".repeat(r.rating || 0)}</span>
-                    <span className="text-sm font-bold text-slate-900 truncate">{r.name || "—"}</span>
+                    <span className="text-sm font-bold text-slate-900 truncate">{r.reviewer_name || "—"}</span>
                     <span className="text-[11px] font-semibold text-slate-500">· {r.product_slug}</span>
                   </div>
-                  <div className="text-xs text-slate-600 mt-0.5 line-clamp-2">{r.body}</div>
+                  <div className="text-xs text-slate-600 mt-0.5 line-clamp-2">{r.comment}</div>
                   <div className="text-[11px] font-semibold text-slate-400 mt-0.5">{timeAgo(r.created_at, t)}</div>
                 </div>
               ))}
