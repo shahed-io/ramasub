@@ -159,6 +159,7 @@ export async function getSmartDefaults(kind: string, fields: AdminField[]): Prom
     case "ceo_message":
       map.name = "Mahbub";
       map.title = `Founder & CEO, ${brand}`;
+      map.photo_url = site.logo_url || featuredProduct?.image_url || "";
       map.message = `${brand}-এর যাত্রায় আপনাকে স্বাগতম। আমরা বাংলাদেশের গ্রাহকদের জন্য বিশ্বস্ত ডিজিটাল সেবা দিতে প্রতিশ্রুতিবদ্ধ।`;
       break;
 
