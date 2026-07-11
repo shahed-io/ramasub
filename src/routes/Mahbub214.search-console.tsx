@@ -383,6 +383,8 @@ function SearchConsolePage() {
               </div>
             )}
 
+            {tab === "verify" && <VerifyPanel />}
+
             {tab === "settings" && (
               <SettingsPanel prefs={prefs} save={savePrefs} />
             )}
