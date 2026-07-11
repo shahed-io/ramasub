@@ -37,19 +37,29 @@ export const listSites = createServerFn({ method: "GET" })
   });
 
 /** Search analytics (clicks/impressions/CTR/position). */
+type FilterOp = "equals" | "notEquals" | "contains" | "notContains";
+type Filter = { dimension: string; operator: FilterOp; expression: string };
+
 export const searchAnalytics = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { siteUrl: string; startDate: string; endDate: string; dimensions?: string[]; rowLimit?: number; searchType?: string }) => d)
+  .inputValidator((d: {
+    siteUrl: string; startDate: string; endDate: string;
+    dimensions?: string[]; rowLimit?: number; searchType?: string;
+    filters?: Filter[];
+  }) => d)
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const path = `/webmasters/v3/sites/${encodeURIComponent(data.siteUrl)}/searchAnalytics/query`;
-    const body = {
+    const body: any = {
       startDate: data.startDate,
       endDate: data.endDate,
       dimensions: data.dimensions ?? [],
-      rowLimit: data.rowLimit ?? 25,
+      rowLimit: Math.min(Math.max(data.rowLimit ?? 25, 1), 1000),
       searchType: data.searchType ?? "web",
     };
+    if (data.filters && data.filters.length) {
+      body.dimensionFilterGroups = [{ filters: data.filters }];
+    }
     const result = await gwFetch(path, { method: "POST", body: JSON.stringify(body) });
     return { rows: (result.rows ?? []) as Array<any> };
   });
