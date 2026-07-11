@@ -117,10 +117,10 @@ function FaqPage() {
                 <MessageCircle className="w-4 h-4" /> Chat on WhatsApp
               </a>
               <Link
-                to="/contact"
+                to="/help"
                 className="h-11 px-5 inline-flex items-center rounded-full border border-primary/25 bg-background text-primary text-sm font-bold hover:bg-primary/5 transition"
               >
-                Send a message
+                Help Center
               </Link>
             </div>
           </div>
