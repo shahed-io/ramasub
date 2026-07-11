@@ -98,6 +98,26 @@ export const Route = createFileRoute("/sitemap.xml")({
               });
             }
           }
+
+          // Help Center articles
+          entries.push({ path: "/help", changefreq: "weekly", priority: "0.7" });
+          const { data: helps } = await sb
+            .from("admin_records")
+            .select("data, updated_at")
+            .eq("kind", "help_article")
+            .eq("is_active", true);
+          if (helps) {
+            for (const h of helps) {
+              const slug = (h.data as { slug?: string } | null)?.slug;
+              if (!slug) continue;
+              entries.push({
+                path: `/help/${slug}`,
+                lastmod: h.updated_at ? new Date(h.updated_at).toISOString().slice(0, 10) : undefined,
+                changefreq: "monthly",
+                priority: "0.5",
+              });
+            }
+          }
         } catch (e) {
           console.error("[sitemap] dynamic fetch failed", e);
         }

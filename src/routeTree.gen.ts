@@ -40,11 +40,13 @@ import { Route as AiToolsRouteImport } from './routes/ai-tools'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as Mahbub214RouteImport } from './routes/Mahbub214'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HelpIndexRouteImport } from './routes/help.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as Mahbub214IndexRouteImport } from './routes/Mahbub214.index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as OrdersIdRouteImport } from './routes/orders.$id'
 import { Route as OfferSlugRouteImport } from './routes/offer.$slug'
+import { Route as HelpSlugRouteImport } from './routes/help.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as BlogHowToBuyNetflixInBangladeshRouteImport } from './routes/blog.how-to-buy-netflix-in-bangladesh'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -267,6 +269,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HelpIndexRoute = HelpIndexRouteImport.update({
+  id: '/help/',
+  path: '/help/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -290,6 +297,11 @@ const OrdersIdRoute = OrdersIdRouteImport.update({
 const OfferSlugRoute = OfferSlugRouteImport.update({
   id: '/offer/$slug',
   path: '/offer/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpSlugRoute = HelpSlugRouteImport.update({
+  id: '/help/$slug',
+  path: '/help/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
@@ -720,11 +732,13 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/help/$slug': typeof HelpSlugRoute
   '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/Mahbub214/': typeof Mahbub214IndexRoute
   '/blog/': typeof BlogIndexRoute
+  '/help/': typeof HelpIndexRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
@@ -823,11 +837,13 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/help/$slug': typeof HelpSlugRoute
   '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/Mahbub214': typeof Mahbub214IndexRoute
   '/blog': typeof BlogIndexRoute
+  '/help': typeof HelpIndexRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
@@ -928,11 +944,13 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/how-to-buy-netflix-in-bangladesh': typeof BlogHowToBuyNetflixInBangladeshRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/help/$slug': typeof HelpSlugRoute
   '/offer/$slug': typeof OfferSlugRoute
   '/orders/$id': typeof OrdersIdRoute
   '/product/$slug': typeof ProductSlugRoute
   '/Mahbub214/': typeof Mahbub214IndexRoute
   '/blog/': typeof BlogIndexRoute
+  '/help/': typeof HelpIndexRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
@@ -1034,11 +1052,13 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
+    | '/help/$slug'
     | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
     | '/Mahbub214/'
     | '/blog/'
+    | '/help/'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
@@ -1137,11 +1157,13 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
+    | '/help/$slug'
     | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
     | '/Mahbub214'
     | '/blog'
+    | '/help'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
@@ -1241,11 +1263,13 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/how-to-buy-netflix-in-bangladesh'
     | '/email/unsubscribe'
+    | '/help/$slug'
     | '/offer/$slug'
     | '/orders/$id'
     | '/product/$slug'
     | '/Mahbub214/'
     | '/blog/'
+    | '/help/'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
@@ -1299,9 +1323,11 @@ export interface RootRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
   BlogHowToBuyNetflixInBangladeshRoute: typeof BlogHowToBuyNetflixInBangladeshRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
+  HelpSlugRoute: typeof HelpSlugRoute
   OfferSlugRoute: typeof OfferSlugRoute
   ProductSlugRoute: typeof ProductSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  HelpIndexRoute: typeof HelpIndexRoute
   ApiPublicClientErrorsRoute: typeof ApiPublicClientErrorsRoute
   ApiPublicDeliverDownloadsRoute: typeof ApiPublicDeliverDownloadsRoute
   ApiPublicGenerateBlogsRoute: typeof ApiPublicGenerateBlogsRoute
@@ -1537,6 +1563,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/help/': {
+      id: '/help/'
+      path: '/help'
+      fullPath: '/help/'
+      preLoaderRoute: typeof HelpIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
@@ -1570,6 +1603,13 @@ declare module '@tanstack/react-router' {
       path: '/offer/$slug'
       fullPath: '/offer/$slug'
       preLoaderRoute: typeof OfferSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help/$slug': {
+      id: '/help/$slug'
+      path: '/help/$slug'
+      fullPath: '/help/$slug'
+      preLoaderRoute: typeof HelpSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/email/unsubscribe': {
@@ -2213,9 +2253,11 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   BlogHowToBuyNetflixInBangladeshRoute: BlogHowToBuyNetflixInBangladeshRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
+  HelpSlugRoute: HelpSlugRoute,
   OfferSlugRoute: OfferSlugRoute,
   ProductSlugRoute: ProductSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
+  HelpIndexRoute: HelpIndexRoute,
   ApiPublicClientErrorsRoute: ApiPublicClientErrorsRoute,
   ApiPublicDeliverDownloadsRoute: ApiPublicDeliverDownloadsRoute,
   ApiPublicGenerateBlogsRoute: ApiPublicGenerateBlogsRoute,
