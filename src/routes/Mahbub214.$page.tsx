@@ -879,3 +879,99 @@ function AdCampaignMetrics() {
     </div>
   );
 }
+
+/* ============================== BLOG AI PANEL ============================== */
+
+function BlogAIPanel() {
+  const [busy, setBusy] = useState<null | "all" | "topic">(null);
+  const [topic, setTopic] = useState("");
+  const [result, setResult] = useState<string>("");
+  const { t } = useAdminLang();
+
+  const runAll = async () => {
+    setBusy("all");
+    setResult("");
+    try {
+      const mod = await import("@/lib/blogs.functions");
+      const r = await mod.generateBlogsForMissingProducts({ data: { limit: 20 } });
+      const ok = r.results.filter((x: any) => x.ok).length;
+      const fail = r.results.length - ok;
+      setResult(
+        t(
+          `Generated ${ok} post(s). ${fail} failed. Remaining ${r.remaining}.`,
+          `${ok} টি পোস্ট তৈরি হয়েছে। ${fail} টি ব্যর্থ। বাকি ${r.remaining} টি।`,
+        ),
+      );
+      toast.success(t("Done", "সম্পন্ন"));
+      setTimeout(() => window.location.reload(), 1200);
+    } catch (e: any) {
+      toast.error(e?.message || String(e));
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const runTopic = async () => {
+    if (topic.trim().length < 3) return toast.error(t("Enter a topic", "একটি টপিক লিখুন"));
+    setBusy("topic");
+    setResult("");
+    try {
+      const mod = await import("@/lib/blogs.functions");
+      const r = await mod.generateBlogFromTopic({ data: { topic: topic.trim() } });
+      setResult(t(`Created: ${r.slug}`, `তৈরি হয়েছে: ${r.slug}`));
+      toast.success(t("Blog created", "ব্লগ তৈরি হয়েছে"));
+      setTopic("");
+      setTimeout(() => window.location.reload(), 1200);
+    } catch (e: any) {
+      toast.error(e?.message || String(e));
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  return (
+    <div className="rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 via-white to-fuchsia-50 p-5 space-y-4">
+      <div className="flex items-start justify-between gap-3 flex-wrap">
+        <div>
+          <h3 className="font-black text-slate-900 flex items-center gap-2">
+            ✨ {t("AI Blog Writer", "AI ব্লগ লেখক")}
+          </h3>
+          <p className="text-xs text-slate-600 mt-1">
+            {t(
+              "Auto-generate SEO blog posts for products or any topic. Future products get auto-blogs via scheduled job.",
+              "প্রোডাক্ট বা যেকোনো টপিকের জন্য SEO ব্লগ auto তৈরি করুন। ভবিষ্যত প্রোডাক্টে auto-blog scheduled job দিয়ে তৈরি হবে।",
+            )}
+          </p>
+        </div>
+        <button
+          onClick={runAll}
+          disabled={busy !== null}
+          className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold shadow disabled:opacity-60"
+        >
+          {busy === "all" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
+          {t("Generate for all products", "সব প্রোডাক্টের জন্য তৈরি")}
+        </button>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <input
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+          placeholder={t("Topic (e.g. Best AI tools for students in Bangladesh)", "টপিক লিখুন…")}
+          className="flex-1 min-w-[240px] h-10 px-4 rounded-full border border-slate-200 bg-white text-sm"
+          disabled={busy !== null}
+        />
+        <button
+          onClick={runTopic}
+          disabled={busy !== null || topic.trim().length < 3}
+          className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold shadow disabled:opacity-60"
+        >
+          {busy === "topic" ? <Loader2 className="w-4 h-4 animate-spin" /> : "✨"}
+          {t("Write from topic", "টপিক থেকে লিখুন")}
+        </button>
+      </div>
+
+      {result && <div className="text-sm text-slate-700 bg-white rounded-lg border border-slate-100 px-3 py-2">{result}</div>}
+    </div>
+  );
+}
