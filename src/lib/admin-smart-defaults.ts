@@ -50,6 +50,44 @@ async function fetchFeaturedProduct(): Promise<{ slug: string; name: string; ima
   };
 }
 
+type BiggestDiscount = {
+  slug: string;
+  name: string;
+  image_url?: string;
+  percent: number;
+  original_price: number;
+  sale_price: number;
+};
+
+async function fetchBiggestDiscount(): Promise<BiggestDiscount | null> {
+  const { data } = await supabase
+    .from("products")
+    .select("slug,name,image_url,plans")
+    .eq("is_active", true);
+  if (!data) return null;
+  let best: BiggestDiscount | null = null;
+  for (const p of data) {
+    const plans = Array.isArray(p.plans) ? (p.plans as Array<Record<string, unknown>>) : [];
+    for (const plan of plans) {
+      const orig = Number(plan?.original_price ?? 0);
+      const price = Number(plan?.price ?? 0);
+      if (!orig || !price || orig <= price) continue;
+      const pct = Math.round(((orig - price) / orig) * 100);
+      if (!best || pct > best.percent) {
+        best = {
+          slug: String(p.slug),
+          name: String(p.name),
+          image_url: p.image_url ? String(p.image_url) : undefined,
+          percent: pct,
+          original_price: orig,
+          sale_price: price,
+        };
+      }
+    }
+  }
+  return best;
+}
+
 function siteOrigin(): string {
   if (typeof window !== "undefined" && window.location?.origin) return window.location.origin;
   return "https://ramasub.com";
@@ -61,13 +99,14 @@ function siteOrigin(): string {
  */
 export async function getSmartDefaults(kind: string, fields: AdminField[]): Promise<Rec> {
   const origin = siteOrigin();
-  const [shop, footerRow, supportRow, seoRow, siteRow, featuredProduct] = await Promise.all([
+  const [shop, footerRow, supportRow, seoRow, siteRow, featuredProduct, biggestDiscount] = await Promise.all([
     fetchShop(),
     fetchKind("footer"),
     fetchKind("support_channels"),
     fetchKind("seo_settings"),
     fetchKind("site_settings"),
     fetchFeaturedProduct(),
+    fetchBiggestDiscount(),
   ]);
   const host = origin.replace(/^https?:\/\//, "");
   const brand = shop.shop_name;
@@ -154,12 +193,35 @@ export async function getSmartDefaults(kind: string, fields: AdminField[]): Prom
       map.color = "#ffffff";
       break;
 
-    case "biggest_discount":
-      map.enabled = false;
-      map.title = "Biggest Discount of the Season";
-      map.percent = 20;
-      map.link = "/";
+    case "biggest_discount": {
+      const bd = biggestDiscount;
+      const pct = bd?.percent ?? 20;
+      const endsAt = new Date();
+      endsAt.setDate(endsAt.getDate() + 7);
+      map.enabled = !!bd;
+      map.title = bd
+        ? `${bd.name.trim()} — up to ${pct}% off`
+        : "Biggest Discount of the Season";
+      map.subtitle = bd
+        ? `Save ৳${bd.original_price - bd.sale_price} on ${bd.name.trim()}`
+        : `${brand}-এর সেরা ডিসকাউন্ট অফার`;
+      map.description = bd
+        ? `${bd.name.trim()} এখন মাত্র ৳${bd.sale_price} (আগে ৳${bd.original_price})। Instant delivery, verified access, ${brand} guarantee।`
+        : `${brand}-এর জনপ্রিয় digital subscription গুলোতে বিশাল ছাড়। Instant delivery ও 24/7 support।`;
+      map.percent = pct;
+      map.original_price = bd?.original_price ?? 0;
+      map.sale_price = bd?.sale_price ?? 0;
+      map.product_slug = bd?.slug ?? "";
+      map.image_url = bd?.image_url || featuredProduct?.image_url || site.logo_url || "";
+      map.cta_text = "Grab the deal";
+      map.link = bd ? `/product/${bd.slug}` : "/";
+      map.ends_at = endsAt.toISOString().slice(0, 10);
+      map.badge_text = "Limited time";
+      map.background_color = "#fef2f2";
+      map.text_color = "#7f1d1d";
+      map.accent_color = "#dc2626";
       break;
+    }
 
     case "homepage":
       map.hero_title = `${brand} — Trusted Digital Store`;
