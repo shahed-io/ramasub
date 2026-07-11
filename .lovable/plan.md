@@ -1,100 +1,56 @@
-# Admin Pages CMS (WordPress/Elementor-style)
+## লক্ষ্য
+Admin panel-এ যেসব section এখন ফাঁকা (`site_settings`, `homepage_config`, content pages, invoice defaults ইত্যাদি), সেগুলোতে Rama Sub সম্পর্কে confirmed তথ্য দিয়ে seed করব। যা জানি না (GA4 ID, GTM ID, verification codes, Meta pixel, Google Ads, Telegram bot token, Zoom API, custom OpenAI/Gemini keys, address ইত্যাদি) সেগুলো ফাঁকা রাখব — admin পরে বসাবেন।
 
-আপনার admin panel-এ একটা "Pages" section তৈরি হবে যেখান থেকে ওয়েবসাইটের সব page-এর content, SEO, visibility control করা যাবে — অনেকটা WordPress Pages-এর মত।
+## যেসব "জানা" তথ্য বসাব
+Codebase + memory + প্রকাশিত domain থেকে নেওয়া:
+- Brand: **Rama Sub** / `RAMASUB.COM`
+- Domain: `https://ramasub.com`
+- Support email: `support@ramasub.com`
+- Admin email: `ramasubofficialweb@gmail.com` (handle_new_user trigger থেকে)
+- WhatsApp: `01601048085` (settings placeholder + শপে ব্যবহৃত)
+- Currency: BDT / ৳
+- Order prefix: `RS`
+- Twitter: `@ramasub`
+- OG cover: `https://ramasub.com/og-cover.jpg`
+- Product categories: AI Tools, Streaming, Design, Productivity, Learning, Music, VPN (existing products থেকে)
 
-## User-facing capabilities
+## কী কী update হবে
 
-**Admin → Pages list** (`/admin/pages`)
-- সব site page একটা table-এ: Home, Products, Categories, Streaming, Blog, Checkout, Cart, Wallet, About/Contact/Privacy/Terms/Delivery/Refund ইত্যাদি
-- প্রতিটি row: Title | Path | Status (Published/Draft/Hidden) | Last edited | Edit button
-- Search + status filter
+### 1) `admin_records` seed/patch (data only, insert tool দিয়ে)
+- **`site_settings`** — নতুন row insert:
+  - `site_name: "Rama Sub"`, `support_email`, `whatsapp_number`, `admin_email`, `currency_code: "BDT"`, `currency_symbol: "৳"`, `order_number_prefix: "RS"`, `minimum_order_amount: 0`
+  - `address`, `telegram_bot_token`, `telegram_chat_id`, `openai_key`, `gemini_keys`, `whatsapp_notify_number` → ফাঁকা
+- **`homepage_config`** — নতুন row insert:
+  - Default sections (banner, pills, featured, rails, recentlyViewed, reviews) সব visible
+  - `seo.title/description/ogTitle/ogDescription` Rama Sub tagline দিয়ে
+  - `featuredProductSlugs: []` (auto)
+- **`invoice_design`** — existing row patch: `companyPhone`, `companyAddress`, `thankYouText` Bangla-friendly copy দিয়ে fill; brand colors অপরিবর্তিত
+- **`seo_settings`** — existing row অপরিবর্তিত (already seeded)
 
-**Admin → Page editor** (`/admin/pages/:key`)
-Tabs:
-1. **Content** — Visual block editor (Add block → Heading, Paragraph, Rich Text, Image, Button/CTA, Divider, HTML embed, 2-column, FAQ item). Drag-to-reorder, duplicate, delete. Live preview panel সহ।
-2. **SEO** — Title, Meta description, OG image (upload), canonical override, noindex toggle
-3. **Settings** — Publish/Draft/Hidden toggle, custom slug (info pages only), show/hide in menu
+### 2) `site_pages` content fill (INSERT/UPDATE data only)
+এই ৬টি content page-এর `content.blocks` এবং `seo` কে Rama Sub-এর প্রকৃত copy দিয়ে ভরব (এখন প্রতিটি মাত্র ২ block placeholder):
+- **about** — Rama Sub-এর story, mission, কেন BD-র সেরা premium subscription shop, warranty ও instant delivery highlight
+- **contact** — support email, WhatsApp, response time, business hours
+- **privacy-policy** — কী ডাটা collect করা হয়, কীভাবে use হয়, cookies, user rights (standard Bangla + English)
+- **delivery-info** — instant vs manual delivery, average time, warranty, credential delivery mechanism
+- **refund-request** — refund eligibility (7 দিন warranty), process, wallet credit rules
+- **order-cancellation** — কখন cancel করা যাবে, কীভাবে request দিতে হবে, refund path
 
-**Frontend behavior**
-- প্রতিটি route load-এর সময় DB থেকে সেই page-এর blocks + meta পড়বে
-- Blocks render হবে একটা `<PageRenderer blocks={...} />` component দিয়ে
-- SEO meta route-এর `head()`-এ inject হবে (loader থেকে)
-- Status = Draft/Hidden হলে সাধারণ user-এর জন্য "Coming soon" fallback, admin-এর জন্য যথারীতি
-- Hidden pages sitemap থেকে বাদ
+প্রতিটি page-এর SEO title/description ও আপডেট করব (unique, keyword-rich)।
 
-## Scope decisions (important)
+### 3) যেগুলো ফাঁকাই রাখব (admin পরে বসাবেন)
+- GA4 measurement ID, GTM ID, Google/Bing/Yandex/Facebook verification
+- Meta Pixel, Google Ads, Search Console API keys
+- Telegram bot token / chat ID
+- Zoom API credentials
+- OpenAI / Gemini API keys
+- Custom banner slides ও promotions (product-specific — admin decide করবেন)
+- Homepage banner slider (existing slides থাকলে অপরিবর্তিত, না থাকলে ফাঁকাই)
 
-**Structured pages** (Home, Products, Checkout, Cart, Wallet, Auth, Dashboard, Admin ইত্যাদি): এদের complex logic আছে (cart items, payment, forms) — সম্পূর্ণ block editor দিয়ে replace করা বাস্তবসম্মত না। এদের জন্য **editable text zones + SEO** থাকবে (যেমন Checkout page-এর heading, sub-heading, notice text, button labels, empty-cart message)। Business logic অক্ষত থাকবে।
+## Files/DB touched
+- **DB (data only, migration নয়)**: `admin_records` (site_settings insert, homepage_config insert, invoice_design update), `site_pages` (6 content pages update)
+- **Code file changes**: নেই — শুধু seed data। যদি dropdown/placeholder-এ hardcoded default প্রয়োজন হয় (e.g. `order_number_prefix` fallback "AN" → "RS"), সেখানে ছোট ২-১টা string edit করতে পারি।
 
-**Content pages** (About, Contact, Privacy, Terms, Delivery-Info, Refund, Order-Cancellation, blog landing): **সম্পূর্ণ block editor** — admin যা ইচ্ছা reorder/edit করতে পারবে।
-
-**Homepage sections** (hero banner, feature strip, testimonials, gift banner): প্রতিটি section-কে toggleable block হিসেবে expose — show/hide + text override। Product grid/carousel-এর data source unchanged।
-
-## Technical section
-
-### Database (1 migration)
-
-```
-site_pages
-  id uuid pk
-  key text unique          -- 'home', 'about', 'checkout', 'privacy'...
-  title text
-  path text                -- '/', '/about', '/checkout'
-  page_type text           -- 'content' | 'structured' | 'home_section'
-  status text default 'published'  -- published|draft|hidden
-  seo jsonb                -- {title, description, og_image, canonical, noindex}
-  content jsonb            -- {blocks: [...], text_zones: {...}, section_toggles: {...}}
-  show_in_menu bool
-  sort_order int
-  updated_by uuid
-  created_at/updated_at
-
-  RLS: SELECT anon+authenticated where status='published'
-       ALL to authenticated where has_role(admin)
-  GRANT SELECT to anon, authenticated
-  GRANT ALL to service_role, authenticated (admin gated by RLS)
-```
-
-Seed migration pre-populates rows for every known site route (~20 pages) with default content pulled from current hard-coded JSX so nothing breaks on day one.
-
-### Block schema (JSON)
-
-```
-{ type: 'heading', level: 1|2|3, text, align }
-{ type: 'paragraph', html }         // sanitized rich text
-{ type: 'image', url, alt, caption, width }
-{ type: 'button', label, href, variant }
-{ type: 'divider' }
-{ type: 'html', code }              // admin-only escape hatch
-{ type: 'columns', cols: [[...blocks], [...blocks]] }
-{ type: 'faq', items: [{q, a}] }
-```
-
-### Files
-
-- `supabase/migrations/…_site_pages.sql` — table + RLS + seed
-- `src/lib/pages.functions.ts` — `listPages`, `getPageByKey` (public, publishable client), `savePage` (`requireSupabaseAuth` + admin check)
-- `src/lib/pages.ts` — types + `usePage(key)` React Query hook (10-min stale)
-- `src/components/PageRenderer.tsx` — renders block array
-- `src/components/admin/BlockEditor.tsx` — add/reorder/edit blocks with dnd-kit (already in deps)
-- `src/components/admin/BlockInspector.tsx` — per-block field panel
-- `src/routes/admin.pages.tsx` — list view (matches admin design system)
-- `src/routes/admin.pages.$key.tsx` — editor with Content/SEO/Settings tabs
-- Update existing content routes (`about`, `contact`, `privacy-policy`, `delivery-info`, `refund-request`, `order-cancellation`) to fetch `usePage(key)` and render via `<PageRenderer />`, with hard-coded JSX as fallback if no row
-- Update structured routes (`checkout`, `cart`, `wallet`, home hero copy) to read text-zone overrides for specific labels
-- Update `head()` on those routes to pull SEO meta from loader data
-- `src/routes/sitemap.xml.ts` — exclude pages where status ≠ published
-- Add "Pages" entry to admin sidebar under Content group
-
-### Non-goals (out of scope)
-
-- Full drag-drop pixel-perfect layout editor (Elementor-scale)
-- Editing admin panel routes themselves
-- Version history / revisions (can add later)
-- Multi-language content
-
-## Delivery
-
-একটা migration + 8-10টা নতুন file + ~6টা existing content route-এ small update। Migration approval-এর পর সব code একসাথে ship হবে।
-
-**Approve করলে building শুরু করবো।**
+## সীমাবদ্ধতা
+- Products, orders, coupons, users — এগুলো real business data, seed করব না।
+- Analytics/pixel/API key fields ফাঁকা রাখব, কারণ real value দরকার এবং তা admin-এর কাছে আছে।
