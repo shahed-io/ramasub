@@ -7,6 +7,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { ShopConfigProvider } from "@/context/ShopConfigContext";
+import { CurrencyProvider } from "@/context/CurrencyContext";
 import { SupportWidget } from "@/components/SupportWidget";
 import { SiteHeader } from "@/components/SiteHeader";
 import { WelcomePopup } from "@/components/WelcomePopup";
