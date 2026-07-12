@@ -91,7 +91,7 @@ export function OrderSummary({
           className="text-2xl font-semibold text-primary"
           style={{ fontFamily: "var(--font-heading)" }}
         >
-          ৳{grandTotal.toLocaleString()}
+          {format(grandTotal)}
         </span>
       </div>
 
