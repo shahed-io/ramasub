@@ -32,6 +32,7 @@ export function OrderSummary({
   className,
 }: OrderSummaryProps) {
   const grandTotal = Math.max(0, total - discount);
+  const { format } = useCurrency();
   return (
     <GlassCard className={`h-fit lg:sticky lg:top-6 text-foreground ${className ?? ""}`}>
       <h3 className="text-foreground" style={{ fontFamily: "var(--font-heading)", fontSize: 16, fontWeight: 600 }}>
