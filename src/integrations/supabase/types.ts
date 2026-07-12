@@ -416,6 +416,288 @@ export type Database = {
         }
         Relationships: []
       }
+      meta_advanced_matching: {
+        Row: {
+          created_at: string
+          fields: Json
+          id: string
+          singleton: boolean
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          fields?: Json
+          id?: string
+          singleton?: boolean
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          fields?: Json
+          id?: string
+          singleton?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      meta_business_config: {
+        Row: {
+          access_token_encrypted: string | null
+          access_token_last4: string | null
+          advanced_matching: boolean
+          auto_inject: boolean
+          auto_pageview: boolean
+          capi_enabled: boolean
+          capi_endpoint: string | null
+          capi_max_retry: number
+          capi_queue_failed: boolean
+          capi_retry_failed: boolean
+          capi_timeout_ms: number
+          consent_ccpa: boolean
+          consent_gdpr: boolean
+          consent_region_detect: boolean
+          created_at: string
+          dataset_id: string | null
+          debug_mode: boolean
+          enable_pixel: boolean
+          event_match_quality: number | null
+          graph_api_version: string
+          id: string
+          last_event_at: string | null
+          last_verified_at: string | null
+          last_verify_result: Json | null
+          load_after_consent: boolean
+          load_in_head: boolean
+          pixel_id: string | null
+          singleton: boolean
+          spa_nav: boolean
+          test_event_code: string | null
+          updated_at: string
+          wc_detect: boolean
+        }
+        Insert: {
+          access_token_encrypted?: string | null
+          access_token_last4?: string | null
+          advanced_matching?: boolean
+          auto_inject?: boolean
+          auto_pageview?: boolean
+          capi_enabled?: boolean
+          capi_endpoint?: string | null
+          capi_max_retry?: number
+          capi_queue_failed?: boolean
+          capi_retry_failed?: boolean
+          capi_timeout_ms?: number
+          consent_ccpa?: boolean
+          consent_gdpr?: boolean
+          consent_region_detect?: boolean
+          created_at?: string
+          dataset_id?: string | null
+          debug_mode?: boolean
+          enable_pixel?: boolean
+          event_match_quality?: number | null
+          graph_api_version?: string
+          id?: string
+          last_event_at?: string | null
+          last_verified_at?: string | null
+          last_verify_result?: Json | null
+          load_after_consent?: boolean
+          load_in_head?: boolean
+          pixel_id?: string | null
+          singleton?: boolean
+          spa_nav?: boolean
+          test_event_code?: string | null
+          updated_at?: string
+          wc_detect?: boolean
+        }
+        Update: {
+          access_token_encrypted?: string | null
+          access_token_last4?: string | null
+          advanced_matching?: boolean
+          auto_inject?: boolean
+          auto_pageview?: boolean
+          capi_enabled?: boolean
+          capi_endpoint?: string | null
+          capi_max_retry?: number
+          capi_queue_failed?: boolean
+          capi_retry_failed?: boolean
+          capi_timeout_ms?: number
+          consent_ccpa?: boolean
+          consent_gdpr?: boolean
+          consent_region_detect?: boolean
+          created_at?: string
+          dataset_id?: string | null
+          debug_mode?: boolean
+          enable_pixel?: boolean
+          event_match_quality?: number | null
+          graph_api_version?: string
+          id?: string
+          last_event_at?: string | null
+          last_verified_at?: string | null
+          last_verify_result?: Json | null
+          load_after_consent?: boolean
+          load_in_head?: boolean
+          pixel_id?: string | null
+          singleton?: boolean
+          spa_nav?: boolean
+          test_event_code?: string | null
+          updated_at?: string
+          wc_detect?: boolean
+        }
+        Relationships: []
+      }
+      meta_capi_queue: {
+        Row: {
+          attempts: number
+          created_at: string
+          event_name: string
+          id: string
+          last_error: string | null
+          next_attempt_at: string
+          payload: Json
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          attempts?: number
+          created_at?: string
+          event_name: string
+          id?: string
+          last_error?: string | null
+          next_attempt_at?: string
+          payload: Json
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          attempts?: number
+          created_at?: string
+          event_name?: string
+          id?: string
+          last_error?: string | null
+          next_attempt_at?: string
+          payload?: Json
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      meta_custom_events: {
+        Row: {
+          browser: boolean
+          created_at: string
+          enabled: boolean
+          id: string
+          name: string
+          params: Json
+          server: boolean
+          trigger_type: string
+          trigger_value: string
+          updated_at: string
+        }
+        Insert: {
+          browser?: boolean
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          name: string
+          params?: Json
+          server?: boolean
+          trigger_type: string
+          trigger_value: string
+          updated_at?: string
+        }
+        Update: {
+          browser?: boolean
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          name?: string
+          params?: Json
+          server?: boolean
+          trigger_type?: string
+          trigger_value?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      meta_event_logs: {
+        Row: {
+          channel: string
+          created_at: string
+          customer_id: string | null
+          event_id: string | null
+          event_name: string
+          http_code: number | null
+          id: string
+          latency_ms: number | null
+          order_id: string | null
+          response: Json | null
+          retry_count: number
+          status: string
+        }
+        Insert: {
+          channel: string
+          created_at?: string
+          customer_id?: string | null
+          event_id?: string | null
+          event_name: string
+          http_code?: number | null
+          id?: string
+          latency_ms?: number | null
+          order_id?: string | null
+          response?: Json | null
+          retry_count?: number
+          status: string
+        }
+        Update: {
+          channel?: string
+          created_at?: string
+          customer_id?: string | null
+          event_id?: string | null
+          event_name?: string
+          http_code?: number | null
+          id?: string
+          latency_ms?: number | null
+          order_id?: string | null
+          response?: Json | null
+          retry_count?: number
+          status?: string
+        }
+        Relationships: []
+      }
+      meta_standard_events: {
+        Row: {
+          browser: boolean
+          created_at: string
+          dedupe: boolean
+          enabled: boolean
+          event_name: string
+          priority: number
+          server: boolean
+          updated_at: string
+        }
+        Insert: {
+          browser?: boolean
+          created_at?: string
+          dedupe?: boolean
+          enabled?: boolean
+          event_name: string
+          priority?: number
+          server?: boolean
+          updated_at?: string
+        }
+        Update: {
+          browser?: boolean
+          created_at?: string
+          dedupe?: boolean
+          enabled?: boolean
+          event_name?: string
+          priority?: number
+          server?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
       newsletter_subscribers: {
         Row: {
           created_at: string
