@@ -30,6 +30,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { CartIcon } from "@/components/CartIcon";
 import { AccountIcon } from "@/components/AccountIcon";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 
 import { useAuth } from "@/context/AuthContext";
 import { rememberReturnTo } from "@/lib/auth-return-to";
