@@ -4,6 +4,7 @@ import { memo, useRef } from "react";
 
 import { useCart } from "@/context/CartContext";
 import { useShopConfigValue } from "@/context/ShopConfigContext";
+import { useCurrency } from "@/context/CurrencyContext";
 import { badgeColorFor } from "@/lib/badgeColor";
 import { ProductBanner } from "@/components/ProductBanner";
 import { waAskUrl } from "@/lib/whatsapp";
