@@ -213,9 +213,8 @@ function CheckoutPage() {
     const hasEmail = emailRe.test(form.email.trim());
     const hasPhone = isValidBdPhone(form.phone);
     const hasName = form.name.trim().length >= 2;
-    // Need at least one identifier (user, email, or phone) — or a name + something typed
-    if (!user?.id && !hasEmail && !hasPhone) return;
-    if (!user?.id && !hasEmail && !hasPhone && !hasName) return;
+    // Need at least contact info before saving to admin recovery list.
+    if (!hasEmail || !hasPhone) return;
 
     let sessionId: string | null = null;
     try {
@@ -226,12 +225,10 @@ function CheckoutPage() {
       }
     } catch { /* ignore */ }
 
-    // Only capture abandoned checkouts for signed-in users (server function
-    // requires auth and uses auth.uid()). Guests are skipped silently.
-    if (!user?.id) return;
     const handle = window.setTimeout(() => {
       void captureCheckout({
         data: {
+          email: form.email.trim().toLowerCase(),
           full_name: form.name.trim() || null,
           phone: hasPhone ? normalizeBdPhone(form.phone) : (form.phone.trim() || null),
           sender_number: form.senderNumber ? normalizeBdPhone(form.senderNumber) : null,
