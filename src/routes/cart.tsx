@@ -24,6 +24,7 @@ function CartPage() {
   const navigate = useNavigate();
   const { coupon } = Route.useSearch();
   const { data: shopConfig } = useShopConfig();
+  const { format } = useCurrency();
 
   const applied = useAppliedCoupon(coupon, total);
   const [input, setInput] = useState(coupon);
