@@ -1,4 +1,5 @@
 import type { CartItem } from "@/context/CartContext";
+import { useCurrency } from "@/context/CurrencyContext";
 import { GlassCard } from "./GlassCard";
 
 interface OrderSummaryProps {
