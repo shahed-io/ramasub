@@ -64,7 +64,7 @@ export function OrderSummary({
         <div className="mt-4 space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-muted-foreground">Subtotal</span>
-            <span className="text-foreground font-semibold">৳{total.toLocaleString()}</span>
+            <span className="text-foreground font-semibold">{format(total)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-muted-foreground">Delivery</span>
