@@ -28,6 +28,7 @@ type OrderItem = { slug: string; planPeriod: string; qty: number; name?: string;
 type Order = {
   id: string; full_name: string; email: string; items: OrderItem[];
   total: number; status: string; payment_method: string; created_at: string;
+};
 
 type ProfileRow = {
   display_name?: string | null;
