@@ -907,9 +907,14 @@ function CheckoutPage() {
           <div className="flex items-center justify-between rounded-2xl border border-border bg-background px-4 py-3">
             <span className="text-[14px] font-semibold text-foreground">পেমেন্ট মোট</span>
             <span className="text-[20px] font-bold text-primary tabular-nums" style={{ fontFamily: "var(--font-heading)" }}>
-              ৳{grandTotal.toLocaleString()}
+              {format(grandTotal)}
             </span>
           </div>
+          {currencyCode === "USD" && (
+            <p className="mt-2 text-[11px] text-muted-foreground text-center">
+              পেমেন্ট BDT-তে প্রসেস হয় · আপনাকে পাঠাতে হবে ৳{grandTotal.toLocaleString()}
+            </p>
+          )}
         </div>
 
         {err && <p role="alert" className="px-5 mt-3 text-[12px] text-destructive text-center">{err}</p>}
@@ -923,7 +928,7 @@ function CheckoutPage() {
             style={{ background: CTA_GRADIENT }}
           >
             {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}
-            {busy ? "অর্ডার তৈরি হচ্ছে…" : `অর্ডার কনফার্ম করুন  ৳${grandTotal.toLocaleString()}`}
+            {busy ? "অর্ডার তৈরি হচ্ছে…" : `অর্ডার কনফার্ম করুন  ${format(grandTotal)}`}
           </button>
           <p className="text-[11px] text-muted-foreground text-center mt-3 inline-flex items-center gap-1.5 justify-center w-full">
             <ShieldCheck className="w-3.5 h-3.5" /> নিরাপদ পেমেন্ট — আপনার তথ্য সুরক্ষিত
