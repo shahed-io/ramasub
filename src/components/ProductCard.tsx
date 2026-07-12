@@ -4,6 +4,7 @@ import { memo, useRef } from "react";
 
 import { useCart } from "@/context/CartContext";
 import { useShopConfigValue } from "@/context/ShopConfigContext";
+import { useCurrency } from "@/context/CurrencyContext";
 import { badgeColorFor } from "@/lib/badgeColor";
 import { ProductBanner } from "@/components/ProductBanner";
 import { waAskUrl } from "@/lib/whatsapp";
@@ -27,6 +28,7 @@ function ProductCardImpl({ product }: { product: Product }) {
   const { add } = useCart();
   const navigate = useNavigate();
   const shopConfig = useShopConfigValue();
+  const { formatString } = useCurrency();
 
   const plan = product.plans[0];
   const hasOptions = product.plans.length > 1;
@@ -162,9 +164,9 @@ function ProductCardImpl({ product }: { product: Product }) {
 
         {/* Price row */}
         <div className="flex items-baseline gap-2">
-          <span className="text-[20px] font-extrabold text-aurora leading-none">{plan?.price ?? "—"}</span>
+          <span className="text-[20px] font-extrabold text-aurora leading-none">{plan?.price ? formatString(plan.price) : "—"}</span>
           {plan?.original && (
-            <span className="text-[12px] text-muted-foreground line-through">{plan.original}</span>
+            <span className="text-[12px] text-muted-foreground line-through">{formatString(plan.original)}</span>
           )}
         </div>
 

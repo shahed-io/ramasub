@@ -5,6 +5,7 @@ import { badgeColorFor } from "@/lib/badgeColor";
 import { useEffect, useState } from "react";
 import { recordRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { useCart } from "@/context/CartContext";
+import { useCurrency } from "@/context/CurrencyContext";
 import { trackViewContent } from "@/lib/trackEvent";
 
 import { ProductBanner } from "@/components/ProductBanner";
@@ -161,6 +162,7 @@ function ProductPage() {
   const { products } = useProducts();
   const navigate = useNavigate();
   const { add } = useCart();
+  const { format, code: currencyCode } = useCurrency();
   useShopConfig();
   const rawMeta = (loaderProduct?.meta ?? product?.meta) as { account_type?: string; account_types?: string[]; custom_account_type_label?: string } | undefined;
   const enabledAccountTypes: string[] = (() => {
@@ -337,9 +339,9 @@ function ProductPage() {
             )}
 
             <div className="mt-4 flex items-center gap-3 flex-wrap">
-              <span className="font-bold text-slate-900 text-2xl md:text-3xl">৳{plan ? parsePrice(plan.price).toLocaleString() : 0}.00 <span className="text-base font-semibold text-slate-500">BDT</span></span>
+              <span className="font-bold text-slate-900 text-2xl md:text-3xl">{plan ? format(parsePrice(plan.price)) : format(0)} <span className="text-base font-semibold text-slate-500">{currencyCode}</span></span>
               {hasDiscount && (
-                <span className="text-base md:text-lg text-slate-400 line-through font-medium">৳{parsePrice(plan!.original!).toLocaleString()}</span>
+                <span className="text-base md:text-lg text-slate-400 line-through font-medium">{format(parsePrice(plan!.original!))}</span>
               )}
               {hasDiscount && (
                 <span className="bg-rose-100 text-rose-600 px-3 py-1 rounded-lg text-sm font-bold">Sale</span>
@@ -431,9 +433,9 @@ function ProductPage() {
                       </div>
                       <div className="flex items-center gap-3">
                         {hasOff && (
-                          <span className="text-slate-400 line-through text-sm">৳{original.toLocaleString()}</span>
+                          <span className="text-slate-400 line-through text-sm">{format(original)}</span>
                         )}
-                        <span className={active ? "font-bold text-indigo-600" : "font-bold text-slate-900"}>৳{price.toLocaleString()}</span>
+                        <span className={active ? "font-bold text-indigo-600" : "font-bold text-slate-900"}>{format(price)}</span>
                         {hasOff && (
                           <span className="bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">-{off}%</span>
                         )}

@@ -1,4 +1,5 @@
 import type { CartItem } from "@/context/CartContext";
+import { useCurrency } from "@/context/CurrencyContext";
 import { GlassCard } from "./GlassCard";
 
 interface OrderSummaryProps {
@@ -31,6 +32,7 @@ export function OrderSummary({
   className,
 }: OrderSummaryProps) {
   const grandTotal = Math.max(0, total - discount);
+  const { format } = useCurrency();
   return (
     <GlassCard className={`h-fit lg:sticky lg:top-6 text-foreground ${className ?? ""}`}>
       <h3 className="text-foreground" style={{ fontFamily: "var(--font-heading)", fontSize: 16, fontWeight: 600 }}>
@@ -53,7 +55,7 @@ export function OrderSummary({
                 </div>
               </div>
               <div className="text-sm font-semibold text-foreground">
-                ৳{(it.price * it.qty).toLocaleString()}
+                {format(it.price * it.qty)}
               </div>
             </div>
           ))}
@@ -62,7 +64,7 @@ export function OrderSummary({
         <div className="mt-4 space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-muted-foreground">Subtotal</span>
-            <span className="text-foreground font-semibold">৳{total.toLocaleString()}</span>
+            <span className="text-foreground font-semibold">{format(total)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-muted-foreground">Delivery</span>
@@ -76,7 +78,7 @@ export function OrderSummary({
           <span className="text-emerald-600 font-medium">
             Coupon{couponCode ? ` (${couponCode})` : ""}
           </span>
-          <span className="text-emerald-600 font-semibold">−৳{discount.toLocaleString()}</span>
+          <span className="text-emerald-600 font-semibold">−{format(discount)}</span>
         </div>
       )}
 
@@ -89,7 +91,7 @@ export function OrderSummary({
           className="text-2xl font-semibold text-primary"
           style={{ fontFamily: "var(--font-heading)" }}
         >
-          ৳{grandTotal.toLocaleString()}
+          {format(grandTotal)}
         </span>
       </div>
 

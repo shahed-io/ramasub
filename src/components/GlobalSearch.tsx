@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useProducts } from "@/hooks/useProducts";
+import { useCurrency } from "@/context/CurrencyContext";
 import type { Product } from "@/data/products";
 
 const RECENT_KEY = "globalSearch:recent";
@@ -197,6 +198,7 @@ export function GlobalSearch({
 }) {
   const navigate = useNavigate();
   const { products, isLoading } = useProducts();
+  const { formatString } = useCurrency();
   const [q, setQ] = useState("");
   const [active, setActive] = useState(0);
   const [recent, setRecent] = useState<string[]>([]);
@@ -583,11 +585,11 @@ export function GlobalSearch({
                             {plan?.price && (
                               <div className="text-right shrink-0">
                                 <div className="text-sm font-bold text-indigo-600">
-                                  ৳{plan.price}
+                                  {formatString(plan.price)}
                                 </div>
                                 {plan.original && (
                                   <div className="text-[11px] text-slate-400 line-through">
-                                    ৳{plan.original}
+                                    {formatString(plan.original)}
                                   </div>
                                 )}
                               </div>

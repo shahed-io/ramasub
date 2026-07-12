@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import {
   Save, Loader2, Eye, EyeOff, Plus, Send, Mail, MessageCircle,
   Sparkles, Info, ShieldCheck, Database, ExternalLink, RefreshCcw,
-  Settings,
+  Settings, DollarSign,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -29,6 +29,13 @@ type SettingsData = {
   whatsapp_notify_number?: string;
 };
 
+type CurrencyConfigData = {
+  usd_rate?: number;
+  enable_usd?: boolean;
+  usd_symbol?: string;
+  bdt_symbol?: string;
+};
+
 /* ── Tone system: stronger tints + darker text for readability ── */
 const TONE = {
   violet:  { bg: "bg-violet-200",    text: "text-violet-800",    border: "border-violet-300",    soft: "bg-violet-100",    ink: "text-violet-900" },
@@ -46,12 +53,21 @@ function GeneralSettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
+  // Currency config (separate admin_records row: kind='currency_config')
+  const [currency, setCurrency] = useState<CurrencyConfigData>({
+    usd_rate: 135, enable_usd: true, usd_symbol: "$", bdt_symbol: "৳",
+  });
+  const [currencyId, setCurrencyId] = useState<string | null>(null);
+  const [savingCurrency, setSavingCurrency] = useState(false);
+
   const load = useCallback(async () => {
     setLoading(true);
-    const { data: rows, error } = await supabase
-      .from("admin_records").select("*").eq("kind", "site_settings").limit(1);
-    if (error) toast.error(error.message);
-    const row = rows?.[0];
+    const [siteRes, curRes] = await Promise.all([
+      supabase.from("admin_records").select("*").eq("kind", "site_settings").limit(1),
+      supabase.from("admin_records").select("*").eq("kind", "currency_config").limit(1),
+    ]);
+    if (siteRes.error) toast.error(siteRes.error.message);
+    const row = siteRes.data?.[0];
     if (row) {
       setRecordId(row.id);
       setData((row.data ?? {}) as SettingsData);
@@ -64,6 +80,11 @@ function GeneralSettingsPage() {
         gemini_keys: [""],
       });
     }
+    const cRow = curRes.data?.[0];
+    if (cRow) {
+      setCurrencyId(cRow.id);
+      setCurrency({ usd_rate: 135, enable_usd: true, usd_symbol: "$", bdt_symbol: "৳", ...((cRow.data ?? {}) as CurrencyConfigData) });
+    }
     setLoading(false);
   }, []);
 
@@ -71,6 +92,9 @@ function GeneralSettingsPage() {
 
   const set = <K extends keyof SettingsData>(k: K, v: SettingsData[K]) =>
     setData((d) => ({ ...d, [k]: v }));
+
+  const setCur = <K extends keyof CurrencyConfigData>(k: K, v: CurrencyConfigData[K]) =>
+    setCurrency((d) => ({ ...d, [k]: v }));
 
   const save = async () => {
     setSaving(true);
@@ -83,6 +107,26 @@ function GeneralSettingsPage() {
     if (error) return toast.error(error.message);
     if (!recordId && saved?.id) setRecordId(saved.id);
     toast.success("সংরক্ষণ সম্পন্ন");
+  };
+
+  const saveCurrency = async () => {
+    setSavingCurrency(true);
+    const clean: CurrencyConfigData = {
+      usd_rate: Number(currency.usd_rate) > 0 ? Number(currency.usd_rate) : 135,
+      enable_usd: currency.enable_usd !== false,
+      usd_symbol: currency.usd_symbol?.trim() || "$",
+      bdt_symbol: currency.bdt_symbol?.trim() || "৳",
+    };
+    const payload = { kind: "currency_config", data: clean as never, is_active: true };
+    const op = currencyId
+      ? supabase.from("admin_records").update(payload).eq("id", currencyId)
+      : supabase.from("admin_records").insert(payload).select().single();
+    const { error, data: saved } = await op as any;
+    setSavingCurrency(false);
+    if (error) return toast.error(error.message);
+    if (!currencyId && saved?.id) setCurrencyId(saved.id);
+    setCurrency(clean);
+    toast.success("কারেন্সি সেটিংস সংরক্ষিত ✅");
   };
 
   if (loading) {
@@ -153,6 +197,62 @@ function GeneralSettingsPage() {
           </Field>
         </Grid2>
       </Card>
+
+      {/* Multi-Currency (USD switcher + rate) */}
+      <Card icon={<DollarSign className="w-4 h-4" />} title="Multi-Currency (USD Switcher)" tone="emerald">
+        <p className="text-xs mb-3" style={{ color: "var(--admin-muted)" }}>
+          কাস্টমাররা হেডারে BDT ↔ USD সুইচ করতে পারবে। সব প্রাইস BDT-তে সেভ থাকে — USD সিলেক্ট করলে নিচের রেট দিয়ে অটো-কনভার্ট হয়ে দেখাবে।
+        </p>
+        <Grid2>
+          <Field label="USD রেট (১ USD = কত ৳)">
+            <Input
+              type="number"
+              value={String(currency.usd_rate ?? 135)}
+              onChange={(v) => setCur("usd_rate", Number(v) || 0)}
+              placeholder="135"
+            />
+            <p className="text-[11px] mt-1" style={{ color: "var(--admin-muted)" }}>
+              বর্তমান: <b>১ USD ≈ ৳{Number(currency.usd_rate ?? 135).toLocaleString()}</b>
+            </p>
+          </Field>
+          <Field label="USD সিম্বল">
+            <Input value={currency.usd_symbol ?? "$"} onChange={(v) => setCur("usd_symbol", v)} placeholder="$" />
+          </Field>
+        </Grid2>
+
+        <label className="mt-4 flex items-center gap-3 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={currency.enable_usd !== false}
+            onChange={(e) => setCur("enable_usd", e.target.checked)}
+            className="w-4 h-4 accent-emerald-600"
+          />
+          <span className="text-sm font-semibold" style={{ color: "var(--admin-ink)" }}>
+            USD কারেন্সি সুইচার এনাবল করুন (হেডারে দেখাবে)
+          </span>
+        </label>
+
+        <div className="mt-4 flex justify-end">
+          <button
+            onClick={saveCurrency}
+            disabled={savingCurrency}
+            className="a-save-btn"
+          >
+            {savingCurrency ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+            কারেন্সি সেভ করুন
+          </button>
+        </div>
+
+        <InfoBox tone="emerald">
+          <p className="font-semibold mb-1">💡 উদাহরণ (রেট ১৩৫):</p>
+          <ul className="list-disc pl-5 space-y-0.5">
+            <li>প্রোডাক্ট ৳499 → USD-তে দেখাবে ${(499 / (Number(currency.usd_rate) || 135)).toFixed(2)}</li>
+            <li>প্রোডাক্ট ৳1,350 → USD-তে দেখাবে ${(1350 / (Number(currency.usd_rate) || 135)).toFixed(2)}</li>
+            <li>পেমেন্ট সবসময় BDT-তে প্রসেস হয় — শুধু ডিসপ্লে চেঞ্জ হয়।</li>
+          </ul>
+        </InfoBox>
+      </Card>
+
 
       {/* Order Settings */}
       <Card icon={<Database className="w-4 h-4" />} title="Order Settings" tone="sky">
