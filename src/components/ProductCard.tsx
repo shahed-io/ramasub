@@ -28,6 +28,7 @@ function ProductCardImpl({ product }: { product: Product }) {
   const { add } = useCart();
   const navigate = useNavigate();
   const shopConfig = useShopConfigValue();
+  const { formatString } = useCurrency();
 
   const plan = product.plans[0];
   const hasOptions = product.plans.length > 1;
