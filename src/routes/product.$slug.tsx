@@ -5,6 +5,7 @@ import { badgeColorFor } from "@/lib/badgeColor";
 import { useEffect, useState } from "react";
 import { recordRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { useCart } from "@/context/CartContext";
+import { useCurrency } from "@/context/CurrencyContext";
 import { trackViewContent } from "@/lib/trackEvent";
 
 import { ProductBanner } from "@/components/ProductBanner";
