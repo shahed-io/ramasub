@@ -87,7 +87,6 @@ import { Route as Mahbub214HomepageEditorRouteImport } from './routes/Mahbub214.
 import { Route as Mahbub214GoogleAdsRouteImport } from './routes/Mahbub214.google-ads'
 import { Route as Mahbub214Ga4RealtimeRouteImport } from './routes/Mahbub214.ga4-realtime'
 import { Route as Mahbub214FbPixelRouteImport } from './routes/Mahbub214.fb-pixel'
-import { Route as Mahbub214FbAudiencesRouteImport } from './routes/Mahbub214.fb-audiences'
 import { Route as Mahbub214EmailDashboardRouteImport } from './routes/Mahbub214.email-dashboard'
 import { Route as Mahbub214DescriptionTemplateRouteImport } from './routes/Mahbub214.description-template'
 import { Route as Mahbub214DescriptionPreviewRouteImport } from './routes/Mahbub214.description-preview'
@@ -510,11 +509,6 @@ const Mahbub214FbPixelRoute = Mahbub214FbPixelRouteImport.update({
   path: '/fb-pixel',
   getParentRoute: () => Mahbub214Route,
 } as any)
-const Mahbub214FbAudiencesRoute = Mahbub214FbAudiencesRouteImport.update({
-  id: '/fb-audiences',
-  path: '/fb-audiences',
-  getParentRoute: () => Mahbub214Route,
-} as any)
 const Mahbub214EmailDashboardRoute = Mahbub214EmailDashboardRouteImport.update({
   id: '/email-dashboard',
   path: '/email-dashboard',
@@ -705,7 +699,6 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
   '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
-  '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/ga4-realtime': typeof Mahbub214Ga4RealtimeRoute
   '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
@@ -812,7 +805,6 @@ export interface FileRoutesByTo {
   '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
   '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
-  '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/ga4-realtime': typeof Mahbub214Ga4RealtimeRoute
   '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
@@ -921,7 +913,6 @@ export interface FileRoutesById {
   '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
   '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
-  '/Mahbub214/fb-audiences': typeof Mahbub214FbAudiencesRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/ga4-realtime': typeof Mahbub214Ga4RealtimeRoute
   '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
@@ -1031,7 +1022,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/description-preview'
     | '/Mahbub214/description-template'
     | '/Mahbub214/email-dashboard'
-    | '/Mahbub214/fb-audiences'
     | '/Mahbub214/fb-pixel'
     | '/Mahbub214/ga4-realtime'
     | '/Mahbub214/google-ads'
@@ -1138,7 +1128,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/description-preview'
     | '/Mahbub214/description-template'
     | '/Mahbub214/email-dashboard'
-    | '/Mahbub214/fb-audiences'
     | '/Mahbub214/fb-pixel'
     | '/Mahbub214/ga4-realtime'
     | '/Mahbub214/google-ads'
@@ -1246,7 +1235,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/description-preview'
     | '/Mahbub214/description-template'
     | '/Mahbub214/email-dashboard'
-    | '/Mahbub214/fb-audiences'
     | '/Mahbub214/fb-pixel'
     | '/Mahbub214/ga4-realtime'
     | '/Mahbub214/google-ads'
@@ -1916,13 +1904,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214FbPixelRouteImport
       parentRoute: typeof Mahbub214Route
     }
-    '/Mahbub214/fb-audiences': {
-      id: '/Mahbub214/fb-audiences'
-      path: '/fb-audiences'
-      fullPath: '/Mahbub214/fb-audiences'
-      preLoaderRoute: typeof Mahbub214FbAudiencesRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
     '/Mahbub214/email-dashboard': {
       id: '/Mahbub214/email-dashboard'
       path: '/email-dashboard'
@@ -2151,7 +2132,6 @@ interface Mahbub214RouteChildren {
   Mahbub214DescriptionPreviewRoute: typeof Mahbub214DescriptionPreviewRoute
   Mahbub214DescriptionTemplateRoute: typeof Mahbub214DescriptionTemplateRoute
   Mahbub214EmailDashboardRoute: typeof Mahbub214EmailDashboardRoute
-  Mahbub214FbAudiencesRoute: typeof Mahbub214FbAudiencesRoute
   Mahbub214FbPixelRoute: typeof Mahbub214FbPixelRoute
   Mahbub214Ga4RealtimeRoute: typeof Mahbub214Ga4RealtimeRoute
   Mahbub214GoogleAdsRoute: typeof Mahbub214GoogleAdsRoute
@@ -2204,7 +2184,6 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214DescriptionPreviewRoute: Mahbub214DescriptionPreviewRoute,
   Mahbub214DescriptionTemplateRoute: Mahbub214DescriptionTemplateRoute,
   Mahbub214EmailDashboardRoute: Mahbub214EmailDashboardRoute,
-  Mahbub214FbAudiencesRoute: Mahbub214FbAudiencesRoute,
   Mahbub214FbPixelRoute: Mahbub214FbPixelRoute,
   Mahbub214Ga4RealtimeRoute: Mahbub214Ga4RealtimeRoute,
   Mahbub214GoogleAdsRoute: Mahbub214GoogleAdsRoute,
