@@ -180,9 +180,10 @@ export function SiteHeader() {
           ].join(" ")}
         >
           <div className="mx-auto max-w-[1440px] px-3 sm:px-4 md:px-10 h-[64px] md:h-[68px] grid grid-cols-[auto_1fr_auto] items-center gap-2 md:flex md:justify-between md:gap-5 md:flex-nowrap">
-            {/* Mobile-only: theme switcher on the left */}
-            <div className="md:hidden justify-self-start">
+            {/* Mobile-only: theme + currency switcher on the left */}
+            <div className="md:hidden justify-self-start flex items-center gap-1.5">
               <ThemeSwitcher />
+              <CurrencySwitcher compact />
             </div>
 
             {/* Brand — logo card on the left, name on top + site link below */}
