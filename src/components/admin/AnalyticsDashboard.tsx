@@ -153,7 +153,7 @@ export function AnalyticsDashboard() {
   ];
 
   const toneRing: Record<string, string> = {
-    emerald: "bg-emerald-100 text-emerald-700 ring-emerald-200",
+    emerald: "bg-violet-100 text-violet-700 ring-violet-200",
     violet: "bg-violet-200 text-violet-800 ring-violet-300",
     sky: "bg-sky-100 text-sky-700 ring-sky-200",
     indigo: "bg-indigo-100 text-indigo-700 ring-indigo-200",
@@ -207,7 +207,7 @@ export function AnalyticsDashboard() {
               <div className="flex items-center justify-between mb-2">
                 <span className={`w-8 h-8 rounded-lg ring-1 grid place-items-center ${toneRing[k.tone]}`}>{k.icon}</span>
                 {k.delta !== 0 && (
-                  <span className={`text-[10px] font-bold inline-flex items-center gap-0.5 ${k.delta >= 0 ? "text-emerald-600" : "text-rose-600"}`}>
+                  <span className={`text-[10px] font-bold inline-flex items-center gap-0.5 ${k.delta >= 0 ? "text-violet-600" : "text-rose-600"}`}>
                     {k.delta >= 0 ? "▲" : "▼"} {Math.abs(k.delta)}%
                   </span>
                 )}
@@ -251,7 +251,7 @@ export function AnalyticsDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="bg-white border border-slate-200 rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-4">
-            <span className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 grid place-items-center"><BarChart3 className="w-4 h-4" /></span>
+            <span className="w-7 h-7 rounded-lg bg-violet-50 text-violet-600 grid place-items-center"><BarChart3 className="w-4 h-4" /></span>
             <h3 className="font-bold text-slate-900">{t("Order Status", "অর্ডার স্ট্যাটাস")}</h3>
           </div>
           <div className="h-64">

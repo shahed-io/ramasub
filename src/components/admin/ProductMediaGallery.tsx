@@ -216,7 +216,7 @@ export function ProductMediaGallery() {
                     title={t("Copy URL", "URL কপি")}
                     className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white text-slate-700 shadow hover:scale-110 transition"
                   >
-                    {copied === row.image_url ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                    {copied === row.image_url ? <Check className="w-4 h-4 text-violet-500" /> : <Copy className="w-4 h-4" />}
                   </button>
                   <a
                     href={row.image_url!}
