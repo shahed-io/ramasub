@@ -198,6 +198,62 @@ function GeneralSettingsPage() {
         </Grid2>
       </Card>
 
+      {/* Multi-Currency (USD switcher + rate) */}
+      <Card icon={<DollarSign className="w-4 h-4" />} title="Multi-Currency (USD Switcher)" tone="emerald">
+        <p className="text-xs mb-3" style={{ color: "var(--admin-muted)" }}>
+          কাস্টমাররা হেডারে BDT ↔ USD সুইচ করতে পারবে। সব প্রাইস BDT-তে সেভ থাকে — USD সিলেক্ট করলে নিচের রেট দিয়ে অটো-কনভার্ট হয়ে দেখাবে।
+        </p>
+        <Grid2>
+          <Field label="USD রেট (১ USD = কত ৳)">
+            <Input
+              type="number"
+              value={String(currency.usd_rate ?? 135)}
+              onChange={(v) => setCur("usd_rate", Number(v) || 0)}
+              placeholder="135"
+            />
+            <p className="text-[11px] mt-1" style={{ color: "var(--admin-muted)" }}>
+              বর্তমান: <b>১ USD ≈ ৳{Number(currency.usd_rate ?? 135).toLocaleString()}</b>
+            </p>
+          </Field>
+          <Field label="USD সিম্বল">
+            <Input value={currency.usd_symbol ?? "$"} onChange={(v) => setCur("usd_symbol", v)} placeholder="$" />
+          </Field>
+        </Grid2>
+
+        <label className="mt-4 flex items-center gap-3 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={currency.enable_usd !== false}
+            onChange={(e) => setCur("enable_usd", e.target.checked)}
+            className="w-4 h-4 accent-emerald-600"
+          />
+          <span className="text-sm font-semibold" style={{ color: "var(--admin-ink)" }}>
+            USD কারেন্সি সুইচার এনাবল করুন (হেডারে দেখাবে)
+          </span>
+        </label>
+
+        <div className="mt-4 flex justify-end">
+          <button
+            onClick={saveCurrency}
+            disabled={savingCurrency}
+            className="a-save-btn"
+          >
+            {savingCurrency ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+            কারেন্সি সেভ করুন
+          </button>
+        </div>
+
+        <InfoBox tone="emerald">
+          <p className="font-semibold mb-1">💡 উদাহরণ (রেট ১৩৫):</p>
+          <ul className="list-disc pl-5 space-y-0.5">
+            <li>প্রোডাক্ট ৳499 → USD-তে দেখাবে ${(499 / (Number(currency.usd_rate) || 135)).toFixed(2)}</li>
+            <li>প্রোডাক্ট ৳1,350 → USD-তে দেখাবে ${(1350 / (Number(currency.usd_rate) || 135)).toFixed(2)}</li>
+            <li>পেমেন্ট সবসময় BDT-তে প্রসেস হয় — শুধু ডিসপ্লে চেঞ্জ হয়।</li>
+          </ul>
+        </InfoBox>
+      </Card>
+
+
       {/* Order Settings */}
       <Card icon={<Database className="w-4 h-4" />} title="Order Settings" tone="sky">
         <Field label="Order number prefix">
