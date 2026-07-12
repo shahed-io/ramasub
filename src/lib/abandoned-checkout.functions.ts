@@ -1,6 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequest } from "@tanstack/react-start/server";
+import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import type { Database } from "@/integrations/supabase/types";
 
 const itemSchema = z.object({
   slug: z.string().max(200).optional().nullable(),
@@ -11,11 +13,8 @@ const itemSchema = z.object({
   emoji: z.string().max(16).optional().nullable(),
 }).passthrough();
 
-// SECURITY: never accept a caller-supplied user_id or email. The identity of
-// the record is always the authenticated caller (auth.uid()) — RLS + this
-// server function agree, so nobody can attach checkout/payment data to another
-// customer's account.
 const inputSchema = z.object({
+  email: z.string().trim().email().max(255),
   full_name: z.string().trim().max(200).nullable().optional(),
   phone: z.string().trim().max(40).nullable().optional(),
   sender_number: z.string().trim().max(40).nullable().optional(),
@@ -33,20 +32,40 @@ const inputSchema = z.object({
 export type CaptureAbandonedInput = z.infer<typeof inputSchema>;
 
 export const captureAbandonedCheckout = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator((d: CaptureAbandonedInput) => inputSchema.parse(d))
-  .handler(async ({ data, context }) => {
+  .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const userId = context.userId;
-    const email = (context.claims?.email as string | undefined)?.toLowerCase().trim() || `user-${userId}@pending.local`;
+    const request = getRequest();
+    const authHeader = request?.headers?.get("authorization") ?? "";
+    let userId: string | null = null;
+
+    if (authHeader.startsWith("Bearer ")) {
+      const token = authHeader.replace("Bearer ", "").trim();
+      const url = process.env.SUPABASE_URL;
+      const key = process.env.SUPABASE_PUBLISHABLE_KEY;
+      if (token && url && key) {
+        try {
+          const supabase = createClient<Database>(url, key, {
+            global: { headers: { Authorization: `Bearer ${token}` } },
+            auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
+          });
+          const { data: claimsData } = await supabase.auth.getClaims(token);
+          userId = typeof claimsData?.claims?.sub === "string" ? claimsData.claims.sub : null;
+        } catch {
+          userId = null;
+        }
+      }
+    }
+
+    const email = data.email.toLowerCase().trim();
     const phone = (data.phone ?? "").trim();
-    const fullName = (data.full_name ?? "").trim() || "Guest Visitor";
+    const fullName = (data.full_name ?? "").trim() || email.split("@")[0] || "Checkout Visitor";
 
     const payload = {
       user_id: userId,
       full_name: fullName,
       email,
-      phone: phone || "0000000000",
+      phone,
       sender_number: data.sender_number ?? null,
       transaction_id: data.transaction_id ?? null,
       payment_method: data.payment_method ?? null,
@@ -61,14 +80,25 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
       updated_at: new Date().toISOString(),
     };
 
-    // Look up existing pending row for this authenticated user only.
-    const { data: existing } = await supabaseAdmin
-      .from("abandoned_checkouts")
-      .select("id, status")
-      .eq("user_id", userId)
-      .maybeSingle();
+    let existing: { id: string; status: string | null } | null = null;
+    if (userId) {
+      const { data: byUser } = await supabaseAdmin
+        .from("abandoned_checkouts")
+        .select("id, status")
+        .eq("user_id", userId)
+        .maybeSingle();
+      existing = byUser;
+    }
+    if (!existing) {
+      const { data: byEmail } = await supabaseAdmin
+        .from("abandoned_checkouts")
+        .select("id, status")
+        .eq("email", email)
+        .maybeSingle();
+      existing = byEmail;
+    }
 
-    if (existing?.id && existing.status !== "recovered") {
+    if (existing?.id) {
       const { error } = await supabaseAdmin
         .from("abandoned_checkouts")
         .update(payload)
@@ -82,6 +112,16 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
       .insert(payload)
       .select("id")
       .single();
+    if (error?.code === "23505") {
+      const { data: recovered, error: updateError } = await supabaseAdmin
+        .from("abandoned_checkouts")
+        .update(payload)
+        .eq("email", email)
+        .select("id")
+        .single();
+      if (updateError) return { ok: false as const, error: updateError.message };
+      return { ok: true as const, id: recovered.id, updated: true };
+    }
     if (error) return { ok: false as const, error: error.message };
     return { ok: true as const, id: inserted.id, updated: false };
   });
