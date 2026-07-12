@@ -162,6 +162,7 @@ function ProductPage() {
   const { products } = useProducts();
   const navigate = useNavigate();
   const { add } = useCart();
+  const { format, code: currencyCode } = useCurrency();
   useShopConfig();
   const rawMeta = (loaderProduct?.meta ?? product?.meta) as { account_type?: string; account_types?: string[]; custom_account_type_label?: string } | undefined;
   const enabledAccountTypes: string[] = (() => {
