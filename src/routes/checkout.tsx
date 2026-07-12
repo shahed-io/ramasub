@@ -83,6 +83,7 @@ const CTA_GRADIENT = "linear-gradient(135deg, #6366f1, #8b5cf6, #d946ef)";
 
 function CheckoutPage() {
   const { items, total, clear, ready: cartReady } = useCart();
+  const { format, code: currencyCode } = useCurrency();
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const captureCheckout = useServerFn(captureAbandonedCheckout);
