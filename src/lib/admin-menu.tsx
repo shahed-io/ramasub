@@ -178,9 +178,7 @@ export const ADMIN_MENU: AdminMenuGroup[] = [
     icon: ic(Plug),
     items: [
       { to: "/Mahbub214/fb-pixel", label: "Facebook Pixel", labelBn: "ফেসবুক পিক্সেল", icon: ic(BarChart3), grad: "from-blue-600 to-indigo-700" },
-      
-      { to: "/Mahbub214/google-ads", label: "Google Ads", labelBn: "গুগল অ্যাডস", icon: ic(Activity), grad: "from-sky-500 to-blue-600" },
-      { to: "/Mahbub214/other-pixels", label: "Other Pixels", labelBn: "অন্যান্য পিক্সেল", icon: ic(Code2), grad: "from-orange-500 to-rose-500", badge: "NEW" },
+
       { to: "/Mahbub214/support-channels", label: "Support Channels", labelBn: "সাপোর্ট চ্যানেল", icon: ic(Headphones), grad: "from-emerald-500 to-green-600" },
       { to: "/Mahbub214/telegram", label: "Telegram Monitor", labelBn: "টেলিগ্রাম মনিটর", icon: ic(Bell), grad: "from-sky-500 to-blue-600", badge: "NEW" },
     ],
