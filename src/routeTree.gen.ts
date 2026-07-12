@@ -53,7 +53,6 @@ import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as Mahbub214ZoomSettingsRouteImport } from './routes/Mahbub214.zoom-settings'
 import { Route as Mahbub214WalletRouteImport } from './routes/Mahbub214.wallet'
 import { Route as Mahbub214UsersRouteImport } from './routes/Mahbub214.users'
-import { Route as Mahbub214TrackingPixelsRouteImport } from './routes/Mahbub214.tracking-pixels'
 import { Route as Mahbub214TicketsRouteImport } from './routes/Mahbub214.tickets'
 import { Route as Mahbub214ThemesRouteImport } from './routes/Mahbub214.themes'
 import { Route as Mahbub214TelegramRouteImport } from './routes/Mahbub214.telegram'
@@ -74,7 +73,6 @@ import { Route as Mahbub214ProductsRouteImport } from './routes/Mahbub214.produc
 import { Route as Mahbub214PaymentsRouteImport } from './routes/Mahbub214.payments'
 import { Route as Mahbub214PaymentLinksRouteImport } from './routes/Mahbub214.payment-links'
 import { Route as Mahbub214PagesRouteImport } from './routes/Mahbub214.pages'
-import { Route as Mahbub214OtherPixelsRouteImport } from './routes/Mahbub214.other-pixels'
 import { Route as Mahbub214OrdersRouteImport } from './routes/Mahbub214.orders'
 import { Route as Mahbub214OffersRouteImport } from './routes/Mahbub214.offers'
 import { Route as Mahbub214NewsletterRouteImport } from './routes/Mahbub214.newsletter'
@@ -84,7 +82,6 @@ import { Route as Mahbub214InvoiceGeneratorRouteImport } from './routes/Mahbub21
 import { Route as Mahbub214InvoiceDesignRouteImport } from './routes/Mahbub214.invoice-design'
 import { Route as Mahbub214InventoryRouteImport } from './routes/Mahbub214.inventory'
 import { Route as Mahbub214HomepageEditorRouteImport } from './routes/Mahbub214.homepage-editor'
-import { Route as Mahbub214GoogleAdsRouteImport } from './routes/Mahbub214.google-ads'
 import { Route as Mahbub214Ga4RealtimeRouteImport } from './routes/Mahbub214.ga4-realtime'
 import { Route as Mahbub214FbPixelRouteImport } from './routes/Mahbub214.fb-pixel'
 import { Route as Mahbub214EmailDashboardRouteImport } from './routes/Mahbub214.email-dashboard'
@@ -336,11 +333,6 @@ const Mahbub214UsersRoute = Mahbub214UsersRouteImport.update({
   path: '/users',
   getParentRoute: () => Mahbub214Route,
 } as any)
-const Mahbub214TrackingPixelsRoute = Mahbub214TrackingPixelsRouteImport.update({
-  id: '/tracking-pixels',
-  path: '/tracking-pixels',
-  getParentRoute: () => Mahbub214Route,
-} as any)
 const Mahbub214TicketsRoute = Mahbub214TicketsRouteImport.update({
   id: '/tickets',
   path: '/tickets',
@@ -443,11 +435,6 @@ const Mahbub214PagesRoute = Mahbub214PagesRouteImport.update({
   path: '/pages',
   getParentRoute: () => Mahbub214Route,
 } as any)
-const Mahbub214OtherPixelsRoute = Mahbub214OtherPixelsRouteImport.update({
-  id: '/other-pixels',
-  path: '/other-pixels',
-  getParentRoute: () => Mahbub214Route,
-} as any)
 const Mahbub214OrdersRoute = Mahbub214OrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
@@ -492,11 +479,6 @@ const Mahbub214InventoryRoute = Mahbub214InventoryRouteImport.update({
 const Mahbub214HomepageEditorRoute = Mahbub214HomepageEditorRouteImport.update({
   id: '/homepage-editor',
   path: '/homepage-editor',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214GoogleAdsRoute = Mahbub214GoogleAdsRouteImport.update({
-  id: '/google-ads',
-  path: '/google-ads',
   getParentRoute: () => Mahbub214Route,
 } as any)
 const Mahbub214Ga4RealtimeRoute = Mahbub214Ga4RealtimeRouteImport.update({
@@ -701,7 +683,6 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/ga4-realtime': typeof Mahbub214Ga4RealtimeRoute
-  '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
   '/Mahbub214/homepage-editor': typeof Mahbub214HomepageEditorRoute
   '/Mahbub214/inventory': typeof Mahbub214InventoryRoute
   '/Mahbub214/invoice-design': typeof Mahbub214InvoiceDesignRoute
@@ -711,7 +692,6 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/newsletter': typeof Mahbub214NewsletterRoute
   '/Mahbub214/offers': typeof Mahbub214OffersRouteWithChildren
   '/Mahbub214/orders': typeof Mahbub214OrdersRoute
-  '/Mahbub214/other-pixels': typeof Mahbub214OtherPixelsRoute
   '/Mahbub214/pages': typeof Mahbub214PagesRouteWithChildren
   '/Mahbub214/payment-links': typeof Mahbub214PaymentLinksRoute
   '/Mahbub214/payments': typeof Mahbub214PaymentsRoute
@@ -732,7 +712,6 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/telegram': typeof Mahbub214TelegramRoute
   '/Mahbub214/themes': typeof Mahbub214ThemesRoute
   '/Mahbub214/tickets': typeof Mahbub214TicketsRoute
-  '/Mahbub214/tracking-pixels': typeof Mahbub214TrackingPixelsRoute
   '/Mahbub214/users': typeof Mahbub214UsersRoute
   '/Mahbub214/wallet': typeof Mahbub214WalletRoute
   '/Mahbub214/zoom-settings': typeof Mahbub214ZoomSettingsRoute
@@ -807,7 +786,6 @@ export interface FileRoutesByTo {
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/ga4-realtime': typeof Mahbub214Ga4RealtimeRoute
-  '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
   '/Mahbub214/homepage-editor': typeof Mahbub214HomepageEditorRoute
   '/Mahbub214/inventory': typeof Mahbub214InventoryRoute
   '/Mahbub214/invoice-design': typeof Mahbub214InvoiceDesignRoute
@@ -817,7 +795,6 @@ export interface FileRoutesByTo {
   '/Mahbub214/newsletter': typeof Mahbub214NewsletterRoute
   '/Mahbub214/offers': typeof Mahbub214OffersRouteWithChildren
   '/Mahbub214/orders': typeof Mahbub214OrdersRoute
-  '/Mahbub214/other-pixels': typeof Mahbub214OtherPixelsRoute
   '/Mahbub214/pages': typeof Mahbub214PagesRouteWithChildren
   '/Mahbub214/payment-links': typeof Mahbub214PaymentLinksRoute
   '/Mahbub214/payments': typeof Mahbub214PaymentsRoute
@@ -838,7 +815,6 @@ export interface FileRoutesByTo {
   '/Mahbub214/telegram': typeof Mahbub214TelegramRoute
   '/Mahbub214/themes': typeof Mahbub214ThemesRoute
   '/Mahbub214/tickets': typeof Mahbub214TicketsRoute
-  '/Mahbub214/tracking-pixels': typeof Mahbub214TrackingPixelsRoute
   '/Mahbub214/users': typeof Mahbub214UsersRoute
   '/Mahbub214/wallet': typeof Mahbub214WalletRoute
   '/Mahbub214/zoom-settings': typeof Mahbub214ZoomSettingsRoute
@@ -915,7 +891,6 @@ export interface FileRoutesById {
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
   '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/ga4-realtime': typeof Mahbub214Ga4RealtimeRoute
-  '/Mahbub214/google-ads': typeof Mahbub214GoogleAdsRoute
   '/Mahbub214/homepage-editor': typeof Mahbub214HomepageEditorRoute
   '/Mahbub214/inventory': typeof Mahbub214InventoryRoute
   '/Mahbub214/invoice-design': typeof Mahbub214InvoiceDesignRoute
@@ -925,7 +900,6 @@ export interface FileRoutesById {
   '/Mahbub214/newsletter': typeof Mahbub214NewsletterRoute
   '/Mahbub214/offers': typeof Mahbub214OffersRouteWithChildren
   '/Mahbub214/orders': typeof Mahbub214OrdersRoute
-  '/Mahbub214/other-pixels': typeof Mahbub214OtherPixelsRoute
   '/Mahbub214/pages': typeof Mahbub214PagesRouteWithChildren
   '/Mahbub214/payment-links': typeof Mahbub214PaymentLinksRoute
   '/Mahbub214/payments': typeof Mahbub214PaymentsRoute
@@ -946,7 +920,6 @@ export interface FileRoutesById {
   '/Mahbub214/telegram': typeof Mahbub214TelegramRoute
   '/Mahbub214/themes': typeof Mahbub214ThemesRoute
   '/Mahbub214/tickets': typeof Mahbub214TicketsRoute
-  '/Mahbub214/tracking-pixels': typeof Mahbub214TrackingPixelsRoute
   '/Mahbub214/users': typeof Mahbub214UsersRoute
   '/Mahbub214/wallet': typeof Mahbub214WalletRoute
   '/Mahbub214/zoom-settings': typeof Mahbub214ZoomSettingsRoute
@@ -1024,7 +997,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/email-dashboard'
     | '/Mahbub214/fb-pixel'
     | '/Mahbub214/ga4-realtime'
-    | '/Mahbub214/google-ads'
     | '/Mahbub214/homepage-editor'
     | '/Mahbub214/inventory'
     | '/Mahbub214/invoice-design'
@@ -1034,7 +1006,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/newsletter'
     | '/Mahbub214/offers'
     | '/Mahbub214/orders'
-    | '/Mahbub214/other-pixels'
     | '/Mahbub214/pages'
     | '/Mahbub214/payment-links'
     | '/Mahbub214/payments'
@@ -1055,7 +1026,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/telegram'
     | '/Mahbub214/themes'
     | '/Mahbub214/tickets'
-    | '/Mahbub214/tracking-pixels'
     | '/Mahbub214/users'
     | '/Mahbub214/wallet'
     | '/Mahbub214/zoom-settings'
@@ -1130,7 +1100,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/email-dashboard'
     | '/Mahbub214/fb-pixel'
     | '/Mahbub214/ga4-realtime'
-    | '/Mahbub214/google-ads'
     | '/Mahbub214/homepage-editor'
     | '/Mahbub214/inventory'
     | '/Mahbub214/invoice-design'
@@ -1140,7 +1109,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/newsletter'
     | '/Mahbub214/offers'
     | '/Mahbub214/orders'
-    | '/Mahbub214/other-pixels'
     | '/Mahbub214/pages'
     | '/Mahbub214/payment-links'
     | '/Mahbub214/payments'
@@ -1161,7 +1129,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/telegram'
     | '/Mahbub214/themes'
     | '/Mahbub214/tickets'
-    | '/Mahbub214/tracking-pixels'
     | '/Mahbub214/users'
     | '/Mahbub214/wallet'
     | '/Mahbub214/zoom-settings'
@@ -1237,7 +1204,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/email-dashboard'
     | '/Mahbub214/fb-pixel'
     | '/Mahbub214/ga4-realtime'
-    | '/Mahbub214/google-ads'
     | '/Mahbub214/homepage-editor'
     | '/Mahbub214/inventory'
     | '/Mahbub214/invoice-design'
@@ -1247,7 +1213,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/newsletter'
     | '/Mahbub214/offers'
     | '/Mahbub214/orders'
-    | '/Mahbub214/other-pixels'
     | '/Mahbub214/pages'
     | '/Mahbub214/payment-links'
     | '/Mahbub214/payments'
@@ -1268,7 +1233,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/telegram'
     | '/Mahbub214/themes'
     | '/Mahbub214/tickets'
-    | '/Mahbub214/tracking-pixels'
     | '/Mahbub214/users'
     | '/Mahbub214/wallet'
     | '/Mahbub214/zoom-settings'
@@ -1666,13 +1630,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214UsersRouteImport
       parentRoute: typeof Mahbub214Route
     }
-    '/Mahbub214/tracking-pixels': {
-      id: '/Mahbub214/tracking-pixels'
-      path: '/tracking-pixels'
-      fullPath: '/Mahbub214/tracking-pixels'
-      preLoaderRoute: typeof Mahbub214TrackingPixelsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
     '/Mahbub214/tickets': {
       id: '/Mahbub214/tickets'
       path: '/tickets'
@@ -1813,13 +1770,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214PagesRouteImport
       parentRoute: typeof Mahbub214Route
     }
-    '/Mahbub214/other-pixels': {
-      id: '/Mahbub214/other-pixels'
-      path: '/other-pixels'
-      fullPath: '/Mahbub214/other-pixels'
-      preLoaderRoute: typeof Mahbub214OtherPixelsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
     '/Mahbub214/orders': {
       id: '/Mahbub214/orders'
       path: '/orders'
@@ -1881,13 +1831,6 @@ declare module '@tanstack/react-router' {
       path: '/homepage-editor'
       fullPath: '/Mahbub214/homepage-editor'
       preLoaderRoute: typeof Mahbub214HomepageEditorRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/google-ads': {
-      id: '/Mahbub214/google-ads'
-      path: '/google-ads'
-      fullPath: '/Mahbub214/google-ads'
-      preLoaderRoute: typeof Mahbub214GoogleAdsRouteImport
       parentRoute: typeof Mahbub214Route
     }
     '/Mahbub214/ga4-realtime': {
@@ -2134,7 +2077,6 @@ interface Mahbub214RouteChildren {
   Mahbub214EmailDashboardRoute: typeof Mahbub214EmailDashboardRoute
   Mahbub214FbPixelRoute: typeof Mahbub214FbPixelRoute
   Mahbub214Ga4RealtimeRoute: typeof Mahbub214Ga4RealtimeRoute
-  Mahbub214GoogleAdsRoute: typeof Mahbub214GoogleAdsRoute
   Mahbub214HomepageEditorRoute: typeof Mahbub214HomepageEditorRoute
   Mahbub214InventoryRoute: typeof Mahbub214InventoryRoute
   Mahbub214InvoiceDesignRoute: typeof Mahbub214InvoiceDesignRoute
@@ -2144,7 +2086,6 @@ interface Mahbub214RouteChildren {
   Mahbub214NewsletterRoute: typeof Mahbub214NewsletterRoute
   Mahbub214OffersRoute: typeof Mahbub214OffersRouteWithChildren
   Mahbub214OrdersRoute: typeof Mahbub214OrdersRoute
-  Mahbub214OtherPixelsRoute: typeof Mahbub214OtherPixelsRoute
   Mahbub214PagesRoute: typeof Mahbub214PagesRouteWithChildren
   Mahbub214PaymentLinksRoute: typeof Mahbub214PaymentLinksRoute
   Mahbub214PaymentsRoute: typeof Mahbub214PaymentsRoute
@@ -2165,7 +2106,6 @@ interface Mahbub214RouteChildren {
   Mahbub214TelegramRoute: typeof Mahbub214TelegramRoute
   Mahbub214ThemesRoute: typeof Mahbub214ThemesRoute
   Mahbub214TicketsRoute: typeof Mahbub214TicketsRoute
-  Mahbub214TrackingPixelsRoute: typeof Mahbub214TrackingPixelsRoute
   Mahbub214UsersRoute: typeof Mahbub214UsersRoute
   Mahbub214WalletRoute: typeof Mahbub214WalletRoute
   Mahbub214ZoomSettingsRoute: typeof Mahbub214ZoomSettingsRoute
@@ -2186,7 +2126,6 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214EmailDashboardRoute: Mahbub214EmailDashboardRoute,
   Mahbub214FbPixelRoute: Mahbub214FbPixelRoute,
   Mahbub214Ga4RealtimeRoute: Mahbub214Ga4RealtimeRoute,
-  Mahbub214GoogleAdsRoute: Mahbub214GoogleAdsRoute,
   Mahbub214HomepageEditorRoute: Mahbub214HomepageEditorRoute,
   Mahbub214InventoryRoute: Mahbub214InventoryRoute,
   Mahbub214InvoiceDesignRoute: Mahbub214InvoiceDesignRoute,
@@ -2196,7 +2135,6 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214NewsletterRoute: Mahbub214NewsletterRoute,
   Mahbub214OffersRoute: Mahbub214OffersRouteWithChildren,
   Mahbub214OrdersRoute: Mahbub214OrdersRoute,
-  Mahbub214OtherPixelsRoute: Mahbub214OtherPixelsRoute,
   Mahbub214PagesRoute: Mahbub214PagesRouteWithChildren,
   Mahbub214PaymentLinksRoute: Mahbub214PaymentLinksRoute,
   Mahbub214PaymentsRoute: Mahbub214PaymentsRoute,
@@ -2217,7 +2155,6 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214TelegramRoute: Mahbub214TelegramRoute,
   Mahbub214ThemesRoute: Mahbub214ThemesRoute,
   Mahbub214TicketsRoute: Mahbub214TicketsRoute,
-  Mahbub214TrackingPixelsRoute: Mahbub214TrackingPixelsRoute,
   Mahbub214UsersRoute: Mahbub214UsersRoute,
   Mahbub214WalletRoute: Mahbub214WalletRoute,
   Mahbub214ZoomSettingsRoute: Mahbub214ZoomSettingsRoute,
