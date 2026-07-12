@@ -30,6 +30,16 @@ type Order = {
   total: number; status: string; payment_method: string; created_at: string;
 };
 
+type ProfileRow = {
+  display_name?: string | null;
+  phone?: string | null;
+  avatar_url?: string | null;
+  country?: string | null;
+  city?: string | null;
+  address?: string | null;
+};
+
+
 type SectionId =
   | "profile" | "edit-profile" | "addresses" | "security"
   | "orders" | "licenses" | "downloads" | "subscriptions" | "wishlist" | "notifications"
@@ -101,7 +111,7 @@ function DashboardPage() {
   const { user, loading: authLoading, signOut } = useAuth();
   const navigate = useNavigate();
   const [orders, setOrders] = useState<Order[]>([]);
-  const [profile, setProfile] = useState<{ display_name?: string | null; phone?: string | null } | null>(null);
+  const [profile, setProfile] = useState<ProfileRow | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [section, setSection] = useState<SectionId>("profile");
@@ -126,7 +136,7 @@ function DashboardPage() {
       .then((r) => { mark("orders fetch", tOrders); return r; });
 
     const tProfile = performance.now();
-    const profileP = supabase.from("profiles").select("display_name, phone").eq("id", user.id).maybeSingle()
+    const profileP = supabase.from("profiles").select("display_name, phone, avatar_url, country, city, address").eq("id", user.id).maybeSingle()
       .then((r) => { mark("profile fetch", tProfile); return r; });
 
     const roleP = supabase.from("user_roles").select("role").eq("user_id", user.id).eq("role", "admin").maybeSingle();
@@ -135,7 +145,7 @@ function DashboardPage() {
       .then(([o, p, r]) => {
         if (cancelled) return;
         setOrders(((o.data as unknown) as Order[]) || []);
-        setProfile((p.data as { display_name?: string | null; phone?: string | null } | null) || null);
+        setProfile((p.data as ProfileRow | null) || null);
         setIsAdmin(!!r.data);
       })
       .catch((err) => {
@@ -521,7 +531,7 @@ function SectionRenderer({
   orders: Order[];
   greetingName: string;
   user: { email?: string; id?: string } | null;
-  profile: { display_name?: string | null; phone?: string | null } | null;
+  profile: ProfileRow | null;
   onNavigate: (s: SectionId) => void;
 }) {
   switch (section) {
@@ -641,16 +651,21 @@ function Textarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
 
 
 /* ===================== PROFILE ===================== */
-function ProfileView({ user, profile, onNavigate }: { user: { email?: string; id?: string } | null; profile: { display_name?: string | null; phone?: string | null } | null; onNavigate: (s: SectionId) => void }) {
+function ProfileView({ user, profile, onNavigate }: { user: { email?: string; id?: string } | null; profile: ProfileRow | null; onNavigate: (s: SectionId) => void }) {
   const username = (profile?.display_name || user?.email?.split("@")[0] || "user").toLowerCase().replace(/\s+/g, "");
+  const initials = (profile?.display_name || user?.email || "U").trim().slice(0, 1).toUpperCase();
   return (
     <div className="bg-card border border-border rounded-3xl p-5 md:p-7 shadow-sm">
       {/* Section header */}
       <div className="flex items-center justify-between gap-3 pb-5 border-b border-border">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl grid place-items-center text-primary-foreground" style={{ background: "linear-gradient(135deg,#8b5cf6,#6366f1)" }}>
-            <UserIcon className="w-5 h-5" />
-          </div>
+          {profile?.avatar_url ? (
+            <img src={profile.avatar_url} alt="Avatar" className="w-11 h-11 rounded-2xl object-cover border border-border" />
+          ) : (
+            <div className="w-11 h-11 rounded-2xl grid place-items-center text-primary-foreground font-bold" style={{ background: "linear-gradient(135deg,#8b5cf6,#6366f1)" }}>
+              {initials}
+            </div>
+          )}
           <div>
             <h2 className="text-xl md:text-2xl font-bold text-foreground" style={{ fontFamily: "var(--font-heading)" }}>Profile</h2>
             <p className="text-xs text-muted-foreground mt-0.5">Manage your personal information</p>
@@ -670,10 +685,10 @@ function ProfileView({ user, profile, onNavigate }: { user: { email?: string; id
         <ProfileField label="FULL NAME" icon={UserIcon} value={profile?.display_name || "—"} />
         <ProfileField label="USERNAME" icon={AtSign} value={`@${username}`} />
         <ProfileField label="EMAIL" icon={Mail} value={user?.email || "—"} />
-
         <ProfileField label="PHONE NUMBER" icon={Phone} value={profile?.phone || "—"} />
-        <ProfileField label="COUNTRY" icon={MapPin} value="Bangladesh" />
-        
+        <ProfileField label="COUNTRY" icon={Globe} value={profile?.country || "—"} />
+        <ProfileField label="CITY" icon={MapPin} value={profile?.city || "—"} />
+        <ProfileField label="ADDRESS" icon={Home} value={profile?.address || "—"} />
       </div>
     </div>
   );
@@ -709,38 +724,111 @@ function Row({ icon, label, value }: { icon: React.ReactNode; label: string; val
   );
 }
 
-function EditProfile({ profile, onSaved, onCancel }: { profile: { display_name?: string | null; phone?: string | null } | null; onSaved: () => void; onCancel: () => void }) {
+function EditProfile({ profile, onSaved, onCancel }: { profile: ProfileRow | null; onSaved: () => void; onCancel: () => void }) {
   const { user } = useAuth();
   const [form, setForm] = useState({
     display_name: profile?.display_name || "",
     phone: profile?.phone || "",
+    country: profile?.country || "",
+    city: profile?.city || "",
+    address: profile?.address || "",
+    email: user?.email || "",
   });
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(profile?.avatar_url || null);
+  const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [okAt, setOkAt] = useState<number | null>(null);
+  const [emailNotice, setEmailNotice] = useState<string | null>(null);
+
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+    if (!/^image\//.test(file.type)) { setErr("শুধু image আপলোড করা যাবে"); return; }
+    if (file.size > 3 * 1024 * 1024) { setErr("ছবির সাইজ ৩ MB এর কম হতে হবে"); return; }
+    setErr(null);
+    setUploading(true);
+    try {
+      const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+      const path = `user-avatars/${user.id}/avatar-${Date.now()}.${ext}`;
+      const { error: upErr } = await supabase.storage.from("admin-uploads").upload(path, file, {
+        upsert: true, cacheControl: "3600", contentType: file.type,
+      });
+      if (upErr) throw upErr;
+      const { data: pub } = supabase.storage.from("admin-uploads").getPublicUrl(path);
+      const url = pub.publicUrl;
+      const { error: dbErr } = await supabase.from("profiles").upsert({ id: user.id, avatar_url: url }, { onConflict: "id" });
+      if (dbErr) throw dbErr;
+      setAvatarUrl(url);
+    } catch (ex) {
+      const msg = ex instanceof Error ? ex.message : "আপলোড ব্যর্থ";
+      setErr(msg);
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
-    setErr(null);
+    setErr(null); setEmailNotice(null);
     const name = form.display_name.trim();
     const phone = form.phone.trim();
+    const email = form.email.trim().toLowerCase();
     if (!name) { setErr("নাম দিন"); return; }
     if (phone && !/^[0-9+\-\s]{6,20}$/.test(phone)) { setErr("সঠিক ফোন নম্বর দিন"); return; }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setErr("সঠিক email দিন"); return; }
     setSaving(true);
     const { error } = await supabase
       .from("profiles")
-      .upsert({ id: user.id, display_name: name, phone: phone || null }, { onConflict: "id" });
+      .upsert({
+        id: user.id,
+        display_name: name,
+        phone: phone || null,
+        country: form.country.trim() || null,
+        city: form.city.trim() || null,
+        address: form.address.trim() || null,
+      }, { onConflict: "id" });
+    if (error) { setSaving(false); setErr(error.message); return; }
+
+    // Email change (requires confirmation)
+    if (email && email !== (user.email || "").toLowerCase()) {
+      const { error: emErr } = await supabase.auth.updateUser({ email });
+      if (emErr) { setSaving(false); setErr(emErr.message); return; }
+      setEmailNotice("নতুন email এ verification link পাঠানো হয়েছে। Confirm করার পরে email আপডেট হবে।");
+    }
+
     setSaving(false);
-    if (error) { setErr(error.message); return; }
     setOkAt(Date.now());
-    setTimeout(() => { onSaved(); }, 700);
+    setTimeout(() => { onSaved(); }, emailNotice ? 2500 : 900);
   };
+
+  const initials = (form.display_name || user?.email || "U").trim().slice(0, 1).toUpperCase();
 
   return (
     <div className="space-y-6">
       <PageHead title="Edit Profile" desc="আপনার ব্যক্তিগত তথ্য আপডেট করুন" />
       <Card>
+        {/* Avatar */}
+        <div className="flex items-center gap-4 pb-5 mb-5 border-b border-border">
+          {avatarUrl ? (
+            <img src={avatarUrl} alt="Avatar" className="w-16 h-16 rounded-2xl object-cover border border-border" />
+          ) : (
+            <div className="w-16 h-16 rounded-2xl grid place-items-center text-primary-foreground font-bold text-xl" style={{ background: "linear-gradient(135deg,#8b5cf6,#6366f1)" }}>
+              {initials}
+            </div>
+          )}
+          <div className="flex-1">
+            <div className="text-sm font-semibold text-foreground mb-1">Profile picture</div>
+            <div className="text-xs text-muted-foreground mb-2">JPG / PNG, সর্বোচ্চ ৩ MB</div>
+            <label className="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-primary text-primary-foreground text-xs font-semibold cursor-pointer hover:opacity-90">
+              {uploading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Edit3 className="w-3.5 h-3.5" />}
+              {uploading ? "Uploading..." : (avatarUrl ? "Change photo" : "Upload photo")}
+              <input type="file" accept="image/*" className="hidden" onChange={handleAvatarChange} disabled={uploading} />
+            </label>
+          </div>
+        </div>
+
         <form onSubmit={handleSave} className="grid md:grid-cols-2 gap-4">
           <Field label="পুরো নাম">
             <Input
@@ -760,12 +848,46 @@ function EditProfile({ profile, onSaved, onCancel }: { profile: { display_name?:
             />
           </Field>
           <Field label="ইমেইল">
-            <Input value={user?.email ?? ""} disabled className="opacity-60 cursor-not-allowed" />
+            <Input
+              type="email"
+              value={form.email}
+              onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+              placeholder="you@example.com"
+              maxLength={255}
+            />
           </Field>
-          <div />
+          <Field label="দেশ">
+            <Input
+              value={form.country}
+              onChange={(e) => setForm((f) => ({ ...f, country: e.target.value }))}
+              placeholder="Bangladesh"
+              maxLength={80}
+            />
+          </Field>
+          <Field label="শহর">
+            <Input
+              value={form.city}
+              onChange={(e) => setForm((f) => ({ ...f, city: e.target.value }))}
+              placeholder="Dhaka"
+              maxLength={80}
+            />
+          </Field>
+          <Field label="ঠিকানা">
+            <Input
+              value={form.address}
+              onChange={(e) => setForm((f) => ({ ...f, address: e.target.value }))}
+              placeholder="House/Road/Area"
+              maxLength={200}
+            />
+          </Field>
           {err && (
             <div className="md:col-span-2 rounded-xl bg-[var(--color-destructive)]/10 text-[var(--color-destructive)] text-sm px-4 py-3">
               {err}
+            </div>
+          )}
+          {emailNotice && (
+            <div className="md:col-span-2 rounded-xl bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/30 text-sm px-4 py-3">
+              {emailNotice}
             </div>
           )}
           {okAt && (
@@ -785,6 +907,7 @@ function EditProfile({ profile, onSaved, onCancel }: { profile: { display_name?:
     </div>
   );
 }
+
 
 
 /* ===================== ORDERS / SERVICES ===================== */
