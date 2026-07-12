@@ -437,15 +437,6 @@ const FEATURES: Record<string, AdminFeatureConfig> = {
       { name: "notes", label: "Notes / learnings", type: "textarea" },
     ],
   },
-  "fb-pixel": {
-    kind: "fb_pixel",
-    mode: "single",
-    fields: [
-      { name: "pixel_id", label: "Pixel ID", type: "text" },
-      { name: "access_token", label: "CAPI access token", type: "text" },
-      { name: "test_event_code", label: "Test event code", type: "text" },
-    ],
-  },
   "ga4-realtime": {
     kind: "ga4_realtime",
     mode: "single",
