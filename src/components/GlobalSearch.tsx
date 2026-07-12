@@ -585,11 +585,11 @@ export function GlobalSearch({
                             {plan?.price && (
                               <div className="text-right shrink-0">
                                 <div className="text-sm font-bold text-indigo-600">
-                                  ৳{plan.price}
+                                  {formatString(plan.price)}
                                 </div>
                                 {plan.original && (
                                   <div className="text-[11px] text-slate-400 line-through">
-                                    ৳{plan.original}
+                                    {formatString(plan.original)}
                                   </div>
                                 )}
                               </div>
