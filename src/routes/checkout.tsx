@@ -526,18 +526,18 @@ function CheckoutPage() {
           <div className="mx-5 mt-5 rounded-2xl border border-border bg-background overflow-hidden">
             <div className="flex items-center justify-between px-4 py-2.5 text-sm">
               <span className="text-muted-foreground">মূল্য</span>
-              <span className="text-foreground font-medium tabular-nums">৳{total.toLocaleString()}</span>
+              <span className="text-foreground font-medium tabular-nums">{format(total)}</span>
             </div>
             {applied.discount > 0 && (
               <div className="flex items-center justify-between px-4 py-2.5 text-sm border-t border-border">
                 <span className="text-emerald-500">ছাড় ({applied.code})</span>
-                <span className="text-emerald-500 font-medium tabular-nums">−৳{applied.discount.toLocaleString()}</span>
+                <span className="text-emerald-500 font-medium tabular-nums">−{format(applied.discount)}</span>
               </div>
             )}
             <div className="flex items-center justify-between px-4 py-3 border-t border-border bg-muted">
               <span className="text-[15px] font-semibold">মোট</span>
               <span className="text-xl font-bold text-primary tabular-nums" style={{ fontFamily: "var(--font-heading)" }}>
-                ৳{grandTotal.toLocaleString()}
+                {format(grandTotal)}
               </span>
             </div>
           </div>
