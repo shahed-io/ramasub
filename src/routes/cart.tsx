@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { z } from "zod";
 import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { useCart } from "@/context/CartContext";
+import { useCurrency } from "@/context/CurrencyContext";
 import { useAppliedCoupon } from "@/lib/coupons";
 import { waOrderUrl } from "@/lib/whatsapp";
 import { useShopConfig } from "@/hooks/useShopConfig";
