@@ -18,29 +18,40 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
     <div
       role="group"
       aria-label="Currency selector"
-      className="inline-flex items-center rounded-full border border-white/15 bg-white/8 backdrop-blur-md p-0.5 shrink-0"
-      style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.05)" }}
+      className="inline-flex items-center rounded-full p-[3px] shrink-0"
+      style={{
+        background: "linear-gradient(135deg, rgba(212,175,55,0.35), rgba(255,255,255,0.06) 40%, rgba(212,175,55,0.25))",
+        boxShadow: "inset 0 0 0 1px rgba(212,175,55,0.35), 0 6px 18px -8px rgba(0,0,0,0.55)",
+      }}
     >
-      {options.map((o) => {
-        const active = code === o.v;
-        return (
-          <button
-            key={o.v}
-            type="button"
-            aria-pressed={active}
-            onClick={() => setCode(o.v)}
-            className={[
-              "inline-flex items-center justify-center rounded-full font-bold transition-all whitespace-nowrap",
-              compact ? "h-7 px-2 text-[10.5px]" : "h-8 px-2.5 text-[11px]",
-              active
-                ? "bg-gradient-to-r from-amber-400 to-sky-400 text-slate-900 shadow-[0_4px_14px_-4px_rgba(251,191,36,0.6)]"
-                : "text-white/75 hover:text-white",
-            ].join(" ")}
-          >
-            {o.label}
-          </button>
-        );
-      })}
+      <div className="inline-flex items-center rounded-full bg-[#0b0f1a]/85 backdrop-blur-md p-0.5">
+        {options.map((o) => {
+          const active = code === o.v;
+          return (
+            <button
+              key={o.v}
+              type="button"
+              aria-pressed={active}
+              onClick={() => setCode(o.v)}
+              className={[
+                "inline-flex items-center justify-center rounded-full font-semibold tracking-wide transition-all whitespace-nowrap",
+                compact ? "h-7 px-3 text-[10.5px]" : "h-8 px-3.5 text-[11px]",
+                active
+                  ? "text-[#1a1206] shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_4px_12px_-4px_rgba(212,175,55,0.55)]"
+                  : "text-white/60 hover:text-amber-100",
+              ].join(" ")}
+              style={
+                active
+                  ? { background: "linear-gradient(180deg,#f5e6a8 0%,#d4af37 55%,#a8801f 100%)" }
+                  : undefined
+              }
+            >
+              {o.label}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
+

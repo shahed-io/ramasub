@@ -62,7 +62,7 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
   const { data: config } = useCurrencyConfig();
   const cfg = config ?? DEFAULT_CURRENCY_CONFIG;
 
-  const [code, setCodeState] = useState<CurrencyCode>("BDT");
+  const [code, setCodeState] = useState<CurrencyCode>("USD");
 
   // Hydrate from localStorage after mount (avoid SSR mismatch)
   useEffect(() => {
@@ -76,6 +76,7 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!cfg.enable_usd && code === "USD") setCodeState("BDT");
   }, [cfg.enable_usd, code]);
+
 
   const setCode = useCallback((c: CurrencyCode) => {
     setCodeState(c);
