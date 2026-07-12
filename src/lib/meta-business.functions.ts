@@ -81,7 +81,7 @@ export const saveMetaConfig = createServerFn({ method: "POST" })
 
     const { error } = await supabaseAdmin
       .from("meta_business_config")
-      .update(update)
+      .update(update as never)
       .eq("singleton", true);
     if (error) throw new Error(error.message);
     return { ok: true };
