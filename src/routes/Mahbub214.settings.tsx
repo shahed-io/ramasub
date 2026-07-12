@@ -53,12 +53,21 @@ function GeneralSettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
+  // Currency config (separate admin_records row: kind='currency_config')
+  const [currency, setCurrency] = useState<CurrencyConfigData>({
+    usd_rate: 135, enable_usd: true, usd_symbol: "$", bdt_symbol: "৳",
+  });
+  const [currencyId, setCurrencyId] = useState<string | null>(null);
+  const [savingCurrency, setSavingCurrency] = useState(false);
+
   const load = useCallback(async () => {
     setLoading(true);
-    const { data: rows, error } = await supabase
-      .from("admin_records").select("*").eq("kind", "site_settings").limit(1);
-    if (error) toast.error(error.message);
-    const row = rows?.[0];
+    const [siteRes, curRes] = await Promise.all([
+      supabase.from("admin_records").select("*").eq("kind", "site_settings").limit(1),
+      supabase.from("admin_records").select("*").eq("kind", "currency_config").limit(1),
+    ]);
+    if (siteRes.error) toast.error(siteRes.error.message);
+    const row = siteRes.data?.[0];
     if (row) {
       setRecordId(row.id);
       setData((row.data ?? {}) as SettingsData);
@@ -71,6 +80,11 @@ function GeneralSettingsPage() {
         gemini_keys: [""],
       });
     }
+    const cRow = curRes.data?.[0];
+    if (cRow) {
+      setCurrencyId(cRow.id);
+      setCurrency({ usd_rate: 135, enable_usd: true, usd_symbol: "$", bdt_symbol: "৳", ...((cRow.data ?? {}) as CurrencyConfigData) });
+    }
     setLoading(false);
   }, []);
 
@@ -78,6 +92,9 @@ function GeneralSettingsPage() {
 
   const set = <K extends keyof SettingsData>(k: K, v: SettingsData[K]) =>
     setData((d) => ({ ...d, [k]: v }));
+
+  const setCur = <K extends keyof CurrencyConfigData>(k: K, v: CurrencyConfigData[K]) =>
+    setCurrency((d) => ({ ...d, [k]: v }));
 
   const save = async () => {
     setSaving(true);
@@ -90,6 +107,26 @@ function GeneralSettingsPage() {
     if (error) return toast.error(error.message);
     if (!recordId && saved?.id) setRecordId(saved.id);
     toast.success("সংরক্ষণ সম্পন্ন");
+  };
+
+  const saveCurrency = async () => {
+    setSavingCurrency(true);
+    const clean: CurrencyConfigData = {
+      usd_rate: Number(currency.usd_rate) > 0 ? Number(currency.usd_rate) : 135,
+      enable_usd: currency.enable_usd !== false,
+      usd_symbol: currency.usd_symbol?.trim() || "$",
+      bdt_symbol: currency.bdt_symbol?.trim() || "৳",
+    };
+    const payload = { kind: "currency_config", data: clean as never, is_active: true };
+    const op = currencyId
+      ? supabase.from("admin_records").update(payload).eq("id", currencyId)
+      : supabase.from("admin_records").insert(payload).select().single();
+    const { error, data: saved } = await op as any;
+    setSavingCurrency(false);
+    if (error) return toast.error(error.message);
+    if (!currencyId && saved?.id) setCurrencyId(saved.id);
+    setCurrency(clean);
+    toast.success("কারেন্সি সেটিংস সংরক্ষিত ✅");
   };
 
   if (loading) {
