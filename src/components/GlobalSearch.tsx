@@ -198,6 +198,7 @@ export function GlobalSearch({
 }) {
   const navigate = useNavigate();
   const { products, isLoading } = useProducts();
+  const { formatString } = useCurrency();
   const [q, setQ] = useState("");
   const [active, setActive] = useState(0);
   const [recent, setRecent] = useState<string[]>([]);
