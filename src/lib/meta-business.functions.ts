@@ -4,13 +4,15 @@ import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { z } from "zod";
 
-async function assertAdmin(context: { supabase: ReturnType<typeof requireSupabaseAuth> extends unknown ? { rpc: (...a: unknown[]) => Promise<{ data: boolean | null; error: unknown }> } : never; userId: string }) {
+type AdminCtx = { supabase: { rpc: (fn: string, args: Record<string, unknown>) => Promise<{ data: unknown; error: unknown }> }; userId: string };
+async function assertAdmin(context: AdminCtx) {
   const { data, error } = await context.supabase.rpc("has_role", {
     _user_id: context.userId, _role: "admin",
   });
   if (error) throw new Error("Role check failed");
   if (!data) throw new Error("Forbidden: admin required");
 }
+
 
 // ============ getMetaConfig ============
 export const getMetaConfig = createServerFn({ method: "GET" })
