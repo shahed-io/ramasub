@@ -29,6 +29,13 @@ type SettingsData = {
   whatsapp_notify_number?: string;
 };
 
+type CurrencyConfigData = {
+  usd_rate?: number;
+  enable_usd?: boolean;
+  usd_symbol?: string;
+  bdt_symbol?: string;
+};
+
 /* ── Tone system: stronger tints + darker text for readability ── */
 const TONE = {
   violet:  { bg: "bg-violet-200",    text: "text-violet-800",    border: "border-violet-300",    soft: "bg-violet-100",    ink: "text-violet-900" },
