@@ -61,7 +61,7 @@ function relativeTime(iso: string, t: (en: string, bn: string) => string): strin
 const AVATAR_TONES = [
   "bg-indigo-100 text-indigo-700",
   "bg-violet-100 text-violet-700",
-  "bg-emerald-100 text-emerald-700",
+  "bg-violet-100 text-violet-700",
   "bg-sky-100 text-sky-700",
   "bg-violet-100 text-violet-700",
   "bg-rose-100 text-rose-700",
@@ -216,7 +216,7 @@ function AbandonedCheckoutPage() {
           <div className="flex items-center p-1 bg-slate-100/70 rounded-xl gap-1 self-start md:self-auto">
             <SegTab active={tab === "pending"}   onClick={() => setTab("pending")}   dot="bg-violet-500">   {t("Pending", "পেন্ডিং")} ({counts.pending})</SegTab>
             <SegTab active={tab === "all"}       onClick={() => setTab("all")}       dot="bg-slate-500">   {t("All", "সব")} ({counts.all})</SegTab>
-            <SegTab active={tab === "recovered"} onClick={() => setTab("recovered")} dot="bg-emerald-500"> {t("Recovered", "রিকভারড")} ({counts.recovered})</SegTab>
+            <SegTab active={tab === "recovered"} onClick={() => setTab("recovered")} dot="bg-violet-500"> {t("Recovered", "রিকভারড")} ({counts.recovered})</SegTab>
             <SegTab active={tab === "contacted"} onClick={() => setTab("contacted")} dot="bg-sky-500">     {t("Contacted", "কন্টাক্টেড")} ({counts.contacted})</SegTab>
           </div>
         </div>
@@ -286,13 +286,13 @@ function KpiTile({ label, value, sub, icon, accent, loading }: {
   const tone: Record<string, string> = {
     slate:    "text-slate-500",
     violet:   "text-violet-600",
-    emerald:  "text-emerald-600",
+    emerald:  "text-violet-600",
     rose:     "text-rose-600",
   };
   const bg: Record<string, string> = {
     slate:    "bg-slate-100 text-slate-600",
     violet:   "bg-violet-100 text-violet-700",
-    emerald:  "bg-emerald-100 text-emerald-700",
+    emerald:  "bg-violet-100 text-violet-700",
     rose:     "bg-rose-100 text-rose-700",
   };
   return (
@@ -328,7 +328,7 @@ function StatusPill({ status }: { status: Row["status"] }) {
   const m: Record<Row["status"], { cls: string; dot: string; en: string; bn: string }> = {
     pending:   { cls: "bg-violet-50 text-violet-700 border-violet-200/70",     dot: "bg-violet-500",   en: "Pending",   bn: "পেন্ডিং" },
     contacted: { cls: "bg-sky-50 text-sky-700 border-sky-200/70",           dot: "bg-sky-500",     en: "Contacted", bn: "কন্টাক্টেড" },
-    recovered: { cls: "bg-emerald-50 text-emerald-700 border-emerald-200/70", dot: "bg-emerald-500", en: "Recovered", bn: "রিকভারড" },
+    recovered: { cls: "bg-violet-50 text-violet-700 border-violet-200/70", dot: "bg-violet-500", en: "Recovered", bn: "রিকভারড" },
     lost:      { cls: "bg-rose-50 text-rose-700 border-rose-200/70",         dot: "bg-rose-500",    en: "Lost",      bn: "লস্ট" },
   };
   const v = m[status];
@@ -386,7 +386,7 @@ function RowItem({ row: r, onView, onContact, onDelete }: { row: Row; onView: ()
           <IconBtn title={t("Mark contacted", "কন্টাক্ট করা হয়েছে")} onClick={onContact} tone="sky"><ArrowRight className="w-4 h-4" /></IconBtn>
           {waLink && (
             <a href={waLink} target="_blank" rel="noreferrer" title="WhatsApp"
-              className="w-8 h-8 grid place-items-center rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-colors">
+              className="w-8 h-8 grid place-items-center rounded-lg text-slate-400 hover:text-violet-600 hover:bg-violet-50 transition-colors">
               <MessageCircle className="w-4 h-4" />
             </a>
           )}
@@ -540,7 +540,7 @@ function DetailDrawer({ row, onClose, onUpdate, onDelete }: { row: Row; onClose:
               rel="noreferrer"
               className={`h-10 rounded-xl inline-flex items-center justify-center gap-2 text-sm font-semibold transition ${
                 waLink
-                  ? "bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm shadow-emerald-200"
+                  ? "bg-violet-600 text-white hover:bg-violet-700 shadow-sm shadow-violet-200"
                   : "bg-slate-100 text-slate-400 cursor-not-allowed"
               }`}
               onClick={(e) => { if (!waLink) e.preventDefault(); }}

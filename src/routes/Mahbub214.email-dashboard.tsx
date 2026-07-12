@@ -240,7 +240,7 @@ function EmailDashboardPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         <StatCard icon={<Mail className="w-4 h-4 text-violet-600" />} ring="ring-violet-200" value={counts.total} label={t("Total", "মোট")} valueClass="text-slate-900" />
-        <StatCard icon={<Send className="w-4 h-4 text-emerald-600" />} ring="ring-emerald-200" value={counts.sent} label={t("Sent", "পাঠানো")} valueClass="text-slate-900" />
+        <StatCard icon={<Send className="w-4 h-4 text-violet-600" />} ring="ring-violet-200" value={counts.sent} label={t("Sent", "পাঠানো")} valueClass="text-slate-900" />
         <StatCard icon={<AlertCircle className="w-4 h-4 text-rose-600" />} ring="ring-rose-200" value={counts.failed} label={t("Failed", "ব্যর্থ")} valueClass="text-rose-600" />
         <StatCard icon={<Clock className="w-4 h-4 text-violet-600" />} ring="ring-violet-200" value={counts.pending} label={t("Pending", "পেন্ডিং")} valueClass="text-violet-600" />
         <StatCard icon={<ShieldOff className="w-4 h-4 text-slate-600" />} ring="ring-slate-200" value={counts.suppressed} label={t("Suppressed", "সাপ্রেসড")} valueClass="text-slate-900" />
@@ -273,7 +273,7 @@ function EmailDashboardPage() {
                 <tr key={p.name} className="hover:bg-slate-50/70">
                   <td className="px-5 py-3.5 font-semibold text-slate-800">{p.name}</td>
                   <td className="px-5 py-3.5 text-center text-slate-700">{p.total}</td>
-                  <td className="px-5 py-3.5 text-center text-emerald-700 font-semibold">{p.sent}</td>
+                  <td className="px-5 py-3.5 text-center text-violet-700 font-semibold">{p.sent}</td>
                   <td className={`px-5 py-3.5 text-center font-semibold ${p.failed > 0 ? "text-rose-600" : "text-slate-500"}`}>{p.failed}</td>
                   <td className="px-5 py-3.5 text-center text-slate-700">{p.pending}</td>
                   <td className="px-5 py-3.5 text-slate-600">{p.last ? fmt(p.last) : "—"}</td>
@@ -364,7 +364,7 @@ function StatusBadge({ status }: { status: string | null }) {
   const s = status ?? "";
   if (s === "sent") {
     return (
-      <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+      <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200">
         <CheckCircle2 className="w-3 h-3" /> Sent
       </span>
     );

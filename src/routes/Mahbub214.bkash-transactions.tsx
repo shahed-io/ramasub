@@ -38,8 +38,8 @@ type TxRow = {
 const fmt = (n: number | undefined) => "৳" + Math.round(Number(n || 0)).toLocaleString("en-IN");
 
 const STATUS_META: Record<string, { label: string; bg: string; text: string; ring: string; icon: React.ComponentType<{ className?: string }> }> = {
-  completed: { label: "Completed", bg: "bg-emerald-50", text: "text-emerald-700", ring: "ring-emerald-200", icon: CheckCircle2 },
-  success:   { label: "Completed", bg: "bg-emerald-50", text: "text-emerald-700", ring: "ring-emerald-200", icon: CheckCircle2 },
+  completed: { label: "Completed", bg: "bg-violet-50", text: "text-violet-700", ring: "ring-violet-200", icon: CheckCircle2 },
+  success:   { label: "Completed", bg: "bg-violet-50", text: "text-violet-700", ring: "ring-violet-200", icon: CheckCircle2 },
   initiated: { label: "Initiated", bg: "bg-violet-50",   text: "text-violet-700",   ring: "ring-violet-200",   icon: Clock },
   pending:   { label: "Pending",   bg: "bg-violet-50",   text: "text-violet-700",   ring: "ring-violet-200",   icon: Clock },
   failed:    { label: "Failed",    bg: "bg-rose-50",    text: "text-rose-700",    ring: "ring-rose-200",    icon: XCircle },
@@ -298,7 +298,7 @@ function Th({ children, className }: { children?: React.ReactNode; className?: s
 function StatCard({ label, value, tone }: { label: string; value: string; tone: "slate" | "emerald" | "rose" | "violet" }) {
   const toneClass = {
     slate: "text-slate-900",
-    emerald: "text-emerald-600",
+    emerald: "text-violet-600",
     rose: "text-rose-600",
     violet: "text-violet-600",
   }[tone];

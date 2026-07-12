@@ -269,7 +269,7 @@ function CustomerLicensesPage() {
             {/* Quick stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <StatTile label="Total Orders" value={String(stats.orders)} icon={ShoppingCart} grad="from-violet-500 to-fuchsia-600" />
-              <StatTile label="Lifetime Revenue" value={fmt(stats.revenue)} icon={TrendingUp} grad="from-emerald-500 to-teal-600" />
+              <StatTile label="Lifetime Revenue" value={fmt(stats.revenue)} icon={TrendingUp} grad="from-violet-500 to-teal-600" />
               <StatTile label="Licenses Assigned" value={String(stats.licenses)} icon={KeyRound} grad="from-sky-500 to-indigo-600" />
               <StatTile label="Pending Delivery" value={String(stats.pending)} icon={CalendarClock} grad="from-violet-500 to-orange-600" />
             </div>
@@ -397,7 +397,7 @@ function OrderCard({
                   {it.name}{it.planPeriod ? <span className="text-slate-400 font-normal"> · {it.planPeriod}</span> : null}
                 </div>
                 <div className="text-[11px] text-slate-500 mt-0.5">Qty: {it.qty || 1}</div>
-                <div className={`text-[12px] mt-0.5 font-medium ${assigned ? "text-emerald-600" : "text-violet-600"}`}>
+                <div className={`text-[12px] mt-0.5 font-medium ${assigned ? "text-violet-600" : "text-violet-600"}`}>
                   {assigned ? `License: ${d.key}` : "No license assigned"}
                 </div>
                 <div className="text-[11px] text-slate-400 mt-0.5 inline-flex items-center gap-1">

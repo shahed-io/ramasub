@@ -193,7 +193,7 @@ function InvoiceDesignPage() {
           </Section>
 
           {/* Company info */}
-          <Section icon={<Building2 className="w-4 h-4" />} title={t("Company info", "কোম্পানি তথ্য")} accent="from-emerald-400 to-teal-500">
+          <Section icon={<Building2 className="w-4 h-4" />} title={t("Company info", "কোম্পানি তথ্য")} accent="from-violet-400 to-teal-500">
             <TextField label={t("Invoice title", "ইনভয়েস টাইটেল")} value={design.invoiceTitle} onChange={(v) => update("invoiceTitle", v)} />
             <TextField label={t("Company name", "কোম্পানির নাম")} value={design.companyName} onChange={(v) => update("companyName", v)} />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

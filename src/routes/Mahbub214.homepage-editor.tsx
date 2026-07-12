@@ -165,7 +165,7 @@ function SectionsTab({ cfg, setCfg }: { cfg: HomepageConfig; setCfg: (c: Homepag
             <button onClick={() => toggle(s.id)}
               className={`h-8 px-3 rounded-lg text-xs font-bold inline-flex items-center gap-1.5 border ${
                 s.visible
-                  ? "bg-emerald-50 border-emerald-200 text-emerald-700"
+                  ? "bg-violet-50 border-violet-200 text-violet-700"
                   : "bg-slate-100 border-slate-200 text-slate-500"
               }`}>
               {s.visible ? <><Eye className="w-3.5 h-3.5" /> Visible</> : <><EyeOff className="w-3.5 h-3.5" /> Hidden</>}
@@ -243,7 +243,7 @@ function BannerTab() {
   return (
     <div className="space-y-4">
       <div className="flex justify-end">
-        <button onClick={add} className="h-10 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-sm font-bold shadow inline-flex items-center gap-2">
+        <button onClick={add} className="h-10 px-4 rounded-xl bg-gradient-to-r from-violet-500 to-teal-600 text-white text-sm font-bold shadow inline-flex items-center gap-2">
           <Plus className="w-4 h-4" /> Add Slide
         </button>
       </div>
@@ -256,13 +256,13 @@ function BannerTab() {
         <div key={s.id} className="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 space-y-3">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-[11px] font-bold text-slate-500">SLIDE #{idx + 1}</span>
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${s.is_active ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 text-slate-500"}`}>
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${s.is_active ? "bg-violet-100 text-violet-700" : "bg-slate-100 text-slate-500"}`}>
               {s.is_active ? "ACTIVE" : "HIDDEN"}
             </span>
             <div className="ml-auto flex items-center gap-1.5">
               <button onClick={() => move(idx, -1)} disabled={idx === 0} className="h-8 w-8 rounded-lg border border-slate-200 grid place-items-center disabled:opacity-30 hover:bg-slate-50"><ArrowUp className="w-4 h-4" /></button>
               <button onClick={() => move(idx, 1)} disabled={idx === slides.length - 1} className="h-8 w-8 rounded-lg border border-slate-200 grid place-items-center disabled:opacity-30 hover:bg-slate-50"><ArrowDown className="w-4 h-4" /></button>
-              <button onClick={() => patch(s.id, { is_active: !s.is_active })} className={`h-8 px-3 rounded-lg text-xs font-bold border inline-flex items-center gap-1.5 ${s.is_active ? "bg-emerald-50 border-emerald-200 text-emerald-700" : "bg-slate-100 border-slate-200 text-slate-500"}`}>
+              <button onClick={() => patch(s.id, { is_active: !s.is_active })} className={`h-8 px-3 rounded-lg text-xs font-bold border inline-flex items-center gap-1.5 ${s.is_active ? "bg-violet-50 border-violet-200 text-violet-700" : "bg-slate-100 border-slate-200 text-slate-500"}`}>
                 {s.is_active ? <><Eye className="w-3.5 h-3.5"/>Visible</> : <><EyeOff className="w-3.5 h-3.5"/>Hidden</>}
               </button>
               <button onClick={() => remove(s.id)} className="h-8 w-8 rounded-lg border border-rose-200 text-rose-600 grid place-items-center hover:bg-rose-50"><Trash2 className="w-4 h-4" /></button>
@@ -394,10 +394,10 @@ function FeaturedTab({ cfg, setCfg }: { cfg: HomepageConfig; setCfg: (c: Homepag
 
       {/* Picker */}
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-        <div className="px-5 py-4 border-l-4 border-emerald-500 space-y-2">
+        <div className="px-5 py-4 border-l-4 border-violet-500 space-y-2">
           <h3 className="text-base font-extrabold text-slate-900">All Products</h3>
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search product…"
-            className="w-full h-10 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300" />
+            className="w-full h-10 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-300" />
         </div>
         <div className="divide-y divide-slate-100 max-h-[520px] overflow-y-auto">
           {loading && <div className="p-6 text-center"><Loader2 className="w-5 h-5 animate-spin mx-auto text-slate-400" /></div>}

@@ -171,12 +171,12 @@ function GA4RealtimePage() {
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl bg-white grid place-items-center shadow-sm relative">
               <Activity className="w-5 h-5 text-orange-600" />
-              <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white animate-pulse" />
+              <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-violet-500 ring-2 ring-white animate-pulse" />
             </div>
             <div>
               <h1 className="text-2xl font-black text-slate-900 flex items-center gap-2">
                 {t("Realtime Activity", "রিয়েলটাইম অ্যাক্টিভিটি")}
-                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 text-emerald-700 px-2 py-0.5 text-[10px] font-black uppercase">
+                <span className="inline-flex items-center gap-1 rounded-full bg-violet-100 text-violet-700 px-2 py-0.5 text-[10px] font-black uppercase">
                   <Radio className="w-3 h-3" /> Live
                 </span>
               </h1>
@@ -202,7 +202,7 @@ function GA4RealtimePage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <Stat
           icon={<Users className="w-5 h-5 text-white" />}
-          tone="bg-gradient-to-br from-emerald-500 to-emerald-600"
+          tone="bg-gradient-to-br from-violet-500 to-violet-600"
           label={t("Active now (30m)", "এখন সক্রিয় (৩০মি)")}
           value={activeUsers}
         />
@@ -231,7 +231,7 @@ function GA4RealtimePage() {
       <div className="grid lg:grid-cols-2 gap-4">
         <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-5">
           <h2 className="text-base font-black text-slate-900 flex items-center gap-2">
-            <ShoppingBag className="w-4 h-4 text-emerald-600" />
+            <ShoppingBag className="w-4 h-4 text-violet-600" />
             {t("Live Orders (last 30 min)", "লাইভ অর্ডার (গত ৩০ মিনিট)")}
           </h2>
           {(rt?.ordersRecent.length ?? 0) === 0 ? (
@@ -242,14 +242,14 @@ function GA4RealtimePage() {
             <div className="mt-3 divide-y divide-slate-100">
               {rt!.ordersRecent.map((o) => (
                 <div key={o.id} className="flex items-center gap-3 py-2.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-bold text-slate-900 truncate">{o.full_name || o.email || "—"}</div>
                     <div className="text-[11px] font-semibold text-slate-500">
                       {timeAgo(o.created_at, t)} · {o.status || "—"}
                     </div>
                   </div>
-                  <div className="text-sm font-black text-emerald-600 tabular-nums">৳ {Math.round(Number(o.total || 0)).toLocaleString("en-IN")}</div>
+                  <div className="text-sm font-black text-violet-600 tabular-nums">৳ {Math.round(Number(o.total || 0)).toLocaleString("en-IN")}</div>
                 </div>
               ))}
             </div>

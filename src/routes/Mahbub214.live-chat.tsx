@@ -193,7 +193,7 @@ function LiveChatPage() {
                     onChange={(v) => update("ai_enabled", v)}
                   />
                   <ToggleRow
-                    iconWrap="bg-emerald-50 text-emerald-600"
+                    iconWrap="bg-violet-50 text-violet-600"
                     icon={<MessageCircle className="w-4 h-4" />}
                     title={t("WhatsApp Support", "WhatsApp সাপোর্ট")}
                     desc={t("Turn WhatsApp chat on/off", "WhatsApp চ্যাট চালু/বন্ধ করুন")}
@@ -286,7 +286,7 @@ function LiveChatPage() {
               <div className="p-5 space-y-4">
                 <h3 className="text-lg font-bold text-slate-900">{t("WhatsApp", "WhatsApp")}</h3>
                 <ToggleRow
-                  iconWrap="bg-emerald-50 text-emerald-600"
+                  iconWrap="bg-violet-50 text-violet-600"
                   icon={<MessageCircle className="w-4 h-4" />}
                   title={t("Enable WhatsApp", "WhatsApp চালু করুন")}
                   desc={t("Show WhatsApp option in the chat menu", "চ্যাট মেনুতে WhatsApp অপশন দেখান")}

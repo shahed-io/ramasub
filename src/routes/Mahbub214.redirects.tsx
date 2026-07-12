@@ -119,7 +119,7 @@ function RedirectsPage() {
                   <button
                     onClick={() => onToggle(r)}
                     title={r.is_active ? "Active" : "Inactive"}
-                    className={`shrink-0 w-9 h-9 rounded-xl grid place-items-center ${r.is_active ? "bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200" : "bg-slate-100 text-slate-400 ring-1 ring-slate-200"}`}
+                    className={`shrink-0 w-9 h-9 rounded-xl grid place-items-center ${r.is_active ? "bg-violet-50 text-violet-600 ring-1 ring-violet-200" : "bg-slate-100 text-slate-400 ring-1 ring-slate-200"}`}
                   >
                     <Power className="w-4 h-4" />
                   </button>
@@ -128,7 +128,7 @@ function RedirectsPage() {
                       <code className="font-mono font-semibold text-slate-900 truncate">{r.from_path}</code>
                       <ArrowRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                       <code className="font-mono text-indigo-600 truncate">{r.to_path}</code>
-                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${r.status_code === 301 ? "bg-emerald-100 text-emerald-700" : "bg-violet-100 text-violet-700"}`}>{r.status_code}</span>
+                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${r.status_code === 301 ? "bg-violet-100 text-violet-700" : "bg-violet-100 text-violet-700"}`}>{r.status_code}</span>
                     </div>
                     {r.notes && <div className="text-[11px] text-slate-500 mt-0.5 truncate">{r.notes}</div>}
                     <div className="text-[10px] text-slate-400 mt-0.5">{r.hits} {t("hits", "হিট")}</div>

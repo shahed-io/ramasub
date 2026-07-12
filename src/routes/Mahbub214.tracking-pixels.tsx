@@ -320,7 +320,7 @@ function TrackingPixelsPage() {
                 <div key={l.id} className="flex items-center gap-3 p-4 text-sm">
                   <span
                     className={`shrink-0 w-7 h-7 rounded-lg grid place-items-center ${
-                      ok ? "bg-emerald-50 text-emerald-600" : "bg-rose-50 text-rose-600"
+                      ok ? "bg-violet-50 text-violet-600" : "bg-rose-50 text-rose-600"
                     }`}
                   >
                     {ok ? (
@@ -806,7 +806,7 @@ function FbPixelsSection({
                         {row.label || t("Untitled Pixel", "নামহীন Pixel")}
                       </span>
                       {row.enabled && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 uppercase">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-violet-50 text-violet-700 border border-violet-100 uppercase">
                           {t("Active", "সক্রিয়")}
                         </span>
                       )}
@@ -996,7 +996,7 @@ function SummaryStat({
 }) {
   const tones: Record<typeof tone, string> = {
     violet: "bg-violet-100 text-violet-700",
-    emerald: "bg-emerald-100 text-emerald-700",
+    emerald: "bg-violet-100 text-violet-700",
     fuchsia: "bg-fuchsia-100 text-fuchsia-700",
   };
   return (

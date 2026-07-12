@@ -349,7 +349,7 @@ const TONE: Record<string, string> = {
   sky: "bg-sky-100 text-sky-700 border-sky-200 hover:bg-sky-200",
   indigo: "bg-indigo-100 text-indigo-700 border-indigo-200 hover:bg-indigo-200",
   violet: "bg-violet-200 text-violet-800 border-violet-300 hover:bg-violet-300",
-  emerald: "bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-200",
+  emerald: "bg-violet-100 text-violet-700 border-violet-200 hover:bg-violet-200",
   rose: "bg-rose-100 text-rose-700 border-rose-200 hover:bg-rose-200",
 };
 
@@ -406,7 +406,7 @@ function SubmissionsTable({ rows }: { rows: Submission[] }) {
               const d = r.data ?? {};
               const status = d.status ?? "pending";
               const statusStyles =
-                status === "verified" ? "bg-emerald-100 text-emerald-700 border-emerald-200"
+                status === "verified" ? "bg-violet-100 text-violet-700 border-violet-200"
                 : status === "rejected" ? "bg-rose-100 text-rose-700 border-rose-200"
                 : "bg-violet-100 text-violet-700 border-violet-200";
               return (

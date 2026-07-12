@@ -234,7 +234,7 @@ function ZoomSettingsPage() {
           {/* Live Preview */}
           <section className="rounded-2xl bg-white border border-slate-200 shadow-sm p-5 md:p-6 space-y-3">
             <h2 className="flex items-center gap-2 text-base font-bold text-slate-900">
-              <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 grid place-items-center">
+              <span className="w-8 h-8 rounded-lg bg-violet-50 text-violet-600 grid place-items-center">
                 <ZoomIn className="w-4 h-4" />
               </span>
               {t("Live preview", "লাইভ প্রিভিউ")}

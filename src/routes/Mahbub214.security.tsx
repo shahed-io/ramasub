@@ -267,7 +267,7 @@ function AdminSecurityPage() {
           <ShieldCheck className="w-5 h-5 text-slate-900" strokeWidth={2.5} />
           <h2 className="text-base font-bold text-slate-900">
             2FA is currently{" "}
-            <span className={`underline underline-offset-4 ${has2FA ? "text-emerald-700" : "text-slate-500"}`}>
+            <span className={`underline underline-offset-4 ${has2FA ? "text-violet-700" : "text-slate-500"}`}>
               {has2FA ? "enabled" : "disabled"}
             </span>
           </h2>
@@ -331,13 +331,13 @@ function AdminSecurityPage() {
           </p>
 
           {backupCodes && (
-            <div className="mt-3 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4">
-              <div className="flex items-center gap-2 text-xs font-bold text-emerald-800">
+            <div className="mt-3 rounded-2xl border border-violet-200 bg-violet-50/60 p-4">
+              <div className="flex items-center gap-2 text-xs font-bold text-violet-800">
                 <Check className="w-4 h-4" /> Save these codes somewhere safe — they won't be shown again.
               </div>
               <div className="mt-3 grid grid-cols-2 gap-2 font-mono text-sm">
                 {backupCodes.map((c) => (
-                  <div key={c} className="bg-white border border-emerald-200 rounded-lg px-3 py-2 text-slate-800">{c}</div>
+                  <div key={c} className="bg-white border border-violet-200 rounded-lg px-3 py-2 text-slate-800">{c}</div>
                 ))}
               </div>
               <div className="mt-3 flex gap-2">

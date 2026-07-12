@@ -257,7 +257,7 @@ function AdminReviewGenerator() {
                         <div className="text-xs text-slate-500">{p.category ?? "—"} · {p.slug}</div>
                       </td>
                       <td className="px-4 py-3">
-                        <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold ${c > 0 ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500"}`}>
+                        <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold ${c > 0 ? "bg-violet-50 text-violet-700" : "bg-slate-100 text-slate-500"}`}>
                           <Star className="w-3 h-3" /> {c}
                         </span>
                       </td>

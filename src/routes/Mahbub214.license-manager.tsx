@@ -42,7 +42,7 @@ type LicenseRow = {
 type ProductLite = { slug: string; name: string; emoji?: string | null; image_url?: string | null };
 
 const STATUS_META: Record<LicenseStatus, { label: string; bg: string; text: string; ring: string }> = {
-  available: { label: "Available", bg: "bg-emerald-50", text: "text-emerald-600", ring: "ring-emerald-200" },
+  available: { label: "Available", bg: "bg-violet-50", text: "text-violet-600", ring: "ring-violet-200" },
   assigned:  { label: "Assigned",  bg: "bg-violet-50",  text: "text-violet-600",  ring: "ring-violet-200" },
   revoked:   { label: "Revoked",   bg: "bg-rose-50",    text: "text-rose-600",    ring: "ring-rose-200" },
 };
@@ -226,9 +226,9 @@ function LicenseManagerPage() {
                     </div>
                   </div>
                   <div className="mt-3 grid grid-cols-3 gap-1 text-center">
-                    <div className="rounded-lg bg-emerald-50 py-1">
-                      <div className="text-[9px] font-bold uppercase text-emerald-600">Avail</div>
-                      <div className="text-sm font-extrabold text-emerald-700">{st.available}</div>
+                    <div className="rounded-lg bg-violet-50 py-1">
+                      <div className="text-[9px] font-bold uppercase text-violet-600">Avail</div>
+                      <div className="text-sm font-extrabold text-violet-700">{st.available}</div>
                     </div>
                     <div className="rounded-lg bg-violet-50 py-1">
                       <div className="text-[9px] font-bold uppercase text-violet-600">Used</div>
@@ -455,7 +455,7 @@ function IconBtn({ children, title, onClick }: { children: React.ReactNode; titl
 function StatCard({ label, value, tone }: { label: string; value: string; tone: "slate" | "emerald" | "rose" | "violet" | "sky" }) {
   const toneClass = {
     slate: "text-slate-900",
-    emerald: "text-emerald-600",
+    emerald: "text-violet-600",
     rose: "text-rose-600",
     violet: "text-violet-600",
     sky: "text-sky-600",
