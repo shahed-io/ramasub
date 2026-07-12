@@ -208,7 +208,7 @@ function SearchConsolePage() {
               <h1 className="text-2xl md:text-3xl font-bold">Google Search Console</h1>
               <p className="text-white/80 text-sm mt-1">Analytics, sitemap, URL inspection — সব customizable admin থেকে</p>
             </div>
-            <div className={`hidden md:flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold ${connected ? "bg-emerald-400/20 text-emerald-50" : "bg-rose-400/20 text-rose-50"}`}>
+            <div className={`hidden md:flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold ${connected ? "bg-violet-400/20 text-violet-50" : "bg-rose-400/20 text-rose-50"}`}>
               {connected ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
               {connected ? "Connected" : "Not connected"}
             </div>
@@ -294,7 +294,7 @@ function SearchConsolePage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <Stat title="Clicks" value={totals.clicks.toLocaleString()} tone="from-cyan-500 to-sky-600" />
                 <Stat title="Impressions" value={totals.impressions.toLocaleString()} tone="from-violet-500 to-indigo-600" />
-                <Stat title="Avg CTR" value={`${avgCtr.toFixed(2)}%`} tone="from-emerald-500 to-teal-600" />
+                <Stat title="Avg CTR" value={`${avgCtr.toFixed(2)}%`} tone="from-violet-500 to-teal-600" />
                 <Stat title="Avg Position" value={avgPos.toFixed(1)} tone="from-amber-500 to-orange-600" />
                 <div className="col-span-2 md:col-span-4 rounded-2xl bg-white border border-slate-200 p-4 text-xs text-slate-500">
                   Range: {range.start} → {range.end} · Type: {prefs.searchType} · Filters: {prefs.filters.length}
@@ -470,7 +470,7 @@ function SettingsPanel({ prefs, save }: { prefs: Prefs; save: (p: Prefs) => void
           <p className="text-xs text-slate-500 mt-1">Preferences browser এ locally save হবে।</p>
         </div>
         <button onClick={() => save(local)}
-          className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-emerald-600 text-white text-sm font-semibold shadow">
+          className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-violet-600 text-white text-sm font-semibold shadow">
           <Save className="w-4 h-4" /> Save
         </button>
       </div>
@@ -609,7 +609,7 @@ function VerifyPanel() {
     <div className="space-y-4">
       <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-5 space-y-4">
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 grid place-items-center"><ShieldCheck className="w-5 h-5" /></div>
+          <div className="w-10 h-10 rounded-xl bg-violet-100 text-violet-700 grid place-items-center"><ShieldCheck className="w-5 h-5" /></div>
           <div className="flex-1">
             <h2 className="text-base font-bold text-slate-900">Site ownership verification</h2>
             <p className="text-xs text-slate-500 mt-1">
@@ -636,7 +636,7 @@ function VerifyPanel() {
           <button
             onClick={verify}
             disabled={busy !== "" || !token}
-            className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-sm font-semibold disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-gradient-to-r from-violet-600 to-teal-600 text-white text-sm font-semibold disabled:opacity-50"
           >
             {busy === "verify" ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />} 2. Verify & add
           </button>
@@ -681,7 +681,7 @@ function VerifyPanel() {
             {verified.map((v) => (
               <li key={v.id} className="py-2 flex items-center justify-between text-sm">
                 <span className="font-mono text-xs text-slate-700">{v.site.identifier}</span>
-                <span className="inline-flex items-center gap-1 text-emerald-700 text-xs font-semibold"><CheckCircle2 className="w-3.5 h-3.5" /> Verified</span>
+                <span className="inline-flex items-center gap-1 text-violet-700 text-xs font-semibold"><CheckCircle2 className="w-3.5 h-3.5" /> Verified</span>
               </li>
             ))}
           </ul>

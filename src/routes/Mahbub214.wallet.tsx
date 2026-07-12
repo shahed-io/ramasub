@@ -36,7 +36,7 @@ function initials(name?: string | null, fallback?: string) {
 }
 
 function statusPill(s: Topup["status"]) {
-  if (s === "approved") return "bg-emerald-600 text-white ring-1 ring-emerald-700";
+  if (s === "approved") return "bg-violet-600 text-white ring-1 ring-violet-700";
   if (s === "rejected") return "bg-rose-600 text-white ring-1 ring-rose-700";
   return "bg-violet-500 text-white ring-1 ring-violet-600";
 }
@@ -113,7 +113,7 @@ function AdminWalletPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           <StatCard label="Total Wallet" icon={Wallet} iconColor="text-violet-500" value={fmt2(stats.totalWallet)} valueColor="text-slate-900" />
-          <StatCard label="Total Credits" icon={TrendingUp} iconColor="text-emerald-500" value={fmt(stats.credits)} valueColor="text-emerald-600" />
+          <StatCard label="Total Credits" icon={TrendingUp} iconColor="text-violet-500" value={fmt(stats.credits)} valueColor="text-violet-600" />
           <StatCard label="Total Debits" icon={TrendingDown} iconColor="text-rose-500" value={fmt2(stats.debits)} valueColor="text-rose-600" />
           <StatCard label="Pending" icon={Clock} iconColor="text-violet-500" value={String(stats.pending)} valueColor="text-slate-900" />
         </div>
@@ -247,7 +247,7 @@ function RequestsList({ topups, profiles, reload }: { topups: Topup[]; profiles:
                     <Eye className="h-3.5 w-3.5" /> View screenshot
                   </button>
                 )}
-                <button disabled={busy === r.id} onClick={() => approve(r.id)} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 disabled:opacity-50">
+                <button disabled={busy === r.id} onClick={() => approve(r.id)} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-violet-600 text-white text-xs font-semibold hover:bg-violet-700 disabled:opacity-50">
                   <Check className="h-3.5 w-3.5" /> Approve
                 </button>
                 <button disabled={busy === r.id} onClick={() => reject(r.id)} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 text-white text-xs font-semibold hover:bg-rose-700 disabled:opacity-50">
@@ -321,7 +321,7 @@ function TransactionsList({ txns, profiles }: { txns: Txn[]; profiles: Record<st
         const positive = Number(t.amount) > 0;
         return (
           <div key={t.id} className="px-5 py-3 flex items-center gap-3">
-            <div className={`grid h-9 w-9 place-items-center rounded-full ${positive ? "bg-emerald-50 text-emerald-600" : "bg-rose-50 text-rose-600"}`}>
+            <div className={`grid h-9 w-9 place-items-center rounded-full ${positive ? "bg-violet-50 text-violet-600" : "bg-rose-50 text-rose-600"}`}>
               {positive ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
             </div>
             <div className="flex-1 min-w-0">
@@ -329,7 +329,7 @@ function TransactionsList({ txns, profiles }: { txns: Txn[]; profiles: Record<st
               <div className="text-xs text-slate-500 truncate">{t.reason || "—"} · {new Date(t.created_at).toLocaleString()}</div>
             </div>
             <div className="text-right">
-              <div className={`font-bold ${positive ? "text-emerald-600" : "text-rose-600"}`}>{positive ? "+" : ""}{fmt(Number(t.amount))}</div>
+              <div className={`font-bold ${positive ? "text-violet-600" : "text-rose-600"}`}>{positive ? "+" : ""}{fmt(Number(t.amount))}</div>
               <div className="text-[11px] text-slate-400">bal {fmt(Number(t.balance_after))}</div>
             </div>
           </div>
@@ -411,7 +411,7 @@ function ManualAdjustPanel({ wallets, profiles, selectedUser, onSelectUser, onDo
           onClick={() => setDirection("credit")}
           className={`h-11 rounded-xl text-sm font-semibold inline-flex items-center justify-center gap-1.5 transition ${
             direction === "credit"
-              ? "bg-emerald-500 text-white shadow-md shadow-emerald-500/30"
+              ? "bg-violet-500 text-white shadow-md shadow-violet-500/30"
               : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
           }`}
         ><Plus className="h-4 w-4" /> Credit</button>
@@ -458,7 +458,7 @@ function ManualAdjustPanel({ wallets, profiles, selectedUser, onSelectUser, onDo
         disabled={busy || !selectedUser || !amount}
         className={`mt-5 w-full inline-flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-bold text-white transition ${
           direction === "credit"
-            ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:opacity-95"
+            ? "bg-gradient-to-r from-violet-500 to-teal-600 hover:opacity-95"
             : "bg-gradient-to-r from-rose-500 to-pink-600 hover:opacity-95"
         } disabled:opacity-50`}
       >

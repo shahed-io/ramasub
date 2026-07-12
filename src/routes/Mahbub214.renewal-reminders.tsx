@@ -460,7 +460,7 @@ function RenewalRemindersPage() {
       return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200">{d}d {t("left", "বাকি")}</span>;
     if (d <= 30)
       return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200">{d}d {t("left", "বাকি")}</span>;
-    return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">{d}d {t("left", "বাকি")}</span>;
+    return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200">{d}d {t("left", "বাকি")}</span>;
   };
 
   return (

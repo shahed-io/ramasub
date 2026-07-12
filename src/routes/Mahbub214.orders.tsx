@@ -223,7 +223,7 @@ function AdminOrders() {
             <span className="font-extrabold text-slate-900">{orders.length}</span>
             <span className="text-slate-500"> {t("total orders", "মোট অর্ডার")}</span>
           </span>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 text-[11px] font-bold border border-violet-200">
             <MessageCircle className="w-3 h-3" /> {t("WhatsApp Active", "WhatsApp সক্রিয়")}
           </span>
         </div>
@@ -353,7 +353,7 @@ function StatCard({ label, value, icon, tone, loading }: { label: string; value:
   const tones: Record<string, string> = {
     violet: "bg-violet-200 text-violet-800",
     sky: "bg-sky-100 text-sky-700",
-    emerald: "bg-emerald-100 text-emerald-700",
+    emerald: "bg-violet-100 text-violet-700",
   };
   return (
     <div className="a-stat-card">
@@ -428,7 +428,7 @@ function OrderRow({ order: o, onView, onDelete, onDownload }: { order: Order; on
         <button onClick={onView} className="text-violet-600 font-semibold font-mono text-xs hover:underline">{shortId(o.id)}</button>
         <div className="flex items-center gap-1 mt-1">
           {verified ? (
-            <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 font-semibold">
+            <span className="inline-flex items-center gap-1 text-[10px] text-violet-600 font-semibold">
               <ShieldCheck className="w-3 h-3" /> {t("Verified", "ভেরিফাইড")}
             </span>
           ) : (
@@ -572,7 +572,7 @@ function OrderDetail({ order, onClose, onStatusChange, onPaymentStatusChange, on
                 <div className="space-y-1.5 text-sm">
                   <Row label={t("Method", "মাধ্যম")} value={<span className="font-bold text-slate-900">{order.payment_method}</span>} />
                   <Row label="TrxID:" value={<span className="font-mono text-xs text-slate-700">{order.transaction_id}</span>} />
-                  <Row label={t("Payment:", "পেমেন্ট:")} value={<span className="font-semibold text-emerald-600">{(order.payment_status || "pending")}</span>} />
+                  <Row label={t("Payment:", "পেমেন্ট:")} value={<span className="font-semibold text-violet-600">{(order.payment_status || "pending")}</span>} />
                 </div>
                 <div className="mt-3 pt-3 border-t border-slate-100 space-y-1">
                   <Row label={t("Total:", "মোট:")} value={<span className="font-bold text-violet-700">{fmtMoney(Number(order.total))}</span>} />
@@ -602,7 +602,7 @@ function OrderDetail({ order, onClose, onStatusChange, onPaymentStatusChange, on
               <div className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">{t("Quick Actions", "দ্রুত অ্যাকশন")}</div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <a href={waLink || "#"} target={waLink ? "_blank" : undefined} rel="noreferrer"
-                   className={`h-10 rounded-xl border inline-flex items-center justify-center gap-2 text-sm font-semibold ${waLink ? "border-emerald-200 text-emerald-700 bg-emerald-50/40 hover:bg-emerald-50" : "border-slate-200 text-slate-400 cursor-not-allowed"}`}>
+                   className={`h-10 rounded-xl border inline-flex items-center justify-center gap-2 text-sm font-semibold ${waLink ? "border-violet-200 text-violet-700 bg-violet-50/40 hover:bg-violet-50" : "border-slate-200 text-slate-400 cursor-not-allowed"}`}>
                   <MessageCircle className="w-4 h-4" /> WhatsApp
                 </a>
                 <button onClick={downloadReceipt} disabled={downloading}

@@ -194,8 +194,8 @@ function AdminReviewsPage() {
           label={t("Pending", "অপেক্ষায়")}
         />
         <StatCard
-          icon={<CheckCircle2 className="w-5 h-5 text-emerald-500" />}
-          ring="ring-emerald-100"
+          icon={<CheckCircle2 className="w-5 h-5 text-violet-500" />}
+          ring="ring-violet-100"
           value={counts.approved}
           label={t("Approved", "অনুমোদিত")}
         />
@@ -382,7 +382,7 @@ function AdminReviewsPage() {
                       onClick={() => updateStatus(r.id, "approved")}
                       title={t("Approve", "অনুমোদন")}
                       disabled={busy === r.id}
-                      className="w-9 h-9 grid place-items-center rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition disabled:opacity-60"
+                      className="w-9 h-9 grid place-items-center rounded-full bg-violet-50 text-violet-600 hover:bg-violet-100 transition disabled:opacity-60"
                     >
                       <Check className="w-4 h-4" />
                     </button>
@@ -466,7 +466,7 @@ function StatusBadge({ status, t }: { status: ReviewStatus; t: (en: string, bn: 
   const map: Record<ReviewStatus, { label: string; cls: string }> = {
     approved: {
       label: t("Approved", "অনুমোদিত"),
-      cls: "bg-emerald-50 text-emerald-700 border-emerald-100",
+      cls: "bg-violet-50 text-violet-700 border-violet-100",
     },
     pending: {
       label: t("Pending", "অপেক্ষায়"),

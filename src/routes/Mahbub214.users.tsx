@@ -180,7 +180,7 @@ function AdminUsers() {
                       <div className="flex flex-col gap-0.5 text-[12px]">
                         <span className="text-slate-800 flex items-center gap-1 truncate max-w-[220px]">
                           {r.email_confirmed
-                            ? <CheckCircle2 className="w-3 h-3 text-emerald-500 shrink-0" />
+                            ? <CheckCircle2 className="w-3 h-3 text-violet-500 shrink-0" />
                             : <Clock className="w-3 h-3 text-amber-500 shrink-0" />}
                           <span className="truncate">{r.email || "—"}</span>
                         </span>
@@ -322,7 +322,7 @@ function Field({
   badge?: string; badgeTone?: "emerald" | "amber" | "slate";
 }) {
   const toneCls = badgeTone === "emerald"
-    ? "bg-emerald-50 text-emerald-700 ring-emerald-200"
+    ? "bg-violet-50 text-violet-700 ring-violet-200"
     : badgeTone === "amber"
     ? "bg-amber-50 text-amber-700 ring-amber-200"
     : "bg-slate-50 text-slate-600 ring-slate-200";

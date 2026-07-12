@@ -143,8 +143,8 @@ function NewsletterPage() {
           label={t("Total", "মোট")}
         />
         <StatCard
-          icon={<CheckCircle2 className="w-4 h-4 text-emerald-600" />}
-          ring="ring-emerald-200"
+          icon={<CheckCircle2 className="w-4 h-4 text-violet-600" />}
+          ring="ring-violet-200"
           value={counts.active}
           label={t("Active", "সক্রিয়")}
         />
@@ -206,7 +206,7 @@ function NewsletterPage() {
                 >
                   <span
                     className={`shrink-0 w-9 h-9 rounded-xl grid place-items-center ${
-                      active ? "bg-emerald-50 text-emerald-600" : "bg-rose-50 text-rose-600"
+                      active ? "bg-violet-50 text-violet-600" : "bg-rose-50 text-rose-600"
                     }`}
                   >
                     <Mail className="w-4 h-4" />
@@ -224,7 +224,7 @@ function NewsletterPage() {
                   <span
                     className={`text-[11px] font-bold px-2.5 py-1 rounded-full border ${
                       active
-                        ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                        ? "bg-violet-50 text-violet-700 border-violet-200"
                         : "bg-rose-50 text-rose-700 border-rose-200"
                     }`}
                   >

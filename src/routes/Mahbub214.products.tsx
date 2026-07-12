@@ -416,7 +416,7 @@ function AdminProducts() {
  <button
  onClick={migrateAllToWebp}
  disabled={webpBusy}
- className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition disabled:opacity-60 disabled:cursor-not-allowed flex-1 sm:flex-none"
+ className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl bg-violet-600 text-white text-sm font-semibold hover:bg-violet-700 transition disabled:opacity-60 disabled:cursor-not-allowed flex-1 sm:flex-none"
  title="সব প্রোডাক্ট ইমেজ WebP-তে কনভার্ট করুন"
  >
  {webpBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <ImageIcon className="w-4 h-4" />}
@@ -554,13 +554,13 @@ function AdminProducts() {
  className={`inline-flex items-center gap-2 select-none transition-colors`}
  >
  <span
- className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${p.is_active ? "bg-emerald-500" : "bg-slate-300"}`}
+ className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${p.is_active ? "bg-violet-500" : "bg-slate-300"}`}
  >
  <span
  className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${p.is_active ? "translate-x-4" : "translate-x-0.5"}`}
  />
  </span>
- <span className={`text-xs font-medium ${p.is_active ? "text-emerald-700" : "text-slate-500"}`}>
+ <span className={`text-xs font-medium ${p.is_active ? "text-violet-700" : "text-slate-500"}`}>
  {p.is_active ? "On" : "Off"}
  </span>
  </button>
@@ -1366,7 +1366,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-gradient-to-r from-rose-500 to-pink-600 text-white shadow shadow-rose-500/30">
             🔻 -{pct}% OFF
           </span>
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-violet-100 text-violet-700 border border-violet-200">
             💰 Save ৳{save.toLocaleString()}
            </span>
            <span className="text-[11px] text-slate-500">auto-calculated</span>

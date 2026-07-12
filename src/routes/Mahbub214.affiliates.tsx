@@ -125,7 +125,7 @@ function AffiliatesPage() {
         <Stat icon={<Clock className="w-3.5 h-3.5" />} ring="ring-violet-200" iconColor="text-violet-600" label={t("Pending Apps", "পেন্ডিং অ্যাপস")} value={stats.pendingApps} valueColor="text-violet-600" />
         <Stat icon={<Activity className="w-3.5 h-3.5" />} ring="ring-sky-200" iconColor="text-sky-600" label={t("Pending Conv.", "পেন্ডিং কনভ.")} value={stats.pendingConv} valueColor="text-sky-600" />
         <Stat icon={<Wallet className="w-3.5 h-3.5" />} ring="ring-fuchsia-200" iconColor="text-fuchsia-600" label={t("Pending Payouts", "পেন্ডিং পেআউট")} value={`৳${stats.pendingPayouts}`} valueColor="text-fuchsia-600" />
-        <Stat icon={<DollarSign className="w-3.5 h-3.5" />} ring="ring-emerald-200" iconColor="text-emerald-600" label={t("Total Paid", "মোট পরিশোধিত")} value={`৳${stats.totalPaid}`} valueColor="text-emerald-600" />
+        <Stat icon={<DollarSign className="w-3.5 h-3.5" />} ring="ring-violet-200" iconColor="text-violet-600" label={t("Total Paid", "মোট পরিশোধিত")} value={`৳${stats.totalPaid}`} valueColor="text-violet-600" />
         <Stat icon={<MousePointerClick className="w-3.5 h-3.5" />} ring="ring-rose-200" iconColor="text-rose-600" label={t("Total Clicks", "মোট ক্লিক")} value={stats.totalClicks} valueColor="text-rose-600" />
       </div>
 

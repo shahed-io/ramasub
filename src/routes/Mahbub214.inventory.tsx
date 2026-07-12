@@ -175,7 +175,7 @@ function InventoryPage() {
     { key: "all", label: t("All", "সব"), dot: "" },
     { key: "out", label: t("Out", "আউট"), dot: "bg-rose-500" },
     { key: "low", label: t("Low", "কম"), dot: "bg-amber-400" },
-    { key: "ok", label: t("Sufficient", "পর্যাপ্ত"), dot: "bg-emerald-500" },
+    { key: "ok", label: t("Sufficient", "পর্যাপ্ত"), dot: "bg-violet-500" },
   ];
 
   return (
@@ -234,7 +234,7 @@ function InventoryPage() {
         <StatCard tone="bg-violet-100 text-violet-600" icon={<Package className="w-5 h-5" />} value={stats.total} label={t("Total Products", "মোট প্রোডাক্ট")} />
         <StatCard tone="bg-rose-100 text-rose-600" icon={<XCircle className="w-5 h-5" />} value={stats.out} label={t("Out of Stock", "স্টক আউট")} />
         <StatCard tone="bg-amber-100 text-amber-600" icon={<AlertTriangle className="w-5 h-5" />} value={stats.low} label={t("Low Stock", "স্টক কম")} />
-        <StatCard tone="bg-emerald-100 text-emerald-600" icon={<CheckCircle2 className="w-5 h-5" />} value={stats.ok} label={t("Sufficient Stock", "পর্যাপ্ত স্টক")} />
+        <StatCard tone="bg-violet-100 text-violet-600" icon={<CheckCircle2 className="w-5 h-5" />} value={stats.ok} label={t("Sufficient Stock", "পর্যাপ্ত স্টক")} />
       </div>
 
       <div className="flex items-center gap-3 flex-wrap">
@@ -333,7 +333,7 @@ function StatusPill({ status, t }: { status: Row["status"]; t: (en: string, bn?:
   const map: Record<Row["status"], { label: string; cls: string; dot: string }> = {
     out: { label: t("Out", "আউট"), cls: "bg-rose-50 text-rose-700 border-rose-200", dot: "bg-rose-500" },
     low: { label: t("Low", "কম"), cls: "bg-amber-50 text-amber-700 border-amber-200", dot: "bg-amber-400" },
-    ok: { label: t("Sufficient", "পর্যাপ্ত"), cls: "bg-emerald-50 text-emerald-700 border-emerald-200", dot: "bg-emerald-500" },
+    ok: { label: t("Sufficient", "পর্যাপ্ত"), cls: "bg-violet-50 text-violet-700 border-violet-200", dot: "bg-violet-500" },
     unknown: { label: t("Unknown", "অজানা"), cls: "bg-slate-50 text-slate-600 border-slate-200", dot: "bg-slate-400" },
   };
   const s = map[status];

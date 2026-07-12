@@ -834,7 +834,7 @@ function AdCampaignMetrics() {
   const money = (n: number) => `৳${fmt(n)}`;
 
   const cards: Array<{ label: string; labelBn: string; value: string; hint?: string; tone: string }> = [
-    { label: "Active campaigns", labelBn: "সক্রিয় ক্যাম্পেইন", value: fmt(metrics.active), tone: "from-emerald-500 to-green-600" },
+    { label: "Active campaigns", labelBn: "সক্রিয় ক্যাম্পেইন", value: fmt(metrics.active), tone: "from-violet-500 to-green-600" },
     { label: "Total spend", labelBn: "মোট খরচ", value: money(metrics.spend), hint: `budget ${money(metrics.budget)}`, tone: "from-rose-500 to-red-600" },
     { label: "Revenue", labelBn: "আয়", value: money(metrics.revenue), tone: "from-violet-500 to-purple-600" },
     { label: "ROAS", labelBn: "ROAS", value: metrics.roas ? `${metrics.roas.toFixed(2)}x` : "—", hint: "revenue ÷ spend", tone: "from-amber-500 to-orange-600" },
@@ -862,7 +862,7 @@ function AdCampaignMetrics() {
           <div className="text-[11px] text-slate-500">{t("Live totals across all campaigns", "সব ক্যাম্পেইনের সম্মিলিত হিসাব")}</div>
         </div>
         {metrics.spend > 0 && (
-          <div className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${metrics.roas >= 2 ? "bg-emerald-50 text-emerald-700" : metrics.roas >= 1 ? "bg-amber-50 text-amber-700" : "bg-rose-50 text-rose-700"}`}>
+          <div className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${metrics.roas >= 2 ? "bg-violet-50 text-violet-700" : metrics.roas >= 1 ? "bg-amber-50 text-amber-700" : "bg-rose-50 text-rose-700"}`}>
             {metrics.roas >= 2 ? t("Profitable", "লাভজনক") : metrics.roas >= 1 ? t("Break-even", "সমতাল") : t("Losing money", "লস হচ্ছে")}
           </div>
         )}
@@ -1048,7 +1048,7 @@ function SoftwareDownloadsManager() {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-teal-50 p-5">
+      <div className="rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 via-white to-teal-50 p-5">
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
             <h3 className="font-black text-slate-900">
@@ -1063,7 +1063,7 @@ function SoftwareDownloadsManager() {
           </div>
           <div className="text-right text-xs">
             <div className="text-slate-500">{t("Products with downloads", "ডাউনলোডসহ প্রোডাক্ট")}</div>
-            <div className="text-2xl font-black text-emerald-700">{configured}<span className="text-slate-400 text-sm">/{total}</span></div>
+            <div className="text-2xl font-black text-violet-700">{configured}<span className="text-slate-400 text-sm">/{total}</span></div>
           </div>
         </div>
       </div>
@@ -1103,7 +1103,7 @@ function SoftwareDownloadsManager() {
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {p.downloads.length > 0 ? (
-                    <span className="inline-flex items-center gap-1 px-2 h-6 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200">
+                    <span className="inline-flex items-center gap-1 px-2 h-6 rounded-full bg-violet-50 text-violet-700 text-[11px] font-bold border border-violet-200">
                       {p.downloads.length} {t("link", "লিংক")}
                     </span>
                   ) : (
@@ -1225,14 +1225,14 @@ function DownloadEditor({
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <button
           onClick={add}
-          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-full border border-emerald-300 text-emerald-700 text-xs font-semibold hover:bg-emerald-50"
+          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-full border border-violet-300 text-violet-700 text-xs font-semibold hover:bg-violet-50"
         >
           <Plus className="w-3.5 h-3.5" /> {t("Add link", "Link যোগ করুন")}
         </button>
         <button
           onClick={save}
           disabled={saving}
-          className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow disabled:opacity-60"
+          className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-violet-600 hover:bg-violet-700 text-white text-xs font-semibold shadow disabled:opacity-60"
         >
           {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
           {t("Save", "সংরক্ষণ")}

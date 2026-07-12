@@ -123,7 +123,7 @@ function TelegramAdmin() {
 
       {msg && (
         <div className={`rounded-xl px-4 py-3 text-sm border flex items-center gap-2 ${
-          msg.tone === "ok" ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-rose-50 border-rose-200 text-rose-800"
+          msg.tone === "ok" ? "bg-violet-50 border-violet-200 text-violet-800" : "bg-rose-50 border-rose-200 text-rose-800"
         }`}>
           {msg.tone === "ok" ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
           {msg.text}
@@ -149,7 +149,7 @@ function TelegramAdmin() {
           <label className="inline-flex items-center gap-2 cursor-pointer select-none">
             <span className="text-sm text-slate-600">Enable notifications</span>
             <input type="checkbox" className="sr-only peer" checked={enabled} onChange={(e) => setEnabled(e.target.checked)} />
-            <div className="w-11 h-6 bg-slate-300 rounded-full peer-checked:bg-emerald-500 relative transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:bg-white after:rounded-full after:transition-transform peer-checked:after:translate-x-5" />
+            <div className="w-11 h-6 bg-slate-300 rounded-full peer-checked:bg-violet-500 relative transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:bg-white after:rounded-full after:transition-transform peer-checked:after:translate-x-5" />
           </label>
         </div>
 
@@ -186,7 +186,7 @@ function TelegramAdmin() {
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
             Save Settings
           </button>
-          <button onClick={runTest} disabled={testing || loading || !botToken || !chatId} className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 text-white px-4 py-2.5 text-sm font-semibold hover:bg-emerald-700 disabled:opacity-50">
+          <button onClick={runTest} disabled={testing || loading || !botToken || !chatId} className="inline-flex items-center gap-2 rounded-lg bg-violet-600 text-white px-4 py-2.5 text-sm font-semibold hover:bg-violet-700 disabled:opacity-50">
             {testing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
             Send Test Message
           </button>
@@ -234,7 +234,7 @@ function TelegramAdmin() {
             <label className="inline-flex items-center gap-2 cursor-pointer select-none">
               <span className="text-sm text-slate-600">Enable</span>
               <input type="checkbox" className="sr-only peer" checked={custEnabled} onChange={(e) => setCustEnabled(e.target.checked)} />
-              <div className="w-11 h-6 bg-slate-300 rounded-full peer-checked:bg-emerald-500 relative transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:bg-white after:rounded-full after:transition-transform peer-checked:after:translate-x-5" />
+              <div className="w-11 h-6 bg-slate-300 rounded-full peer-checked:bg-violet-500 relative transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:bg-white after:rounded-full after:transition-transform peer-checked:after:translate-x-5" />
             </label>
           </div>
         </div>
@@ -308,8 +308,8 @@ function TelegramAdmin() {
         ) : (
           <div className="space-y-2 max-h-96 overflow-y-auto">
             {logs.map((l) => (
-              <div key={l.id} className={`flex items-start gap-3 rounded-lg border p-3 text-sm ${l.success ? "bg-emerald-50/50 border-emerald-200" : "bg-rose-50/50 border-rose-200"}`}>
-                {l.success ? <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" /> : <XCircle className="w-4 h-4 text-rose-600 mt-0.5 shrink-0" />}
+              <div key={l.id} className={`flex items-start gap-3 rounded-lg border p-3 text-sm ${l.success ? "bg-violet-50/50 border-violet-200" : "bg-rose-50/50 border-rose-200"}`}>
+                {l.success ? <CheckCircle2 className="w-4 h-4 text-violet-600 mt-0.5 shrink-0" /> : <XCircle className="w-4 h-4 text-rose-600 mt-0.5 shrink-0" />}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-slate-900">{l.event_type}</span>

@@ -355,7 +355,7 @@ function BulkUpdatePage() {
                 </div>
               </div>
               {p.description.trim() ? (
-                <span className="text-[10px] uppercase tracking-wide rounded bg-emerald-100 text-emerald-700 px-1.5 py-0.5">
+                <span className="text-[10px] uppercase tracking-wide rounded bg-violet-100 text-violet-700 px-1.5 py-0.5">
                   has desc
                 </span>
               ) : (

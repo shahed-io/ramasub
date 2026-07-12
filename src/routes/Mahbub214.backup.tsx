@@ -21,7 +21,7 @@ type Tone = "violet" | "blue" | "emerald" | "rose" | "cyan" | "fuchsia" | "indig
 const TONE: Record<Tone, { bg: string; ic: string; ring: string }> = {
   violet:  { bg: "bg-violet-200",  ic: "text-violet-800",  ring: "ring-violet-300" },
   blue:    { bg: "bg-blue-100",    ic: "text-blue-700",    ring: "ring-blue-200" },
-  emerald: { bg: "bg-emerald-100", ic: "text-emerald-700", ring: "ring-emerald-200" },
+  emerald: { bg: "bg-violet-100", ic: "text-violet-700", ring: "ring-violet-200" },
   rose:    { bg: "bg-rose-100",    ic: "text-rose-700",    ring: "ring-rose-200" },
   cyan:    { bg: "bg-cyan-100",    ic: "text-cyan-700",    ring: "ring-cyan-200" },
   fuchsia: { bg: "bg-fuchsia-100", ic: "text-fuchsia-700", ring: "ring-fuchsia-200" },
@@ -279,9 +279,9 @@ function BackupPage() {
           <button
             onClick={() => fileRef.current?.click()}
             disabled={busy !== null}
-            className="w-full h-14 px-5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-md text-slate-800 text-sm font-semibold inline-flex items-center justify-center gap-2 transition disabled:opacity-60"
+            className="w-full h-14 px-5 rounded-2xl bg-white border border-slate-200 hover:border-violet-300 hover:shadow-md text-slate-800 text-sm font-semibold inline-flex items-center justify-center gap-2 transition disabled:opacity-60"
           >
-            {busy === "restore" ? <Loader2 className="w-5 h-5 animate-spin" /> : <Upload className="w-5 h-5 text-emerald-600" />}
+            {busy === "restore" ? <Loader2 className="w-5 h-5 animate-spin" /> : <Upload className="w-5 h-5 text-violet-600" />}
             রিস্টোর / Import
           </button>
           <div className="absolute -top-2 right-3 inline-flex rounded-full border border-slate-200 bg-white p-0.5 text-[10px] font-bold shadow-sm">
@@ -326,7 +326,7 @@ function BackupPage() {
 
       {/* Info strip */}
       <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-600 flex items-start gap-2">
-        <ShieldCheck className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
+        <ShieldCheck className="w-4 h-4 text-violet-600 mt-0.5 shrink-0" />
         <p>
           নিচের প্রতিটি কার্ড থেকে আলাদা টেবিলের JSON ডাউনলোড করুন, অথবা উপরে থাকা
           <b> "এখনই ব্যাকআপ নিন"</b> বটন চাপলে সম্পূর্ণ ডেটাবেস + সকল ছবি/ফাইল ZIP আকারে এক ক্লিকে download হবে।
@@ -400,7 +400,7 @@ function BackupPage() {
               return (
                 <li key={h.id} className="px-5 py-3 flex items-center justify-between gap-3 hover:bg-slate-50">
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 grid place-items-center ring-1 ring-emerald-200">
+                    <span className="w-9 h-9 rounded-xl bg-violet-100 text-violet-700 grid place-items-center ring-1 ring-violet-200">
                       <CheckCircle2 className="w-4 h-4" />
                     </span>
                     <div className="min-w-0">

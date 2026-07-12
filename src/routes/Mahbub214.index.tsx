@@ -219,8 +219,8 @@ function AdminDashboard() {
       label: t("THIS YEAR REVENUE", "এই বছরের আয়"),
       value: fmtBDT(stats.yearRev),
       Icon: BarChart3,
-      iconGrad: "from-emerald-500 to-teal-600",
-      bgGrad: "from-emerald-50/60 via-white to-cyan-50/40",
+      iconGrad: "from-violet-500 to-teal-600",
+      bgGrad: "from-violet-50/60 via-white to-cyan-50/40",
     },
     {
       label: t("TOTAL REVENUE (ALL)", "মোট আয় (সব)"),
@@ -259,8 +259,8 @@ function AdminDashboard() {
       label: t("DELIVERED", "ডেলিভারড"),
       value: stats.delivered.toString(),
       Icon: CheckCircle2,
-      iconGrad: "from-emerald-500 to-green-600",
-      bgGrad: "from-emerald-50/60 via-white to-violet-50/30",
+      iconGrad: "from-violet-500 to-green-600",
+      bgGrad: "from-violet-50/60 via-white to-violet-50/30",
     },
     {
       label: t("CANCELLED", "বাতিল"),
@@ -335,7 +335,7 @@ function AdminDashboard() {
             <div className="min-w-0">
               <h3 className="text-[18px] font-extrabold text-slate-900">{t("Sales Overview", "সেল ওভারভিউ")}</h3>
               {stats.monthDelta !== 0 && (
-                <div className={`mt-1 text-[12px] font-semibold inline-flex items-center gap-1 ${stats.monthDelta >= 0 ? "text-emerald-600" : "text-rose-600"}`}>
+                <div className={`mt-1 text-[12px] font-semibold inline-flex items-center gap-1 ${stats.monthDelta >= 0 ? "text-violet-600" : "text-rose-600"}`}>
                   {stats.monthDelta >= 0 ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
                   {Math.abs(stats.monthDelta)}% {t("revenue growth vs last month", "আয় বেড়েছে গত মাসের তুলনায়")}
                 </div>
@@ -428,7 +428,7 @@ function AdminDashboard() {
           {/* Conversion Stats */}
           <div className="mt-6 pt-5 border-t border-slate-100">
             <div className="flex items-start gap-2 mb-3">
-              <span className="w-1 h-5 rounded-full bg-emerald-500 mt-0.5" aria-hidden />
+              <span className="w-1 h-5 rounded-full bg-violet-500 mt-0.5" aria-hidden />
               <h4 className="text-[15px] font-extrabold text-slate-900">{t("Conversion Stats", "কনভার্শন স্ট্যাটস")}</h4>
             </div>
             <div className="space-y-2.5">
@@ -465,7 +465,7 @@ function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compac
             <Icon className="w-5 h-5" strokeWidth={2.5} />
           </span>
           {typeof kpi.delta === "number" && kpi.delta !== 0 && (
-            <span className={`shrink-0 inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10.5px] font-bold ${kpi.delta >= 0 ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"}`}>
+            <span className={`shrink-0 inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10.5px] font-bold ${kpi.delta >= 0 ? "bg-violet-100 text-violet-700" : "bg-rose-100 text-rose-700"}`}>
               {kpi.delta >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
               {Math.abs(kpi.delta)}%
             </span>
@@ -488,7 +488,7 @@ function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compac
 function ConvRow({ label, value, Icon, color }: { label: string; value: string; Icon: any; color: "violet" | "emerald" | "sky" | "orange" }) {
   const map = {
     violet: "bg-violet-50 text-violet-600",
-    emerald: "bg-emerald-50 text-emerald-600",
+    emerald: "bg-violet-50 text-violet-600",
     sky: "bg-sky-50 text-sky-600",
     orange: "bg-orange-50 text-orange-600",
   } as const;

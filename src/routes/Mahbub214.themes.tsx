@@ -133,7 +133,7 @@ function AdminThemesPage() {
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-semibold text-slate-900">{row.data.name ?? row.data.id}</span>
                       {row.is_active && (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-full px-2 py-0.5">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-violet-700 bg-violet-50 border border-violet-200 rounded-full px-2 py-0.5">
                           <Check className="w-3 h-3" /> {t("Enabled", "চালু")}
                         </span>
                       )}
@@ -182,7 +182,7 @@ function AdminThemesPage() {
                     }
                     className={[
                       "relative inline-flex h-7 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors",
-                      row.is_active ? "bg-emerald-500" : "bg-slate-300",
+                      row.is_active ? "bg-violet-500" : "bg-slate-300",
                       (isBusy || (isWhite && row.is_active) || (isDefault && row.is_active)) ? "opacity-60 cursor-not-allowed" : "",
                     ].join(" ")}
                   >
