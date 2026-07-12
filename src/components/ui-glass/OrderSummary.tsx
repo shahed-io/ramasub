@@ -78,7 +78,7 @@ export function OrderSummary({
           <span className="text-emerald-600 font-medium">
             Coupon{couponCode ? ` (${couponCode})` : ""}
           </span>
-          <span className="text-emerald-600 font-semibold">−৳{discount.toLocaleString()}</span>
+          <span className="text-emerald-600 font-semibold">−{format(discount)}</span>
         </div>
       )}
 
