@@ -55,7 +55,7 @@ export function OrderSummary({
                 </div>
               </div>
               <div className="text-sm font-semibold text-foreground">
-                ৳{(it.price * it.qty).toLocaleString()}
+                {format(it.price * it.qty)}
               </div>
             </div>
           ))}
