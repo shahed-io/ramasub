@@ -164,9 +164,9 @@ function ProductCardImpl({ product }: { product: Product }) {
 
         {/* Price row */}
         <div className="flex items-baseline gap-2">
-          <span className="text-[20px] font-extrabold text-aurora leading-none">{plan?.price ?? "—"}</span>
+          <span className="text-[20px] font-extrabold text-aurora leading-none">{plan?.price ? formatString(plan.price) : "—"}</span>
           {plan?.original && (
-            <span className="text-[12px] text-muted-foreground line-through">{plan.original}</span>
+            <span className="text-[12px] text-muted-foreground line-through">{formatString(plan.original)}</span>
           )}
         </div>
 
