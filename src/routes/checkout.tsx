@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { Check, Copy, Lock, Smartphone, Loader2, X, ChevronRight, Tag, ShieldCheck } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useCart } from "@/context/CartContext";
+import { useCurrency } from "@/context/CurrencyContext";
 import { useAuth } from "@/context/AuthContext";
 import { rememberReturnTo } from "@/lib/auth-return-to";
 import { captureAbandonedCheckout } from "@/lib/abandoned-checkout.functions";
