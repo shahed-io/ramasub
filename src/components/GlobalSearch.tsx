@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useProducts } from "@/hooks/useProducts";
+import { useCurrency } from "@/context/CurrencyContext";
 import type { Product } from "@/data/products";
 
 const RECENT_KEY = "globalSearch:recent";
