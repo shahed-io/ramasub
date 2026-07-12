@@ -1,56 +1,100 @@
-## লক্ষ্য
-Admin panel-এ যেসব section এখন ফাঁকা (`site_settings`, `homepage_config`, content pages, invoice defaults ইত্যাদি), সেগুলোতে Rama Sub সম্পর্কে confirmed তথ্য দিয়ে seed করব। যা জানি না (GA4 ID, GTM ID, verification codes, Meta pixel, Google Ads, Telegram bot token, Zoom API, custom OpenAI/Gemini keys, address ইত্যাদি) সেগুলো ফাঁকা রাখব — admin পরে বসাবেন।
+# Meta Business Integration — Build Plan
 
-## যেসব "জানা" তথ্য বসাব
-Codebase + memory + প্রকাশিত domain থেকে নেওয়া:
-- Brand: **Rama Sub** / `RAMASUB.COM`
-- Domain: `https://ramasub.com`
-- Support email: `support@ramasub.com`
-- Admin email: `ramasubofficialweb@gmail.com` (handle_new_user trigger থেকে)
-- WhatsApp: `01601048085` (settings placeholder + শপে ব্যবহৃত)
-- Currency: BDT / ৳
-- Order prefix: `RS`
-- Twitter: `@ramasub`
-- OG cover: `https://ramasub.com/og-cover.jpg`
-- Product categories: AI Tools, Streaming, Design, Productivity, Learning, Music, VPN (existing products থেকে)
+এটা অনেক বড় একটা module (18+ section, wizard, live logs, retry queue, encryption, backup/import ইত্যাদি)। এক turn-এ সব করা quality-নষ্ট হবে, তাই আমি এটাকে **৫টি phase-এ** ভাগ করে build করবো। প্রতিটা phase আলাদা ভাবে usable এবং পরের phase-এর ভিত্তি।
 
-## কী কী update হবে
+বর্তমান system: `/Mahbub214/fb-pixel` route generic `$page.tsx`-এ render হয় এবং শুধু `pixel_id / access_token / test_event_code` capture করে। `tracking_pixels` টেবিল + `fb-capi-event.functions.ts` + `TrackingScripts.tsx` আছে। আমরা এটাকে একটা পূর্ণ module-এ রূপান্তর করবো।
 
-### 1) `admin_records` seed/patch (data only, insert tool দিয়ে)
-- **`site_settings`** — নতুন row insert:
-  - `site_name: "Rama Sub"`, `support_email`, `whatsapp_number`, `admin_email`, `currency_code: "BDT"`, `currency_symbol: "৳"`, `order_number_prefix: "RS"`, `minimum_order_amount: 0`
-  - `address`, `telegram_bot_token`, `telegram_chat_id`, `openai_key`, `gemini_keys`, `whatsapp_notify_number` → ফাঁকা
-- **`homepage_config`** — নতুন row insert:
-  - Default sections (banner, pills, featured, rails, recentlyViewed, reviews) সব visible
-  - `seo.title/description/ogTitle/ogDescription` Rama Sub tagline দিয়ে
-  - `featuredProductSlugs: []` (auto)
-- **`invoice_design`** — existing row patch: `companyPhone`, `companyAddress`, `thankYouText` Bangla-friendly copy দিয়ে fill; brand colors অপরিবর্তিত
-- **`seo_settings`** — existing row অপরিবর্তিত (already seeded)
+---
 
-### 2) `site_pages` content fill (INSERT/UPDATE data only)
-এই ৬টি content page-এর `content.blocks` এবং `seo` কে Rama Sub-এর প্রকৃত copy দিয়ে ভরব (এখন প্রতিটি মাত্র ২ block placeholder):
-- **about** — Rama Sub-এর story, mission, কেন BD-র সেরা premium subscription shop, warranty ও instant delivery highlight
-- **contact** — support email, WhatsApp, response time, business hours
-- **privacy-policy** — কী ডাটা collect করা হয়, কীভাবে use হয়, cookies, user rights (standard Bangla + English)
-- **delivery-info** — instant vs manual delivery, average time, warranty, credential delivery mechanism
-- **refund-request** — refund eligibility (7 দিন warranty), process, wallet credit rules
-- **order-cancellation** — কখন cancel করা যাবে, কীভাবে request দিতে হবে, refund path
+## Phase 1 — Foundation & Settings (এই turn-এ)
 
-প্রতিটি page-এর SEO title/description ও আপডেট করব (unique, keyword-rich)।
+**নতুন route:** `Mahbub214.meta-business.tsx` (Marketing group-এ menu entry)
 
-### 3) যেগুলো ফাঁকাই রাখব (admin পরে বসাবেন)
-- GA4 measurement ID, GTM ID, Google/Bing/Yandex/Facebook verification
-- Meta Pixel, Google Ads, Search Console API keys
-- Telegram bot token / chat ID
-- Zoom API credentials
-- OpenAI / Gemini API keys
-- Custom banner slides ও promotions (product-specific — admin decide করবেন)
-- Homepage banner slider (existing slides থাকলে অপরিবর্তিত, না থাকলে ফাঁকাই)
+**DB:** নতুন migration
+- `meta_business_config` (singleton row) — pixel_id, dataset_id, access_token (encrypted), test_event_code, graph_api_version, all Section-2 toggles (enable_pixel, auto_inject, load_in_head, load_after_consent, advanced_matching, auto_pageview, spa_nav, wc_detect, debug), capi_enabled, capi_endpoint, capi_timeout_ms, capi_max_retry
+- `meta_advanced_matching_fields` — jsonb config (email/phone/fn/ln/ct/country/zip/st/external_id/client_ip/user_agent/fbc/fbp — each with enabled bool)
+- `meta_standard_events` — event_name, enabled, browser, server, dedupe, priority
+- `meta_custom_events` — id, name, trigger_type, trigger_value (url/css/js), browser, server, params jsonb
+- `meta_event_logs` — timestamp, event_name, channel(browser|server), http_code, latency_ms, response, retry_count, order_id, customer_id, status
+- `meta_capi_queue` — pending/failed events for retry
+- RLS: admin-only via `has_role`
 
-## Files/DB touched
-- **DB (data only, migration নয়)**: `admin_records` (site_settings insert, homepage_config insert, invoice_design update), `site_pages` (6 content pages update)
-- **Code file changes**: নেই — শুধু seed data। যদি dropdown/placeholder-এ hardcoded default প্রয়োজন হয় (e.g. `order_number_prefix` fallback "AN" → "RS"), সেখানে ছোট ২-১টা string edit করতে পারি।
+**Encryption:** Access token স্টোর হবে server-side `pgp_sym_encrypt` দিয়ে; শুধুমাত্র server function decrypt করতে পারবে। Frontend কখনো token পাবে না।
 
-## সীমাবদ্ধতা
-- Products, orders, coupons, users — এগুলো real business data, seed করব না।
-- Analytics/pixel/API key fields ফাঁকা রাখব, কারণ real value দরকার এবং তা admin-এর কাছে আছে।
+**Section 1 (Settings) + Section 2 (Pixel Installation) + Section 14 (Verify Connection):**
+- Form UI with inline field-level docs ("কোথায় পাবেন / example / errors")
+- "Verify Connection" server function — Meta Graph API-তে pixel/dataset/token validate করে
+- "Send Test Event" button — PageView পাঠায় test_event_code সহ
+
+**Dashboard cards** (Section top): Connection, Pixel, CAPI, Test Events, Last Event, EMQ, Dataset, Token, API version, Diagnostics — প্রথম version-এ real values (Meta API poll) + placeholder for future.
+
+---
+
+## Phase 2 — Events (Sections 4, 5, 6, 7, 8)
+
+- Advanced Matching config editor (SHA-256 hashing automatic on server before send)
+- Standard Events table — 20+ Meta standard events; per-event toggles (enable/browser/server/dedupe/priority)
+- Custom Events builder — trigger type (URL match / button click / CSS selector / JS event), parameter mapping
+- Event Parameters library (site-wide reusable params)
+- Event Mapping presets — auto-wire Order→Purchase, Cart→AddToCart, etc.
+- Update `TrackingScripts.tsx` + `fb-capi-event.functions.ts` to read config from DB (no hardcoding)
+- Dedupe via `event_id` shared between browser & server
+
+---
+
+## Phase 3 — Runtime Engine (Sections 3, 9, 18)
+
+- CAPI worker server function (cron/on-demand) — process `meta_capi_queue`, retry with backoff, move to DLQ after max retry
+- Ecommerce auto-detection: hook into existing checkout/order flow (`orders` table trigger → enqueue Purchase; product page → ViewContent; etc.)
+- Refund / cancel / subscription renewal event emission
+- SHA-256 hash utility (server-only) for advanced matching
+- Async browser injection (already non-blocking) — verify no CLS impact
+
+---
+
+## Phase 4 — Observability (Sections 10, 11, 12)
+
+- **Diagnostics** page — reads `meta_event_logs` + last verify result; shows specific error categories with fix suggestions
+- **Test Events** page — dropdown to fire any Standard/Custom event with sample payload
+- **Live Logs** — realtime subscription to `meta_event_logs`, filterable table with columns as spec'd
+
+---
+
+## Phase 5 — UX Polish (Sections 13, 15, 16, 19)
+
+- **Connection Wizard** — 10-step guided flow (component `MetaConnectionWizard.tsx`) with per-step validation
+- **Consent Management** — Cookie banner integration, GDPR/CCPA region detect, delay-until-consent
+- **Backup / Export / Import / Reset** JSON of full config
+- **Future-ready hooks**: config schema supports `pixels[]` array (v2 schema kept singleton for now but structured to expand)
+
+---
+
+## Technical Details
+
+**Files created:**
+- `supabase/migrations/*_meta_business.sql` — schema
+- `src/routes/Mahbub214.meta-business.tsx` — main admin page (tabs: Overview / Settings / Pixel / CAPI / Events / Custom / Params / Diagnostics / Test / Logs / Wizard / Backup)
+- `src/lib/meta-business.functions.ts` — server functions (getConfig, saveConfig, verifyConnection, sendTestEvent, listLogs, queueEvent, processQueue)
+- `src/lib/meta-business.server.ts` — encryption helpers, Graph API client, SHA-256 hashing, sibling-helper-safe pattern
+- `src/lib/meta-events-catalog.ts` — Standard Events + Parameter presets
+- `src/components/admin/meta/*` — Section components (Dashboard, SettingsForm, PixelInstall, CapiConfig, EventsTable, CustomEventBuilder, DiagnosticsPanel, LiveLogs, Wizard, BackupPanel)
+- Admin menu: replace current `Facebook Pixel` entry with `Meta Business` under Marketing group
+
+**Files removed:** existing `/Mahbub214/fb-pixel` redirect entry + fb-pixel field in `admin-fields.ts` (superseded)
+
+**Security:**
+- Access token stored as `pgp_sym_encrypt(token, current_setting('app.settings.meta_key'))` — server-only decrypt
+- All admin routes gated by `has_role(auth.uid(), 'admin')`
+- Server functions use `requireSupabaseAuth` + admin role check
+- SHA-256 all PII before Meta send; never log raw PII
+- Rate limit on verify/test buttons (client-side debounce + server-side timestamp check)
+
+**Compatibility:** Uses existing `tracking_pixels` table only for legacy read; new `meta_business_config` becomes source of truth. `TrackingScripts.tsx` migrates to read new config.
+
+---
+
+## Confirmation Needed
+
+Phase 1 এই turn-এ ship করবো — Foundation + Settings form + Verify Connection + Test Event + Dashboard cards + admin menu entry। এটাই পুরো system-এর ভিত্তি এবং একে independently useful। Phase 2-5 পরের turn-গুলোতে আলাদা approve-এ যাবে।
+
+**"OK Phase 1 করো" বললেই start করছি।**

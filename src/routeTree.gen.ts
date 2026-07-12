@@ -76,6 +76,7 @@ import { Route as Mahbub214PagesRouteImport } from './routes/Mahbub214.pages'
 import { Route as Mahbub214OrdersRouteImport } from './routes/Mahbub214.orders'
 import { Route as Mahbub214OffersRouteImport } from './routes/Mahbub214.offers'
 import { Route as Mahbub214NewsletterRouteImport } from './routes/Mahbub214.newsletter'
+import { Route as Mahbub214MetaBusinessRouteImport } from './routes/Mahbub214.meta-business'
 import { Route as Mahbub214LiveChatRouteImport } from './routes/Mahbub214.live-chat'
 import { Route as Mahbub214LicenseManagerRouteImport } from './routes/Mahbub214.license-manager'
 import { Route as Mahbub214InvoiceGeneratorRouteImport } from './routes/Mahbub214.invoice-generator'
@@ -449,6 +450,11 @@ const Mahbub214NewsletterRoute = Mahbub214NewsletterRouteImport.update({
   path: '/newsletter',
   getParentRoute: () => Mahbub214Route,
 } as any)
+const Mahbub214MetaBusinessRoute = Mahbub214MetaBusinessRouteImport.update({
+  id: '/meta-business',
+  path: '/meta-business',
+  getParentRoute: () => Mahbub214Route,
+} as any)
 const Mahbub214LiveChatRoute = Mahbub214LiveChatRouteImport.update({
   id: '/live-chat',
   path: '/live-chat',
@@ -682,6 +688,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/invoice-generator': typeof Mahbub214InvoiceGeneratorRoute
   '/Mahbub214/license-manager': typeof Mahbub214LicenseManagerRoute
   '/Mahbub214/live-chat': typeof Mahbub214LiveChatRoute
+  '/Mahbub214/meta-business': typeof Mahbub214MetaBusinessRoute
   '/Mahbub214/newsletter': typeof Mahbub214NewsletterRoute
   '/Mahbub214/offers': typeof Mahbub214OffersRouteWithChildren
   '/Mahbub214/orders': typeof Mahbub214OrdersRoute
@@ -784,6 +791,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/invoice-generator': typeof Mahbub214InvoiceGeneratorRoute
   '/Mahbub214/license-manager': typeof Mahbub214LicenseManagerRoute
   '/Mahbub214/live-chat': typeof Mahbub214LiveChatRoute
+  '/Mahbub214/meta-business': typeof Mahbub214MetaBusinessRoute
   '/Mahbub214/newsletter': typeof Mahbub214NewsletterRoute
   '/Mahbub214/offers': typeof Mahbub214OffersRouteWithChildren
   '/Mahbub214/orders': typeof Mahbub214OrdersRoute
@@ -888,6 +896,7 @@ export interface FileRoutesById {
   '/Mahbub214/invoice-generator': typeof Mahbub214InvoiceGeneratorRoute
   '/Mahbub214/license-manager': typeof Mahbub214LicenseManagerRoute
   '/Mahbub214/live-chat': typeof Mahbub214LiveChatRoute
+  '/Mahbub214/meta-business': typeof Mahbub214MetaBusinessRoute
   '/Mahbub214/newsletter': typeof Mahbub214NewsletterRoute
   '/Mahbub214/offers': typeof Mahbub214OffersRouteWithChildren
   '/Mahbub214/orders': typeof Mahbub214OrdersRoute
@@ -993,6 +1002,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/invoice-generator'
     | '/Mahbub214/license-manager'
     | '/Mahbub214/live-chat'
+    | '/Mahbub214/meta-business'
     | '/Mahbub214/newsletter'
     | '/Mahbub214/offers'
     | '/Mahbub214/orders'
@@ -1095,6 +1105,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/invoice-generator'
     | '/Mahbub214/license-manager'
     | '/Mahbub214/live-chat'
+    | '/Mahbub214/meta-business'
     | '/Mahbub214/newsletter'
     | '/Mahbub214/offers'
     | '/Mahbub214/orders'
@@ -1198,6 +1209,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/invoice-generator'
     | '/Mahbub214/license-manager'
     | '/Mahbub214/live-chat'
+    | '/Mahbub214/meta-business'
     | '/Mahbub214/newsletter'
     | '/Mahbub214/offers'
     | '/Mahbub214/orders'
@@ -1779,6 +1791,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214NewsletterRouteImport
       parentRoute: typeof Mahbub214Route
     }
+    '/Mahbub214/meta-business': {
+      id: '/Mahbub214/meta-business'
+      path: '/meta-business'
+      fullPath: '/Mahbub214/meta-business'
+      preLoaderRoute: typeof Mahbub214MetaBusinessRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
     '/Mahbub214/live-chat': {
       id: '/Mahbub214/live-chat'
       path: '/live-chat'
@@ -2063,6 +2082,7 @@ interface Mahbub214RouteChildren {
   Mahbub214InvoiceGeneratorRoute: typeof Mahbub214InvoiceGeneratorRoute
   Mahbub214LicenseManagerRoute: typeof Mahbub214LicenseManagerRoute
   Mahbub214LiveChatRoute: typeof Mahbub214LiveChatRoute
+  Mahbub214MetaBusinessRoute: typeof Mahbub214MetaBusinessRoute
   Mahbub214NewsletterRoute: typeof Mahbub214NewsletterRoute
   Mahbub214OffersRoute: typeof Mahbub214OffersRouteWithChildren
   Mahbub214OrdersRoute: typeof Mahbub214OrdersRoute
@@ -2111,6 +2131,7 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214InvoiceGeneratorRoute: Mahbub214InvoiceGeneratorRoute,
   Mahbub214LicenseManagerRoute: Mahbub214LicenseManagerRoute,
   Mahbub214LiveChatRoute: Mahbub214LiveChatRoute,
+  Mahbub214MetaBusinessRoute: Mahbub214MetaBusinessRoute,
   Mahbub214NewsletterRoute: Mahbub214NewsletterRoute,
   Mahbub214OffersRoute: Mahbub214OffersRouteWithChildren,
   Mahbub214OrdersRoute: Mahbub214OrdersRoute,
