@@ -433,9 +433,9 @@ function ProductPage() {
                       </div>
                       <div className="flex items-center gap-3">
                         {hasOff && (
-                          <span className="text-slate-400 line-through text-sm">৳{original.toLocaleString()}</span>
+                          <span className="text-slate-400 line-through text-sm">{format(original)}</span>
                         )}
-                        <span className={active ? "font-bold text-indigo-600" : "font-bold text-slate-900"}>৳{price.toLocaleString()}</span>
+                        <span className={active ? "font-bold text-indigo-600" : "font-bold text-slate-900"}>{format(price)}</span>
                         {hasOff && (
                           <span className="bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">-{off}%</span>
                         )}
