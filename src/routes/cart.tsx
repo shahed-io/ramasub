@@ -216,12 +216,12 @@ function CartPage() {
               <div className="mt-4 border-t border-border pt-4 space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Subtotal</span>
-                  <span className="text-foreground font-medium tabular-nums">৳{total.toLocaleString()}</span>
+                  <span className="text-foreground font-medium tabular-nums">{format(total)}</span>
                 </div>
                 {applied.discount > 0 && (
                   <div className="flex justify-between">
                     <span className="text-emerald-500">Discount</span>
-                    <span className="text-emerald-500 font-medium tabular-nums">−৳{applied.discount.toLocaleString()}</span>
+                    <span className="text-emerald-500 font-medium tabular-nums">−{format(applied.discount)}</span>
                   </div>
                 )}
                 <div className="flex justify-between border-t border-border pt-3 mt-2">
@@ -230,7 +230,7 @@ function CartPage() {
                     className="text-xl font-bold text-primary tabular-nums"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
-                    ৳{grandTotal.toLocaleString()}
+                    {format(grandTotal)}
                   </span>
                 </div>
               </div>
