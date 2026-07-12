@@ -531,7 +531,7 @@ function SectionRenderer({
   orders: Order[];
   greetingName: string;
   user: { email?: string; id?: string } | null;
-  profile: { display_name?: string | null; phone?: string | null } | null;
+  profile: ProfileRow | null;
   onNavigate: (s: SectionId) => void;
 }) {
   switch (section) {
