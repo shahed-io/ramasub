@@ -83,7 +83,6 @@ import { Route as Mahbub214InvoiceDesignRouteImport } from './routes/Mahbub214.i
 import { Route as Mahbub214InventoryRouteImport } from './routes/Mahbub214.inventory'
 import { Route as Mahbub214HomepageEditorRouteImport } from './routes/Mahbub214.homepage-editor'
 import { Route as Mahbub214Ga4RealtimeRouteImport } from './routes/Mahbub214.ga4-realtime'
-import { Route as Mahbub214FbPixelRouteImport } from './routes/Mahbub214.fb-pixel'
 import { Route as Mahbub214EmailDashboardRouteImport } from './routes/Mahbub214.email-dashboard'
 import { Route as Mahbub214DescriptionTemplateRouteImport } from './routes/Mahbub214.description-template'
 import { Route as Mahbub214DescriptionPreviewRouteImport } from './routes/Mahbub214.description-preview'
@@ -486,11 +485,6 @@ const Mahbub214Ga4RealtimeRoute = Mahbub214Ga4RealtimeRouteImport.update({
   path: '/ga4-realtime',
   getParentRoute: () => Mahbub214Route,
 } as any)
-const Mahbub214FbPixelRoute = Mahbub214FbPixelRouteImport.update({
-  id: '/fb-pixel',
-  path: '/fb-pixel',
-  getParentRoute: () => Mahbub214Route,
-} as any)
 const Mahbub214EmailDashboardRoute = Mahbub214EmailDashboardRouteImport.update({
   id: '/email-dashboard',
   path: '/email-dashboard',
@@ -681,7 +675,6 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
   '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
-  '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/ga4-realtime': typeof Mahbub214Ga4RealtimeRoute
   '/Mahbub214/homepage-editor': typeof Mahbub214HomepageEditorRoute
   '/Mahbub214/inventory': typeof Mahbub214InventoryRoute
@@ -784,7 +777,6 @@ export interface FileRoutesByTo {
   '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
   '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
-  '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/ga4-realtime': typeof Mahbub214Ga4RealtimeRoute
   '/Mahbub214/homepage-editor': typeof Mahbub214HomepageEditorRoute
   '/Mahbub214/inventory': typeof Mahbub214InventoryRoute
@@ -889,7 +881,6 @@ export interface FileRoutesById {
   '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
   '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
   '/Mahbub214/email-dashboard': typeof Mahbub214EmailDashboardRoute
-  '/Mahbub214/fb-pixel': typeof Mahbub214FbPixelRoute
   '/Mahbub214/ga4-realtime': typeof Mahbub214Ga4RealtimeRoute
   '/Mahbub214/homepage-editor': typeof Mahbub214HomepageEditorRoute
   '/Mahbub214/inventory': typeof Mahbub214InventoryRoute
@@ -995,7 +986,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/description-preview'
     | '/Mahbub214/description-template'
     | '/Mahbub214/email-dashboard'
-    | '/Mahbub214/fb-pixel'
     | '/Mahbub214/ga4-realtime'
     | '/Mahbub214/homepage-editor'
     | '/Mahbub214/inventory'
@@ -1098,7 +1088,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/description-preview'
     | '/Mahbub214/description-template'
     | '/Mahbub214/email-dashboard'
-    | '/Mahbub214/fb-pixel'
     | '/Mahbub214/ga4-realtime'
     | '/Mahbub214/homepage-editor'
     | '/Mahbub214/inventory'
@@ -1202,7 +1191,6 @@ export interface FileRouteTypes {
     | '/Mahbub214/description-preview'
     | '/Mahbub214/description-template'
     | '/Mahbub214/email-dashboard'
-    | '/Mahbub214/fb-pixel'
     | '/Mahbub214/ga4-realtime'
     | '/Mahbub214/homepage-editor'
     | '/Mahbub214/inventory'
@@ -1840,13 +1828,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214Ga4RealtimeRouteImport
       parentRoute: typeof Mahbub214Route
     }
-    '/Mahbub214/fb-pixel': {
-      id: '/Mahbub214/fb-pixel'
-      path: '/fb-pixel'
-      fullPath: '/Mahbub214/fb-pixel'
-      preLoaderRoute: typeof Mahbub214FbPixelRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
     '/Mahbub214/email-dashboard': {
       id: '/Mahbub214/email-dashboard'
       path: '/email-dashboard'
@@ -2075,7 +2056,6 @@ interface Mahbub214RouteChildren {
   Mahbub214DescriptionPreviewRoute: typeof Mahbub214DescriptionPreviewRoute
   Mahbub214DescriptionTemplateRoute: typeof Mahbub214DescriptionTemplateRoute
   Mahbub214EmailDashboardRoute: typeof Mahbub214EmailDashboardRoute
-  Mahbub214FbPixelRoute: typeof Mahbub214FbPixelRoute
   Mahbub214Ga4RealtimeRoute: typeof Mahbub214Ga4RealtimeRoute
   Mahbub214HomepageEditorRoute: typeof Mahbub214HomepageEditorRoute
   Mahbub214InventoryRoute: typeof Mahbub214InventoryRoute
@@ -2124,7 +2104,6 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214DescriptionPreviewRoute: Mahbub214DescriptionPreviewRoute,
   Mahbub214DescriptionTemplateRoute: Mahbub214DescriptionTemplateRoute,
   Mahbub214EmailDashboardRoute: Mahbub214EmailDashboardRoute,
-  Mahbub214FbPixelRoute: Mahbub214FbPixelRoute,
   Mahbub214Ga4RealtimeRoute: Mahbub214Ga4RealtimeRoute,
   Mahbub214HomepageEditorRoute: Mahbub214HomepageEditorRoute,
   Mahbub214InventoryRoute: Mahbub214InventoryRoute,

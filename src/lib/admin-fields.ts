@@ -446,15 +446,6 @@ const FEATURES: Record<string, AdminFeatureConfig> = {
       { name: "test_event_code", label: "Test event code", type: "text" },
     ],
   },
-  "google-ads": {
-    kind: "google_ads",
-    mode: "single",
-    fields: [
-      { name: "ga4_id", label: "GA4 Measurement ID", type: "text" },
-      { name: "gads_id", label: "Google Ads ID", type: "text" },
-      { name: "conversion_label", label: "Conversion label", type: "text" },
-    ],
-  },
   "ga4-realtime": {
     kind: "ga4_realtime",
     mode: "single",
