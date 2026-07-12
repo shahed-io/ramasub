@@ -137,7 +137,7 @@ function CartPage() {
                           className="text-base font-bold text-primary tabular-nums"
                           style={{ fontFamily: "var(--font-heading)" }}
                         >
-                          ৳{lineTotal.toLocaleString()}
+                          {format(lineTotal)}
                         </span>
                       </div>
                     </div>
