@@ -291,6 +291,7 @@ export function SiteHeader() {
 
               <div className="hidden md:flex items-center gap-1.5 md:gap-2">
                 <ThemeSwitcher />
+                <CurrencySwitcher />
 
                 <CartIcon />
 
