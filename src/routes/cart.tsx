@@ -98,7 +98,7 @@ function CartPage() {
                             {it.name || it.slug}
                           </h3>
                           <p className="text-xs text-muted-foreground mt-0.5">
-                            {it.planPeriod} · ৳{it.price.toLocaleString()}
+                            {it.planPeriod} · {format(it.price)}
                           </p>
                         </div>
                         <button
