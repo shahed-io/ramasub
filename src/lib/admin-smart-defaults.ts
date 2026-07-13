@@ -175,16 +175,28 @@ export async function getSmartDefaults(kind: string, fields: AdminField[]): Prom
       map.show_on_desktop = true;
       break;
 
-    case "welcome_popup":
+    case "welcome_popup": {
+      const endsAt = new Date();
+      endsAt.setDate(endsAt.getDate() + 3);
       map.enabled = true;
+      map.badge = "🎉 WELCOME OFFER";
       map.title = `${brand}-এ স্বাগতম!`;
+      map.subtitle = "শুধু নতুন কাস্টমারদের জন্য বিশেষ ছাড়";
+      map.discount_text = "20% OFF";
+      map.coupon_code = "WELCOME20";
       map.message = featuredProduct
-        ? `${featuredProduct.name} সহ জনপ্রিয় digital product এখন instant delivery ও support সহ অর্ডার করুন।`
-        : "প্রথম অর্ডারে বিশেষ ছাড় পেতে এখনই কেনাকাটা শুরু করুন।";
+        ? `${featuredProduct.name} সহ সব premium digital service এখন instant delivery ও 24/7 সাপোর্ট সহ।`
+        : "সব premium subscription ও AI tools-এ instant delivery এবং 24/7 লাইভ সাপোর্ট।";
       map.image_url = featuredProduct?.image_url || site.logo_url || "";
-      map.cta_text = "Shop now";
+      map.cta_text = "এখনই কিনুন";
       map.cta_link = featuredProduct ? `/product/${featuredProduct.slug}` : "/";
+      map.secondary_cta_text = "পরে দেখব";
+      map.expires_at = endsAt.toISOString().slice(0, 16);
+      map.delay_seconds = 2;
+      map.frequency = "session";
+      map.theme = "gradient";
       break;
+    }
 
     case "announcement_bar":
       map.enabled = true;
