@@ -48,7 +48,7 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
           aria-expanded={open}
           aria-label={`Currency selector. Current currency ${active.short}. Tap to change between BDT and USD.`}
           onClick={() => setOpen((v) => !v)}
-          className="relative inline-flex h-9 min-w-[64px] items-center justify-center gap-1 rounded-full border border-white/20 bg-white/95 px-1.5 text-[12px] font-black leading-none text-primary-dark shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_8px_20px_-10px_rgba(15,23,42,0.55)] ring-1 ring-primary/20 transition-transform active:scale-95"
+          className="relative inline-flex h-9 min-w-[64px] items-center justify-center gap-1 rounded-full border border-border bg-popover px-1.5 text-[12px] font-black leading-none text-primary-dark shadow-[0_8px_20px_-10px_rgba(15,23,42,0.55)] ring-1 ring-primary/20 transition-transform active:scale-95"
           style={{
             backdropFilter: "blur(12px)",
           }}
