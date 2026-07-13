@@ -405,11 +405,22 @@ function SearchConsolePage() {
   );
 }
 
-function Stat({ title, value, tone }: { title: string; value: string; tone: string }) {
+function Stat({ title, value, accent }: { title: string; value: string; accent: "violet" | "indigo" | "sky" | "amber" }) {
+  const map = {
+    violet: { text: "text-violet-600", dot: "bg-violet-500", glow: "from-violet-300/40" },
+    indigo: { text: "text-indigo-600", dot: "bg-indigo-500", glow: "from-indigo-300/40" },
+    sky:    { text: "text-sky-600",    dot: "bg-sky-500",    glow: "from-sky-300/40" },
+    amber:  { text: "text-amber-600",  dot: "bg-amber-500",  glow: "from-amber-300/40" },
+  }[accent];
   return (
-    <div className={`rounded-2xl p-4 text-white shadow bg-gradient-to-br ${tone}`}>
-      <div className="text-xs opacity-80">{title}</div>
-      <div className="text-2xl font-bold mt-1">{value}</div>
+    <div className="relative rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_24px_-14px_rgba(99,102,241,0.25)] p-4 overflow-hidden">
+      <div aria-hidden className={`absolute -top-8 -right-8 w-24 h-24 rounded-full bg-gradient-to-br ${map.glow} to-transparent blur-2xl`} />
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
+      <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-wide">
+        <span className={`w-1.5 h-1.5 rounded-full ${map.dot}`} />
+        {title}
+      </div>
+      <div className={`text-2xl font-bold mt-1.5 ${map.text}`}>{value}</div>
     </div>
   );
 }
