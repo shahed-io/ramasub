@@ -28,10 +28,17 @@ function admin() {
 async function loadBot() {
   const { data } = await admin()
     .from("telegram_settings" as any)
-    .select("customer_bot_token, customer_bot_enabled, customer_bot_username")
+    .select("customer_bot_token, customer_bot_enabled, customer_bot_username, customer_webhook_secret")
     .eq("singleton", true)
     .maybeSingle();
   return data as any;
+}
+
+function safeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
 }
 
 async function reply(token: string, chatId: number, text: string, extra: Record<string, unknown> = {}) {
@@ -113,6 +120,16 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
         if (!bot?.customer_bot_token || !bot?.customer_bot_enabled) {
           return Response.json({ ok: true, ignored: "bot_disabled" });
         }
+
+        // Verify the Telegram webhook secret token to reject forged requests.
+        // Admin must set telegram_settings.customer_webhook_secret and use the same
+        // value in setWebhook's secret_token parameter.
+        const expectedSecret = (bot.customer_webhook_secret as string | null) ?? "";
+        const providedSecret = request.headers.get("X-Telegram-Bot-Api-Secret-Token") ?? "";
+        if (!expectedSecret || !safeEqual(providedSecret, expectedSecret)) {
+          return new Response("Unauthorized", { status: 401 });
+        }
+
         const token = bot.customer_bot_token as string;
 
         const msg = update.message;
