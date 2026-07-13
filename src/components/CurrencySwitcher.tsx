@@ -62,7 +62,7 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
                 className={[
                   "grid h-6 w-6 place-items-center rounded-full transition-all",
                   isActive
-                    ? "bg-gradient-to-b from-primary via-violet-500 to-primary-dark text-primary-foreground shadow-[0_5px_12px_-6px_rgba(124,58,237,0.8)]"
+                    ? "bg-gradient-to-b from-primary via-primary to-primary-dark text-primary-foreground shadow-[0_5px_12px_-6px_rgba(124,58,237,0.8)]"
                     : "bg-secondary text-muted-foreground",
                 ].join(" ")}
               >
@@ -106,7 +106,7 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
                     className={[
                       "inline-flex items-center justify-center w-6 h-6 rounded-full text-[12px] font-black shrink-0",
                       isActive
-                        ? "bg-gradient-to-b from-primary via-violet-500 to-primary-dark text-primary-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
+                        ? "bg-gradient-to-b from-primary via-primary to-primary-dark text-primary-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
                         : "bg-secondary text-muted-foreground",
                     ].join(" ")}
                     aria-hidden
