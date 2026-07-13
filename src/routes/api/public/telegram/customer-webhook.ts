@@ -120,6 +120,16 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
         if (!bot?.customer_bot_token || !bot?.customer_bot_enabled) {
           return Response.json({ ok: true, ignored: "bot_disabled" });
         }
+
+        // Verify the Telegram webhook secret token to reject forged requests.
+        // Admin must set telegram_settings.customer_webhook_secret and use the same
+        // value in setWebhook's secret_token parameter.
+        const expectedSecret = (bot.customer_webhook_secret as string | null) ?? "";
+        const providedSecret = request.headers.get("X-Telegram-Bot-Api-Secret-Token") ?? "";
+        if (!expectedSecret || !safeEqual(providedSecret, expectedSecret)) {
+          return new Response("Unauthorized", { status: 401 });
+        }
+
         const token = bot.customer_bot_token as string;
 
         const msg = update.message;
