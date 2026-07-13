@@ -67,7 +67,7 @@ const COLUMNS: {
       { label: "My Orders", to: "/orders" },
       { label: "Sign In", to: "/login" },
       { label: "Create Account", to: "/register" },
-      { label: "Forgot Password", to: "/forgot-password" },
+      
     ],
   },
   {
