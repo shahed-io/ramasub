@@ -106,6 +106,7 @@ import { Route as ApiPublicClientErrorsRouteImport } from './routes/api/public/c
 import { Route as Mahbub214PagesKeyRouteImport } from './routes/Mahbub214.pages.$key'
 import { Route as Mahbub214OffersIdRouteImport } from './routes/Mahbub214.offers.$id'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -614,6 +615,11 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LovableEmailTransactionalSendRoute =
   LovableEmailTransactionalSendRouteImport.update({
     id: '/lovable/email/transactional/send',
@@ -755,6 +761,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/': typeof Mahbub214IndexRoute
   '/blog/': typeof BlogIndexRoute
   '/help/': typeof HelpIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
@@ -862,6 +869,7 @@ export interface FileRoutesByTo {
   '/Mahbub214': typeof Mahbub214IndexRoute
   '/blog': typeof BlogIndexRoute
   '/help': typeof HelpIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
@@ -971,6 +979,7 @@ export interface FileRoutesById {
   '/Mahbub214/': typeof Mahbub214IndexRoute
   '/blog/': typeof BlogIndexRoute
   '/help/': typeof HelpIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
@@ -1081,6 +1090,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/'
     | '/blog/'
     | '/help/'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
@@ -1188,6 +1198,7 @@ export interface FileRouteTypes {
     | '/Mahbub214'
     | '/blog'
     | '/help'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
@@ -1296,6 +1307,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/'
     | '/blog/'
     | '/help/'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
@@ -1358,6 +1370,7 @@ export interface RootRouteChildren {
   ProductSlugRoute: typeof ProductSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   HelpIndexRoute: typeof HelpIndexRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiPublicClientErrorsRoute: typeof ApiPublicClientErrorsRoute
   ApiPublicDeliverDownloadsRoute: typeof ApiPublicDeliverDownloadsRoute
@@ -2056,6 +2069,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/transactional/send': {
       id: '/lovable/email/transactional/send'
       path: '/lovable/email/transactional/send'
@@ -2303,6 +2323,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductSlugRoute: ProductSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   HelpIndexRoute: HelpIndexRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiPublicClientErrorsRoute: ApiPublicClientErrorsRoute,
   ApiPublicDeliverDownloadsRoute: ApiPublicDeliverDownloadsRoute,
