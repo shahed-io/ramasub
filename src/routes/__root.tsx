@@ -13,6 +13,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { WelcomePopup } from "@/components/WelcomePopup";
 import { InstallAppPrompt } from "@/components/InstallAppPrompt";
 import { TrackingScripts } from "@/components/TrackingScripts";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { SeoHead } from "@/components/SeoHead";
 import { useRealtimeSync } from "@/hooks/useRealtimeSync";
 
@@ -257,6 +258,7 @@ function RootComponent() {
               {!isAdmin && <WelcomePopup />}
               {!isAdmin && <InstallAppPrompt />}
               {!isAdmin && <TrackingScripts />}
+              {!isAdmin && <GoogleAnalytics />}
               <SeoHead pathname={pathname} />
 
 
