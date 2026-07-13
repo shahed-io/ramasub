@@ -197,18 +197,26 @@ function SearchConsolePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50/40 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto space-y-6">
-        <div className="rounded-3xl bg-gradient-to-br from-cyan-600 via-sky-600 to-blue-700 p-6 md:p-8 text-white shadow-xl">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur grid place-items-center">
+    <div className="min-h-screen bg-gradient-to-br from-white via-violet-50/40 to-indigo-50/30 p-4 md:p-8 relative overflow-hidden">
+      {/* Ambient glossy blobs */}
+      <div aria-hidden className="pointer-events-none absolute -top-32 -left-20 w-[420px] h-[420px] rounded-full bg-violet-300/20 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute top-40 -right-24 w-[380px] h-[380px] rounded-full bg-indigo-300/20 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/3 w-[360px] h-[360px] rounded-full bg-sky-200/25 blur-3xl" />
+
+      <div className="max-w-6xl mx-auto space-y-6 relative">
+        {/* Glass hero */}
+        <div className="rounded-3xl bg-white/60 backdrop-blur-xl border border-white/70 shadow-[0_10px_40px_-15px_rgba(99,102,241,0.25)] p-6 md:p-8 relative overflow-hidden">
+          <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-300/70 to-transparent" />
+          <div aria-hidden className="absolute -top-24 -right-16 w-64 h-64 rounded-full bg-gradient-to-br from-violet-300/30 to-indigo-300/20 blur-2xl" />
+          <div className="flex items-center gap-4 relative">
+            <div className="w-12 h-12 rounded-2xl bg-white/80 backdrop-blur border border-white shadow-sm grid place-items-center text-violet-600">
               <Search className="w-6 h-6" />
             </div>
             <div className="flex-1">
-              <h1 className="text-2xl md:text-3xl font-bold">Google Search Console</h1>
-              <p className="text-white/80 text-sm mt-1">Analytics, sitemap, URL inspection — সব customizable admin থেকে</p>
+              <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-slate-900 to-violet-700 bg-clip-text text-transparent">Google Search Console</h1>
+              <p className="text-slate-500 text-sm mt-1">Analytics, sitemap, URL inspection — সব customizable admin থেকে</p>
             </div>
-            <div className={`hidden md:flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold ${connected ? "bg-violet-400/20 text-violet-50" : "bg-rose-400/20 text-rose-50"}`}>
+            <div className={`hidden md:inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur border ${connected ? "bg-emerald-50/80 border-emerald-200 text-emerald-700" : "bg-rose-50/80 border-rose-200 text-rose-700"}`}>
               {connected ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
               {connected ? "Connected" : "Not connected"}
             </div>
@@ -216,7 +224,7 @@ function SearchConsolePage() {
         </div>
 
         {!connected && (
-          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 flex items-start gap-3">
+          <div className="rounded-2xl border border-amber-200/70 bg-amber-50/70 backdrop-blur-xl p-5 flex items-start gap-3 shadow-sm">
             <PlugZap className="w-5 h-5 text-amber-600 mt-0.5" />
             <div className="text-sm text-amber-900">
               <p className="font-semibold">Search Console connector connect করা নেই</p>
@@ -227,11 +235,11 @@ function SearchConsolePage() {
 
         {connected && (
           <>
-            <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-4 md:p-5 space-y-4">
+            <div className="rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_-12px_rgba(99,102,241,0.15)] p-4 md:p-5 space-y-4">
               <div className="flex flex-col md:flex-row md:items-center gap-3">
-                <label className="text-xs font-semibold text-slate-600 flex items-center gap-1.5"><Globe className="w-3.5 h-3.5" /> Site</label>
+                <label className="text-xs font-semibold text-slate-600 flex items-center gap-1.5"><Globe className="w-3.5 h-3.5 text-violet-600" /> Site</label>
                 <select
-                  className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+                  className="flex-1 rounded-xl border border-slate-200/80 bg-white/80 backdrop-blur px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400/40 focus:border-violet-300"
                   value={siteUrl}
                   onChange={(e) => { setSiteUrl(e.target.value); savePrefs({ ...prefs, siteUrl: e.target.value }); }}
                 >
@@ -239,7 +247,7 @@ function SearchConsolePage() {
                   {sites.map((s) => <option key={s.siteUrl} value={s.siteUrl}>{s.siteUrl} — {s.permissionLevel}</option>)}
                 </select>
                 <select
-                  className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+                  className="rounded-xl border border-slate-200/80 bg-white/80 backdrop-blur px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400/40"
                   value={prefs.rangeDays}
                   onChange={(e) => savePrefs({ ...prefs, rangeDays: Number(e.target.value) })}
                 >
@@ -252,7 +260,7 @@ function SearchConsolePage() {
                 <button
                   onClick={loadAll}
                   disabled={busy || !siteUrl}
-                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-slate-900 text-white text-sm font-semibold disabled:opacity-50"
+                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-sm font-semibold shadow-md shadow-violet-500/20 hover:shadow-lg hover:shadow-violet-500/30 transition disabled:opacity-50"
                 >
                   {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />} Refresh
                 </button>
@@ -260,9 +268,9 @@ function SearchConsolePage() {
 
               {prefs.rangeDays === -1 && (
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <input type="date" className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+                  <input type="date" className="rounded-xl border border-slate-200/80 bg-white/80 backdrop-blur px-3 py-2 text-sm"
                     value={prefs.customStart ?? daysAgo(28)} onChange={(e) => savePrefs({ ...prefs, customStart: e.target.value })} />
-                  <input type="date" className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+                  <input type="date" className="rounded-xl border border-slate-200/80 bg-white/80 backdrop-blur px-3 py-2 text-sm"
                     value={prefs.customEnd ?? daysAgo(1)} onChange={(e) => savePrefs({ ...prefs, customEnd: e.target.value })} />
                 </div>
               )}
@@ -281,7 +289,9 @@ function SearchConsolePage() {
                   return (
                     <button key={t.k} onClick={() => setTab(t.k as any)}
                       className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
-                        active ? "bg-cyan-600 text-white shadow" : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                        active
+                          ? "bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-500/25"
+                          : "bg-white/70 backdrop-blur border border-slate-200/70 text-slate-700 hover:bg-white hover:border-violet-200"
                       }`}>
                       <Icon className="w-3.5 h-3.5" /> {t.label}
                     </button>
@@ -292,12 +302,12 @@ function SearchConsolePage() {
 
             {tab === "overview" && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <Stat title="Clicks" value={totals.clicks.toLocaleString()} tone="from-cyan-500 to-sky-600" />
-                <Stat title="Impressions" value={totals.impressions.toLocaleString()} tone="from-violet-500 to-indigo-600" />
-                <Stat title="Avg CTR" value={`${avgCtr.toFixed(2)}%`} tone="from-violet-500 to-teal-600" />
-                <Stat title="Avg Position" value={avgPos.toFixed(1)} tone="from-amber-500 to-orange-600" />
-                <div className="col-span-2 md:col-span-4 rounded-2xl bg-white border border-slate-200 p-4 text-xs text-slate-500">
-                  Range: {range.start} → {range.end} · Type: {prefs.searchType} · Filters: {prefs.filters.length}
+                <Stat title="Clicks" value={totals.clicks.toLocaleString()} accent="violet" />
+                <Stat title="Impressions" value={totals.impressions.toLocaleString()} accent="indigo" />
+                <Stat title="Avg CTR" value={`${avgCtr.toFixed(2)}%`} accent="sky" />
+                <Stat title="Avg Position" value={avgPos.toFixed(1)} accent="amber" />
+                <div className="col-span-2 md:col-span-4 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-sm p-4 text-xs text-slate-600">
+                  Range: <span className="font-semibold text-slate-800">{range.start} → {range.end}</span> · Type: <span className="font-semibold text-slate-800">{prefs.searchType}</span> · Filters: <span className="font-semibold text-slate-800">{prefs.filters.length}</span>
                 </div>
               </div>
             )}
@@ -395,11 +405,22 @@ function SearchConsolePage() {
   );
 }
 
-function Stat({ title, value, tone }: { title: string; value: string; tone: string }) {
+function Stat({ title, value, accent }: { title: string; value: string; accent: "violet" | "indigo" | "sky" | "amber" }) {
+  const map = {
+    violet: { text: "text-violet-600", dot: "bg-violet-500", glow: "from-violet-300/40" },
+    indigo: { text: "text-indigo-600", dot: "bg-indigo-500", glow: "from-indigo-300/40" },
+    sky:    { text: "text-sky-600",    dot: "bg-sky-500",    glow: "from-sky-300/40" },
+    amber:  { text: "text-amber-600",  dot: "bg-amber-500",  glow: "from-amber-300/40" },
+  }[accent];
   return (
-    <div className={`rounded-2xl p-4 text-white shadow bg-gradient-to-br ${tone}`}>
-      <div className="text-xs opacity-80">{title}</div>
-      <div className="text-2xl font-bold mt-1">{value}</div>
+    <div className="relative rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_24px_-14px_rgba(99,102,241,0.25)] p-4 overflow-hidden">
+      <div aria-hidden className={`absolute -top-8 -right-8 w-24 h-24 rounded-full bg-gradient-to-br ${map.glow} to-transparent blur-2xl`} />
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
+      <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-wide">
+        <span className={`w-1.5 h-1.5 rounded-full ${map.dot}`} />
+        {title}
+      </div>
+      <div className={`text-2xl font-bold mt-1.5 ${map.text}`}>{value}</div>
     </div>
   );
 }
