@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Check, ChevronDown } from "lucide-react";
+import { Check } from "lucide-react";
 import { useCurrency, type CurrencyCode } from "@/context/CurrencyContext";
 
 /**
@@ -48,23 +48,14 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
           aria-expanded={open}
           aria-label={`Currency: ${active.short}. Tap to change.`}
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex items-center gap-1.5 rounded-full h-8 pl-2.5 pr-2 text-[11px] font-bold tracking-wide text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_6px_16px_-6px_rgba(124,58,237,0.6)] transition-transform active:scale-95"
+          className="inline-flex items-center justify-center rounded-full w-8 h-8 text-[13px] font-black leading-none text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_6px_16px_-6px_rgba(124,58,237,0.6)] transition-transform active:scale-95"
           style={{
             background: "linear-gradient(180deg,#a78bfa 0%,#7c3aed 55%,#5b21b6 100%)",
           }}
         >
-          <span
-            className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-white/25 text-[10px] font-black leading-none"
-            aria-hidden
-          >
-            {active.symbol}
-          </span>
-          <span>{active.short}</span>
-          <ChevronDown
-            className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`}
-            strokeWidth={2.75}
-          />
+          <span aria-hidden>{active.symbol}</span>
         </button>
+
 
         {open && (
           <div
