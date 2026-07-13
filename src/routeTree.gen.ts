@@ -24,6 +24,7 @@ import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as OrderCancellationRouteImport } from './routes/order-cancellation'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -95,6 +96,8 @@ import { Route as Mahbub214BackupRouteImport } from './routes/Mahbub214.backup'
 import { Route as Mahbub214AffiliatesRouteImport } from './routes/Mahbub214.affiliates'
 import { Route as Mahbub214AbandonedCheckoutRouteImport } from './routes/Mahbub214.abandoned-checkout'
 import { Route as Mahbub214PageRouteImport } from './routes/Mahbub214.$page'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicProductsRouteImport } from './routes/api/public/products'
 import { Route as ApiPublicGenerateBlogsRouteImport } from './routes/api/public/generate-blogs'
@@ -102,6 +105,7 @@ import { Route as ApiPublicDeliverDownloadsRouteImport } from './routes/api/publ
 import { Route as ApiPublicClientErrorsRouteImport } from './routes/api/public/client-errors'
 import { Route as Mahbub214PagesKeyRouteImport } from './routes/Mahbub214.pages.$key'
 import { Route as Mahbub214OffersIdRouteImport } from './routes/Mahbub214.offers.$id'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -185,6 +189,11 @@ const OrdersRoute = OrdersRouteImport.update({
 const OrderCancellationRoute = OrderCancellationRouteImport.update({
   id: '/order-cancellation',
   path: '/order-cancellation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -551,6 +560,18 @@ const Mahbub214PageRoute = Mahbub214PageRouteImport.update({
   path: '/$page',
   getParentRoute: () => Mahbub214Route,
 } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   id: '/lovable/email/suppression',
   path: '/lovable/email/suppression',
@@ -587,6 +608,12 @@ const Mahbub214OffersIdRoute = Mahbub214OffersIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => Mahbub214OffersRoute,
 } as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LovableEmailTransactionalSendRoute =
   LovableEmailTransactionalSendRouteImport.update({
     id: '/lovable/email/transactional/send',
@@ -655,6 +682,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/order-cancellation': typeof OrderCancellationRoute
   '/orders': typeof OrdersRouteWithChildren
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -670,6 +698,8 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/wallet': typeof WalletRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/Mahbub214/$page': typeof Mahbub214PageRoute
   '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
   '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
@@ -725,6 +755,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/': typeof Mahbub214IndexRoute
   '/blog/': typeof BlogIndexRoute
   '/help/': typeof HelpIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
@@ -758,6 +789,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/order-cancellation': typeof OrderCancellationRoute
   '/orders': typeof OrdersRouteWithChildren
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -773,6 +805,8 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/wallet': typeof WalletRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/Mahbub214/$page': typeof Mahbub214PageRoute
   '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
   '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
@@ -828,6 +862,7 @@ export interface FileRoutesByTo {
   '/Mahbub214': typeof Mahbub214IndexRoute
   '/blog': typeof BlogIndexRoute
   '/help': typeof HelpIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
@@ -863,6 +898,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/order-cancellation': typeof OrderCancellationRoute
   '/orders': typeof OrdersRouteWithChildren
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -878,6 +914,8 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/wallet': typeof WalletRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/Mahbub214/$page': typeof Mahbub214PageRoute
   '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
   '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
@@ -933,6 +971,7 @@ export interface FileRoutesById {
   '/Mahbub214/': typeof Mahbub214IndexRoute
   '/blog/': typeof BlogIndexRoute
   '/help/': typeof HelpIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
   '/Mahbub214/pages/$key': typeof Mahbub214PagesKeyRoute
   '/api/public/client-errors': typeof ApiPublicClientErrorsRoute
@@ -969,6 +1008,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/forgot-password'
     | '/login'
+    | '/mcp'
     | '/order-cancellation'
     | '/orders'
     | '/privacy-policy'
@@ -984,6 +1024,8 @@ export interface FileRouteTypes {
     | '/terms'
     | '/unsubscribe'
     | '/wallet'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/Mahbub214/$page'
     | '/Mahbub214/abandoned-checkout'
     | '/Mahbub214/affiliates'
@@ -1039,6 +1081,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/'
     | '/blog/'
     | '/help/'
+    | '/.mcp/invoke-tool/$tool'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
@@ -1072,6 +1115,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/forgot-password'
     | '/login'
+    | '/mcp'
     | '/order-cancellation'
     | '/orders'
     | '/privacy-policy'
@@ -1087,6 +1131,8 @@ export interface FileRouteTypes {
     | '/terms'
     | '/unsubscribe'
     | '/wallet'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/Mahbub214/$page'
     | '/Mahbub214/abandoned-checkout'
     | '/Mahbub214/affiliates'
@@ -1142,6 +1188,7 @@ export interface FileRouteTypes {
     | '/Mahbub214'
     | '/blog'
     | '/help'
+    | '/.mcp/invoke-tool/$tool'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
@@ -1176,6 +1223,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/forgot-password'
     | '/login'
+    | '/mcp'
     | '/order-cancellation'
     | '/orders'
     | '/privacy-policy'
@@ -1191,6 +1239,8 @@ export interface FileRouteTypes {
     | '/terms'
     | '/unsubscribe'
     | '/wallet'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/Mahbub214/$page'
     | '/Mahbub214/abandoned-checkout'
     | '/Mahbub214/affiliates'
@@ -1246,6 +1296,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/'
     | '/blog/'
     | '/help/'
+    | '/.mcp/invoke-tool/$tool'
     | '/Mahbub214/offers/$id'
     | '/Mahbub214/pages/$key'
     | '/api/public/client-errors'
@@ -1281,6 +1332,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
+  McpRoute: typeof McpRoute
   OrderCancellationRoute: typeof OrderCancellationRoute
   OrdersRoute: typeof OrdersRouteWithChildren
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
@@ -1296,6 +1348,8 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
   WalletRoute: typeof WalletRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogHowToBuyNetflixInBangladeshRoute: typeof BlogHowToBuyNetflixInBangladeshRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
@@ -1304,6 +1358,7 @@ export interface RootRouteChildren {
   ProductSlugRoute: typeof ProductSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   HelpIndexRoute: typeof HelpIndexRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiPublicClientErrorsRoute: typeof ApiPublicClientErrorsRoute
   ApiPublicDeliverDownloadsRoute: typeof ApiPublicDeliverDownloadsRoute
   ApiPublicGenerateBlogsRoute: typeof ApiPublicGenerateBlogsRoute
@@ -1425,6 +1480,13 @@ declare module '@tanstack/react-router' {
       path: '/order-cancellation'
       fullPath: '/order-cancellation'
       preLoaderRoute: typeof OrderCancellationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -1924,6 +1986,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214PageRouteImport
       parentRoute: typeof Mahbub214Route
     }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/suppression': {
       id: '/lovable/email/suppression'
       path: '/lovable/email/suppression'
@@ -1972,6 +2048,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/Mahbub214/offers/$id'
       preLoaderRoute: typeof Mahbub214OffersIdRouteImport
       parentRoute: typeof Mahbub214OffersRoute
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/lovable/email/transactional/send': {
       id: '/lovable/email/transactional/send'
@@ -2193,6 +2276,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
+  McpRoute: McpRoute,
   OrderCancellationRoute: OrderCancellationRoute,
   OrdersRoute: OrdersRouteWithChildren,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
@@ -2208,6 +2292,9 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   UnsubscribeRoute: UnsubscribeRoute,
   WalletRoute: WalletRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogHowToBuyNetflixInBangladeshRoute: BlogHowToBuyNetflixInBangladeshRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
@@ -2216,6 +2303,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductSlugRoute: ProductSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   HelpIndexRoute: HelpIndexRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiPublicClientErrorsRoute: ApiPublicClientErrorsRoute,
   ApiPublicDeliverDownloadsRoute: ApiPublicDeliverDownloadsRoute,
   ApiPublicGenerateBlogsRoute: ApiPublicGenerateBlogsRoute,

@@ -32,6 +32,7 @@ export default defineConfig({
       },
     },
     plugins: [
+      mcpPlugin(),
       VitePWA({
         // We ship our own manifest at public/manifest.webmanifest — do NOT regenerate.
         manifest: false,
