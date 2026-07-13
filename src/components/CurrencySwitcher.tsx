@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Check, ChevronDown } from "lucide-react";
+import { Check } from "lucide-react";
 import { useCurrency, type CurrencyCode } from "@/context/CurrencyContext";
 
 /**
