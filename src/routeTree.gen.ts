@@ -93,6 +93,7 @@ import { Route as Mahbub214CouponsRouteImport } from './routes/Mahbub214.coupons
 import { Route as Mahbub214BulkUpdateRouteImport } from './routes/Mahbub214.bulk-update'
 import { Route as Mahbub214BkashTransactionsRouteImport } from './routes/Mahbub214.bkash-transactions'
 import { Route as Mahbub214BackupRouteImport } from './routes/Mahbub214.backup'
+import { Route as Mahbub214AnalyticsRouteImport } from './routes/Mahbub214.analytics'
 import { Route as Mahbub214AffiliatesRouteImport } from './routes/Mahbub214.affiliates'
 import { Route as Mahbub214AbandonedCheckoutRouteImport } from './routes/Mahbub214.abandoned-checkout'
 import { Route as Mahbub214PageRouteImport } from './routes/Mahbub214.$page'
@@ -546,6 +547,11 @@ const Mahbub214BackupRoute = Mahbub214BackupRouteImport.update({
   path: '/backup',
   getParentRoute: () => Mahbub214Route,
 } as any)
+const Mahbub214AnalyticsRoute = Mahbub214AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => Mahbub214Route,
+} as any)
 const Mahbub214AffiliatesRoute = Mahbub214AffiliatesRouteImport.update({
   id: '/affiliates',
   path: '/affiliates',
@@ -715,6 +721,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/$page': typeof Mahbub214PageRoute
   '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
   '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
+  '/Mahbub214/analytics': typeof Mahbub214AnalyticsRoute
   '/Mahbub214/backup': typeof Mahbub214BackupRoute
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
@@ -824,6 +831,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/$page': typeof Mahbub214PageRoute
   '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
   '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
+  '/Mahbub214/analytics': typeof Mahbub214AnalyticsRoute
   '/Mahbub214/backup': typeof Mahbub214BackupRoute
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
@@ -935,6 +943,7 @@ export interface FileRoutesById {
   '/Mahbub214/$page': typeof Mahbub214PageRoute
   '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
   '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
+  '/Mahbub214/analytics': typeof Mahbub214AnalyticsRoute
   '/Mahbub214/backup': typeof Mahbub214BackupRoute
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
@@ -1047,6 +1056,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/$page'
     | '/Mahbub214/abandoned-checkout'
     | '/Mahbub214/affiliates'
+    | '/Mahbub214/analytics'
     | '/Mahbub214/backup'
     | '/Mahbub214/bkash-transactions'
     | '/Mahbub214/bulk-update'
@@ -1156,6 +1166,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/$page'
     | '/Mahbub214/abandoned-checkout'
     | '/Mahbub214/affiliates'
+    | '/Mahbub214/analytics'
     | '/Mahbub214/backup'
     | '/Mahbub214/bkash-transactions'
     | '/Mahbub214/bulk-update'
@@ -1266,6 +1277,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/$page'
     | '/Mahbub214/abandoned-checkout'
     | '/Mahbub214/affiliates'
+    | '/Mahbub214/analytics'
     | '/Mahbub214/backup'
     | '/Mahbub214/bkash-transactions'
     | '/Mahbub214/bulk-update'
@@ -1991,6 +2003,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214BackupRouteImport
       parentRoute: typeof Mahbub214Route
     }
+    '/Mahbub214/analytics': {
+      id: '/Mahbub214/analytics'
+      path: '/analytics'
+      fullPath: '/Mahbub214/analytics'
+      preLoaderRoute: typeof Mahbub214AnalyticsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
     '/Mahbub214/affiliates': {
       id: '/Mahbub214/affiliates'
       path: '/affiliates'
@@ -2190,6 +2209,7 @@ interface Mahbub214RouteChildren {
   Mahbub214PageRoute: typeof Mahbub214PageRoute
   Mahbub214AbandonedCheckoutRoute: typeof Mahbub214AbandonedCheckoutRoute
   Mahbub214AffiliatesRoute: typeof Mahbub214AffiliatesRoute
+  Mahbub214AnalyticsRoute: typeof Mahbub214AnalyticsRoute
   Mahbub214BackupRoute: typeof Mahbub214BackupRoute
   Mahbub214BkashTransactionsRoute: typeof Mahbub214BkashTransactionsRoute
   Mahbub214BulkUpdateRoute: typeof Mahbub214BulkUpdateRoute
@@ -2239,6 +2259,7 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214PageRoute: Mahbub214PageRoute,
   Mahbub214AbandonedCheckoutRoute: Mahbub214AbandonedCheckoutRoute,
   Mahbub214AffiliatesRoute: Mahbub214AffiliatesRoute,
+  Mahbub214AnalyticsRoute: Mahbub214AnalyticsRoute,
   Mahbub214BackupRoute: Mahbub214BackupRoute,
   Mahbub214BkashTransactionsRoute: Mahbub214BkashTransactionsRoute,
   Mahbub214BulkUpdateRoute: Mahbub214BulkUpdateRoute,
