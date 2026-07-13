@@ -24,7 +24,7 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
         boxShadow: "inset 0 0 0 1px rgba(212,175,55,0.35), 0 6px 18px -8px rgba(0,0,0,0.55)",
       }}
     >
-      <div className="inline-flex items-center rounded-full bg-[#0b0f1a]/85 backdrop-blur-md p-0.5">
+      <div className="inline-flex items-center rounded-full bg-white/95 backdrop-blur-md p-0.5">
         {options.map((o) => {
           const active = code === o.v;
           return (
