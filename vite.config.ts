@@ -5,6 +5,7 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { mcpPlugin } from "@lovable.dev/mcp-js/stacks/tanstack/vite";
 import { loadEnv } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import path from "node:path";
@@ -31,6 +32,7 @@ export default defineConfig({
       },
     },
     plugins: [
+      mcpPlugin(),
       VitePWA({
         // We ship our own manifest at public/manifest.webmanifest — do NOT regenerate.
         manifest: false,
@@ -49,6 +51,9 @@ export default defineConfig({
             /^\/api\//,
             /^\/~oauth/,
             /^\/admin/,
+            /^\/mcp/,
+            /^\/\.well-known\//,
+            /^\/\.lovable\//,
             /^\/sitemap\.xml$/,
             /^\/robots\.txt$/,
           ],
