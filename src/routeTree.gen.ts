@@ -99,6 +99,7 @@ import { Route as Mahbub214PageRouteImport } from './routes/Mahbub214.$page'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
+import { Route as ApiPublicTrackPageviewRouteImport } from './routes/api.public.track-pageview'
 import { Route as ApiPublicProductsRouteImport } from './routes/api/public/products'
 import { Route as ApiPublicGenerateBlogsRouteImport } from './routes/api/public/generate-blogs'
 import { Route as ApiPublicDeliverDownloadsRouteImport } from './routes/api/public/deliver-downloads'
@@ -578,6 +579,11 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   path: '/lovable/email/suppression',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicTrackPageviewRoute = ApiPublicTrackPageviewRouteImport.update({
+  id: '/api/public/track-pageview',
+  path: '/api/public/track-pageview',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicProductsRoute = ApiPublicProductsRouteImport.update({
   id: '/api/public/products',
   path: '/api/public/products',
@@ -769,6 +775,7 @@ export interface FileRoutesByFullPath {
   '/api/public/deliver-downloads': typeof ApiPublicDeliverDownloadsRoute
   '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
+  '/api/public/track-pageview': typeof ApiPublicTrackPageviewRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
@@ -877,6 +884,7 @@ export interface FileRoutesByTo {
   '/api/public/deliver-downloads': typeof ApiPublicDeliverDownloadsRoute
   '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
+  '/api/public/track-pageview': typeof ApiPublicTrackPageviewRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
@@ -987,6 +995,7 @@ export interface FileRoutesById {
   '/api/public/deliver-downloads': typeof ApiPublicDeliverDownloadsRoute
   '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
+  '/api/public/track-pageview': typeof ApiPublicTrackPageviewRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
@@ -1098,6 +1107,7 @@ export interface FileRouteTypes {
     | '/api/public/deliver-downloads'
     | '/api/public/generate-blogs'
     | '/api/public/products'
+    | '/api/public/track-pageview'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
     | '/api/public/eps/callback'
@@ -1206,6 +1216,7 @@ export interface FileRouteTypes {
     | '/api/public/deliver-downloads'
     | '/api/public/generate-blogs'
     | '/api/public/products'
+    | '/api/public/track-pageview'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
     | '/api/public/eps/callback'
@@ -1315,6 +1326,7 @@ export interface FileRouteTypes {
     | '/api/public/deliver-downloads'
     | '/api/public/generate-blogs'
     | '/api/public/products'
+    | '/api/public/track-pageview'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
     | '/api/public/eps/callback'
@@ -1376,6 +1388,7 @@ export interface RootRouteChildren {
   ApiPublicDeliverDownloadsRoute: typeof ApiPublicDeliverDownloadsRoute
   ApiPublicGenerateBlogsRoute: typeof ApiPublicGenerateBlogsRoute
   ApiPublicProductsRoute: typeof ApiPublicProductsRoute
+  ApiPublicTrackPageviewRoute: typeof ApiPublicTrackPageviewRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicBkashCallbackRoute: typeof ApiPublicBkashCallbackRoute
   ApiPublicEpsCallbackRoute: typeof ApiPublicEpsCallbackRoute
@@ -2020,6 +2033,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailSuppressionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/track-pageview': {
+      id: '/api/public/track-pageview'
+      path: '/api/public/track-pageview'
+      fullPath: '/api/public/track-pageview'
+      preLoaderRoute: typeof ApiPublicTrackPageviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/products': {
       id: '/api/public/products'
       path: '/api/public/products'
@@ -2329,6 +2349,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicDeliverDownloadsRoute: ApiPublicDeliverDownloadsRoute,
   ApiPublicGenerateBlogsRoute: ApiPublicGenerateBlogsRoute,
   ApiPublicProductsRoute: ApiPublicProductsRoute,
+  ApiPublicTrackPageviewRoute: ApiPublicTrackPageviewRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicBkashCallbackRoute: ApiPublicBkashCallbackRoute,
   ApiPublicEpsCallbackRoute: ApiPublicEpsCallbackRoute,
