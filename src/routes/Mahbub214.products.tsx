@@ -1432,16 +1432,26 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  <div>
  <Label>Featured Image</Label>
  <div className="flex gap-3">
- <div
- className="relative w-24 h-24 rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 grid place-items-center overflow-hidden cursor-pointer hover:border-slate-300 shrink-0"
- onClick={() => fileRef.current?.click()}
- >
- {form.image_url ? (
- <img src={form.image_url} alt="" className="absolute inset-0 w-full h-full object-cover" />
- ) : (
- <ImageIcon className="w-6 h-6 text-slate-500" />
- )}
- </div>
+  <div
+  className="relative w-24 h-24 rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 grid place-items-center overflow-hidden cursor-pointer hover:border-slate-300 shrink-0"
+  onClick={() => fileRef.current?.click()}
+  >
+  {form.image_url ? (
+  <img src={form.image_url} alt="" className="absolute inset-0 w-full h-full object-cover" />
+  ) : (
+  <ImageIcon className="w-6 h-6 text-slate-500" />
+  )}
+  {form.image_url && (
+  <button
+  type="button"
+  onClick={(e) => { e.stopPropagation(); set("image_url", ""); toast.success("ইমেজ সরানো হয়েছে"); }}
+  aria-label="Remove featured image"
+  className="absolute top-1 right-1 w-5 h-5 grid place-items-center rounded-full bg-black/60 text-white hover:bg-black/80"
+  >
+  <X className="w-3 h-3" />
+  </button>
+  )}
+  </div>
  <div className="flex-1 space-y-2">
  <button onClick={() => fileRef.current?.click()} className="w-full h-11 inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50">
  {ai === "image-up" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />} Upload Image
