@@ -1816,6 +1816,99 @@ export type Database = {
         }
         Relationships: []
       }
+      web_analytics_events: {
+        Row: {
+          browser: string | null
+          city: string | null
+          country: string | null
+          country_name: string | null
+          created_at: string
+          device: string | null
+          duration_ms: number | null
+          full_url: string | null
+          id: string
+          ip_hash: string | null
+          is_new_session: boolean | null
+          is_new_visitor: boolean | null
+          language: string | null
+          os: string | null
+          path: string
+          referrer: string | null
+          referrer_host: string | null
+          region: string | null
+          screen_size: string | null
+          session_id: string
+          user_agent: string | null
+          user_id: string | null
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          utm_term: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          browser?: string | null
+          city?: string | null
+          country?: string | null
+          country_name?: string | null
+          created_at?: string
+          device?: string | null
+          duration_ms?: number | null
+          full_url?: string | null
+          id?: string
+          ip_hash?: string | null
+          is_new_session?: boolean | null
+          is_new_visitor?: boolean | null
+          language?: string | null
+          os?: string | null
+          path: string
+          referrer?: string | null
+          referrer_host?: string | null
+          region?: string | null
+          screen_size?: string | null
+          session_id: string
+          user_agent?: string | null
+          user_id?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          browser?: string | null
+          city?: string | null
+          country?: string | null
+          country_name?: string | null
+          created_at?: string
+          device?: string | null
+          duration_ms?: number | null
+          full_url?: string | null
+          id?: string
+          ip_hash?: string | null
+          is_new_session?: boolean | null
+          is_new_visitor?: boolean | null
+          language?: string | null
+          os?: string | null
+          path?: string
+          referrer?: string | null
+          referrer_host?: string | null
+          region?: string | null
+          screen_size?: string | null
+          session_id?: string
+          user_agent?: string | null
+          user_id?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       offer_winners_public: {

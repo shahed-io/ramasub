@@ -93,12 +93,14 @@ import { Route as Mahbub214CouponsRouteImport } from './routes/Mahbub214.coupons
 import { Route as Mahbub214BulkUpdateRouteImport } from './routes/Mahbub214.bulk-update'
 import { Route as Mahbub214BkashTransactionsRouteImport } from './routes/Mahbub214.bkash-transactions'
 import { Route as Mahbub214BackupRouteImport } from './routes/Mahbub214.backup'
+import { Route as Mahbub214AnalyticsRouteImport } from './routes/Mahbub214.analytics'
 import { Route as Mahbub214AffiliatesRouteImport } from './routes/Mahbub214.affiliates'
 import { Route as Mahbub214AbandonedCheckoutRouteImport } from './routes/Mahbub214.abandoned-checkout'
 import { Route as Mahbub214PageRouteImport } from './routes/Mahbub214.$page'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
+import { Route as ApiPublicTrackPageviewRouteImport } from './routes/api.public.track-pageview'
 import { Route as ApiPublicProductsRouteImport } from './routes/api/public/products'
 import { Route as ApiPublicGenerateBlogsRouteImport } from './routes/api/public/generate-blogs'
 import { Route as ApiPublicDeliverDownloadsRouteImport } from './routes/api/public/deliver-downloads'
@@ -545,6 +547,11 @@ const Mahbub214BackupRoute = Mahbub214BackupRouteImport.update({
   path: '/backup',
   getParentRoute: () => Mahbub214Route,
 } as any)
+const Mahbub214AnalyticsRoute = Mahbub214AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => Mahbub214Route,
+} as any)
 const Mahbub214AffiliatesRoute = Mahbub214AffiliatesRouteImport.update({
   id: '/affiliates',
   path: '/affiliates',
@@ -576,6 +583,11 @@ const Char91DotmcpChar93ListToolsRoute =
 const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   id: '/lovable/email/suppression',
   path: '/lovable/email/suppression',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicTrackPageviewRoute = ApiPublicTrackPageviewRouteImport.update({
+  id: '/api/public/track-pageview',
+  path: '/api/public/track-pageview',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicProductsRoute = ApiPublicProductsRouteImport.update({
@@ -709,6 +721,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/$page': typeof Mahbub214PageRoute
   '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
   '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
+  '/Mahbub214/analytics': typeof Mahbub214AnalyticsRoute
   '/Mahbub214/backup': typeof Mahbub214BackupRoute
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
@@ -769,6 +782,7 @@ export interface FileRoutesByFullPath {
   '/api/public/deliver-downloads': typeof ApiPublicDeliverDownloadsRoute
   '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
+  '/api/public/track-pageview': typeof ApiPublicTrackPageviewRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
@@ -817,6 +831,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/$page': typeof Mahbub214PageRoute
   '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
   '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
+  '/Mahbub214/analytics': typeof Mahbub214AnalyticsRoute
   '/Mahbub214/backup': typeof Mahbub214BackupRoute
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
@@ -877,6 +892,7 @@ export interface FileRoutesByTo {
   '/api/public/deliver-downloads': typeof ApiPublicDeliverDownloadsRoute
   '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
+  '/api/public/track-pageview': typeof ApiPublicTrackPageviewRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
@@ -927,6 +943,7 @@ export interface FileRoutesById {
   '/Mahbub214/$page': typeof Mahbub214PageRoute
   '/Mahbub214/abandoned-checkout': typeof Mahbub214AbandonedCheckoutRoute
   '/Mahbub214/affiliates': typeof Mahbub214AffiliatesRoute
+  '/Mahbub214/analytics': typeof Mahbub214AnalyticsRoute
   '/Mahbub214/backup': typeof Mahbub214BackupRoute
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
@@ -987,6 +1004,7 @@ export interface FileRoutesById {
   '/api/public/deliver-downloads': typeof ApiPublicDeliverDownloadsRoute
   '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
+  '/api/public/track-pageview': typeof ApiPublicTrackPageviewRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
   '/api/public/eps/callback': typeof ApiPublicEpsCallbackRoute
@@ -1038,6 +1056,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/$page'
     | '/Mahbub214/abandoned-checkout'
     | '/Mahbub214/affiliates'
+    | '/Mahbub214/analytics'
     | '/Mahbub214/backup'
     | '/Mahbub214/bkash-transactions'
     | '/Mahbub214/bulk-update'
@@ -1098,6 +1117,7 @@ export interface FileRouteTypes {
     | '/api/public/deliver-downloads'
     | '/api/public/generate-blogs'
     | '/api/public/products'
+    | '/api/public/track-pageview'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
     | '/api/public/eps/callback'
@@ -1146,6 +1166,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/$page'
     | '/Mahbub214/abandoned-checkout'
     | '/Mahbub214/affiliates'
+    | '/Mahbub214/analytics'
     | '/Mahbub214/backup'
     | '/Mahbub214/bkash-transactions'
     | '/Mahbub214/bulk-update'
@@ -1206,6 +1227,7 @@ export interface FileRouteTypes {
     | '/api/public/deliver-downloads'
     | '/api/public/generate-blogs'
     | '/api/public/products'
+    | '/api/public/track-pageview'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
     | '/api/public/eps/callback'
@@ -1255,6 +1277,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/$page'
     | '/Mahbub214/abandoned-checkout'
     | '/Mahbub214/affiliates'
+    | '/Mahbub214/analytics'
     | '/Mahbub214/backup'
     | '/Mahbub214/bkash-transactions'
     | '/Mahbub214/bulk-update'
@@ -1315,6 +1338,7 @@ export interface FileRouteTypes {
     | '/api/public/deliver-downloads'
     | '/api/public/generate-blogs'
     | '/api/public/products'
+    | '/api/public/track-pageview'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
     | '/api/public/eps/callback'
@@ -1376,6 +1400,7 @@ export interface RootRouteChildren {
   ApiPublicDeliverDownloadsRoute: typeof ApiPublicDeliverDownloadsRoute
   ApiPublicGenerateBlogsRoute: typeof ApiPublicGenerateBlogsRoute
   ApiPublicProductsRoute: typeof ApiPublicProductsRoute
+  ApiPublicTrackPageviewRoute: typeof ApiPublicTrackPageviewRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicBkashCallbackRoute: typeof ApiPublicBkashCallbackRoute
   ApiPublicEpsCallbackRoute: typeof ApiPublicEpsCallbackRoute
@@ -1978,6 +2003,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214BackupRouteImport
       parentRoute: typeof Mahbub214Route
     }
+    '/Mahbub214/analytics': {
+      id: '/Mahbub214/analytics'
+      path: '/analytics'
+      fullPath: '/Mahbub214/analytics'
+      preLoaderRoute: typeof Mahbub214AnalyticsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
     '/Mahbub214/affiliates': {
       id: '/Mahbub214/affiliates'
       path: '/affiliates'
@@ -2018,6 +2050,13 @@ declare module '@tanstack/react-router' {
       path: '/lovable/email/suppression'
       fullPath: '/lovable/email/suppression'
       preLoaderRoute: typeof LovableEmailSuppressionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/track-pageview': {
+      id: '/api/public/track-pageview'
+      path: '/api/public/track-pageview'
+      fullPath: '/api/public/track-pageview'
+      preLoaderRoute: typeof ApiPublicTrackPageviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/products': {
@@ -2170,6 +2209,7 @@ interface Mahbub214RouteChildren {
   Mahbub214PageRoute: typeof Mahbub214PageRoute
   Mahbub214AbandonedCheckoutRoute: typeof Mahbub214AbandonedCheckoutRoute
   Mahbub214AffiliatesRoute: typeof Mahbub214AffiliatesRoute
+  Mahbub214AnalyticsRoute: typeof Mahbub214AnalyticsRoute
   Mahbub214BackupRoute: typeof Mahbub214BackupRoute
   Mahbub214BkashTransactionsRoute: typeof Mahbub214BkashTransactionsRoute
   Mahbub214BulkUpdateRoute: typeof Mahbub214BulkUpdateRoute
@@ -2219,6 +2259,7 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214PageRoute: Mahbub214PageRoute,
   Mahbub214AbandonedCheckoutRoute: Mahbub214AbandonedCheckoutRoute,
   Mahbub214AffiliatesRoute: Mahbub214AffiliatesRoute,
+  Mahbub214AnalyticsRoute: Mahbub214AnalyticsRoute,
   Mahbub214BackupRoute: Mahbub214BackupRoute,
   Mahbub214BkashTransactionsRoute: Mahbub214BkashTransactionsRoute,
   Mahbub214BulkUpdateRoute: Mahbub214BulkUpdateRoute,
@@ -2329,6 +2370,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicDeliverDownloadsRoute: ApiPublicDeliverDownloadsRoute,
   ApiPublicGenerateBlogsRoute: ApiPublicGenerateBlogsRoute,
   ApiPublicProductsRoute: ApiPublicProductsRoute,
+  ApiPublicTrackPageviewRoute: ApiPublicTrackPageviewRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicBkashCallbackRoute: ApiPublicBkashCallbackRoute,
   ApiPublicEpsCallbackRoute: ApiPublicEpsCallbackRoute,
