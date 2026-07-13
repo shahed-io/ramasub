@@ -227,6 +227,12 @@ function RootComponent() {
     };
   }, []);
 
+  // First-party web analytics — track every public route change
+  useEffect(() => {
+    if (isAdmin) return;
+    import("@/lib/analytics-tracker").then((m) => m.trackPageview(pathname));
+  }, [pathname, isAdmin]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <RealtimeBridge />
