@@ -20,8 +20,8 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
       aria-label="Currency selector"
       className="inline-flex items-center rounded-full p-[3px] shrink-0"
       style={{
-        background: "linear-gradient(135deg, rgba(212,175,55,0.35), rgba(255,255,255,0.06) 40%, rgba(212,175,55,0.25))",
-        boxShadow: "inset 0 0 0 1px rgba(212,175,55,0.35), 0 6px 18px -8px rgba(0,0,0,0.55)",
+        background: "linear-gradient(135deg, rgba(139,92,246,0.35), rgba(255,255,255,0.06) 40%, rgba(124,58,237,0.25))",
+        boxShadow: "inset 0 0 0 1px rgba(139,92,246,0.35), 0 6px 18px -8px rgba(0,0,0,0.55)",
       }}
     >
       <div className="inline-flex items-center rounded-full bg-white/95 backdrop-blur-md p-0.5">
@@ -37,12 +37,12 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
                 "inline-flex items-center justify-center rounded-full font-semibold tracking-wide transition-all whitespace-nowrap",
                 compact ? "h-7 px-3 text-[10.5px]" : "h-8 px-3.5 text-[11px]",
                 active
-                  ? "text-[#1a1206] shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_4px_12px_-4px_rgba(212,175,55,0.55)]"
-                  : "text-[#6b4e12] hover:text-[#a8801f]",
+                  ? "text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_4px_12px_-4px_rgba(124,58,237,0.55)]"
+                  : "text-[#5b21b6] hover:text-[#7c3aed]",
               ].join(" ")}
               style={
                 active
-                  ? { background: "linear-gradient(180deg,#f5e6a8 0%,#d4af37 55%,#a8801f 100%)" }
+                  ? { background: "linear-gradient(180deg,#a78bfa 0%,#7c3aed 55%,#5b21b6 100%)" }
                   : undefined
               }
             >
