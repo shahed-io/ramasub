@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Check } from "lucide-react";
+import { ArrowLeftRight, Check } from "lucide-react";
 import { useCurrency, type CurrencyCode } from "@/context/CurrencyContext";
 
 /**
@@ -48,12 +48,19 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
           aria-expanded={open}
           aria-label={`Currency: ${active.short}. Tap to change.`}
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex items-center justify-center rounded-full w-8 h-8 text-[13px] font-black leading-none text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_6px_16px_-6px_rgba(124,58,237,0.6)] transition-transform active:scale-95"
+          className="relative inline-flex items-center justify-center rounded-full w-9 h-9 text-[13px] font-black leading-none text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_6px_16px_-6px_rgba(124,58,237,0.6)] transition-transform active:scale-95"
           style={{
             background: "linear-gradient(180deg,#a78bfa 0%,#7c3aed 55%,#5b21b6 100%)",
           }}
         >
           <span aria-hidden>{active.symbol}</span>
+          {/* Swap badge — signals this is a currency switcher */}
+          <span
+            aria-hidden
+            className="absolute -bottom-0.5 -right-0.5 inline-flex items-center justify-center w-[14px] h-[14px] rounded-full bg-white text-[#7c3aed] shadow-[0_2px_6px_-1px_rgba(15,23,42,0.35)] ring-[1.5px] ring-[#7c3aed]"
+          >
+            <ArrowLeftRight className="w-[8px] h-[8px]" strokeWidth={3.5} />
+          </span>
         </button>
 
 
@@ -61,8 +68,9 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
           <div
             role="listbox"
             aria-label="Select currency"
-            className="absolute right-0 top-[calc(100%+8px)] z-50 min-w-[168px] rounded-xl bg-white p-1.5 shadow-[0_12px_32px_-8px_rgba(15,23,42,0.35),0_0_0_1px_rgba(139,92,246,0.25)] animate-in fade-in slide-in-from-top-1 duration-150"
+            className="absolute left-0 top-[calc(100%+8px)] z-50 min-w-[168px] rounded-xl bg-white p-1.5 shadow-[0_12px_32px_-8px_rgba(15,23,42,0.35),0_0_0_1px_rgba(139,92,246,0.25)] animate-in fade-in slide-in-from-top-1 duration-150"
           >
+
             {options.map((o) => {
               const isActive = o.v === code;
               return (
