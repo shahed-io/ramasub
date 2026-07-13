@@ -142,12 +142,12 @@ function GeneralSettingsPage() {
       {/* Page header */}
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-3">
-          <span className="w-10 h-10 rounded-xl bg-violet-100 grid place-items-center text-violet-700">
-            <Settings className="w-5 h-5" />
+          <span className="w-12 h-12 rounded-2xl bg-violet-100 grid place-items-center text-violet-700">
+            <Settings className="w-6 h-6" />
           </span>
           <div>
-            <h2 className="text-lg font-extrabold" style={{ color: "var(--admin-ink)" }}>Site Settings</h2>
-            <p className="text-xs mt-0.5" style={{ color: "var(--admin-muted)" }}>Configure your store settings</p>
+            <h2 className="text-2xl font-extrabold" style={{ color: "var(--admin-ink)" }}>Site Settings</h2>
+            <p className="text-sm mt-0.5" style={{ color: "var(--admin-muted)" }}>Configure your store settings</p>
           </div>
         </div>
         <button
