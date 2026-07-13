@@ -38,7 +38,7 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
                 compact ? "h-7 px-3 text-[10.5px]" : "h-8 px-3.5 text-[11px]",
                 active
                   ? "text-[#1a1206] shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_4px_12px_-4px_rgba(212,175,55,0.55)]"
-                  : "text-white/60 hover:text-amber-100",
+                  : "text-[#6b4e12] hover:text-[#a8801f]",
               ].join(" ")}
               style={
                 active
