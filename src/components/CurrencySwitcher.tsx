@@ -32,7 +32,7 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
   if (!config.enable_usd) return null;
 
   const options: Array<{ v: CurrencyCode; label: string; symbol: string; short: string }> = [
-    { v: "BDT", label: "Bangladeshi Taka", symbol: "৳", short: "BDT" },
+    { v: "BDT", label: "বাংলাদেশি টাকা", symbol: "৳", short: "BDT" },
     { v: "USD", label: "US Dollar", symbol: "$", short: "USD" },
   ];
 
@@ -46,20 +46,32 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
           type="button"
           aria-haspopup="listbox"
           aria-expanded={open}
-          aria-label={`Currency: ${active.short}. Tap to change.`}
+          aria-label={`Currency selector. Current currency ${active.short}. Tap to change between BDT and USD.`}
           onClick={() => setOpen((v) => !v)}
-          className="relative inline-flex items-center justify-center rounded-full w-9 h-9 text-[13px] font-black leading-none text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_6px_16px_-6px_rgba(124,58,237,0.6)] transition-transform active:scale-95"
+          className="relative inline-flex h-9 min-w-[64px] items-center justify-center gap-1 rounded-full border border-white/20 bg-white/95 px-1.5 text-[12px] font-black leading-none text-primary-dark shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_8px_20px_-10px_rgba(15,23,42,0.55)] ring-1 ring-primary/20 transition-transform active:scale-95"
           style={{
-            background: "linear-gradient(180deg,#a78bfa 0%,#7c3aed 55%,#5b21b6 100%)",
+            backdropFilter: "blur(12px)",
           }}
         >
-          <span aria-hidden>{active.symbol}</span>
-          {/* Swap badge — signals this is a currency switcher */}
-          <span
-            aria-hidden
-            className="absolute -bottom-0.5 -right-0.5 inline-flex items-center justify-center w-[14px] h-[14px] rounded-full bg-white text-[#7c3aed] shadow-[0_2px_6px_-1px_rgba(15,23,42,0.35)] ring-[1.5px] ring-[#7c3aed]"
-          >
-            <ArrowLeftRight className="w-[8px] h-[8px]" strokeWidth={3.5} />
+          {options.map((o) => {
+            const isActive = o.v === active.v;
+            return (
+              <span
+                key={o.v}
+                aria-hidden
+                className={[
+                  "grid h-6 w-6 place-items-center rounded-full transition-all",
+                  isActive
+                    ? "bg-gradient-to-b from-primary via-violet-500 to-primary-dark text-primary-foreground shadow-[0_5px_12px_-6px_rgba(124,58,237,0.8)]"
+                    : "bg-secondary text-muted-foreground",
+                ].join(" ")}
+              >
+                {o.symbol}
+              </span>
+            );
+          })}
+          <span aria-hidden className="absolute -right-1 -top-1 grid h-4 w-4 place-items-center rounded-full bg-accent text-accent-foreground shadow-[0_3px_8px_-4px_rgba(15,23,42,0.55)] ring-2 ring-background">
+            <ArrowLeftRight className="h-2.5 w-2.5" strokeWidth={3.2} />
           </span>
         </button>
 
@@ -68,7 +80,7 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
           <div
             role="listbox"
             aria-label="Select currency"
-            className="absolute left-0 top-[calc(100%+8px)] z-50 min-w-[168px] rounded-xl bg-white p-1.5 shadow-[0_12px_32px_-8px_rgba(15,23,42,0.35),0_0_0_1px_rgba(139,92,246,0.25)] animate-in fade-in slide-in-from-top-1 duration-150"
+            className="absolute left-0 top-[calc(100%+8px)] z-50 min-w-[188px] max-w-[calc(100vw-24px)] rounded-xl bg-popover p-1.5 text-popover-foreground shadow-[0_12px_32px_-8px_rgba(15,23,42,0.35),0_0_0_1px_rgba(139,92,246,0.25)] animate-in fade-in slide-in-from-top-1 duration-150"
           >
 
             {options.map((o) => {
@@ -86,34 +98,29 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
                   className={[
                     "w-full flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-left transition-colors",
                     isActive
-                      ? "bg-gradient-to-r from-violet-50 to-fuchsia-50 text-[#5b21b6]"
-                      : "text-slate-700 hover:bg-slate-50",
+                      ? "bg-secondary text-primary-dark"
+                      : "text-muted-foreground hover:bg-secondary/70",
                   ].join(" ")}
                 >
                   <span
                     className={[
                       "inline-flex items-center justify-center w-6 h-6 rounded-full text-[12px] font-black shrink-0",
                       isActive
-                        ? "text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
-                        : "bg-slate-100 text-slate-600",
+                        ? "bg-gradient-to-b from-primary via-violet-500 to-primary-dark text-primary-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
+                        : "bg-secondary text-muted-foreground",
                     ].join(" ")}
-                    style={
-                      isActive
-                        ? { background: "linear-gradient(180deg,#a78bfa 0%,#7c3aed 55%,#5b21b6 100%)" }
-                        : undefined
-                    }
                     aria-hidden
                   >
                     {o.symbol}
                   </span>
                   <span className="flex-1 min-w-0">
                     <span className="block text-[13px] font-bold leading-tight">{o.short}</span>
-                    <span className="block text-[10.5px] text-slate-500 leading-tight mt-0.5">
+                    <span className="block text-[10.5px] text-muted-foreground leading-tight mt-0.5">
                       {o.label}
                     </span>
                   </span>
                   {isActive && (
-                    <Check className="w-4 h-4 text-[#7c3aed] shrink-0" strokeWidth={3} />
+                    <Check className="w-4 h-4 text-primary shrink-0" strokeWidth={3} />
                   )}
                 </button>
               );
