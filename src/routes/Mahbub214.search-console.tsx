@@ -216,7 +216,7 @@ function SearchConsolePage() {
               <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-slate-900 to-violet-700 bg-clip-text text-transparent">Google Search Console</h1>
               <p className="text-slate-500 text-sm mt-1">Analytics, sitemap, URL inspection — সব customizable admin থেকে</p>
             </div>
-            <div className={`hidden md:inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur border ${connected ? "bg-emerald-50/80 border-emerald-200 text-emerald-700" : "bg-rose-50/80 border-rose-200 text-rose-700"}`}>
+            <div className={`hidden md:inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur border ${connected ? "bg-white/80 border-violet-200 text-violet-700" : "bg-rose-50/80 border-rose-200 text-rose-700"}`}>
               {connected ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
               {connected ? "Connected" : "Not connected"}
             </div>

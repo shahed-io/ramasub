@@ -160,7 +160,7 @@ function TelegramAdmin() {
         >
           <Bell className="w-4 h-4" />
           Order Management Bot
-          {enabled && <span className="ml-1 w-1.5 h-1.5 rounded-full bg-emerald-400" />}
+          {enabled && <span className="ml-1 w-1.5 h-1.5 rounded-full bg-violet-500" />}
         </button>
         <button
           onClick={() => setTab("customer")}
@@ -170,7 +170,7 @@ function TelegramAdmin() {
         >
           <ShoppingBag className="w-4 h-4" />
           Customer Shopping Bot
-          {custEnabled && <span className="ml-1 w-1.5 h-1.5 rounded-full bg-emerald-400" />}
+          {custEnabled && <span className="ml-1 w-1.5 h-1.5 rounded-full bg-violet-500" />}
         </button>
       </div>
 
@@ -336,7 +336,7 @@ function TelegramAdmin() {
               <span className="inline-flex items-center gap-1 rounded-full bg-white border border-sky-200 px-2.5 py-1 text-slate-700">
                 <Users className="w-3.5 h-3.5" /> {linkCount} linked user{linkCount === 1 ? "" : "s"}
               </span>
-              <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 border ${hasWebhookSecret ? "bg-emerald-50 border-emerald-200 text-emerald-700" : "bg-amber-50 border-amber-200 text-amber-700"}`}>
+              <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 border ${hasWebhookSecret ? "bg-white border-violet-200 text-violet-700" : "bg-amber-50 border-amber-200 text-amber-700"}`}>
                 {hasWebhookSecret ? <CheckCircle2 className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}
                 Webhook {hasWebhookSecret ? "registered" : "not registered"}
               </span>

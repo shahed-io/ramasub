@@ -235,7 +235,7 @@ function InvoiceFromOrders() {
                       <button
                         onClick={() => sendWa(o)}
                         disabled={busyId === o.id}
-                        className="h-8 px-3 rounded-lg bg-green-600 hover:bg-green-700 text-white text-xs font-semibold inline-flex items-center gap-1.5 disabled:opacity-50"
+                        className="h-8 px-3 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-xs font-semibold inline-flex items-center gap-1.5 disabled:opacity-50"
                       >
                         {busyId === o.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <MessageCircle className="w-3.5 h-3.5" />}
                         Send
@@ -420,7 +420,7 @@ function QuickOrderCreator() {
           <button onClick={onDownload} className="inline-flex items-center gap-2 h-10 px-4 rounded-lg border border-border bg-card text-sm font-semibold hover:bg-secondary">
             <Download className="w-4 h-4" /> PDF
           </button>
-          <button onClick={onSendWa} disabled={busy} className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-semibold disabled:opacity-50">
+          <button onClick={onSendWa} disabled={busy} className="inline-flex items-center gap-2 h-10 px-5 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold disabled:opacity-50">
             {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <MessageCircle className="w-4 h-4" />}
             Send via WhatsApp
           </button>
@@ -530,7 +530,7 @@ function BulkDeliverySender() {
         <button onClick={toggleAll} className="text-xs font-semibold text-primary hover:underline">
           {selected.size === orders.length && orders.length > 0 ? "Deselect all" : "Select all"}
         </button>
-        <button onClick={sendAll} disabled={selected.size === 0} className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-semibold disabled:opacity-50">
+        <button onClick={sendAll} disabled={selected.size === 0} className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold disabled:opacity-50">
           <Send className="w-4 h-4" /> Send to {selected.size || 0} customers
         </button>
       </div>
@@ -564,7 +564,7 @@ function BulkDeliverySender() {
                     {(o.items ?? []).map((it) => it.name ?? it.slug).join(", ")}
                   </td>
                   <td className="px-2 py-2 text-right">
-                    <button onClick={() => sendOne(o)} className="h-8 px-3 rounded-lg bg-green-600 hover:bg-green-700 text-white text-xs font-semibold inline-flex items-center gap-1.5">
+                    <button onClick={() => sendOne(o)} className="h-8 px-3 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-xs font-semibold inline-flex items-center gap-1.5">
                       <MessageCircle className="w-3.5 h-3.5" /> Send
                     </button>
                   </td>

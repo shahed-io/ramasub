@@ -259,7 +259,7 @@ function AdminDashboard() {
       label: t("DELIVERED", "ডেলিভারড"),
       value: stats.delivered.toString(),
       Icon: CheckCircle2,
-      iconGrad: "from-violet-500 to-green-600",
+      iconGrad: "from-violet-500 to-violet-700",
       bgGrad: "from-violet-50/60 via-white to-violet-50/30",
     },
     {

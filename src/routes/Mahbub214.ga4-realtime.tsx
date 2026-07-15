@@ -192,7 +192,7 @@ function Toggle({ checked, onChange, label, sub }: { checked: boolean; onChange:
       onClick={() => onChange(!checked)}
       className="w-full flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2.5 hover:bg-slate-50 text-left"
     >
-      <span className={`relative w-9 h-5 rounded-full transition ${checked ? "bg-emerald-500" : "bg-slate-300"}`}>
+      <span className={`relative w-9 h-5 rounded-full transition ${checked ? "bg-violet-500" : "bg-slate-300"}`}>
         <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all ${checked ? "left-4" : "left-0.5"}`} />
       </span>
       <span className="flex-1 min-w-0">
@@ -386,7 +386,7 @@ function GA4RealtimePage() {
                   <Radio className="w-3 h-3" /> Live
                 </span>
                 {isConfigured ? (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 text-emerald-700 px-2 py-0.5 text-[10px] font-black uppercase">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-violet-100 text-violet-700 px-2 py-0.5 text-[10px] font-black uppercase">
                     <CheckCircle2 className="w-3 h-3" /> {t("Connected", "কানেক্টেড")}
                   </span>
                 ) : (
@@ -452,7 +452,7 @@ function GA4RealtimePage() {
       <div className="grid lg:grid-cols-2 gap-4">
         <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-5">
           <h2 className="text-base font-black text-slate-900 flex items-center gap-2">
-            <Radio className="w-4 h-4 text-emerald-600" />
+            <Radio className="w-4 h-4 text-violet-700" />
             {t("Top countries — live", "শীর্ষ দেশ — লাইভ")}
           </h2>
           {topCountries.length === 0 ? (
@@ -604,7 +604,7 @@ function GA4RealtimePage() {
       <Accordion
         title={t("GA4 Connection — Property ID, Measurement ID & API Secret", "GA4 কানেকশন — Property ID, Measurement ID ও API Secret")}
         icon={<Settings />} defaultOpen={!isConfigured}
-        badge={isConfigured ? <span className="text-[10px] font-black text-emerald-600 uppercase mr-2">Ready</span> : <span className="text-[10px] font-black text-amber-600 uppercase mr-2">Setup</span>}
+        badge={isConfigured ? <span className="text-[10px] font-black text-violet-700 uppercase mr-2">Ready</span> : <span className="text-[10px] font-black text-amber-600 uppercase mr-2">Setup</span>}
       >
         <div className="grid md:grid-cols-2 gap-4">
           <Field
@@ -674,7 +674,7 @@ function GA4RealtimePage() {
         </div>
 
         {testResult && (
-          <div className={`mt-3 rounded-xl px-3 py-2.5 text-xs font-semibold flex items-start gap-2 ${testResult.ok ? "bg-emerald-50 text-emerald-700" : "bg-rose-50 text-rose-700"}`}>
+          <div className={`mt-3 rounded-xl px-3 py-2.5 text-xs font-semibold flex items-start gap-2 ${testResult.ok ? "bg-white text-violet-700" : "bg-rose-50 text-rose-700"}`}>
             {testResult.ok ? <CheckCircle2 className="w-4 h-4 shrink-0" /> : <AlertCircle className="w-4 h-4 shrink-0" />}
             <span>{testResult.msg}</span>
           </div>
