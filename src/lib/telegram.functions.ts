@@ -57,11 +57,13 @@ function buildText(input: NotifyInput): string {
   return parts.join("\n");
 }
 
-// SECURITY: require an authenticated caller so anonymous visitors can't spam
-// the admin Telegram chat. Input is strictly validated (allowlisted events,
-// capped lengths, URL-shaped `url`).
+// Fire-and-forget notification to admin's Telegram. Input is strictly
+// validated (allowlisted events, capped lengths, URL-shaped `url`) so this
+// endpoint stays safe from anonymous contexts (new_signup fires before the
+// session is established; abandoned_checkout / chat_message can come from
+// guests). Auth is intentionally NOT required — otherwise legit events drop
+// with 401 and no log entry ever appears.
 export const sendTelegramNotification = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => notifyInputSchema.parse(d))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
