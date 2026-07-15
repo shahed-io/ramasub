@@ -838,11 +838,22 @@ async function handleCallback(token: string, chatId: number, data: string, callb
 
   if (data === "home") return sendMainMenu(token, chatId);
   if (data === "shop") return sendCategories(token, chatId);
+  if (data === "popular") return sendPopular(token, chatId);
+  if (data === "search") return startSearch(token, chatId);
   if (data === "orders") return sendMyOrders(token, chatId);
   if (data === "wallet") return sendWallet(token, chatId);
+  if (data === "refer") return sendReferral(token, chatId);
+  if (data === "help") return sendHelp(token, chatId);
+  if (data === "support") return sendSupport(token, chatId);
+  if (data === "account") return sendAccount(token, chatId);
+  if (data === "connect") return sendConnectPrompt(token, chatId);
+  if (data === "unlink") {
+    await admin().from("telegram_customer_links" as any).delete().eq("chat_id", chatId);
+    return reply(token, chatId, `🔌 <b>Disconnected</b>\n${DIVIDER}\n\nAccount আবার connect করতে /start দিন।`, { reply_markup: mainMenuFor(false) });
+  }
   if (data === "cancel") {
     await resetSession(chatId);
-    return reply(token, chatId, "Cancelled — কোনো action নেওয়া হয়নি।", { reply_markup: mainMenuFor(true) });
+    return reply(token, chatId, "✖ Cancelled — কোনো action নেওয়া হয়নি।", { reply_markup: mainMenuFor(!!(await findLinkedUser(chatId))) });
   }
 
   if (data.startsWith("cat:")) return sendProductsInCategory(token, chatId, data.slice(4));
@@ -856,7 +867,7 @@ async function handleCallback(token: string, chatId: number, data: string, callb
   if (data.startsWith("pay:")) {
     const method = data.slice(4);
     const session = await getSession(chatId);
-    if (!session.user_id) return reply(token, chatId, "Session expired. /shop থেকে আবার শুরু করুন।");
+    if (!session.user_id) return reply(token, chatId, "⏱️ Session expired. /shop থেকে আবার শুরু করুন।", { reply_markup: mainMenuFor(true) });
     if (method === "wallet") return handlePayWallet(token, chatId, session);
     if (method === "bkash" || method === "nagad") return handlePayMFS(token, chatId, session, method);
   }
@@ -864,7 +875,7 @@ async function handleCallback(token: string, chatId: number, data: string, callb
   if (data === "confirm:wallet") {
     const session = await getSession(chatId);
     if (session.step !== "checkout:confirm_wallet") {
-      return reply(token, chatId, "Session expired.", { reply_markup: mainMenuFor(true) });
+      return reply(token, chatId, "⏱️ Session expired.", { reply_markup: mainMenuFor(true) });
     }
     return confirmWalletOrder(token, chatId, session);
   }
