@@ -497,7 +497,7 @@ async function confirmWalletOrder(token: string, chatId: number, session: Sessio
   // Atomic wallet deduction — RPC updates balance in a single statement with
   // a RETURNING-based negative-balance guard, and also writes the matching
   // wallet_transactions row inside the same transaction.
-  const { data: txRow, error: spendErr } = await admin().rpc("admin_spend_wallet" as any, {
+  const { data: txRow, error: spendErr } = await (admin() as any).rpc("admin_spend_wallet", {
     _user_id: uid,
     _amount: price,
     _ref_order: orderId,
