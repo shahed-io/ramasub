@@ -507,7 +507,12 @@ async function confirmWalletOrder(token: string, chatId: number, session: Sessio
   await reply(
     token,
     chatId,
-    `✅ <b>Order placed successfully!</b>\n\n🆔 ${shortId}\n💰 Paid via Wallet: ৳${price}\n📊 New balance: ৳${newBalance}\n\nআপনার order processing শুরু হয়েছে। Delivery হলে এখানেই notification পাবেন।\n\n🔗 <a href="https://ramasub.com/orders/${orderId}">Order details</a>`,
+    `<b>Order placed</b>\n${DIVIDER}\n\n` +
+      `<b>Order ID</b>       ${shortId}\n` +
+      `<b>Paid</b>              ৳${price}  <i>· Wallet</i>\n` +
+      `<b>New balance</b>   ৳${newBalance}\n\n${DIVIDER}\n` +
+      `Processing শুরু হয়েছে। Delivery হলে এখানেই notification পাবেন।\n\n` +
+      `<a href="https://ramasub.com/orders/${orderId}">Order details ↗</a>`,
     { reply_markup: MAIN_MENU },
   );
   await resetSession(chatId);
@@ -516,7 +521,7 @@ async function confirmWalletOrder(token: string, chatId: number, session: Sessio
 async function submitMFSOrder(token: string, chatId: number, session: Session, trxid: string) {
   const clean = trxid.trim().toUpperCase();
   if (!/^[A-Z0-9]{6,20}$/.test(clean)) {
-    await reply(token, chatId, "❌ TrxID format ঠিক না। সাধারণত 10 character alphanumeric হয়। আবার পাঠান।");
+    await reply(token, chatId, `<b>Invalid TrxID</b>\n${DIVIDER}\n\nTrxID সাধারণত ৬–২০ character alphanumeric হয়। আবার পাঠান।`);
     return;
   }
   let orderId: string;
@@ -528,14 +533,19 @@ async function submitMFSOrder(token: string, chatId: number, session: Session, t
       paymentStatus: "pending",
     });
   } catch (e) {
-    await reply(token, chatId, `❌ Order create করা যায়নি: ${(e as Error).message}`);
+    await reply(token, chatId, `<b>Order failed</b>\n${DIVIDER}\n\n${escHtml((e as Error).message)}`);
     return;
   }
   const shortId = "ORD-" + orderId.replace(/-/g, "").slice(0, 8).toUpperCase();
   await reply(
     token,
     chatId,
-    `✅ <b>Order received!</b>\n\n🆔 ${shortId}\n💵 Amount: ৳${session.context.price}\n🧾 TrxID: <code>${escHtml(clean)}</code>\n\n⏳ আমরা payment verify করছি। ১৫-৩০ মিনিটের মধ্যে delivery পাবেন।\n\n🔗 <a href="https://ramasub.com/orders/${orderId}">Track order</a>`,
+    `<b>Order received</b>\n${DIVIDER}\n\n` +
+      `<b>Order ID</b>   ${shortId}\n` +
+      `<b>Amount</b>     ৳${session.context.price}\n` +
+      `<b>TrxID</b>          <code>${escHtml(clean)}</code>\n\n${DIVIDER}\n` +
+      `Payment verify করছি — ১৫–৩০ মিনিটের মধ্যে delivery পাবেন।\n\n` +
+      `<a href="https://ramasub.com/orders/${orderId}">Track order ↗</a>`,
     { reply_markup: MAIN_MENU },
   );
   await resetSession(chatId);
@@ -545,7 +555,7 @@ async function submitMFSOrder(token: string, chatId: number, session: Session, t
 async function sendMyOrders(token: string, chatId: number) {
   const linked = await findLinkedUser(chatId);
   if (!linked) {
-    await reply(token, chatId, "🔒 Order দেখতে account link করতে হবে। /start দিন।");
+    await reply(token, chatId, `<b>Account link প্রয়োজন</b>\n${DIVIDER}\n\nOrder দেখতে account link করতে হবে। /start দিন।`);
     return;
   }
   const { data } = await admin()
@@ -556,27 +566,30 @@ async function sendMyOrders(token: string, chatId: number) {
     .limit(10);
   const rows = (data as any[]) ?? [];
   if (rows.length === 0) {
-    await reply(token, chatId, "📭 এখনো কোনো order নেই। 🛍️ Shop থেকে কিছু কিনুন!", { reply_markup: MAIN_MENU });
+    await reply(token, chatId, `<b>My Orders</b>\n${DIVIDER}\n\nএখনো কোনো order নেই।\n\nShop থেকে prima subscription বেছে নিতে পারেন।`, { reply_markup: MAIN_MENU });
     return;
   }
-  const emoji: Record<string, string> = { pending: "⏳", processing: "⚙️", completed: "✅", delivered: "📦", cancelled: "❌", failed: "⚠️" };
+  const dot: Record<string, string> = { pending: "○", processing: "◐", completed: "●", delivered: "●", cancelled: "×", failed: "×" };
   const lines = rows
     .map((r) => {
       const short = "ORD-" + r.id.replace(/-/g, "").slice(0, 8).toUpperCase();
       const first = Array.isArray(r.items) && r.items[0] ? r.items[0].name : "Order";
-      const em = emoji[r.status] ?? "🔔";
-      return `${em} <b>${short}</b> · ৳${r.total} · <i>${r.status}</i>\n   ${escHtml(String(first).slice(0, 50))}`;
+      const d = dot[r.status] ?? "·";
+      return `${d}  <b>${short}</b>  ·  ৳${r.total}  ·  <i>${r.status}</i>\n     ${escHtml(String(first).slice(0, 50))}`;
     })
     .join("\n\n");
-  await reply(token, chatId, `📦 <b>Your last 10 orders</b>\n\n${lines}\n\n🔗 <a href="https://ramasub.com/orders">All orders</a>`, {
-    reply_markup: MAIN_MENU,
-  });
+  await reply(
+    token,
+    chatId,
+    `<b>Recent Orders</b>\n${DIVIDER}\n\n${lines}\n\n${DIVIDER}\n<a href="https://ramasub.com/orders">All orders ↗</a>`,
+    { reply_markup: MAIN_MENU },
+  );
 }
 
 async function sendWallet(token: string, chatId: number) {
   const linked = await findLinkedUser(chatId);
   if (!linked) {
-    await reply(token, chatId, "🔒 Wallet দেখতে account link করতে হবে। /start দিন।");
+    await reply(token, chatId, `<b>Account link প্রয়োজন</b>\n${DIVIDER}\n\nWallet দেখতে account link করতে হবে। /start দিন।`);
     return;
   }
   const { data } = await admin().from("wallets" as any).select("balance").eq("user_id", linked.user_id).maybeSingle();
@@ -584,7 +597,7 @@ async function sendWallet(token: string, chatId: number) {
   await reply(
     token,
     chatId,
-    `💰 <b>Wallet Balance</b>\n\n<b>৳${bal}</b>\n\nTop-up করতে <a href="https://ramasub.com/wallet">এখানে ক্লিক করুন</a>।`,
+    `<b>Wallet</b>\n${DIVIDER}\n\n<b>Balance</b>\n\n           <b>৳${bal}</b>\n\n${DIVIDER}\nTop-up করতে <a href="https://ramasub.com/wallet">wallet page</a> visit করুন।`,
     { reply_markup: MAIN_MENU },
   );
 }
