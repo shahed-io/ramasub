@@ -402,14 +402,7 @@ async function sendProductDetail(token: string, chatId: number, slug: string) {
 async function startCheckout(token: string, chatId: number, slug: string, planIdx: number) {
   const linked = await findLinkedUser(chatId);
   if (!linked) {
-    await reply(
-      token,
-      chatId,
-      `<b>Account link প্রয়োজন</b>\n${DIVIDER}\n\nOrder করতে হলে RamaSub account connect করতে হবে — মাত্র এক মিনিটের কাজ।\n\n<a href="https://ramasub.com/connect-telegram">এখানে ক্লিক করে link করুন</a>\n\nAccount না থাকলে আগে <a href="https://ramasub.com/register">register</a> করুন। অথবা phone share করলে আমরা automatic match করে দেব।`,
-      {
-        reply_markup: { keyboard: [[{ text: "📱 Share phone number", request_contact: true }]], resize_keyboard: true, one_time_keyboard: true },
-      },
-    );
+    await sendConnectPrompt(token, chatId);
     return;
   }
 
