@@ -240,14 +240,16 @@ function TelegramAdmin() {
         </div>
 
         <div className="rounded-xl border border-sky-200 bg-white/70 p-3 text-xs text-slate-700 space-y-1">
-          <div className="font-semibold text-slate-900">Setup steps:</div>
+          <div className="font-semibold text-slate-900">🛍️ Full In-Bot Shopping — কিভাবে কাজ করে:</div>
           <ol className="list-decimal ml-5 space-y-0.5">
             <li>BotFather-এ <code className="bg-slate-100 px-1 rounded">/newbot</code> দিয়ে আরেকটা bot বানান (admin bot থেকে আলাদা)।</li>
             <li>Token + username নিচে দিয়ে <b>Save</b> করুন → <b>Enable</b> করুন।</li>
-            <li><b>Register Webhook</b> চাপুন — এটা bot-কে বলে কোথায় incoming message পাঠাতে হবে।</li>
-            <li>Users <a className="text-sky-600 underline" href="/connect-telegram" target="_blank" rel="noopener">/connect-telegram</a> থেকে link করবে।</li>
+            <li><b>Register Webhook</b> চাপুন — এটা automatic secret generate করে, incoming message + inline button click দুটোই enable করে।</li>
+            <li>Customer <a className="text-sky-600 underline" href="/connect-telegram" target="_blank" rel="noopener">/connect-telegram</a> থেকে link করার পর bot-এ <code className="bg-slate-100 px-1 rounded">/start</code> দিয়ে সরাসরি <b>Shop → Product select → Wallet/bKash/Nagad payment → Order confirm</b> — সব bot এর ভিতরেই complete হবে। ওয়েবসাইট open করা লাগবে না।</li>
+            <li>Order status change হলে customer এখানেই notification পাবে।</li>
           </ol>
         </div>
+
 
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block">
