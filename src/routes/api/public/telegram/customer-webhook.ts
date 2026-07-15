@@ -169,19 +169,21 @@ async function linkUser(
 }
 
 // ---------- Shop rendering ----------
+const DIVIDER = "━━━━━━━━━━━━━━━";
+
 const MAIN_MENU = {
   inline_keyboard: [
-    [{ text: "🛍️ Shop", callback_data: "shop" }, { text: "📦 My Orders", callback_data: "orders" }],
-    [{ text: "💰 Wallet", callback_data: "wallet" }, { text: "🌐 Website", url: "https://ramasub.com" }],
+    [{ text: "Shop", callback_data: "shop" }, { text: "My Orders", callback_data: "orders" }],
+    [{ text: "Wallet", callback_data: "wallet" }, { text: "Website  ↗", url: "https://ramasub.com" }],
   ],
 };
 
 async function sendMainMenu(token: string, chatId: number, name?: string) {
-  const greeting = name ? `👋 <b>Hi ${name}!</b>` : "👋 <b>Welcome to Rama Sub!</b>";
+  const greeting = name ? `স্বাগতম, ${escHtml(name)}।` : "স্বাগতম।";
   await reply(
     token,
     chatId,
-    `${greeting}\n\nবাংলাদেশের বিশ্বস্ত ডিজিটাল subscription shop। নিচ থেকে option select করুন 👇`,
+    `<b>Rama Sub</b>\n<i>Premium subscriptions · Bangladesh</i>\n${DIVIDER}\n\n${greeting}\n\nনিচের menu থেকে আপনার প্রয়োজনীয় option বেছে নিন।`,
     { reply_markup: MAIN_MENU },
   );
 }
@@ -193,14 +195,17 @@ async function sendCategories(token: string, chatId: number) {
     .eq("is_active", true);
   const cats = Array.from(new Set(((data as any[]) ?? []).map((r) => r.category).filter(Boolean)));
   if (cats.length === 0) {
-    await reply(token, chatId, "🙁 এই মুহূর্তে কোনো product নেই।", { reply_markup: MAIN_MENU });
+    await reply(token, chatId, `<b>Shop</b>\n${DIVIDER}\n\nএই মুহূর্তে কোনো product available নেই।`, { reply_markup: MAIN_MENU });
     return;
   }
-  const keyboard = cats.map((c) => [{ text: `📂 ${c}`, callback_data: `cat:${c.slice(0, 40)}` }]);
-  keyboard.push([{ text: "🏠 Home", callback_data: "home" }]);
-  await reply(token, chatId, "🛍️ <b>Categories</b>\n\nকোন category দেখতে চান?", {
-    reply_markup: { inline_keyboard: keyboard },
-  });
+  const keyboard = cats.map((c) => [{ text: c, callback_data: `cat:${c.slice(0, 40)}` }]);
+  keyboard.push([{ text: "‹  Home", callback_data: "home" }]);
+  await reply(
+    token,
+    chatId,
+    `<b>Categories</b>\n${DIVIDER}\n\nআপনি কোন category browse করতে চান?`,
+    { reply_markup: { inline_keyboard: keyboard } },
+  );
 }
 
 async function sendProductsInCategory(token: string, chatId: number, category: string) {
@@ -214,19 +219,22 @@ async function sendProductsInCategory(token: string, chatId: number, category: s
   const rows = ((data as any[]) ?? []).map((p) => {
     const plans = Array.isArray(p.plans) ? p.plans : [];
     const minPrice = plans.length ? Math.min(...plans.map((x: any) => Number(x.price) || Infinity)) : null;
-    const priceLabel = minPrice && isFinite(minPrice) ? ` — ৳${minPrice}` : "";
+    const priceLabel = minPrice && isFinite(minPrice) ? `  ·  ৳${minPrice}` : "";
     return [{ text: `${p.name.trim()}${priceLabel}`.slice(0, 60), callback_data: `p:${p.slug}` }];
   });
   if (rows.length === 0) {
-    await reply(token, chatId, "এই category তে এখন কোনো product নেই।", {
-      reply_markup: { inline_keyboard: [[{ text: "◀️ Back", callback_data: "shop" }]] },
+    await reply(token, chatId, `<b>${escHtml(category)}</b>\n${DIVIDER}\n\nএই category-তে এখন কোনো product নেই।`, {
+      reply_markup: { inline_keyboard: [[{ text: "‹  Categories", callback_data: "shop" }]] },
     });
     return;
   }
-  rows.push([{ text: "◀️ Categories", callback_data: "shop" }]);
-  await reply(token, chatId, `📂 <b>${escHtml(category)}</b>\n\nProduct select করুন 👇`, {
-    reply_markup: { inline_keyboard: rows },
-  });
+  rows.push([{ text: "‹  Categories", callback_data: "shop" }, { text: "Home", callback_data: "home" }]);
+  await reply(
+    token,
+    chatId,
+    `<b>${escHtml(category)}</b>\n${DIVIDER}\n\n<i>${rows.length - 1} product available</i>\n\nবিস্তারিত দেখতে product-এ tap করুন।`,
+    { reply_markup: { inline_keyboard: rows } },
+  );
 }
 
 function escHtml(s: string): string {
@@ -247,21 +255,24 @@ async function sendProductDetail(token: string, chatId: number, slug: string) {
   const prod = p as any;
   const plans = Array.isArray(prod.plans) ? prod.plans : [];
   const priceBlock = plans.length
-    ? plans.map((pl: any) => `• <b>${escHtml(pl.label ?? pl.duration ?? "Plan")}</b> — ৳${pl.price}`).join("\n")
-    : "Price on request";
+    ? plans.map((pl: any) => `  ·  <b>${escHtml(pl.label ?? pl.duration ?? "Plan")}</b>  —  ৳${pl.price}`).join("\n")
+    : "  ·  Price on request";
   const shortDesc = (prod.short_description || prod.tagline || "").toString().slice(0, 400);
   const caption =
-    `${prod.emoji ?? "📦"} <b>${escHtml(prod.name)}</b>\n` +
+    `<b>${escHtml(prod.name)}</b>\n` +
+    `<i>${escHtml(prod.category || "Digital product")}</i>\n` +
+    `${DIVIDER}\n` +
     (shortDesc ? `\n${escHtml(shortDesc)}\n` : "") +
-    `\n<b>Plans:</b>\n${priceBlock}\n` +
-    `\n⏱ ${escHtml(prod.delivery_time || "Fast delivery")}\n🛡 ${escHtml(prod.warranty || "Warranty included")}`;
+    `\n<b>Plans</b>\n${priceBlock}\n\n` +
+    `<b>Delivery</b>   ${escHtml(prod.delivery_time || "Fast · verified")}\n` +
+    `<b>Warranty</b>   ${escHtml(prod.warranty || "Included")}`;
 
   const buyRows = plans.length
     ? plans.slice(0, 6).map((pl: any, i: number) => [
-        { text: `🛒 Buy — ${pl.label ?? pl.duration ?? "Plan"} (৳${pl.price})`.slice(0, 60), callback_data: `buy:${slug}:${i}` },
+        { text: `Buy  ·  ${pl.label ?? pl.duration ?? "Plan"}  ·  ৳${pl.price}`.slice(0, 60), callback_data: `buy:${slug}:${i}` },
       ])
-    : [[{ text: "🛒 Buy Now", callback_data: `buy:${slug}:0` }]];
-  buyRows.push([{ text: "◀️ Back", callback_data: `cat:${(prod.category ?? "").slice(0, 40)}` }, { text: "🏠 Home", callback_data: "home" }]);
+    : [[{ text: "Buy Now", callback_data: `buy:${slug}:0` }]];
+  buyRows.push([{ text: "‹  Back", callback_data: `cat:${(prod.category ?? "").slice(0, 40)}` }, { text: "Home", callback_data: "home" }]);
 
   if (prod.image_url) {
     await sendPhoto(token, chatId, prod.image_url, caption, { reply_markup: { inline_keyboard: buyRows } });
@@ -277,7 +288,7 @@ async function startCheckout(token: string, chatId: number, slug: string, planId
     await reply(
       token,
       chatId,
-      "🔒 <b>Account link করতে হবে</b>\n\nOrder দেওয়ার আগে RamaSub account connect করা লাগবে (এক মিনিটের কাজ)।\n\n👉 <a href=\"https://ramasub.com/connect-telegram\">এখানে ক্লিক করুন</a> — signup না থাকলে আগে <a href=\"https://ramasub.com/register\">register</a> করুন।\n\nঅথবা phone number share করুন — যদি ওই phone-এ RamaSub account থাকে, আমরা automatic link করে দেব 👇",
+      `<b>Account link প্রয়োজন</b>\n${DIVIDER}\n\nOrder করতে হলে RamaSub account connect করতে হবে — মাত্র এক মিনিটের কাজ।\n\n<a href="https://ramasub.com/connect-telegram">এখানে ক্লিক করে link করুন</a>\n\nAccount না থাকলে আগে <a href="https://ramasub.com/register">register</a> করুন। অথবা phone share করলে আমরা automatic match করে দেব।`,
       {
         reply_markup: { keyboard: [[{ text: "📱 Share phone number", request_contact: true }]], resize_keyboard: true, one_time_keyboard: true },
       },
@@ -292,7 +303,7 @@ async function startCheckout(token: string, chatId: number, slug: string, planId
     .eq("is_active", true)
     .maybeSingle();
   if (!p) {
-    await reply(token, chatId, "❌ Product আর available নেই।");
+    await reply(token, chatId, `<b>Product unavailable</b>\n${DIVIDER}\n\nদুঃখিত, এই product আর available নেই।`);
     return;
   }
   const prod = p as any;
@@ -313,18 +324,18 @@ async function startCheckout(token: string, chatId: number, slug: string, planId
   await saveSession(session);
 
   const summary =
-    `🧾 <b>Order Summary</b>\n\n` +
-    `📦 <b>${escHtml(prod.name)}</b>\n` +
-    `⏱ Plan: <b>${escHtml(session.context.plan_label)}</b>\n` +
-    `💵 Total: <b>৳${session.context.price}</b>\n\n` +
-    `Payment method select করুন 👇`;
+    `<b>Order Summary</b>\n${DIVIDER}\n\n` +
+    `<b>Product</b>   ${escHtml(prod.name)}\n` +
+    `<b>Plan</b>       ${escHtml(session.context.plan_label)}\n` +
+    `<b>Amount</b>   ৳${session.context.price}\n\n` +
+    `${DIVIDER}\nPayment method বেছে নিন।`;
 
   await reply(token, chatId, summary, {
     reply_markup: {
       inline_keyboard: [
-        [{ text: "💰 Wallet Balance", callback_data: "pay:wallet" }],
-        [{ text: "📱 bKash", callback_data: "pay:bkash" }, { text: "📱 Nagad", callback_data: "pay:nagad" }],
-        [{ text: "❌ Cancel", callback_data: "cancel" }],
+        [{ text: "Wallet Balance", callback_data: "pay:wallet" }],
+        [{ text: "bKash", callback_data: "pay:bkash" }, { text: "Nagad", callback_data: "pay:nagad" }],
+        [{ text: "Cancel", callback_data: "cancel" }],
       ],
     },
   });
