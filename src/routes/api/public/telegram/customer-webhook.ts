@@ -612,7 +612,7 @@ async function handleCallback(token: string, chatId: number, data: string, callb
   if (data === "wallet") return sendWallet(token, chatId);
   if (data === "cancel") {
     await resetSession(chatId);
-    return reply(token, chatId, "❌ Cancelled.", { reply_markup: MAIN_MENU });
+    return reply(token, chatId, "Cancelled — কোনো action নেওয়া হয়নি।", { reply_markup: MAIN_MENU });
   }
 
   if (data.startsWith("cat:")) return sendProductsInCategory(token, chatId, data.slice(4));
@@ -702,7 +702,7 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
           }
           if (msg.contact.user_id && Number(msg.contact.user_id) === Number(from.id)) {
             await linkUser(userId, chatId, { ...info, phone });
-            await reply(token, chatId, `✅ <b>Connected!</b> এখন আপনি bot থেকে সরাসরি কিনতে পারবেন।`, {
+            await reply(token, chatId, `<b>Account connected</b>\n${DIVIDER}\n\nএখন আপনি bot থেকে সরাসরি order করতে পারবেন।`, {
               reply_markup: { remove_keyboard: true },
             });
             await sendMainMenu(token, chatId, info.firstName);
@@ -735,7 +735,7 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
               await linkUser(lc.user_id, chatId, info);
               await (admin().from("telegram_link_codes" as any) as any)
                 .update({ consumed_at: new Date().toISOString() }).eq("code", code);
-              await reply(token, chatId, `✅ <b>Connected!</b> এখন থেকে সব order update পাবেন।`);
+              await reply(token, chatId, `<b>Account connected</b>\n${DIVIDER}\n\nএখন থেকে সব order update এখানেই পাবেন।`);
               await sendMainMenu(token, chatId, info.firstName);
             }
             return Response.json({ ok: true });
@@ -747,10 +747,10 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
         if (text === "/shop") { await sendCategories(token, chatId); return Response.json({ ok: true }); }
         if (text === "/orders") { await sendMyOrders(token, chatId); return Response.json({ ok: true }); }
         if (text === "/wallet") { await sendWallet(token, chatId); return Response.json({ ok: true }); }
-        if (text === "/cancel") { await resetSession(chatId); await reply(token, chatId, "❌ Cancelled.", { reply_markup: MAIN_MENU }); return Response.json({ ok: true }); }
+        if (text === "/cancel") { await resetSession(chatId); await reply(token, chatId, "Cancelled — কোনো action নেওয়া হয়নি।", { reply_markup: MAIN_MENU }); return Response.json({ ok: true }); }
         if (text === "/unlink") {
           await admin().from("telegram_customer_links" as any).delete().eq("chat_id", chatId);
-          await reply(token, chatId, "🔌 Disconnected. আবার connect করতে /start দিন।");
+          await reply(token, chatId, `<b>Disconnected</b>\n${DIVIDER}\n\nআবার connect করতে /start দিন।`);
           return Response.json({ ok: true });
         }
         if (text === "/help") {
@@ -793,7 +793,7 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
           if (!uid) { await reply(token, chatId, "❌ Account পাওয়া যায়নি।"); return Response.json({ ok: true }); }
           await linkUser(uid, chatId, { ...info, phone: p.phone });
           await (admin().from("telegram_phone_otps" as any) as any).update({ verified_at: new Date().toISOString() }).eq("id", p.id);
-          await reply(token, chatId, "✅ <b>Connected!</b>");
+          await reply(token, chatId, `<b>Account connected</b>\n${DIVIDER}`);
           await sendMainMenu(token, chatId, info.firstName);
           return Response.json({ ok: true });
         }
