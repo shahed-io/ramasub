@@ -487,7 +487,7 @@ function ManagePanel({ row, onSaved }: { row: Row; onSaved: () => void }) {
 
       const { error } = await supabase
         .from("products")
-        .update({ meta: newMeta, plans: cleanPlans })
+        .update({ meta: newMeta, plans: cleanPlans } as never)
         .eq("slug", row.slug);
       if (error) throw error;
       toast.success(t("Saved", "সেভ হয়েছে"));
