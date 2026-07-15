@@ -1,0 +1,1 @@
+UPDATE public.telegram_settings SET customer_webhook_secret = '198721edf6a3a052eca2bbd188c8cd92127ae2fc40914557' WHERE singleton = true;
