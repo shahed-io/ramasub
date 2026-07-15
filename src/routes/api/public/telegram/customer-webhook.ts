@@ -467,7 +467,11 @@ async function confirmWalletOrder(token: string, chatId: number, session: Sessio
   const uid = session.user_id!;
   const price = Number(session.context.price) || 0;
 
-  // Re-check balance & deduct atomically-ish via admin update
+  // Cheap pre-check for a nicer UX message; the real guarantee comes from the
+  // atomic admin_spend_wallet RPC below (single UPDATE ... RETURNING, raises
+  // 'insufficient wallet balance' on negative). This closes the double-spend
+  // race that a rapid double-tap or Telegram webhook retry could otherwise
+  // exploit on a manual read-then-write balance update.
   const { data: w } = await admin().from("wallets" as any).select("balance").eq("user_id", uid).maybeSingle();
   const balance = Number((w as any)?.balance ?? 0);
   if (balance < price) {
@@ -490,18 +494,33 @@ async function confirmWalletOrder(token: string, chatId: number, session: Sessio
     return;
   }
 
-  // Deduct wallet
-  const newBalance = balance - price;
-  await (admin().from("wallets" as any) as any).update({ balance: newBalance, updated_at: new Date().toISOString() }).eq("user_id", uid);
-  await admin().from("wallet_transactions" as any).insert({
-    user_id: uid,
-    amount: -price,
-    type: "spend",
-    reason: `Order payment (Telegram bot): ${session.context.name}`,
-    ref_order_id: orderId,
-    balance_after: newBalance,
-    created_by: uid,
-  } as any);
+  // Atomic wallet deduction — RPC updates balance in a single statement with
+  // a RETURNING-based negative-balance guard, and also writes the matching
+  // wallet_transactions row inside the same transaction.
+  const { data: txRow, error: spendErr } = await (admin() as any).rpc("admin_spend_wallet", {
+    _user_id: uid,
+    _amount: price,
+    _ref_order: orderId,
+    _reason: `Order payment (Telegram bot): ${session.context.name}`,
+  });
+
+  if (spendErr) {
+    // Roll the order back so we don't leave a "paid" order without a debit.
+    await admin().from("orders" as any).delete().eq("id", orderId);
+    const isInsufficient = /insufficient wallet balance/i.test(spendErr.message || "");
+    await reply(
+      token,
+      chatId,
+      isInsufficient
+        ? "😔 Wallet balance যথেষ্ট নেই এখন। আবার try করুন।"
+        : `❌ Wallet payment ব্যর্থ: ${spendErr.message}`,
+    );
+    await resetSession(chatId);
+    return;
+  }
+
+  const newBalance = Number((txRow as any)?.balance_after ?? balance - price);
+
 
   const shortId = "ORD-" + orderId.replace(/-/g, "").slice(0, 8).toUpperCase();
   await reply(
