@@ -471,12 +471,13 @@ async function handlePayWallet(token: string, chatId: number, session: Session) 
     await reply(
       token,
       chatId,
-      `<b>Insufficient balance</b>\n${DIVIDER}\n\n<b>Current</b>    ৳${balance}\n<b>Required</b>   ৳${price}\n\nWallet top-up করে আবার try করুন — <a href="https://ramasub.com/wallet">wallet page</a>।`,
+      `⚠️ <b>Wallet balance যথেষ্ট নেই</b>\n${DIVIDER}\n\n💰 <b>Current</b>       ৳${balance}\n💵 <b>Required</b>     ৳${price}\n🧮 <b>Short by</b>       ৳${price - balance}\n\n👉 Wallet top-up করে আবার try করুন অথবা bKash/Nagad দিয়ে pay করুন।`,
       {
         reply_markup: {
           inline_keyboard: [
-            [{ text: "Pay with bKash", callback_data: "pay:bkash" }, { text: "Pay with Nagad", callback_data: "pay:nagad" }],
-            [{ text: "Home", callback_data: "home" }],
+            [{ text: "🌸 Pay with bKash", callback_data: "pay:bkash" }, { text: "🟠 Pay with Nagad", callback_data: "pay:nagad" }],
+            [{ text: "💰 Top-up Wallet ↗", url: "https://ramasub.com/wallet" }],
+            [{ text: "🏠 Home", callback_data: "home" }],
           ],
         },
       },
