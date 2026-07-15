@@ -493,17 +493,18 @@ async function handlePayWallet(token: string, chatId: number, session: Session) 
   await reply(
     token,
     chatId,
-    `<b>Confirm Order</b>\n${DIVIDER}\n\n` +
-      `<b>Product</b>   ${escHtml(session.context.name)}\n` +
-      `<b>Plan</b>       ${escHtml(session.context.plan_label)}\n` +
-      `<b>Amount</b>   ৳${price}\n\n${DIVIDER}\n` +
-      `<b>Wallet</b>       ৳${balance}\n` +
-      `<b>After pay</b>   ৳${balance - price}`,
+    `✅ <b>Confirm Order</b>\n${DIVIDER}\n\n` +
+      `📦 <b>Product</b>       ${escHtml(session.context.name)}\n` +
+      `💎 <b>Plan</b>              ${escHtml(session.context.plan_label)}\n` +
+      `💵 <b>Amount</b>        ৳${price}\n\n${DIVIDER}\n` +
+      `💰 <b>Wallet balance</b>   ৳${balance}\n` +
+      `🧮 <b>After payment</b>    ৳${balance - price}\n\n` +
+      `👇 নিচের button চেপে order confirm করুন।`,
     {
       reply_markup: {
         inline_keyboard: [
-          [{ text: "Confirm & Place Order", callback_data: "confirm:wallet" }],
-          [{ text: "Cancel", callback_data: "cancel" }],
+          [{ text: "✅ Confirm & Place Order", callback_data: "confirm:wallet" }],
+          [{ text: "✖ Cancel", callback_data: "cancel" }],
         ],
       },
     },
@@ -515,7 +516,7 @@ async function handlePayWallet(token: string, chatId: number, session: Session) 
 async function handlePayMFS(token: string, chatId: number, session: Session, id: "bkash" | "nagad") {
   const pm = await getPaymentMethod(id);
   if (!pm) {
-    await reply(token, chatId, `<b>${id} unavailable</b>\n${DIVIDER}\n\nএই মুহূর্তে এই payment method available নেই।`);
+    await reply(token, chatId, `⚠️ <b>${id} unavailable</b>\n${DIVIDER}\n\nএই মুহূর্তে এই payment method available নেই। অন্য method বেছে নিন।`);
     return;
   }
   session.step = "checkout:awaiting_trxid";
@@ -524,18 +525,21 @@ async function handlePayMFS(token: string, chatId: number, session: Session, id:
   await saveSession(session);
 
   const brand = pm.name ?? id;
+  const emoji = id === "bkash" ? "🌸" : "🟠";
   await reply(
     token,
     chatId,
-    `<b>${escHtml(brand)} Payment</b>\n${DIVIDER}\n\n` +
-      `<b>Step 1</b>   ${escHtml(brand)} app খুলুন → <b>${escHtml(pm.send_money_label ?? "Send Money")}</b>\n\n` +
-      `<b>Step 2</b>   নিচের number-এ টাকা পাঠান\n\n` +
-      `           <code>${escHtml(pm.number)}</code>  <i>(tap to copy)</i>\n` +
-      `           Amount  —  <b>৳${session.context.price}</b>\n\n` +
-      `<b>Step 3</b>   পাঠানোর পর <b>TrxID</b> reply করুন (উদাহরণ <code>9AB12CD34E</code>)।\n\n` +
-      (pm.instructions ? `${DIVIDER}\n<i>${escHtml(pm.instructions)}</i>` : ""),
+    `${emoji} <b>${escHtml(brand)} Payment</b>\n${DIVIDER}\n\n` +
+      `1️⃣  ${escHtml(brand)} app খুলুন → <b>${escHtml(pm.send_money_label ?? "Send Money")}</b>\n\n` +
+      `2️⃣  নিচের number-এ টাকা পাঠান 👇\n\n` +
+      `      📞  <code>${escHtml(pm.number)}</code>  <i>(tap to copy)</i>\n` +
+      `      💵  Amount  —  <b>৳${session.context.price}</b>\n\n` +
+      `3️⃣  পাঠানোর পর <b>TrxID</b> reply করুন\n` +
+      `      <i>উদাহরণ:</i> <code>9AB12CD34E</code>\n\n` +
+      (pm.instructions ? `${DIVIDER}\n📌 <i>${escHtml(pm.instructions)}</i>\n\n` : "") +
+      `⏱️ Payment verify হলে ১৫–৩০ মিনিটে delivery পাবেন।`,
     {
-      reply_markup: { inline_keyboard: [[{ text: "Cancel", callback_data: "cancel" }]] },
+      reply_markup: { inline_keyboard: [[{ text: "✖ Cancel", callback_data: "cancel" }]] },
     },
   );
 }
