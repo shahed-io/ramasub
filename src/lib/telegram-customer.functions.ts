@@ -187,13 +187,36 @@ export const notifyCustomerOrderStatus = createServerFn({ method: "POST" })
   });
 
 // -- Admin: register the customer bot webhook ------------------------
+// Auto-generates a webhook secret if none exists, stores it, and registers
+// the webhook with Telegram — enabling both incoming messages AND inline
+// button callbacks (for the in-bot shopping flow).
 export const setCustomerBotWebhook = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => z.object({ publicUrl: z.string().url() }).parse(d))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const bot = await loadCustomerBot();
-    if (!bot?.customer_bot_token) return { ok: false, error: "Bot token not configured" };
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: current } = await supabaseAdmin
+      .from("telegram_settings" as any)
+      .select("customer_bot_token, customer_webhook_secret")
+      .eq("singleton", true)
+      .maybeSingle();
+    const bot = current as any;
+    if (!bot?.customer_bot_token) return { ok: false, error: "Bot token not configured", url: "" };
+
+    // Ensure a webhook secret exists (auto-generate if missing) — this is
+    // what the webhook route validates against every incoming update.
+    let secret: string = bot.customer_webhook_secret ?? "";
+    if (!secret || secret.length < 20) {
+      const alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      secret = Array.from({ length: 40 }, () => alpha[Math.floor(Math.random() * alpha.length)]).join("");
+      await supabaseAdmin
+        .from("telegram_settings" as any)
+        .update({ customer_webhook_secret: secret } as any)
+        .eq("singleton", true);
+    }
+
     const webhookUrl = `${data.publicUrl.replace(/\/+$/, "")}/api/public/telegram/customer-webhook`;
     try {
       const resp = await fetch(`https://api.telegram.org/bot${bot.customer_bot_token}/setWebhook`, {
@@ -201,12 +224,16 @@ export const setCustomerBotWebhook = createServerFn({ method: "POST" })
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           url: webhookUrl,
-          allowed_updates: ["message"],
+          secret_token: secret,
+          // Enable both text messages AND inline button clicks (shopping UI)
+          allowed_updates: ["message", "callback_query"],
+          drop_pending_updates: true,
         }),
       });
       const j = (await resp.json().catch(() => ({}))) as any;
       return { ok: !!j.ok, url: webhookUrl, error: j.ok ? null : (j.description ?? `HTTP ${resp.status}`) };
     } catch (e) {
-      return { ok: false, error: e instanceof Error ? e.message : String(e) };
+      return { ok: false, error: e instanceof Error ? e.message : String(e), url: webhookUrl };
     }
   });
+
