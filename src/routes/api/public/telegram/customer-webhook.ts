@@ -641,13 +641,18 @@ async function confirmWalletOrder(token: string, chatId: number, session: Sessio
   await reply(
     token,
     chatId,
-    `<b>Order placed</b>\n${DIVIDER}\n\n` +
-      `<b>Order ID</b>       ${shortId}\n` +
-      `<b>Paid</b>              ৳${price}  <i>· Wallet</i>\n` +
-      `<b>New balance</b>   ৳${newBalance}\n\n${DIVIDER}\n` +
-      `Processing শুরু হয়েছে। Delivery হলে এখানেই notification পাবেন।\n\n` +
-      `<a href="https://ramasub.com/orders/${orderId}">Order details ↗</a>`,
-    { reply_markup: mainMenuFor(true) },
+    `🎉 <b>Order Placed Successfully!</b>\n${DIVIDER}\n\n` +
+      `🆔 <b>Order ID</b>          ${shortId}\n` +
+      `✅ <b>Paid</b>                 ৳${price}  <i>· Wallet</i>\n` +
+      `💰 <b>New balance</b>   ৳${newBalance}\n\n${DIVIDER}\n` +
+      `⚡ Processing শুরু হয়েছে। Delivery হলে এখানেই notification পাবেন।\n\n` +
+      `🔗 <a href="https://ramasub.com/orders/${orderId}">Order details দেখুন ↗</a>\n\n🙏 ধন্যবাদ RamaSub-এ order করার জন্য!`,
+    {
+      reply_markup: { inline_keyboard: [
+        [{ text: "📦 My Orders", callback_data: "orders" }, { text: "🛍️ Shop More", callback_data: "shop" }],
+        [{ text: "🏠 Home", callback_data: "home" }],
+      ]},
+    },
   );
   await resetSession(chatId);
 }
@@ -655,7 +660,7 @@ async function confirmWalletOrder(token: string, chatId: number, session: Sessio
 async function submitMFSOrder(token: string, chatId: number, session: Session, trxid: string) {
   const clean = trxid.trim().toUpperCase();
   if (!/^[A-Z0-9]{6,20}$/.test(clean)) {
-    await reply(token, chatId, `<b>Invalid TrxID</b>\n${DIVIDER}\n\nTrxID সাধারণত ৬–২০ character alphanumeric হয়। আবার পাঠান।`);
+    await reply(token, chatId, `⚠️ <b>Invalid TrxID</b>\n${DIVIDER}\n\nTrxID সাধারণত ৬–২০ character alphanumeric হয়।\n<i>উদাহরণ:</i> <code>9AB12CD34E</code>\n\n👉 আবার পাঠান।`);
     return;
   }
   let orderId: string;
@@ -667,20 +672,24 @@ async function submitMFSOrder(token: string, chatId: number, session: Session, t
       paymentStatus: "pending",
     });
   } catch (e) {
-    await reply(token, chatId, `<b>Order failed</b>\n${DIVIDER}\n\n${escHtml((e as Error).message)}`);
+    await reply(token, chatId, `❌ <b>Order failed</b>\n${DIVIDER}\n\n${escHtml((e as Error).message)}`);
     return;
   }
   const shortId = "ORD-" + orderId.replace(/-/g, "").slice(0, 8).toUpperCase();
   await reply(
     token,
     chatId,
-    `<b>Order received</b>\n${DIVIDER}\n\n` +
-      `<b>Order ID</b>   ${shortId}\n` +
-      `<b>Amount</b>     ৳${session.context.price}\n` +
-      `<b>TrxID</b>          <code>${escHtml(clean)}</code>\n\n${DIVIDER}\n` +
-      `Payment verify করছি — ১৫–৩০ মিনিটের মধ্যে delivery পাবেন।\n\n` +
-      `<a href="https://ramasub.com/orders/${orderId}">Track order ↗</a>`,
-    { reply_markup: mainMenuFor(true) },
+    `🎉 <b>Order Received!</b>\n${DIVIDER}\n\n` +
+      `🆔 <b>Order ID</b>   ${shortId}\n` +
+      `💵 <b>Amount</b>      ৳${session.context.price}\n` +
+      `🔖 <b>TrxID</b>            <code>${escHtml(clean)}</code>\n\n${DIVIDER}\n` +
+      `⏱️ Payment verify করছি — <b>১৫–৩০ মিনিটের</b> মধ্যে delivery পাবেন।\n📩 Ready হলে এখানেই notification পাবেন।\n\n🔗 <a href="https://ramasub.com/orders/${orderId}">Track order ↗</a>\n\n🙏 ধন্যবাদ!`,
+    {
+      reply_markup: { inline_keyboard: [
+        [{ text: "📦 My Orders", callback_data: "orders" }, { text: "🛍️ Shop More", callback_data: "shop" }],
+        [{ text: "🎧 Support", callback_data: "support" }, { text: "🏠 Home", callback_data: "home" }],
+      ]},
+    },
   );
   await resetSession(chatId);
 }
@@ -688,10 +697,7 @@ async function submitMFSOrder(token: string, chatId: number, session: Session, t
 // ---------- Info commands ----------
 async function sendMyOrders(token: string, chatId: number) {
   const linked = await findLinkedUser(chatId);
-  if (!linked) {
-    await reply(token, chatId, `<b>Account link প্রয়োজন</b>\n${DIVIDER}\n\nOrder দেখতে account link করতে হবে। /start দিন।`);
-    return;
-  }
+  if (!linked) { await sendConnectPrompt(token, chatId); return; }
   const { data } = await admin()
     .from("orders" as any)
     .select("id, total, status, created_at, items")
@@ -700,39 +706,129 @@ async function sendMyOrders(token: string, chatId: number) {
     .limit(10);
   const rows = (data as any[]) ?? [];
   if (rows.length === 0) {
-    await reply(token, chatId, `<b>My Orders</b>\n${DIVIDER}\n\nএখনো কোনো order নেই।\n\nShop থেকে prima subscription বেছে নিতে পারেন।`, { reply_markup: mainMenuFor(true) });
+    await reply(token, chatId, `📦 <b>My Orders</b>\n${DIVIDER}\n\n📭 এখনো কোনো order নেই।\n\n🛍️ Shop থেকে premium subscription বেছে নিন!`, {
+      reply_markup: { inline_keyboard: [
+        [{ text: "🛍️ Start Shopping", callback_data: "shop" }, { text: "🔥 Popular", callback_data: "popular" }],
+        [{ text: "🏠 Home", callback_data: "home" }],
+      ]},
+    });
     return;
   }
-  const dot: Record<string, string> = { pending: "○", processing: "◐", completed: "●", delivered: "●", cancelled: "×", failed: "×" };
+  const dot: Record<string, string> = { pending: "🟡", processing: "🔵", completed: "🟢", delivered: "🟢", cancelled: "🔴", failed: "🔴" };
   const lines = rows
     .map((r) => {
       const short = "ORD-" + r.id.replace(/-/g, "").slice(0, 8).toUpperCase();
       const first = Array.isArray(r.items) && r.items[0] ? r.items[0].name : "Order";
-      const d = dot[r.status] ?? "·";
-      return `${d}  <b>${short}</b>  ·  ৳${r.total}  ·  <i>${r.status}</i>\n     ${escHtml(String(first).slice(0, 50))}`;
+      const d = dot[r.status] ?? "⚪";
+      return `${d}  <b>${short}</b>  ·  ৳${r.total}\n     📦 ${escHtml(String(first).slice(0, 50))}  ·  <i>${r.status}</i>`;
     })
     .join("\n\n");
   await reply(
     token,
     chatId,
-    `<b>Recent Orders</b>\n${DIVIDER}\n\n${lines}\n\n${DIVIDER}\n<a href="https://ramasub.com/orders">All orders ↗</a>`,
+    `📦 <b>Recent Orders</b>\n${DIVIDER}\n\n${lines}\n\n${DIVIDER}\n🔗 <a href="https://ramasub.com/orders">All orders ↗</a>`,
     { reply_markup: mainMenuFor(true) },
   );
 }
 
 async function sendWallet(token: string, chatId: number) {
   const linked = await findLinkedUser(chatId);
-  if (!linked) {
-    await reply(token, chatId, `<b>Account link প্রয়োজন</b>\n${DIVIDER}\n\nWallet দেখতে account link করতে হবে। /start দিন।`);
-    return;
-  }
+  if (!linked) { await sendConnectPrompt(token, chatId); return; }
   const { data } = await admin().from("wallets" as any).select("balance").eq("user_id", linked.user_id).maybeSingle();
   const bal = Number((data as any)?.balance ?? 0);
   await reply(
     token,
     chatId,
-    `<b>Wallet</b>\n${DIVIDER}\n\n<b>Balance</b>\n\n           <b>৳${bal}</b>\n\n${DIVIDER}\nTop-up করতে <a href="https://ramasub.com/wallet">wallet page</a> visit করুন।`,
-    { reply_markup: mainMenuFor(true) },
+    `💰 <b>My Wallet</b>\n${DIVIDER}\n\n💎 <b>Current Balance</b>\n\n            💵 <b>৳${bal}</b>\n\n${DIVIDER}\n🎁 Refer করে wallet-এ ৳50 বোনাস নিন!\n💳 Top-up: bKash / Nagad / Card\n⚡ Wallet payment = instant order`,
+    {
+      reply_markup: { inline_keyboard: [
+        [{ text: "💳 Top-up Wallet ↗", url: "https://ramasub.com/wallet" }],
+        [{ text: "🎁 Refer & Earn", callback_data: "refer" }, { text: "🛍️ Shop", callback_data: "shop" }],
+        [{ text: "🏠 Home", callback_data: "home" }],
+      ]},
+    },
+  );
+}
+
+async function sendReferral(token: string, chatId: number) {
+  const linked = await findLinkedUser(chatId);
+  if (!linked) { await sendConnectPrompt(token, chatId); return; }
+  const code = linked.user_id.replace(/-/g, "").slice(0, 8);
+  await reply(
+    token,
+    chatId,
+    `🎁 <b>Refer & Earn</b>\n${DIVIDER}\n\n👥 বন্ধুদের invite করুন — signup করলেই আপনি পাবেন <b>৳50</b> wallet credit!\n\n🔗 <b>Your referral code</b>\n\n         <code>${code}</code>  <i>(tap to copy)</i>\n\n📤 Share link:\n<code>https://ramasub.com/register?ref=${code}</code>\n\n${DIVIDER}\n💡 প্রতিটি successful referral-এ ৳50 instant credit।`,
+    { reply_markup: { inline_keyboard: [[{ text: "💰 My Wallet", callback_data: "wallet" }, { text: "🏠 Home", callback_data: "home" }]] } },
+  );
+}
+
+async function sendHelp(token: string, chatId: number) {
+  await reply(
+    token,
+    chatId,
+    `❓ <b>Help & FAQ</b>\n${DIVIDER}\n\n` +
+      `<b>🛒 কীভাবে order করব?</b>\n1️⃣ Shop → Category → Product\n2️⃣ Plan বেছে "Buy" চাপুন\n3️⃣ Payment method বেছে pay করুন\n4️⃣ TrxID reply করুন (bKash/Nagad)\n\n` +
+      `<b>⏱️ Delivery কতক্ষণে?</b>\nPayment verify-এর পর <b>১৫–৩০ মিনিট</b>।\n\n` +
+      `<b>💰 Wallet কীভাবে top-up করব?</b>\nWebsite → Wallet → Top-up।\n\n` +
+      `<b>🎁 Referral?</b>\nবন্ধুকে code share করুন — signup হলেই ৳50।\n\n` +
+      `<b>🛡️ Warranty?</b>\nসব premium product-এ warranty included।\n\n` +
+      `<b>⚙️ Commands</b>\n/start · /shop · /orders · /wallet · /help · /support · /cancel · /unlink`,
+    {
+      reply_markup: { inline_keyboard: [
+        [{ text: "🎧 Contact Support", callback_data: "support" }],
+        [{ text: "🛍️ Start Shopping", callback_data: "shop" }, { text: "🏠 Home", callback_data: "home" }],
+      ]},
+    },
+  );
+}
+
+async function sendSupport(token: string, chatId: number) {
+  let whatsapp = "";
+  try {
+    const { data } = await admin()
+      .from("admin_records" as any)
+      .select("data")
+      .eq("kind", "shop_config")
+      .eq("is_active", true)
+      .limit(1);
+    const cfg = ((data as any[]) ?? [])[0]?.data ?? {};
+    whatsapp = cfg.whatsapp || cfg.support_whatsapp || "";
+  } catch { /* ignore */ }
+  const waLine = whatsapp
+    ? `📱 <b>WhatsApp</b>   <a href="https://wa.me/${String(whatsapp).replace(/\D/g, "")}">${escHtml(whatsapp)}</a>\n`
+    : "";
+  await reply(
+    token,
+    chatId,
+    `🎧 <b>Customer Support</b>\n${DIVIDER}\n\nআপনার order বা account সংক্রান্ত যেকোনো প্রশ্ন? আমরা সাহায্য করতে প্রস্তুত।\n\n${waLine}🌐 <b>Website</b>       <a href="https://ramasub.com/contact">ramasub.com/contact</a>\n📧 <b>Email</b>            support@ramasub.com\n\n${DIVIDER}\n💬 আমরা যত দ্রুত সম্ভব reply করব।`,
+    {
+      reply_markup: { inline_keyboard: [
+        [{ text: "📦 My Orders", callback_data: "orders" }, { text: "❓ FAQ", callback_data: "help" }],
+        [{ text: "🏠 Home", callback_data: "home" }],
+      ]},
+    },
+  );
+}
+
+async function sendAccount(token: string, chatId: number) {
+  const linked = await findLinkedUser(chatId);
+  if (!linked) { await sendConnectPrompt(token, chatId); return; }
+  const { data: profile } = await admin().from("profiles" as any).select("display_name, phone").eq("id", linked.user_id).maybeSingle();
+  const p = (profile as any) ?? {};
+  const { data: w } = await admin().from("wallets" as any).select("balance").eq("user_id", linked.user_id).maybeSingle();
+  const bal = Number((w as any)?.balance ?? 0);
+  const { count } = await admin().from("orders" as any).select("id", { count: "exact", head: true }).eq("user_id", linked.user_id);
+  await reply(
+    token,
+    chatId,
+    `👤 <b>My Account</b>\n${DIVIDER}\n\n🙋 <b>Name</b>          ${escHtml(p.display_name || linked.first_name || "—")}\n📞 <b>Phone</b>         ${escHtml(p.phone || "—")}\n📦 <b>Orders</b>        ${count ?? 0}\n💰 <b>Wallet</b>          ৳${bal}\n\n${DIVIDER}\n⚙️ Account settings website থেকে manage করা যায়।`,
+    {
+      reply_markup: { inline_keyboard: [
+        [{ text: "⚙️ Account Settings ↗", url: "https://ramasub.com/account" }],
+        [{ text: "📦 Orders", callback_data: "orders" }, { text: "💰 Wallet", callback_data: "wallet" }],
+        [{ text: "🔌 Unlink", callback_data: "unlink" }, { text: "🏠 Home", callback_data: "home" }],
+      ]},
+    },
   );
 }
 
