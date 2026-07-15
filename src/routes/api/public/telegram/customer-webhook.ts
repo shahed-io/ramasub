@@ -169,23 +169,59 @@ async function linkUser(
 }
 
 // ---------- Shop rendering ----------
-const DIVIDER = "━━━━━━━━━━━━━━━";
+const DIVIDER = "━━━━━━━━━━━━━━━━━━━";
 
-const MAIN_MENU = {
-  inline_keyboard: [
-    [{ text: "Shop", callback_data: "shop" }, { text: "My Orders", callback_data: "orders" }],
-    [{ text: "Wallet", callback_data: "wallet" }, { text: "Website  ↗", url: "https://ramasub.com" }],
-  ],
-};
+function mainMenuFor(linked: boolean) {
+  const rows: any[] = [
+    [{ text: "🛍️  Shop এখনই", callback_data: "shop" }, { text: "🔥 Popular", callback_data: "popular" }],
+    [{ text: "🔎 Search", callback_data: "search" }, { text: "📦 My Orders", callback_data: "orders" }],
+    [{ text: "💰 Wallet", callback_data: "wallet" }, { text: "🎁 Refer & Earn", callback_data: "refer" }],
+    [{ text: "❓ Help / FAQ", callback_data: "help" }, { text: "🎧 Support", callback_data: "support" }],
+  ];
+  if (linked) {
+    rows.push([{ text: "👤 My Account", callback_data: "account" }, { text: "🌐 Website", url: "https://ramasub.com" }]);
+  } else {
+    rows.push([
+      { text: "🔗 Connect Account", callback_data: "connect" },
+      { text: "🆕 Register", url: "https://ramasub.com/register" },
+    ]);
+    rows.push([{ text: "🌐 Website", url: "https://ramasub.com" }]);
+  }
+  return { inline_keyboard: rows };
+}
 
 async function sendMainMenu(token: string, chatId: number, name?: string) {
-  const greeting = name ? `স্বাগতম, ${escHtml(name)}।` : "স্বাগতম।";
+  const linked = await findLinkedUser(chatId);
+  const greetName = linked?.first_name ?? name ?? "বন্ধু";
+  const status = linked ? "✅ <b>Account connected</b>" : "🔒 <i>Account এখনো connect করা হয়নি</i>";
+  const text =
+    `🎬 <b>RamaSub — Premium Subscriptions</b>\n` +
+    `🇧🇩 <i>Bangladesh · Fast · Verified</i>\n` +
+    `${DIVIDER}\n\n` +
+    `👋 স্বাগতম, <b>${escHtml(greetName)}</b>!\n${status}\n\n` +
+    `🛒 এখানেই সব কিছু — <b>browse → buy → pay → delivery</b>।\n` +
+    `📱 নিচের menu থেকে যা লাগে বেছে নিন 👇`;
+  await reply(token, chatId, text, { reply_markup: mainMenuFor(!!linked) });
+}
+
+async function sendConnectPrompt(token: string, chatId: number) {
   await reply(
     token,
     chatId,
-    `<b>Rama Sub</b>\n<i>Premium subscriptions · Bangladesh</i>\n${DIVIDER}\n\n${greeting}\n\nনিচের menu থেকে আপনার প্রয়োজনীয় option বেছে নিন।`,
-    { reply_markup: MAIN_MENU },
+    `🔗 <b>Account Connect করুন</b>\n${DIVIDER}\n\n` +
+      `একবার connect করলে সব order, wallet, ও delivery এখানেই পাবেন। মাত্র <b>এক মিনিটের কাজ</b> 👇\n\n` +
+      `1️⃣  <b>Website থেকে link</b> — <a href="https://ramasub.com/connect-telegram">এখানে ক্লিক করুন</a>\n` +
+      `2️⃣  অথবা 📱 button চেপে <b>phone share</b> করুন — automatic match হবে\n` +
+      `3️⃣  Account নেই? আগে <a href="https://ramasub.com/register">register</a> করুন\n`,
+    {
+      reply_markup: {
+        keyboard: [[{ text: "📱 Share phone number", request_contact: true }]],
+        resize_keyboard: true,
+        one_time_keyboard: true,
+      },
+    },
   );
+  await reply(token, chatId, "⬇️ অথবা main menu:", { reply_markup: mainMenuFor(false) });
 }
 
 async function sendCategories(token: string, chatId: number) {
@@ -195,15 +231,30 @@ async function sendCategories(token: string, chatId: number) {
     .eq("is_active", true);
   const cats = Array.from(new Set(((data as any[]) ?? []).map((r) => r.category).filter(Boolean)));
   if (cats.length === 0) {
-    await reply(token, chatId, `<b>Shop</b>\n${DIVIDER}\n\nএই মুহূর্তে কোনো product available নেই।`, { reply_markup: MAIN_MENU });
+    await reply(token, chatId, `🛍️ <b>Shop</b>\n${DIVIDER}\n\n😕 এই মুহূর্তে কোনো product available নেই। শীঘ্রই ফিরে আসবে!`, {
+      reply_markup: mainMenuFor(!!(await findLinkedUser(chatId))),
+    });
     return;
   }
-  const keyboard = cats.map((c) => [{ text: c, callback_data: `cat:${c.slice(0, 40)}` }]);
-  keyboard.push([{ text: "‹  Home", callback_data: "home" }]);
+  const emojiFor = (c: string) => {
+    const s = c.toLowerCase();
+    if (/(netflix|prime|hbo|disney|hulu|movie|tv|ott|stream)/.test(s)) return "🎬";
+    if (/(music|spotify|deezer|apple.?music)/.test(s)) return "🎵";
+    if (/(game|xbox|playstation|steam)/.test(s)) return "🎮";
+    if (/(vpn|proxy)/.test(s)) return "🛡️";
+    if (/(ai|chatgpt|gpt|claude|gemini|copilot)/.test(s)) return "🤖";
+    if (/(design|canva|adobe|figma)/.test(s)) return "🎨";
+    if (/(edu|course|learn|udemy|coursera)/.test(s)) return "📚";
+    if (/(social|instagram|facebook|tiktok)/.test(s)) return "📱";
+    return "✨";
+  };
+  const keyboard = cats.map((c) => [{ text: `${emojiFor(c)}  ${c}`.slice(0, 60), callback_data: `cat:${c.slice(0, 40)}` }]);
+  keyboard.push([{ text: "🔥 Popular", callback_data: "popular" }, { text: "🔎 Search", callback_data: "search" }]);
+  keyboard.push([{ text: "🏠 Home", callback_data: "home" }]);
   await reply(
     token,
     chatId,
-    `<b>Categories</b>\n${DIVIDER}\n\nআপনি কোন category browse করতে চান?`,
+    `🛍️ <b>Shop — Categories</b>\n${DIVIDER}\n\n📂 মোট <b>${cats.length}</b> category available।\nআপনি কী কিনতে চান? 👇`,
     { reply_markup: { inline_keyboard: keyboard } },
   );
 }
@@ -219,26 +270,89 @@ async function sendProductsInCategory(token: string, chatId: number, category: s
   const rows = ((data as any[]) ?? []).map((p) => {
     const plans = Array.isArray(p.plans) ? p.plans : [];
     const minPrice = plans.length ? Math.min(...plans.map((x: any) => Number(x.price) || Infinity)) : null;
-    const priceLabel = minPrice && isFinite(minPrice) ? `  ·  ৳${minPrice}` : "";
-    return [{ text: `${p.name.trim()}${priceLabel}`.slice(0, 60), callback_data: `p:${p.slug}` }];
+    const priceLabel = minPrice && isFinite(minPrice) ? `  ·  ৳${minPrice}+` : "";
+    return [{ text: `📦 ${p.name.trim()}${priceLabel}`.slice(0, 60), callback_data: `p:${p.slug}` }];
   });
   if (rows.length === 0) {
-    await reply(token, chatId, `<b>${escHtml(category)}</b>\n${DIVIDER}\n\nএই category-তে এখন কোনো product নেই।`, {
-      reply_markup: { inline_keyboard: [[{ text: "‹  Categories", callback_data: "shop" }]] },
+    await reply(token, chatId, `📁 <b>${escHtml(category)}</b>\n${DIVIDER}\n\n😕 এই category-তে এখন কোনো product নেই।`, {
+      reply_markup: { inline_keyboard: [[{ text: "‹ Categories", callback_data: "shop" }, { text: "🏠 Home", callback_data: "home" }]] },
     });
     return;
   }
-  rows.push([{ text: "‹  Categories", callback_data: "shop" }, { text: "Home", callback_data: "home" }]);
+  rows.push([{ text: "‹ Categories", callback_data: "shop" }, { text: "🏠 Home", callback_data: "home" }]);
   await reply(
     token,
     chatId,
-    `<b>${escHtml(category)}</b>\n${DIVIDER}\n\n<i>${rows.length - 1} product available</i>\n\nবিস্তারিত দেখতে product-এ tap করুন।`,
+    `📁 <b>${escHtml(category)}</b>\n${DIVIDER}\n\n🛒 <i>${rows.length - 1} টি product available</i>\n\n👇 বিস্তারিত দেখতে product-এ tap করুন।`,
     { reply_markup: { inline_keyboard: rows } },
   );
 }
 
 function escHtml(s: string): string {
   return String(s).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]!));
+}
+
+async function sendPopular(token: string, chatId: number) {
+  const { data } = await admin()
+    .from("products" as any)
+    .select("slug, name, category, plans")
+    .eq("is_active", true)
+    .order("sort_order")
+    .limit(10);
+  const rows = ((data as any[]) ?? []).map((p) => {
+    const plans = Array.isArray(p.plans) ? p.plans : [];
+    const min = plans.length ? Math.min(...plans.map((x: any) => Number(x.price) || Infinity)) : null;
+    const price = min && isFinite(min) ? `  ·  ৳${min}+` : "";
+    return [{ text: `⭐ ${p.name}${price}`.slice(0, 60), callback_data: `p:${p.slug}` }];
+  });
+  if (rows.length === 0) return sendCategories(token, chatId);
+  rows.push([{ text: "🛍️ All categories", callback_data: "shop" }, { text: "🏠 Home", callback_data: "home" }]);
+  await reply(token, chatId, `🔥 <b>Popular Products</b>\n${DIVIDER}\n\nএগুলো এখন সবচেয়ে বেশি চলছে 👇`, {
+    reply_markup: { inline_keyboard: rows },
+  });
+}
+
+async function startSearch(token: string, chatId: number) {
+  const s = await getSession(chatId);
+  s.step = "search:awaiting_query";
+  await saveSession(s);
+  await reply(
+    token,
+    chatId,
+    `🔎 <b>Search Products</b>\n${DIVIDER}\n\nProduct-এর নাম বা keyword লিখে পাঠান।\n<i>উদাহরণ:</i> <code>netflix</code>, <code>spotify</code>, <code>chatgpt</code>`,
+    { reply_markup: { inline_keyboard: [[{ text: "✖ Cancel", callback_data: "home" }]] } },
+  );
+}
+
+async function runSearch(token: string, chatId: number, query: string) {
+  const q = query.trim();
+  if (q.length < 2) {
+    await reply(token, chatId, "🔎 অন্তত ২ character লিখুন।");
+    return;
+  }
+  const { data } = await admin()
+    .from("products" as any)
+    .select("slug, name, plans")
+    .eq("is_active", true)
+    .ilike("name", `%${q}%`)
+    .limit(15);
+  const rows = ((data as any[]) ?? []).map((p) => {
+    const plans = Array.isArray(p.plans) ? p.plans : [];
+    const min = plans.length ? Math.min(...plans.map((x: any) => Number(x.price) || Infinity)) : null;
+    const price = min && isFinite(min) ? `  ·  ৳${min}+` : "";
+    return [{ text: `📦 ${p.name}${price}`.slice(0, 60), callback_data: `p:${p.slug}` }];
+  });
+  await resetSession(chatId);
+  if (rows.length === 0) {
+    await reply(token, chatId, `🔎 <b>Search: "${escHtml(q)}"</b>\n${DIVIDER}\n\n😕 কোনো product match হয়নি।`, {
+      reply_markup: { inline_keyboard: [[{ text: "🛍️ Browse categories", callback_data: "shop" }, { text: "🏠 Home", callback_data: "home" }]] },
+    });
+    return;
+  }
+  rows.push([{ text: "🏠 Home", callback_data: "home" }]);
+  await reply(token, chatId, `🔎 <b>Search: "${escHtml(q)}"</b>\n${DIVIDER}\n\n✅ ${rows.length - 1} টি match পাওয়া গেছে 👇`, {
+    reply_markup: { inline_keyboard: rows },
+  });
 }
 
 async function sendProductDetail(token: string, chatId: number, slug: string) {
