@@ -2147,6 +2147,32 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      admin_spend_wallet: {
+        Args: {
+          _amount: number
+          _reason?: string
+          _ref_order?: string
+          _user_id: string
+        }
+        Returns: {
+          amount: number
+          balance_after: number
+          created_at: string
+          created_by: string | null
+          id: string
+          reason: string | null
+          ref_order_id: string | null
+          ref_topup_id: string | null
+          type: Database["public"]["Enums"]["wallet_txn_type"]
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "wallet_transactions"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       approve_wallet_topup: {
         Args: { _admin_note?: string; _topup_id: string }
         Returns: {
