@@ -373,20 +373,23 @@ async function sendProductDetail(token: string, chatId: number, slug: string) {
     : "  ·  Price on request";
   const shortDesc = (prod.short_description || prod.tagline || "").toString().slice(0, 400);
   const caption =
-    `<b>${escHtml(prod.name)}</b>\n` +
-    `<i>${escHtml(prod.category || "Digital product")}</i>\n` +
+    `📦 <b>${escHtml(prod.name)}</b>\n` +
+    `🏷️ <i>${escHtml(prod.category || "Digital product")}</i>\n` +
     `${DIVIDER}\n` +
-    (shortDesc ? `\n${escHtml(shortDesc)}\n` : "") +
-    `\n<b>Plans</b>\n${priceBlock}\n\n` +
-    `<b>Delivery</b>   ${escHtml(prod.delivery_time || "Fast · verified")}\n` +
-    `<b>Warranty</b>   ${escHtml(prod.warranty || "Included")}`;
+    (shortDesc ? `\n📝 ${escHtml(shortDesc)}\n` : "") +
+    `\n💎 <b>Plans</b>\n${priceBlock}\n\n` +
+    `⚡ <b>Delivery</b>   ${escHtml(prod.delivery_time || "Fast · verified")}\n` +
+    `🛡️ <b>Warranty</b>   ${escHtml(prod.warranty || "Included")}\n` +
+    `✅ <b>Verified</b>   100% authentic\n\n` +
+    `👇 Plan বেছে নিয়ে <b>Buy Now</b> চাপুন।`;
 
   const buyRows = plans.length
     ? plans.slice(0, 6).map((pl: any, i: number) => [
-        { text: `Buy  ·  ${pl.label ?? pl.duration ?? "Plan"}  ·  ৳${pl.price}`.slice(0, 60), callback_data: `buy:${slug}:${i}` },
+        { text: `🛒 Buy · ${pl.label ?? pl.duration ?? "Plan"} · ৳${pl.price}`.slice(0, 60), callback_data: `buy:${slug}:${i}` },
       ])
-    : [[{ text: "Buy Now", callback_data: `buy:${slug}:0` }]];
-  buyRows.push([{ text: "‹  Back", callback_data: `cat:${(prod.category ?? "").slice(0, 40)}` }, { text: "Home", callback_data: "home" }]);
+    : [[{ text: "🛒 Buy Now", callback_data: `buy:${slug}:0` }]];
+  buyRows.push([{ text: "🎧 Support", callback_data: "support" }, { text: "❓ Help", callback_data: "help" }]);
+  buyRows.push([{ text: "‹ Back", callback_data: `cat:${(prod.category ?? "").slice(0, 40)}` }, { text: "🏠 Home", callback_data: "home" }]);
 
   if (prod.image_url) {
     await sendPhoto(token, chatId, prod.image_url, caption, { reply_markup: { inline_keyboard: buyRows } });
