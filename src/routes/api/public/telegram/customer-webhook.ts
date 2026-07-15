@@ -477,7 +477,7 @@ async function confirmWalletOrder(token: string, chatId: number, session: Sessio
 
   // Deduct wallet
   const newBalance = balance - price;
-  await admin().from("wallets" as any).update({ balance: newBalance, updated_at: new Date().toISOString() } as any).eq("user_id", uid);
+  await (admin().from("wallets" as any) as any).update({ balance: newBalance, updated_at: new Date().toISOString() }).eq("user_id", uid);
   await admin().from("wallet_transactions" as any).insert({
     user_id: uid,
     amount: -price,
