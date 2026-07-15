@@ -169,23 +169,59 @@ async function linkUser(
 }
 
 // ---------- Shop rendering ----------
-const DIVIDER = "━━━━━━━━━━━━━━━";
+const DIVIDER = "━━━━━━━━━━━━━━━━━━━";
 
-const MAIN_MENU = {
-  inline_keyboard: [
-    [{ text: "Shop", callback_data: "shop" }, { text: "My Orders", callback_data: "orders" }],
-    [{ text: "Wallet", callback_data: "wallet" }, { text: "Website  ↗", url: "https://ramasub.com" }],
-  ],
-};
+function mainMenuFor(linked: boolean) {
+  const rows: any[] = [
+    [{ text: "🛍️  Shop এখনই", callback_data: "shop" }, { text: "🔥 Popular", callback_data: "popular" }],
+    [{ text: "🔎 Search", callback_data: "search" }, { text: "📦 My Orders", callback_data: "orders" }],
+    [{ text: "💰 Wallet", callback_data: "wallet" }, { text: "🎁 Refer & Earn", callback_data: "refer" }],
+    [{ text: "❓ Help / FAQ", callback_data: "help" }, { text: "🎧 Support", callback_data: "support" }],
+  ];
+  if (linked) {
+    rows.push([{ text: "👤 My Account", callback_data: "account" }, { text: "🌐 Website", url: "https://ramasub.com" }]);
+  } else {
+    rows.push([
+      { text: "🔗 Connect Account", callback_data: "connect" },
+      { text: "🆕 Register", url: "https://ramasub.com/register" },
+    ]);
+    rows.push([{ text: "🌐 Website", url: "https://ramasub.com" }]);
+  }
+  return { inline_keyboard: rows };
+}
 
 async function sendMainMenu(token: string, chatId: number, name?: string) {
-  const greeting = name ? `স্বাগতম, ${escHtml(name)}।` : "স্বাগতম।";
+  const linked = await findLinkedUser(chatId);
+  const greetName = linked?.first_name ?? name ?? "বন্ধু";
+  const status = linked ? "✅ <b>Account connected</b>" : "🔒 <i>Account এখনো connect করা হয়নি</i>";
+  const text =
+    `🎬 <b>RamaSub — Premium Subscriptions</b>\n` +
+    `🇧🇩 <i>Bangladesh · Fast · Verified</i>\n` +
+    `${DIVIDER}\n\n` +
+    `👋 স্বাগতম, <b>${escHtml(greetName)}</b>!\n${status}\n\n` +
+    `🛒 এখানেই সব কিছু — <b>browse → buy → pay → delivery</b>।\n` +
+    `📱 নিচের menu থেকে যা লাগে বেছে নিন 👇`;
+  await reply(token, chatId, text, { reply_markup: mainMenuFor(!!linked) });
+}
+
+async function sendConnectPrompt(token: string, chatId: number) {
   await reply(
     token,
     chatId,
-    `<b>Rama Sub</b>\n<i>Premium subscriptions · Bangladesh</i>\n${DIVIDER}\n\n${greeting}\n\nনিচের menu থেকে আপনার প্রয়োজনীয় option বেছে নিন।`,
-    { reply_markup: MAIN_MENU },
+    `🔗 <b>Account Connect করুন</b>\n${DIVIDER}\n\n` +
+      `একবার connect করলে সব order, wallet, ও delivery এখানেই পাবেন। মাত্র <b>এক মিনিটের কাজ</b> 👇\n\n` +
+      `1️⃣  <b>Website থেকে link</b> — <a href="https://ramasub.com/connect-telegram">এখানে ক্লিক করুন</a>\n` +
+      `2️⃣  অথবা 📱 button চেপে <b>phone share</b> করুন — automatic match হবে\n` +
+      `3️⃣  Account নেই? আগে <a href="https://ramasub.com/register">register</a> করুন\n`,
+    {
+      reply_markup: {
+        keyboard: [[{ text: "📱 Share phone number", request_contact: true }]],
+        resize_keyboard: true,
+        one_time_keyboard: true,
+      },
+    },
   );
+  await reply(token, chatId, "⬇️ অথবা main menu:", { reply_markup: mainMenuFor(false) });
 }
 
 async function sendCategories(token: string, chatId: number) {
@@ -195,15 +231,30 @@ async function sendCategories(token: string, chatId: number) {
     .eq("is_active", true);
   const cats = Array.from(new Set(((data as any[]) ?? []).map((r) => r.category).filter(Boolean)));
   if (cats.length === 0) {
-    await reply(token, chatId, `<b>Shop</b>\n${DIVIDER}\n\nএই মুহূর্তে কোনো product available নেই।`, { reply_markup: MAIN_MENU });
+    await reply(token, chatId, `🛍️ <b>Shop</b>\n${DIVIDER}\n\n😕 এই মুহূর্তে কোনো product available নেই। শীঘ্রই ফিরে আসবে!`, {
+      reply_markup: mainMenuFor(!!(await findLinkedUser(chatId))),
+    });
     return;
   }
-  const keyboard = cats.map((c) => [{ text: c, callback_data: `cat:${c.slice(0, 40)}` }]);
-  keyboard.push([{ text: "‹  Home", callback_data: "home" }]);
+  const emojiFor = (c: string) => {
+    const s = c.toLowerCase();
+    if (/(netflix|prime|hbo|disney|hulu|movie|tv|ott|stream)/.test(s)) return "🎬";
+    if (/(music|spotify|deezer|apple.?music)/.test(s)) return "🎵";
+    if (/(game|xbox|playstation|steam)/.test(s)) return "🎮";
+    if (/(vpn|proxy)/.test(s)) return "🛡️";
+    if (/(ai|chatgpt|gpt|claude|gemini|copilot)/.test(s)) return "🤖";
+    if (/(design|canva|adobe|figma)/.test(s)) return "🎨";
+    if (/(edu|course|learn|udemy|coursera)/.test(s)) return "📚";
+    if (/(social|instagram|facebook|tiktok)/.test(s)) return "📱";
+    return "✨";
+  };
+  const keyboard = cats.map((c) => [{ text: `${emojiFor(c)}  ${c}`.slice(0, 60), callback_data: `cat:${c.slice(0, 40)}` }]);
+  keyboard.push([{ text: "🔥 Popular", callback_data: "popular" }, { text: "🔎 Search", callback_data: "search" }]);
+  keyboard.push([{ text: "🏠 Home", callback_data: "home" }]);
   await reply(
     token,
     chatId,
-    `<b>Categories</b>\n${DIVIDER}\n\nআপনি কোন category browse করতে চান?`,
+    `🛍️ <b>Shop — Categories</b>\n${DIVIDER}\n\n📂 মোট <b>${cats.length}</b> category available।\nআপনি কী কিনতে চান? 👇`,
     { reply_markup: { inline_keyboard: keyboard } },
   );
 }
@@ -219,26 +270,89 @@ async function sendProductsInCategory(token: string, chatId: number, category: s
   const rows = ((data as any[]) ?? []).map((p) => {
     const plans = Array.isArray(p.plans) ? p.plans : [];
     const minPrice = plans.length ? Math.min(...plans.map((x: any) => Number(x.price) || Infinity)) : null;
-    const priceLabel = minPrice && isFinite(minPrice) ? `  ·  ৳${minPrice}` : "";
-    return [{ text: `${p.name.trim()}${priceLabel}`.slice(0, 60), callback_data: `p:${p.slug}` }];
+    const priceLabel = minPrice && isFinite(minPrice) ? `  ·  ৳${minPrice}+` : "";
+    return [{ text: `📦 ${p.name.trim()}${priceLabel}`.slice(0, 60), callback_data: `p:${p.slug}` }];
   });
   if (rows.length === 0) {
-    await reply(token, chatId, `<b>${escHtml(category)}</b>\n${DIVIDER}\n\nএই category-তে এখন কোনো product নেই।`, {
-      reply_markup: { inline_keyboard: [[{ text: "‹  Categories", callback_data: "shop" }]] },
+    await reply(token, chatId, `📁 <b>${escHtml(category)}</b>\n${DIVIDER}\n\n😕 এই category-তে এখন কোনো product নেই।`, {
+      reply_markup: { inline_keyboard: [[{ text: "‹ Categories", callback_data: "shop" }, { text: "🏠 Home", callback_data: "home" }]] },
     });
     return;
   }
-  rows.push([{ text: "‹  Categories", callback_data: "shop" }, { text: "Home", callback_data: "home" }]);
+  rows.push([{ text: "‹ Categories", callback_data: "shop" }, { text: "🏠 Home", callback_data: "home" }]);
   await reply(
     token,
     chatId,
-    `<b>${escHtml(category)}</b>\n${DIVIDER}\n\n<i>${rows.length - 1} product available</i>\n\nবিস্তারিত দেখতে product-এ tap করুন।`,
+    `📁 <b>${escHtml(category)}</b>\n${DIVIDER}\n\n🛒 <i>${rows.length - 1} টি product available</i>\n\n👇 বিস্তারিত দেখতে product-এ tap করুন।`,
     { reply_markup: { inline_keyboard: rows } },
   );
 }
 
 function escHtml(s: string): string {
   return String(s).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]!));
+}
+
+async function sendPopular(token: string, chatId: number) {
+  const { data } = await admin()
+    .from("products" as any)
+    .select("slug, name, category, plans")
+    .eq("is_active", true)
+    .order("sort_order")
+    .limit(10);
+  const rows = ((data as any[]) ?? []).map((p) => {
+    const plans = Array.isArray(p.plans) ? p.plans : [];
+    const min = plans.length ? Math.min(...plans.map((x: any) => Number(x.price) || Infinity)) : null;
+    const price = min && isFinite(min) ? `  ·  ৳${min}+` : "";
+    return [{ text: `⭐ ${p.name}${price}`.slice(0, 60), callback_data: `p:${p.slug}` }];
+  });
+  if (rows.length === 0) return sendCategories(token, chatId);
+  rows.push([{ text: "🛍️ All categories", callback_data: "shop" }, { text: "🏠 Home", callback_data: "home" }]);
+  await reply(token, chatId, `🔥 <b>Popular Products</b>\n${DIVIDER}\n\nএগুলো এখন সবচেয়ে বেশি চলছে 👇`, {
+    reply_markup: { inline_keyboard: rows },
+  });
+}
+
+async function startSearch(token: string, chatId: number) {
+  const s = await getSession(chatId);
+  s.step = "search:awaiting_query";
+  await saveSession(s);
+  await reply(
+    token,
+    chatId,
+    `🔎 <b>Search Products</b>\n${DIVIDER}\n\nProduct-এর নাম বা keyword লিখে পাঠান।\n<i>উদাহরণ:</i> <code>netflix</code>, <code>spotify</code>, <code>chatgpt</code>`,
+    { reply_markup: { inline_keyboard: [[{ text: "✖ Cancel", callback_data: "home" }]] } },
+  );
+}
+
+async function runSearch(token: string, chatId: number, query: string) {
+  const q = query.trim();
+  if (q.length < 2) {
+    await reply(token, chatId, "🔎 অন্তত ২ character লিখুন।");
+    return;
+  }
+  const { data } = await admin()
+    .from("products" as any)
+    .select("slug, name, plans")
+    .eq("is_active", true)
+    .ilike("name", `%${q}%`)
+    .limit(15);
+  const rows = ((data as any[]) ?? []).map((p) => {
+    const plans = Array.isArray(p.plans) ? p.plans : [];
+    const min = plans.length ? Math.min(...plans.map((x: any) => Number(x.price) || Infinity)) : null;
+    const price = min && isFinite(min) ? `  ·  ৳${min}+` : "";
+    return [{ text: `📦 ${p.name}${price}`.slice(0, 60), callback_data: `p:${p.slug}` }];
+  });
+  await resetSession(chatId);
+  if (rows.length === 0) {
+    await reply(token, chatId, `🔎 <b>Search: "${escHtml(q)}"</b>\n${DIVIDER}\n\n😕 কোনো product match হয়নি।`, {
+      reply_markup: { inline_keyboard: [[{ text: "🛍️ Browse categories", callback_data: "shop" }, { text: "🏠 Home", callback_data: "home" }]] },
+    });
+    return;
+  }
+  rows.push([{ text: "🏠 Home", callback_data: "home" }]);
+  await reply(token, chatId, `🔎 <b>Search: "${escHtml(q)}"</b>\n${DIVIDER}\n\n✅ ${rows.length - 1} টি match পাওয়া গেছে 👇`, {
+    reply_markup: { inline_keyboard: rows },
+  });
 }
 
 async function sendProductDetail(token: string, chatId: number, slug: string) {
@@ -259,20 +373,23 @@ async function sendProductDetail(token: string, chatId: number, slug: string) {
     : "  ·  Price on request";
   const shortDesc = (prod.short_description || prod.tagline || "").toString().slice(0, 400);
   const caption =
-    `<b>${escHtml(prod.name)}</b>\n` +
-    `<i>${escHtml(prod.category || "Digital product")}</i>\n` +
+    `📦 <b>${escHtml(prod.name)}</b>\n` +
+    `🏷️ <i>${escHtml(prod.category || "Digital product")}</i>\n` +
     `${DIVIDER}\n` +
-    (shortDesc ? `\n${escHtml(shortDesc)}\n` : "") +
-    `\n<b>Plans</b>\n${priceBlock}\n\n` +
-    `<b>Delivery</b>   ${escHtml(prod.delivery_time || "Fast · verified")}\n` +
-    `<b>Warranty</b>   ${escHtml(prod.warranty || "Included")}`;
+    (shortDesc ? `\n📝 ${escHtml(shortDesc)}\n` : "") +
+    `\n💎 <b>Plans</b>\n${priceBlock}\n\n` +
+    `⚡ <b>Delivery</b>   ${escHtml(prod.delivery_time || "Fast · verified")}\n` +
+    `🛡️ <b>Warranty</b>   ${escHtml(prod.warranty || "Included")}\n` +
+    `✅ <b>Verified</b>   100% authentic\n\n` +
+    `👇 Plan বেছে নিয়ে <b>Buy Now</b> চাপুন।`;
 
   const buyRows = plans.length
     ? plans.slice(0, 6).map((pl: any, i: number) => [
-        { text: `Buy  ·  ${pl.label ?? pl.duration ?? "Plan"}  ·  ৳${pl.price}`.slice(0, 60), callback_data: `buy:${slug}:${i}` },
+        { text: `🛒 Buy · ${pl.label ?? pl.duration ?? "Plan"} · ৳${pl.price}`.slice(0, 60), callback_data: `buy:${slug}:${i}` },
       ])
-    : [[{ text: "Buy Now", callback_data: `buy:${slug}:0` }]];
-  buyRows.push([{ text: "‹  Back", callback_data: `cat:${(prod.category ?? "").slice(0, 40)}` }, { text: "Home", callback_data: "home" }]);
+    : [[{ text: "🛒 Buy Now", callback_data: `buy:${slug}:0` }]];
+  buyRows.push([{ text: "🎧 Support", callback_data: "support" }, { text: "❓ Help", callback_data: "help" }]);
+  buyRows.push([{ text: "‹ Back", callback_data: `cat:${(prod.category ?? "").slice(0, 40)}` }, { text: "🏠 Home", callback_data: "home" }]);
 
   if (prod.image_url) {
     await sendPhoto(token, chatId, prod.image_url, caption, { reply_markup: { inline_keyboard: buyRows } });
@@ -285,14 +402,7 @@ async function sendProductDetail(token: string, chatId: number, slug: string) {
 async function startCheckout(token: string, chatId: number, slug: string, planIdx: number) {
   const linked = await findLinkedUser(chatId);
   if (!linked) {
-    await reply(
-      token,
-      chatId,
-      `<b>Account link প্রয়োজন</b>\n${DIVIDER}\n\nOrder করতে হলে RamaSub account connect করতে হবে — মাত্র এক মিনিটের কাজ।\n\n<a href="https://ramasub.com/connect-telegram">এখানে ক্লিক করে link করুন</a>\n\nAccount না থাকলে আগে <a href="https://ramasub.com/register">register</a> করুন। অথবা phone share করলে আমরা automatic match করে দেব।`,
-      {
-        reply_markup: { keyboard: [[{ text: "📱 Share phone number", request_contact: true }]], resize_keyboard: true, one_time_keyboard: true },
-      },
-    );
+    await sendConnectPrompt(token, chatId);
     return;
   }
 
@@ -324,18 +434,18 @@ async function startCheckout(token: string, chatId: number, slug: string, planId
   await saveSession(session);
 
   const summary =
-    `<b>Order Summary</b>\n${DIVIDER}\n\n` +
-    `<b>Product</b>   ${escHtml(prod.name)}\n` +
-    `<b>Plan</b>       ${escHtml(session.context.plan_label)}\n` +
-    `<b>Amount</b>   ৳${session.context.price}\n\n` +
-    `${DIVIDER}\nPayment method বেছে নিন।`;
+    `🧾 <b>Order Summary</b>\n${DIVIDER}\n\n` +
+    `📦 <b>Product</b>   ${escHtml(prod.name)}\n` +
+    `💎 <b>Plan</b>          ${escHtml(session.context.plan_label)}\n` +
+    `💵 <b>Amount</b>    ৳${session.context.price}\n\n` +
+    `${DIVIDER}\n💳 Payment method বেছে নিন 👇`;
 
   await reply(token, chatId, summary, {
     reply_markup: {
       inline_keyboard: [
-        [{ text: "Wallet Balance", callback_data: "pay:wallet" }],
-        [{ text: "bKash", callback_data: "pay:bkash" }, { text: "Nagad", callback_data: "pay:nagad" }],
-        [{ text: "Cancel", callback_data: "cancel" }],
+        [{ text: "💰 Pay with Wallet", callback_data: "pay:wallet" }],
+        [{ text: "📱 bKash", callback_data: "pay:bkash" }, { text: "📱 Nagad", callback_data: "pay:nagad" }],
+        [{ text: "✖ Cancel", callback_data: "cancel" }],
       ],
     },
   });
@@ -361,12 +471,13 @@ async function handlePayWallet(token: string, chatId: number, session: Session) 
     await reply(
       token,
       chatId,
-      `<b>Insufficient balance</b>\n${DIVIDER}\n\n<b>Current</b>    ৳${balance}\n<b>Required</b>   ৳${price}\n\nWallet top-up করে আবার try করুন — <a href="https://ramasub.com/wallet">wallet page</a>।`,
+      `⚠️ <b>Wallet balance যথেষ্ট নেই</b>\n${DIVIDER}\n\n💰 <b>Current</b>       ৳${balance}\n💵 <b>Required</b>     ৳${price}\n🧮 <b>Short by</b>       ৳${price - balance}\n\n👉 Wallet top-up করে আবার try করুন অথবা bKash/Nagad দিয়ে pay করুন।`,
       {
         reply_markup: {
           inline_keyboard: [
-            [{ text: "Pay with bKash", callback_data: "pay:bkash" }, { text: "Pay with Nagad", callback_data: "pay:nagad" }],
-            [{ text: "Home", callback_data: "home" }],
+            [{ text: "🌸 Pay with bKash", callback_data: "pay:bkash" }, { text: "🟠 Pay with Nagad", callback_data: "pay:nagad" }],
+            [{ text: "💰 Top-up Wallet ↗", url: "https://ramasub.com/wallet" }],
+            [{ text: "🏠 Home", callback_data: "home" }],
           ],
         },
       },
@@ -376,17 +487,18 @@ async function handlePayWallet(token: string, chatId: number, session: Session) 
   await reply(
     token,
     chatId,
-    `<b>Confirm Order</b>\n${DIVIDER}\n\n` +
-      `<b>Product</b>   ${escHtml(session.context.name)}\n` +
-      `<b>Plan</b>       ${escHtml(session.context.plan_label)}\n` +
-      `<b>Amount</b>   ৳${price}\n\n${DIVIDER}\n` +
-      `<b>Wallet</b>       ৳${balance}\n` +
-      `<b>After pay</b>   ৳${balance - price}`,
+    `✅ <b>Confirm Order</b>\n${DIVIDER}\n\n` +
+      `📦 <b>Product</b>       ${escHtml(session.context.name)}\n` +
+      `💎 <b>Plan</b>              ${escHtml(session.context.plan_label)}\n` +
+      `💵 <b>Amount</b>        ৳${price}\n\n${DIVIDER}\n` +
+      `💰 <b>Wallet balance</b>   ৳${balance}\n` +
+      `🧮 <b>After payment</b>    ৳${balance - price}\n\n` +
+      `👇 নিচের button চেপে order confirm করুন।`,
     {
       reply_markup: {
         inline_keyboard: [
-          [{ text: "Confirm & Place Order", callback_data: "confirm:wallet" }],
-          [{ text: "Cancel", callback_data: "cancel" }],
+          [{ text: "✅ Confirm & Place Order", callback_data: "confirm:wallet" }],
+          [{ text: "✖ Cancel", callback_data: "cancel" }],
         ],
       },
     },
@@ -398,7 +510,7 @@ async function handlePayWallet(token: string, chatId: number, session: Session) 
 async function handlePayMFS(token: string, chatId: number, session: Session, id: "bkash" | "nagad") {
   const pm = await getPaymentMethod(id);
   if (!pm) {
-    await reply(token, chatId, `<b>${id} unavailable</b>\n${DIVIDER}\n\nএই মুহূর্তে এই payment method available নেই।`);
+    await reply(token, chatId, `⚠️ <b>${id} unavailable</b>\n${DIVIDER}\n\nএই মুহূর্তে এই payment method available নেই। অন্য method বেছে নিন।`);
     return;
   }
   session.step = "checkout:awaiting_trxid";
@@ -407,18 +519,21 @@ async function handlePayMFS(token: string, chatId: number, session: Session, id:
   await saveSession(session);
 
   const brand = pm.name ?? id;
+  const emoji = id === "bkash" ? "🌸" : "🟠";
   await reply(
     token,
     chatId,
-    `<b>${escHtml(brand)} Payment</b>\n${DIVIDER}\n\n` +
-      `<b>Step 1</b>   ${escHtml(brand)} app খুলুন → <b>${escHtml(pm.send_money_label ?? "Send Money")}</b>\n\n` +
-      `<b>Step 2</b>   নিচের number-এ টাকা পাঠান\n\n` +
-      `           <code>${escHtml(pm.number)}</code>  <i>(tap to copy)</i>\n` +
-      `           Amount  —  <b>৳${session.context.price}</b>\n\n` +
-      `<b>Step 3</b>   পাঠানোর পর <b>TrxID</b> reply করুন (উদাহরণ <code>9AB12CD34E</code>)।\n\n` +
-      (pm.instructions ? `${DIVIDER}\n<i>${escHtml(pm.instructions)}</i>` : ""),
+    `${emoji} <b>${escHtml(brand)} Payment</b>\n${DIVIDER}\n\n` +
+      `1️⃣  ${escHtml(brand)} app খুলুন → <b>${escHtml(pm.send_money_label ?? "Send Money")}</b>\n\n` +
+      `2️⃣  নিচের number-এ টাকা পাঠান 👇\n\n` +
+      `      📞  <code>${escHtml(pm.number)}</code>  <i>(tap to copy)</i>\n` +
+      `      💵  Amount  —  <b>৳${session.context.price}</b>\n\n` +
+      `3️⃣  পাঠানোর পর <b>TrxID</b> reply করুন\n` +
+      `      <i>উদাহরণ:</i> <code>9AB12CD34E</code>\n\n` +
+      (pm.instructions ? `${DIVIDER}\n📌 <i>${escHtml(pm.instructions)}</i>\n\n` : "") +
+      `⏱️ Payment verify হলে ১৫–৩০ মিনিটে delivery পাবেন।`,
     {
-      reply_markup: { inline_keyboard: [[{ text: "Cancel", callback_data: "cancel" }]] },
+      reply_markup: { inline_keyboard: [[{ text: "✖ Cancel", callback_data: "cancel" }]] },
     },
   );
 }
@@ -526,13 +641,18 @@ async function confirmWalletOrder(token: string, chatId: number, session: Sessio
   await reply(
     token,
     chatId,
-    `<b>Order placed</b>\n${DIVIDER}\n\n` +
-      `<b>Order ID</b>       ${shortId}\n` +
-      `<b>Paid</b>              ৳${price}  <i>· Wallet</i>\n` +
-      `<b>New balance</b>   ৳${newBalance}\n\n${DIVIDER}\n` +
-      `Processing শুরু হয়েছে। Delivery হলে এখানেই notification পাবেন।\n\n` +
-      `<a href="https://ramasub.com/orders/${orderId}">Order details ↗</a>`,
-    { reply_markup: MAIN_MENU },
+    `🎉 <b>Order Placed Successfully!</b>\n${DIVIDER}\n\n` +
+      `🆔 <b>Order ID</b>          ${shortId}\n` +
+      `✅ <b>Paid</b>                 ৳${price}  <i>· Wallet</i>\n` +
+      `💰 <b>New balance</b>   ৳${newBalance}\n\n${DIVIDER}\n` +
+      `⚡ Processing শুরু হয়েছে। Delivery হলে এখানেই notification পাবেন।\n\n` +
+      `🔗 <a href="https://ramasub.com/orders/${orderId}">Order details দেখুন ↗</a>\n\n🙏 ধন্যবাদ RamaSub-এ order করার জন্য!`,
+    {
+      reply_markup: { inline_keyboard: [
+        [{ text: "📦 My Orders", callback_data: "orders" }, { text: "🛍️ Shop More", callback_data: "shop" }],
+        [{ text: "🏠 Home", callback_data: "home" }],
+      ]},
+    },
   );
   await resetSession(chatId);
 }
@@ -540,7 +660,7 @@ async function confirmWalletOrder(token: string, chatId: number, session: Sessio
 async function submitMFSOrder(token: string, chatId: number, session: Session, trxid: string) {
   const clean = trxid.trim().toUpperCase();
   if (!/^[A-Z0-9]{6,20}$/.test(clean)) {
-    await reply(token, chatId, `<b>Invalid TrxID</b>\n${DIVIDER}\n\nTrxID সাধারণত ৬–২০ character alphanumeric হয়। আবার পাঠান।`);
+    await reply(token, chatId, `⚠️ <b>Invalid TrxID</b>\n${DIVIDER}\n\nTrxID সাধারণত ৬–২০ character alphanumeric হয়।\n<i>উদাহরণ:</i> <code>9AB12CD34E</code>\n\n👉 আবার পাঠান।`);
     return;
   }
   let orderId: string;
@@ -552,20 +672,24 @@ async function submitMFSOrder(token: string, chatId: number, session: Session, t
       paymentStatus: "pending",
     });
   } catch (e) {
-    await reply(token, chatId, `<b>Order failed</b>\n${DIVIDER}\n\n${escHtml((e as Error).message)}`);
+    await reply(token, chatId, `❌ <b>Order failed</b>\n${DIVIDER}\n\n${escHtml((e as Error).message)}`);
     return;
   }
   const shortId = "ORD-" + orderId.replace(/-/g, "").slice(0, 8).toUpperCase();
   await reply(
     token,
     chatId,
-    `<b>Order received</b>\n${DIVIDER}\n\n` +
-      `<b>Order ID</b>   ${shortId}\n` +
-      `<b>Amount</b>     ৳${session.context.price}\n` +
-      `<b>TrxID</b>          <code>${escHtml(clean)}</code>\n\n${DIVIDER}\n` +
-      `Payment verify করছি — ১৫–৩০ মিনিটের মধ্যে delivery পাবেন।\n\n` +
-      `<a href="https://ramasub.com/orders/${orderId}">Track order ↗</a>`,
-    { reply_markup: MAIN_MENU },
+    `🎉 <b>Order Received!</b>\n${DIVIDER}\n\n` +
+      `🆔 <b>Order ID</b>   ${shortId}\n` +
+      `💵 <b>Amount</b>      ৳${session.context.price}\n` +
+      `🔖 <b>TrxID</b>            <code>${escHtml(clean)}</code>\n\n${DIVIDER}\n` +
+      `⏱️ Payment verify করছি — <b>১৫–৩০ মিনিটের</b> মধ্যে delivery পাবেন।\n📩 Ready হলে এখানেই notification পাবেন।\n\n🔗 <a href="https://ramasub.com/orders/${orderId}">Track order ↗</a>\n\n🙏 ধন্যবাদ!`,
+    {
+      reply_markup: { inline_keyboard: [
+        [{ text: "📦 My Orders", callback_data: "orders" }, { text: "🛍️ Shop More", callback_data: "shop" }],
+        [{ text: "🎧 Support", callback_data: "support" }, { text: "🏠 Home", callback_data: "home" }],
+      ]},
+    },
   );
   await resetSession(chatId);
 }
@@ -573,10 +697,7 @@ async function submitMFSOrder(token: string, chatId: number, session: Session, t
 // ---------- Info commands ----------
 async function sendMyOrders(token: string, chatId: number) {
   const linked = await findLinkedUser(chatId);
-  if (!linked) {
-    await reply(token, chatId, `<b>Account link প্রয়োজন</b>\n${DIVIDER}\n\nOrder দেখতে account link করতে হবে। /start দিন।`);
-    return;
-  }
+  if (!linked) { await sendConnectPrompt(token, chatId); return; }
   const { data } = await admin()
     .from("orders" as any)
     .select("id, total, status, created_at, items")
@@ -585,39 +706,129 @@ async function sendMyOrders(token: string, chatId: number) {
     .limit(10);
   const rows = (data as any[]) ?? [];
   if (rows.length === 0) {
-    await reply(token, chatId, `<b>My Orders</b>\n${DIVIDER}\n\nএখনো কোনো order নেই।\n\nShop থেকে prima subscription বেছে নিতে পারেন।`, { reply_markup: MAIN_MENU });
+    await reply(token, chatId, `📦 <b>My Orders</b>\n${DIVIDER}\n\n📭 এখনো কোনো order নেই।\n\n🛍️ Shop থেকে premium subscription বেছে নিন!`, {
+      reply_markup: { inline_keyboard: [
+        [{ text: "🛍️ Start Shopping", callback_data: "shop" }, { text: "🔥 Popular", callback_data: "popular" }],
+        [{ text: "🏠 Home", callback_data: "home" }],
+      ]},
+    });
     return;
   }
-  const dot: Record<string, string> = { pending: "○", processing: "◐", completed: "●", delivered: "●", cancelled: "×", failed: "×" };
+  const dot: Record<string, string> = { pending: "🟡", processing: "🔵", completed: "🟢", delivered: "🟢", cancelled: "🔴", failed: "🔴" };
   const lines = rows
     .map((r) => {
       const short = "ORD-" + r.id.replace(/-/g, "").slice(0, 8).toUpperCase();
       const first = Array.isArray(r.items) && r.items[0] ? r.items[0].name : "Order";
-      const d = dot[r.status] ?? "·";
-      return `${d}  <b>${short}</b>  ·  ৳${r.total}  ·  <i>${r.status}</i>\n     ${escHtml(String(first).slice(0, 50))}`;
+      const d = dot[r.status] ?? "⚪";
+      return `${d}  <b>${short}</b>  ·  ৳${r.total}\n     📦 ${escHtml(String(first).slice(0, 50))}  ·  <i>${r.status}</i>`;
     })
     .join("\n\n");
   await reply(
     token,
     chatId,
-    `<b>Recent Orders</b>\n${DIVIDER}\n\n${lines}\n\n${DIVIDER}\n<a href="https://ramasub.com/orders">All orders ↗</a>`,
-    { reply_markup: MAIN_MENU },
+    `📦 <b>Recent Orders</b>\n${DIVIDER}\n\n${lines}\n\n${DIVIDER}\n🔗 <a href="https://ramasub.com/orders">All orders ↗</a>`,
+    { reply_markup: mainMenuFor(true) },
   );
 }
 
 async function sendWallet(token: string, chatId: number) {
   const linked = await findLinkedUser(chatId);
-  if (!linked) {
-    await reply(token, chatId, `<b>Account link প্রয়োজন</b>\n${DIVIDER}\n\nWallet দেখতে account link করতে হবে। /start দিন।`);
-    return;
-  }
+  if (!linked) { await sendConnectPrompt(token, chatId); return; }
   const { data } = await admin().from("wallets" as any).select("balance").eq("user_id", linked.user_id).maybeSingle();
   const bal = Number((data as any)?.balance ?? 0);
   await reply(
     token,
     chatId,
-    `<b>Wallet</b>\n${DIVIDER}\n\n<b>Balance</b>\n\n           <b>৳${bal}</b>\n\n${DIVIDER}\nTop-up করতে <a href="https://ramasub.com/wallet">wallet page</a> visit করুন।`,
-    { reply_markup: MAIN_MENU },
+    `💰 <b>My Wallet</b>\n${DIVIDER}\n\n💎 <b>Current Balance</b>\n\n            💵 <b>৳${bal}</b>\n\n${DIVIDER}\n🎁 Refer করে wallet-এ ৳50 বোনাস নিন!\n💳 Top-up: bKash / Nagad / Card\n⚡ Wallet payment = instant order`,
+    {
+      reply_markup: { inline_keyboard: [
+        [{ text: "💳 Top-up Wallet ↗", url: "https://ramasub.com/wallet" }],
+        [{ text: "🎁 Refer & Earn", callback_data: "refer" }, { text: "🛍️ Shop", callback_data: "shop" }],
+        [{ text: "🏠 Home", callback_data: "home" }],
+      ]},
+    },
+  );
+}
+
+async function sendReferral(token: string, chatId: number) {
+  const linked = await findLinkedUser(chatId);
+  if (!linked) { await sendConnectPrompt(token, chatId); return; }
+  const code = linked.user_id.replace(/-/g, "").slice(0, 8);
+  await reply(
+    token,
+    chatId,
+    `🎁 <b>Refer & Earn</b>\n${DIVIDER}\n\n👥 বন্ধুদের invite করুন — signup করলেই আপনি পাবেন <b>৳50</b> wallet credit!\n\n🔗 <b>Your referral code</b>\n\n         <code>${code}</code>  <i>(tap to copy)</i>\n\n📤 Share link:\n<code>https://ramasub.com/register?ref=${code}</code>\n\n${DIVIDER}\n💡 প্রতিটি successful referral-এ ৳50 instant credit।`,
+    { reply_markup: { inline_keyboard: [[{ text: "💰 My Wallet", callback_data: "wallet" }, { text: "🏠 Home", callback_data: "home" }]] } },
+  );
+}
+
+async function sendHelp(token: string, chatId: number) {
+  await reply(
+    token,
+    chatId,
+    `❓ <b>Help & FAQ</b>\n${DIVIDER}\n\n` +
+      `<b>🛒 কীভাবে order করব?</b>\n1️⃣ Shop → Category → Product\n2️⃣ Plan বেছে "Buy" চাপুন\n3️⃣ Payment method বেছে pay করুন\n4️⃣ TrxID reply করুন (bKash/Nagad)\n\n` +
+      `<b>⏱️ Delivery কতক্ষণে?</b>\nPayment verify-এর পর <b>১৫–৩০ মিনিট</b>।\n\n` +
+      `<b>💰 Wallet কীভাবে top-up করব?</b>\nWebsite → Wallet → Top-up।\n\n` +
+      `<b>🎁 Referral?</b>\nবন্ধুকে code share করুন — signup হলেই ৳50।\n\n` +
+      `<b>🛡️ Warranty?</b>\nসব premium product-এ warranty included।\n\n` +
+      `<b>⚙️ Commands</b>\n/start · /shop · /orders · /wallet · /help · /support · /cancel · /unlink`,
+    {
+      reply_markup: { inline_keyboard: [
+        [{ text: "🎧 Contact Support", callback_data: "support" }],
+        [{ text: "🛍️ Start Shopping", callback_data: "shop" }, { text: "🏠 Home", callback_data: "home" }],
+      ]},
+    },
+  );
+}
+
+async function sendSupport(token: string, chatId: number) {
+  let whatsapp = "";
+  try {
+    const { data } = await admin()
+      .from("admin_records" as any)
+      .select("data")
+      .eq("kind", "shop_config")
+      .eq("is_active", true)
+      .limit(1);
+    const cfg = ((data as any[]) ?? [])[0]?.data ?? {};
+    whatsapp = cfg.whatsapp || cfg.support_whatsapp || "";
+  } catch { /* ignore */ }
+  const waLine = whatsapp
+    ? `📱 <b>WhatsApp</b>   <a href="https://wa.me/${String(whatsapp).replace(/\D/g, "")}">${escHtml(whatsapp)}</a>\n`
+    : "";
+  await reply(
+    token,
+    chatId,
+    `🎧 <b>Customer Support</b>\n${DIVIDER}\n\nআপনার order বা account সংক্রান্ত যেকোনো প্রশ্ন? আমরা সাহায্য করতে প্রস্তুত।\n\n${waLine}🌐 <b>Website</b>       <a href="https://ramasub.com/contact">ramasub.com/contact</a>\n📧 <b>Email</b>            support@ramasub.com\n\n${DIVIDER}\n💬 আমরা যত দ্রুত সম্ভব reply করব।`,
+    {
+      reply_markup: { inline_keyboard: [
+        [{ text: "📦 My Orders", callback_data: "orders" }, { text: "❓ FAQ", callback_data: "help" }],
+        [{ text: "🏠 Home", callback_data: "home" }],
+      ]},
+    },
+  );
+}
+
+async function sendAccount(token: string, chatId: number) {
+  const linked = await findLinkedUser(chatId);
+  if (!linked) { await sendConnectPrompt(token, chatId); return; }
+  const { data: profile } = await admin().from("profiles" as any).select("display_name, phone").eq("id", linked.user_id).maybeSingle();
+  const p = (profile as any) ?? {};
+  const { data: w } = await admin().from("wallets" as any).select("balance").eq("user_id", linked.user_id).maybeSingle();
+  const bal = Number((w as any)?.balance ?? 0);
+  const { count } = await admin().from("orders" as any).select("id", { count: "exact", head: true }).eq("user_id", linked.user_id);
+  await reply(
+    token,
+    chatId,
+    `👤 <b>My Account</b>\n${DIVIDER}\n\n🙋 <b>Name</b>          ${escHtml(p.display_name || linked.first_name || "—")}\n📞 <b>Phone</b>         ${escHtml(p.phone || "—")}\n📦 <b>Orders</b>        ${count ?? 0}\n💰 <b>Wallet</b>          ৳${bal}\n\n${DIVIDER}\n⚙️ Account settings website থেকে manage করা যায়।`,
+    {
+      reply_markup: { inline_keyboard: [
+        [{ text: "⚙️ Account Settings ↗", url: "https://ramasub.com/account" }],
+        [{ text: "📦 Orders", callback_data: "orders" }, { text: "💰 Wallet", callback_data: "wallet" }],
+        [{ text: "🔌 Unlink", callback_data: "unlink" }, { text: "🏠 Home", callback_data: "home" }],
+      ]},
+    },
   );
 }
 
@@ -627,11 +838,22 @@ async function handleCallback(token: string, chatId: number, data: string, callb
 
   if (data === "home") return sendMainMenu(token, chatId);
   if (data === "shop") return sendCategories(token, chatId);
+  if (data === "popular") return sendPopular(token, chatId);
+  if (data === "search") return startSearch(token, chatId);
   if (data === "orders") return sendMyOrders(token, chatId);
   if (data === "wallet") return sendWallet(token, chatId);
+  if (data === "refer") return sendReferral(token, chatId);
+  if (data === "help") return sendHelp(token, chatId);
+  if (data === "support") return sendSupport(token, chatId);
+  if (data === "account") return sendAccount(token, chatId);
+  if (data === "connect") return sendConnectPrompt(token, chatId);
+  if (data === "unlink") {
+    await admin().from("telegram_customer_links" as any).delete().eq("chat_id", chatId);
+    return reply(token, chatId, `🔌 <b>Disconnected</b>\n${DIVIDER}\n\nAccount আবার connect করতে /start দিন।`, { reply_markup: mainMenuFor(false) });
+  }
   if (data === "cancel") {
     await resetSession(chatId);
-    return reply(token, chatId, "Cancelled — কোনো action নেওয়া হয়নি।", { reply_markup: MAIN_MENU });
+    return reply(token, chatId, "✖ Cancelled — কোনো action নেওয়া হয়নি।", { reply_markup: mainMenuFor(!!(await findLinkedUser(chatId))) });
   }
 
   if (data.startsWith("cat:")) return sendProductsInCategory(token, chatId, data.slice(4));
@@ -645,7 +867,7 @@ async function handleCallback(token: string, chatId: number, data: string, callb
   if (data.startsWith("pay:")) {
     const method = data.slice(4);
     const session = await getSession(chatId);
-    if (!session.user_id) return reply(token, chatId, "Session expired. /shop থেকে আবার শুরু করুন।");
+    if (!session.user_id) return reply(token, chatId, "⏱️ Session expired. /shop থেকে আবার শুরু করুন।", { reply_markup: mainMenuFor(true) });
     if (method === "wallet") return handlePayWallet(token, chatId, session);
     if (method === "bkash" || method === "nagad") return handlePayMFS(token, chatId, session, method);
   }
@@ -653,7 +875,7 @@ async function handleCallback(token: string, chatId: number, data: string, callb
   if (data === "confirm:wallet") {
     const session = await getSession(chatId);
     if (session.step !== "checkout:confirm_wallet") {
-      return reply(token, chatId, "Session expired.", { reply_markup: MAIN_MENU });
+      return reply(token, chatId, "⏱️ Session expired.", { reply_markup: mainMenuFor(true) });
     }
     return confirmWalletOrder(token, chatId, session);
   }
@@ -714,14 +936,15 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
             await reply(
               token,
               chatId,
-              "❌ এই phone number দিয়ে RamaSub-এ কোনো account নেই।\n\nআগে <a href=\"https://ramasub.com/register\">signup</a> করুন।",
+              `❌ <b>Account পাওয়া যায়নি</b>\n${DIVIDER}\n\nএই phone number দিয়ে RamaSub-এ কোনো account নেই।\n\n👉 আগে <a href="https://ramasub.com/register">signup</a> করুন — মাত্র ৩০ সেকেন্ড।`,
               { reply_markup: { remove_keyboard: true } },
             );
+            await sendMainMenu(token, chatId, info.firstName);
             return Response.json({ ok: true });
           }
           if (msg.contact.user_id && Number(msg.contact.user_id) === Number(from.id)) {
             await linkUser(userId, chatId, { ...info, phone });
-            await reply(token, chatId, `<b>Account connected</b>\n${DIVIDER}\n\nএখন আপনি bot থেকে সরাসরি order করতে পারবেন।`, {
+            await reply(token, chatId, `✅ <b>Account Connected!</b>\n${DIVIDER}\n\n🎉 এখন আপনি bot থেকে সরাসরি order করতে পারবেন।`, {
               reply_markup: { remove_keyboard: true },
             });
             await sendMainMenu(token, chatId, info.firstName);
@@ -729,7 +952,7 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
           }
           const code = String(Math.floor(100000 + Math.random() * 900000));
           await admin().from("telegram_phone_otps" as any).insert({ chat_id: chatId, phone, code } as any);
-          await reply(token, chatId, `🔐 SMS-এ পাঠানো 6-digit code এখানে reply করুন।`);
+          await reply(token, chatId, `🔐 <b>Verify করুন</b>\n${DIVIDER}\n\nSMS-এ পাঠানো <b>6-digit code</b> এখানে reply করুন।`);
           return Response.json({ ok: true });
         }
 
@@ -754,7 +977,7 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
               await linkUser(lc.user_id, chatId, info);
               await (admin().from("telegram_link_codes" as any) as any)
                 .update({ consumed_at: new Date().toISOString() }).eq("code", code);
-              await reply(token, chatId, `<b>Account connected</b>\n${DIVIDER}\n\nএখন থেকে সব order update এখানেই পাবেন।`);
+              await reply(token, chatId, `✅ <b>Account Connected!</b>\n${DIVIDER}\n\n🎉 এখন থেকে সব order update এখানেই পাবেন।`);
               await sendMainMenu(token, chatId, info.firstName);
             }
             return Response.json({ ok: true });
@@ -766,19 +989,21 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
         if (text === "/shop") { await sendCategories(token, chatId); return Response.json({ ok: true }); }
         if (text === "/orders") { await sendMyOrders(token, chatId); return Response.json({ ok: true }); }
         if (text === "/wallet") { await sendWallet(token, chatId); return Response.json({ ok: true }); }
-        if (text === "/cancel") { await resetSession(chatId); await reply(token, chatId, "Cancelled — কোনো action নেওয়া হয়নি।", { reply_markup: MAIN_MENU }); return Response.json({ ok: true }); }
-        if (text === "/unlink") {
-          await admin().from("telegram_customer_links" as any).delete().eq("chat_id", chatId);
-          await reply(token, chatId, `<b>Disconnected</b>\n${DIVIDER}\n\nআবার connect করতে /start দিন।`);
+        if (text === "/refer") { await sendReferral(token, chatId); return Response.json({ ok: true }); }
+        if (text === "/account") { await sendAccount(token, chatId); return Response.json({ ok: true }); }
+        if (text === "/support") { await sendSupport(token, chatId); return Response.json({ ok: true }); }
+        if (text === "/help") { await sendHelp(token, chatId); return Response.json({ ok: true }); }
+        if (text === "/connect") { await sendConnectPrompt(token, chatId); return Response.json({ ok: true }); }
+        if (text === "/search") { await startSearch(token, chatId); return Response.json({ ok: true }); }
+        if (text === "/popular") { await sendPopular(token, chatId); return Response.json({ ok: true }); }
+        if (text === "/cancel") {
+          await resetSession(chatId);
+          await reply(token, chatId, "✖ Cancelled — কোনো action নেওয়া হয়নি।", { reply_markup: mainMenuFor(!!(await findLinkedUser(chatId))) });
           return Response.json({ ok: true });
         }
-        if (text === "/help") {
-          await reply(
-            token,
-            chatId,
-            `<b>Commands</b>\n\n/start — main menu\n/shop — browse products\n/orders — your orders\n/wallet — wallet balance\n/cancel — cancel current step\n/unlink — disconnect account\n\n🌐 https://ramasub.com`,
-            { reply_markup: MAIN_MENU },
-          );
+        if (text === "/unlink") {
+          await admin().from("telegram_customer_links" as any).delete().eq("chat_id", chatId);
+          await reply(token, chatId, `🔌 <b>Disconnected</b>\n${DIVIDER}\n\nAccount আবার connect করতে /start দিন।`);
           return Response.json({ ok: true });
         }
 
@@ -787,6 +1012,11 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
 
         if (session.step === "checkout:awaiting_trxid") {
           await submitMFSOrder(token, chatId, session, text);
+          return Response.json({ ok: true });
+        }
+
+        if (session.step === "search:awaiting_query") {
+          await runSearch(token, chatId, text);
           return Response.json({ ok: true });
         }
 
