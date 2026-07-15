@@ -441,18 +441,18 @@ async function startCheckout(token: string, chatId: number, slug: string, planId
   await saveSession(session);
 
   const summary =
-    `<b>Order Summary</b>\n${DIVIDER}\n\n` +
-    `<b>Product</b>   ${escHtml(prod.name)}\n` +
-    `<b>Plan</b>       ${escHtml(session.context.plan_label)}\n` +
-    `<b>Amount</b>   ৳${session.context.price}\n\n` +
-    `${DIVIDER}\nPayment method বেছে নিন।`;
+    `🧾 <b>Order Summary</b>\n${DIVIDER}\n\n` +
+    `📦 <b>Product</b>   ${escHtml(prod.name)}\n` +
+    `💎 <b>Plan</b>          ${escHtml(session.context.plan_label)}\n` +
+    `💵 <b>Amount</b>    ৳${session.context.price}\n\n` +
+    `${DIVIDER}\n💳 Payment method বেছে নিন 👇`;
 
   await reply(token, chatId, summary, {
     reply_markup: {
       inline_keyboard: [
-        [{ text: "Wallet Balance", callback_data: "pay:wallet" }],
-        [{ text: "bKash", callback_data: "pay:bkash" }, { text: "Nagad", callback_data: "pay:nagad" }],
-        [{ text: "Cancel", callback_data: "cancel" }],
+        [{ text: "💰 Pay with Wallet", callback_data: "pay:wallet" }],
+        [{ text: "📱 bKash", callback_data: "pay:bkash" }, { text: "📱 Nagad", callback_data: "pay:nagad" }],
+        [{ text: "✖ Cancel", callback_data: "cancel" }],
       ],
     },
   });
