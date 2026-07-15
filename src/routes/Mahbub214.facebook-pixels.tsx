@@ -197,7 +197,7 @@ function FacebookPixelsPage() {
                         {p.label || "Untitled Pixel"}
                       </span>
                       {p.enabled ? (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">ACTIVE</span>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-violet-100 text-violet-700">ACTIVE</span>
                       ) : (
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 text-slate-600">DISABLED</span>
                       )}
@@ -217,7 +217,7 @@ function FacebookPixelsPage() {
                       className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold border transition-colors ${
                         p.enabled
                           ? "border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100"
-                          : "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                          : "border-violet-200 bg-white text-violet-700 hover:bg-violet-100"
                       }`}
                     >
                       {p.enabled ? <PowerOff className="w-3.5 h-3.5" /> : <Power className="w-3.5 h-3.5" />}

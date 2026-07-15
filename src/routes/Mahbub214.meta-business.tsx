@@ -250,13 +250,13 @@ function MetaBusinessPage() {
               <div className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Last Verification</div>
               {Object.entries(cfg.last_verify_result.checks || {}).map(([k, v]) => (
                 <div key={k} className="flex items-center gap-2 text-sm">
-                  {v.ok ? <CheckCircle2 className="w-4 h-4 text-emerald-600" /> : <XCircle className="w-4 h-4 text-rose-600" />}
+                  {v.ok ? <CheckCircle2 className="w-4 h-4 text-violet-700" /> : <XCircle className="w-4 h-4 text-rose-600" />}
                   <span className="text-slate-700">{v.msg}</span>
                 </div>
               ))}
               {cfg.last_verify_result.graph && (
                 <div className="flex items-center gap-2 text-sm">
-                  {cfg.last_verify_result.graph.ok ? <CheckCircle2 className="w-4 h-4 text-emerald-600" /> : <AlertCircle className="w-4 h-4 text-amber-600" />}
+                  {cfg.last_verify_result.graph.ok ? <CheckCircle2 className="w-4 h-4 text-violet-700" /> : <AlertCircle className="w-4 h-4 text-amber-600" />}
                   <span className="text-slate-700">Graph API: {cfg.last_verify_result.graph.msg}</span>
                 </div>
               )}
@@ -322,7 +322,7 @@ function StatCard({ icon: Icon, label, value, ok }: { icon: React.ComponentType<
     <div className="bg-white border border-slate-200 rounded-2xl p-4">
       <div className="flex items-center justify-between mb-2">
         <Icon className="w-5 h-5 text-violet-600" />
-        <span className={`w-2 h-2 rounded-full ${ok ? "bg-emerald-500" : "bg-slate-300"}`} />
+        <span className={`w-2 h-2 rounded-full ${ok ? "bg-violet-500" : "bg-slate-300"}`} />
       </div>
       <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500">{label}</div>
       <div className="text-sm font-semibold text-slate-800 truncate mt-0.5">{value}</div>

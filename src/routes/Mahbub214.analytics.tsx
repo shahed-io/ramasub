@@ -54,7 +54,7 @@ function KpiCard({
 }: { icon: React.ReactNode; label: string; value: string | number; tone?: string }) {
   const tones: Record<string, string> = {
     violet: "from-violet-500 to-fuchsia-500",
-    emerald: "from-emerald-500 to-teal-500",
+    emerald: "from-violet-500 to-violet-600",
     amber: "from-amber-500 to-orange-500",
     sky: "from-sky-500 to-blue-500",
     rose: "from-rose-500 to-pink-500",
@@ -171,10 +171,10 @@ function WebAnalyticsPage() {
 
           <div className="flex items-center gap-2">
             {/* Live indicator */}
-            <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-emerald-200 px-3 py-1.5 text-xs font-semibold text-emerald-700">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-emerald-200 px-3 py-1.5 text-xs font-semibold text-violet-700">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
               </span>
               {live.data?.activeVisitors ?? 0} {t("active now", "এখন অনলাইন")}
             </div>
@@ -368,7 +368,7 @@ function WebAnalyticsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
             <Section
               title={t("Live activity (last 5 min)", "লাইভ অ্যাক্টিভিটি (শেষ ৫ মিনিট)")}
-              right={<span className="text-[11px] font-semibold text-emerald-600 inline-flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> LIVE</span>}
+              right={<span className="text-[11px] font-semibold text-violet-700 inline-flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" /> LIVE</span>}
             >
               {(live.data?.recent?.length ?? 0) === 0 ? (
                 <div className="text-sm text-slate-400 py-8 text-center">এই মুহূর্তে কেউ নেই</div>

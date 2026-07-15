@@ -834,7 +834,7 @@ function AdCampaignMetrics() {
   const money = (n: number) => `৳${fmt(n)}`;
 
   const cards: Array<{ label: string; labelBn: string; value: string; hint?: string; tone: string }> = [
-    { label: "Active campaigns", labelBn: "সক্রিয় ক্যাম্পেইন", value: fmt(metrics.active), tone: "from-violet-500 to-green-600" },
+    { label: "Active campaigns", labelBn: "সক্রিয় ক্যাম্পেইন", value: fmt(metrics.active), tone: "from-violet-500 to-violet-700" },
     { label: "Total spend", labelBn: "মোট খরচ", value: money(metrics.spend), hint: `budget ${money(metrics.budget)}`, tone: "from-rose-500 to-red-600" },
     { label: "Revenue", labelBn: "আয়", value: money(metrics.revenue), tone: "from-violet-500 to-purple-600" },
     { label: "ROAS", labelBn: "ROAS", value: metrics.roas ? `${metrics.roas.toFixed(2)}x` : "—", hint: "revenue ÷ spend", tone: "from-amber-500 to-orange-600" },
