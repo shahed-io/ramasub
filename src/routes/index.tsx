@@ -43,8 +43,8 @@ export const Route = createFileRoute("/")({
 
   head: ({ loaderData }) => {
     const seo = loaderData?.homepageConfig?.seo ?? {};
-    const title = seo.title || "Rama Sub — Digital Products & Software";
-    const description = seo.description || "Buy verified digital products, subscriptions, software licenses, AI tools, OTT, VPN and education services in Bangladesh with fast delivery.";
+    const title = seo.title || "Rama Sub — ramasub.com | Bangladesh's #1 Premium Subscription Shop (রামা সাব)";
+    const description = seo.description || "Rama Sub (ramasub.com) — বাংলাদেশের #1 বিশ্বস্ত premium subscription shop। ChatGPT Plus, Netflix, Canva Pro, Adobe, Office 365, VPN সহ সব digital products সবচেয়ে কম দামে। Instant delivery, warranty ও 24/7 support। রামা সাব থেকে verified subscription কিনুন।";
     const ogTitle = seo.ogTitle || title;
     const ogDescription = seo.ogDescription || description;
     const meta: Array<Record<string, string>> = [
