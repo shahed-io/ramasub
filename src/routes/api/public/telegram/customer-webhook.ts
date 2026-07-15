@@ -646,7 +646,7 @@ async function confirmWalletOrder(token: string, chatId: number, session: Sessio
       `<b>New balance</b>   ৳${newBalance}\n\n${DIVIDER}\n` +
       `Processing শুরু হয়েছে। Delivery হলে এখানেই notification পাবেন।\n\n` +
       `<a href="https://ramasub.com/orders/${orderId}">Order details ↗</a>`,
-    { reply_markup: MAIN_MENU },
+    { reply_markup: mainMenuFor(true) },
   );
   await resetSession(chatId);
 }
@@ -679,7 +679,7 @@ async function submitMFSOrder(token: string, chatId: number, session: Session, t
       `<b>TrxID</b>          <code>${escHtml(clean)}</code>\n\n${DIVIDER}\n` +
       `Payment verify করছি — ১৫–৩০ মিনিটের মধ্যে delivery পাবেন।\n\n` +
       `<a href="https://ramasub.com/orders/${orderId}">Track order ↗</a>`,
-    { reply_markup: MAIN_MENU },
+    { reply_markup: mainMenuFor(true) },
   );
   await resetSession(chatId);
 }
@@ -699,7 +699,7 @@ async function sendMyOrders(token: string, chatId: number) {
     .limit(10);
   const rows = (data as any[]) ?? [];
   if (rows.length === 0) {
-    await reply(token, chatId, `<b>My Orders</b>\n${DIVIDER}\n\nএখনো কোনো order নেই।\n\nShop থেকে prima subscription বেছে নিতে পারেন।`, { reply_markup: MAIN_MENU });
+    await reply(token, chatId, `<b>My Orders</b>\n${DIVIDER}\n\nএখনো কোনো order নেই।\n\nShop থেকে prima subscription বেছে নিতে পারেন।`, { reply_markup: mainMenuFor(true) });
     return;
   }
   const dot: Record<string, string> = { pending: "○", processing: "◐", completed: "●", delivered: "●", cancelled: "×", failed: "×" };
@@ -715,7 +715,7 @@ async function sendMyOrders(token: string, chatId: number) {
     token,
     chatId,
     `<b>Recent Orders</b>\n${DIVIDER}\n\n${lines}\n\n${DIVIDER}\n<a href="https://ramasub.com/orders">All orders ↗</a>`,
-    { reply_markup: MAIN_MENU },
+    { reply_markup: mainMenuFor(true) },
   );
 }
 
@@ -731,7 +731,7 @@ async function sendWallet(token: string, chatId: number) {
     token,
     chatId,
     `<b>Wallet</b>\n${DIVIDER}\n\n<b>Balance</b>\n\n           <b>৳${bal}</b>\n\n${DIVIDER}\nTop-up করতে <a href="https://ramasub.com/wallet">wallet page</a> visit করুন।`,
-    { reply_markup: MAIN_MENU },
+    { reply_markup: mainMenuFor(true) },
   );
 }
 
@@ -745,7 +745,7 @@ async function handleCallback(token: string, chatId: number, data: string, callb
   if (data === "wallet") return sendWallet(token, chatId);
   if (data === "cancel") {
     await resetSession(chatId);
-    return reply(token, chatId, "Cancelled — কোনো action নেওয়া হয়নি।", { reply_markup: MAIN_MENU });
+    return reply(token, chatId, "Cancelled — কোনো action নেওয়া হয়নি।", { reply_markup: mainMenuFor(true) });
   }
 
   if (data.startsWith("cat:")) return sendProductsInCategory(token, chatId, data.slice(4));
@@ -767,7 +767,7 @@ async function handleCallback(token: string, chatId: number, data: string, callb
   if (data === "confirm:wallet") {
     const session = await getSession(chatId);
     if (session.step !== "checkout:confirm_wallet") {
-      return reply(token, chatId, "Session expired.", { reply_markup: MAIN_MENU });
+      return reply(token, chatId, "Session expired.", { reply_markup: mainMenuFor(true) });
     }
     return confirmWalletOrder(token, chatId, session);
   }
@@ -880,7 +880,7 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
         if (text === "/shop") { await sendCategories(token, chatId); return Response.json({ ok: true }); }
         if (text === "/orders") { await sendMyOrders(token, chatId); return Response.json({ ok: true }); }
         if (text === "/wallet") { await sendWallet(token, chatId); return Response.json({ ok: true }); }
-        if (text === "/cancel") { await resetSession(chatId); await reply(token, chatId, "Cancelled — কোনো action নেওয়া হয়নি।", { reply_markup: MAIN_MENU }); return Response.json({ ok: true }); }
+        if (text === "/cancel") { await resetSession(chatId); await reply(token, chatId, "Cancelled — কোনো action নেওয়া হয়নি।", { reply_markup: mainMenuFor(true) }); return Response.json({ ok: true }); }
         if (text === "/unlink") {
           await admin().from("telegram_customer_links" as any).delete().eq("chat_id", chatId);
           await reply(token, chatId, `<b>Disconnected</b>\n${DIVIDER}\n\nআবার connect করতে /start দিন।`);
@@ -891,7 +891,7 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
             token,
             chatId,
             `<b>Commands</b>\n\n/start — main menu\n/shop — browse products\n/orders — your orders\n/wallet — wallet balance\n/cancel — cancel current step\n/unlink — disconnect account\n\n🌐 https://ramasub.com`,
-            { reply_markup: MAIN_MENU },
+            { reply_markup: mainMenuFor(true) },
           );
           return Response.json({ ok: true });
         }
