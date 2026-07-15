@@ -169,7 +169,7 @@ function InventoryPage() {
   }, [rows, filter, search]);
 
   async function persist(row: Row, patch: Partial<{ meta: Record<string, unknown>; plans: PlanRow[] }>) {
-    const { error } = await supabase.from("products").update(patch).eq("slug", row.slug);
+    const { error } = await supabase.from("products").update(patch as never).eq("slug", row.slug);
     if (error) throw error;
   }
 
