@@ -1,100 +1,103 @@
-# Meta Business Integration — Build Plan
+# Full In-Bot Telegram Checkout
 
-এটা অনেক বড় একটা module (18+ section, wizard, live logs, retry queue, encryption, backup/import ইত্যাদি)। এক turn-এ সব করা quality-নষ্ট হবে, তাই আমি এটাকে **৫টি phase-এ** ভাগ করে build করবো। প্রতিটা phase আলাদা ভাবে usable এবং পরের phase-এর ভিত্তি।
+Customer একটাও কোথাও ক্লিক না করে সম্পূর্ণ order Telegram bot এর ভিতরেই complete করতে পারবে — product browse → select → address → payment → confirm। ওয়েবসাইট Open করা লাগবে না।
 
-বর্তমান system: `/Mahbub214/fb-pixel` route generic `$page.tsx`-এ render হয় এবং শুধু `pixel_id / access_token / test_event_code` capture করে। `tracking_pixels` টেবিল + `fb-capi-event.functions.ts` + `TrackingScripts.tsx` আছে। আমরা এটাকে একটা পূর্ণ module-এ রূপান্তর করবো।
+## Admin Setup (আপনার কাজ)
 
----
+Admin panel → **Telegram** page-এ ইতিমধ্যেই সব field আছে:
+1. BotFather-এ নতুন bot বানান (উদাহরণ: `RamaSubShopBot`) → Token কপি
+2. `/Mahbub214/telegram` → "Customer Bot" section-এ Token + Username paste
+3. Enable → Save → **Register Webhook** চাপুন
+4. ব্যাস — bot লাইভ। Customer রা `@RamaSubShopBot` এ `/start` দিলেই shop চালু।
 
-## Phase 1 — Foundation & Settings (এই turn-এ)
+## Customer Flow (Bot এর ভিতরে)
 
-**নতুন route:** `Mahbub214.meta-business.tsx` (Marketing group-এ menu entry)
+```text
+/start
+  → 👋 Welcome + [🛍️ Shop] [📦 My Orders] [👤 Account] [💰 Wallet]
 
-**DB:** নতুন migration
-- `meta_business_config` (singleton row) — pixel_id, dataset_id, access_token (encrypted), test_event_code, graph_api_version, all Section-2 toggles (enable_pixel, auto_inject, load_in_head, load_after_consent, advanced_matching, auto_pageview, spa_nav, wc_detect, debug), capi_enabled, capi_endpoint, capi_timeout_ms, capi_max_retry
-- `meta_advanced_matching_fields` — jsonb config (email/phone/fn/ln/ct/country/zip/st/external_id/client_ip/user_agent/fbc/fbp — each with enabled bool)
-- `meta_standard_events` — event_name, enabled, browser, server, dedupe, priority
-- `meta_custom_events` — id, name, trigger_type, trigger_value (url/css/js), browser, server, params jsonb
-- `meta_event_logs` — timestamp, event_name, channel(browser|server), http_code, latency_ms, response, retry_count, order_id, customer_id, status
-- `meta_capi_queue` — pending/failed events for retry
-- RLS: admin-only via `has_role`
+🛍️ Shop
+  → Categories inline buttons (Netflix, ChatGPT, ...)
+  → Category tap → product list (name + price + 🖼️)
+  → Product tap → details + [Buy Now] [← Back]
 
-**Encryption:** Access token স্টোর হবে server-side `pgp_sym_encrypt` দিয়ে; শুধুমাত্র server function decrypt করতে পারবে। Frontend কখনো token পাবে না।
+Buy Now
+  → Duration/variant pick (1M/3M/6M/12M) if applicable
+  → Ask: Full Name?  → text reply
+  → Ask: Phone?       → text reply / contact share button
+  → Ask: Email?       → text reply
+  → Payment method: [💰 Wallet] [📱 bKash] [💳 Card]
+       • Wallet → balance check → confirm → order created & paid
+       • bKash  → show number + amount → "Send TrxID" text step → screenshot upload → order created (pending)
+       • Card   → generate SSLCommerz payment link → send to chat
+  → ✅ Order placed! #ORD-12345 → link to /orders/:id + status updates auto-post
 
-**Section 1 (Settings) + Section 2 (Pixel Installation) + Section 14 (Verify Connection):**
-- Form UI with inline field-level docs ("কোথায় পাবেন / example / errors")
-- "Verify Connection" server function — Meta Graph API-তে pixel/dataset/token validate করে
-- "Send Test Event" button — PageView পাঠায় test_event_code সহ
+📦 My Orders
+  → last 10 orders with status pills, tap for details + delivered credentials
 
-**Dashboard cards** (Section top): Connection, Pixel, CAPI, Test Events, Last Event, EMQ, Dataset, Token, API version, Diagnostics — প্রথম version-এ real values (Meta API poll) + placeholder for future.
+💰 Wallet
+  → balance + [Top-up] (bKash flow same as above)
+```
 
----
+State machine per chat_id stored in DB (`telegram_bot_sessions`) — step, cart, form data, expiry।
 
-## Phase 2 — Events (Sections 4, 5, 6, 7, 8)
+## Technical Plan
 
-- Advanced Matching config editor (SHA-256 hashing automatic on server before send)
-- Standard Events table — 20+ Meta standard events; per-event toggles (enable/browser/server/dedupe/priority)
-- Custom Events builder — trigger type (URL match / button click / CSS selector / JS event), parameter mapping
-- Event Parameters library (site-wide reusable params)
-- Event Mapping presets — auto-wire Order→Purchase, Cart→AddToCart, etc.
-- Update `TrackingScripts.tsx` + `fb-capi-event.functions.ts` to read config from DB (no hardcoding)
-- Dedupe via `event_id` shared between browser & server
+### 1. New DB table
 
----
+```sql
+create table public.telegram_bot_sessions (
+  chat_id bigint primary key,
+  user_id uuid references auth.users(id) on delete cascade,
+  step text not null default 'idle',
+  context jsonb not null default '{}'::jsonb,
+  updated_at timestamptz default now()
+);
+-- No public grants; only service_role (webhook uses admin client). RLS enabled, no policies.
+```
 
-## Phase 3 — Runtime Engine (Sections 3, 9, 18)
+### 2. Webhook expansion — `src/routes/api/public/telegram/customer-webhook.ts`
 
-- CAPI worker server function (cron/on-demand) — process `meta_capi_queue`, retry with backoff, move to DLQ after max retry
-- Ecommerce auto-detection: hook into existing checkout/order flow (`orders` table trigger → enqueue Purchase; product page → ViewContent; etc.)
-- Refund / cancel / subscription renewal event emission
-- SHA-256 hash utility (server-only) for advanced matching
-- Async browser injection (already non-blocking) — verify no CLS impact
+Existing file handles `/start`, link codes, phone OTP। এতে add করব:
+- **Callback query handler** (`update.callback_query`) — inline button taps
+- **Message router** by session step (`awaiting_name`, `awaiting_phone`, `awaiting_trxid`, `awaiting_screenshot` ...)
+- Commands: `/shop`, `/orders`, `/wallet`, `/cancel`
+- Photo upload → download via `getFile` → upload to `payment-screenshots` bucket
 
----
+### 3. Bot helper module — `src/lib/telegram-bot-flow.server.ts`
 
-## Phase 4 — Observability (Sections 10, 11, 12)
+Pure functions:
+- `renderCategories()`, `renderProducts(catId, page)`, `renderProduct(slug)` → returns `{ text, reply_markup }`
+- `startCheckout(chatId, productId, variant)`, `handleCheckoutStep(chatId, msg)` → state machine
+- `createOrderFromSession(session)` → uses `supabaseAdmin` to insert into `orders`, calls existing wallet/bKash logic
+- `sendMessage`, `sendPhoto`, `editMessage`, `answerCallbackQuery` helpers
 
-- **Diagnostics** page — reads `meta_event_logs` + last verify result; shows specific error categories with fix suggestions
-- **Test Events** page — dropdown to fire any Standard/Custom event with sample payload
-- **Live Logs** — realtime subscription to `meta_event_logs`, filterable table with columns as spec'd
+### 4. Auto-linking
 
----
+Order create হলে `telegram_customer_links.user_id` set করে — subsequent `/orders` command RLS-safe query দিয়ে data দেখাবে। Guest checkout (no site account) হলে shadow-profile তৈরি হবে phone দিয়ে।
 
-## Phase 5 — UX Polish (Sections 13, 15, 16, 19)
+### 5. Order status → auto Telegram push
 
-- **Connection Wizard** — 10-step guided flow (component `MetaConnectionWizard.tsx`) with per-step validation
-- **Consent Management** — Cookie banner integration, GDPR/CCPA region detect, delay-until-consent
-- **Backup / Export / Import / Reset** JSON of full config
-- **Future-ready hooks**: config schema supports `pixels[]` array (v2 schema kept singleton for now but structured to expand)
+Existing `notifyTelegram` system এ customer bot push যোগ করব — order status change হলে linked customer এর chat_id-তে message যাবে।
 
----
+### 6. Admin panel update — `/Mahbub214/telegram`
 
-## Technical Details
+- "Full In-Bot Shopping" section যুক্ত করব: enable toggle, welcome message customize, category filter (কোন category bot এ দেখাবে)
+- Live stats: active sessions, orders via bot (today/week/month)
+- Bot preview button
 
-**Files created:**
-- `supabase/migrations/*_meta_business.sql` — schema
-- `src/routes/Mahbub214.meta-business.tsx` — main admin page (tabs: Overview / Settings / Pixel / CAPI / Events / Custom / Params / Diagnostics / Test / Logs / Wizard / Backup)
-- `src/lib/meta-business.functions.ts` — server functions (getConfig, saveConfig, verifyConnection, sendTestEvent, listLogs, queueEvent, processQueue)
-- `src/lib/meta-business.server.ts` — encryption helpers, Graph API client, SHA-256 hashing, sibling-helper-safe pattern
-- `src/lib/meta-events-catalog.ts` — Standard Events + Parameter presets
-- `src/components/admin/meta/*` — Section components (Dashboard, SettingsForm, PixelInstall, CapiConfig, EventsTable, CustomEventBuilder, DiagnosticsPanel, LiveLogs, Wizard, BackupPanel)
-- Admin menu: replace current `Facebook Pixel` entry with `Meta Business` under Marketing group
+## Files Changed
 
-**Files removed:** existing `/Mahbub214/fb-pixel` redirect entry + fb-pixel field in `admin-fields.ts` (superseded)
+- `supabase/migrations/*_telegram_bot_sessions.sql` (new table)
+- `src/routes/api/public/telegram/customer-webhook.ts` (extend router)
+- `src/lib/telegram-bot-flow.server.ts` (new — shop/checkout logic)
+- `src/lib/telegram-customer.functions.ts` (add push helpers)
+- `src/routes/Mahbub214.telegram.tsx` (new "In-Bot Shopping" panel + stats)
+- `src/lib/orders.functions.ts` (small hook to notify telegram on status change if not already)
 
-**Security:**
-- Access token stored as `pgp_sym_encrypt(token, current_setting('app.settings.meta_key'))` — server-only decrypt
-- All admin routes gated by `has_role(auth.uid(), 'admin')`
-- Server functions use `requireSupabaseAuth` + admin role check
-- SHA-256 all PII before Meta send; never log raw PII
-- Rate limit on verify/test buttons (client-side debounce + server-side timestamp check)
+## Out of Scope (for this pass)
 
-**Compatibility:** Uses existing `tracking_pixels` table only for legacy read; new `meta_business_config` becomes source of truth. `TrackingScripts.tsx` migrates to read new config.
+- Native Telegram Payments API (Stripe/BotFather payment provider) — using existing bKash/SSL/wallet instead, যেহেতু বাংলাদেশে ওইটাই ব্যবহৃত
+- Group buying / multi-item cart in one order — একবারে একটা product order (v1)। পরে extend করা যাবে
 
----
-
-## Confirmation Needed
-
-Phase 1 এই turn-এ ship করবো — Foundation + Settings form + Verify Connection + Test Event + Dashboard cards + admin menu entry। এটাই পুরো system-এর ভিত্তি এবং একে independently useful। Phase 2-5 পরের turn-গুলোতে আলাদা approve-এ যাবে।
-
-**"OK Phase 1 করো" বললেই start করছি।**
+Approve করলে সব একসাথে build করে দেব।
