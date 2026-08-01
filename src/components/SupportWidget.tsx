@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
 import {
   MessageCircle,
   MessageCircleMore,
@@ -18,6 +21,7 @@ import {
   HelpCircle,
   ArrowLeft,
   CheckCircle2,
+  Square,
 } from "lucide-react";
 
 const ADMIN_PHONE = "+8801601048085";
@@ -30,15 +34,26 @@ const WHATSAPP_URL =
   "https://wa.me/8801601048085?text=" +
   encodeURIComponent("হ্যালো Rama Sub! আমি একটি বিষয়ে সাহায্য চাচ্ছি।");
 
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/support-chat`;
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
+// Same-origin streaming endpoint — grounded in live catalogue + coupon data.
+const CHAT_URL = "/api/public/support-chat";
+const CHAT_STORAGE_KEY = "ramasub_ai_chat_v1";
 
 const QUICK_PROMPTS = [
   "ডেলিভারি কত সময়ে পাব?",
   "পেমেন্ট মেথড কী কী?",
-  "ChatGPT Plus এর দাম?",
-  "WELCOME20 কুপন কীভাবে কাজ করে?",
+  "ChatGPT Plus এর দাম কত?",
+  "কুপন কীভাবে ব্যবহার করব?",
+  "অর্ডার করার নিয়ম বলুন",
+  "ওয়ারেন্টি কেমন থাকে?",
 ];
+
+const FOLLOW_UPS = [
+  "আরও একটু বুঝিয়ে বলুন",
+  "কীভাবে অর্ডার করব?",
+  "সস্তা প্ল্যান কোনটা?",
+  "মানুষের সাথে কথা বলতে চাই",
+];
+
 
 const FAQS: { q: string; a: string }[] = [
   {
@@ -113,7 +128,37 @@ async function logChatMessage(role: "user" | "assistant", content: string) {
   }
 }
 
+/** Renders assistant replies as rich text (bold, lists, links). */
+function ChatMarkdown({ text }: { text: string }) {
+  return (
+    <div className="space-y-1.5 [&_p]:m-0 [&_ul]:my-1 [&_ul]:pl-4 [&_ol]:my-1 [&_ol]:pl-4 [&_li]:my-0.5 [&_li]:marker:text-primary [&_strong]:font-bold [&_strong]:text-white [&_code]:rounded [&_code]:bg-white/10 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[11.5px]">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          a: ({ href, children }) => {
+            const url = href ?? "#";
+            const internal = url.startsWith("/");
+            return (
+              <a
+                href={url}
+                target={internal ? undefined : "_blank"}
+                rel={internal ? undefined : "noopener noreferrer"}
+                className="font-semibold text-aqua underline decoration-aqua/40 underline-offset-2 hover:text-white"
+              >
+                {children}
+              </a>
+            );
+          },
+        }}
+      >
+        {text}
+      </ReactMarkdown>
+    </div>
+  );
+}
+
 export function SupportWidget() {
+
   const { data: cfg } = useSupportWidgetConfig();
   const [open, setOpen] = useState(false);
   const [chooser, setChooser] = useState(false);
@@ -123,12 +168,55 @@ export function SupportWidget() {
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
+
+  // Restore this browser session's conversation so the chat survives reloads.
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(CHAT_STORAGE_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        setMessages(
+          parsed
+            .filter(
+              (m: unknown): m is Msg =>
+                !!m &&
+                typeof (m as Msg).content === "string" &&
+                ((m as Msg).role === "user" || (m as Msg).role === "assistant"),
+            )
+            .slice(-24),
+        );
+      }
+    } catch {
+      /* ignore corrupt storage */
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      if (messages.length) {
+        sessionStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages.slice(-24)));
+      } else {
+        sessionStorage.removeItem(CHAT_STORAGE_KEY);
+      }
+    } catch {
+      /* ignore quota errors */
+    }
+  }, [messages]);
+
+  // Keep the composer focused while chatting.
+  useEffect(() => {
+    if (open && tab === "ai" && !loading) inputRef.current?.focus();
+  }, [open, tab, loading, messages.length]);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, loading]);
+
 
   useEffect(() => {
     if (!open && !chooser) return;
@@ -156,15 +244,17 @@ export function SupportWidget() {
       });
     };
 
+    const controller = new AbortController();
+    abortRef.current = controller;
+
     try {
       const resp = await fetch(CHAT_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${SUPABASE_KEY}`,
-        },
-        body: JSON.stringify({ messages: history }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: history.slice(-16) }),
+        signal: controller.signal,
       });
+
 
       if (!resp.ok || !resp.body) {
         const errText = await resp.text().catch(() => "");
@@ -212,12 +302,43 @@ export function SupportWidget() {
         }
       }
     } catch (e) {
-      console.error(e);
-      upsert("নেটওয়ার্ক সমস্যা। অনুগ্রহ করে আবার চেষ্টা করুন বা WhatsApp করুন।");
+      if ((e as Error)?.name === "AbortError") {
+        if (!acc.trim()) upsert("_(বন্ধ করা হয়েছে)_");
+      } else {
+        console.error(e);
+        upsert("নেটওয়ার্ক সমস্যা। অনুগ্রহ করে আবার চেষ্টা করুন বা WhatsApp করুন।");
+      }
     } finally {
+      abortRef.current = null;
       setLoading(false);
       if (acc.trim()) void logChatMessage("assistant", acc);
     }
+  }
+
+  function stopStreaming() {
+    abortRef.current?.abort();
+  }
+
+  function resetChat() {
+    abortRef.current?.abort();
+    setMessages([]);
+    setInput("");
+    try {
+      sessionStorage.removeItem(CHAT_STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
+    inputRef.current?.focus();
+  }
+
+  function retryLast() {
+    if (loading) return;
+    const lastUser = [...messages].reverse().find((m) => m.role === "user");
+    if (!lastUser) return;
+    const trimmed = [...messages];
+    if (trimmed[trimmed.length - 1]?.role === "assistant") trimmed.pop();
+    setMessages(trimmed);
+    void streamReply(trimmed);
   }
 
   function send(text: string) {
@@ -227,6 +348,7 @@ export function SupportWidget() {
     setMessages(next);
     setInput("");
     void logChatMessage("user", t);
+
     void streamReply(next);
   }
 
@@ -627,13 +749,21 @@ export function SupportWidget() {
                     )}
                   </span>
                   <div
-                    className={`max-w-[78%] px-3.5 py-2.5 text-[13px] whitespace-pre-wrap leading-relaxed ${
+                    className={`max-w-[78%] px-3.5 py-2.5 text-[13px] leading-relaxed ${
                       m.role === "user"
-                        ? "rounded-2xl rounded-br-sm bg-gradient-to-br from-violet-500 to-primary text-white shadow-[0_10px_25px_-10px_rgba(124,58,237,0.6)]"
+                        ? "rounded-2xl rounded-br-sm bg-gradient-to-br from-violet-500 to-primary text-white shadow-[0_10px_25px_-10px_rgba(124,58,237,0.6)] whitespace-pre-wrap"
                         : "rounded-2xl rounded-bl-sm bg-white/[0.06] border border-white/10 text-white/95"
                     }`}
                   >
-                    {m.content || (loading ? "…" : "")}
+                    {m.role === "user" ? (
+                      m.content
+                    ) : m.content ? (
+                      <ChatMarkdown text={m.content} />
+                    ) : loading ? (
+                      "…"
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               ))}
@@ -650,7 +780,47 @@ export function SupportWidget() {
                   </div>
                 </div>
               )}
+
+              {/* Follow-up suggestions + actions after a finished reply */}
+              {!loading &&
+                messages.length > 0 &&
+                messages[messages.length - 1]?.role === "assistant" && (
+                  <div className="pl-10 space-y-2 pt-1">
+                    <div className="flex flex-wrap gap-2">
+                      {FOLLOW_UPS.map((q) =>
+                        q === "মানুষের সাথে কথা বলতে চাই" ? (
+                          <a
+                            key={q}
+                            href={WHATSAPP_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[11.5px] px-3 py-1.5 rounded-full bg-primary/15 border border-primary/40 text-white/90 hover:bg-primary/25 transition"
+                          >
+                            💬 {q}
+                          </a>
+                        ) : (
+                          <button
+                            key={q}
+                            onClick={() => send(q)}
+                            className="text-[11.5px] px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/15 text-white/85 hover:bg-white/[0.08] hover:border-primary/50 hover:text-white transition"
+                          >
+                            {q}
+                          </button>
+                        ),
+                      )}
+                    </div>
+                    <div className="flex items-center gap-3 text-[10.5px] text-white/55">
+                      <button onClick={retryLast} className="hover:text-white transition">
+                        ↻ আবার উত্তর নিন
+                      </button>
+                      <button onClick={resetChat} className="hover:text-white transition">
+                        ✕ নতুন চ্যাট
+                      </button>
+                    </div>
+                  </div>
+                )}
             </div>
+
 
             {/* Input */}
             <form
@@ -662,24 +832,33 @@ export function SupportWidget() {
             >
               <div className="flex items-center gap-2 rounded-2xl border border-white/12 bg-white/[0.04] focus-within:border-primary/60 focus-within:ring-2 focus-within:ring-primary/25 transition pl-4 pr-1.5 py-1.5">
                 <input
+                  ref={inputRef}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="আপনার মেসেজ লিখুন…"
                   className="flex-1 h-9 bg-transparent outline-none text-[13px] text-white placeholder:text-white/65"
-                  disabled={loading}
                 />
-                <button
-                  type="submit"
-                  disabled={loading || !input.trim()}
-                  className="grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-br from-violet-500 via-primary to-aqua text-white disabled:opacity-40 hover:scale-105 transition shrink-0 shadow-[0_8px_20px_-6px_rgba(124,58,237,0.7)]"
-                  aria-label="Send"
-                >
-                  {loading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
+                {loading ? (
+                  <button
+                    type="button"
+                    onClick={stopStreaming}
+                    className="grid place-items-center h-9 w-9 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition shrink-0"
+                    aria-label="Stop"
+                    title="উত্তর বন্ধ করুন"
+                  >
+                    <Square className="h-3.5 w-3.5 fill-current" />
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    disabled={!input.trim()}
+                    className="grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-br from-violet-500 via-primary to-aqua text-white disabled:opacity-40 hover:scale-105 transition shrink-0 shadow-[0_8px_20px_-6px_rgba(124,58,237,0.7)]"
+                    aria-label="Send"
+                  >
                     <Send className="h-4 w-4" />
-                  )}
-                </button>
+                  </button>
+                )}
+
               </div>
               <div className="mt-2 flex items-center justify-between px-1">
                 <div className="flex items-center gap-1.5 text-[10px] text-white/65">
