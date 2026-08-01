@@ -747,6 +747,17 @@
   html.theme-white .text-white\/40 { color: oklch(0.54 0.06 280) !important; }
   html.theme-white .text-foreground { color: oklch(0.22 0.04 285) !important; }
 
+  /* Escape hatch: genuinely dark glass surfaces (support widget panels) keep
+     real white text even on the white theme. */
+  html.theme-white .dark-surface [class*="text-white"] { color: #ffffff !important; }
+  html.theme-white .dark-surface .text-white\/95 { color: rgba(255,255,255,0.95) !important; }
+  html.theme-white .dark-surface .text-white\/90 { color: rgba(255,255,255,0.92) !important; }
+  html.theme-white .dark-surface .text-white\/85 { color: rgba(255,255,255,0.88) !important; }
+  html.theme-white .dark-surface .text-white\/80 { color: rgba(255,255,255,0.84) !important; }
+  html.theme-white .dark-surface .text-white\/75 { color: rgba(255,255,255,0.8) !important; }
+  html.theme-white .dark-surface .text-white\/70 { color: rgba(255,255,255,0.76) !important; }
+
+
   /* Defensive: any heading without an explicit color/gradient class on
      the white theme gets the readable dark foreground color so it can't
      accidentally render as white-on-white from inherited dark-theme styles. */
