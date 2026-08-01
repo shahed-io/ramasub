@@ -748,13 +748,21 @@ export function SupportWidget() {
                     )}
                   </span>
                   <div
-                    className={`max-w-[78%] px-3.5 py-2.5 text-[13px] whitespace-pre-wrap leading-relaxed ${
+                    className={`max-w-[78%] px-3.5 py-2.5 text-[13px] leading-relaxed ${
                       m.role === "user"
-                        ? "rounded-2xl rounded-br-sm bg-gradient-to-br from-violet-500 to-primary text-white shadow-[0_10px_25px_-10px_rgba(124,58,237,0.6)]"
+                        ? "rounded-2xl rounded-br-sm bg-gradient-to-br from-violet-500 to-primary text-white shadow-[0_10px_25px_-10px_rgba(124,58,237,0.6)] whitespace-pre-wrap"
                         : "rounded-2xl rounded-bl-sm bg-white/[0.06] border border-white/10 text-white/95"
                     }`}
                   >
-                    {m.content || (loading ? "…" : "")}
+                    {m.role === "user" ? (
+                      m.content
+                    ) : m.content ? (
+                      <ChatMarkdown text={m.content} />
+                    ) : loading ? (
+                      "…"
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               ))}
@@ -771,7 +779,47 @@ export function SupportWidget() {
                   </div>
                 </div>
               )}
+
+              {/* Follow-up suggestions + actions after a finished reply */}
+              {!loading &&
+                messages.length > 0 &&
+                messages[messages.length - 1]?.role === "assistant" && (
+                  <div className="pl-10 space-y-2 pt-1">
+                    <div className="flex flex-wrap gap-2">
+                      {FOLLOW_UPS.map((q) =>
+                        q === "মানুষের সাথে কথা বলতে চাই" ? (
+                          <a
+                            key={q}
+                            href={WHATSAPP_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[11.5px] px-3 py-1.5 rounded-full bg-primary/15 border border-primary/40 text-white/90 hover:bg-primary/25 transition"
+                          >
+                            💬 {q}
+                          </a>
+                        ) : (
+                          <button
+                            key={q}
+                            onClick={() => send(q)}
+                            className="text-[11.5px] px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/15 text-white/85 hover:bg-white/[0.08] hover:border-primary/50 hover:text-white transition"
+                          >
+                            {q}
+                          </button>
+                        ),
+                      )}
+                    </div>
+                    <div className="flex items-center gap-3 text-[10.5px] text-white/55">
+                      <button onClick={retryLast} className="hover:text-white transition">
+                        ↻ আবার উত্তর নিন
+                      </button>
+                      <button onClick={resetChat} className="hover:text-white transition">
+                        ✕ নতুন চ্যাট
+                      </button>
+                    </div>
+                  </div>
+                )}
             </div>
+
 
             {/* Input */}
             <form
