@@ -232,7 +232,7 @@ function Stat({ color, label, value }: { color: "indigo" | "emerald" | "rose" | 
     indigo: "from-indigo-500 to-violet-600",
     emerald: "from-violet-500 to-teal-600",
     rose: "from-rose-500 to-pink-600",
-    teal: "from-teal-500 to-cyan-600",
+    teal: "from-teal-500 to-emerald-600",
   };
   return (
     <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-4">
