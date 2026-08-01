@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequestHeader, getRequestIP } from "@tanstack/react-start/server";
 import { createHash } from "crypto";
 
 /**
@@ -74,13 +75,37 @@ export const sendFbCapiEvent = createServerFn({ method: "POST" })
     let skipped = 0;
 
     const u = data.user_data ?? {};
+
+    // Meta rejects an event with error 2804005 ("no customer information
+    // parameters") when none of em/ph/external_id/fbp/fbc/ip are present.
+    // The browser cannot know its own IP, so resolve it server-side here.
+    const fwd = getRequestHeader("x-forwarded-for") ?? "";
+    const clientIp =
+      (getRequestIP({ xForwardedFor: true }) ||
+        fwd.split(",")[0] ||
+        getRequestHeader("cf-connecting-ip") ||
+        getRequestHeader("x-real-ip") ||
+        "").trim();
+    const clientUa =
+      u.client_user_agent || getRequestHeader("user-agent") || undefined;
+
     const ud: Record<string, string[] | string> = {};
     if (u.email) ud.em = [hash(u.email)];
     if (u.phone) ud.ph = [hash(u.phone.replace(/\D/g, ""))];
     if (u.external_id) ud.external_id = [hash(u.external_id)];
     if (u.fbp) ud.fbp = u.fbp;
     if (u.fbc) ud.fbc = u.fbc;
-    if (u.client_user_agent) ud.client_user_agent = u.client_user_agent;
+    if (clientUa) ud.client_user_agent = clientUa;
+    // IPv6-mapped IPv4 (::ffff:1.2.3.4) is rejected — normalise it.
+    if (clientIp) ud.client_ip_address = clientIp.replace(/^::ffff:/i, "");
+
+    // Still nothing Meta can match on → skip the call instead of logging a
+    // guaranteed "Invalid parameter" failure.
+    const hasMatchKey =
+      !!(ud.em || ud.ph || ud.external_id || ud.fbp || ud.fbc || ud.client_ip_address);
+    if (!hasMatchKey) {
+      return { ok: true, sent: 0, skipped: rows.length, reason: "no_match_keys" };
+    }
 
     for (const row of rows) {
       const cfg = ((row.events_config ?? {}) as {
