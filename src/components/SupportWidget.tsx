@@ -30,15 +30,26 @@ const WHATSAPP_URL =
   "https://wa.me/8801601048085?text=" +
   encodeURIComponent("হ্যালো Rama Sub! আমি একটি বিষয়ে সাহায্য চাচ্ছি।");
 
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/support-chat`;
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
+// Same-origin streaming endpoint — grounded in live catalogue + coupon data.
+const CHAT_URL = "/api/public/support-chat";
+const CHAT_STORAGE_KEY = "ramasub_ai_chat_v1";
 
 const QUICK_PROMPTS = [
   "ডেলিভারি কত সময়ে পাব?",
   "পেমেন্ট মেথড কী কী?",
-  "ChatGPT Plus এর দাম?",
-  "WELCOME20 কুপন কীভাবে কাজ করে?",
+  "ChatGPT Plus এর দাম কত?",
+  "কুপন কীভাবে ব্যবহার করব?",
+  "অর্ডার করার নিয়ম বলুন",
+  "ওয়ারেন্টি কেমন থাকে?",
 ];
+
+const FOLLOW_UPS = [
+  "আরও একটু বুঝিয়ে বলুন",
+  "কীভাবে অর্ডার করব?",
+  "সস্তা প্ল্যান কোনটা?",
+  "মানুষের সাথে কথা বলতে চাই",
+];
+
 
 const FAQS: { q: string; a: string }[] = [
   {
