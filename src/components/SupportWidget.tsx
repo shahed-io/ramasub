@@ -831,24 +831,33 @@ export function SupportWidget() {
             >
               <div className="flex items-center gap-2 rounded-2xl border border-white/12 bg-white/[0.04] focus-within:border-primary/60 focus-within:ring-2 focus-within:ring-primary/25 transition pl-4 pr-1.5 py-1.5">
                 <input
+                  ref={inputRef}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="আপনার মেসেজ লিখুন…"
                   className="flex-1 h-9 bg-transparent outline-none text-[13px] text-white placeholder:text-white/65"
-                  disabled={loading}
                 />
-                <button
-                  type="submit"
-                  disabled={loading || !input.trim()}
-                  className="grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-br from-violet-500 via-primary to-aqua text-white disabled:opacity-40 hover:scale-105 transition shrink-0 shadow-[0_8px_20px_-6px_rgba(124,58,237,0.7)]"
-                  aria-label="Send"
-                >
-                  {loading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
+                {loading ? (
+                  <button
+                    type="button"
+                    onClick={stopStreaming}
+                    className="grid place-items-center h-9 w-9 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition shrink-0"
+                    aria-label="Stop"
+                    title="উত্তর বন্ধ করুন"
+                  >
+                    <Square className="h-3.5 w-3.5 fill-current" />
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    disabled={!input.trim()}
+                    className="grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-br from-violet-500 via-primary to-aqua text-white disabled:opacity-40 hover:scale-105 transition shrink-0 shadow-[0_8px_20px_-6px_rgba(124,58,237,0.7)]"
+                    aria-label="Send"
+                  >
                     <Send className="h-4 w-4" />
-                  )}
-                </button>
+                  </button>
+                )}
+
               </div>
               <div className="mt-2 flex items-center justify-between px-1">
                 <div className="flex items-center gap-1.5 text-[10px] text-white/65">
