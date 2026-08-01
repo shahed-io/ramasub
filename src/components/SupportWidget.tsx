@@ -21,6 +21,7 @@ import {
   HelpCircle,
   ArrowLeft,
   CheckCircle2,
+  Square,
 } from "lucide-react";
 
 const ADMIN_PHONE = "+8801601048085";
