@@ -286,7 +286,7 @@ function FacebookPixelsPage() {
                   value={draft.label}
                   onChange={(e) => setDraft({ ...draft, label: e.target.value })}
                   placeholder="e.g. Main Store Pixel"
-                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
                 />
               </div>
               <div>
@@ -299,7 +299,7 @@ function FacebookPixelsPage() {
                   onChange={(e) => setDraft({ ...draft, pixel_id: e.target.value.replace(/\D/g, "") })}
                   placeholder="1234567890123456"
                   inputMode="numeric"
-                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
                 />
                 <p className="text-[11px] text-slate-500 mt-1">Meta Events Manager থেকে 15–16 digit Pixel ID</p>
               </div>
@@ -312,7 +312,7 @@ function FacebookPixelsPage() {
                   value={draft.access_token}
                   onChange={(e) => setDraft({ ...draft, access_token: e.target.value })}
                   placeholder={draft.id ? "(unchanged — leave blank to keep)" : "EAAG..."}
-                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
                 />
               </div>
               <div>
@@ -321,7 +321,7 @@ function FacebookPixelsPage() {
                   value={draft.notes}
                   onChange={(e) => setDraft({ ...draft, notes: e.target.value })}
                   rows={2}
-                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
                 />
               </div>
               <label className="flex items-center gap-3 p-3 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer">
@@ -329,7 +329,7 @@ function FacebookPixelsPage() {
                   type="checkbox"
                   checked={draft.enabled}
                   onChange={(e) => setDraft({ ...draft, enabled: e.target.checked })}
-                  className="w-4 h-4 rounded accent-blue-600"
+                  className="w-4 h-4 rounded accent-violet-600"
                 />
                 <div className="flex-1">
                   <div className="text-sm font-semibold text-slate-900">Active</div>
@@ -350,7 +350,7 @@ function FacebookPixelsPage() {
                 type="button"
                 onClick={handleSave}
                 disabled={saving || !draft.pixel_id}
-                className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                className="inline-flex items-center gap-2 a-save-btn disabled:opacity-50"
               >
                 {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                 {draft.id ? "Save Changes" : "Add Pixel"}
