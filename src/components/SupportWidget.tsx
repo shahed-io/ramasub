@@ -124,7 +124,37 @@ async function logChatMessage(role: "user" | "assistant", content: string) {
   }
 }
 
+/** Renders assistant replies as rich text (bold, lists, links). */
+function ChatMarkdown({ text }: { text: string }) {
+  return (
+    <div className="space-y-1.5 [&_p]:m-0 [&_ul]:my-1 [&_ul]:pl-4 [&_ol]:my-1 [&_ol]:pl-4 [&_li]:my-0.5 [&_li]:marker:text-primary [&_strong]:font-bold [&_strong]:text-white [&_code]:rounded [&_code]:bg-white/10 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[11.5px]">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          a: ({ href, children }) => {
+            const url = href ?? "#";
+            const internal = url.startsWith("/");
+            return (
+              <a
+                href={url}
+                target={internal ? undefined : "_blank"}
+                rel={internal ? undefined : "noopener noreferrer"}
+                className="font-semibold text-aqua underline decoration-aqua/40 underline-offset-2 hover:text-white"
+              >
+                {children}
+              </a>
+            );
+          },
+        }}
+      >
+        {text}
+      </ReactMarkdown>
+    </div>
+  );
+}
+
 export function SupportWidget() {
+
   const { data: cfg } = useSupportWidgetConfig();
   const [open, setOpen] = useState(false);
   const [chooser, setChooser] = useState(false);
