@@ -1,10 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   BASE_SYSTEM_PROMPT,
+  GUEST_CONTEXT_BLOCK,
   buildLiveContext,
+  buildSignedInContext,
   lookupMentionedCoupons,
   type ChatMsg,
 } from "@/lib/support-chat.server";
+
 
 const MAX_MESSAGES = 24;
 const MAX_CONTENT_LEN = 4000;
@@ -51,20 +54,31 @@ export const Route = createFileRoute("/api/public/support-chat")({
 
         const lastUser = [...messages].reverse().find((m) => m.role === "user")?.content ?? "";
 
+        // Identify the caller from their own bearer token (never trust a
+        // client-supplied identity) so replies are personalised when signed in.
+        const bearer = request.headers.get("authorization") ?? "";
+        const accessToken = bearer.toLowerCase().startsWith("bearer ")
+          ? bearer.slice(7).trim()
+          : null;
+
         let context = "";
+        let identity = GUEST_CONTEXT_BLOCK;
         try {
-          const [live, coupons] = await Promise.all([
+          const [live, coupons, signedIn] = await Promise.all([
             buildLiveContext(),
             lookupMentionedCoupons(lastUser),
+            buildSignedInContext(accessToken).catch(() => null),
           ]);
           context = `${live}${coupons}`;
+          if (signedIn) identity = signedIn.block;
         } catch (e) {
           console.error("support-chat context error", e);
         }
 
         const system = context
-          ? `${BASE_SYSTEM_PROMPT}\n\n=== লাইভ ডেটা (${new Date().toISOString().slice(0, 10)}) ===\n${context}`
-          : BASE_SYSTEM_PROMPT;
+          ? `${BASE_SYSTEM_PROMPT}\n\n${identity}\n\n=== লাইভ ডেটা (${new Date().toISOString().slice(0, 10)}) ===\n${context}`
+          : `${BASE_SYSTEM_PROMPT}\n\n${identity}`;
+
 
         let upstream: Response;
         try {
