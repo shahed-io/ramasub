@@ -542,10 +542,57 @@ export function SupportWidget() {
                 </div>
 
                 <h2 className="mt-4 text-[22px] font-extrabold text-white leading-tight tracking-tight">
-                  হ্যালো 👋
+                  {me ? `হ্যালো, ${me.name} 👋` : "হ্যালো 👋"}
                   <br />
                   কীভাবে সাহায্য করব?
                 </h2>
+
+                {/* Identity strip — real profile when signed in, guest otherwise */}
+                {meLoaded && (
+                  <div className="mt-3 flex items-center gap-2.5 rounded-2xl border border-white/25 bg-white/15 px-2.5 py-2 backdrop-blur-sm">
+                    {me?.avatar ? (
+                      <img
+                        src={me.avatar}
+                        alt={me.name}
+                        loading="lazy"
+                        className="h-8 w-8 shrink-0 rounded-full object-cover ring-2 ring-white/40"
+                      />
+                    ) : (
+                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/25 text-white ring-2 ring-white/30">
+                        {me ? (
+                          <span className="text-[12px] font-extrabold">
+                            {me.name.slice(0, 1).toUpperCase()}
+                          </span>
+                        ) : (
+                          <UserRound className="h-4 w-4" />
+                        )}
+                      </span>
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[12.5px] font-bold text-white">
+                        {me ? me.name : "গেস্ট ভিজিটর"}
+                      </p>
+                      <p className="truncate text-[10.5px] font-medium text-white/80">
+                        {me ? me.email : "লগইন করলে অর্ডার ও ওয়ালেটের তথ্য এখানেই পাবেন"}
+                      </p>
+                    </div>
+                    {me ? (
+                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-emerald-300/40 bg-emerald-500/25 px-2 py-0.5 text-[10px] font-bold text-white">
+                        <ShieldCheck className="h-3 w-3" />
+                        ভেরিফাইড
+                      </span>
+                    ) : (
+                      <a
+                        href="/auth"
+                        className="inline-flex shrink-0 items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-[10.5px] font-extrabold text-violet-700 hover:bg-white transition"
+                      >
+                        <LogIn className="h-3 w-3" />
+                        লগইন
+                      </a>
+                    )}
+                  </div>
+                )}
+
                 <div className="mt-2.5 flex items-center gap-2 text-[11.5px] font-semibold text-white/90">
                   <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/25 border border-emerald-300/40 backdrop-blur-sm">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
@@ -556,6 +603,7 @@ export function SupportWidget() {
                     ~2 মিনিটে রিপ্লাই
                   </span>
                 </div>
+
               </div>
             </div>
 
