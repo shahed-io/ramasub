@@ -172,6 +172,50 @@ export function SupportWidget() {
   const inputRef = useRef<HTMLInputElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
+  // Who is chatting: real profile when signed in, guest otherwise.
+  const [me, setMe] = useState<{ name: string; email: string; avatar: string | null } | null>(null);
+  const [meLoaded, setMeLoaded] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    const load = async () => {
+      const { data } = await supabase.auth.getUser();
+      const u = data?.user;
+      if (!alive) return;
+      if (!u) {
+        setMe(null);
+        setMeLoaded(true);
+        return;
+      }
+      const { data: prof } = await supabase
+        .from("profiles")
+        .select("display_name, avatar_url")
+        .eq("id", u.id)
+        .maybeSingle();
+      if (!alive) return;
+      const meta = (u.user_metadata ?? {}) as { name?: string; full_name?: string; avatar_url?: string };
+      setMe({
+        name:
+          prof?.display_name ||
+          meta.full_name ||
+          meta.name ||
+          u.email?.split("@")[0] ||
+          "গ্রাহক",
+        email: u.email ?? "",
+        avatar: prof?.avatar_url || meta.avatar_url || null,
+      });
+      setMeLoaded(true);
+    };
+    void load();
+    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "USER_UPDATED") void load();
+    });
+    return () => {
+      alive = false;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
+
+
   // Restore this browser session's conversation so the chat survives reloads.
   useEffect(() => {
     try {
