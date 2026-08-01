@@ -1,58 +1,43 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { BACKUP_BUCKETS, type BackupPayload } from "@/lib/backup-tables";
+import {
+  assertAdmin,
+  countTables,
+  dumpTables,
+  listBucketObjects,
+  resolveTables,
+  restoreTables,
+  uploadBucketObject,
+  type StorageObject,
+} from "@/lib/backup.server";
 
-// Table -> primary key for upsert on restore
-export const BACKUP_TABLES: Record<string, string> = {
-  products: "slug",
-  admin_records: "id",
-  coupons: "id",
-  promotions: "id",
-  orders: "id",
-  notifications: "id",
-  team_members: "id",
-  profiles: "id",
-  user_roles: "id",
-  support_tickets: "id",
-  product_reviews: "id",
-  activity_logs: "id",
-  accessibility_reports: "id",
-};
+export { BACKUP_TABLES, BACKUP_TABLE_ORDER, BACKUP_BUCKETS } from "@/lib/backup-tables";
+export type { BackupPayload } from "@/lib/backup-tables";
 
-async function assertAdmin(userId: string) {
-  const { data, error } = await supabaseAdmin
-    .from("user_roles").select("role").eq("user_id", userId).eq("role", "admin").maybeSingle();
-  if (error) throw new Error(error.message);
-  if (!data) throw new Error("Forbidden: admin role required");
-}
+/** Row counts only — used to render stats fast without dumping data. */
+export const getBackupCounts = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<{ counts: Record<string, number>; total: number }> => {
+    await assertAdmin(context.userId);
+    const counts = await countTables();
+    return { counts, total: Object.values(counts).reduce((a, b) => a + b, 0) };
+  });
 
-export type BackupPayload = {
-  meta: {
-    version: number;
-    created_at: string;
-    created_by: string;
-    total_rows: number;
-    counts: Record<string, number>;
-  };
-  tables: Record<string, Array<Record<string, unknown>>>;
-};
-
+/** Dump all (or selected) tables. Called in parallel batches for progress %. */
 export const createBackup = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .handler(async ({ context }): Promise<{ json: string; meta: { created_at: string; total_rows: number; counts: Record<string, number> } }> => {
+  .inputValidator((d: unknown) =>
+    z.object({ tables: z.array(z.string()).optional() }).optional().parse(d ?? {}),
+  )
+  .handler(async ({ data, context }): Promise<{
+    json: string;
+    meta: { created_at: string; total_rows: number; counts: Record<string, number> };
+  }> => {
     await assertAdmin(context.userId);
-    const tables: Record<string, Array<Record<string, unknown>>> = {};
-    const counts: Record<string, number> = {};
-    const admin = supabaseAdmin as unknown as {
-      from: (t: string) => { select: (s: string) => Promise<{ data: Array<Record<string, unknown>> | null; error: { message: string } | null }> };
-    };
-    for (const table of Object.keys(BACKUP_TABLES)) {
-      const { data, error } = await admin.from(table).select("*");
-      if (error) throw new Error(`${table}: ${error.message}`);
-      tables[table] = data ?? [];
-      counts[table] = (data ?? []).length;
-    }
+    const wanted = resolveTables(data?.tables);
+    const { tables, counts } = await dumpTables(wanted);
     const meta = {
       version: 1,
       created_at: new Date().toISOString(),
@@ -67,64 +52,66 @@ export const createBackup = createServerFn({ method: "POST" })
     };
   });
 
-const RestoreInputSchema = z.object({
-  payloadJson: z.string().min(2),
-  mode: z.enum(["merge", "replace"]).default("merge"),
-  selectedTables: z.array(z.string()).optional(),
-});
+/** Every file in the backup buckets with a 1h signed download URL. */
+export const listBackupFiles = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<{ files: StorageObject[] }> => {
+    await assertAdmin(context.userId);
+    const per = await Promise.all(BACKUP_BUCKETS.map((b) => listBucketObjects(b)));
+    return { files: per.flat() };
+  });
 
-const PayloadSchema = z.object({
-  meta: z.object({ version: z.number() }).passthrough(),
-  tables: z.record(z.string(), z.array(z.record(z.string(), z.unknown()))),
-});
+/** Restore one storage file from a Complete Backup ZIP (duplicate-safe). */
+export const restoreBackupFile = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        bucket: z.enum(["admin-uploads", "payment-screenshots"]),
+        path: z.string().min(1).max(500),
+        base64: z.string().min(1),
+        contentType: z.string().max(120).optional(),
+        overwrite: z.boolean().optional(),
+      })
+      .parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.userId);
+    return uploadBucketObject(
+      data.bucket,
+      data.path,
+      data.base64,
+      data.contentType,
+      data.overwrite ?? false,
+    );
+  });
 
 export type RestoreResult = {
   ok: boolean;
   restored_at: string;
-  results: Record<string, { restored: number; error?: string }>;
+  results: Record<string, { restored: number; skipped?: number; error?: string }>;
 };
 
+/** Smart restore: skip (default), merge or replace. */
 export const restoreBackup = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => RestoreInputSchema.parse(d))
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        payloadJson: z.string().min(2),
+        mode: z.enum(["skip", "merge", "replace"]).default("skip"),
+        selectedTables: z.array(z.string()).optional(),
+      })
+      .parse(d),
+  )
   .handler(async ({ data, context }): Promise<RestoreResult> => {
     await assertAdmin(context.userId);
-    const parsed = PayloadSchema.parse(JSON.parse(data.payloadJson));
-    const results: Record<string, { restored: number; error?: string }> = {};
-    const wanted = data.selectedTables && data.selectedTables.length
-      ? data.selectedTables
-      : Object.keys(parsed.tables);
-
-    const admin = supabaseAdmin as unknown as {
-      from: (t: string) => {
-        delete: () => { not: (col: string, op: string, val: null) => Promise<{ error: { message: string } | null }> };
-        upsert: (rows: Array<Record<string, unknown>>, opts: { onConflict: string }) => Promise<{ error: { message: string } | null }>;
-      };
-    };
-
-    for (const table of wanted) {
-      const pk = BACKUP_TABLES[table];
-      if (!pk) { results[table] = { restored: 0, error: "Not a backup-able table" }; continue; }
-      const rows = parsed.tables[table];
-      if (!rows) { results[table] = { restored: 0 }; continue; }
-
-      if (data.mode === "replace") {
-        const { error: delErr } = await admin.from(table).delete().not(pk, "is", null);
-        if (delErr) { results[table] = { restored: 0, error: `clear: ${delErr.message}` }; continue; }
-      }
-      if (rows.length === 0) { results[table] = { restored: 0 }; continue; }
-
-      let total = 0;
-      const CHUNK = 200;
-      let err: string | undefined;
-      for (let i = 0; i < rows.length; i += CHUNK) {
-        const chunk = rows.slice(i, i + CHUNK);
-        const { error } = await admin.from(table).upsert(chunk, { onConflict: pk });
-        if (error) { err = error.message; break; }
-        total += chunk.length;
-      }
-      results[table] = { restored: total, error: err };
-    }
+    const parsed = z
+      .object({
+        tables: z.record(z.string(), z.array(z.record(z.string(), z.unknown()))),
+      })
+      .passthrough()
+      .parse(JSON.parse(data.payloadJson));
+    const results = await restoreTables(parsed.tables, data.mode, data.selectedTables);
     return { ok: true, results, restored_at: new Date().toISOString() };
   });
-
