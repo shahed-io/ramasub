@@ -206,3 +206,102 @@ export const BASE_SYSTEM_PROMPT = `তুমি Rama Sub-এর প্রিম�
 - নির্দিষ্ট অর্ডারের স্টেটাস দেখতে বলো: /orders পেজে লগইন করে দেখুন, নয়তো WhatsApp-এ অর্ডার আইডি দিন।
 - রিফান্ড/পেমেন্ট ফেইল/ডেলিভারি দেরি হলে সহানুভূতি দেখিয়ে সঠিক পেজ বা WhatsApp-এ পাঠাও।
 - না জানলে সৎভাবে স্বীকার করো এবং WhatsApp suggest করো। কখনো তথ্য বানাবে না।`;
+
+/* ------------------------------------------------------------------ *
+ * Signed-in customer context
+ * ------------------------------------------------------------------ */
+
+export type SupportUser = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+};
+
+/**
+ * Verifies the caller's Supabase access token and, when valid, returns a
+ * personalised context block (profile, wallet balance, recent orders) that is
+ * appended to the system prompt. Returns null for guests.
+ */
+export async function buildSignedInContext(
+  accessToken: string | null,
+): Promise<{ user: SupportUser; block: string } | null> {
+  if (!accessToken) return null;
+
+  const sb = serverClient();
+  const { data: authData, error: authErr } = await sb.auth.getUser(accessToken);
+  const authUser = authData?.user;
+  if (authErr || !authUser) return null;
+
+  const [profileRes, walletRes, ordersRes] = await Promise.all([
+    sb.from("profiles").select("display_name, phone, city, country").eq("id", authUser.id).maybeSingle(),
+    sb.from("wallets").select("balance").eq("user_id", authUser.id).maybeSingle(),
+    sb
+      .from("orders")
+      .select("id, total, status, payment_status, items, created_at, delivered_at")
+      .eq("user_id", authUser.id)
+      .order("created_at", { ascending: false })
+      .limit(5),
+  ]);
+
+  const profile = (profileRes.data ?? null) as
+    | { display_name: string | null; phone: string | null; city: string | null; country: string | null }
+    | null;
+
+  const meta = (authUser.user_metadata ?? {}) as { name?: string; full_name?: string };
+  const name =
+    profile?.display_name || meta.full_name || meta.name || authUser.email?.split("@")[0] || "গ্রাহক";
+
+  const user: SupportUser = {
+    id: authUser.id,
+    name,
+    email: authUser.email ?? "",
+    phone: profile?.phone ?? null,
+  };
+
+  const balance = Number((walletRes.data as { balance?: number } | null)?.balance ?? 0);
+  const orders = (ordersRes.data ?? []) as {
+    id: string;
+    total: number;
+    status: string;
+    payment_status: string;
+    items: unknown;
+    created_at: string;
+    delivered_at: string | null;
+  }[];
+
+  const orderLines = orders.length
+    ? orders
+        .map((o) => {
+          const items = Array.isArray(o.items) ? (o.items as { name?: string; plan?: string }[]) : [];
+          const what = items
+            .map((it) => [it.name, it.plan].filter(Boolean).join(" – "))
+            .filter(Boolean)
+            .slice(0, 3)
+            .join(", ");
+          return `- অর্ডার ANB-${o.id.slice(0, 8).toUpperCase()} · ${what || "আইটেম"} · ৳${o.total} · স্টেটাস: ${o.status} · পেমেন্ট: ${o.payment_status} · তারিখ: ${o.created_at.slice(0, 10)}${o.delivered_at ? " · ডেলিভার হয়েছে" : ""}`;
+        })
+        .join("\n")
+    : "- এখনো কোনো অর্ডার নেই।";
+
+  const block = `=== লগইন করা গ্রাহকের তথ্য (যাচাইকৃত — এই ব্যক্তির সাথেই কথা বলছ) ===
+নাম: ${user.name}
+ইমেইল: ${user.email}${user.phone ? `\nফোন: ${user.phone}` : ""}${profile?.city ? `\nশহর: ${profile.city}` : ""}
+ওয়ালেট ব্যালেন্স: ৳${balance}
+সাম্প্রতিক অর্ডার (সর্বোচ্চ ৫টি):
+${orderLines}
+
+নির্দেশনা (লগইন করা গ্রাহক):
+- শুরুতে নাম ধরে সম্বোধন করো (যেমন "${user.name}, ...")। আবার নাম/ইমেইল জিজ্ঞাসা করবে না।
+- অর্ডার স্টেটাস, ওয়ালেট ব্যালেন্স বা ডেলিভারি নিয়ে প্রশ্ন করলে উপরের তথ্য থেকেই সরাসরি উত্তর দাও।
+- উপরের তালিকায় নেই এমন অর্ডার সম্পর্কে অনুমান করবে না।
+- কখনোই অ্যাকাউন্টের পাসওয়ার্ড/ডেলিভার করা লগইন ক্রেডেনশিয়াল বলবে না — /orders পেজে দেখতে বলো।`;
+
+  return { user, block };
+}
+
+export const GUEST_CONTEXT_BLOCK = `=== গ্রাহক লগইন করা নেই (গেস্ট) ===
+নির্দেশনা (গেস্ট):
+- সাধারণভাবে "আপনি" বলে সম্বোধন করো, নাম অনুমান করবে না।
+- ব্যক্তিগত তথ্য (অর্ডার স্টেটাস, ওয়ালেট ব্যালেন্স) দিতে পারবে না — ভদ্রভাবে লগইন করতে বলো: /auth পেজে লগইন করলে অর্ডার ও ওয়ালেটের তথ্য এখানেই দেখা যাবে।
+- প্রোডাক্ট, দাম, পেমেন্ট, ডেলিভারি ও অর্ডার প্রসেস নিয়ে সব প্রশ্নের উত্তর স্বাভাবিকভাবেই দাও।`;
