@@ -268,12 +268,43 @@ export function SupportWidget() {
         }
       }
     } catch (e) {
-      console.error(e);
-      upsert("নেটওয়ার্ক সমস্যা। অনুগ্রহ করে আবার চেষ্টা করুন বা WhatsApp করুন।");
+      if ((e as Error)?.name === "AbortError") {
+        if (!acc.trim()) upsert("_(বন্ধ করা হয়েছে)_");
+      } else {
+        console.error(e);
+        upsert("নেটওয়ার্ক সমস্যা। অনুগ্রহ করে আবার চেষ্টা করুন বা WhatsApp করুন।");
+      }
     } finally {
+      abortRef.current = null;
       setLoading(false);
       if (acc.trim()) void logChatMessage("assistant", acc);
     }
+  }
+
+  function stopStreaming() {
+    abortRef.current?.abort();
+  }
+
+  function resetChat() {
+    abortRef.current?.abort();
+    setMessages([]);
+    setInput("");
+    try {
+      sessionStorage.removeItem(CHAT_STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
+    inputRef.current?.focus();
+  }
+
+  function retryLast() {
+    if (loading) return;
+    const lastUser = [...messages].reverse().find((m) => m.role === "user");
+    if (!lastUser) return;
+    const trimmed = [...messages];
+    if (trimmed[trimmed.length - 1]?.role === "assistant") trimmed.pop();
+    setMessages(trimmed);
+    void streamReply(trimmed);
   }
 
   function send(text: string) {
@@ -283,6 +314,7 @@ export function SupportWidget() {
     setMessages(next);
     setInput("");
     void logChatMessage("user", t);
+
     void streamReply(next);
   }
 
