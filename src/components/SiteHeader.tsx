@@ -129,7 +129,12 @@ export function TopUtilityBar() {
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { user, signOut } = useAuth();
+  const { user: authUser, signOut } = useAuth();
+  // Session lives in localStorage, so SSR always renders the guest header.
+  // Gate auth-dependent UI on hydration to avoid a hydration mismatch.
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => { setHydrated(true); }, []);
+  const user = hydrated ? authUser : null;
   const navigate = useNavigate();
   const { open: searchOpen, setOpen: setSearchOpen } = useGlobalSearch();
   const [displayName, setDisplayName] = useState<string | null>(null);
