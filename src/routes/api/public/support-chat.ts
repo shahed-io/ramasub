@@ -1,10 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   BASE_SYSTEM_PROMPT,
+  GUEST_CONTEXT_BLOCK,
   buildLiveContext,
+  buildSignedInContext,
   lookupMentionedCoupons,
   type ChatMsg,
 } from "@/lib/support-chat.server";
+
 
 const MAX_MESSAGES = 24;
 const MAX_CONTENT_LEN = 4000;
