@@ -134,12 +134,55 @@ export function SupportWidget() {
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
+
+  // Restore this browser session's conversation so the chat survives reloads.
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(CHAT_STORAGE_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        setMessages(
+          parsed
+            .filter(
+              (m: unknown): m is Msg =>
+                !!m &&
+                typeof (m as Msg).content === "string" &&
+                ((m as Msg).role === "user" || (m as Msg).role === "assistant"),
+            )
+            .slice(-24),
+        );
+      }
+    } catch {
+      /* ignore corrupt storage */
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      if (messages.length) {
+        sessionStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages.slice(-24)));
+      } else {
+        sessionStorage.removeItem(CHAT_STORAGE_KEY);
+      }
+    } catch {
+      /* ignore quota errors */
+    }
+  }, [messages]);
+
+  // Keep the composer focused while chatting.
+  useEffect(() => {
+    if (open && tab === "ai" && !loading) inputRef.current?.focus();
+  }, [open, tab, loading, messages.length]);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, loading]);
+
 
   useEffect(() => {
     if (!open && !chooser) return;
