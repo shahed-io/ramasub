@@ -102,6 +102,7 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicTrackPageviewRouteImport } from './routes/api.public.track-pageview'
+import { Route as ApiPublicSupportChatRouteImport } from './routes/api/public/support-chat'
 import { Route as ApiPublicProductsRouteImport } from './routes/api/public/products'
 import { Route as ApiPublicGenerateBlogsRouteImport } from './routes/api/public/generate-blogs'
 import { Route as ApiPublicDeliverDownloadsRouteImport } from './routes/api/public/deliver-downloads'
@@ -596,6 +597,11 @@ const ApiPublicTrackPageviewRoute = ApiPublicTrackPageviewRouteImport.update({
   path: '/api/public/track-pageview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicSupportChatRoute = ApiPublicSupportChatRouteImport.update({
+  id: '/api/public/support-chat',
+  path: '/api/public/support-chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicProductsRoute = ApiPublicProductsRouteImport.update({
   id: '/api/public/products',
   path: '/api/public/products',
@@ -789,6 +795,7 @@ export interface FileRoutesByFullPath {
   '/api/public/deliver-downloads': typeof ApiPublicDeliverDownloadsRoute
   '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
+  '/api/public/support-chat': typeof ApiPublicSupportChatRoute
   '/api/public/track-pageview': typeof ApiPublicTrackPageviewRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
@@ -900,6 +907,7 @@ export interface FileRoutesByTo {
   '/api/public/deliver-downloads': typeof ApiPublicDeliverDownloadsRoute
   '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
+  '/api/public/support-chat': typeof ApiPublicSupportChatRoute
   '/api/public/track-pageview': typeof ApiPublicTrackPageviewRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
@@ -1013,6 +1021,7 @@ export interface FileRoutesById {
   '/api/public/deliver-downloads': typeof ApiPublicDeliverDownloadsRoute
   '/api/public/generate-blogs': typeof ApiPublicGenerateBlogsRoute
   '/api/public/products': typeof ApiPublicProductsRoute
+  '/api/public/support-chat': typeof ApiPublicSupportChatRoute
   '/api/public/track-pageview': typeof ApiPublicTrackPageviewRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/bkash/callback': typeof ApiPublicBkashCallbackRoute
@@ -1127,6 +1136,7 @@ export interface FileRouteTypes {
     | '/api/public/deliver-downloads'
     | '/api/public/generate-blogs'
     | '/api/public/products'
+    | '/api/public/support-chat'
     | '/api/public/track-pageview'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
@@ -1238,6 +1248,7 @@ export interface FileRouteTypes {
     | '/api/public/deliver-downloads'
     | '/api/public/generate-blogs'
     | '/api/public/products'
+    | '/api/public/support-chat'
     | '/api/public/track-pageview'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
@@ -1350,6 +1361,7 @@ export interface FileRouteTypes {
     | '/api/public/deliver-downloads'
     | '/api/public/generate-blogs'
     | '/api/public/products'
+    | '/api/public/support-chat'
     | '/api/public/track-pageview'
     | '/lovable/email/suppression'
     | '/api/public/bkash/callback'
@@ -1412,6 +1424,7 @@ export interface RootRouteChildren {
   ApiPublicDeliverDownloadsRoute: typeof ApiPublicDeliverDownloadsRoute
   ApiPublicGenerateBlogsRoute: typeof ApiPublicGenerateBlogsRoute
   ApiPublicProductsRoute: typeof ApiPublicProductsRoute
+  ApiPublicSupportChatRoute: typeof ApiPublicSupportChatRoute
   ApiPublicTrackPageviewRoute: typeof ApiPublicTrackPageviewRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicBkashCallbackRoute: typeof ApiPublicBkashCallbackRoute
@@ -2078,6 +2091,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicTrackPageviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/support-chat': {
+      id: '/api/public/support-chat'
+      path: '/api/public/support-chat'
+      fullPath: '/api/public/support-chat'
+      preLoaderRoute: typeof ApiPublicSupportChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/products': {
       id: '/api/public/products'
       path: '/api/public/products'
@@ -2391,6 +2411,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicDeliverDownloadsRoute: ApiPublicDeliverDownloadsRoute,
   ApiPublicGenerateBlogsRoute: ApiPublicGenerateBlogsRoute,
   ApiPublicProductsRoute: ApiPublicProductsRoute,
+  ApiPublicSupportChatRoute: ApiPublicSupportChatRoute,
   ApiPublicTrackPageviewRoute: ApiPublicTrackPageviewRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicBkashCallbackRoute: ApiPublicBkashCallbackRoute,

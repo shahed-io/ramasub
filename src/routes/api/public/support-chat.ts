@@ -1,0 +1,111 @@
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  BASE_SYSTEM_PROMPT,
+  buildLiveContext,
+  lookupMentionedCoupons,
+  type ChatMsg,
+} from "@/lib/support-chat.server";
+
+const MAX_MESSAGES = 24;
+const MAX_CONTENT_LEN = 4000;
+
+function json(body: unknown, status: number) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+  });
+}
+
+/**
+ * Same-origin AI support chat endpoint (streams Server-Sent Events).
+ * The assistant is grounded in live catalogue/coupon data so it cannot
+ * invent prices or promo codes.
+ */
+export const Route = createFileRoute("/api/public/support-chat")({
+  server: {
+    handlers: {
+      POST: async ({ request }) => {
+        let messages: ChatMsg[];
+        try {
+          const body = (await request.json()) as { messages?: unknown };
+          messages = body.messages as ChatMsg[];
+        } catch {
+          return json({ error: "Invalid JSON body" }, 400);
+        }
+
+        if (!Array.isArray(messages) || messages.length === 0 || messages.length > MAX_MESSAGES) {
+          return json({ error: `messages must be an array of 1..${MAX_MESSAGES} items` }, 400);
+        }
+        for (const m of messages) {
+          if (!m || typeof m !== "object") return json({ error: "invalid message" }, 400);
+          if (m.role !== "user" && m.role !== "assistant") {
+            return json({ error: "invalid role" }, 400);
+          }
+          if (typeof m.content !== "string" || m.content.length === 0 || m.content.length > MAX_CONTENT_LEN) {
+            return json({ error: `content must be a string of 1..${MAX_CONTENT_LEN} chars` }, 400);
+          }
+        }
+
+        const apiKey = process.env.LOVABLE_API_KEY;
+        if (!apiKey) return json({ error: "AI সার্ভিস কনফিগার করা নেই।" }, 500);
+
+        const lastUser = [...messages].reverse().find((m) => m.role === "user")?.content ?? "";
+
+        let context = "";
+        try {
+          const [live, coupons] = await Promise.all([
+            buildLiveContext(),
+            lookupMentionedCoupons(lastUser),
+          ]);
+          context = `${live}${coupons}`;
+        } catch (e) {
+          console.error("support-chat context error", e);
+        }
+
+        const system = context
+          ? `${BASE_SYSTEM_PROMPT}\n\n=== লাইভ ডেটা (${new Date().toISOString().slice(0, 10)}) ===\n${context}`
+          : BASE_SYSTEM_PROMPT;
+
+        let upstream: Response;
+        try {
+          upstream = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              model: "google/gemini-3.6-flash",
+              messages: [{ role: "system", content: system }, ...messages],
+              stream: true,
+            }),
+          });
+        } catch (e) {
+          console.error("support-chat upstream fetch failed", e);
+          return json({ error: "AI সার্ভিসে পৌঁছানো যাচ্ছে না। WhatsApp-এ যোগাযোগ করুন।" }, 502);
+        }
+
+        if (!upstream.ok || !upstream.body) {
+          const detail = await upstream.text().catch(() => "");
+          console.error("support-chat gateway error", upstream.status, detail);
+          if (upstream.status === 429) {
+            return json({ error: "একটু পরে আবার চেষ্টা করুন — এখন অনেক রিকোয়েস্ট আসছে।" }, 429);
+          }
+          if (upstream.status === 402) {
+            return json({ error: "AI ক্রেডিট শেষ হয়ে গেছে — অনুগ্রহ করে WhatsApp-এ যোগাযোগ করুন।" }, 402);
+          }
+          return json({ error: "AI সার্ভিসে সমস্যা হচ্ছে। WhatsApp-এ যোগাযোগ করুন।" }, 502);
+        }
+
+        return new Response(upstream.body, {
+          headers: {
+            "Content-Type": "text/event-stream; charset=utf-8",
+            "Cache-Control": "no-cache, no-transform",
+            Connection: "keep-alive",
+            "X-Accel-Buffering": "no",
+          },
+        });
+      },
+    },
+  },
+});
