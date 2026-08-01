@@ -329,6 +329,10 @@ function CheckoutPage() {
           value: serverTotal,
           currency: "BDT",
           orderId: `ANB-${newId.slice(0, 8).toUpperCase()}`,
+          // Email + phone give Meta a real match key (better Event Match Quality).
+          email: form.email,
+          phone: form.phone,
+
           items: created.items.map((it) => ({
             id: it.slug,
             name: it.name || it.slug,
