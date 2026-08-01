@@ -330,7 +330,7 @@ function SearchConsolePage() {
                   <button
                     onClick={() => { const p = newSmPath.trim() || `${SITE_URL}/sitemap.xml`; submitPath(p); setNewSmPath(""); }}
                     disabled={busy}
-                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-sm font-semibold shadow disabled:opacity-50"
+                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-sm font-semibold shadow disabled:opacity-50"
                   >
                     <Send className="w-4 h-4" /> Submit
                   </button>
