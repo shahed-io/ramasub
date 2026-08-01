@@ -167,15 +167,17 @@ export function SupportWidget() {
       });
     };
 
+    const controller = new AbortController();
+    abortRef.current = controller;
+
     try {
       const resp = await fetch(CHAT_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${SUPABASE_KEY}`,
-        },
-        body: JSON.stringify({ messages: history }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: history.slice(-16) }),
+        signal: controller.signal,
       });
+
 
       if (!resp.ok || !resp.body) {
         const errText = await resp.text().catch(() => "");
