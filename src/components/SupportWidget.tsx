@@ -249,12 +249,20 @@ export function SupportWidget() {
     abortRef.current = controller;
 
     try {
+      // Pass the signed-in user's token so the assistant answers with their
+      // own order/wallet data; guests simply send no token.
+      const { data: sess } = await supabase.auth.getSession();
+      const token = sess?.session?.access_token;
       const resp = await fetch(CHAT_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({ messages: history.slice(-16) }),
         signal: controller.signal,
       });
+
 
 
       if (!resp.ok || !resp.body) {
