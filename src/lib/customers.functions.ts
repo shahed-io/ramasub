@@ -7,6 +7,8 @@ async function assertAdmin(userId: string) {
     .from("user_roles").select("role").eq("user_id", userId).eq("role", "admin").maybeSingle();
   if (error) throw new Error(error.message);
   if (!data) throw new Error("Forbidden: admin role required");
+  const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+  await assertAdminMfaGrant(userId);
 }
 
 export type CustomerDetail = {

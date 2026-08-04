@@ -34,6 +34,10 @@ export const syncFbAudience = createServerFn({ method: "POST" })
       _role: "admin",
     });
     if (!isAdmin) return { ok: false, sent: 0, error: "Forbidden" };
+    {
+      const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+      await assertAdminMfaGrant(context.userId);
+    }
 
     const token = process.env.FB_CAPI_ACCESS_TOKEN;
     if (!token) {

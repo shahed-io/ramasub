@@ -25,6 +25,8 @@ function normalize(p: string): string {
 async function adminGuard(context: { supabase: { rpc: (n: string, a: Record<string, unknown>) => Promise<{ data: unknown }> }; userId: string }) {
   const { data: isAdmin } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
   if (!isAdmin) throw new Error("Forbidden");
+  const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+  await assertAdminMfaGrant(context.userId);
 }
 
 
