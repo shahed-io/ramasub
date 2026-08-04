@@ -475,12 +475,12 @@ function DeliveryOption({ active, onClick, icon, title, desc }: { active: boolea
           : "border-slate-200 bg-white hover:border-slate-300"
       }`}
     >
-      <span className={`w-8 h-8 rounded-lg grid place-items-center shrink-0 ${active ? "bg-[#6d28d9] text-white" : "bg-slate-100 text-slate-600"}`}>{icon}</span>
+      <span className={`w-8 h-8 rounded-lg grid place-items-center shrink-0 ${active ? "bg-[#2563eb] text-white" : "bg-slate-100 text-slate-600"}`}>{icon}</span>
       <span className="flex-1 min-w-0">
         <span className={`block text-sm font-semibold ${active ? "text-[#4c1d95]" : "text-slate-800"}`}>{title}</span>
-        <span className={`block text-xs ${active ? "text-[#6d28d9]" : "text-slate-500"}`}>{desc}</span>
+        <span className={`block text-xs ${active ? "text-[#2563eb]" : "text-slate-500"}`}>{desc}</span>
       </span>
-      <span className={`w-4 h-4 rounded-full border-2 shrink-0 ${active ? "border-[#6d28d9] bg-[#6d28d9]" : "border-slate-300"}`} />
+      <span className={`w-4 h-4 rounded-full border-2 shrink-0 ${active ? "border-[#2563eb] bg-[#2563eb]" : "border-slate-300"}`} />
     </button>
   );
 }

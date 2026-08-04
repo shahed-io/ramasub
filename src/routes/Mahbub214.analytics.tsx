@@ -26,7 +26,7 @@ export const Route = createFileRoute("/Mahbub214/analytics")({
 
 type Range = "24h" | "7d" | "30d" | "90d";
 
-const PIE_COLORS = ["#7c3aed", "#10b981", "#f59e0b", "#06b6d4", "#ef4444", "#ec4899", "#8b5cf6", "#0ea5e9"];
+const PIE_COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#06b6d4", "#ef4444", "#ec4899", "#3b82f6", "#0ea5e9"];
 
 const FLAGS: Record<string, string> = {
   BD: "🇧🇩", IN: "🇮🇳", PK: "🇵🇰", US: "🇺🇸", GB: "🇬🇧", CA: "🇨🇦", AU: "🇦🇺",
@@ -234,8 +234,8 @@ function WebAnalyticsPage() {
                   <AreaChart data={timeSeriesData}>
                     <defs>
                       <linearGradient id="gv" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#7c3aed" stopOpacity={0.4} />
-                        <stop offset="100%" stopColor="#7c3aed" stopOpacity={0} />
+                        <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.4} />
+                        <stop offset="100%" stopColor="#3b82f6" stopOpacity={0} />
                       </linearGradient>
                       <linearGradient id="gp" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stopColor="#06b6d4" stopOpacity={0.4} />
@@ -247,7 +247,7 @@ function WebAnalyticsPage() {
                     <YAxis fontSize={11} tick={{ fill: "#64748b" }} />
                     <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #e2e8f0" }} />
                     <Legend />
-                    <Area type="monotone" dataKey="visitors" stroke="#7c3aed" strokeWidth={2} fill="url(#gv)" name={t("Visitors", "ভিজিটর")} />
+                    <Area type="monotone" dataKey="visitors" stroke="#3b82f6" strokeWidth={2} fill="url(#gv)" name={t("Visitors", "ভিজিটর")} />
                     <Area type="monotone" dataKey="visits" stroke="#06b6d4" strokeWidth={2} fill="url(#gp)" name={t("Pageviews", "পেজভিউ")} />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -344,7 +344,7 @@ function WebAnalyticsPage() {
                     <XAxis type="number" hide />
                     <YAxis type="category" dataKey="label" fontSize={11} width={70} tick={{ fill: "#64748b" }} />
                     <Tooltip />
-                    <Bar dataKey="count" fill="#7c3aed" radius={[0, 6, 6, 0]} />
+                    <Bar dataKey="count" fill="#3b82f6" radius={[0, 6, 6, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>

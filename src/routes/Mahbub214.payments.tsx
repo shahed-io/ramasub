@@ -373,7 +373,7 @@ function ReviewModal({ order, onClose, onUpdate }: { order: Order; onClose: () =
 /* --------------------------- PAYMENT SETTINGS TAB --------------------------- */
 
 const BLANK: PaymentMethod["data"] = {
-  name: "", number: "", logo_url: "", brand_color: "#7c3aed",
+  name: "", number: "", logo_url: "", brand_color: "#3b82f6",
   instructions: "", send_money_label: "Send Money",
   enable_wallet: true, enable_checkout: true,
 };
@@ -459,7 +459,7 @@ function PaymentSettings() {
                 </div>
               )}
             </div>
-            <span className="w-6 h-6 rounded-full ring-2 ring-white shadow" style={{ background: r.data.brand_color || "#7c3aed" }} />
+            <span className="w-6 h-6 rounded-full ring-2 ring-white shadow" style={{ background: r.data.brand_color || "#3b82f6" }} />
             <button
               onClick={() => toggle(r)}
               className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs ring-1 ${
@@ -539,7 +539,7 @@ function MethodEditor({ initial, isNew, onClose, onSaved }: {
             </Field>
             <Field label="Brand Color">
               <div className="flex items-center gap-2">
-                <input type="color" value={d.brand_color || "#7c3aed"} onChange={(e) => set("brand_color", e.target.value)}
+                <input type="color" value={d.brand_color || "#3b82f6"} onChange={(e) => set("brand_color", e.target.value)}
                   className="h-10 w-14 rounded-lg cursor-pointer border border-slate-200" />
                 <input value={d.brand_color || ""} onChange={(e) => set("brand_color", e.target.value)}
                   className={inputCls} placeholder="#E2136E" />

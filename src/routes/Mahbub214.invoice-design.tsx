@@ -43,7 +43,7 @@ type Design = {
 };
 
 const DEFAULTS: Design = {
-  brandColor: "#7c3aed",
+  brandColor: "#3b82f6",
   brandLight: "#f3e8ff",
   headerBg: "#bfdbfe",
   headerText: "#0f172a",

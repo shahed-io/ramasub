@@ -455,7 +455,7 @@ function AdminOfferEdit() {
                 <button
                   onClick={() => runPick("ai")}
                   disabled={picking || subs.length === 0}
-                  className="h-10 px-4 inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-sky-600 ring-1 ring-blue-700 text-white text-sm font-semibold disabled:opacity-50 shadow-[0_8px_22px_-8px_rgba(139,92,246,0.7)]"
+                  className="h-10 px-4 inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-sky-600 ring-1 ring-blue-700 text-white text-sm font-semibold disabled:opacity-50 shadow-[0_8px_22px_-8px_rgba(59,130,246,0.7)]"
                 >
                   <Sparkles className="w-4 h-4" /> {picking ? "Picking…" : "AI Pick"}
                 </button>

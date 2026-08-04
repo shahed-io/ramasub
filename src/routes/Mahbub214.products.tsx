@@ -1504,9 +1504,9 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
 
           <div className="mt-3 grid grid-cols-2 gap-2">
             {([
-              { id: "premium-pastel", label: "Pastel Glass", emoji: "🌸", bg: "linear-gradient(135deg,#a78bfa 0%,#ec4899 50%,#f97316 100%)", shadow: "rgba(168,85,247,0.45)" },
+              { id: "premium-pastel", label: "Pastel Glass", emoji: "🌸", bg: "linear-gradient(135deg,#93c5fd 0%,#ec4899 50%,#f97316 100%)", shadow: "rgba(168,85,247,0.45)" },
               { id: "premium-dark", label: "Dark Luxe", emoji: "🌌", bg: "linear-gradient(135deg,#0f172a 0%,#4c1d95 60%,#9333ea 100%)", shadow: "rgba(30,41,59,0.7)" },
-              { id: "soft-aurora", label: "Soft Aurora", emoji: "🌅", bg: "linear-gradient(135deg,#10b981 0%,#06b6d4 50%,#8b5cf6 100%)", shadow: "rgba(16,185,129,0.45)" },
+              { id: "soft-aurora", label: "Soft Aurora", emoji: "🌅", bg: "linear-gradient(135deg,#10b981 0%,#06b6d4 50%,#3b82f6 100%)", shadow: "rgba(16,185,129,0.45)" },
               { id: "dark-neon", label: "Neon Edge", emoji: "⚡", bg: "linear-gradient(135deg,#0ea5e9 0%,#6366f1 50%,#ec4899 100%)", shadow: "rgba(99,102,241,0.5)" },
             ] as { id: AiCardStyle; label: string; emoji: string; bg: string; shadow: string }[]).map((s) => (
               <button

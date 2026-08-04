@@ -554,7 +554,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
     <label className="block">
       <span className="block text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-1">{label}</span>
       {children}
-      <style>{`.input{width:100%;border:1px solid #e2e8f0;background:#fff;border-radius:0.625rem;padding:0.5rem 0.75rem;font-size:0.875rem;color:#0f172a;outline:none}.input:focus{box-shadow:0 0 0 2px rgba(139,92,246,.35);border-color:#a78bfa}`}</style>
+      <style>{`.input{width:100%;border:1px solid #e2e8f0;background:#fff;border-radius:0.625rem;padding:0.5rem 0.75rem;font-size:0.875rem;color:#0f172a;outline:none}.input:focus{box-shadow:0 0 0 2px rgba(59,130,246,.35);border-color:#93c5fd}`}</style>
     </label>
   );
 }

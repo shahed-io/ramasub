@@ -371,8 +371,8 @@ function AdminDashboard() {
               <svg viewBox={`0 0 ${W} ${H + 28}`} className="w-full h-56 mt-4">
                 <defs>
                   <linearGradient id="salesGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.35" />
-                    <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
+                    <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.35" />
+                    <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
                   </linearGradient>
                 </defs>
                 {/* Horizontal grid */}
@@ -381,9 +381,9 @@ function AdminDashboard() {
                     stroke="#e2e8f0" strokeDasharray="3 4" strokeWidth="1" />
                 ))}
                 <path d={area} fill="url(#salesGrad)" />
-                <path d={d} fill="none" stroke="#8b5cf6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d={d} fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 {pts.map(([x, y], i) => (
-                  <circle key={i} cx={x} cy={y} r="3" fill="#fff" stroke="#8b5cf6" strokeWidth="2" />
+                  <circle key={i} cx={x} cy={y} r="3" fill="#fff" stroke="#3b82f6" strokeWidth="2" />
                 ))}
                 {chart.map((s, i) => (
                   (i % labelEvery === 0 || i === chart.length - 1) && (

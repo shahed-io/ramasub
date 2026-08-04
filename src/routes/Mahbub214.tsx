@@ -599,7 +599,7 @@ const ADMIN_ICON_COLORS: Record<string, string> = {
   "slate-800": "#1e293b",
   "teal-500": "#0d9488",
   "teal-600": "#0f766e",
-  "blue-500": "#7c3aed",
+  "blue-500": "#3b82f6",
   "yellow-500": "#ca8a04",
 };
 
@@ -607,7 +607,7 @@ function iconGradientStyle(grad: string): CSSProperties {
   const from = /from-([\w-]+)/.exec(grad)?.[1] ?? "blue-500";
   const to = /to-([\w-]+)/.exec(grad)?.[1] ?? "sky-500";
   return {
-    backgroundImage: `linear-gradient(135deg, ${ADMIN_ICON_COLORS[from] ?? "#7c3aed"} 0%, ${ADMIN_ICON_COLORS[to] ?? "#c026d3"} 100%)`,
+    backgroundImage: `linear-gradient(135deg, ${ADMIN_ICON_COLORS[from] ?? "#3b82f6"} 0%, ${ADMIN_ICON_COLORS[to] ?? "#c026d3"} 100%)`,
   };
 }
 
