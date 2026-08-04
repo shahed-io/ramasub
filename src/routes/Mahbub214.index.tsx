@@ -194,7 +194,7 @@ function AdminDashboard() {
   // ----- KPI cards -----
   type Kpi = {
     label: string; value: string; Icon: any;
-    iconGrad: string; bgGrad: string;
+    iconGrad: string; bgGrad: string; accent?: string;
     delta?: number; sub?: string;
   };
 
@@ -203,15 +203,17 @@ function AdminDashboard() {
       label: t("TODAY'S SALES", "আজকের সেল"),
       value: fmtBDT(stats.todayRev),
       Icon: TrendingUp,
-      iconGrad: "from-blue-500 to-indigo-600",
-      bgGrad: "from-blue-50/60 via-white to-blue-50/40",
+      iconGrad: "from-violet-500 to-purple-600",
+      bgGrad: "from-violet-50 via-white to-indigo-50/70",
+      accent: "#8b5cf6",
     },
     {
       label: t("THIS MONTH REVENUE", "এই মাসের আয়"),
       value: fmtBDT(stats.monthRev),
       Icon: DollarSign,
-      iconGrad: "from-blue-500 to-sky-600",
-      bgGrad: "from-blue-50/60 via-white to-pink-50/40",
+      iconGrad: "from-violet-500 to-fuchsia-600",
+      bgGrad: "from-white via-white to-sky-50/80",
+      accent: "#22d3ee",
       delta: stats.monthDelta,
       sub: t("vs last month", "গত মাসের তুলনায়"),
     },
@@ -219,15 +221,17 @@ function AdminDashboard() {
       label: t("THIS YEAR REVENUE", "এই বছরের আয়"),
       value: fmtBDT(stats.yearRev),
       Icon: BarChart3,
-      iconGrad: "from-blue-500 to-teal-600",
-      bgGrad: "from-blue-50/60 via-white to-cyan-50/40",
+      iconGrad: "from-emerald-400 to-teal-500",
+      bgGrad: "from-white via-white to-pink-50/80",
+      accent: "#f9a8d4",
     },
     {
       label: t("TOTAL REVENUE (ALL)", "মোট আয় (সব)"),
       value: fmtBDT(stats.revenue),
       Icon: Wallet,
-      iconGrad: "from-orange-500 to-blue-600",
-      bgGrad: "from-orange-50/60 via-white to-rose-50/40",
+      iconGrad: "from-orange-400 to-amber-500",
+      bgGrad: "from-white via-white to-amber-50/80",
+      accent: "#fbbf24",
     },
   ];
 
@@ -236,8 +240,9 @@ function AdminDashboard() {
       label: t("TOTAL ORDERS", "মোট অর্ডার"),
       value: counts.orders.toLocaleString("en-IN"),
       Icon: ShoppingCart,
-      iconGrad: "from-blue-500 to-indigo-600",
-      bgGrad: "from-blue-50/60 via-white to-blue-50/30",
+      iconGrad: "from-violet-500 to-purple-600",
+      bgGrad: "from-violet-50/70 via-white to-indigo-50/60",
+      accent: "#8b5cf6",
       delta: stats.totalOrders > 0 ? Math.round((stats.delivered / stats.totalOrders) * 100) : 0,
       sub: t("delivered", "সম্পন্ন"),
     },
@@ -245,36 +250,41 @@ function AdminDashboard() {
       label: t("PENDING", "অপেক্ষমাণ"),
       value: stats.pending.toString(),
       Icon: Clock,
-      iconGrad: "from-blue-500 to-blue-700",
-      bgGrad: "from-blue-50/60 via-white to-cyan-50/30",
+      iconGrad: "from-amber-400 to-yellow-500",
+      bgGrad: "from-white via-white to-cyan-50/70",
+      accent: "#22d3ee",
     },
     {
       label: t("PAYMENT PENDING", "পেমেন্ট অপেক্ষমাণ"),
       value: stats.paymentPending.toString(),
       Icon: CreditCard,
-      iconGrad: "from-orange-500 to-rose-500",
-      bgGrad: "from-rose-50/60 via-white to-pink-50/30",
+      iconGrad: "from-rose-500 to-red-500",
+      bgGrad: "from-white via-white to-pink-50/70",
+      accent: "#f9a8d4",
     },
     {
       label: t("DELIVERED", "ডেলিভারড"),
       value: stats.delivered.toString(),
       Icon: CheckCircle2,
-      iconGrad: "from-blue-500 to-blue-700",
-      bgGrad: "from-blue-50/60 via-white to-blue-50/30",
+      iconGrad: "from-emerald-400 to-teal-500",
+      bgGrad: "from-white via-white to-amber-50/70",
+      accent: "#fbbf24",
     },
     {
       label: t("CANCELLED", "বাতিল"),
       value: stats.cancelled.toString(),
       Icon: XCircle,
       iconGrad: "from-rose-500 to-red-600",
-      bgGrad: "from-rose-50/60 via-white to-blue-50/30",
+      bgGrad: "from-white via-white to-violet-50/70",
+      accent: "#8b5cf6",
     },
     {
       label: t("CUSTOMERS", "কাস্টমার"),
       value: counts.users.toLocaleString("en-IN"),
       Icon: UsersRound,
-      iconGrad: "from-blue-500 to-indigo-600",
-      bgGrad: "from-sky-50/60 via-white to-cyan-50/30",
+      iconGrad: "from-sky-400 to-blue-500",
+      bgGrad: "from-white via-white to-cyan-50/70",
+      accent: "#22d3ee",
     },
   ];
 
@@ -371,8 +381,8 @@ function AdminDashboard() {
               <svg viewBox={`0 0 ${W} ${H + 28}`} className="w-full h-56 mt-4">
                 <defs>
                   <linearGradient id="salesGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.35" />
-                    <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+                    <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.35" />
+                    <stop offset="100%" stopColor="#7c3aed" stopOpacity="0" />
                   </linearGradient>
                 </defs>
                 {/* Horizontal grid */}
@@ -381,9 +391,9 @@ function AdminDashboard() {
                     stroke="#e2e8f0" strokeDasharray="3 4" strokeWidth="1" />
                 ))}
                 <path d={area} fill="url(#salesGrad)" />
-                <path d={d} fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d={d} fill="none" stroke="#7c3aed" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 {pts.map(([x, y], i) => (
-                  <circle key={i} cx={x} cy={y} r="3" fill="#fff" stroke="#3b82f6" strokeWidth="2" />
+                  <circle key={i} cx={x} cy={y} r="3" fill="#fff" stroke="#7c3aed" strokeWidth="2" />
                 ))}
                 {chart.map((s, i) => (
                   (i % labelEvery === 0 || i === chart.length - 1) && (
@@ -458,10 +468,16 @@ function SectionHeader({ title }: { title: string }) {
 function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compact?: boolean }) {
   const { Icon } = kpi;
   return (
-    <div className={`admin-card relative overflow-hidden rounded-2xl ${compact ? "p-4" : "p-5"} transition-all`}>
+    <div
+      className={`admin-kpi-card relative overflow-hidden rounded-2xl ${compact ? "p-4" : "p-5"} transition-all`}
+      style={{
+        background: `linear-gradient(135deg, #ffffff 0%, #ffffff 45%, ${kpi.accent ?? "#8b5cf6"}22 100%)`,
+      }}
+    >
+      <span className="absolute inset-x-0 top-0 h-[3px]" style={{ background: kpi.accent ?? "#8b5cf6" }} aria-hidden />
       <div className="relative">
         <div className="flex items-start justify-between gap-2">
-          <span className={`admin-kpi-icon w-11 h-11 rounded-xl bg-gradient-to-br ${kpi.iconGrad} grid place-items-center text-white shrink-0`}>
+          <span className={`admin-kpi-icon w-11 h-11 rounded-full bg-gradient-to-br ${kpi.iconGrad} grid place-items-center text-white shrink-0`}>
             <Icon className="w-5 h-5" strokeWidth={2.5} />
           </span>
           {typeof kpi.delta === "number" && kpi.delta !== 0 && (

@@ -15,7 +15,7 @@ type Order = {
   payment_method: string | null; items: unknown;
 };
 
-const PIE_COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#06b6d4", "#ef4444", "#ec4899", "#3b82f6"];
+const PIE_COLORS = ["#7c3aed", "#10b981", "#f59e0b", "#06b6d4", "#ef4444", "#ec4899", "#7c3aed"];
 
 function fmtMoney(n: number) {
   return "৳" + Math.round(n).toLocaleString("en-US");
@@ -230,8 +230,8 @@ export function AnalyticsDashboard() {
             <AreaChart data={trend} margin={{ top: 6, right: 12, left: 0, bottom: 0 }}>
               <defs>
                 <linearGradient id="rev" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.45} />
-                  <stop offset="100%" stopColor="#3b82f6" stopOpacity={0.02} />
+                  <stop offset="0%" stopColor="#7c3aed" stopOpacity={0.45} />
+                  <stop offset="100%" stopColor="#7c3aed" stopOpacity={0.02} />
                 </linearGradient>
               </defs>
               <CartesianGrid stroke="#f1f5f9" vertical={false} />
@@ -241,7 +241,7 @@ export function AnalyticsDashboard() {
                 contentStyle={{ borderRadius: 10, border: "1px solid #e2e8f0", fontSize: 12 }}
                 formatter={(v: number) => [fmtMoney(v), t("Revenue", "রেভিনিউ")]}
               />
-              <Area type="monotone" dataKey="value" stroke="#3b82f6" strokeWidth={2.2} fill="url(#rev)" />
+              <Area type="monotone" dataKey="value" stroke="#7c3aed" strokeWidth={2.2} fill="url(#rev)" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
