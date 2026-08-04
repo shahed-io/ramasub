@@ -411,7 +411,7 @@ export function SupportWidget() {
   const PANEL =
     "fixed bottom-24 right-5 z-50 w-[min(400px,calc(100vw-1.5rem))] origin-bottom-right";
   const SHELL =
-    "relative rounded-[28px] overflow-hidden border border-white/70 bg-gradient-to-b from-white/95 via-[#F8FAFC]/95 to-[#F5F7FB]/95 backdrop-blur-2xl shadow-[0_40px_100px_-28px_rgba(76,29,149,0.28),0_2px_10px_-2px_rgba(15,23,42,0.06)]";
+    "relative rounded-[28px] overflow-hidden border border-white/70 bg-gradient-to-b from-white via-[#F8FAFC] to-[#F5F7FB] backdrop-blur-2xl shadow-[0_40px_100px_-28px_rgba(76,29,149,0.28),0_2px_10px_-2px_rgba(15,23,42,0.06)]";
 
   return (
     <>
@@ -713,8 +713,8 @@ export function SupportWidget() {
       {open && tab === "faq" && (
         <div className={PANEL + " h-[min(620px,calc(100vh-1.5rem))]"}>
           <div className={SHELL + " h-full flex flex-col"}>
-            <div className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-amber-200/50 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-24 -right-20 h-56 w-56 rounded-full bg-violet-200/50 blur-3xl" />
+            <div className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-amber-200/30 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 -right-20 h-56 w-56 rounded-full bg-violet-200/30 blur-3xl" />
 
             <PanelHeader
               title="হেল্প সেন্টার"
@@ -775,8 +775,8 @@ export function SupportWidget() {
       {open && tab === "ai" && (
         <div className={PANEL + " h-[min(640px,calc(100vh-1.5rem))]"}>
           <div className={SHELL + " h-full flex flex-col"}>
-            <div className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-violet-200/60 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-24 -right-20 h-56 w-56 rounded-full bg-sky-200/50 blur-3xl" />
+            <div className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-violet-200/35 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 -right-20 h-56 w-56 rounded-full bg-sky-200/30 blur-3xl" />
 
             <PanelHeader
               title="AI Assistant"
