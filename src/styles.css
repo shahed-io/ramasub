@@ -521,8 +521,8 @@
     /* Emerald / green */
     &.bg-emerald-50, &.bg-emerald-100, &.bg-emerald-200,
     &.bg-green-50,   &.bg-green-100,   &.bg-green-200 {
-      background-color: #6ee7b7 !important;
-      border-color: #059669 !important;
+      background-color: #d1fae5 !important;
+      border-color: #a7f3d0 !important;
     }
     &.text-emerald-300, &.text-emerald-400, &.text-emerald-500, &.text-emerald-600, &.text-emerald-700, &.text-emerald-800,
     &.text-green-300,   &.text-green-400,   &.text-green-500,   &.text-green-600,   &.text-green-700,   &.text-green-800 {
@@ -533,8 +533,8 @@
     &.bg-amber-50, &.bg-amber-100, &.bg-amber-200,
     &.bg-yellow-50,&.bg-yellow-100,&.bg-yellow-200,
     &.bg-orange-50,&.bg-orange-100,&.bg-orange-200 {
-      background-color: #fcd34d !important;
-      border-color: #d97706 !important;
+      background-color: #fef3c7 !important;
+      border-color: #fde68a !important;
     }
     &.text-amber-300, &.text-amber-400, &.text-amber-500, &.text-amber-600, &.text-amber-700, &.text-amber-800,
     &.text-yellow-300,&.text-yellow-400,&.text-yellow-500,&.text-yellow-600,&.text-yellow-700,&.text-yellow-800,
@@ -546,7 +546,7 @@
     &.bg-sky-50, &.bg-sky-100, &.bg-sky-200,
     &.bg-blue-50,&.bg-blue-100,&.bg-blue-200,
     &.bg-cyan-50,&.bg-cyan-100,&.bg-cyan-200 {
-      background-color: #7dd3fc !important;
+      background-color: #e0f2fe !important;
       border-color: #0369a1 !important;
     }
     &.text-sky-300, &.text-sky-400, &.text-sky-500, &.text-sky-600, &.text-sky-700, &.text-sky-800,
@@ -560,8 +560,8 @@
     &.bg-indigo-50, &.bg-indigo-100, &.bg-indigo-200,
     &.bg-purple-50, &.bg-purple-100, &.bg-purple-200,
     &.bg-fuchsia-50,&.bg-fuchsia-100,&.bg-fuchsia-200 {
-      background-color: #c4b5fd !important;
-      border-color: #6d28d9 !important;
+      background-color: #ede9fe !important;
+      border-color: #ddd6fe !important;
     }
     &.text-violet-300, &.text-violet-400, &.text-violet-500, &.text-violet-600, &.text-violet-700, &.text-violet-800,
     &.text-indigo-300, &.text-indigo-400, &.text-indigo-500, &.text-indigo-600, &.text-indigo-700, &.text-indigo-800,
@@ -574,8 +574,8 @@
     &.bg-rose-50, &.bg-rose-100, &.bg-rose-200,
     &.bg-red-50,  &.bg-red-100,  &.bg-red-200,
     &.bg-pink-50, &.bg-pink-100, &.bg-pink-200 {
-      background-color: #fca5a5 !important;
-      border-color: #dc2626 !important;
+      background-color: #ffe4e6 !important;
+      border-color: #fecdd3 !important;
     }
     &.text-rose-300, &.text-rose-400, &.text-rose-500, &.text-rose-600, &.text-rose-700, &.text-rose-800,
     &.text-red-300,  &.text-red-400,  &.text-red-500,  &.text-red-600,  &.text-red-700,  &.text-red-800,
@@ -585,8 +585,8 @@
     }
     /* Teal */
     &.bg-teal-50, &.bg-teal-100, &.bg-teal-200 {
-      background-color: #5eead4 !important;
-      border-color: #0d9488 !important;
+      background-color: #ccfbf1 !important;
+      border-color: #99f6e4 !important;
     }
     &.text-teal-300,&.text-teal-400,&.text-teal-500,&.text-teal-600,&.text-teal-700,&.text-teal-800 {
       color: #042f2e !important;
@@ -598,8 +598,8 @@
     &.bg-zinc-50,  &.bg-zinc-100,  &.bg-zinc-200,
     &.bg-neutral-50, &.bg-neutral-100, &.bg-neutral-200,
     &.bg-stone-50, &.bg-stone-100, &.bg-stone-200 {
-      background-color: #cbd5e1 !important;
-      border-color: #64748b !important;
+      background-color: #f1f5f9 !important;
+      border-color: #e2e8f0 !important;
     }
     &.text-slate-300, &.text-slate-400, &.text-slate-500, &.text-slate-600,
     &.text-gray-300,  &.text-gray-400,  &.text-gray-500,  &.text-gray-600,
