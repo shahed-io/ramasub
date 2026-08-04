@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { normalizeWaPhone } from "@/lib/whatsapp";
 import { useCallback, useEffect, useState } from "react";
 import {
   Save, Loader2, Eye, EyeOff, Plus, Send, Mail, MessageCircle,
@@ -418,7 +419,7 @@ async function testTelegram(token?: string, chatId?: string) {
 function testWhatsApp(num?: string) {
   if (!num) return toast.error("WhatsApp নম্বর দিন");
   const msg = encodeURIComponent("✅ Rama Sub — WhatsApp নোটিফিকেশন কনফিগার সফল!");
-  window.open(`https://wa.me/${num.replace(/\D/g, "")}?text=${msg}`, "_blank");
+  window.open(`https://wa.me/${normalizeWaPhone(num)}?text=${msg}`, "_blank");
 }
 
 /* ============================== UI Primitives ============================== */

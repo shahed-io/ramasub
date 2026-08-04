@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { waChatUrl } from "@/lib/whatsapp";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import {
   Loader2, Eye, Trash2, MessageCircle, RefreshCw, Search as SearchIcon,
@@ -342,9 +343,7 @@ function StatusPill({ status }: { status: Row["status"] }) {
 
 function RowItem({ row: r, onView, onContact, onDelete }: { row: Row; onView: () => void; onContact: () => void; onDelete: () => void }) {
   const { t } = useAdminLang();
-  const waLink = r.phone
-    ? `https://wa.me/${r.phone.replace(/\D/g, "")}?text=${encodeURIComponent(`আসসালামু আলাইকুম ${r.full_name}, আপনি আমাদের ওয়েবসাইটে একটি অর্ডার শুরু করেছিলেন। কোনো সাহায্যের প্রয়োজন হলে জানান।`)}`
-    : "";
+  const waLink = waChatUrl(r.phone, `আসসালামু আলাইকুম ${r.full_name}, আপনি আমাদের ওয়েবসাইটে একটি অর্ডার শুরু করেছিলেন। কোনো সাহায্যের প্রয়োজন হলে জানান।`);
   const itemsCount = (r.items ?? []).reduce((a, it) => a + (it.qty ?? 1), 0);
   const when = new Date(r.created_at);
   return (
@@ -415,7 +414,7 @@ function DetailDrawer({ row, onClose, onUpdate, onDelete }: { row: Row; onClose:
   const { t } = useAdminLang();
   const [note, setNote] = useState(row.admin_note || "");
   useEffect(() => { setNote(row.admin_note || ""); }, [row.id, row.admin_note]);
-  const waLink = row.phone ? `https://wa.me/${row.phone.replace(/\D/g, "")}` : "";
+  const waLink = waChatUrl(row.phone);
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-[2px] flex justify-end animate-fade-in" onClick={onClose}>
       <div

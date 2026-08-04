@@ -65,3 +65,25 @@ export function waAskUrl(productName: string, opts: { number?: string } = {}) {
     `দয়া করে দাম, প্ল্যান ও ডেলিভারির বিস্তারিত জানাবেন। ধন্যবাদ! 🙏`;
   return `https://wa.me/${num}?text=${encodeURIComponent(text)}`;
 }
+
+/**
+ * Normalize any customer phone into international wa.me digits.
+ * BD local numbers (01XXXXXXXXX) are converted to 8801XXXXXXXXX so the
+ * wa.me link opens the correct chat instead of an "invalid number" page.
+ */
+export function normalizeWaPhone(p?: string | null): string {
+  let d = (p || "").replace(/\D/g, "");
+  if (!d) return "";
+  d = d.replace(/^0+(?=88)/, ""); // 08801... -> 8801...
+  if (d.startsWith("880")) return d;
+  if (d.startsWith("0")) return "880" + d.slice(1);
+  if (d.length === 10 && d.startsWith("1")) return "880" + d;
+  return d;
+}
+
+/** Build a wa.me chat link for a customer phone (empty string if unusable). */
+export function waChatUrl(phone?: string | null, text?: string): string {
+  const num = normalizeWaPhone(phone);
+  if (num.length < 10) return "";
+  return `https://wa.me/${num}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
+}

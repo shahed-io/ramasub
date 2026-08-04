@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { normalizeWaPhone } from "@/lib/whatsapp";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminLang } from "@/context/AdminLangContext";
@@ -139,7 +140,7 @@ function QuickSalePage() {
       }
 
       if (deliveryMode !== "system") {
-        const num = phone.replace(/\D/g, "");
+        const num = normalizeWaPhone(phone);
         const lines = [
           `Hello ${name},`,
           ``,
