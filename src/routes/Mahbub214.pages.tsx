@@ -9,8 +9,8 @@ export const Route = createFileRoute("/Mahbub214/pages")({
 });
 
 const STATUS_STYLE: Record<PageStatus, string> = {
-  published: "bg-violet-100 text-violet-700 ring-violet-200",
-  draft: "bg-violet-100 text-violet-700 ring-violet-200",
+  published: "bg-blue-100 text-blue-700 ring-blue-200",
+  draft: "bg-blue-100 text-blue-700 ring-blue-200",
   hidden: "bg-slate-200 text-slate-700 ring-slate-300",
 };
 
@@ -58,7 +58,7 @@ function AdminPagesList() {
           <button
             key={k}
             onClick={() => setStatus(k as any)}
-            className={`text-left rounded-2xl border p-4 transition ${status === k ? "border-violet-400 ring-2 ring-violet-200 bg-white" : "border-slate-200 bg-white hover:border-violet-300"}`}
+            className={`text-left rounded-2xl border p-4 transition ${status === k ? "border-blue-400 ring-2 ring-blue-200 bg-white" : "border-slate-200 bg-white hover:border-blue-300"}`}
           >
             <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide">{k}</div>
             <div className="mt-1 text-2xl font-extrabold text-slate-900">{counts[k]}</div>
@@ -74,7 +74,7 @@ function AdminPagesList() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search pages by name or path…"
-            className="w-full h-10 pl-9 pr-3 rounded-xl bg-slate-50 border border-slate-200 outline-none focus:ring-2 focus:ring-violet-200"
+            className="w-full h-10 pl-9 pr-3 rounded-xl bg-slate-50 border border-slate-200 outline-none focus:ring-2 focus:ring-blue-200"
           />
         </div>
       </div>
@@ -100,7 +100,7 @@ function AdminPagesList() {
             </div>
             <div className="hidden md:flex items-center gap-1.5 text-sm text-slate-600 truncate">
               <code className="text-xs px-2 py-0.5 rounded bg-slate-100 border border-slate-200">{p.path}</code>
-              <a href={p.path} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-violet-600" title="Open page">
+              <a href={p.path} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-600" title="Open page">
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>
@@ -110,7 +110,7 @@ function AdminPagesList() {
               <Link
                 to="/Mahbub214/pages/$key"
                 params={{ key: p.key }}
-                className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-xs font-semibold shadow-sm hover:shadow-md"
+                className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-gradient-to-r from-blue-600 to-sky-600 text-white text-xs font-semibold shadow-sm hover:shadow-md"
               >
                 <FileEdit className="w-3.5 h-3.5" />
                 Edit

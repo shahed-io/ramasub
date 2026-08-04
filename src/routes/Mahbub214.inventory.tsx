@@ -217,7 +217,7 @@ function InventoryPage() {
     { key: "all", label: t("All", "সব"), dot: "" },
     { key: "out", label: t("Out", "আউট"), dot: "bg-rose-500" },
     { key: "low", label: t("Low", "কম"), dot: "bg-amber-400" },
-    { key: "ok", label: t("Sufficient", "পর্যাপ্ত"), dot: "bg-violet-500" },
+    { key: "ok", label: t("Sufficient", "পর্যাপ্ত"), dot: "bg-blue-500" },
   ];
 
   return (
@@ -273,10 +273,10 @@ function InventoryPage() {
       )}
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard tone="bg-violet-100 text-violet-600" icon={<Package className="w-5 h-5" />} value={stats.total} label={t("Total Products", "মোট প্রোডাক্ট")} />
+        <StatCard tone="bg-blue-100 text-blue-600" icon={<Package className="w-5 h-5" />} value={stats.total} label={t("Total Products", "মোট প্রোডাক্ট")} />
         <StatCard tone="bg-rose-100 text-rose-600" icon={<XCircle className="w-5 h-5" />} value={stats.out} label={t("Out of Stock", "স্টক আউট")} />
         <StatCard tone="bg-amber-100 text-amber-600" icon={<AlertTriangle className="w-5 h-5" />} value={stats.low} label={t("Low Stock", "স্টক কম")} />
-        <StatCard tone="bg-violet-100 text-violet-600" icon={<CheckCircle2 className="w-5 h-5" />} value={stats.ok} label={t("Sufficient Stock", "পর্যাপ্ত স্টক")} />
+        <StatCard tone="bg-blue-100 text-blue-600" icon={<CheckCircle2 className="w-5 h-5" />} value={stats.ok} label={t("Sufficient Stock", "পর্যাপ্ত স্টক")} />
       </div>
 
       <div className="flex items-center gap-3 flex-wrap">
@@ -286,7 +286,7 @@ function InventoryPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("Search products...", "প্রোডাক্ট সার্চ...")}
-            className="w-full rounded-full border border-slate-200 bg-white pl-10 pr-4 py-2.5 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-200"
+            className="w-full rounded-full border border-slate-200 bg-white pl-10 pr-4 py-2.5 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
           />
         </div>
         <div className="flex items-center gap-2 flex-wrap">
@@ -329,7 +329,7 @@ function InventoryPage() {
               <li key={row.slug} className="hover:bg-slate-50/60">
                 <div className="flex items-center gap-3 px-4 sm:px-5 py-3">
                   <div
-                    className={`shrink-0 w-11 h-11 rounded-full overflow-hidden bg-gradient-to-br ${row.gradient || "from-violet-200 to-fuchsia-200"} grid place-items-center text-lg`}
+                    className={`shrink-0 w-11 h-11 rounded-full overflow-hidden bg-gradient-to-br ${row.gradient || "from-blue-200 to-sky-200"} grid place-items-center text-lg`}
                   >
                     {row.image_url ? (
                       <img src={row.image_url} alt="" className="w-full h-full object-cover" loading="lazy" />
@@ -341,7 +341,7 @@ function InventoryPage() {
                     <div className="text-sm font-bold text-slate-900 truncate flex items-center gap-2">
                       {row.name}
                       {hasTypes && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 px-2 py-0.5 text-[10px] font-bold">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 text-[10px] font-bold">
                           <Layers className="w-3 h-3" /> {row.account_types.length} {t("types", "টাইপ")}
                         </span>
                       )}
@@ -407,7 +407,7 @@ function StatusPill({ status, t }: { status: Row["status"]; t: (en: string, bn?:
   const map: Record<Row["status"], { label: string; cls: string; dot: string }> = {
     out: { label: t("Out", "আউট"), cls: "bg-rose-50 text-rose-700 border-rose-200", dot: "bg-rose-500" },
     low: { label: t("Low", "কম"), cls: "bg-amber-50 text-amber-700 border-amber-200", dot: "bg-amber-400" },
-    ok: { label: t("Sufficient", "পর্যাপ্ত"), cls: "bg-violet-50 text-violet-700 border-violet-200", dot: "bg-violet-500" },
+    ok: { label: t("Sufficient", "পর্যাপ্ত"), cls: "bg-blue-50 text-blue-700 border-blue-200", dot: "bg-blue-500" },
     unknown: { label: t("Unknown", "অজানা"), cls: "bg-slate-50 text-slate-600 border-slate-200", dot: "bg-slate-400" },
   };
   const s = map[status];
@@ -518,7 +518,7 @@ function ManagePanel({ row, onSaved }: { row: Row; onSaved: () => void }) {
                 type="button"
                 className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold border transition ${
                   active
-                    ? "bg-violet-600 text-white border-violet-600 shadow-sm"
+                    ? "bg-blue-600 text-white border-blue-600 shadow-sm"
                     : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
                 }`}
               >
@@ -532,7 +532,7 @@ function ManagePanel({ row, onSaved }: { row: Row; onSaved: () => void }) {
             value={customLabel}
             onChange={(e) => setCustomLabel(e.target.value)}
             placeholder={t("Custom type label (e.g. Premium, Gift)", "Custom টাইপের নাম")}
-            className="mt-2 w-full h-9 px-3 rounded-lg border border-violet-200 bg-white text-sm outline-none focus:ring-2 focus:ring-violet-200"
+            className="mt-2 w-full h-9 px-3 rounded-lg border border-blue-200 bg-white text-sm outline-none focus:ring-2 focus:ring-blue-200"
           />
         )}
         <p className="text-[11px] text-slate-500 mt-2">
@@ -623,7 +623,7 @@ function ManagePanel({ row, onSaved }: { row: Row; onSaved: () => void }) {
               ))}
               <button
                 onClick={() => addPlan(id)}
-                className="inline-flex items-center gap-1.5 rounded-full bg-violet-50 border border-violet-200 text-violet-700 px-3 py-1.5 text-xs font-bold hover:bg-violet-100"
+                className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 px-3 py-1.5 text-xs font-bold hover:bg-blue-100"
               >
                 <Plus className="w-3.5 h-3.5" /> {t("Add price plan", "প্রাইস প্ল্যান যোগ করুন")}
               </button>

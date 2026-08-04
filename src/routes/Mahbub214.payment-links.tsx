@@ -152,7 +152,7 @@ function PaymentLinksPage() {
       <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-5 sm:p-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex items-start gap-3 min-w-0">
-            <span className="shrink-0 w-11 h-11 rounded-xl bg-violet-50 ring-1 ring-violet-100 text-violet-600 grid place-items-center">
+            <span className="shrink-0 w-11 h-11 rounded-xl bg-blue-50 ring-1 ring-blue-100 text-blue-600 grid place-items-center">
               <LinkIcon className="w-5 h-5" />
             </span>
             <div className="min-w-0">
@@ -167,7 +167,7 @@ function PaymentLinksPage() {
           <div className="flex items-center gap-2">
             <button
               onClick={quickGenerate}
-              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white text-sm font-bold shadow-md shadow-violet-500/20 transition"
+              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 text-white text-sm font-bold shadow-md shadow-blue-500/20 transition"
             >
               <Sparkles className="w-4 h-4" />
               {t("Quick Generate Link", "কুইক জেনারেট লিঙ্ক")}
@@ -189,7 +189,7 @@ function PaymentLinksPage() {
           <button
             onClick={() => setTab("links")}
             className={`px-4 h-9 rounded-lg text-sm font-bold transition ${
-              tab === "links" ? "bg-white text-violet-700 shadow-sm" : "text-slate-600 hover:text-slate-900"
+              tab === "links" ? "bg-white text-blue-700 shadow-sm" : "text-slate-600 hover:text-slate-900"
             }`}
           >
             {t("Links", "লিঙ্ক")} ({rows.length})
@@ -197,7 +197,7 @@ function PaymentLinksPage() {
           <button
             onClick={() => setTab("submissions")}
             className={`px-4 h-9 rounded-lg text-sm font-bold transition ${
-              tab === "submissions" ? "bg-white text-violet-700 shadow-sm" : "text-slate-600 hover:text-slate-900"
+              tab === "submissions" ? "bg-white text-blue-700 shadow-sm" : "text-slate-600 hover:text-slate-900"
             }`}
           >
             {t("Submissions", "সাবমিশন")} ({subs.length})
@@ -211,7 +211,7 @@ function PaymentLinksPage() {
             placeholder={tab === "links"
               ? t("Search by title or slug…", "টাইটেল বা স্লাগ দিয়ে খুঁজুন…")
               : t("Search by name, phone or slug…", "নাম, ফোন বা স্লাগ দিয়ে খুঁজুন…")}
-            className="w-full h-10 pl-9 pr-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-300"
+            className="w-full h-10 pl-9 pr-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300"
           />
         </div>
       </div>
@@ -262,7 +262,7 @@ function LinksTable({
   if (rows.length === 0) {
     return (
       <div className="rounded-2xl border border-slate-200 bg-white p-12 text-center">
-        <div className="mx-auto w-14 h-14 rounded-full bg-violet-50 grid place-items-center text-violet-600 mb-3">
+        <div className="mx-auto w-14 h-14 rounded-full bg-blue-50 grid place-items-center text-blue-600 mb-3">
           <LinkIcon className="w-6 h-6" />
         </div>
         <h3 className="text-base font-bold text-slate-900">{t("No payment links yet", "এখনো কোনো পেমেন্ট লিঙ্ক নেই")}</h3>
@@ -303,7 +303,7 @@ function LinksTable({
                   <td className="px-5 py-4 text-slate-700">{uses}</td>
                   <td className="px-5 py-4">
                     {r.is_active ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-violet-600 text-white">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-600 text-white">
                         {t("active", "সক্রিয়")}
                       </span>
                     ) : (
@@ -348,8 +348,8 @@ function LinksTable({
 const TONE: Record<string, string> = {
   sky: "bg-sky-100 text-sky-700 border-sky-200 hover:bg-sky-200",
   indigo: "bg-indigo-100 text-indigo-700 border-indigo-200 hover:bg-indigo-200",
-  violet: "bg-violet-200 text-violet-800 border-violet-300 hover:bg-violet-300",
-  emerald: "bg-violet-100 text-violet-700 border-violet-200 hover:bg-violet-200",
+  violet: "bg-blue-200 text-blue-800 border-blue-300 hover:bg-blue-300",
+  emerald: "bg-blue-100 text-blue-700 border-blue-200 hover:bg-blue-200",
   rose: "bg-rose-100 text-rose-700 border-rose-200 hover:bg-rose-200",
 };
 
@@ -406,9 +406,9 @@ function SubmissionsTable({ rows }: { rows: Submission[] }) {
               const d = r.data ?? {};
               const status = d.status ?? "pending";
               const statusStyles =
-                status === "verified" ? "bg-violet-100 text-violet-700 border-violet-200"
+                status === "verified" ? "bg-blue-100 text-blue-700 border-blue-200"
                 : status === "rejected" ? "bg-rose-100 text-rose-700 border-rose-200"
-                : "bg-violet-100 text-violet-700 border-violet-200";
+                : "bg-blue-100 text-blue-700 border-blue-200";
               return (
                 <tr key={r.id} className="hover:bg-slate-50/60 align-top">
                   <td className="px-5 py-4">
@@ -505,7 +505,7 @@ function LinkForm({
             <input
               value={data.title ?? ""}
               onChange={(e) => set("title", e.target.value)}
-              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-300"
+              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300"
               placeholder={t("e.g. Netflix Premium 1 month", "যেমন: Netflix Premium ১ মাস")}
             />
           </Field>
@@ -514,7 +514,7 @@ function LinkForm({
               <input
                 value={data.slug ?? ""}
                 onChange={(e) => set("slug", e.target.value)}
-                className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-300"
+                className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300"
                 placeholder="pay-xxxxxxx"
               />
             </Field>
@@ -523,7 +523,7 @@ function LinkForm({
                 type="number"
                 value={data.amount ?? ""}
                 onChange={(e) => set("amount", Number(e.target.value))}
-                className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-300"
+                className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300"
                 placeholder="0"
               />
             </Field>
@@ -533,7 +533,7 @@ function LinkForm({
               value={data.description ?? ""}
               onChange={(e) => set("description", e.target.value)}
               rows={3}
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-300"
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300"
             />
           </Field>
           <Field label={t("Success redirect URL", "সাকসেস রিডাইরেক্ট URL")}>
@@ -541,7 +541,7 @@ function LinkForm({
               type="url"
               value={data.redirect_url ?? ""}
               onChange={(e) => set("redirect_url", e.target.value)}
-              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-300"
+              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300"
               placeholder="https://…"
             />
           </Field>
@@ -551,7 +551,7 @@ function LinkForm({
                 type="date"
                 value={data.expires_at ?? ""}
                 onChange={(e) => set("expires_at", e.target.value)}
-                className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-300"
+                className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300"
               />
             </Field>
             <Field label={t("Single use", "একবার ব্যবহার")}>
@@ -560,7 +560,7 @@ function LinkForm({
                   type="checkbox"
                   checked={!!data.single_use}
                   onChange={(e) => set("single_use", e.target.checked)}
-                  className="w-4 h-4 accent-violet-600"
+                  className="w-4 h-4 accent-blue-600"
                 />
                 <span className="text-sm text-slate-700">{t("One-time link", "একবার ব্যবহারযোগ্য")}</span>
               </label>
@@ -574,7 +574,7 @@ function LinkForm({
           <button
             onClick={save}
             disabled={saving}
-            className="h-10 px-5 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white text-sm font-bold shadow inline-flex items-center gap-1.5 disabled:opacity-60 transition"
+            className="h-10 px-5 rounded-xl bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 text-white text-sm font-bold shadow inline-flex items-center gap-1.5 disabled:opacity-60 transition"
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
             {t("Save", "সংরক্ষণ")}

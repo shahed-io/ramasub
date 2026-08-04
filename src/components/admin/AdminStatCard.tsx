@@ -3,11 +3,11 @@ import { TrendingDown, TrendingUp } from "lucide-react";
 export type AdminStatTone = "indigo" | "rose" | "emerald" | "violet" | "sky";
 
 const TONES: Record<AdminStatTone, { tint: string; stroke: string; fill: string }> = {
-  indigo:  { tint: "from-indigo-100/80 via-violet-50 to-white",   stroke: "#6366f1", fill: "rgba(99,102,241,0.18)" },
+  indigo:  { tint: "from-indigo-100/80 via-blue-50 to-white",   stroke: "#6366f1", fill: "rgba(99,102,241,0.18)" },
   rose:    { tint: "from-rose-100/80 via-pink-50 to-white",       stroke: "#f43f5e", fill: "rgba(244,63,94,0.18)" },
-  emerald: { tint: "from-violet-100/80 via-teal-50 to-white",    stroke: "#10b981", fill: "rgba(16,185,129,0.18)" },
+  emerald: { tint: "from-blue-100/80 via-teal-50 to-white",    stroke: "#10b981", fill: "rgba(16,185,129,0.18)" },
   sky:     { tint: "from-sky-100/80 via-cyan-50 to-white",        stroke: "#0ea5e9", fill: "rgba(14,165,233,0.18)" },
-  violet:  { tint: "from-violet-200/80 via-fuchsia-50 to-white",  stroke: "#6d28d9", fill: "rgba(109,40,217,0.22)" },
+  violet:  { tint: "from-blue-200/80 via-sky-50 to-white",  stroke: "#6d28d9", fill: "rgba(109,40,217,0.22)" },
 };
 
 function sparkPath(vals: number[], w = 200, h = 60) {
@@ -65,7 +65,7 @@ export function AdminStatCard({
       <div className="flex items-end justify-between mt-3 gap-3">
         {typeof delta === "number" ? (
           <div className="flex items-center gap-1.5 text-xs">
-            <span className={`inline-flex items-center gap-0.5 font-bold ${up ? "text-violet-600" : "text-rose-600"}`}>
+            <span className={`inline-flex items-center gap-0.5 font-bold ${up ? "text-blue-600" : "text-rose-600"}`}>
               {up ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
               {up ? "+" : ""}{delta}%
             </span>

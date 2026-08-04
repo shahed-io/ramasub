@@ -239,7 +239,7 @@ function BulkUpdatePage() {
               </details>
             </>
           ) : (
-            <p className="text-sm text-violet-600">
+            <p className="text-sm text-blue-600">
               No active template found. Set one in <a className="underline" href="/Mahbub214/description-template">Description Template</a>.
             </p>
           )}
@@ -355,11 +355,11 @@ function BulkUpdatePage() {
                 </div>
               </div>
               {p.description.trim() ? (
-                <span className="text-[10px] uppercase tracking-wide rounded bg-violet-100 text-violet-700 px-1.5 py-0.5">
+                <span className="text-[10px] uppercase tracking-wide rounded bg-blue-100 text-blue-700 px-1.5 py-0.5">
                   has desc
                 </span>
               ) : (
-                <span className="text-[10px] uppercase tracking-wide rounded bg-violet-100 text-violet-700 px-1.5 py-0.5">
+                <span className="text-[10px] uppercase tracking-wide rounded bg-blue-100 text-blue-700 px-1.5 py-0.5">
                   empty desc
                 </span>
               )}

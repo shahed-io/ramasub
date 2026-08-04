@@ -132,7 +132,7 @@ function MetaBusinessPage() {
   if (loading || !cfg) {
     return (
       <div className="flex items-center justify-center py-24">
-        <Loader2 className="w-6 h-6 animate-spin text-violet-600" />
+        <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
       </div>
     );
   }
@@ -146,7 +146,7 @@ function MetaBusinessPage() {
         <button
           onClick={handleVerify}
           disabled={verifying}
-          className="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-white border border-violet-300 text-violet-700 text-sm font-semibold hover:bg-violet-50 disabled:opacity-50"
+          className="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-white border border-blue-300 text-blue-700 text-sm font-semibold hover:bg-blue-50 disabled:opacity-50"
         >
           {verifying ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShieldCheck className="w-4 h-4" />}
           Verify Connection
@@ -154,7 +154,7 @@ function MetaBusinessPage() {
         <button
           onClick={handleTest}
           disabled={testing}
-          className="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-white border border-violet-300 text-violet-700 text-sm font-semibold hover:bg-violet-50 disabled:opacity-50"
+          className="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-white border border-blue-300 text-blue-700 text-sm font-semibold hover:bg-blue-50 disabled:opacity-50"
         >
           {testing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
           Send Test Event
@@ -162,7 +162,7 @@ function MetaBusinessPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-sm font-semibold shadow-sm hover:opacity-90 disabled:opacity-50"
+          className="inline-flex items-center gap-2 h-9 px-4 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold shadow-sm hover:opacity-90 disabled:opacity-50"
         >
           {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
           Save
@@ -180,7 +180,7 @@ function MetaBusinessPage() {
           <button
             key={t.id}
             onClick={() => setTab(t.id as typeof tab)}
-            className={`px-4 py-2 text-sm font-semibold border-b-2 transition ${tab === t.id ? "border-violet-600 text-violet-700" : "border-transparent text-slate-500 hover:text-slate-700"}`}
+            className={`px-4 py-2 text-sm font-semibold border-b-2 transition ${tab === t.id ? "border-blue-600 text-blue-700" : "border-transparent text-slate-500 hover:text-slate-700"}`}
           >
             {t.label}
           </button>
@@ -224,7 +224,7 @@ function MetaBusinessPage() {
               value={tokenInput}
               onChange={(e) => setTokenInput(e.target.value)}
               placeholder={cfg.access_token_last4 ? `Current token: ••••${cfg.access_token_last4} (leave blank to keep)` : "EAAxxxxxxxxxxxx..."}
-              className="w-full h-10 px-3 rounded-xl border border-slate-300 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 outline-none text-sm"
+              className="w-full h-10 px-3 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none text-sm"
             />
           </div>
           <FormField
@@ -239,7 +239,7 @@ function MetaBusinessPage() {
             <select
               value={cfg.graph_api_version}
               onChange={(e) => patch({ graph_api_version: e.target.value })}
-              className="w-full h-10 px-3 rounded-xl border border-slate-300 focus:border-violet-500 outline-none text-sm bg-white"
+              className="w-full h-10 px-3 rounded-xl border border-slate-300 focus:border-blue-500 outline-none text-sm bg-white"
             >
               {GRAPH_VERSIONS.map((v) => <option key={v} value={v}>{v}</option>)}
             </select>
@@ -250,13 +250,13 @@ function MetaBusinessPage() {
               <div className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Last Verification</div>
               {Object.entries(cfg.last_verify_result.checks || {}).map(([k, v]) => (
                 <div key={k} className="flex items-center gap-2 text-sm">
-                  {v.ok ? <CheckCircle2 className="w-4 h-4 text-violet-700" /> : <XCircle className="w-4 h-4 text-rose-600" />}
+                  {v.ok ? <CheckCircle2 className="w-4 h-4 text-blue-700" /> : <XCircle className="w-4 h-4 text-rose-600" />}
                   <span className="text-slate-700">{v.msg}</span>
                 </div>
               ))}
               {cfg.last_verify_result.graph && (
                 <div className="flex items-center gap-2 text-sm">
-                  {cfg.last_verify_result.graph.ok ? <CheckCircle2 className="w-4 h-4 text-violet-700" /> : <AlertCircle className="w-4 h-4 text-amber-600" />}
+                  {cfg.last_verify_result.graph.ok ? <CheckCircle2 className="w-4 h-4 text-blue-700" /> : <AlertCircle className="w-4 h-4 text-amber-600" />}
                   <span className="text-slate-700">Graph API: {cfg.last_verify_result.graph.msg}</span>
                 </div>
               )}
@@ -294,13 +294,13 @@ function MetaBusinessPage() {
               <div className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">Request Timeout (ms)</div>
               <input type="number" min={1000} max={60000} value={cfg.capi_timeout_ms}
                 onChange={(e) => patch({ capi_timeout_ms: Number(e.target.value) })}
-                className="w-full h-10 px-3 rounded-xl border border-slate-300 focus:border-violet-500 outline-none text-sm" />
+                className="w-full h-10 px-3 rounded-xl border border-slate-300 focus:border-blue-500 outline-none text-sm" />
             </div>
             <div>
               <div className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">Maximum Retry</div>
               <input type="number" min={0} max={10} value={cfg.capi_max_retry}
                 onChange={(e) => patch({ capi_max_retry: Number(e.target.value) })}
-                className="w-full h-10 px-3 rounded-xl border border-slate-300 focus:border-violet-500 outline-none text-sm" />
+                className="w-full h-10 px-3 rounded-xl border border-slate-300 focus:border-blue-500 outline-none text-sm" />
             </div>
           </div>
           <ToggleRow label="Retry Failed Events" hint="Failed events automatic backoff-এ retry হবে" checked={cfg.capi_retry_failed} onChange={(v) => patch({ capi_retry_failed: v })} />
@@ -321,8 +321,8 @@ function StatCard({ icon: Icon, label, value, ok }: { icon: React.ComponentType<
   return (
     <div className="bg-white border border-slate-200 rounded-2xl p-4">
       <div className="flex items-center justify-between mb-2">
-        <Icon className="w-5 h-5 text-violet-600" />
-        <span className={`w-2 h-2 rounded-full ${ok ? "bg-violet-500" : "bg-slate-300"}`} />
+        <Icon className="w-5 h-5 text-blue-600" />
+        <span className={`w-2 h-2 rounded-full ${ok ? "bg-blue-500" : "bg-slate-300"}`} />
       </div>
       <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500">{label}</div>
       <div className="text-sm font-semibold text-slate-800 truncate mt-0.5">{value}</div>
@@ -339,7 +339,7 @@ function FormField({ label, hint, placeholder, value, onChange }: { label: strin
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full h-10 px-3 rounded-xl border border-slate-300 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 outline-none text-sm"
+        className="w-full h-10 px-3 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none text-sm"
       />
     </div>
   );
@@ -352,7 +352,7 @@ function ToggleRow({ label, hint, checked, onChange }: { label: string; hint?: s
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className="mt-0.5 w-4 h-4 rounded border-slate-300 text-violet-600 focus:ring-violet-500"
+        className="mt-0.5 w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
       />
       <div className="flex-1">
         <div className="text-sm font-semibold text-slate-800">{label}</div>

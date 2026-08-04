@@ -149,7 +149,7 @@ function EmailDashboardPage() {
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
-            <Mail className="w-5 h-5 text-violet-600" />
+            <Mail className="w-5 h-5 text-blue-600" />
             {t("Email Dashboard", "ইমেইল ড্যাশবোর্ড")}
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -181,7 +181,7 @@ function EmailDashboardPage() {
                 onClick={() => setRange(k)}
                 className={`flex-1 h-9 rounded-full text-xs font-bold transition ${
                   range === k
-                    ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow"
+                    ? "bg-gradient-to-r from-blue-600 to-sky-600 text-white shadow"
                     : "text-slate-600 hover:text-slate-900"
                 }`}
               >
@@ -197,7 +197,7 @@ function EmailDashboardPage() {
           <select
             value={template}
             onChange={(e) => { setTemplate(e.target.value); setPage(1); }}
-            className="w-full h-11 px-4 rounded-xl bg-white border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-300 shadow-sm"
+            className="w-full h-11 px-4 rounded-xl bg-white border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm"
           >
             <option value="all">{t("All Templates", "সব টেমপ্লেট")}</option>
             {templates.map((t2) => (
@@ -212,7 +212,7 @@ function EmailDashboardPage() {
           <select
             value={status}
             onChange={(e) => { setStatus(e.target.value); setPage(1); }}
-            className="w-full h-11 px-4 rounded-xl bg-white border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-300 shadow-sm"
+            className="w-full h-11 px-4 rounded-xl bg-white border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm"
           >
             <option value="all">{t("All Statuses", "সব স্ট্যাটাস")}</option>
             <option value="sent">{t("Sent", "পাঠানো")}</option>
@@ -231,7 +231,7 @@ function EmailDashboardPage() {
               value={query}
               onChange={(e) => { setQuery(e.target.value); setPage(1); }}
               placeholder="email@example.com"
-              className="w-full h-11 pl-11 pr-4 rounded-xl bg-white border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-300 shadow-sm"
+              className="w-full h-11 pl-11 pr-4 rounded-xl bg-white border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm"
             />
           </div>
         </div>
@@ -239,16 +239,16 @@ function EmailDashboardPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        <StatCard icon={<Mail className="w-4 h-4 text-violet-600" />} ring="ring-violet-200" value={counts.total} label={t("Total", "মোট")} valueClass="text-slate-900" />
-        <StatCard icon={<Send className="w-4 h-4 text-violet-600" />} ring="ring-violet-200" value={counts.sent} label={t("Sent", "পাঠানো")} valueClass="text-slate-900" />
+        <StatCard icon={<Mail className="w-4 h-4 text-blue-600" />} ring="ring-blue-200" value={counts.total} label={t("Total", "মোট")} valueClass="text-slate-900" />
+        <StatCard icon={<Send className="w-4 h-4 text-blue-600" />} ring="ring-blue-200" value={counts.sent} label={t("Sent", "পাঠানো")} valueClass="text-slate-900" />
         <StatCard icon={<AlertCircle className="w-4 h-4 text-rose-600" />} ring="ring-rose-200" value={counts.failed} label={t("Failed", "ব্যর্থ")} valueClass="text-rose-600" />
-        <StatCard icon={<Clock className="w-4 h-4 text-violet-600" />} ring="ring-violet-200" value={counts.pending} label={t("Pending", "পেন্ডিং")} valueClass="text-violet-600" />
+        <StatCard icon={<Clock className="w-4 h-4 text-blue-600" />} ring="ring-blue-200" value={counts.pending} label={t("Pending", "পেন্ডিং")} valueClass="text-blue-600" />
         <StatCard icon={<ShieldOff className="w-4 h-4 text-slate-600" />} ring="ring-slate-200" value={counts.suppressed} label={t("Suppressed", "সাপ্রেসড")} valueClass="text-slate-900" />
       </div>
 
       {/* Per-template summary */}
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-        <div className="px-5 py-4 border-l-4 border-violet-500">
+        <div className="px-5 py-4 border-l-4 border-blue-500">
           <h3 className="text-base font-extrabold text-slate-900">
             {t("Per-Template Summary", "প্রতি টেমপ্লেট সামারি")}
           </h3>
@@ -273,7 +273,7 @@ function EmailDashboardPage() {
                 <tr key={p.name} className="hover:bg-slate-50/70">
                   <td className="px-5 py-3.5 font-semibold text-slate-800">{p.name}</td>
                   <td className="px-5 py-3.5 text-center text-slate-700">{p.total}</td>
-                  <td className="px-5 py-3.5 text-center text-violet-700 font-semibold">{p.sent}</td>
+                  <td className="px-5 py-3.5 text-center text-blue-700 font-semibold">{p.sent}</td>
                   <td className={`px-5 py-3.5 text-center font-semibold ${p.failed > 0 ? "text-rose-600" : "text-slate-500"}`}>{p.failed}</td>
                   <td className="px-5 py-3.5 text-center text-slate-700">{p.pending}</td>
                   <td className="px-5 py-3.5 text-slate-600">{p.last ? fmt(p.last) : "—"}</td>
@@ -364,14 +364,14 @@ function StatusBadge({ status }: { status: string | null }) {
   const s = status ?? "";
   if (s === "sent") {
     return (
-      <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200">
+      <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
         <CheckCircle2 className="w-3 h-3" /> Sent
       </span>
     );
   }
   if (s === "pending") {
     return (
-      <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200">
+      <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
         <Clock className="w-3 h-3" /> Pending
       </span>
     );

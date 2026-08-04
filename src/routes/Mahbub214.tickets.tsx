@@ -60,7 +60,7 @@ const CAT_META: Record<string, { prefixEn: string; prefixBn: string; labelEn: st
     prefixBn: "SP",
     labelEn: "Support",
     labelBn: "সাপোর্ট",
-    chip: "bg-violet-50 text-violet-700 border-violet-200",
+    chip: "bg-blue-50 text-blue-700 border-blue-200",
     icon: MessageCircle,
   },
   general: {
@@ -107,11 +107,11 @@ function PriorityChip({ p, t }: { p: string; t: (en: string, bn: string) => stri
 
 function StatusChip({ s, t }: { s: string; t: (en: string, bn: string) => string }) {
   const styles: Record<string, string> = {
-    open: "bg-violet-50 text-violet-700 border-violet-200",
-    pending: "bg-violet-50 text-violet-700 border-violet-200",
+    open: "bg-blue-50 text-blue-700 border-blue-200",
+    pending: "bg-blue-50 text-blue-700 border-blue-200",
     in_progress: "bg-blue-50 text-blue-700 border-blue-200",
     closed: "bg-slate-100 text-slate-600 border-slate-200",
-    resolved: "bg-violet-50 text-violet-700 border-violet-200",
+    resolved: "bg-blue-50 text-blue-700 border-blue-200",
   };
   const labels: Record<string, [string, string]> = {
     open: ["open", "ওপেন"],
@@ -265,12 +265,12 @@ function AdminTicketsPage() {
             <span className="w-2 h-2 rounded-full bg-rose-500" />
             {t("Urgent", "জরুরি")} <span className="text-slate-500">{legend.urgent}</span>
           </span>
-          <span className="inline-flex items-center gap-1.5 text-violet-600">
-            <span className="w-2 h-2 rounded-full bg-violet-500" />
+          <span className="inline-flex items-center gap-1.5 text-blue-600">
+            <span className="w-2 h-2 rounded-full bg-blue-500" />
             {t("Open", "ওপেন")} <span className="text-slate-500">{legend.open}</span>
           </span>
-          <span className="inline-flex items-center gap-1.5 text-violet-600">
-            <span className="w-2 h-2 rounded-full bg-violet-500" />
+          <span className="inline-flex items-center gap-1.5 text-blue-600">
+            <span className="w-2 h-2 rounded-full bg-blue-500" />
             {t("Resolved", "সমাধান হয়েছে")} <span className="text-slate-500">{legend.resolved}</span>
           </span>
         </div>
@@ -291,13 +291,13 @@ function AdminTicketsPage() {
                 onClick={() => setTab(k as TabKey)}
                 className={`inline-flex items-center gap-2 px-4 h-10 text-sm font-semibold rounded-t-lg border-b-2 -mb-px transition ${
                   active
-                    ? "border-violet-500 text-violet-700 bg-white"
+                    ? "border-blue-500 text-blue-700 bg-white"
                     : "border-transparent text-slate-500 hover:text-slate-800"
                 }`}
               >
                 <Icon className="w-4 h-4" />
                 {label}
-                <span className={`text-[11px] font-bold px-1.5 rounded-full ${active ? "bg-white text-violet-700 border border-violet-200" : "bg-slate-100 text-slate-600"}`}>
+                <span className={`text-[11px] font-bold px-1.5 rounded-full ${active ? "bg-white text-blue-700 border border-blue-200" : "bg-slate-100 text-slate-600"}`}>
                   {c}
                 </span>
               </button>
@@ -378,12 +378,12 @@ function AdminTicketsPage() {
                             key={msg.id}
                             className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm ${
                               fromAdmin
-                                ? "ml-auto bg-violet-600 text-white"
+                                ? "ml-auto bg-blue-600 text-white"
                                 : "bg-white border border-slate-200 text-slate-800"
                             }`}
                           >
                             <p className="whitespace-pre-wrap">{msg.body}</p>
-                            <div className={`text-[10px] mt-1 ${fromAdmin ? "text-violet-100" : "text-slate-400"}`}>
+                            <div className={`text-[10px] mt-1 ${fromAdmin ? "text-blue-100" : "text-slate-400"}`}>
                               {new Date(msg.created_at).toLocaleString(lang === "bn" ? "bn-BD" : "en-US")}
                             </div>
                           </div>
@@ -399,12 +399,12 @@ function AdminTicketsPage() {
                           onChange={(e) => setReply(e.target.value)}
                           placeholder={t("Write a reply…", "একটি উত্তর লিখুন…")}
                           rows={2}
-                          className="flex-1 rounded-xl border border-slate-200 bg-white text-sm p-3 focus:outline-none focus:ring-2 focus:ring-violet-300 resize-none"
+                          className="flex-1 rounded-xl border border-slate-200 bg-white text-sm p-3 focus:outline-none focus:ring-2 focus:ring-blue-300 resize-none"
                         />
                         <button
                           onClick={() => sendReply(tk.id)}
                           disabled={sending || !reply.trim()}
-                          className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full bg-violet-600 text-white text-sm font-semibold hover:bg-violet-700 disabled:opacity-50"
+                          className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 disabled:opacity-50"
                         >
                           {sending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                           {t("Send", "পাঠান")}
@@ -417,7 +417,7 @@ function AdminTicketsPage() {
                       {!isClosed && (
                         <button
                           onClick={() => setStatus(tk.id, "resolved")}
-                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-full bg-violet-50 text-violet-700 text-xs font-semibold border border-violet-200 hover:bg-violet-100"
+                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-200 hover:bg-blue-100"
                         >
                           <Check className="w-3.5 h-3.5" />
                           {t("Mark resolved", "সমাধান চিহ্নিত করুন")}
@@ -434,7 +434,7 @@ function AdminTicketsPage() {
                       {isClosed && (
                         <button
                           onClick={() => setStatus(tk.id, "open")}
-                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-full bg-violet-50 text-violet-700 text-xs font-semibold border border-violet-200 hover:bg-violet-100"
+                          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-200 hover:bg-blue-100"
                         >
                           {t("Reopen", "পুনরায় খুলুন")}
                         </button>

@@ -51,8 +51,8 @@ const fmtDate = (s: string) =>
 
 function StatusPill({ status }: { status: string }) {
   const map: Record<string, { c: string; icon: any; label: string }> = {
-    verified: { c: "bg-violet-50 text-violet-700 ring-violet-200", icon: CheckCircle2, label: "Approved" },
-    approved: { c: "bg-violet-50 text-violet-700 ring-violet-200", icon: CheckCircle2, label: "Approved" },
+    verified: { c: "bg-blue-50 text-blue-700 ring-blue-200", icon: CheckCircle2, label: "Approved" },
+    approved: { c: "bg-blue-50 text-blue-700 ring-blue-200", icon: CheckCircle2, label: "Approved" },
     pending: { c: "bg-amber-50 text-amber-700 ring-amber-200", icon: Clock, label: "Pending" },
     failed: { c: "bg-rose-50 text-rose-700 ring-rose-200", icon: XCircle, label: "Rejected" },
     rejected: { c: "bg-rose-50 text-rose-700 ring-rose-200", icon: XCircle, label: "Rejected" },
@@ -161,9 +161,9 @@ function PaymentProof() {
   };
 
   const cards: Array<{ label: string; value: number; icon: any; color: string }> = [
-    { label: "All Payments", value: stats.all, icon: CreditCard, color: "text-violet-600 bg-violet-50 ring-violet-100" },
+    { label: "All Payments", value: stats.all, icon: CreditCard, color: "text-blue-600 bg-blue-50 ring-blue-100" },
     { label: "Pending", value: stats.pending, icon: Clock, color: "text-amber-600 bg-amber-50 ring-amber-100" },
-    { label: "Approved", value: stats.approved, icon: CheckCircle2, color: "text-violet-600 bg-violet-50 ring-violet-100" },
+    { label: "Approved", value: stats.approved, icon: CheckCircle2, color: "text-blue-600 bg-blue-50 ring-blue-100" },
     { label: "Rejected", value: stats.rejected, icon: XCircle, color: "text-rose-600 bg-rose-50 ring-rose-100" },
   ];
 
@@ -200,7 +200,7 @@ function PaymentProof() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search by transaction ID, order, customer..."
-            className="w-full rounded-xl bg-white pl-9 pr-3 py-2.5 text-sm ring-1 ring-slate-200 focus:ring-violet-300 outline-none"
+            className="w-full rounded-xl bg-white pl-9 pr-3 py-2.5 text-sm ring-1 ring-slate-200 focus:ring-blue-300 outline-none"
           />
         </div>
         <div className="relative">
@@ -208,7 +208,7 @@ function PaymentProof() {
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="appearance-none rounded-xl bg-white pl-9 pr-8 py-2.5 text-sm ring-1 ring-slate-200 focus:ring-violet-300 outline-none"
+            className="appearance-none rounded-xl bg-white pl-9 pr-8 py-2.5 text-sm ring-1 ring-slate-200 focus:ring-blue-300 outline-none"
           >
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
@@ -221,7 +221,7 @@ function PaymentProof() {
           <select
             value={method}
             onChange={(e) => setMethod(e.target.value)}
-            className="appearance-none rounded-xl bg-white pl-9 pr-8 py-2.5 text-sm ring-1 ring-slate-200 focus:ring-violet-300 outline-none"
+            className="appearance-none rounded-xl bg-white pl-9 pr-8 py-2.5 text-sm ring-1 ring-slate-200 focus:ring-blue-300 outline-none"
           >
             <option value="all">All Methods</option>
             {methods.map((m) => <option key={m} value={m}>{m}</option>)}
@@ -330,7 +330,7 @@ function ReviewModal({ order, onClose, onUpdate }: { order: Order; onClose: () =
             <div>
               <div className="text-xs text-slate-500">Transaction ID</div>
               <button onClick={copy} className="mt-0.5 inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-2 py-1 text-xs font-mono hover:bg-slate-200">
-                {order.transaction_id} {copied ? <Check className="w-3 h-3 text-violet-600" /> : <Copy className="w-3 h-3" />}
+                {order.transaction_id} {copied ? <Check className="w-3 h-3 text-blue-600" /> : <Copy className="w-3 h-3" />}
               </button>
             </div>
           </div>
@@ -361,7 +361,7 @@ function ReviewModal({ order, onClose, onUpdate }: { order: Order; onClose: () =
             <Clock className="w-4 h-4" /> Mark Pending
           </button>
           <button onClick={() => onUpdate(order.id, "verified")}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-violet-600 px-3 py-2 text-sm font-medium text-white hover:bg-violet-700">
+            className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700">
             <CheckCircle2 className="w-4 h-4" /> Approve
           </button>
         </div>
@@ -417,7 +417,7 @@ function PaymentSettings() {
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
           <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-            <SettingsIcon className="w-4 h-4 text-violet-600" /> পেমেন্ট নম্বর ম্যানেজমেন্ট
+            <SettingsIcon className="w-4 h-4 text-blue-600" /> পেমেন্ট নম্বর ম্যানেজমেন্ট
           </h3>
           <p className="text-xs text-slate-500">পেমেন্ট মেথডের নম্বর, লোগো ও তথ্য পরিবর্তন করুন</p>
         </div>
@@ -426,7 +426,7 @@ function PaymentSettings() {
             <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} /> রিসেট
           </button>
           <button onClick={() => setCreating(true)}
-            className="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-3 py-2 text-sm font-medium text-white hover:bg-violet-700">
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700">
             <Plus className="w-4 h-4" /> নতুন মেথড
           </button>
         </div>
@@ -448,13 +448,13 @@ function PaymentSettings() {
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="font-semibold text-slate-900">{r.data.name || "Untitled"}</span>
                 {r.data.send_money_label && (
-                  <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-violet-50 text-violet-700 ring-1 ring-violet-100">
+                  <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 ring-1 ring-blue-100">
                     {r.data.send_money_label}
                   </span>
                 )}
               </div>
               {r.data.number && (
-                <div className="text-sm text-violet-600 font-medium flex items-center gap-1 mt-0.5">
+                <div className="text-sm text-blue-600 font-medium flex items-center gap-1 mt-0.5">
                   <Phone className="w-3.5 h-3.5" /> {r.data.number}
                 </div>
               )}
@@ -463,14 +463,14 @@ function PaymentSettings() {
             <button
               onClick={() => toggle(r)}
               className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs ring-1 ${
-                r.is_active ? "bg-violet-50 text-violet-700 ring-violet-200" : "bg-slate-50 text-slate-500 ring-slate-200"
+                r.is_active ? "bg-blue-50 text-blue-700 ring-blue-200" : "bg-slate-50 text-slate-500 ring-slate-200"
               }`}
               title={r.is_active ? "Active" : "Disabled"}
             >
               {r.is_active ? <Eye className="w-3.5 h-3.5" /> : <X className="w-3.5 h-3.5" />}
             </button>
             <button onClick={() => setEditing(r)}
-              className="p-2 rounded-lg text-violet-600 hover:bg-violet-50" title="Edit">
+              className="p-2 rounded-lg text-blue-600 hover:bg-blue-50" title="Edit">
               <Pencil className="w-4 h-4" />
             </button>
             <button onClick={() => remove(r)}
@@ -559,7 +559,7 @@ function MethodEditor({ initial, isNew, onClose, onSaved }: {
         <div className="flex items-center justify-end gap-2 px-5 py-4 bg-slate-50 border-t">
           <button onClick={onClose} className="rounded-lg bg-white px-3 py-2 text-sm ring-1 ring-slate-200 hover:bg-slate-50">Cancel</button>
           <button onClick={save} disabled={saving}
-            className="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-60">
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-60">
             {saving && <Loader2 className="w-4 h-4 animate-spin" />} Save
           </button>
         </div>
@@ -568,7 +568,7 @@ function MethodEditor({ initial, isNew, onClose, onSaved }: {
   );
 }
 
-const inputCls = "w-full rounded-lg bg-white px-3 py-2 text-sm ring-1 ring-slate-200 focus:ring-violet-300 outline-none";
+const inputCls = "w-full rounded-lg bg-white px-3 py-2 text-sm ring-1 ring-slate-200 focus:ring-blue-300 outline-none";
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
@@ -581,10 +581,10 @@ function Toggle({ label, checked, onChange }: { label: string; checked: boolean;
   return (
     <button type="button" onClick={() => onChange(!checked)}
       className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm ring-1 transition ${
-        checked ? "bg-violet-50 text-violet-700 ring-violet-200" : "bg-slate-50 text-slate-500 ring-slate-200"
+        checked ? "bg-blue-50 text-blue-700 ring-blue-200" : "bg-slate-50 text-slate-500 ring-slate-200"
       }`}>
       <span>{label}</span>
-      <span className={`w-9 h-5 rounded-full relative transition ${checked ? "bg-violet-500" : "bg-slate-300"}`}>
+      <span className={`w-9 h-5 rounded-full relative transition ${checked ? "bg-blue-500" : "bg-slate-300"}`}>
         <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition ${checked ? "left-4" : "left-0.5"}`} />
       </span>
     </button>

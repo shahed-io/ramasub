@@ -224,7 +224,7 @@ function AdminOrders() {
             <span className="font-extrabold text-slate-900">{orders.length}</span>
             <span className="text-slate-500"> {t("total orders", "মোট অর্ডার")}</span>
           </span>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 text-[11px] font-bold border border-violet-200">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 text-[11px] font-bold border border-blue-200">
             <MessageCircle className="w-3 h-3" /> {t("WhatsApp Active", "WhatsApp সক্রিয়")}
           </span>
         </div>
@@ -271,7 +271,7 @@ function AdminOrders() {
         </div>
         <button
           onClick={() => setShowFilters((v) => !v)}
-          className={`inline-flex items-center gap-1.5 px-3.5 h-12 rounded-full border text-xs font-bold transition ${showFilters ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"}`}
+          className={`inline-flex items-center gap-1.5 px-3.5 h-12 rounded-full border text-xs font-bold transition ${showFilters ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"}`}
         >
           <FilterIcon className="w-3.5 h-3.5" /> {t("Filter", "ফিল্টার")}
         </button>
@@ -352,9 +352,9 @@ function AdminOrders() {
 
 function StatCard({ label, value, icon, tone, loading }: { label: string; value: string | number; icon: React.ReactNode; tone: "violet"|"sky"|"emerald"; loading?: boolean }) {
   const tones: Record<string, string> = {
-    violet: "bg-violet-200 text-violet-800",
+    violet: "bg-blue-200 text-blue-800",
     sky: "bg-sky-100 text-sky-700",
-    emerald: "bg-violet-100 text-violet-700",
+    emerald: "bg-blue-100 text-blue-700",
   };
   return (
     <div className="a-stat-card">
@@ -409,7 +409,7 @@ function CopyButton({ text }: { text: string }) {
         navigator.clipboard.writeText(text);
         setCopied(true); setTimeout(() => setCopied(false), 1200);
       }}
-      className="text-slate-400 hover:text-violet-600"
+      className="text-slate-400 hover:text-blue-600"
       title="Copy"
     >
       {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
@@ -426,10 +426,10 @@ function OrderRow({ order: o, onView, onDelete, onDownload }: { order: Order; on
     <tr className="border-t border-slate-100 hover:bg-slate-50/60">
       <td className="px-4 py-3"><input type="checkbox" className="rounded" /></td>
       <td className="px-3 py-3">
-        <button onClick={onView} className="text-violet-600 font-semibold font-mono text-xs hover:underline">{shortId(o.id)}</button>
+        <button onClick={onView} className="text-blue-600 font-semibold font-mono text-xs hover:underline">{shortId(o.id)}</button>
         <div className="flex items-center gap-1 mt-1">
           {verified ? (
-            <span className="inline-flex items-center gap-1 text-[10px] text-violet-600 font-semibold">
+            <span className="inline-flex items-center gap-1 text-[10px] text-blue-600 font-semibold">
               <ShieldCheck className="w-3 h-3" /> {t("Verified", "ভেরিফাইড")}
             </span>
           ) : (
@@ -537,7 +537,7 @@ function OrderDetail({ order, onClose, onStatusChange, onPaymentStatusChange, on
             <span className="text-xs text-slate-500">{new Date(order.created_at).toLocaleString()}</span>
           </div>
           <div className="flex items-center gap-1">
-            <button onClick={downloadReceipt} disabled={downloading} className="w-9 h-9 grid place-items-center rounded-lg text-slate-500 hover:text-violet-600 hover:bg-violet-50">
+            <button onClick={downloadReceipt} disabled={downloading} className="w-9 h-9 grid place-items-center rounded-lg text-slate-500 hover:text-blue-600 hover:bg-blue-50">
               {downloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4" />}
             </button>
             <button onClick={onClose} className="w-9 h-9 grid place-items-center rounded-lg text-slate-500 hover:bg-slate-100"><X className="w-4 h-4" /></button>
@@ -547,10 +547,10 @@ function OrderDetail({ order, onClose, onStatusChange, onPaymentStatusChange, on
         {/* Tabs */}
         <div className="px-5 pt-4">
           <div className="grid grid-cols-2 gap-2 bg-slate-50 p-1 rounded-xl">
-            <button onClick={() => setTab("details")} className={`h-9 rounded-lg text-sm font-semibold transition inline-flex items-center justify-center gap-1.5 ${tab === "details" ? "bg-white text-violet-700 shadow-sm" : "text-slate-500"}`}>
+            <button onClick={() => setTab("details")} className={`h-9 rounded-lg text-sm font-semibold transition inline-flex items-center justify-center gap-1.5 ${tab === "details" ? "bg-white text-blue-700 shadow-sm" : "text-slate-500"}`}>
               <FileText className="w-4 h-4" /> {t("Details", "বিবরণ")}
             </button>
-            <button onClick={() => setTab("history")} className={`h-9 rounded-lg text-sm font-semibold transition inline-flex items-center justify-center gap-1.5 ${tab === "history" ? "bg-white text-violet-700 shadow-sm" : "text-slate-500"}`}>
+            <button onClick={() => setTab("history")} className={`h-9 rounded-lg text-sm font-semibold transition inline-flex items-center justify-center gap-1.5 ${tab === "history" ? "bg-white text-blue-700 shadow-sm" : "text-slate-500"}`}>
               <HistoryIcon className="w-4 h-4" /> {t("History", "ইতিহাস")}
             </button>
           </div>
@@ -571,10 +571,10 @@ function OrderDetail({ order, onClose, onStatusChange, onPaymentStatusChange, on
                 <div className="space-y-1.5 text-sm">
                   <Row label={t("Method", "মাধ্যম")} value={<span className="font-bold text-slate-900">{order.payment_method}</span>} />
                   <Row label="TrxID:" value={<span className="font-mono text-xs text-slate-700">{order.transaction_id}</span>} />
-                  <Row label={t("Payment:", "পেমেন্ট:")} value={<span className="font-semibold text-violet-600">{(order.payment_status || "pending")}</span>} />
+                  <Row label={t("Payment:", "পেমেন্ট:")} value={<span className="font-semibold text-blue-600">{(order.payment_status || "pending")}</span>} />
                 </div>
                 <div className="mt-3 pt-3 border-t border-slate-100 space-y-1">
-                  <Row label={t("Total:", "মোট:")} value={<span className="font-bold text-violet-700">{fmtMoney(Number(order.total))}</span>} />
+                  <Row label={t("Total:", "মোট:")} value={<span className="font-bold text-blue-700">{fmtMoney(Number(order.total))}</span>} />
                   {discount > 0 && <Row label={t("Discount:", "ছাড়:")} value={<span className="font-semibold text-rose-600">-{fmtMoney(discount)}</span>} />}
                 </div>
               </Card>
@@ -590,7 +590,7 @@ function OrderDetail({ order, onClose, onStatusChange, onPaymentStatusChange, on
                       {it.plan && <span className="text-xs text-slate-500 ml-1">({it.plan})</span>}
                       <span className="text-xs text-slate-400 ml-1.5">×{it.qty ?? 1}</span>
                     </div>
-                    <div className="text-sm font-bold text-violet-700">{fmtMoney(Number(it.price) * (it.qty ?? 1))}</div>
+                    <div className="text-sm font-bold text-blue-700">{fmtMoney(Number(it.price) * (it.qty ?? 1))}</div>
                   </div>
                 ))}
               </div>
@@ -601,11 +601,11 @@ function OrderDetail({ order, onClose, onStatusChange, onPaymentStatusChange, on
               <div className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">{t("Quick Actions", "দ্রুত অ্যাকশন")}</div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <a href={waLink || "#"} target={waLink ? "_blank" : undefined} rel="noreferrer"
-                   className={`h-10 rounded-xl border inline-flex items-center justify-center gap-2 text-sm font-semibold ${waLink ? "border-violet-200 text-violet-700 bg-violet-50/40 hover:bg-violet-50" : "border-slate-200 text-slate-400 cursor-not-allowed"}`}>
+                   className={`h-10 rounded-xl border inline-flex items-center justify-center gap-2 text-sm font-semibold ${waLink ? "border-blue-200 text-blue-700 bg-blue-50/40 hover:bg-blue-50" : "border-slate-200 text-slate-400 cursor-not-allowed"}`}>
                   <MessageCircle className="w-4 h-4" /> WhatsApp
                 </a>
                 <button onClick={downloadReceipt} disabled={downloading}
-                   className="h-10 rounded-xl border border-violet-200 text-violet-700 bg-violet-50/40 hover:bg-violet-50 inline-flex items-center justify-center gap-2 text-sm font-semibold">
+                   className="h-10 rounded-xl border border-blue-200 text-blue-700 bg-blue-50/40 hover:bg-blue-50 inline-flex items-center justify-center gap-2 text-sm font-semibold">
                   {downloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />} {t("PDF Download", "PDF ডাউনলোড")}
                 </button>
                 <button onClick={() => { onStatusChange("cancelled"); }}
@@ -620,14 +620,14 @@ function OrderDetail({ order, onClose, onStatusChange, onPaymentStatusChange, on
               <div>
                 <label className="text-xs font-semibold text-slate-600 mb-1.5 block">{t("Order Status", "Status পরিবর্তন")}</label>
                 <select value={order.status} onChange={(e) => onStatusChange(e.target.value)}
-                  className="w-full h-10 rounded-xl border border-slate-200 px-3 text-sm bg-white capitalize focus:border-violet-400 outline-none">
+                  className="w-full h-10 rounded-xl border border-slate-200 px-3 text-sm bg-white capitalize focus:border-blue-400 outline-none">
                   {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
                 </select>
               </div>
               <div>
                 <label className="text-xs font-semibold text-slate-600 mb-1.5 block">{t("Payment Status", "পেমেন্ট স্ট্যাটাস")}</label>
                 <select value={order.payment_status || "pending"} onChange={(e) => onPaymentStatusChange(e.target.value)}
-                  className="w-full h-10 rounded-xl border border-slate-200 px-3 text-sm bg-white capitalize focus:border-violet-400 outline-none">
+                  className="w-full h-10 rounded-xl border border-slate-200 px-3 text-sm bg-white capitalize focus:border-blue-400 outline-none">
                   {PAYMENT_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
                 </select>
               </div>
@@ -640,7 +640,7 @@ function OrderDetail({ order, onClose, onStatusChange, onPaymentStatusChange, on
                 value={waMsg} onChange={(e) => setWaMsg(e.target.value)}
                 rows={3}
                 placeholder={t("License key, delivery instructions…", "লাইসেন্স কি, ডেলিভারি নির্দেশনা...")}
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-violet-400 outline-none resize-none"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-blue-400 outline-none resize-none"
               />
             </div>
 
@@ -652,12 +652,12 @@ function OrderDetail({ order, onClose, onStatusChange, onPaymentStatusChange, on
                   value={note} onChange={(e) => setNote(e.target.value)}
                   rows={2}
                   placeholder={t("Internal notes…", "ইন্টারনাল নোট...")}
-                  className="flex-1 rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-violet-400 outline-none resize-none"
+                  className="flex-1 rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-blue-400 outline-none resize-none"
                 />
                 <button
                   onClick={async () => { setSavingNote(true); await onSaveNote(note); setSavingNote(false); }}
                   disabled={savingNote}
-                  className="self-start px-4 h-10 rounded-xl bg-violet-600 text-white text-sm font-semibold hover:bg-violet-700 disabled:opacity-60"
+                  className="self-start px-4 h-10 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 disabled:opacity-60"
                 >
                   {savingNote ? <Loader2 className="w-4 h-4 animate-spin" /> : t("Save", "সেভ")}
                 </button>
@@ -691,7 +691,7 @@ function Card({ title, icon, children }: { title: string; icon: React.ReactNode;
   return (
     <div className="bg-white border border-slate-200 rounded-xl p-3.5">
       <div className="flex items-center gap-1.5 text-xs font-bold text-slate-700 mb-2">
-        <span className="text-violet-600">{icon}</span>{title}
+        <span className="text-blue-600">{icon}</span>{title}
       </div>
       {children}
     </div>
@@ -710,7 +710,7 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
 function HistoryRow({ icon, label, time }: { icon: React.ReactNode; label: string; time?: string }) {
   return (
     <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-50">
-      <span className="w-7 h-7 grid place-items-center rounded-lg bg-white text-violet-600 border border-slate-200">{icon}</span>
+      <span className="w-7 h-7 grid place-items-center rounded-lg bg-white text-blue-600 border border-slate-200">{icon}</span>
       <div className="flex-1">
         <div className="text-sm font-semibold text-slate-800">{label}</div>
         {time && <div className="text-xs text-slate-500">{new Date(time).toLocaleString()}</div>}

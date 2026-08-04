@@ -121,7 +121,7 @@ function HelpTip({ children }: { children: React.ReactNode }) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         onBlur={() => setTimeout(() => setOpen(false), 150)}
-        className="inline-flex w-4 h-4 items-center justify-center rounded-full text-slate-400 hover:text-violet-600 align-middle"
+        className="inline-flex w-4 h-4 items-center justify-center rounded-full text-slate-400 hover:text-blue-600 align-middle"
         aria-label="Help"
       >
         <HelpCircle className="w-4 h-4" />
@@ -156,7 +156,7 @@ function Accordion({
         onClick={() => setOpen((v) => !v)}
         className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-slate-50 text-left"
       >
-        <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white grid place-items-center [&_svg]:w-4 [&_svg]:h-4">
+        <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-sky-500 text-white grid place-items-center [&_svg]:w-4 [&_svg]:h-4">
           {icon}
         </span>
         <span className="flex-1 font-bold text-slate-800 text-sm">{title}</span>
@@ -192,7 +192,7 @@ function Toggle({ checked, onChange, label, sub }: { checked: boolean; onChange:
       onClick={() => onChange(!checked)}
       className="w-full flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2.5 hover:bg-slate-50 text-left"
     >
-      <span className={`relative w-9 h-5 rounded-full transition ${checked ? "bg-violet-500" : "bg-slate-300"}`}>
+      <span className={`relative w-9 h-5 rounded-full transition ${checked ? "bg-blue-500" : "bg-slate-300"}`}>
         <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all ${checked ? "left-4" : "left-0.5"}`} />
       </span>
       <span className="flex-1 min-w-0">
@@ -377,16 +377,16 @@ function GA4RealtimePage() {
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl bg-white grid place-items-center shadow-sm relative">
               <Activity className="w-5 h-5 text-orange-600" />
-              <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-violet-500 ring-2 ring-white animate-pulse" />
+              <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-blue-500 ring-2 ring-white animate-pulse" />
             </div>
             <div>
               <h1 className="text-2xl font-black text-slate-900 flex items-center gap-2 flex-wrap">
                 {t("GA4 Realtime Report", "GA4 রিয়েলটাইম রিপোর্ট")}
-                <span className="inline-flex items-center gap-1 rounded-full bg-violet-100 text-violet-700 px-2 py-0.5 text-[10px] font-black uppercase">
+                <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 text-blue-700 px-2 py-0.5 text-[10px] font-black uppercase">
                   <Radio className="w-3 h-3" /> Live
                 </span>
                 {isConfigured ? (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-violet-100 text-violet-700 px-2 py-0.5 text-[10px] font-black uppercase">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 text-blue-700 px-2 py-0.5 text-[10px] font-black uppercase">
                     <CheckCircle2 className="w-3 h-3" /> {t("Connected", "কানেক্টেড")}
                   </span>
                 ) : (
@@ -412,7 +412,7 @@ function GA4RealtimePage() {
 
       {/* Setup wizard for new admins */}
       {!isConfigured && (
-        <div className="rounded-2xl bg-gradient-to-r from-indigo-50 via-violet-50 to-fuchsia-50 border border-indigo-100 p-5">
+        <div className="rounded-2xl bg-gradient-to-r from-indigo-50 via-blue-50 to-sky-50 border border-indigo-100 p-5">
           <div className="flex items-start gap-3">
             <Sparkles className="w-6 h-6 text-indigo-600 shrink-0 mt-0.5" />
             <div className="flex-1">
@@ -430,7 +430,7 @@ function GA4RealtimePage() {
       {/* Live stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {widgets.active_users && (
-          <Stat icon={<Users className="w-5 h-5 text-white" />} tone="bg-gradient-to-br from-violet-500 to-violet-600"
+          <Stat icon={<Users className="w-5 h-5 text-white" />} tone="bg-gradient-to-br from-blue-500 to-blue-600"
             label={t(`Active now (${windowMin}m)`, `এখন সক্রিয় (${windowMin}মি)`)} value={activeUsers} />
         )}
         {widgets.orders && (
@@ -439,7 +439,7 @@ function GA4RealtimePage() {
             sub={widgets.revenue ? `৳ ${rev24}` : undefined} />
         )}
         {widgets.tickets && (
-          <Stat icon={<MessageSquare className="w-5 h-5 text-white" />} tone="bg-gradient-to-br from-purple-500 to-pink-500"
+          <Stat icon={<MessageSquare className="w-5 h-5 text-white" />} tone="bg-gradient-to-br from-indigo-500 to-pink-500"
             label={t("New tickets (24h)", "নতুন টিকিট (২৪ঘ)")} value={rt?.tickets.length ?? 0} />
         )}
         {widgets.subscribers && (
@@ -452,7 +452,7 @@ function GA4RealtimePage() {
       <div className="grid lg:grid-cols-2 gap-4">
         <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-5">
           <h2 className="text-base font-black text-slate-900 flex items-center gap-2">
-            <Radio className="w-4 h-4 text-violet-700" />
+            <Radio className="w-4 h-4 text-blue-700" />
             {t("Top countries — live", "শীর্ষ দেশ — লাইভ")}
           </h2>
           {topCountries.length === 0 ? (
@@ -472,7 +472,7 @@ function GA4RealtimePage() {
         </div>
         <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-5">
           <h2 className="text-base font-black text-slate-900 flex items-center gap-2">
-            <Zap className="w-4 h-4 text-fuchsia-600" />
+            <Zap className="w-4 h-4 text-sky-600" />
             {t("Top pages — live", "শীর্ষ পেজ — লাইভ")}
           </h2>
           {topPages.length === 0 ? (
@@ -497,7 +497,7 @@ function GA4RealtimePage() {
         {widgets.orders && (
           <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-5">
             <h2 className="text-base font-black text-slate-900 flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4 text-violet-600" />
+              <ShoppingBag className="w-4 h-4 text-blue-600" />
               {t(`Live Orders (last ${windowMin} min)`, `লাইভ অর্ডার (গত ${windowMin} মিনিট)`)}
             </h2>
             {(rt?.ordersRecent.length ?? 0) === 0 ? (
@@ -506,12 +506,12 @@ function GA4RealtimePage() {
               <div className="mt-3 divide-y divide-slate-100">
                 {rt!.ordersRecent.map((o) => (
                   <div key={o.id} className="flex items-center gap-3 py-2.5">
-                    <span className="w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
+                    <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-bold text-slate-900 truncate">{o.full_name || o.email || "—"}</div>
                       <div className="text-[11px] font-semibold text-slate-500">{timeAgo(o.created_at, t)} · {o.status || "—"}</div>
                     </div>
-                    <div className="text-sm font-black text-violet-600 tabular-nums">৳ {Math.round(Number(o.total || 0)).toLocaleString("en-IN")}</div>
+                    <div className="text-sm font-black text-blue-600 tabular-nums">৳ {Math.round(Number(o.total || 0)).toLocaleString("en-IN")}</div>
                   </div>
                 ))}
               </div>
@@ -522,7 +522,7 @@ function GA4RealtimePage() {
         {widgets.chat && (
           <div className="rounded-2xl bg-white border border-slate-100 shadow-sm p-5">
             <h2 className="text-base font-black text-slate-900 flex items-center gap-2">
-              <MessageSquare className="w-4 h-4 text-purple-600" />
+              <MessageSquare className="w-4 h-4 text-indigo-600" />
               {t("Live Chat / Tickets", "লাইভ চ্যাট / টিকিট")}
             </h2>
             {(rt?.chat.length ?? 0) + (rt?.tickets.length ?? 0) === 0 ? (
@@ -532,7 +532,7 @@ function GA4RealtimePage() {
                 {(rt?.tickets ?? []).map((t2) => (
                   <div key={`t-${t2.id}`} className="py-2.5">
                     <div className="flex items-center gap-2">
-                      <span className="px-1.5 py-0.5 rounded bg-purple-100 text-purple-700 text-[10px] font-black uppercase">Ticket</span>
+                      <span className="px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700 text-[10px] font-black uppercase">Ticket</span>
                       <span className="text-sm font-bold text-slate-900 truncate">{t2.subject || "—"}</span>
                     </div>
                     <div className="text-[11px] font-semibold text-slate-500 mt-0.5">{t2.status} · {timeAgo(t2.created_at, t)}</div>
@@ -604,7 +604,7 @@ function GA4RealtimePage() {
       <Accordion
         title={t("GA4 Connection — Property ID, Measurement ID & API Secret", "GA4 কানেকশন — Property ID, Measurement ID ও API Secret")}
         icon={<Settings />} defaultOpen={!isConfigured}
-        badge={isConfigured ? <span className="text-[10px] font-black text-violet-700 uppercase mr-2">Ready</span> : <span className="text-[10px] font-black text-amber-600 uppercase mr-2">Setup</span>}
+        badge={isConfigured ? <span className="text-[10px] font-black text-blue-700 uppercase mr-2">Ready</span> : <span className="text-[10px] font-black text-amber-600 uppercase mr-2">Setup</span>}
       >
         <div className="grid md:grid-cols-2 gap-4">
           <Field
@@ -674,7 +674,7 @@ function GA4RealtimePage() {
         </div>
 
         {testResult && (
-          <div className={`mt-3 rounded-xl px-3 py-2.5 text-xs font-semibold flex items-start gap-2 ${testResult.ok ? "bg-white text-violet-700" : "bg-rose-50 text-rose-700"}`}>
+          <div className={`mt-3 rounded-xl px-3 py-2.5 text-xs font-semibold flex items-start gap-2 ${testResult.ok ? "bg-white text-blue-700" : "bg-rose-50 text-rose-700"}`}>
             {testResult.ok ? <CheckCircle2 className="w-4 h-4 shrink-0" /> : <AlertCircle className="w-4 h-4 shrink-0" />}
             <span>{testResult.msg}</span>
           </div>
@@ -834,7 +834,7 @@ function GA4RealtimePage() {
           </div>
           <button
             onClick={onSave} disabled={saving}
-            className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-5 py-2 text-sm font-black hover:opacity-90 shadow disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-indigo-600 to-indigo-600 text-white px-5 py-2 text-sm font-black hover:opacity-90 shadow disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
             {saving ? t("Saving…", "সেভ হচ্ছে…") : t("Save settings", "সেভ করুন")}

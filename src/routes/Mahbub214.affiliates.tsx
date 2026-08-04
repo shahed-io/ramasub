@@ -122,10 +122,10 @@ function AffiliatesPage() {
       {/* Stat cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
         <Stat icon={<Users className="w-3.5 h-3.5" />} ring="ring-slate-200" iconColor="text-slate-600" label={t("Active Affiliates", "সক্রিয় অ্যাফিলিয়েট")} value={stats.active} valueColor="text-slate-900" />
-        <Stat icon={<Clock className="w-3.5 h-3.5" />} ring="ring-violet-200" iconColor="text-violet-600" label={t("Pending Apps", "পেন্ডিং অ্যাপস")} value={stats.pendingApps} valueColor="text-violet-600" />
+        <Stat icon={<Clock className="w-3.5 h-3.5" />} ring="ring-blue-200" iconColor="text-blue-600" label={t("Pending Apps", "পেন্ডিং অ্যাপস")} value={stats.pendingApps} valueColor="text-blue-600" />
         <Stat icon={<Activity className="w-3.5 h-3.5" />} ring="ring-sky-200" iconColor="text-sky-600" label={t("Pending Conv.", "পেন্ডিং কনভ.")} value={stats.pendingConv} valueColor="text-sky-600" />
-        <Stat icon={<Wallet className="w-3.5 h-3.5" />} ring="ring-fuchsia-200" iconColor="text-fuchsia-600" label={t("Pending Payouts", "পেন্ডিং পেআউট")} value={`৳${stats.pendingPayouts}`} valueColor="text-fuchsia-600" />
-        <Stat icon={<DollarSign className="w-3.5 h-3.5" />} ring="ring-violet-200" iconColor="text-violet-600" label={t("Total Paid", "মোট পরিশোধিত")} value={`৳${stats.totalPaid}`} valueColor="text-violet-600" />
+        <Stat icon={<Wallet className="w-3.5 h-3.5" />} ring="ring-sky-200" iconColor="text-sky-600" label={t("Pending Payouts", "পেন্ডিং পেআউট")} value={`৳${stats.pendingPayouts}`} valueColor="text-sky-600" />
+        <Stat icon={<DollarSign className="w-3.5 h-3.5" />} ring="ring-blue-200" iconColor="text-blue-600" label={t("Total Paid", "মোট পরিশোধিত")} value={`৳${stats.totalPaid}`} valueColor="text-blue-600" />
         <Stat icon={<MousePointerClick className="w-3.5 h-3.5" />} ring="ring-rose-200" iconColor="text-rose-600" label={t("Total Clicks", "মোট ক্লিক")} value={stats.totalClicks} valueColor="text-rose-600" />
       </div>
 
@@ -162,7 +162,7 @@ function AffiliatesPage() {
             <button
               onClick={save}
               disabled={saving}
-              className="inline-flex items-center gap-2 h-10 px-5 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 text-white text-sm font-semibold shadow-sm hover:opacity-95 disabled:opacity-60"
+              className="inline-flex items-center gap-2 h-10 px-5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold shadow-sm hover:opacity-95 disabled:opacity-60"
             >
               <Save className="w-4 h-4" />
               {saving ? t("Saving…", "সংরক্ষণ হচ্ছে…") : t("Save Settings", "সংরক্ষণ করুন")}
@@ -202,7 +202,7 @@ function AffiliatesPage() {
                 type="number"
                 value={settings.default_commission}
                 onChange={(e) => set("default_commission", Number(e.target.value))}
-                className="w-full h-11 px-3.5 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+                className="w-full h-11 px-3.5 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
               />
             </Field>
             <Field label={t("Customer Discount %", "কাস্টমার ডিসকাউন্ট %")}>
@@ -210,7 +210,7 @@ function AffiliatesPage() {
                 type="number"
                 value={settings.customer_discount}
                 onChange={(e) => set("customer_discount", Number(e.target.value))}
-                className="w-full h-11 px-3.5 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+                className="w-full h-11 px-3.5 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
               />
             </Field>
             <Field label={t("Min Withdrawal (৳)", "ন্যূনতম উইথড্রয়াল (৳)")}>
@@ -218,7 +218,7 @@ function AffiliatesPage() {
                 type="number"
                 value={settings.min_withdrawal}
                 onChange={(e) => set("min_withdrawal", Number(e.target.value))}
-                className="w-full h-11 px-3.5 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+                className="w-full h-11 px-3.5 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
               />
             </Field>
             <Field label={t("Cookie Duration (days)", "কুকি মেয়াদ (দিন)")}>
@@ -226,7 +226,7 @@ function AffiliatesPage() {
                 type="number"
                 value={settings.cookie_days}
                 onChange={(e) => set("cookie_days", Number(e.target.value))}
-                className="w-full h-11 px-3.5 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+                className="w-full h-11 px-3.5 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
               />
             </Field>
           </div>
@@ -237,7 +237,7 @@ function AffiliatesPage() {
               onChange={(e) => set("terms", e.target.value)}
               rows={5}
               placeholder={t("Enter terms…", "শর্তাবলী লিখুন…")}
-              className="w-full px-3.5 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300 resize-y"
+              className="w-full px-3.5 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 resize-y"
             />
           </Field>
         </div>
@@ -294,7 +294,7 @@ function TabBtn({
       onClick={onClick}
       className={`inline-flex items-center gap-2 h-10 px-5 rounded-xl text-sm font-semibold transition ${
         active
-          ? "bg-white text-violet-700 shadow-sm ring-1 ring-slate-200"
+          ? "bg-white text-blue-700 shadow-sm ring-1 ring-slate-200"
           : "text-slate-600 hover:text-slate-900"
       }`}
     >
@@ -327,7 +327,7 @@ function ToggleRow({
         aria-checked={value}
         onClick={() => onChange(!value)}
         className={`shrink-0 relative inline-flex h-6 w-11 items-center rounded-full transition ${
-          value ? "bg-violet-600" : "bg-slate-300"
+          value ? "bg-blue-600" : "bg-slate-300"
         }`}
       >
         <span

@@ -188,14 +188,14 @@ function AdminReviewsPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <StatCard
-          icon={<Clock className="w-5 h-5 text-violet-500" />}
-          ring="ring-violet-100"
+          icon={<Clock className="w-5 h-5 text-blue-500" />}
+          ring="ring-blue-100"
           value={counts.pending}
           label={t("Pending", "অপেক্ষায়")}
         />
         <StatCard
-          icon={<CheckCircle2 className="w-5 h-5 text-violet-500" />}
-          ring="ring-violet-100"
+          icon={<CheckCircle2 className="w-5 h-5 text-blue-500" />}
+          ring="ring-blue-100"
           value={counts.approved}
           label={t("Approved", "অনুমোদিত")}
         />
@@ -214,7 +214,7 @@ function AdminReviewsPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t("Search reviews or products…", "রিভিউ বা প্রোডাক্ট খুঁজুন…")}
-            className="w-full h-11 pl-11 pr-4 rounded-full border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
+            className="w-full h-11 pl-11 pr-4 rounded-full border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
           />
         </div>
         <div className="inline-flex flex-wrap gap-2">
@@ -276,7 +276,7 @@ function AdminReviewsPage() {
                   <Link
                     to="/product/$slug"
                     params={{ slug: r.product_slug }}
-                    className="mt-1 inline-flex items-center gap-1 text-xs text-violet-600 hover:text-violet-800 font-medium break-all"
+                    className="mt-1 inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-medium break-all"
                   >
                     {r.product_slug}
                     <ExternalLink className="w-3 h-3" />
@@ -288,7 +288,7 @@ function AdminReviewsPage() {
                         value={editText}
                         onChange={(e) => setEditText(e.target.value)}
                         rows={3}
-                        className="w-full rounded-xl border border-slate-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+                        className="w-full rounded-xl border border-slate-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
                       />
                       <div className="flex gap-2">
                         <button
@@ -382,7 +382,7 @@ function AdminReviewsPage() {
                       onClick={() => updateStatus(r.id, "approved")}
                       title={t("Approve", "অনুমোদন")}
                       disabled={busy === r.id}
-                      className="w-9 h-9 grid place-items-center rounded-full bg-violet-50 text-violet-600 hover:bg-violet-100 transition disabled:opacity-60"
+                      className="w-9 h-9 grid place-items-center rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 transition disabled:opacity-60"
                     >
                       <Check className="w-4 h-4" />
                     </button>
@@ -417,7 +417,7 @@ function AdminReviewsPage() {
                   <button
                     onClick={() => startEdit(r)}
                     title={t("Edit", "এডিট")}
-                    className="w-9 h-9 grid place-items-center rounded-full bg-violet-50 text-violet-600 hover:bg-violet-100 transition"
+                    className="w-9 h-9 grid place-items-center rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
                   >
                     <Pencil className="w-4 h-4" />
                   </button>
@@ -466,7 +466,7 @@ function StatusBadge({ status, t }: { status: ReviewStatus; t: (en: string, bn: 
   const map: Record<ReviewStatus, { label: string; cls: string }> = {
     approved: {
       label: t("Approved", "অনুমোদিত"),
-      cls: "bg-violet-50 text-violet-700 border-violet-100",
+      cls: "bg-blue-50 text-blue-700 border-blue-100",
     },
     pending: {
       label: t("Pending", "অপেক্ষায়"),

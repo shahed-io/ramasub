@@ -270,7 +270,7 @@ function ListCrud({ kind, fields }: { kind: string; fields: AdminField[] }) {
  onDragLeave={() => { if (overId === r.id) setOverId(null); }}
  onDrop={(e) => { e.preventDefault(); onDrop(r.id); }}
  onDragEnd={() => { setDragId(null); setOverId(null); }}
- className={`hover:bg-slate-50/60 ${dragId === r.id ? "opacity-40" : ""} ${overId === r.id && dragId !== r.id ? "bg-slate-50 outline outline-1 outline-violet-300" : ""}`}
+ className={`hover:bg-slate-50/60 ${dragId === r.id ? "opacity-40" : ""} ${overId === r.id && dragId !== r.id ? "bg-slate-50 outline outline-1 outline-blue-300" : ""}`}
  >
   <td className="px-2 py-3 cursor-grab active:cursor-grabbing text-slate-500 hover:text-slate-700">
  <GripVertical className="w-4 h-4" />
@@ -560,8 +560,8 @@ function SingleSettings({ kind, fields }: { kind: string; fields: AdminField[] }
  return (
    <div className="admin-card rounded-2xl p-4 sm:p-6 space-y-5">
  {prefilled && (
- <div className="rounded-xl border border-violet-200 bg-violet-50 px-4 py-2.5 text-[13px] text-violet-900 flex items-center gap-2">
- <span className="inline-block w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
+ <div className="rounded-xl border border-blue-200 bg-blue-50 px-4 py-2.5 text-[13px] text-blue-900 flex items-center gap-2">
+ <span className="inline-block w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
  {t(
  "Auto-filled from your site data — review and click Save settings to keep it.",
  "আপনার ওয়েবসাইটের তথ্য থেকে auto-fill করা হয়েছে — check করে Save settings চাপুন।"
@@ -733,7 +733,7 @@ function ImageField({
        }}
        className={`relative mt-1 rounded-xl border-2 border-dashed transition ${
          dragOver
-           ? "border-violet-500 bg-violet-50/60"
+           ? "border-blue-500 bg-blue-50/60"
            : "border-slate-300 bg-slate-50/50 hover:border-slate-400"
        } ${uploading ? "opacity-70 pointer-events-none" : ""}`}
      >
@@ -748,7 +748,7 @@ function ImageField({
              <p className="text-xs font-semibold text-slate-600 mb-1">Current image</p>
              <p className="text-xs text-slate-500 truncate">{String(value)}</p>
              <div className="flex flex-wrap gap-2 mt-2">
-               <label className="inline-flex items-center gap-1.5 h-8 px-3 rounded-lg bg-violet-600 text-white text-xs font-semibold cursor-pointer hover:bg-violet-700 transition">
+               <label className="inline-flex items-center gap-1.5 h-8 px-3 rounded-lg bg-blue-600 text-white text-xs font-semibold cursor-pointer hover:bg-blue-700 transition">
                  {uploading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
                  Replace
                  <input type="file" accept="image/*" className="hidden" onChange={(e) => onPick(e.target.files?.[0] ?? null)} />
@@ -767,8 +767,8 @@ function ImageField({
          <label className="flex flex-col items-center justify-center gap-2 py-7 px-4 cursor-pointer text-center">
            <div className="h-11 w-11 rounded-full bg-white border border-slate-200 grid place-items-center shadow-sm">
              {uploading
-               ? <Loader2 className="w-5 h-5 animate-spin text-violet-600" />
-               : <Upload className="w-5 h-5 text-violet-600" />}
+               ? <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
+               : <Upload className="w-5 h-5 text-blue-600" />}
            </div>
            <div>
              <p className="text-sm font-semibold text-slate-700">
@@ -834,13 +834,13 @@ function AdCampaignMetrics() {
   const money = (n: number) => `৳${fmt(n)}`;
 
   const cards: Array<{ label: string; labelBn: string; value: string; hint?: string; tone: string }> = [
-    { label: "Active campaigns", labelBn: "সক্রিয় ক্যাম্পেইন", value: fmt(metrics.active), tone: "from-violet-500 to-violet-700" },
+    { label: "Active campaigns", labelBn: "সক্রিয় ক্যাম্পেইন", value: fmt(metrics.active), tone: "from-blue-500 to-blue-700" },
     { label: "Total spend", labelBn: "মোট খরচ", value: money(metrics.spend), hint: `budget ${money(metrics.budget)}`, tone: "from-rose-500 to-red-600" },
-    { label: "Revenue", labelBn: "আয়", value: money(metrics.revenue), tone: "from-violet-500 to-purple-600" },
+    { label: "Revenue", labelBn: "আয়", value: money(metrics.revenue), tone: "from-blue-500 to-indigo-600" },
     { label: "ROAS", labelBn: "ROAS", value: metrics.roas ? `${metrics.roas.toFixed(2)}x` : "—", hint: "revenue ÷ spend", tone: "from-amber-500 to-orange-600" },
     { label: "Impressions", labelBn: "ইম্প্রেশন", value: fmt(metrics.impressions), tone: "from-sky-500 to-blue-600" },
     { label: "Clicks · CTR", labelBn: "ক্লিক · CTR", value: `${fmt(metrics.clicks)} · ${metrics.ctr.toFixed(2)}%`, tone: "from-indigo-500 to-blue-700" },
-    { label: "Conversions · CVR", labelBn: "কনভার্সন · CVR", value: `${fmt(metrics.conversions)} · ${metrics.cvr.toFixed(1)}%`, tone: "from-fuchsia-500 to-pink-600" },
+    { label: "Conversions · CVR", labelBn: "কনভার্সন · CVR", value: `${fmt(metrics.conversions)} · ${metrics.cvr.toFixed(1)}%`, tone: "from-sky-500 to-pink-600" },
     { label: "Cost per click", labelBn: "প্রতি ক্লিকে খরচ", value: metrics.cpc ? money(metrics.cpc) : "—", tone: "from-slate-600 to-slate-800" },
   ];
 
@@ -862,7 +862,7 @@ function AdCampaignMetrics() {
           <div className="text-[11px] text-slate-500">{t("Live totals across all campaigns", "সব ক্যাম্পেইনের সম্মিলিত হিসাব")}</div>
         </div>
         {metrics.spend > 0 && (
-          <div className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${metrics.roas >= 2 ? "bg-violet-50 text-violet-700" : metrics.roas >= 1 ? "bg-amber-50 text-amber-700" : "bg-rose-50 text-rose-700"}`}>
+          <div className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${metrics.roas >= 2 ? "bg-blue-50 text-blue-700" : metrics.roas >= 1 ? "bg-amber-50 text-amber-700" : "bg-rose-50 text-rose-700"}`}>
             {metrics.roas >= 2 ? t("Profitable", "লাভজনক") : metrics.roas >= 1 ? t("Break-even", "সমতাল") : t("Losing money", "লস হচ্ছে")}
           </div>
         )}
@@ -932,7 +932,7 @@ function BlogAIPanel() {
   };
 
   return (
-    <div className="rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 via-white to-fuchsia-50 p-5 space-y-4">
+    <div className="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 via-white to-sky-50 p-5 space-y-4">
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div>
           <h3 className="font-black text-slate-900 flex items-center gap-2">
@@ -948,7 +948,7 @@ function BlogAIPanel() {
         <button
           onClick={runAll}
           disabled={busy !== null}
-          className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold shadow disabled:opacity-60"
+          className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold shadow disabled:opacity-60"
         >
           {busy === "all" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
           {t("Generate for all products", "সব প্রোডাক্টের জন্য তৈরি")}
@@ -973,7 +973,7 @@ function BlogAIPanel() {
         </button>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-violet-100">
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-blue-100">
         <p className="text-[11px] text-slate-500">
           {t("Auto-blog for future products (runs hourly).", "নতুন প্রোডাক্টের জন্য auto-blog (প্রতি ঘণ্টায় চলবে)।")}
         </p>
@@ -988,7 +988,7 @@ function BlogAIPanel() {
             finally { setBusy(null); }
           }}
           disabled={busy !== null}
-          className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border border-violet-300 text-violet-700 text-xs font-semibold hover:bg-violet-50 disabled:opacity-60"
+          className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border border-blue-300 text-blue-700 text-xs font-semibold hover:bg-blue-50 disabled:opacity-60"
         >
           {busy === "cron" ? <Loader2 className="w-3 h-3 animate-spin" /> : "🔁"}
           {t("Enable auto-blog", "Auto-blog চালু করুন")}
@@ -1048,7 +1048,7 @@ function SoftwareDownloadsManager() {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 via-white to-teal-50 p-5">
+      <div className="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 via-white to-teal-50 p-5">
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
             <h3 className="font-black text-slate-900">
@@ -1063,7 +1063,7 @@ function SoftwareDownloadsManager() {
           </div>
           <div className="text-right text-xs">
             <div className="text-slate-500">{t("Products with downloads", "ডাউনলোডসহ প্রোডাক্ট")}</div>
-            <div className="text-2xl font-black text-violet-700">{configured}<span className="text-slate-400 text-sm">/{total}</span></div>
+            <div className="text-2xl font-black text-blue-700">{configured}<span className="text-slate-400 text-sm">/{total}</span></div>
           </div>
         </div>
       </div>
@@ -1103,7 +1103,7 @@ function SoftwareDownloadsManager() {
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {p.downloads.length > 0 ? (
-                    <span className="inline-flex items-center gap-1 px-2 h-6 rounded-full bg-violet-50 text-violet-700 text-[11px] font-bold border border-violet-200">
+                    <span className="inline-flex items-center gap-1 px-2 h-6 rounded-full bg-blue-50 text-blue-700 text-[11px] font-bold border border-blue-200">
                       {p.downloads.length} {t("link", "লিংক")}
                     </span>
                   ) : (
@@ -1225,14 +1225,14 @@ function DownloadEditor({
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <button
           onClick={add}
-          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-full border border-violet-300 text-violet-700 text-xs font-semibold hover:bg-violet-50"
+          className="inline-flex items-center gap-1.5 h-9 px-3 rounded-full border border-blue-300 text-blue-700 text-xs font-semibold hover:bg-blue-50"
         >
           <Plus className="w-3.5 h-3.5" /> {t("Add link", "Link যোগ করুন")}
         </button>
         <button
           onClick={save}
           disabled={saving}
-          className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-violet-600 hover:bg-violet-700 text-white text-xs font-semibold shadow disabled:opacity-60"
+          className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow disabled:opacity-60"
         >
           {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
           {t("Save", "সংরক্ষণ")}

@@ -39,10 +39,10 @@ type CurrencyConfigData = {
 
 /* ── Tone system: stronger tints + darker text for readability ── */
 const TONE = {
-  violet:  { bg: "bg-violet-200",    text: "text-violet-800",    border: "border-violet-300",    soft: "bg-violet-100",    ink: "text-violet-900" },
+  violet:  { bg: "bg-blue-200",    text: "text-blue-800",    border: "border-blue-300",    soft: "bg-blue-100",    ink: "text-blue-900" },
   sky:     { bg: "bg-sky-100",       text: "text-sky-700",       border: "border-sky-200",       soft: "bg-sky-50",       ink: "text-sky-900" },
-  emerald: { bg: "bg-violet-100",   text: "text-violet-700",   border: "border-violet-200",   soft: "bg-violet-50",   ink: "text-violet-900" },
-  fuchsia: { bg: "bg-fuchsia-100",  text: "text-fuchsia-700",  border: "border-fuchsia-200",  soft: "bg-fuchsia-50",  ink: "text-fuchsia-900" },
+  emerald: { bg: "bg-blue-100",   text: "text-blue-700",   border: "border-blue-200",   soft: "bg-blue-50",   ink: "text-blue-900" },
+  fuchsia: { bg: "bg-sky-100",  text: "text-sky-700",  border: "border-sky-200",  soft: "bg-sky-50",  ink: "text-sky-900" },
   slate:   { bg: "bg-slate-200",      text: "text-slate-700",      border: "border-slate-300",      soft: "bg-slate-100",    ink: "text-slate-800" },
 } as const;
 
@@ -143,7 +143,7 @@ function GeneralSettingsPage() {
       {/* Page header */}
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-3">
-          <span className="w-12 h-12 rounded-2xl bg-violet-100 grid place-items-center text-violet-700">
+          <span className="w-12 h-12 rounded-2xl bg-blue-100 grid place-items-center text-blue-700">
             <Settings className="w-6 h-6" />
           </span>
           <div>
@@ -226,7 +226,7 @@ function GeneralSettingsPage() {
             type="checkbox"
             checked={currency.enable_usd !== false}
             onChange={(e) => setCur("enable_usd", e.target.checked)}
-            className="w-4 h-4 accent-violet-600"
+            className="w-4 h-4 accent-blue-600"
           />
           <span className="text-sm font-semibold" style={{ color: "var(--admin-ink)" }}>
             USD কারেন্সি সুইচার এনাবল করুন (হেডারে দেখাবে)

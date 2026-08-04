@@ -133,7 +133,7 @@ function SeoAuditPage() {
   const perfect = rows.filter((r) => r.score === r.total).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-violet-50/40 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/40 p-4 md:p-8">
       <div className="max-w-6xl mx-auto space-y-6">
 
         {/* Stats */}
@@ -152,7 +152,7 @@ function SeoAuditPage() {
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
               placeholder={t("Search pages…", "পেজ খুঁজুন…")}
-              className="w-full rounded-xl border border-slate-200 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400/40"
+              className="w-full rounded-xl border border-slate-200 pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/40"
             />
           </div>
           <div className="flex gap-1 rounded-xl bg-slate-100 p-1">
@@ -187,7 +187,7 @@ function SeoAuditPage() {
 function AuditCard({ row }: { row: AuditRow }) {
   const pct = Math.round((row.score / row.total) * 100);
   const color = pct === 100 ? "emerald" : pct >= 70 ? "violet" : "rose";
-  const ring = { emerald: "ring-violet-200 bg-violet-50 text-violet-700", violet: "ring-violet-200 bg-violet-50 text-violet-700", rose: "ring-rose-200 bg-rose-50 text-rose-700" }[color];
+  const ring = { emerald: "ring-blue-200 bg-blue-50 text-blue-700", violet: "ring-blue-200 bg-blue-50 text-blue-700", rose: "ring-rose-200 bg-rose-50 text-rose-700" }[color];
   const Icon = pct === 100 ? CheckCircle2 : pct >= 70 ? AlertTriangle : XCircle;
   return (
     <details className="group rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden open:shadow-md transition">
@@ -205,15 +205,15 @@ function AuditCard({ row }: { row: AuditRow }) {
           </div>
         </div>
         <div className="text-right shrink-0">
-          <div className={`text-lg font-bold ${color === "emerald" ? "text-violet-600" : color === "violet" ? "text-violet-600" : "text-rose-600"}`}>{pct}%</div>
+          <div className={`text-lg font-bold ${color === "emerald" ? "text-blue-600" : color === "violet" ? "text-blue-600" : "text-rose-600"}`}>{pct}%</div>
           <div className="text-[10px] text-slate-500">{row.score}/{row.total} {row.score === 1 ? "check" : "checks"}</div>
         </div>
       </summary>
       <div className="border-t border-slate-100 bg-slate-50/40 p-4 grid sm:grid-cols-2 gap-4">
         <div>
-          <div className="text-[11px] font-bold uppercase tracking-wider text-violet-700 mb-2">✓ Passing</div>
+          <div className="text-[11px] font-bold uppercase tracking-wider text-blue-700 mb-2">✓ Passing</div>
           <ul className="space-y-1">
-            {row.passes.map((p, i) => <li key={i} className="text-xs text-slate-700 flex gap-2"><span className="text-violet-500">•</span>{p}</li>)}
+            {row.passes.map((p, i) => <li key={i} className="text-xs text-slate-700 flex gap-2"><span className="text-blue-500">•</span>{p}</li>)}
           </ul>
         </div>
         <div>
@@ -229,8 +229,8 @@ function AuditCard({ row }: { row: AuditRow }) {
 
 function Stat({ color, label, value }: { color: "indigo" | "emerald" | "rose" | "teal"; label: string; value: number | string }) {
   const tones: Record<string, string> = {
-    indigo: "from-indigo-500 to-violet-600",
-    emerald: "from-violet-500 to-teal-600",
+    indigo: "from-indigo-500 to-blue-600",
+    emerald: "from-blue-500 to-teal-600",
     rose: "from-rose-500 to-pink-600",
     teal: "from-teal-500 to-emerald-600",
   };

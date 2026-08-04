@@ -68,8 +68,8 @@ function invoiceCode(o: OrderRow) {
 
 function badgePay(s: string) {
   const k = (s || "").toLowerCase();
-  if (k === "paid") return "bg-violet-500 text-white";
-  if (k === "pending") return "bg-violet-100 text-violet-700";
+  if (k === "paid") return "bg-blue-500 text-white";
+  if (k === "pending") return "bg-blue-100 text-blue-700";
   if (k === "failed") return "bg-rose-100 text-rose-700";
   return "bg-slate-200 text-slate-700";
 }
@@ -201,13 +201,13 @@ function CustomerLicensesPage() {
   }, [customer]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50/40 via-white to-sky-50/40">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50/40 via-white to-sky-50/40">
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-12 space-y-4">
         {/* Title block */}
         <div>
           <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-            <KeyRound className="h-5 w-5 text-violet-500" />
+            <KeyRound className="h-5 w-5 text-blue-500" />
             Customer Licenses Manager
           </h2>
           <p className="text-sm text-slate-500 mt-1">
@@ -224,7 +224,7 @@ function CustomerLicensesPage() {
               onChange={(e) => setQ(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter") search(); }}
               placeholder="Search by email, phone or name…"
-              className="w-full rounded-xl bg-indigo-50/70 border border-indigo-100 pl-11 pr-12 py-3.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-400"
+              className="w-full rounded-xl bg-indigo-50/70 border border-indigo-100 pl-11 pr-12 py-3.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
             <button
               type="button"
@@ -237,7 +237,7 @@ function CustomerLicensesPage() {
           <button
             onClick={() => search()}
             disabled={loading}
-            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-sm font-semibold shadow-lg shadow-violet-500/30 hover:opacity-95 disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-sky-600 text-white text-sm font-semibold shadow-lg shadow-blue-500/30 hover:opacity-95 disabled:opacity-50"
           >
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
             Search
@@ -268,10 +268,10 @@ function CustomerLicensesPage() {
 
             {/* Quick stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <StatTile label="Total Orders" value={String(stats.orders)} icon={ShoppingCart} grad="from-violet-500 to-fuchsia-600" />
-              <StatTile label="Lifetime Revenue" value={fmt(stats.revenue)} icon={TrendingUp} grad="from-violet-500 to-teal-600" />
+              <StatTile label="Total Orders" value={String(stats.orders)} icon={ShoppingCart} grad="from-blue-500 to-sky-600" />
+              <StatTile label="Lifetime Revenue" value={fmt(stats.revenue)} icon={TrendingUp} grad="from-blue-500 to-teal-600" />
               <StatTile label="Licenses Assigned" value={String(stats.licenses)} icon={KeyRound} grad="from-sky-500 to-indigo-600" />
-              <StatTile label="Pending Delivery" value={String(stats.pending)} icon={CalendarClock} grad="from-violet-500 to-orange-600" />
+              <StatTile label="Pending Delivery" value={String(stats.pending)} icon={CalendarClock} grad="from-blue-500 to-orange-600" />
             </div>
 
             {/* Orders */}
@@ -292,7 +292,7 @@ function CustomerLicensesPage() {
 
         {!customer && !loading && (
           <div className="rounded-2xl border border-dashed border-slate-300 bg-white/60 p-12 text-center">
-            <Sparkles className="h-8 w-8 text-violet-400 mx-auto" />
+            <Sparkles className="h-8 w-8 text-blue-400 mx-auto" />
             <div className="mt-3 font-semibold text-slate-700">Search a customer to begin</div>
             <div className="text-sm text-slate-500 mt-1">
               Look up by email, phone or name to view every order and license they own.
@@ -364,7 +364,7 @@ function OrderCard({
         <select
           value={order.status}
           onChange={(e) => onStatus(e.target.value)}
-          className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-violet-400"
+          className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           {STATUS_OPTS.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
@@ -397,7 +397,7 @@ function OrderCard({
                   {it.name}{it.planPeriod ? <span className="text-slate-400 font-normal"> · {it.planPeriod}</span> : null}
                 </div>
                 <div className="text-[11px] text-slate-500 mt-0.5">Qty: {it.qty || 1}</div>
-                <div className={`text-[12px] mt-0.5 font-medium ${assigned ? "text-violet-600" : "text-violet-600"}`}>
+                <div className={`text-[12px] mt-0.5 font-medium ${assigned ? "text-blue-600" : "text-blue-600"}`}>
                   {assigned ? `License: ${d.key}` : "No license assigned"}
                 </div>
                 <div className="text-[11px] text-slate-400 mt-0.5 inline-flex items-center gap-1">
@@ -453,7 +453,7 @@ function EditKeyModal({
       <div className="w-full max-w-lg rounded-2xl bg-white shadow-2xl border border-slate-200 overflow-hidden">
         <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
           <div>
-            <div className="text-xs uppercase tracking-wider text-violet-600 font-semibold">Edit Key</div>
+            <div className="text-xs uppercase tracking-wider text-blue-600 font-semibold">Edit Key</div>
             <div className="font-semibold text-slate-800 text-sm">{item.emoji} {item.name}</div>
           </div>
           <button onClick={onClose} className="grid place-items-center h-8 w-8 rounded-lg hover:bg-slate-100"><X className="h-4 w-4" /></button>
@@ -493,7 +493,7 @@ function EditKeyModal({
           <button
             onClick={async () => { setSaving(true); await onSave({ key: key.trim() || undefined, type, expiry, delivered_via: via }); setSaving(false); }}
             disabled={saving}
-            className="px-4 py-2 rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-sm font-semibold inline-flex items-center gap-2"
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-sky-600 text-white text-sm font-semibold inline-flex items-center gap-2"
           >
             {saving && <Loader2 className="h-4 w-4 animate-spin" />} Save License
           </button>
@@ -539,7 +539,7 @@ function AddItemModal({ onClose, onAdd }: { onClose: () => void; onAdd: (item: O
               setSaving(false);
             }}
             disabled={saving}
-            className="px-4 py-2 rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-sm font-semibold inline-flex items-center gap-2"
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-sky-600 text-white text-sm font-semibold inline-flex items-center gap-2"
           >
             {saving && <Loader2 className="h-4 w-4 animate-spin" />} Add Item
           </button>

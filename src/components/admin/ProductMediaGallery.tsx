@@ -136,7 +136,7 @@ export function ProductMediaGallery() {
         <button
           onClick={handleDownloadAll}
           disabled={downloadingAll || filtered.length === 0}
-          className="inline-flex items-center gap-2 h-10 px-5 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-semibold shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition"
+          className="inline-flex items-center gap-2 h-10 px-5 rounded-full bg-gradient-to-r from-indigo-600 to-blue-600 text-white text-sm font-semibold shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition"
         >
           {downloadingAll ? <Loader2 className="w-4 h-4 animate-spin" /> : <DownloadCloud className="w-4 h-4" />}
           {t("Download all", "সব ডাউনলোড")}
@@ -216,7 +216,7 @@ export function ProductMediaGallery() {
                     title={t("Copy URL", "URL কপি")}
                     className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white text-slate-700 shadow hover:scale-110 transition"
                   >
-                    {copied === row.image_url ? <Check className="w-4 h-4 text-violet-500" /> : <Copy className="w-4 h-4" />}
+                    {copied === row.image_url ? <Check className="w-4 h-4 text-blue-500" /> : <Copy className="w-4 h-4" />}
                   </button>
                   <a
                     href={row.image_url!}

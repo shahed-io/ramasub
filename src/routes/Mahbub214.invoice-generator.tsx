@@ -307,7 +307,7 @@ function InvoiceGeneratorPage() {
       {/* Section header */}
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div className="flex items-start gap-3 min-w-0">
-          <span className="shrink-0 w-11 h-11 rounded-xl bg-violet-50 ring-1 ring-violet-100 text-violet-600 grid place-items-center">
+          <span className="shrink-0 w-11 h-11 rounded-xl bg-blue-50 ring-1 ring-blue-100 text-blue-600 grid place-items-center">
             <FileText className="w-5 h-5" />
           </span>
           <div className="min-w-0">
@@ -417,7 +417,7 @@ function InvoiceGeneratorPage() {
             action={
               <button
                 onClick={() => setItems((c) => [...c, newItem()])}
-                className="inline-flex items-center gap-1 text-sm font-semibold text-violet-700 hover:text-violet-800"
+                className="inline-flex items-center gap-1 text-sm font-semibold text-blue-700 hover:text-blue-800"
               >
                 <Plus className="w-4 h-4" /> {t("Add item", "আইটেম যোগ")}
               </button>
@@ -471,7 +471,7 @@ function InvoiceGeneratorPage() {
                             />
                           </Field>
                         </div>
-                        <div className="text-right text-xs font-semibold text-violet-700">
+                        <div className="text-right text-xs font-semibold text-blue-700">
                           {t("Subtotal:", "মোট:")} {fmt(lineTotal)}
                         </div>
                       </div>
@@ -526,14 +526,14 @@ function InvoiceGeneratorPage() {
               </div>
             )}
             <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-200">
-              <span className="text-lg font-extrabold text-violet-700">Total:</span>
-              <span className="text-2xl font-extrabold text-violet-700">{fmt(total)}</span>
+              <span className="text-lg font-extrabold text-blue-700">Total:</span>
+              <span className="text-2xl font-extrabold text-blue-700">{fmt(total)}</span>
             </div>
 
             <div className="mt-4 space-y-2">
               <button
                 onClick={previewPrint}
-                className="w-full inline-flex items-center justify-center gap-2 h-12 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white text-sm font-bold shadow-md shadow-violet-500/20 transition"
+                className="w-full inline-flex items-center justify-center gap-2 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 text-white text-sm font-bold shadow-md shadow-blue-500/20 transition"
               >
                 <Printer className="w-4 h-4" />
                 {t("Preview & Print", "প্রিভিউ ও প্রিন্ট")}
@@ -548,7 +548,7 @@ function InvoiceGeneratorPage() {
               <button
                 onClick={saveInvoice}
                 disabled={saving}
-                className="w-full inline-flex items-center justify-center gap-2 h-11 rounded-xl bg-violet-50 border border-violet-200 text-violet-700 text-sm font-bold hover:bg-violet-100 transition disabled:opacity-60"
+                className="w-full inline-flex items-center justify-center gap-2 h-11 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 text-sm font-bold hover:bg-blue-100 transition disabled:opacity-60"
               >
                 {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                 {t("Save to records", "রেকর্ডে সংরক্ষণ")}
@@ -562,7 +562,7 @@ function InvoiceGeneratorPage() {
 }
 
 const inputCls =
-  "w-full h-10 px-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-300 transition";
+  "w-full h-10 px-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300 transition";
 
 function Card({
   icon, title, action, children,
@@ -572,7 +572,7 @@ function Card({
       {title && (
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2 text-sm font-bold text-slate-800">
-            <span className="w-7 h-7 rounded-lg bg-violet-50 text-violet-600 grid place-items-center">{icon}</span>
+            <span className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 grid place-items-center">{icon}</span>
             {title}
           </div>
           {action}

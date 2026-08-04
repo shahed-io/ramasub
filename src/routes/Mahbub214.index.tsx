@@ -203,15 +203,15 @@ function AdminDashboard() {
       label: t("TODAY'S SALES", "আজকের সেল"),
       value: fmtBDT(stats.todayRev),
       Icon: TrendingUp,
-      iconGrad: "from-violet-500 to-purple-600",
-      bgGrad: "from-violet-50/60 via-white to-blue-50/40",
+      iconGrad: "from-blue-500 to-indigo-600",
+      bgGrad: "from-blue-50/60 via-white to-blue-50/40",
     },
     {
       label: t("THIS MONTH REVENUE", "এই মাসের আয়"),
       value: fmtBDT(stats.monthRev),
       Icon: DollarSign,
-      iconGrad: "from-violet-500 to-fuchsia-600",
-      bgGrad: "from-violet-50/60 via-white to-pink-50/40",
+      iconGrad: "from-blue-500 to-sky-600",
+      bgGrad: "from-blue-50/60 via-white to-pink-50/40",
       delta: stats.monthDelta,
       sub: t("vs last month", "গত মাসের তুলনায়"),
     },
@@ -219,14 +219,14 @@ function AdminDashboard() {
       label: t("THIS YEAR REVENUE", "এই বছরের আয়"),
       value: fmtBDT(stats.yearRev),
       Icon: BarChart3,
-      iconGrad: "from-violet-500 to-teal-600",
-      bgGrad: "from-violet-50/60 via-white to-cyan-50/40",
+      iconGrad: "from-blue-500 to-teal-600",
+      bgGrad: "from-blue-50/60 via-white to-cyan-50/40",
     },
     {
       label: t("TOTAL REVENUE (ALL)", "মোট আয় (সব)"),
       value: fmtBDT(stats.revenue),
       Icon: Wallet,
-      iconGrad: "from-orange-500 to-violet-600",
+      iconGrad: "from-orange-500 to-blue-600",
       bgGrad: "from-orange-50/60 via-white to-rose-50/40",
     },
   ];
@@ -236,8 +236,8 @@ function AdminDashboard() {
       label: t("TOTAL ORDERS", "মোট অর্ডার"),
       value: counts.orders.toLocaleString("en-IN"),
       Icon: ShoppingCart,
-      iconGrad: "from-violet-500 to-indigo-600",
-      bgGrad: "from-violet-50/60 via-white to-blue-50/30",
+      iconGrad: "from-blue-500 to-indigo-600",
+      bgGrad: "from-blue-50/60 via-white to-blue-50/30",
       delta: stats.totalOrders > 0 ? Math.round((stats.delivered / stats.totalOrders) * 100) : 0,
       sub: t("delivered", "সম্পন্ন"),
     },
@@ -245,8 +245,8 @@ function AdminDashboard() {
       label: t("PENDING", "অপেক্ষমাণ"),
       value: stats.pending.toString(),
       Icon: Clock,
-      iconGrad: "from-violet-500 to-violet-700",
-      bgGrad: "from-violet-50/60 via-white to-cyan-50/30",
+      iconGrad: "from-blue-500 to-blue-700",
+      bgGrad: "from-blue-50/60 via-white to-cyan-50/30",
     },
     {
       label: t("PAYMENT PENDING", "পেমেন্ট অপেক্ষমাণ"),
@@ -259,15 +259,15 @@ function AdminDashboard() {
       label: t("DELIVERED", "ডেলিভারড"),
       value: stats.delivered.toString(),
       Icon: CheckCircle2,
-      iconGrad: "from-violet-500 to-violet-700",
-      bgGrad: "from-violet-50/60 via-white to-violet-50/30",
+      iconGrad: "from-blue-500 to-blue-700",
+      bgGrad: "from-blue-50/60 via-white to-blue-50/30",
     },
     {
       label: t("CANCELLED", "বাতিল"),
       value: stats.cancelled.toString(),
       Icon: XCircle,
       iconGrad: "from-rose-500 to-red-600",
-      bgGrad: "from-rose-50/60 via-white to-violet-50/30",
+      bgGrad: "from-rose-50/60 via-white to-blue-50/30",
     },
     {
       label: t("CUSTOMERS", "কাস্টমার"),
@@ -286,16 +286,16 @@ function AdminDashboard() {
           <div className="flex items-center gap-2.5 mb-3">
             <Bell className="w-4 h-4 text-slate-700" />
             <h2 className="text-[15px] font-bold text-slate-900">{t("Notifications", "নোটিফিকেশন")}</h2>
-            <span className="ml-1 min-w-[20px] h-5 px-1.5 rounded-full bg-violet-100 text-violet-700 text-[11px] font-bold grid place-items-center">
+            <span className="ml-1 min-w-[20px] h-5 px-1.5 rounded-full bg-blue-100 text-blue-700 text-[11px] font-bold grid place-items-center">
               {stats.newOrders24h}
             </span>
           </div>
           <Link
             to="/Mahbub214/orders"
-            className="flex items-center gap-3 rounded-xl bg-gradient-to-r from-violet-50 to-pink-50 ring-1 ring-violet-100 px-3.5 py-3 hover:from-violet-100 hover:to-pink-100 transition"
+            className="flex items-center gap-3 rounded-xl bg-gradient-to-r from-blue-50 to-pink-50 ring-1 ring-blue-100 px-3.5 py-3 hover:from-blue-100 hover:to-pink-100 transition"
           >
-            <span className="w-9 h-9 rounded-xl bg-violet-100 grid place-items-center shrink-0">
-              <ShoppingCart className="w-4 h-4 text-violet-700" />
+            <span className="w-9 h-9 rounded-xl bg-blue-100 grid place-items-center shrink-0">
+              <ShoppingCart className="w-4 h-4 text-blue-700" />
             </span>
             <div className="min-w-0 flex-1">
               <div className="text-[13px] font-bold text-slate-900 truncate">
@@ -335,7 +335,7 @@ function AdminDashboard() {
             <div className="min-w-0">
               <h3 className="text-[18px] font-extrabold text-slate-900">{t("Sales Overview", "সেল ওভারভিউ")}</h3>
               {stats.monthDelta !== 0 && (
-                <div className={`mt-1 text-[12px] font-semibold inline-flex items-center gap-1 ${stats.monthDelta >= 0 ? "text-violet-600" : "text-rose-600"}`}>
+                <div className={`mt-1 text-[12px] font-semibold inline-flex items-center gap-1 ${stats.monthDelta >= 0 ? "text-blue-600" : "text-rose-600"}`}>
                   {stats.monthDelta >= 0 ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
                   {Math.abs(stats.monthDelta)}% {t("revenue growth vs last month", "আয় বেড়েছে গত মাসের তুলনায়")}
                 </div>
@@ -400,11 +400,11 @@ function AdminDashboard() {
         {/* Best Selling Products */}
         <div className="admin-card rounded-2xl p-5 sm:p-6">
           <div className="flex items-start gap-2 mb-4">
-            <span className="w-1 h-5 rounded-full bg-violet-500 mt-1" aria-hidden />
+            <span className="w-1 h-5 rounded-full bg-blue-500 mt-1" aria-hidden />
             <div className="min-w-0 flex-1">
               <h3 className="text-[18px] font-extrabold text-slate-900">{t("Best Selling Products", "বেস্ট সেলিং প্রোডাক্ট")}</h3>
             </div>
-            <Link to="/Mahbub214/products" className="shrink-0 text-xs font-semibold text-violet-600 hover:underline inline-flex items-center gap-0.5">
+            <Link to="/Mahbub214/products" className="shrink-0 text-xs font-semibold text-blue-600 hover:underline inline-flex items-center gap-0.5">
               {t("All", "সব")} <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -428,7 +428,7 @@ function AdminDashboard() {
           {/* Conversion Stats */}
           <div className="mt-6 pt-5 border-t border-slate-100">
             <div className="flex items-start gap-2 mb-3">
-              <span className="w-1 h-5 rounded-full bg-violet-500 mt-0.5" aria-hidden />
+              <span className="w-1 h-5 rounded-full bg-blue-500 mt-0.5" aria-hidden />
               <h4 className="text-[15px] font-extrabold text-slate-900">{t("Conversion Stats", "কনভার্শন স্ট্যাটস")}</h4>
             </div>
             <div className="space-y-2.5">
@@ -447,7 +447,7 @@ function AdminDashboard() {
 function SectionHeader({ title }: { title: string }) {
   return (
     <div className="flex items-center gap-2.5">
-      <span className="w-1 h-7 rounded-full bg-violet-500" aria-hidden />
+      <span className="w-1 h-7 rounded-full bg-blue-500" aria-hidden />
       <h2 className="text-[20px] sm:text-[22px] font-extrabold text-slate-900 tracking-tight uppercase">
         {title}
       </h2>
@@ -465,7 +465,7 @@ function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compac
             <Icon className="w-5 h-5" strokeWidth={2.5} />
           </span>
           {typeof kpi.delta === "number" && kpi.delta !== 0 && (
-            <span className={`shrink-0 inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10.5px] font-bold ${kpi.delta >= 0 ? "bg-violet-100 text-violet-700" : "bg-rose-100 text-rose-700"}`}>
+            <span className={`shrink-0 inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10.5px] font-bold ${kpi.delta >= 0 ? "bg-blue-100 text-blue-700" : "bg-rose-100 text-rose-700"}`}>
               {kpi.delta >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
               {Math.abs(kpi.delta)}%
             </span>
@@ -487,8 +487,8 @@ function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compac
 
 function ConvRow({ label, value, Icon, color }: { label: string; value: string; Icon: any; color: "violet" | "emerald" | "sky" | "orange" }) {
   const map = {
-    violet: "bg-violet-50 text-violet-600",
-    emerald: "bg-violet-50 text-violet-600",
+    violet: "bg-blue-50 text-blue-600",
+    emerald: "bg-blue-50 text-blue-600",
     sky: "bg-sky-50 text-sky-600",
     orange: "bg-orange-50 text-orange-600",
   } as const;

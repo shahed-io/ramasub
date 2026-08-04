@@ -74,7 +74,7 @@ function ZoomSettingsPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/40 p-4 md:p-8">
       <div className="max-w-5xl mx-auto space-y-6">
         {/* Header */}
-        <div className="rounded-3xl bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-600 p-6 md:p-8 text-white shadow-xl">
+        <div className="rounded-3xl bg-gradient-to-br from-sky-600 via-indigo-600 to-indigo-600 p-6 md:p-8 text-white shadow-xl">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur grid place-items-center">
               <ZoomIn className="w-6 h-6" />
@@ -234,7 +234,7 @@ function ZoomSettingsPage() {
           {/* Live Preview */}
           <section className="rounded-2xl bg-white border border-slate-200 shadow-sm p-5 md:p-6 space-y-3">
             <h2 className="flex items-center gap-2 text-base font-bold text-slate-900">
-              <span className="w-8 h-8 rounded-lg bg-violet-50 text-violet-600 grid place-items-center">
+              <span className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 grid place-items-center">
                 <ZoomIn className="w-4 h-4" />
               </span>
               {t("Live preview", "লাইভ প্রিভিউ")}

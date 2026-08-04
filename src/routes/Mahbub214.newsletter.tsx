@@ -137,14 +137,14 @@ function NewsletterPage() {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <StatCard
-          icon={<Users className="w-4 h-4 text-violet-600" />}
-          ring="ring-violet-200"
+          icon={<Users className="w-4 h-4 text-blue-600" />}
+          ring="ring-blue-200"
           value={counts.total}
           label={t("Total", "মোট")}
         />
         <StatCard
-          icon={<CheckCircle2 className="w-4 h-4 text-violet-600" />}
-          ring="ring-violet-200"
+          icon={<CheckCircle2 className="w-4 h-4 text-blue-600" />}
+          ring="ring-blue-200"
           value={counts.active}
           label={t("Active", "সক্রিয়")}
         />
@@ -164,7 +164,7 @@ function NewsletterPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t("Search email or name…", "ইমেইল বা নাম খুঁজুন…")}
-            className="w-full h-11 pl-11 pr-4 rounded-full bg-white border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-300 shadow-sm"
+            className="w-full h-11 pl-11 pr-4 rounded-full bg-white border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm"
           />
         </div>
         <div className="flex gap-2">
@@ -206,7 +206,7 @@ function NewsletterPage() {
                 >
                   <span
                     className={`shrink-0 w-9 h-9 rounded-xl grid place-items-center ${
-                      active ? "bg-violet-50 text-violet-600" : "bg-rose-50 text-rose-600"
+                      active ? "bg-blue-50 text-blue-600" : "bg-rose-50 text-rose-600"
                     }`}
                   >
                     <Mail className="w-4 h-4" />
@@ -224,7 +224,7 @@ function NewsletterPage() {
                   <span
                     className={`text-[11px] font-bold px-2.5 py-1 rounded-full border ${
                       active
-                        ? "bg-violet-50 text-violet-700 border-violet-200"
+                        ? "bg-blue-50 text-blue-700 border-blue-200"
                         : "bg-rose-50 text-rose-700 border-rose-200"
                     }`}
                   >
@@ -283,7 +283,7 @@ function FilterPill({
       onClick={onClick}
       className={`h-11 px-5 rounded-full text-sm font-semibold border transition ${
         active
-          ? "bg-white text-violet-700 border-violet-300 ring-1 ring-violet-200 shadow-sm"
+          ? "bg-white text-blue-700 border-blue-300 ring-1 ring-blue-200 shadow-sm"
           : "bg-white text-slate-600 border-slate-200 hover:text-slate-900"
       }`}
     >

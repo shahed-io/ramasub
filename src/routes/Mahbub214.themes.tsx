@@ -91,7 +91,7 @@ function AdminThemesPage() {
     <div className="space-y-5">
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 grid place-items-center text-white shadow-md">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-sky-500 grid place-items-center text-white shadow-md">
             <Palette className="w-5 h-5" />
           </div>
           <div className="flex-1 min-w-0">
@@ -133,13 +133,13 @@ function AdminThemesPage() {
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-semibold text-slate-900">{row.data.name ?? row.data.id}</span>
                       {row.is_active && (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-violet-700 bg-violet-50 border border-violet-200 rounded-full px-2 py-0.5">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200 rounded-full px-2 py-0.5">
                           <Check className="w-3 h-3" /> {t("Enabled", "চালু")}
                         </span>
                       )}
                       {isDefault && (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-violet-700 bg-violet-50 border border-violet-200 rounded-full px-2 py-0.5">
-                          <Star className="w-3 h-3 fill-violet-500 text-violet-500" /> {t("Default", "ডিফল্ট")}
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200 rounded-full px-2 py-0.5">
+                          <Star className="w-3 h-3 fill-blue-500 text-blue-500" /> {t("Default", "ডিফল্ট")}
                         </span>
                       )}
                       {isWhite && !isDefault && (
@@ -158,13 +158,13 @@ function AdminThemesPage() {
                     className={[
                       "inline-flex items-center gap-1.5 text-xs font-semibold rounded-lg px-3 py-1.5 border transition-colors",
                       isDefault
-                        ? "bg-violet-50 border-violet-200 text-violet-700 cursor-default"
+                        ? "bg-blue-50 border-blue-200 text-blue-700 cursor-default"
                         : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50",
                       (!row.is_active || isSavingDefault) ? "opacity-60 cursor-not-allowed" : "",
                     ].join(" ")}
                     title={!row.is_active ? t("Enable first", "আগে চালু করুন") : undefined}
                   >
-                    {isSavingDefault ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Star className={`w-3.5 h-3.5 ${isDefault ? "fill-violet-500 text-violet-500" : ""}`} />}
+                    {isSavingDefault ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Star className={`w-3.5 h-3.5 ${isDefault ? "fill-blue-500 text-blue-500" : ""}`} />}
                     {isDefault ? t("Default", "Default") : t("Make default", "Default করুন")}
                   </button>
 
@@ -182,7 +182,7 @@ function AdminThemesPage() {
                     }
                     className={[
                       "relative inline-flex h-7 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors",
-                      row.is_active ? "bg-violet-500" : "bg-slate-300",
+                      row.is_active ? "bg-blue-500" : "bg-slate-300",
                       (isBusy || (isWhite && row.is_active) || (isDefault && row.is_active)) ? "opacity-60 cursor-not-allowed" : "",
                     ].join(" ")}
                   >

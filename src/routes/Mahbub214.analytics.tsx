@@ -53,8 +53,8 @@ function KpiCard({
   icon, label, value, tone = "violet",
 }: { icon: React.ReactNode; label: string; value: string | number; tone?: string }) {
   const tones: Record<string, string> = {
-    violet: "from-violet-500 to-fuchsia-500",
-    emerald: "from-violet-500 to-violet-600",
+    violet: "from-blue-500 to-sky-500",
+    emerald: "from-blue-500 to-blue-600",
     amber: "from-amber-500 to-orange-500",
     sky: "from-sky-500 to-blue-500",
     rose: "from-rose-500 to-pink-500",
@@ -98,7 +98,7 @@ function TopList({
       {rows.map((r) => (
         <div key={r.key} className="relative rounded-lg hover:bg-slate-50 px-2 py-1.5">
           <div
-            className="absolute inset-y-0 left-0 rounded-lg bg-gradient-to-r from-violet-100 to-fuchsia-100"
+            className="absolute inset-y-0 left-0 rounded-lg bg-gradient-to-r from-blue-100 to-sky-100"
             style={{ width: `${(r.count / max) * 100}%` }}
             aria-hidden
           />
@@ -152,15 +152,15 @@ function WebAnalyticsPage() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <div className="relative overflow-hidden rounded-2xl border border-violet-100 bg-gradient-to-r from-violet-50 via-fuchsia-50 to-sky-50 p-4 sm:p-5 mb-5">
-        <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 w-56 h-56 rounded-full bg-violet-200/40 blur-3xl" />
+      <div className="relative overflow-hidden rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 via-sky-50 to-sky-50 p-4 sm:p-5 mb-5">
+        <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 w-56 h-56 rounded-full bg-blue-200/40 blur-3xl" />
         <div className="relative flex flex-wrap items-center gap-3 justify-between">
           <div className="flex items-center gap-3 min-w-0">
-            <span className="shrink-0 w-11 h-11 rounded-xl bg-white shadow-sm ring-1 ring-violet-100 grid place-items-center text-violet-600">
+            <span className="shrink-0 w-11 h-11 rounded-xl bg-white shadow-sm ring-1 ring-blue-100 grid place-items-center text-blue-600">
               <TrendingUp className="w-5 h-5" strokeWidth={2.5} />
             </span>
             <div className="min-w-0">
-              <h1 className="text-lg sm:text-xl font-extrabold tracking-tight bg-gradient-to-r from-violet-700 to-fuchsia-600 bg-clip-text text-transparent">
+              <h1 className="text-lg sm:text-xl font-extrabold tracking-tight bg-gradient-to-r from-blue-700 to-sky-600 bg-clip-text text-transparent">
                 {t("Website Analytics", "ওয়েবসাইট অ্যানালিটিক্স")}
               </h1>
               <p className="text-xs text-slate-600 mt-0.5">
@@ -171,10 +171,10 @@ function WebAnalyticsPage() {
 
           <div className="flex items-center gap-2">
             {/* Live indicator */}
-            <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-emerald-200 px-3 py-1.5 text-xs font-semibold text-violet-700">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-emerald-200 px-3 py-1.5 text-xs font-semibold text-blue-700">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-500 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
               </span>
               {live.data?.activeVisitors ?? 0} {t("active now", "এখন অনলাইন")}
             </div>
@@ -186,7 +186,7 @@ function WebAnalyticsPage() {
                   onClick={() => setRange(r)}
                   className={`px-3 py-1.5 rounded-full transition ${
                     range === r
-                      ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow"
+                      ? "bg-gradient-to-r from-blue-600 to-sky-600 text-white shadow"
                       : "text-slate-600 hover:bg-slate-50"
                   }`}
                 >
@@ -368,7 +368,7 @@ function WebAnalyticsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
             <Section
               title={t("Live activity (last 5 min)", "লাইভ অ্যাক্টিভিটি (শেষ ৫ মিনিট)")}
-              right={<span className="text-[11px] font-semibold text-violet-700 inline-flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" /> LIVE</span>}
+              right={<span className="text-[11px] font-semibold text-blue-700 inline-flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" /> LIVE</span>}
             >
               {(live.data?.recent?.length ?? 0) === 0 ? (
                 <div className="text-sm text-slate-400 py-8 text-center">এই মুহূর্তে কেউ নেই</div>

@@ -416,7 +416,7 @@ function AdminProducts() {
  <button
  onClick={migrateAllToWebp}
  disabled={webpBusy}
- className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl bg-violet-600 text-white text-sm font-semibold hover:bg-violet-700 transition disabled:opacity-60 disabled:cursor-not-allowed flex-1 sm:flex-none"
+ className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition disabled:opacity-60 disabled:cursor-not-allowed flex-1 sm:flex-none"
  title="সব প্রোডাক্ট ইমেজ WebP-তে কনভার্ট করুন"
  >
  {webpBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <ImageIcon className="w-4 h-4" />}
@@ -554,13 +554,13 @@ function AdminProducts() {
  className={`inline-flex items-center gap-2 select-none transition-colors`}
  >
  <span
- className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${p.is_active ? "bg-violet-500" : "bg-slate-300"}`}
+ className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${p.is_active ? "bg-blue-500" : "bg-slate-300"}`}
  >
  <span
  className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${p.is_active ? "translate-x-4" : "translate-x-0.5"}`}
  />
  </span>
- <span className={`text-xs font-medium ${p.is_active ? "text-violet-700" : "text-slate-500"}`}>
+ <span className={`text-xs font-medium ${p.is_active ? "text-blue-700" : "text-slate-500"}`}>
  {p.is_active ? "On" : "Off"}
  </span>
  </button>
@@ -920,17 +920,17 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
 
  /* ============================================================ RENDER */
  return (
-   <div className="fixed inset-0 z-50 flex items-start md:items-center justify-center p-2 md:p-4 bg-gradient-to-br from-violet-950/70 via-slate-900/60 to-fuchsia-950/70 backdrop-blur-md">
-   <div className="relative rounded-2xl w-full max-w-3xl h-[96vh] md:h-[90vh] flex flex-col overflow-hidden bg-white/60 backdrop-blur-2xl border border-white/60 ring-1 ring-violet-300/40 shadow-[0_30px_80px_-20px_rgba(109,40,217,0.45)]" onClick={(e) => e.stopPropagation()}>
+   <div className="fixed inset-0 z-50 flex items-start md:items-center justify-center p-2 md:p-4 bg-gradient-to-br from-blue-950/70 via-slate-900/60 to-sky-950/70 backdrop-blur-md">
+   <div className="relative rounded-2xl w-full max-w-3xl h-[96vh] md:h-[90vh] flex flex-col overflow-hidden bg-white/60 backdrop-blur-2xl border border-white/60 ring-1 ring-blue-300/40 shadow-[0_30px_80px_-20px_rgba(109,40,217,0.45)]" onClick={(e) => e.stopPropagation()}>
    {/* Ambient glow orbs */}
-   <div className="pointer-events-none absolute -top-24 -left-20 h-72 w-72 rounded-full bg-violet-400/30 blur-3xl" />
-   <div className="pointer-events-none absolute -bottom-24 -right-20 h-72 w-72 rounded-full bg-fuchsia-300/30 blur-3xl" />
+   <div className="pointer-events-none absolute -top-24 -left-20 h-72 w-72 rounded-full bg-blue-400/30 blur-3xl" />
+   <div className="pointer-events-none absolute -bottom-24 -right-20 h-72 w-72 rounded-full bg-sky-300/30 blur-3xl" />
    <div className="pointer-events-none absolute top-1/3 right-1/4 h-56 w-56 rounded-full bg-indigo-300/20 blur-3xl" />
 
   {/* Header */}
   <div className="relative px-6 py-4 flex items-center justify-between border-b border-white/40 bg-white/30 backdrop-blur-xl">
   <h2 className="font-bold text-xl text-slate-900">{isNew ? "New Product" : "Edit Product"}</h2>
-  <button onClick={onClose} className="w-8 h-8 grid place-items-center rounded-lg bg-white/50 hover:bg-violet-100/70 text-violet-700 border border-white/60"><X className="w-5 h-5" /></button>
+  <button onClick={onClose} className="w-8 h-8 grid place-items-center rounded-lg bg-white/50 hover:bg-blue-100/70 text-blue-700 border border-white/60"><X className="w-5 h-5" /></button>
   </div>
 
   {/* Tabs */}
@@ -942,8 +942,8 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
   onClick={() => setTab(t.id)}
   className={`shrink-0 inline-flex items-center gap-1.5 px-3.5 h-10 rounded-t-lg text-sm font-semibold border-b-2 transition ${
   tab === t.id
-  ? "text-violet-700 border-violet-500 bg-white/70 backdrop-blur"
-  : "text-slate-600 border-transparent hover:text-violet-700 hover:bg-white/40"
+  ? "text-blue-700 border-blue-500 bg-white/70 backdrop-blur"
+  : "text-slate-600 border-transparent hover:text-blue-700 hover:bg-white/40"
   }`}
   >
   <span>{t.icon}</span> {t.label}
@@ -978,7 +978,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
      onClick={() => callAi("all")}
      disabled={!!ai || !form.name.trim()}
      title="এক ক্লিকে Tagline, Short/Long Description, Features, SEO — সব AI দিয়ে তৈরি করুন"
-     className="inline-flex items-center gap-1.5 h-8 px-3 rounded-lg text-xs font-bold text-white bg-gradient-to-r from-violet-600 via-fuchsia-500 to-pink-500 shadow-md shadow-fuchsia-200 hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed"
+     className="inline-flex items-center gap-1.5 h-8 px-3 rounded-lg text-xs font-bold text-white bg-gradient-to-r from-blue-600 via-sky-500 to-pink-500 shadow-md shadow-sky-200 hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed"
    >
      {ai === "all" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
      ✨ AI Auto-Fill All
@@ -989,7 +989,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  onChange={(e) => set("name", e.target.value)}
  onFocus={(e) => { if (isNew && e.currentTarget.value === " Price in Bangladesh") e.currentTarget.setSelectionRange(0, 0); }}
  placeholder="e.g. Windows 11 Pro License Key"
- className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200"
+ className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
  />
  <p className="text-[11px] text-slate-500 mt-1">💡 ডিফল্টভাবে " Price in Bangladesh" বসানো আছে — প্রোডাক্ট নাম সামনে লিখুন বা পুরোটা মুছে ফেলুন।</p>
  </div>
@@ -1001,7 +1001,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  value={form.tagline}
  onChange={(e) => set("tagline", e.target.value)}
  placeholder="যেমন: Best quality guaranteed, Instant delivery..."
- className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200"
+ className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
  />
  <p className="text-[11px] text-slate-500 mt-1">প্রোডাক্ট টাইটেলের নিচে এই ছোট টেক্সটটি দেখাবে</p>
  </div>
@@ -1033,7 +1033,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
       value={meta.custom_account_type_label ?? ""}
       onChange={(e) => setMeta("custom_account_type_label", e.target.value)}
       placeholder="Custom টাইপের নাম লিখুন (e.g. Premium, Gift, ...)"
-      className="mt-2 w-full h-10 px-3 rounded-xl border border-violet-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200"
+      className="mt-2 w-full h-10 px-3 rounded-xl border border-blue-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
      />
     )}
     <p className="text-[11px] text-slate-500 mt-1.5">Inventory-এর প্রতিটি Package-এ কোন account type-এর জন্য সেটা set করবেন — customer সেই অনুযায়ী দাম দেখবে।</p>
@@ -1049,7 +1049,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
   <Label>Slug (URL) *</Label>
   <div className="flex items-center gap-2">
    {slugUnlocked && (
-   <button type="button" onClick={() => setAutoSlug((v) => !v)} className="text-[11px] text-violet-700 font-bold hover:underline">
+   <button type="button" onClick={() => setAutoSlug((v) => !v)} className="text-[11px] text-blue-700 font-bold hover:underline">
    ⟳ নাম থেকে রিজেনারেট
    </button>
    )}
@@ -1057,7 +1057,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
    <button
     type="button"
     onClick={() => { setSlugUnlocked((v) => !v); if (slugUnlocked) setAutoSlug(false); }}
-    className={`text-[11px] font-bold px-2 py-0.5 rounded-full border transition ${slugUnlocked ? "bg-violet-100 text-violet-700 border-violet-300" : "bg-white/60 text-slate-600 border-slate-300 hover:border-violet-300 hover:text-violet-700"}`}
+    className={`text-[11px] font-bold px-2 py-0.5 rounded-full border transition ${slugUnlocked ? "bg-blue-100 text-blue-700 border-blue-300" : "bg-white/60 text-slate-600 border-slate-300 hover:border-blue-300 hover:text-blue-700"}`}
     title={slugUnlocked ? "Lock slug" : "Unlock to edit (warning: changes URL)"}
    >
     {slugUnlocked ? "🔓 Unlocked" : "🔒 Edit"}
@@ -1070,10 +1070,10 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
       onChange={(e) => { setAutoSlug(false); set("slug", slugify(e.target.value)); }}
       placeholder="product-name-here"
       disabled={!slugUnlocked}
-      className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm font-mono text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200 disabled:bg-white/30 disabled:text-slate-500 disabled:cursor-not-allowed"
+      className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm font-mono text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 disabled:bg-white/30 disabled:text-slate-500 disabled:cursor-not-allowed"
       />
       {!isNew && slugUnlocked && (
-      <p className="text-[11px] text-violet-700 mt-1">⚠️ Slug পরিবর্তন করলে পুরাতন URL আর কাজ করবে না (SEO প্রভাব)</p>
+      <p className="text-[11px] text-blue-700 mt-1">⚠️ Slug পরিবর্তন করলে পুরাতন URL আর কাজ করবে না (SEO প্রভাব)</p>
       )}
       </div>
       <div>
@@ -1131,7 +1131,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  onChange={(e) => set("description", e.target.value)}
  rows={5}
  placeholder="Detailed product description..."
- className="w-full px-3.5 py-2.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200"
+ className="w-full px-3.5 py-2.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
  />
  </div>
 
@@ -1169,7 +1169,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  value={meta.subcategory ?? ""}
  onChange={(e) => setMeta("subcategory", e.target.value)}
  placeholder="None"
- className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200"
+ className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
  />
  </div>
  </div>
@@ -1226,7 +1226,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
     if (v === "__custom__") { set("badge", form.badge && !["🔥 Hot Deal","✨ Just Launched","💎 Premium Sale","🏆 #1 Bestseller","⏳ Limited Edition","👑 Exclusive","🥇 Editor's Choice","⚡ Flash Deal","🎁 Special Offer","🚀 Trending Now"].includes(form.badge) ? form.badge : "Custom Badge"); }
     else { set("badge", v || null); }
   }}
-  className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200"
+  className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
   >
   <option value="">— None —</option>
   <option value="🔥 Hot Deal">🔥 Hot Deal</option>
@@ -1247,7 +1247,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
       onChange={(e) => set("badge", e.target.value || null)}
       placeholder="Custom badge text"
       maxLength={30}
-      className="mt-2 w-full h-10 px-3.5 rounded-xl border border-violet-300 bg-white/70 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-200"
+      className="mt-2 w-full h-10 px-3.5 rounded-xl border border-blue-300 bg-white/70 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
     />
   )}
   </div>
@@ -1259,7 +1259,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  value={tagsText}
  onChange={(e) => setTagsText(e.target.value)}
  placeholder="windows, license, digital..."
- className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200"
+ className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
  />
  </div>
 
@@ -1337,7 +1337,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
        }}
        className={`px-3 h-7 rounded-full text-xs font-semibold border transition ${
          active
-           ? "bg-violet-600 text-white border-violet-600"
+           ? "bg-blue-600 text-white border-blue-600"
            : "bg-white text-slate-600 border-slate-200 hover:border-slate-300"
        }`}
      >{d}</button>
@@ -1358,7 +1358,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
           value={p.duration ?? ""}
           onChange={(e) => setPlan(i, { duration: e.target.value, label: e.target.value })}
           placeholder="e.g. 18 Months, 6 Weeks, 45 Days..."
-         className="w-full h-10 px-3 rounded-xl border border-violet-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200"
+         className="w-full h-10 px-3 rounded-xl border border-blue-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
          autoFocus
        />
      </div>
@@ -1367,11 +1367,11 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  <div className="grid grid-cols-2 gap-3">
  <div>
  <div className="text-xs font-semibold text-slate-600 mb-1.5">Selling Price (৳) *</div>
- <input type="number" value={p.price || ""} onChange={(e) => setPlan(i, { price: Number(e.target.value) || 0 })} placeholder="0" className="w-full h-10 px-3 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <input type="number" value={p.price || ""} onChange={(e) => setPlan(i, { price: Number(e.target.value) || 0 })} placeholder="0" className="w-full h-10 px-3 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  </div>
  <div>
  <div className="text-xs font-semibold text-slate-600 mb-1.5">Original Price (৳) <span className="text-slate-500">strikethrough</span></div>
- <input type="number" value={p.original_price ?? ""} onChange={(e) => setPlan(i, { original_price: e.target.value ? Number(e.target.value) : undefined })} placeholder="0" className="w-full h-10 px-3 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <input type="number" value={p.original_price ?? ""} onChange={(e) => setPlan(i, { original_price: e.target.value ? Number(e.target.value) : undefined })} placeholder="0" className="w-full h-10 px-3 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  </div>
   </div>
   {(() => {
@@ -1385,7 +1385,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-gradient-to-r from-rose-500 to-pink-600 text-white shadow shadow-rose-500/30">
             🔻 -{pct}% OFF
           </span>
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-violet-100 text-violet-700 border border-violet-200">
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-100 text-blue-700 border border-blue-200">
             💰 Save ৳{save.toLocaleString()}
            </span>
            <span className="text-[11px] text-slate-500">auto-calculated</span>
@@ -1393,7 +1393,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
        );
      }
      if (op > 0 && sp > 0 && op <= sp) {
-       return <div className="mt-2 text-[11px] text-violet-700">⚠️ Original price must be higher than selling price</div>;
+       return <div className="mt-2 text-[11px] text-blue-700">⚠️ Original price must be higher than selling price</div>;
     }
     return null;
   })()}
@@ -1428,7 +1428,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  <div>
  <Label>SKU</Label>
  <div className="flex gap-2">
- <input value={meta.sku ?? ""} onChange={(e) => setMeta("sku", e.target.value)} placeholder="AUTO-SKU" className="flex-1 h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <input value={meta.sku ?? ""} onChange={(e) => setMeta("sku", e.target.value)} placeholder="AUTO-SKU" className="flex-1 h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  <button onClick={() => setMeta("sku", `SKU-${Date.now().toString(36).toUpperCase()}`)} className="w-11 h-11 grid place-items-center rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50"><RefreshCw className="w-4 h-4" /></button>
  </div>
  </div>
@@ -1438,7 +1438,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  value={meta.stock_qty == null ? "" : meta.stock_qty}
  onChange={(e) => setMeta("stock_qty", e.target.value === "" ? null : Number(e.target.value))}
  placeholder="∞"
- className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200"
+ className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
  />
  </div>
  </div>
@@ -1475,7 +1475,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  <button onClick={() => fileRef.current?.click()} className="w-full h-11 inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50">
  {ai === "image-up" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />} Upload Image
  </button>
- <input value={form.image_url} onChange={(e) => set("image_url", e.target.value)} placeholder="or paste image URL..." className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <input value={form.image_url} onChange={(e) => set("image_url", e.target.value)} placeholder="or paste image URL..." className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  </div>
  </div>
  <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={(e) => { onPickFile(e.target.files?.[0]); e.target.value = ""; }} />
@@ -1550,7 +1550,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  {ai === "video-up" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Video className="w-4 h-4" />} Upload Video
  </button>
  <input ref={videoRef} type="file" accept="video/*" className="hidden" onChange={(e) => { onPickVideo(e.target.files?.[0]); e.target.value = ""; }} />
- <input value={meta.video_url ?? ""} onChange={(e) => setMeta("video_url", e.target.value)} placeholder="https://youtube.com/watch?v=... বা আপলোড করুন" className="flex-1 min-w-0 h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <input value={meta.video_url ?? ""} onChange={(e) => setMeta("video_url", e.target.value)} placeholder="https://youtube.com/watch?v=... বা আপলোড করুন" className="flex-1 min-w-0 h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  </div>
  <p className="mt-1 text-[11px] text-slate-400">MP4/WebM ফাইল সর্বোচ্চ 100MB · অথবা YouTube/Vimeo লিংক দিন</p>
  {meta.video_url && (
@@ -1580,23 +1580,23 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  </div>
  <div>
  <Label>Delivery Time</Label>
- <input value={form.delivery_time} onChange={(e) => set("delivery_time", e.target.value)} placeholder="Instant / 24 hours..." className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <input value={form.delivery_time} onChange={(e) => set("delivery_time", e.target.value)} placeholder="Instant / 24 hours..." className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  </div>
  </div>
 
  <div>
  <Label>Download Link</Label>
- <input value={meta.download_link ?? ""} onChange={(e) => setMeta("download_link", e.target.value)} placeholder="https://..." className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <input value={meta.download_link ?? ""} onChange={(e) => setMeta("download_link", e.target.value)} placeholder="https://..." className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  </div>
 
  <div>
  <Label>Warranty / Guarantee Note</Label>
- <input value={form.warranty} onChange={(e) => set("warranty", e.target.value)} placeholder="e.g. 1 Year Genuine Warranty" className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <input value={form.warranty} onChange={(e) => set("warranty", e.target.value)} placeholder="e.g. 1 Year Genuine Warranty" className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  </div>
 
  <div>
  <Label>Refund Policy Note</Label>
- <input value={meta.refund_policy ?? ""} onChange={(e) => setMeta("refund_policy", e.target.value)} placeholder="e.g. No refund after activation" className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <input value={meta.refund_policy ?? ""} onChange={(e) => setMeta("refund_policy", e.target.value)} placeholder="e.g. No refund after activation" className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  </div>
 
  {/* What you get */}
@@ -1608,7 +1608,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  <div className="space-y-2">
  {whatYouGet.map((item, i) => (
  <div key={i} className="flex items-center gap-2">
- <input value={item} onChange={(e) => setWhatYouGet((l) => l.map((x, idx) => (idx === i ? e.target.value : x)))} placeholder={`Item ${i + 1}`} className="flex-1 h-10 px-3 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <input value={item} onChange={(e) => setWhatYouGet((l) => l.map((x, idx) => (idx === i ? e.target.value : x)))} placeholder={`Item ${i + 1}`} className="flex-1 h-10 px-3 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  <button onClick={() => setWhatYouGet((l) => l.filter((_, idx) => idx !== i))} className="w-8 h-8 grid place-items-center rounded-lg text-slate-500 hover:text-slate-500 hover:bg-slate-50"><X className="w-4 h-4" /></button>
  </div>
  ))}
@@ -1629,7 +1629,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  <button onClick={() => setFaq((l) => l.filter((_, idx) => idx !== i))} className="w-7 h-7 grid place-items-center rounded-lg text-slate-500 hover:text-slate-500 hover:bg-slate-50"><X className="w-4 h-4" /></button>
  </div>
  <input value={it.q} onChange={(e) => setFaq((l) => l.map((x, idx) => (idx === i ? { ...x, q: e.target.value } : x)))} placeholder="Question" className="w-full h-10 px-3 rounded-xl border border-slate-200 text-sm outline-none focus:border-slate-400 mb-2" />
- <textarea value={it.a} onChange={(e) => setFaq((l) => l.map((x, idx) => (idx === i ? { ...x, a: e.target.value } : x)))} placeholder="Answer" rows={2} className="w-full px-3 py-2 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <textarea value={it.a} onChange={(e) => setFaq((l) => l.map((x, idx) => (idx === i ? { ...x, a: e.target.value } : x)))} placeholder="Answer" rows={2} className="w-full px-3 py-2 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  </div>
  ))}
  </div>
@@ -1673,19 +1673,19 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
 
  {tab === "seo" && (
  <>
- <button onClick={() => callAi("seo")} disabled={aiBusy} className="w-full inline-flex items-center justify-center gap-2 h-11 rounded-xl text-white text-sm font-bold bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 shadow-lg shadow-violet-500/30 disabled:opacity-60">
+ <button onClick={() => callAi("seo")} disabled={aiBusy} className="w-full inline-flex items-center justify-center gap-2 h-11 rounded-xl text-white text-sm font-bold bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 shadow-lg shadow-blue-500/30 disabled:opacity-60">
  {ai === "seo" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />} ✨ AI দিয়ে SEO Title ও Meta Description অটো-জেনারেট করুন
  </button>
 
  <div>
  <Label>SEO Title <span className="text-slate-500 font-normal">(max 60 chars)</span></Label>
- <input maxLength={60} value={meta.seo_title ?? ""} onChange={(e) => setMeta("seo_title", e.target.value)} placeholder="SEO title..." className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <input maxLength={60} value={meta.seo_title ?? ""} onChange={(e) => setMeta("seo_title", e.target.value)} placeholder="SEO title..." className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  <div className="text-[11px] text-slate-500 mt-1">{(meta.seo_title ?? "").length}/60</div>
  </div>
 
  <div>
  <Label>Meta Description <span className="text-slate-500 font-normal">(max 160 chars)</span></Label>
- <textarea maxLength={160} rows={3} value={meta.meta_description ?? ""} onChange={(e) => setMeta("meta_description", e.target.value)} placeholder="Meta description..." className="w-full px-3.5 py-2.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <textarea maxLength={160} rows={3} value={meta.meta_description ?? ""} onChange={(e) => setMeta("meta_description", e.target.value)} placeholder="Meta description..." className="w-full px-3.5 py-2.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  <div className="text-[11px] text-slate-500 mt-1">{(meta.meta_description ?? "").length}/160</div>
  </div>
 
@@ -1707,7 +1707,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
   {/* Footer */}
   <div className="relative border-t border-white/40 px-6 py-3.5 flex items-center justify-between gap-3 bg-white/40 backdrop-blur-xl">
   <button onClick={onClose} className="h-11 px-6 rounded-full border border-white/60 bg-white/50 backdrop-blur text-sm font-semibold text-slate-700 hover:bg-white/80 transition">Cancel</button>
-  <button onClick={save} disabled={busy || aiBusy} className="h-11 px-6 rounded-full text-white text-sm font-bold inline-flex items-center gap-2 disabled:opacity-60 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 shadow-lg shadow-violet-500/40 border border-white/30 transition">
+  <button onClick={save} disabled={busy || aiBusy} className="h-11 px-6 rounded-full text-white text-sm font-bold inline-flex items-center gap-2 disabled:opacity-60 bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 shadow-lg shadow-blue-500/40 border border-white/30 transition">
   {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
   {isNew ? "Add Product" : "Save Changes"}
   </button>
@@ -1730,8 +1730,8 @@ function ChipBig({ active, onClick, children }: { active?: boolean; onClick: () 
    onClick={onClick}
    className={`inline-flex items-center justify-center gap-1.5 min-h-11 w-full px-2.5 py-2 rounded-xl text-[13px] leading-tight font-semibold border transition text-center break-words backdrop-blur ${
    active
-    ? "border-violet-400 bg-gradient-to-br from-violet-500/90 to-fuchsia-500/90 text-white shadow-lg shadow-violet-500/30 ring-2 ring-violet-300/50"
-    : "border-white/60 bg-white/50 text-slate-700 hover:bg-white/80 hover:border-violet-300"
+    ? "border-blue-400 bg-gradient-to-br from-blue-500/90 to-sky-500/90 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-300/50"
+    : "border-white/60 bg-white/50 text-slate-700 hover:bg-white/80 hover:border-blue-300"
    }`}
    >{children}</button>
   );
