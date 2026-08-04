@@ -5,7 +5,7 @@ import {
  Sparkles, FileText, Database, Download, Upload, Search, Copy, Package,
  CheckCircle2, AlertCircle, Clock, Filter, Wand2, ImageIcon, Zap, RefreshCw,
  Tag, Settings, Search as SearchIcon, ListChecks, HelpCircle, Star,
- Truck, Shield, Layers, Hash, Link2, ChevronDown,
+ Truck, Shield, Layers, Hash, Link2, ChevronDown, Video,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -675,7 +675,7 @@ const slugify = (s: string) =>
  .replace(/^-+|-+$/g, "")
  .slice(0, 80);
 
-type AiBusy = "" | "all" | "short" | "rich" | "seo" | "image-gen" | "image-up";
+type AiBusy = "" | "all" | "short" | "rich" | "seo" | "image-gen" | "image-up" | "video-up";
 type TabId = "general" | "inventory" | "media" | "details" | "seo";
 
 const TABS: { id: TabId; label: string; icon: string }[] = [
@@ -730,6 +730,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  const [categoryOptions, setCategoryOptions] = useState<string[]>([]);
  const fileRef = useRef<HTMLInputElement>(null);
  const galleryRef = useRef<HTMLInputElement>(null);
+ const videoRef = useRef<HTMLInputElement>(null);
  const aiBusy = ai !== "";
 
  // Load category options from admin_records
@@ -846,6 +847,24 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  setGallery(next); setMeta("gallery", next);
  toast.success(`${urls.length}টি ইমেজ যোগ হয়েছে`);
  } catch (e) { toast.error(e instanceof Error ? e.message : "Upload failed"); }
+ finally { setAi(""); }
+ };
+
+ /* ---------- Video upload ---------- */
+ const onPickVideo = async (file: File | undefined) => {
+ if (!file) return;
+ if (!file.type.startsWith("video/")) { toast.error("শুধু ভিডিও ফাইল আপলোড করুন"); return; }
+ if (file.size > 100 * 1024 * 1024) { toast.error("ভিডিও 100MB-এর কম হতে হবে"); return; }
+ setAi("video-up");
+ try {
+ const ext = file.name.split(".").pop()?.toLowerCase() || "mp4";
+ const path = `product-videos/${slugify(form.name) || "untitled"}-${Date.now()}.${ext}`;
+ const { error } = await supabase.storage.from("admin-uploads").upload(path, file, { cacheControl: "3600", upsert: false, contentType: file.type || "video/mp4" });
+ if (error) throw error;
+ const { data } = supabase.storage.from("admin-uploads").getPublicUrl(path);
+ setMeta("video_url", data.publicUrl);
+ toast.success("ভিডিও আপলোড হয়েছে ✓");
+ } catch (e) { toast.error(e instanceof Error ? e.message : "Video upload failed"); }
  finally { setAi(""); }
  };
 
@@ -1525,8 +1544,25 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  </div>
 
  <div>
- <Label>Video Preview URL</Label>
- <input value={meta.video_url ?? ""} onChange={(e) => setMeta("video_url", e.target.value)} placeholder="https://youtube.com/watch?v=..." className="w-full h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ <Label>Product Video <span className="text-slate-500 font-normal">(upload or paste URL)</span></Label>
+ <div className="flex gap-2">
+ <button onClick={() => videoRef.current?.click()} disabled={ai === "video-up"} className="h-11 px-4 inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50 shrink-0">
+ {ai === "video-up" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Video className="w-4 h-4" />} Upload Video
+ </button>
+ <input ref={videoRef} type="file" accept="video/*" className="hidden" onChange={(e) => { onPickVideo(e.target.files?.[0]); e.target.value = ""; }} />
+ <input value={meta.video_url ?? ""} onChange={(e) => setMeta("video_url", e.target.value)} placeholder="https://youtube.com/watch?v=... বা আপলোড করুন" className="flex-1 min-w-0 h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200" />
+ </div>
+ <p className="mt-1 text-[11px] text-slate-400">MP4/WebM ফাইল সর্বোচ্চ 100MB · অথবা YouTube/Vimeo লিংক দিন</p>
+ {meta.video_url && (
+ <div className="mt-3 relative rounded-xl overflow-hidden border border-slate-200 bg-black">
+ {/\.(mp4|webm|ogg)(\?|$)/i.test(meta.video_url) ? (
+ <video src={meta.video_url} controls playsInline className="w-full aspect-video object-contain" />
+ ) : (
+ <div className="p-3 text-[11px] text-white/70 break-all bg-slate-900">{meta.video_url}</div>
+ )}
+ <button onClick={() => setMeta("video_url", "")} title="Remove video" className="absolute top-2 right-2 w-7 h-7 grid place-items-center rounded-full bg-black/70 text-white hover:bg-red-600 transition"><X className="w-3.5 h-3.5" /></button>
+ </div>
+ )}
  </div>
  </>
  )}
