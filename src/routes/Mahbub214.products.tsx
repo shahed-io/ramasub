@@ -5,7 +5,7 @@ import {
  Sparkles, FileText, Database, Download, Upload, Search, Copy, Package,
  CheckCircle2, AlertCircle, Clock, Filter, Wand2, ImageIcon, Zap, RefreshCw,
  Tag, Settings, Search as SearchIcon, ListChecks, HelpCircle, Star,
- Truck, Shield, Layers, Hash, Link2, ChevronDown,
+ Truck, Shield, Layers, Hash, Link2, ChevronDown, Video,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
