@@ -526,8 +526,8 @@
     }
     &.text-emerald-300, &.text-emerald-400, &.text-emerald-500, &.text-emerald-600, &.text-emerald-700, &.text-emerald-800,
     &.text-green-300,   &.text-green-400,   &.text-green-500,   &.text-green-600,   &.text-green-700,   &.text-green-800 {
-      color: #022c22 !important;
-      font-weight: 800 !important;
+      color: #065f46 !important;
+      font-weight: 700 !important;
     }
     /* Amber / yellow / orange */
     &.bg-amber-50, &.bg-amber-100, &.bg-amber-200,
@@ -539,21 +539,21 @@
     &.text-amber-300, &.text-amber-400, &.text-amber-500, &.text-amber-600, &.text-amber-700, &.text-amber-800,
     &.text-yellow-300,&.text-yellow-400,&.text-yellow-500,&.text-yellow-600,&.text-yellow-700,&.text-yellow-800,
     &.text-orange-300,&.text-orange-400,&.text-orange-500,&.text-orange-600,&.text-orange-700,&.text-orange-800 {
-      color: #451a03 !important;
-      font-weight: 800 !important;
+      color: #92400e !important;
+      font-weight: 700 !important;
     }
     /* Sky / blue / cyan */
     &.bg-sky-50, &.bg-sky-100, &.bg-sky-200,
     &.bg-blue-50,&.bg-blue-100,&.bg-blue-200,
     &.bg-cyan-50,&.bg-cyan-100,&.bg-cyan-200 {
-      background-color: #e0f2fe !important;
-      border-color: #0369a1 !important;
+      background-color: #ede9fe !important;
+      border-color: #ddd6fe !important;
     }
     &.text-sky-300, &.text-sky-400, &.text-sky-500, &.text-sky-600, &.text-sky-700, &.text-sky-800,
     &.text-blue-300,&.text-blue-400,&.text-blue-500,&.text-blue-600,&.text-blue-700,&.text-blue-800,
     &.text-cyan-300,&.text-cyan-400,&.text-cyan-500,&.text-cyan-600,&.text-cyan-700,&.text-cyan-800 {
-      color: #082f49 !important;
-      font-weight: 800 !important;
+      color: #5b21b6 !important;
+      font-weight: 700 !important;
     }
     /* Violet / indigo / purple / fuchsia */
     &.bg-violet-50, &.bg-violet-100, &.bg-violet-200,
@@ -567,8 +567,8 @@
     &.text-indigo-300, &.text-indigo-400, &.text-indigo-500, &.text-indigo-600, &.text-indigo-700, &.text-indigo-800,
     &.text-purple-300, &.text-purple-400, &.text-purple-500, &.text-purple-600, &.text-purple-700, &.text-purple-800,
     &.text-fuchsia-300,&.text-fuchsia-400,&.text-fuchsia-500,&.text-fuchsia-600,&.text-fuchsia-700,&.text-fuchsia-800 {
-      color: #2e1065 !important;
-      font-weight: 800 !important;
+      color: #5b21b6 !important;
+      font-weight: 700 !important;
     }
     /* Rose / red / pink */
     &.bg-rose-50, &.bg-rose-100, &.bg-rose-200,
@@ -580,8 +580,8 @@
     &.text-rose-300, &.text-rose-400, &.text-rose-500, &.text-rose-600, &.text-rose-700, &.text-rose-800,
     &.text-red-300,  &.text-red-400,  &.text-red-500,  &.text-red-600,  &.text-red-700,  &.text-red-800,
     &.text-pink-300, &.text-pink-400, &.text-pink-500, &.text-pink-600, &.text-pink-700, &.text-pink-800 {
-      color: #450a0a !important;
-      font-weight: 800 !important;
+      color: #9f1239 !important;
+      font-weight: 700 !important;
     }
     /* Teal */
     &.bg-teal-50, &.bg-teal-100, &.bg-teal-200 {
@@ -589,8 +589,8 @@
       border-color: #99f6e4 !important;
     }
     &.text-teal-300,&.text-teal-400,&.text-teal-500,&.text-teal-600,&.text-teal-700,&.text-teal-800 {
-      color: #042f2e !important;
-      font-weight: 800 !important;
+      color: #0f766e !important;
+      font-weight: 700 !important;
     }
     /* Slate / gray / zinc / neutral / stone */
     &.bg-slate-50, &.bg-slate-100, &.bg-slate-200,
@@ -627,19 +627,19 @@
 
   /* Also deepen SVG icons inside those pills so they don't wash out */
   :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-emerald-"] svg,
-  :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-green-"]   svg { color: #064e3b !important; }
+  :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-green-"]   svg { color: #059669 !important; }
   :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-amber-"]   svg,
   :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-yellow-"]  svg,
-  :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-orange-"]  svg { color: #78350f !important; }
+  :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-orange-"]  svg { color: #d97706 !important; }
   :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-sky-"]     svg,
   :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-blue-"]    svg,
-  :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-cyan-"]    svg { color: #0c4a6e !important; }
+  :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-cyan-"]    svg { color: #6d28d9 !important; }
   :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-violet-"]  svg,
   :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-indigo-"]  svg,
-  :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-purple-"]  svg { color: #3b0764 !important; }
+  :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-purple-"]  svg { color: #6d28d9 !important; }
   :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-rose-"]    svg,
   :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-red-"]     svg,
-  :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-pink-"]    svg { color: #7f1d1d !important; }
+  :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-pink-"]    svg { color: #e11d48 !important; }
 
   .admin-clarity .a-save-btn { display: inline-flex; align-items: center; gap: 0.5rem; height: 2.5rem; padding: 0 1.25rem; border-radius: 0.75rem; background: linear-gradient(135deg, #7c3aed, #a855f7); color: #ffffff; font-weight: 700; font-size: 0.875rem; box-shadow: 0 10px 24px -10px rgba(124, 58, 237, 0.6); }
   .admin-clarity .a-save-btn:hover { filter: brightness(1.05); }
