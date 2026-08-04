@@ -392,7 +392,7 @@ function BackupPage() {
           <button
             onClick={() => loadCounts()}
             disabled={loadingCounts || busy !== null}
-            className="h-10 px-4 rounded-full bg-white border border-slate-200 hover:border-violet-300 text-slate-700 text-sm font-semibold inline-flex items-center gap-2 shadow-sm transition disabled:opacity-60"
+            className="h-10 px-4 rounded-full bg-white border border-slate-200 hover:border-blue-300 text-slate-700 text-sm font-semibold inline-flex items-center gap-2 shadow-sm transition disabled:opacity-60"
           >
             {loadingCounts ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
             রিফ্রেশ
@@ -400,7 +400,7 @@ function BackupPage() {
           <button
             onClick={fullDbBackup}
             disabled={busy !== null}
-            className="h-10 px-4 rounded-full bg-white border border-slate-200 hover:border-violet-300 text-slate-800 text-sm font-semibold inline-flex items-center gap-2 shadow-sm transition disabled:opacity-60"
+            className="h-10 px-4 rounded-full bg-white border border-slate-200 hover:border-blue-300 text-slate-800 text-sm font-semibold inline-flex items-center gap-2 shadow-sm transition disabled:opacity-60"
           >
             {busy === "full" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
             Full DB Backup
@@ -418,19 +418,19 @@ function BackupPage() {
 
       {/* Live progress */}
       {progress && (
-        <div className="rounded-2xl border border-violet-200 bg-white p-4 shadow-sm">
+        <div className="rounded-2xl border border-blue-200 bg-white p-4 shadow-sm">
           <div className="flex items-center justify-between text-sm font-semibold text-slate-800">
             <span className="inline-flex items-center gap-2">
-              <Loader2 className="w-4 h-4 animate-spin text-violet-600" />
+              <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
               {progress.label}
             </span>
-            <span className="text-violet-700">
+            <span className="text-blue-700">
               {BN(progress.done)}/{BN(progress.total)} · {BN(pct)}%
             </span>
           </div>
           <div className="mt-2 h-2 rounded-full bg-slate-100 overflow-hidden">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 transition-all"
+              className="h-full rounded-full bg-gradient-to-r from-blue-500 to-sky-500 transition-all"
               style={{ width: `${pct}%` }}
             />
           </div>
@@ -456,8 +456,8 @@ function BackupPage() {
           onClick={() => setTab("export")}
           className={`h-14 px-5 rounded-2xl text-sm font-bold inline-flex items-center justify-center gap-2 border transition ${
             tab === "export"
-              ? "bg-violet-50 border-violet-300 text-violet-800 shadow-sm"
-              : "bg-white border-slate-200 text-slate-700 hover:border-violet-200"
+              ? "bg-blue-50 border-blue-300 text-blue-800 shadow-sm"
+              : "bg-white border-slate-200 text-slate-700 hover:border-blue-200"
           }`}
         >
           <Download className="w-5 h-5" /> ব্যাকআপ / Export
@@ -477,17 +477,17 @@ function BackupPage() {
       {tab === "export" ? (
         <>
           {/* All-in-one hero */}
-          <div className="relative overflow-hidden rounded-2xl border border-violet-200 bg-gradient-to-r from-violet-100 via-fuchsia-100 to-indigo-100 p-5 sm:p-6">
-            <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 w-56 h-56 rounded-full bg-fuchsia-300/30 blur-3xl" />
+          <div className="relative overflow-hidden rounded-2xl border border-blue-200 bg-gradient-to-r from-blue-100 via-sky-100 to-indigo-100 p-5 sm:p-6">
+            <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 w-56 h-56 rounded-full bg-sky-300/30 blur-3xl" />
             <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div className="flex items-start gap-4 min-w-0">
-                <span className="shrink-0 w-12 h-12 rounded-xl bg-white shadow-sm ring-1 ring-violet-200 grid place-items-center text-violet-700">
+                <span className="shrink-0 w-12 h-12 rounded-xl bg-white shadow-sm ring-1 ring-blue-200 grid place-items-center text-blue-700">
                   <Archive className="w-6 h-6" />
                 </span>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <h3 className="text-lg sm:text-xl font-extrabold text-slate-900">এক ক্লিকে সম্পূর্ণ ব্যাকআপ</h3>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider bg-violet-600 text-white">PARALLEL</span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider bg-blue-600 text-white">PARALLEL</span>
                   </div>
                   <p className="text-sm text-slate-700 mt-1 leading-snug">
                     সকল <b>{BN(tableCount)}টি টেবিল</b> + <b>সকল ছবি/ফাইল</b> parallel-এ ডাউনলোড হয়। কিছুই বাদ যাবে না।
@@ -498,7 +498,7 @@ function BackupPage() {
               <button
                 onClick={completeWebsiteBackup}
                 disabled={busy !== null}
-                className="shrink-0 h-12 px-6 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white text-sm font-bold inline-flex items-center justify-center gap-2 shadow-lg shadow-violet-300/40 disabled:opacity-60"
+                className="shrink-0 h-12 px-6 rounded-full bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-700 hover:to-sky-700 text-white text-sm font-bold inline-flex items-center justify-center gap-2 shadow-lg shadow-blue-300/40 disabled:opacity-60"
               >
                 {busy === "zip" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
                 এখনই ব্যাকআপ নিন
@@ -508,7 +508,7 @@ function BackupPage() {
 
           {/* Info strip */}
           <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-600 flex items-start gap-2">
-            <ShieldCheck className="w-4 h-4 text-violet-600 mt-0.5 shrink-0" />
+            <ShieldCheck className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" />
             <p>
               নিচের প্রতিটি কার্ড থেকে আলাদা টেবিলের JSON ডাউনলোড করুন, অথবা উপরে থাকা
               <b> "এখনই ব্যাকআপ নিন"</b> বাটন চাপলে সম্পূর্ণ ডাটাবেস + সকল ছবি/ফাইল ZIP আকারে এক ক্লিকে download হবে।
@@ -522,10 +522,10 @@ function BackupPage() {
               return (
                 <div
                   key={table}
-                  className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-violet-200 transition flex flex-col"
+                  className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-blue-200 transition flex flex-col"
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <span className="w-9 h-9 rounded-xl grid place-items-center ring-1 bg-violet-100 text-violet-700 ring-violet-200 shrink-0">
+                    <span className="w-9 h-9 rounded-xl grid place-items-center ring-1 bg-blue-100 text-blue-700 ring-blue-200 shrink-0">
                       <FileJson className="w-4 h-4" />
                     </span>
                     <span className="text-[10px] font-bold tracking-wider text-slate-500 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded-full">
@@ -637,7 +637,7 @@ function BackupPage() {
           <div className="flex items-center gap-2">
             <History className="w-4 h-4 text-slate-600" />
             <h3 className="font-bold text-slate-900">ব্যাকআপ হিস্ট্রি</h3>
-            <span className="text-[11px] font-bold bg-violet-100 text-violet-700 px-2 py-0.5 rounded-full">
+            <span className="text-[11px] font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
               {BN(history.length)}
             </span>
           </div>
@@ -666,7 +666,7 @@ function BackupPage() {
               return (
                 <li key={h.id} className="px-5 py-3 flex items-center justify-between gap-3 hover:bg-slate-50">
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="w-9 h-9 rounded-xl bg-violet-100 text-violet-700 grid place-items-center ring-1 ring-violet-200">
+                    <span className="w-9 h-9 rounded-xl bg-blue-100 text-blue-700 grid place-items-center ring-1 ring-blue-200">
                       <CheckCircle2 className="w-4 h-4" />
                     </span>
                     <div className="min-w-0">
@@ -708,7 +708,7 @@ function StatCard({
       ? "bg-blue-100 text-blue-700 ring-blue-200"
       : tone === "amber"
         ? "bg-amber-100 text-amber-700 ring-amber-200"
-        : "bg-violet-100 text-violet-700 ring-violet-200";
+        : "bg-blue-100 text-blue-700 ring-blue-200";
   return (
     <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
       <div className="flex items-center gap-2 text-xs font-semibold text-slate-600">
@@ -744,7 +744,7 @@ function DropCard({
   return (
     <div className={`bg-white border border-slate-200 rounded-2xl overflow-hidden ${wide ? "" : "h-full"}`}>
       <div className="px-4 py-3 flex items-center gap-3 border-b border-slate-100">
-        <span className="w-8 h-8 rounded-xl bg-violet-100 text-violet-700 ring-1 ring-violet-200 grid place-items-center shrink-0">
+        <span className="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 ring-1 ring-blue-200 grid place-items-center shrink-0">
           {icon}
         </span>
         <div className="min-w-0">
@@ -755,7 +755,7 @@ function DropCard({
       <button
         onClick={onClick}
         disabled={disabled}
-        className="w-full p-6 sm:p-8 text-center hover:bg-violet-50/50 transition disabled:opacity-60"
+        className="w-full p-6 sm:p-8 text-center hover:bg-blue-50/50 transition disabled:opacity-60"
       >
         <span className="mx-auto mb-3 w-10 h-10 rounded-full bg-slate-50 border border-slate-200 grid place-items-center text-slate-500">
           {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}

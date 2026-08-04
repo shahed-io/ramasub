@@ -280,7 +280,7 @@ function AdminNotFound() {
             <Frown className="w-14 h-14 text-rose-500" strokeWidth={1.6} />
           </div>
         </div>
-        <div className="text-[80px] leading-none font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-rose-500 via-fuchsia-500 to-indigo-500">
+        <div className="text-[80px] leading-none font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-rose-500 via-sky-500 to-indigo-500">
           404
         </div>
         <h1 className="mt-2 text-2xl font-bold text-slate-900">Page Not Found</h1>
@@ -290,7 +290,7 @@ function AdminNotFound() {
         <div className="mt-7 flex items-center justify-center">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 h-12 px-7 rounded-full bg-gradient-to-r from-indigo-600 via-fuchsia-600 to-rose-500 text-white font-semibold text-sm shadow-lg shadow-fuchsia-500/30 hover:shadow-xl hover:shadow-fuchsia-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all"
+            className="inline-flex items-center gap-2 h-12 px-7 rounded-full bg-gradient-to-r from-indigo-600 via-sky-600 to-rose-500 text-white font-semibold text-sm shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all"
           >
             <Home className="w-4 h-4" />
             Back to Homepage
@@ -571,43 +571,50 @@ function SidebarGroup({ group, collapsed, pathname }: { group: any; collapsed: b
 const ADMIN_ICON_COLORS: Record<string, string> = {
   "amber-400": "#f59e0b",
   "amber-500": "#d97706",
-  "blue-500": "#2563eb",
-  "blue-600": "#1d4ed8",
-  "cyan-500": "#0891b2",
+  "blue-400": "#60a5fa",
+  "blue-500": "#3b82f6",
+  "blue-600": "#2563eb",
+  "blue-700": "#1d4ed8",
+  "blue-800": "#1e40af",
+  "cyan-400": "#22d3ee",
+  "cyan-500": "#06b6d4",
   "emerald-500": "#059669",
   "emerald-600": "#047857",
-  "fuchsia-500": "#c026d3",
-  "fuchsia-600": "#a21caf",
   "green-500": "#16a34a",
   "green-600": "#15803d",
-  "indigo-500": "#4f46e5",
-  "indigo-600": "#4338ca",
-  "indigo-700": "#3730a3",
+  "indigo-400": "#818cf8",
+  "indigo-500": "#6366f1",
+  "indigo-600": "#4f46e5",
+  "indigo-700": "#4338ca",
+  "indigo-800": "#3730a3",
   "orange-400": "#f97316",
   "orange-500": "#ea580c",
   "orange-600": "#c2410c",
   "pink-500": "#db2777",
   "pink-600": "#be185d",
-  "purple-600": "#9333ea",
   "red-500": "#dc2626",
   "red-600": "#b91c1c",
   "red-700": "#991b1b",
   "rose-500": "#e11d48",
   "rose-600": "#be123c",
-  "sky-500": "#0284c7",
+  "sky-400": "#38bdf8",
+  "sky-500": "#0ea5e9",
+  "sky-600": "#0284c7",
+  "slate-400": "#94a3b8",
+  "slate-500": "#64748b",
   "slate-600": "#475569",
+  "slate-700": "#334155",
   "slate-800": "#1e293b",
   "teal-500": "#0d9488",
   "teal-600": "#0f766e",
-  "violet-500": "#7c3aed",
   "yellow-500": "#ca8a04",
 };
 
 function iconGradientStyle(grad: string): CSSProperties {
-  const from = /from-([\w-]+)/.exec(grad)?.[1] ?? "violet-500";
-  const to = /to-([\w-]+)/.exec(grad)?.[1] ?? "fuchsia-500";
+  const from = /from-([\w-]+)/.exec(grad)?.[1] ?? "blue-500";
+  const to = /to-([\w-]+)/.exec(grad)?.[1] ?? "sky-500";
   return {
-    backgroundImage: `linear-gradient(135deg, ${ADMIN_ICON_COLORS[from] ?? "#7c3aed"} 0%, ${ADMIN_ICON_COLORS[to] ?? "#c026d3"} 100%)`,
+    backgroundImage: `linear-gradient(135deg, ${ADMIN_ICON_COLORS[from] ?? "#3b82f6"} 0%, ${ADMIN_ICON_COLORS[to] ?? "#2563eb"} 100%)`,
   };
 }
 
@@ -618,7 +625,7 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
   const badgeClass = item.badge === "LIVE"
     ? "bg-rose-600 text-white ring-1 ring-rose-700/40 shadow-sm"
     : item.badge === "NEW"
-      ? "bg-violet-600 text-white ring-1 ring-violet-700/40 shadow-sm"
+      ? "bg-blue-600 text-white ring-1 ring-blue-700/40 shadow-sm"
       : "bg-amber-500 text-white ring-1 ring-amber-600/40 shadow-sm";
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -640,7 +647,7 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
         "active:scale-[0.97] hover:translate-x-0.5",
         collapsed ? "justify-center px-2 py-2 mx-1 my-0.5" : "px-2.5 py-2",
         active
-          ? "bg-gradient-to-r from-violet-100 to-violet-50 text-violet-900 ring-1 ring-violet-300 shadow-[0_1px_0_0_rgba(124,58,237,0.08)_inset]"
+          ? "bg-gradient-to-r from-blue-100 to-blue-50 text-blue-900 ring-1 ring-blue-300 shadow-[0_1px_0_0_rgba(124,58,237,0.08)_inset]"
           : "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
       ].join(" ")}
     >
@@ -648,7 +655,7 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
       <span
         aria-hidden
         className={[
-          "absolute left-0 top-1/2 -translate-y-1/2 w-1 rounded-r-full bg-gradient-to-b from-violet-500 to-fuchsia-500",
+          "absolute left-0 top-1/2 -translate-y-1/2 w-1 rounded-r-full bg-gradient-to-b from-blue-500 to-sky-500",
           "transition-all duration-300 ease-out",
           active ? "h-6 opacity-100" : "h-0 opacity-0",
         ].join(" ")}
@@ -658,7 +665,7 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
         <span
           key={r.id}
           aria-hidden
-          className="pointer-events-none absolute rounded-full bg-violet-400/30 animate-[adminRipple_0.6s_ease-out_forwards]"
+          className="pointer-events-none absolute rounded-full bg-blue-400/30 animate-[adminRipple_0.6s_ease-out_forwards]"
           style={{ left: r.x, top: r.y, width: 8, height: 8, transform: "translate(-50%, -50%)" }}
         />
       ))}

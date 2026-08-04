@@ -85,7 +85,7 @@ function fmtBDT(n: number): string {
 
 function statusTone(s: string): string {
   const k = s.toLowerCase();
-  if (k.includes("complet") || k.includes("deliver") || k.includes("paid")) return "bg-violet-100 text-violet-700";
+  if (k.includes("complet") || k.includes("deliver") || k.includes("paid")) return "bg-blue-100 text-blue-700";
   if (k.includes("pend")) return "bg-amber-100 text-amber-700";
   if (k.includes("cancel") || k.includes("refund") || k.includes("fail")) return "bg-rose-100 text-rose-700";
   return "bg-slate-100 text-slate-700";
@@ -267,7 +267,7 @@ function ReportsPage() {
   return (
     <div className="space-y-5">
       {/* Header */}
-      <div className="rounded-3xl bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-5 sm:p-6 border border-white/60 shadow-sm">
+      <div className="rounded-3xl bg-gradient-to-br from-blue-50 via-indigo-50 to-indigo-50 p-5 sm:p-6 border border-white/60 shadow-sm">
         <div className="flex items-start justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl bg-white grid place-items-center shadow-sm">
@@ -324,7 +324,7 @@ function ReportsPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <StatCard
           icon={<DollarSign className="w-5 h-5 text-white" />}
-          tone="bg-gradient-to-br from-violet-500 to-violet-600"
+          tone="bg-gradient-to-br from-blue-500 to-blue-600"
           label={t("Total Revenue", "মোট রেভিনিউ")}
           value={fmtBDT(summary.revenue)}
           sub={`${summary.revenueOrderCount} ${t("valid orders", "বৈধ অর্ডার")}`}
@@ -338,7 +338,7 @@ function ReportsPage() {
         />
         <StatCard
           icon={<Users className="w-5 h-5 text-white" />}
-          tone="bg-gradient-to-br from-purple-500 to-pink-500"
+          tone="bg-gradient-to-br from-indigo-500 to-pink-500"
           label={t("Unique Customers", "ইউনিক কাস্টমার")}
           value={summary.customers.toLocaleString()}
         />
@@ -373,7 +373,7 @@ function ReportsPage() {
                 <div className="w-24 text-xs font-bold text-slate-600 tabular-nums">{d.date}</div>
                 <div className="flex-1 h-6 bg-slate-100 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"
+                    className="h-full bg-gradient-to-r from-indigo-500 to-indigo-500 rounded-full"
                     style={{ width: `${(d.revenue / maxDaily) * 100}%` }}
                   />
                 </div>
@@ -411,7 +411,7 @@ function ReportsPage() {
                     <div className="text-sm font-bold text-slate-900 truncate">{p.name}</div>
                     <div className="text-[11px] font-semibold text-slate-500">{p.qty} {t("sold", "সেল")}</div>
                   </div>
-                  <div className="text-sm font-black text-violet-600 tabular-nums">{fmtBDT(p.revenue)}</div>
+                  <div className="text-sm font-black text-blue-600 tabular-nums">{fmtBDT(p.revenue)}</div>
                 </div>
               ))}
             </div>
@@ -441,7 +441,7 @@ function ReportsPage() {
                       </div>
                       <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
+                          className="h-full bg-gradient-to-r from-indigo-500 to-indigo-500"
                           style={{ width: `${pct}%` }}
                         />
                       </div>
@@ -473,7 +473,7 @@ function ReportsPage() {
                       </div>
                       <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-violet-500 to-violet-600"
+                          className="h-full bg-gradient-to-r from-blue-500 to-blue-600"
                           style={{ width: `${pct}%` }}
                         />
                       </div>
@@ -508,7 +508,7 @@ function ReportsPage() {
                     <div className="text-[11px] font-semibold text-slate-500 truncate">{c.email}</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm font-black text-violet-600 tabular-nums">{fmtBDT(c.spent)}</div>
+                    <div className="text-sm font-black text-blue-600 tabular-nums">{fmtBDT(c.spent)}</div>
                     <div className="text-[11px] font-semibold text-slate-500">{c.orders} {t("orders", "অর্ডার")}</div>
                   </div>
                 </div>
@@ -523,9 +523,9 @@ function ReportsPage() {
             {t("Inventory Snapshot", "ইনভেন্টরি স্ন্যাপশট")}
           </h2>
           <div className="mt-3 grid grid-cols-2 gap-3">
-            <div className="rounded-xl bg-violet-50 border border-violet-100 p-3">
-              <div className="text-xs font-bold text-violet-700">{t("In stock", "স্টকে")}</div>
-              <div className="text-2xl font-black text-violet-800 tabular-nums">{inventoryStats.ok}</div>
+            <div className="rounded-xl bg-blue-50 border border-blue-100 p-3">
+              <div className="text-xs font-bold text-blue-700">{t("In stock", "স্টকে")}</div>
+              <div className="text-2xl font-black text-blue-800 tabular-nums">{inventoryStats.ok}</div>
             </div>
             <div className="rounded-xl bg-amber-50 border border-amber-100 p-3">
               <div className="text-xs font-bold text-amber-700">{t("Low stock", "কম স্টক")}</div>

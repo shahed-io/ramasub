@@ -160,7 +160,7 @@ function TelegramAdmin() {
         >
           <Bell className="w-4 h-4" />
           Order Management Bot
-          {enabled && <span className="ml-1 w-1.5 h-1.5 rounded-full bg-violet-500" />}
+          {enabled && <span className="ml-1 w-1.5 h-1.5 rounded-full bg-blue-500" />}
         </button>
         <button
           onClick={() => setTab("customer")}
@@ -170,13 +170,13 @@ function TelegramAdmin() {
         >
           <ShoppingBag className="w-4 h-4" />
           Customer Shopping Bot
-          {custEnabled && <span className="ml-1 w-1.5 h-1.5 rounded-full bg-violet-500" />}
+          {custEnabled && <span className="ml-1 w-1.5 h-1.5 rounded-full bg-blue-500" />}
         </button>
       </div>
 
       {msg && (
         <div className={`rounded-xl px-4 py-3 text-sm border flex items-center gap-2 ${
-          msg.tone === "ok" ? "bg-violet-50 border-violet-200 text-violet-800" : "bg-rose-50 border-rose-200 text-rose-800"
+          msg.tone === "ok" ? "bg-blue-50 border-blue-200 text-blue-800" : "bg-rose-50 border-rose-200 text-rose-800"
         }`}>
           {msg.tone === "ok" ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
           {msg.text}
@@ -219,7 +219,7 @@ function TelegramAdmin() {
               <label className="inline-flex items-center gap-2 cursor-pointer select-none">
                 <span className="text-sm text-slate-600">Enable notifications</span>
                 <input type="checkbox" className="sr-only peer" checked={enabled} onChange={(e) => setEnabled(e.target.checked)} />
-                <div className="w-11 h-6 bg-slate-300 rounded-full peer-checked:bg-violet-500 relative transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:bg-white after:rounded-full after:transition-transform peer-checked:after:translate-x-5" />
+                <div className="w-11 h-6 bg-slate-300 rounded-full peer-checked:bg-blue-500 relative transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:bg-white after:rounded-full after:transition-transform peer-checked:after:translate-x-5" />
               </label>
             </div>
 
@@ -256,7 +256,7 @@ function TelegramAdmin() {
                 {savingAdmin ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                 Save Admin Bot
               </button>
-              <button onClick={runTest} disabled={testing || loading || !botToken || !chatId} className="inline-flex items-center gap-2 rounded-lg bg-violet-600 text-white px-4 py-2.5 text-sm font-semibold hover:bg-violet-700 disabled:opacity-50">
+              <button onClick={runTest} disabled={testing || loading || !botToken || !chatId} className="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-semibold hover:bg-blue-700 disabled:opacity-50">
                 {testing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                 Send Test Message
               </button>
@@ -300,8 +300,8 @@ function TelegramAdmin() {
             ) : (
               <div className="space-y-2 max-h-96 overflow-y-auto">
                 {logs.map((l) => (
-                  <div key={l.id} className={`flex items-start gap-3 rounded-lg border p-3 text-sm ${l.success ? "bg-violet-50/50 border-violet-200" : "bg-rose-50/50 border-rose-200"}`}>
-                    {l.success ? <CheckCircle2 className="w-4 h-4 text-violet-600 mt-0.5 shrink-0" /> : <XCircle className="w-4 h-4 text-rose-600 mt-0.5 shrink-0" />}
+                  <div key={l.id} className={`flex items-start gap-3 rounded-lg border p-3 text-sm ${l.success ? "bg-blue-50/50 border-blue-200" : "bg-rose-50/50 border-rose-200"}`}>
+                    {l.success ? <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" /> : <XCircle className="w-4 h-4 text-rose-600 mt-0.5 shrink-0" />}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <span className="font-semibold text-slate-900">{l.event_type}</span>
@@ -336,7 +336,7 @@ function TelegramAdmin() {
               <span className="inline-flex items-center gap-1 rounded-full bg-white border border-sky-200 px-2.5 py-1 text-slate-700">
                 <Users className="w-3.5 h-3.5" /> {linkCount} linked user{linkCount === 1 ? "" : "s"}
               </span>
-              <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 border ${hasWebhookSecret ? "bg-white border-violet-200 text-violet-700" : "bg-amber-50 border-amber-200 text-amber-700"}`}>
+              <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 border ${hasWebhookSecret ? "bg-white border-blue-200 text-blue-700" : "bg-amber-50 border-amber-200 text-amber-700"}`}>
                 {hasWebhookSecret ? <CheckCircle2 className="w-3.5 h-3.5" /> : <XCircle className="w-3.5 h-3.5" />}
                 Webhook {hasWebhookSecret ? "registered" : "not registered"}
               </span>

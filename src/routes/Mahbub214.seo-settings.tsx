@@ -45,7 +45,7 @@ function SeoSettingsPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/40 p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
-        <div className="rounded-3xl bg-gradient-to-br from-violet-600 via-indigo-600 to-blue-600 p-6 md:p-8 text-white shadow-xl">
+        <div className="rounded-3xl bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-600 p-6 md:p-8 text-white shadow-xl">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur grid place-items-center">
               <Search className="w-6 h-6" />
@@ -112,7 +112,7 @@ function SeoSettingsPage() {
             <button
               onClick={onSave}
               disabled={saving}
-              className="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-sm font-semibold shadow hover:shadow-lg disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold shadow hover:shadow-lg disabled:opacity-60"
             >
               {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
               {t("Save settings", "সেটিংস সেভ করুন")}
@@ -152,7 +152,7 @@ function Counter({ v, min, max }: { v: string; min: number; max: number }) {
   const n = v?.length ?? 0;
   const ok = n >= min && n <= max;
   return (
-    <div className={`mt-1 text-[11px] font-medium ${n === 0 ? "text-slate-400" : ok ? "text-violet-600" : "text-violet-600"}`}>
+    <div className={`mt-1 text-[11px] font-medium ${n === 0 ? "text-slate-400" : ok ? "text-blue-600" : "text-blue-600"}`}>
       {n} / {max} {n > 0 && !ok && `(target ${min}–${max})`}
     </div>
   );

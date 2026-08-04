@@ -93,7 +93,7 @@ export function BackupRestore() {
       <div className="grid md:grid-cols-2 gap-4">
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 grid place-items-center"><Download className="w-5 h-5" /></div>
+            <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 grid place-items-center"><Download className="w-5 h-5" /></div>
             <div>
               <h3 className="font-bold text-slate-900">ব্যাকআপ ডাউনলোড</h3>
               <p className="text-xs text-slate-500">সব টেবিল একটি JSON ফাইলে এক্সপোর্ট করুন</p>

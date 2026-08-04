@@ -38,10 +38,10 @@ type TxRow = {
 const fmt = (n: number | undefined) => "৳" + Math.round(Number(n || 0)).toLocaleString("en-IN");
 
 const STATUS_META: Record<string, { label: string; bg: string; text: string; ring: string; icon: React.ComponentType<{ className?: string }> }> = {
-  completed: { label: "Completed", bg: "bg-violet-50", text: "text-violet-700", ring: "ring-violet-200", icon: CheckCircle2 },
-  success:   { label: "Completed", bg: "bg-violet-50", text: "text-violet-700", ring: "ring-violet-200", icon: CheckCircle2 },
-  initiated: { label: "Initiated", bg: "bg-violet-50",   text: "text-violet-700",   ring: "ring-violet-200",   icon: Clock },
-  pending:   { label: "Pending",   bg: "bg-violet-50",   text: "text-violet-700",   ring: "ring-violet-200",   icon: Clock },
+  completed: { label: "Completed", bg: "bg-blue-50", text: "text-blue-700", ring: "ring-blue-200", icon: CheckCircle2 },
+  success:   { label: "Completed", bg: "bg-blue-50", text: "text-blue-700", ring: "ring-blue-200", icon: CheckCircle2 },
+  initiated: { label: "Initiated", bg: "bg-blue-50",   text: "text-blue-700",   ring: "ring-blue-200",   icon: Clock },
+  pending:   { label: "Pending",   bg: "bg-blue-50",   text: "text-blue-700",   ring: "ring-blue-200",   icon: Clock },
   failed:    { label: "Failed",    bg: "bg-rose-50",    text: "text-rose-700",    ring: "ring-rose-200",    icon: XCircle },
   cancelled: { label: "Cancelled", bg: "bg-slate-100",  text: "text-slate-600",   ring: "ring-slate-200",   icon: AlertTriangle },
 };
@@ -131,7 +131,7 @@ function BkashTransactionsPage() {
       {/* Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-pink-500 to-fuchsia-600 grid place-items-center text-white shadow">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-pink-500 to-sky-600 grid place-items-center text-white shadow">
             <Wallet className="w-4 h-4" />
           </div>
           <div>
@@ -165,14 +165,14 @@ function BkashTransactionsPage() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={t("Search by TrxID, Payment ID, order #, name, email, phone, payer number…", "TrxID, Payment ID, অর্ডার, নাম, ইমেইল, ফোন দিয়ে খুঁজুন…")}
-            className="w-full h-10 pl-9 pr-3 rounded-xl bg-slate-50 border border-transparent focus:bg-white focus:border-violet-300 text-sm text-slate-900 outline-none"
+            className="w-full h-10 pl-9 pr-3 rounded-xl bg-slate-50 border border-transparent focus:bg-white focus:border-blue-300 text-sm text-slate-900 outline-none"
           />
         </div>
         <div className="flex items-center gap-1.5 text-slate-400 px-1"><Filter className="w-4 h-4" /></div>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="h-10 px-3 rounded-xl bg-slate-50 border border-transparent text-sm font-semibold text-slate-700 outline-none focus:bg-white focus:border-violet-300"
+          className="h-10 px-3 rounded-xl bg-slate-50 border border-transparent text-sm font-semibold text-slate-700 outline-none focus:bg-white focus:border-blue-300"
         >
           <option value="all">{t("All Statuses", "সব স্ট্যাটাস")}</option>
           <option value="completed">{t("Completed", "সম্পন্ন")}</option>
@@ -183,7 +183,7 @@ function BkashTransactionsPage() {
         <select
           value={modeFilter}
           onChange={(e) => setModeFilter(e.target.value)}
-          className="h-10 px-3 rounded-xl bg-slate-50 border border-transparent text-sm font-semibold text-slate-700 outline-none focus:bg-white focus:border-violet-300"
+          className="h-10 px-3 rounded-xl bg-slate-50 border border-transparent text-sm font-semibold text-slate-700 outline-none focus:bg-white focus:border-blue-300"
         >
           <option value="all">{t("All Modes", "সব মোড")}</option>
           <option value="live">Live</option>
@@ -271,7 +271,7 @@ function BkashTransactionsPage() {
                         }`}>{mode}</span>
                       </td>
                       <td className="px-2 py-3 align-middle text-right">
-                        <button onClick={() => setViewing(r)} className="w-8 h-8 grid place-items-center rounded-lg text-slate-400 hover:text-violet-600 hover:bg-violet-50" title={t("View details", "বিস্তারিত")}>
+                        <button onClick={() => setViewing(r)} className="w-8 h-8 grid place-items-center rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50" title={t("View details", "বিস্তারিত")}>
                           <Eye className="w-4 h-4" />
                         </button>
                       </td>
@@ -298,9 +298,9 @@ function Th({ children, className }: { children?: React.ReactNode; className?: s
 function StatCard({ label, value, tone }: { label: string; value: string; tone: "slate" | "emerald" | "rose" | "violet" }) {
   const toneClass = {
     slate: "text-slate-900",
-    emerald: "text-violet-600",
+    emerald: "text-blue-600",
     rose: "text-rose-600",
-    violet: "text-violet-600",
+    violet: "text-blue-600",
   }[tone];
   return (
     <div className="bg-white rounded-2xl border border-slate-200 px-5 py-4 shadow-sm">
@@ -318,9 +318,9 @@ function DetailDrawer({ row, onClose }: { row: TxRow; onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm grid place-items-center p-4" onClick={onClose}>
       <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden" onClick={(e) => e.stopPropagation()}>
-        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-fuchsia-50 to-violet-50">
+        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-sky-50 to-blue-50">
           <div className="flex items-center gap-2">
-            <Wallet className="w-5 h-5 text-fuchsia-600" />
+            <Wallet className="w-5 h-5 text-sky-600" />
             <h2 className="text-base font-extrabold text-slate-900">Transaction details</h2>
           </div>
           <button onClick={onClose} className="w-8 h-8 grid place-items-center rounded-lg hover:bg-white/70"><X className="w-4 h-4" /></button>

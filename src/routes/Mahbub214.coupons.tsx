@@ -189,7 +189,7 @@ function AdminCoupons() {
                           onClick={() => toggleActive(c)}
                           className={`px-2 py-0.5 rounded-full text-[10px] font-bold ring-1 ${
                             expired ? "bg-rose-50 text-rose-700 ring-rose-200" :
-                            c.is_active ? "bg-violet-50 text-violet-700 ring-violet-200" :
+                            c.is_active ? "bg-blue-50 text-blue-700 ring-blue-200" :
                             "bg-slate-50 text-slate-500 ring-slate-200"
                           }`}
                         >

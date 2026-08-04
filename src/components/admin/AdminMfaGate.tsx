@@ -317,7 +317,7 @@ export function AdminMfaGate({ children, onSignOut, userEmail }: Props) {
                     className="shrink-0 h-8 w-8 grid place-items-center rounded-md border border-slate-200 hover:bg-white text-slate-600"
                     title="Copy"
                   >
-                    {copied ? <Check className="w-4 h-4 text-violet-600" /> : <Copy className="w-4 h-4" />}
+                    {copied ? <Check className="w-4 h-4 text-blue-600" /> : <Copy className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
@@ -390,7 +390,7 @@ export function AdminMfaGate({ children, onSignOut, userEmail }: Props) {
                   {emailRequested ? "Resend code" : "Send code to admin emails"}
                 </button>
                 {info && (
-                  <p className="text-xs text-violet-700 bg-violet-50 border border-violet-200 rounded-lg p-2.5 break-words">
+                  <p className="text-xs text-blue-700 bg-blue-50 border border-blue-200 rounded-lg p-2.5 break-words">
                     {info}
                   </p>
                 )}

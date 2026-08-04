@@ -159,7 +159,7 @@ function AdminReviewGenerator() {
       <AdminGlassCard className="p-5">
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl grid place-items-center bg-gradient-to-br from-violet-400 to-orange-500 text-white shadow">
+            <div className="w-11 h-11 rounded-2xl grid place-items-center bg-gradient-to-br from-blue-400 to-orange-500 text-white shadow">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
@@ -170,7 +170,7 @@ function AdminReviewGenerator() {
           <button
             onClick={onGenerateAll}
             disabled={bulkBusy || loading}
-            className="h-10 px-4 rounded-xl bg-gradient-to-r from-violet-500 to-orange-600 text-white text-sm font-semibold inline-flex items-center gap-2 shadow hover:opacity-95 disabled:opacity-60"
+            className="h-10 px-4 rounded-xl bg-gradient-to-r from-blue-500 to-orange-600 text-white text-sm font-semibold inline-flex items-center gap-2 shadow hover:opacity-95 disabled:opacity-60"
           >
             {bulkBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Wand2 className="w-4 h-4" />}
             {t("Generate for all", "সবার জন্য জেনারেট")}
@@ -257,7 +257,7 @@ function AdminReviewGenerator() {
                         <div className="text-xs text-slate-500">{p.category ?? "—"} · {p.slug}</div>
                       </td>
                       <td className="px-4 py-3">
-                        <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold ${c > 0 ? "bg-violet-50 text-violet-700" : "bg-slate-100 text-slate-500"}`}>
+                        <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold ${c > 0 ? "bg-blue-50 text-blue-700" : "bg-slate-100 text-slate-500"}`}>
                           <Star className="w-3 h-3" /> {c}
                         </span>
                       </td>
@@ -266,7 +266,7 @@ function AdminReviewGenerator() {
                           <button
                             onClick={() => onGenerateOne(p)}
                             disabled={b || bulkBusy}
-                            className="h-9 px-3 rounded-lg bg-gradient-to-r from-violet-500 to-orange-600 text-white text-xs font-semibold inline-flex items-center gap-1.5 disabled:opacity-60"
+                            className="h-9 px-3 rounded-lg bg-gradient-to-r from-blue-500 to-orange-600 text-white text-xs font-semibold inline-flex items-center gap-1.5 disabled:opacity-60"
                           >
                             {b ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Wand2 className="w-3.5 h-3.5" />}
                             {t("Generate", "জেনারেট")}
@@ -302,13 +302,13 @@ function AdminReviewGenerator() {
         <div className="space-y-2 max-h-[420px] overflow-y-auto">
           {reviews.slice(0, 50).map((r) => (
             <div key={r.id} className="flex items-start gap-3 p-3 rounded-xl border border-slate-100 bg-white">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-violet-400 to-orange-500 text-white grid place-items-center text-xs font-bold shrink-0">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-orange-500 text-white grid place-items-center text-xs font-bold shrink-0">
                 {r.reviewer_name.slice(0, 1).toUpperCase()}
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="font-semibold text-slate-900 text-sm">{r.reviewer_name}</span>
-                  <span className="text-violet-500 text-xs">{"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}</span>
+                  <span className="text-blue-500 text-xs">{"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}</span>
                   <span className="text-[11px] text-slate-400">{r.product_slug}</span>
                   {!r.is_approved && <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-50 text-rose-600">{t("pending", "পেন্ডিং")}</span>}
                 </div>

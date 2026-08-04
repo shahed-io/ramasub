@@ -138,7 +138,7 @@ function LiveChatPage() {
         <button
           onClick={save}
           disabled={saving || loading}
-          className="inline-flex items-center gap-2 h-10 px-5 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-sm font-semibold shadow-md hover:opacity-95 disabled:opacity-50"
+          className="inline-flex items-center gap-2 h-10 px-5 rounded-xl bg-gradient-to-r from-blue-600 to-sky-600 text-white text-sm font-semibold shadow-md hover:opacity-95 disabled:opacity-50"
         >
           {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
           {t("Save", "সেভ করুন")}
@@ -155,7 +155,7 @@ function LiveChatPage() {
               onClick={() => setTab(key)}
               className={`inline-flex items-center gap-2 h-10 px-4 rounded-lg text-sm font-semibold transition ${
                 active
-                  ? "bg-white text-violet-700 border border-violet-300 shadow-sm ring-1 ring-violet-200"
+                  ? "bg-white text-blue-700 border border-blue-300 shadow-sm ring-1 ring-blue-200"
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-transparent"
               }`}
             >
@@ -185,7 +185,7 @@ function LiveChatPage() {
                 </div>
                 <div className="divide-y divide-slate-100">
                   <ToggleRow
-                    iconWrap="bg-violet-50 text-violet-600"
+                    iconWrap="bg-blue-50 text-blue-600"
                     icon={<Bot className="w-4 h-4" />}
                     title={t("AI Chat Support", "AI চ্যাট সাপোর্ট")}
                     desc={t("Turn AI assistant on/off", "AI সহকারী চালু/বন্ধ করুন")}
@@ -193,7 +193,7 @@ function LiveChatPage() {
                     onChange={(v) => update("ai_enabled", v)}
                   />
                   <ToggleRow
-                    iconWrap="bg-violet-50 text-violet-600"
+                    iconWrap="bg-blue-50 text-blue-600"
                     icon={<MessageCircle className="w-4 h-4" />}
                     title={t("WhatsApp Support", "WhatsApp সাপোর্ট")}
                     desc={t("Turn WhatsApp chat on/off", "WhatsApp চ্যাট চালু/বন্ধ করুন")}
@@ -220,7 +220,7 @@ function LiveChatPage() {
                   value={cfg.fab_label}
                   onChange={(e) => update("fab_label", e.target.value)}
                   placeholder={t("Which one do you prefer?", "কোনটি পছন্দ করবেন?")}
-                  className="w-full h-12 px-4 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
+                  className="w-full h-12 px-4 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
                 />
               </div>
 
@@ -270,7 +270,7 @@ function LiveChatPage() {
               <div className="p-5 space-y-4">
                 <h3 className="text-lg font-bold text-slate-900">{t("AI Chat", "AI চ্যাট")}</h3>
                 <ToggleRow
-                  iconWrap="bg-violet-50 text-violet-600"
+                  iconWrap="bg-blue-50 text-blue-600"
                   icon={<Bot className="w-4 h-4" />}
                   title={t("Enable AI assistant", "AI সহকারী চালু করুন")}
                   desc={t("Customers can chat with the AI assistant", "কাস্টমাররা AI সহকারীর সাথে চ্যাট করতে পারবেন")}
@@ -286,7 +286,7 @@ function LiveChatPage() {
               <div className="p-5 space-y-4">
                 <h3 className="text-lg font-bold text-slate-900">{t("WhatsApp", "WhatsApp")}</h3>
                 <ToggleRow
-                  iconWrap="bg-violet-50 text-violet-600"
+                  iconWrap="bg-blue-50 text-blue-600"
                   icon={<MessageCircle className="w-4 h-4" />}
                   title={t("Enable WhatsApp", "WhatsApp চালু করুন")}
                   desc={t("Show WhatsApp option in the chat menu", "চ্যাট মেনুতে WhatsApp অপশন দেখান")}
@@ -378,7 +378,7 @@ function ToggleRow({
         type="button"
         onClick={() => onChange(!value)}
         className={`shrink-0 relative inline-flex h-6 w-11 items-center rounded-full transition ${
-          value ? "bg-violet-600" : "bg-slate-200"
+          value ? "bg-blue-600" : "bg-slate-200"
         }`}
         aria-pressed={value}
       >
@@ -422,7 +422,7 @@ function Field({ label, value, onChange, placeholder }: { label: string; value: 
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full h-12 px-4 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
+        className="w-full h-12 px-4 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
       />
     </div>
   );
@@ -547,7 +547,7 @@ function ChatHistoryTab() {
                 key={s.id}
                 onClick={() => setActive(s.id)}
                 className={`w-full text-left p-3 transition ${
-                  active === s.id ? "bg-violet-50/70" : "hover:bg-slate-50"
+                  active === s.id ? "bg-blue-50/70" : "hover:bg-slate-50"
                 }`}
               >
                 <div className="flex items-center justify-between gap-2">
@@ -588,7 +588,7 @@ function ChatHistoryTab() {
                   <div
                     className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm whitespace-pre-wrap break-words shadow-sm ${
                       m.role === "user"
-                        ? "bg-gradient-to-br from-violet-600 to-fuchsia-600 text-white rounded-br-md"
+                        ? "bg-gradient-to-br from-blue-600 to-sky-600 text-white rounded-br-md"
                         : "bg-white text-slate-800 border border-slate-200 rounded-bl-md"
                     }`}
                   >

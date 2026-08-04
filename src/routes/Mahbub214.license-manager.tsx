@@ -42,8 +42,8 @@ type LicenseRow = {
 type ProductLite = { slug: string; name: string; emoji?: string | null; image_url?: string | null };
 
 const STATUS_META: Record<LicenseStatus, { label: string; bg: string; text: string; ring: string }> = {
-  available: { label: "Available", bg: "bg-violet-50", text: "text-violet-600", ring: "ring-violet-200" },
-  assigned:  { label: "Assigned",  bg: "bg-violet-50",  text: "text-violet-600",  ring: "ring-violet-200" },
+  available: { label: "Available", bg: "bg-blue-50", text: "text-blue-600", ring: "ring-blue-200" },
+  assigned:  { label: "Assigned",  bg: "bg-blue-50",  text: "text-blue-600",  ring: "ring-blue-200" },
   revoked:   { label: "Revoked",   bg: "bg-rose-50",    text: "text-rose-600",    ring: "ring-rose-200" },
 };
 
@@ -166,7 +166,7 @@ function LicenseManagerPage() {
         <button onClick={() => setBulkOpen(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full bg-white border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50 shadow-sm">
           <Upload className="w-4 h-4" /> Bulk Import
         </button>
-        <button onClick={() => setCreating(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-white text-sm font-semibold shadow-lg bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-95">
+        <button onClick={() => setCreating(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-white text-sm font-semibold shadow-lg bg-gradient-to-r from-blue-600 to-sky-600 hover:opacity-95">
           <Plus className="w-4 h-4" /> {t("Add License", "লাইসেন্স যোগ")}
         </button>
       </div>
@@ -184,7 +184,7 @@ function LicenseManagerPage() {
       <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-600 grid place-items-center text-white">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-sky-600 grid place-items-center text-white">
               <Package className="w-4 h-4" />
             </div>
             <div>
@@ -199,10 +199,10 @@ function LicenseManagerPage() {
                 value={productQuery}
                 onChange={(e) => setProductQuery(e.target.value)}
                 placeholder={t("Search products…", "প্রোডাক্ট খুঁজুন…")}
-                className="w-56 h-9 pl-9 pr-3 rounded-xl bg-slate-50 border border-transparent focus:bg-white focus:border-violet-300 text-sm outline-none"
+                className="w-56 h-9 pl-9 pr-3 rounded-xl bg-slate-50 border border-transparent focus:bg-white focus:border-blue-300 text-sm outline-none"
               />
             </div>
-            <button onClick={() => setAddProductOpen(true)} className="inline-flex items-center gap-1.5 h-9 px-3 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-95">
+            <button onClick={() => setAddProductOpen(true)} className="inline-flex items-center gap-1.5 h-9 px-3 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-blue-600 to-sky-600 hover:opacity-95">
               <Plus className="w-4 h-4" /> {t("Add Product", "প্রোডাক্ট যোগ")}
             </button>
           </div>
@@ -215,9 +215,9 @@ function LicenseManagerPage() {
             {filteredProducts.map((p) => {
               const st = productStats.get(p.slug) || { available: 0, assigned: 0, total: 0 };
               return (
-                <div key={p.slug} className="group rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-3 hover:border-violet-300 hover:shadow-md transition">
+                <div key={p.slug} className="group rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-3 hover:border-blue-300 hover:shadow-md transition">
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-100 to-fuchsia-100 grid place-items-center text-xl shrink-0 overflow-hidden">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-100 to-sky-100 grid place-items-center text-xl shrink-0 overflow-hidden">
                       {p.image_url ? <img src={p.image_url} alt="" className="w-full h-full object-cover" /> : <span>{p.emoji || "📦"}</span>}
                     </div>
                     <div className="min-w-0 flex-1">
@@ -226,13 +226,13 @@ function LicenseManagerPage() {
                     </div>
                   </div>
                   <div className="mt-3 grid grid-cols-3 gap-1 text-center">
-                    <div className="rounded-lg bg-violet-50 py-1">
-                      <div className="text-[9px] font-bold uppercase text-violet-600">Avail</div>
-                      <div className="text-sm font-extrabold text-violet-700">{st.available}</div>
+                    <div className="rounded-lg bg-blue-50 py-1">
+                      <div className="text-[9px] font-bold uppercase text-blue-600">Avail</div>
+                      <div className="text-sm font-extrabold text-blue-700">{st.available}</div>
                     </div>
-                    <div className="rounded-lg bg-violet-50 py-1">
-                      <div className="text-[9px] font-bold uppercase text-violet-600">Used</div>
-                      <div className="text-sm font-extrabold text-violet-700">{st.assigned}</div>
+                    <div className="rounded-lg bg-blue-50 py-1">
+                      <div className="text-[9px] font-bold uppercase text-blue-600">Used</div>
+                      <div className="text-sm font-extrabold text-blue-700">{st.assigned}</div>
                     </div>
                     <div className="rounded-lg bg-slate-100 py-1">
                       <div className="text-[9px] font-bold uppercase text-slate-500">Total</div>
@@ -240,7 +240,7 @@ function LicenseManagerPage() {
                     </div>
                   </div>
                   <div className="mt-3 flex items-center gap-1.5">
-                    <button onClick={() => openBulkFor(p.slug)} className="flex-1 inline-flex items-center justify-center gap-1 h-8 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-[11px] font-semibold">
+                    <button onClick={() => openBulkFor(p.slug)} className="flex-1 inline-flex items-center justify-center gap-1 h-8 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-semibold">
                       <Upload className="w-3 h-3" /> {t("Upload Keys", "Keys আপলোড")}
                     </button>
                     <button onClick={() => openAddFor(p.slug)} title={t("Add single license", "একক লাইসেন্স")} className="w-8 h-8 grid place-items-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50">
@@ -262,7 +262,7 @@ function LicenseManagerPage() {
       {/* Product search panel */}
       <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
         <div className="flex items-center gap-2 mb-1">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-600 grid place-items-center text-white">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-sky-600 grid place-items-center text-white">
             <Package className="w-4 h-4" />
           </div>
           <div className="font-extrabold text-slate-900">{t("Find License by Product", "প্রোডাক্ট দিয়ে License খুঁজুন")}</div>
@@ -275,11 +275,11 @@ function LicenseManagerPage() {
               value={productSearch}
               onChange={(e) => setProductSearch(e.target.value)}
               placeholder={t("e.g. Netflix, Canva, Windows 11…", "যেমন: Netflix, Canva, Windows 11…")}
-              className="w-full h-10 pl-9 pr-3 rounded-xl bg-slate-50 border border-transparent focus:bg-white focus:border-violet-300 text-sm text-slate-900 outline-none"
+              className="w-full h-10 pl-9 pr-3 rounded-xl bg-slate-50 border border-transparent focus:bg-white focus:border-blue-300 text-sm text-slate-900 outline-none"
             />
           </div>
           <label className="inline-flex items-center gap-2 h-10 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 cursor-pointer select-none">
-            <input type="checkbox" checked={onlyAvailable} onChange={(e) => setOnlyAvailable(e.target.checked)} className="accent-violet-600" />
+            <input type="checkbox" checked={onlyAvailable} onChange={(e) => setOnlyAvailable(e.target.checked)} className="accent-blue-600" />
             {t("Only Available", "শুধু Available")}
           </label>
         </div>
@@ -293,17 +293,17 @@ function LicenseManagerPage() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={t("Search by Key, product, customer…", "Key, প্রোডাক্ট, কাস্টমার খুঁজুন…")}
-            className="w-full h-10 pl-9 pr-3 rounded-xl bg-slate-50 border border-transparent focus:bg-white focus:border-violet-300 text-sm text-slate-900 outline-none"
+            className="w-full h-10 pl-9 pr-3 rounded-xl bg-slate-50 border border-transparent focus:bg-white focus:border-blue-300 text-sm text-slate-900 outline-none"
           />
         </div>
         <div className="flex items-center gap-1.5 text-slate-400 px-1"><Filter className="w-4 h-4" /></div>
-        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="h-10 px-3 rounded-xl bg-slate-50 border border-transparent text-sm font-semibold text-slate-700 outline-none focus:bg-white focus:border-violet-300">
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="h-10 px-3 rounded-xl bg-slate-50 border border-transparent text-sm font-semibold text-slate-700 outline-none focus:bg-white focus:border-blue-300">
           <option value="all">{t("All Status", "সব Status")}</option>
           <option value="available">Available</option>
           <option value="assigned">Assigned</option>
           <option value="revoked">Revoked</option>
         </select>
-        <select value={productFilter} onChange={(e) => setProductFilter(e.target.value)} className="h-10 px-3 rounded-xl bg-slate-50 border border-transparent text-sm font-semibold text-slate-700 outline-none focus:bg-white focus:border-violet-300">
+        <select value={productFilter} onChange={(e) => setProductFilter(e.target.value)} className="h-10 px-3 rounded-xl bg-slate-50 border border-transparent text-sm font-semibold text-slate-700 outline-none focus:bg-white focus:border-blue-300">
           <option value="all">{t("All Products", "সব প্রোডাক্ট")}</option>
           {products.map((p) => <option key={p.slug} value={p.slug}>{p.name}</option>)}
         </select>
@@ -331,7 +331,7 @@ function LicenseManagerPage() {
             <table className="w-full text-sm">
               <thead className="bg-slate-50 text-[11px] uppercase tracking-wider text-slate-500">
                 <tr>
-                  <Th className="w-10"><input type="checkbox" className="accent-violet-600" /></Th>
+                  <Th className="w-10"><input type="checkbox" className="accent-blue-600" /></Th>
                   <Th>Type</Th>
                   <Th>Key / Credentials</Th>
                   <Th>{t("Product", "প্রোডাক্ট")}</Th>
@@ -349,9 +349,9 @@ function LicenseManagerPage() {
                   const isRevealed = revealed[r.id];
                   return (
                     <tr key={r.id} className="hover:bg-slate-50/60">
-                      <td className="px-4 py-3"><input type="checkbox" className="accent-violet-600" /></td>
+                      <td className="px-4 py-3"><input type="checkbox" className="accent-blue-600" /></td>
                       <td className="px-4 py-3">
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-bold bg-violet-50 text-violet-600 ring-1 ring-violet-200">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-bold bg-blue-50 text-blue-600 ring-1 ring-blue-200">
                           <KeyRound className="w-3 h-3" /> {d.type || "License Key"}
                         </span>
                       </td>
@@ -359,7 +359,7 @@ function LicenseManagerPage() {
                         <div className="flex items-center gap-2">
                           <span className="font-mono text-[12px] text-slate-700">{isRevealed ? (d.key || "—") : maskKey(d.key)}</span>
                           {d.key && (
-                            <button onClick={() => setRevealed((m) => ({ ...m, [r.id]: !m[r.id] }))} className="text-slate-400 hover:text-violet-600" title={isRevealed ? "Hide" : "Show"}>
+                            <button onClick={() => setRevealed((m) => ({ ...m, [r.id]: !m[r.id] }))} className="text-slate-400 hover:text-blue-600" title={isRevealed ? "Hide" : "Show"}>
                               {isRevealed ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                             </button>
                           )}
@@ -446,7 +446,7 @@ function Th({ children, className }: { children?: React.ReactNode; className?: s
 
 function IconBtn({ children, title, onClick }: { children: React.ReactNode; title?: string; onClick?: () => void }) {
   return (
-    <button onClick={onClick} title={title} className="w-8 h-8 grid place-items-center rounded-lg text-slate-400 hover:text-violet-600 hover:bg-violet-50">
+    <button onClick={onClick} title={title} className="w-8 h-8 grid place-items-center rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50">
       {children}
     </button>
   );
@@ -455,9 +455,9 @@ function IconBtn({ children, title, onClick }: { children: React.ReactNode; titl
 function StatCard({ label, value, tone }: { label: string; value: string; tone: "slate" | "emerald" | "rose" | "violet" | "sky" }) {
   const toneClass = {
     slate: "text-slate-900",
-    emerald: "text-violet-600",
+    emerald: "text-blue-600",
     rose: "text-rose-600",
-    violet: "text-violet-600",
+    violet: "text-blue-600",
     sky: "text-sky-600",
   }[tone];
   return (
@@ -512,33 +512,33 @@ function LicenseFormModal({ row, products, presetSlug, onClose, onSaved }: { row
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm grid place-items-center p-4" onClick={onClose}>
       <div className="w-full max-w-xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden" onClick={(e) => e.stopPropagation()}>
-        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-violet-50 to-fuchsia-50">
+        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-blue-50 to-sky-50">
           <div className="flex items-center gap-2">
-            <KeyRound className="w-5 h-5 text-violet-600" />
+            <KeyRound className="w-5 h-5 text-blue-600" />
             <h2 className="text-base font-extrabold text-slate-900">{row ? "Edit License" : "Add License"}</h2>
           </div>
           <button onClick={onClose} className="w-8 h-8 grid place-items-center rounded-lg hover:bg-white/70"><X className="w-4 h-4" /></button>
         </div>
         <div className="p-5 space-y-3 text-sm max-h-[70vh] overflow-y-auto">
-          <Field label="Key / Credentials"><textarea value={key} onChange={(e) => setKey(e.target.value)} rows={2} className="w-full px-3 py-2 rounded-xl border border-slate-200 font-mono text-[12px] outline-none focus:border-violet-300" /></Field>
+          <Field label="Key / Credentials"><textarea value={key} onChange={(e) => setKey(e.target.value)} rows={2} className="w-full px-3 py-2 rounded-xl border border-slate-200 font-mono text-[12px] outline-none focus:border-blue-300" /></Field>
           <div className="grid grid-cols-2 gap-3">
-            <Field label="Type"><select value={type} onChange={(e) => setType(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-violet-300"><option>License Key</option><option>Account</option><option>Activation Code</option><option>Gift Card</option></select></Field>
-            <Field label="Status"><select value={status} onChange={(e) => setStatus(e.target.value as LicenseStatus)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-violet-300"><option value="available">Available</option><option value="assigned">Assigned</option><option value="revoked">Revoked</option></select></Field>
+            <Field label="Type"><select value={type} onChange={(e) => setType(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-blue-300"><option>License Key</option><option>Account</option><option>Activation Code</option><option>Gift Card</option></select></Field>
+            <Field label="Status"><select value={status} onChange={(e) => setStatus(e.target.value as LicenseStatus)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-blue-300"><option value="available">Available</option><option value="assigned">Assigned</option><option value="revoked">Revoked</option></select></Field>
           </div>
-          <Field label="Product"><select value={productId} onChange={(e) => setProductId(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-violet-300"><option value="">— Select product —</option>{products.map((p) => <option key={p.slug} value={p.slug}>{p.name}</option>)}</select></Field>
+          <Field label="Product"><select value={productId} onChange={(e) => setProductId(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-blue-300"><option value="">— Select product —</option>{products.map((p) => <option key={p.slug} value={p.slug}>{p.name}</option>)}</select></Field>
           <div className="grid grid-cols-2 gap-3">
-            <Field label="Customer Name"><input value={customerName} onChange={(e) => setCustomerName(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-violet-300" /></Field>
-            <Field label="Customer Email"><input value={customerEmail} onChange={(e) => setCustomerEmail(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-violet-300" /></Field>
+            <Field label="Customer Name"><input value={customerName} onChange={(e) => setCustomerName(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-blue-300" /></Field>
+            <Field label="Customer Email"><input value={customerEmail} onChange={(e) => setCustomerEmail(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-blue-300" /></Field>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <Field label="Order Ref"><input value={orderRef} onChange={(e) => setOrderRef(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-violet-300" /></Field>
-            <Field label="Delivery Number"><input value={deliveryNumber} onChange={(e) => setDeliveryNumber(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-violet-300" /></Field>
+            <Field label="Order Ref"><input value={orderRef} onChange={(e) => setOrderRef(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-blue-300" /></Field>
+            <Field label="Delivery Number"><input value={deliveryNumber} onChange={(e) => setDeliveryNumber(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-blue-300" /></Field>
           </div>
-          <Field label="Notes"><textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} className="w-full px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-violet-300" /></Field>
+          <Field label="Notes"><textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} className="w-full px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-blue-300" /></Field>
         </div>
         <div className="px-5 py-3 border-t border-slate-100 flex items-center justify-end gap-2 bg-slate-50">
           <button onClick={onClose} className="h-10 px-4 rounded-xl bg-white border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50">Cancel</button>
-          <button onClick={save} disabled={saving} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-95">
+          <button onClick={save} disabled={saving} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-blue-600 to-sky-600 hover:opacity-95">
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />} {row ? "Update" : "Save"}
           </button>
         </div>
@@ -572,17 +572,17 @@ function BulkImportModal({ products, presetSlug, onClose, onSaved }: { products:
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm grid place-items-center p-4" onClick={onClose}>
       <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden" onClick={(e) => e.stopPropagation()}>
-        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-violet-50 to-fuchsia-50">
-          <div className="flex items-center gap-2"><Upload className="w-5 h-5 text-violet-600" /><h2 className="text-base font-extrabold text-slate-900">Bulk Import</h2></div>
+        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-blue-50 to-sky-50">
+          <div className="flex items-center gap-2"><Upload className="w-5 h-5 text-blue-600" /><h2 className="text-base font-extrabold text-slate-900">Bulk Import</h2></div>
           <button onClick={onClose} className="w-8 h-8 grid place-items-center rounded-lg hover:bg-white/70"><X className="w-4 h-4" /></button>
         </div>
         <div className="p-5 space-y-3 text-sm">
-          <Field label="Product"><select value={productId} onChange={(e) => setProductId(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-violet-300"><option value="">— Select product —</option>{products.map((p) => <option key={p.slug} value={p.slug}>{p.name}</option>)}</select></Field>
-          <Field label="Keys (one per line)"><textarea value={text} onChange={(e) => setText(e.target.value)} rows={10} className="w-full px-3 py-2 rounded-xl border border-slate-200 font-mono text-[12px] outline-none focus:border-violet-300" /></Field>
+          <Field label="Product"><select value={productId} onChange={(e) => setProductId(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-blue-300"><option value="">— Select product —</option>{products.map((p) => <option key={p.slug} value={p.slug}>{p.name}</option>)}</select></Field>
+          <Field label="Keys (one per line)"><textarea value={text} onChange={(e) => setText(e.target.value)} rows={10} className="w-full px-3 py-2 rounded-xl border border-slate-200 font-mono text-[12px] outline-none focus:border-blue-300" /></Field>
         </div>
         <div className="px-5 py-3 border-t border-slate-100 flex items-center justify-end gap-2 bg-slate-50">
           <button onClick={onClose} className="h-10 px-4 rounded-xl bg-white border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50">Cancel</button>
-          <button onClick={run} disabled={busy} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-95">
+          <button onClick={run} disabled={busy} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-blue-600 to-sky-600 hover:opacity-95">
             {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />} Import
           </button>
         </div>
@@ -639,25 +639,25 @@ function QuickAddProductModal({ onClose, onSaved }: { onClose: () => void; onSav
   return (
     <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm grid place-items-center p-4" onClick={onClose}>
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden" onClick={(e) => e.stopPropagation()}>
-        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-violet-50 to-fuchsia-50">
-          <div className="flex items-center gap-2"><Package className="w-5 h-5 text-violet-600" /><h2 className="text-base font-extrabold text-slate-900">Add Product</h2></div>
+        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-blue-50 to-sky-50">
+          <div className="flex items-center gap-2"><Package className="w-5 h-5 text-blue-600" /><h2 className="text-base font-extrabold text-slate-900">Add Product</h2></div>
           <button onClick={onClose} className="w-8 h-8 grid place-items-center rounded-lg hover:bg-white/70"><X className="w-4 h-4" /></button>
         </div>
         <div className="p-5 space-y-3 text-sm">
           <Field label="Product Name">
-            <input value={name} onChange={(e) => { setName(e.target.value); if (!slugDirty) setSlug(slugify(e.target.value)); }} placeholder="e.g. Netflix Premium" className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-violet-300" />
+            <input value={name} onChange={(e) => { setName(e.target.value); if (!slugDirty) setSlug(slugify(e.target.value)); }} placeholder="e.g. Netflix Premium" className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-blue-300" />
           </Field>
           <Field label="Slug (URL key)">
-            <input value={slug} onChange={(e) => { setSlug(e.target.value); setSlugDirty(true); }} placeholder="netflix-premium" className="w-full h-10 px-3 rounded-xl border border-slate-200 font-mono text-[12px] outline-none focus:border-violet-300" />
+            <input value={slug} onChange={(e) => { setSlug(e.target.value); setSlugDirty(true); }} placeholder="netflix-premium" className="w-full h-10 px-3 rounded-xl border border-slate-200 font-mono text-[12px] outline-none focus:border-blue-300" />
           </Field>
           <div className="grid grid-cols-2 gap-3">
-            <Field label="Emoji"><input value={emoji} onChange={(e) => setEmoji(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-violet-300" /></Field>
-            <Field label="Category"><input value={category} onChange={(e) => setCategory(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-violet-300" /></Field>
+            <Field label="Emoji"><input value={emoji} onChange={(e) => setEmoji(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-blue-300" /></Field>
+            <Field label="Category"><input value={category} onChange={(e) => setCategory(e.target.value)} className="w-full h-10 px-3 rounded-xl border border-slate-200 outline-none focus:border-blue-300" /></Field>
           </div>
         </div>
         <div className="px-5 py-3 border-t border-slate-100 flex items-center justify-end gap-2 bg-slate-50">
           <button onClick={onClose} className="h-10 px-4 rounded-xl bg-white border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50">Cancel</button>
-          <button onClick={save} disabled={busy} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-95">
+          <button onClick={save} disabled={busy} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-blue-600 to-sky-600 hover:opacity-95">
             {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />} Save
           </button>
         </div>
@@ -676,7 +676,7 @@ const KEY_TYPES: { value: string; label: string; hint: string }[] = [
 ];
 
 function PanelShell({ accent = "violet", title, icon, right, children }: { accent?: "violet"; title: React.ReactNode; icon: React.ReactNode; right?: React.ReactNode; children: React.ReactNode }) {
-  const bar = accent === "violet" ? "bg-violet-500" : "bg-violet-500";
+  const bar = accent === "violet" ? "bg-blue-500" : "bg-blue-500";
   return (
     <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
       <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
@@ -724,16 +724,16 @@ function AddLicensePanel({ products, presetSlug, onClose, onSaved }: { products:
   };
 
   return (
-    <PanelShell title={<>নতুন License Key যোগ করুন</>} icon={<Plus className="w-4 h-4 text-violet-600" />}>
+    <PanelShell title={<>নতুন License Key যোগ করুন</>} icon={<Plus className="w-4 h-4 text-blue-600" />}>
       <div className="grid md:grid-cols-2 gap-4">
         <PanelField label="প্রোডাক্ট" required>
-          <select value={productId} onChange={(e) => setProductId(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-violet-400 text-sm">
+          <select value={productId} onChange={(e) => setProductId(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-blue-400 text-sm">
             <option value="">— প্রোডাক্ট বেছে নিন —</option>
             {products.map((p) => <option key={p.slug} value={p.slug}>{p.name}</option>)}
           </select>
         </PanelField>
         <PanelField label="Key Type" required hint={meta?.hint}>
-          <select value={keyType} onChange={(e) => setKeyType(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-violet-400 text-sm">
+          <select value={keyType} onChange={(e) => setKeyType(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-blue-400 text-sm">
             {KEY_TYPES.map((k) => <option key={k.value} value={k.value}>{k.label}</option>)}
           </select>
         </PanelField>
@@ -741,28 +741,28 @@ function AddLicensePanel({ products, presetSlug, onClose, onSaved }: { products:
 
       <div className="mt-4">
         <PanelField label="License Key / Value" required>
-          <input value={key} onChange={(e) => setKey(e.target.value)} placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-violet-400 text-sm font-mono" />
+          <input value={key} onChange={(e) => setKey(e.target.value)} placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-blue-400 text-sm font-mono" />
         </PanelField>
       </div>
 
       <div className="mt-4">
         <PanelField label="Extra Info (Optional)">
-          <textarea value={extraInfo} onChange={(e) => setExtraInfo(e.target.value)} rows={3} placeholder="অতিরিক্ত তথ্য (যদি থাকে)…" className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white outline-none focus:border-violet-400 text-sm" />
+          <textarea value={extraInfo} onChange={(e) => setExtraInfo(e.target.value)} rows={3} placeholder="অতিরিক্ত তথ্য (যদি থাকে)…" className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white outline-none focus:border-blue-400 text-sm" />
         </PanelField>
       </div>
 
       <div className="mt-4">
         <PanelField
-          label={<span className="inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-violet-500"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Variant / Option (Optional)</span>}
+          label={<span className="inline-flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Variant / Option (Optional)</span>}
           hint="যেমন: 1 Year, 5 Devices, Personal"
         >
-          <input value={variant} onChange={(e) => setVariant(e.target.value)} placeholder="যে option-এর জন্য এই key — যেমন: 1 Year" className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-violet-400 text-sm" />
+          <input value={variant} onChange={(e) => setVariant(e.target.value)} placeholder="যে option-এর জন্য এই key — যেমন: 1 Year" className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-blue-400 text-sm" />
           <p className="text-[11px] text-slate-500 mt-1.5">কাস্টমার যখন এই option-এ অর্ডার করবেন, তখন সিস্টেম এই key-টাই অটো ডেলিভার করবে।</p>
         </PanelField>
       </div>
 
       <div className="mt-5 flex items-center gap-2">
-        <button onClick={save} disabled={busy} className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-white text-sm font-bold shadow bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-95 disabled:opacity-60">
+        <button onClick={save} disabled={busy} className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-white text-sm font-bold shadow bg-gradient-to-r from-blue-600 to-sky-600 hover:opacity-95 disabled:opacity-60">
           {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />} Save License
         </button>
         <button onClick={onClose} className="h-11 px-5 rounded-full bg-white border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50">বাতিল</button>
@@ -813,7 +813,7 @@ function BulkImportPanel({ products, presetSlug, onClose, onSaved }: { products:
     <PanelShell
       accent="violet"
       title={<>Bulk License Import</>}
-      icon={<Upload className="w-4 h-4 text-violet-600" />}
+      icon={<Upload className="w-4 h-4 text-blue-600" />}
       right={
         <button onClick={() => toast.info("AI Smart Import coming soon")} className="inline-flex items-center gap-1.5 h-9 px-3 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50">
           ✨ AI Smart Import
@@ -823,26 +823,26 @@ function BulkImportPanel({ products, presetSlug, onClose, onSaved }: { products:
       <p className="text-[12px] text-slate-500 mb-3">প্রতি লাইনে একটি করে key লিখুন, অথবা CSV/TXT ফাইল আপলোড করুন।</p>
 
       <div className="grid md:grid-cols-2 gap-4">
-        <select value={productId} onChange={(e) => setProductId(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-violet-400 text-sm">
+        <select value={productId} onChange={(e) => setProductId(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-blue-400 text-sm">
           <option value="">— প্রোডাক্ট বেছে নিন —</option>
           {products.map((p) => <option key={p.slug} value={p.slug}>{p.name}</option>)}
         </select>
-        <select value={keyType} onChange={(e) => setKeyType(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-violet-400 text-sm">
+        <select value={keyType} onChange={(e) => setKeyType(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-blue-400 text-sm">
           {KEY_TYPES.map((k) => <option key={k.value} value={k.value}>{k.label}</option>)}
         </select>
       </div>
 
       <div className="mt-4">
         <div className="text-[12px] font-semibold text-slate-700 mb-1.5 inline-flex items-center gap-1">
-          <span className="text-violet-500">🏷️</span> Variant / Option (Optional) <span className="text-slate-400 font-normal">— সব key এই option-এ লাগু হবে</span>
+          <span className="text-blue-500">🏷️</span> Variant / Option (Optional) <span className="text-slate-400 font-normal">— সব key এই option-এ লাগু হবে</span>
         </div>
-        <input value={variant} onChange={(e) => setVariant(e.target.value)} placeholder="যেমন: 1 Year, 5 Devices, Personal (খালি রাখলে কোনো option থাকবে না)" className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-violet-400 text-sm" />
+        <input value={variant} onChange={(e) => setVariant(e.target.value)} placeholder="যেমন: 1 Year, 5 Devices, Personal (খালি রাখলে কোনো option থাকবে না)" className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white outline-none focus:border-blue-400 text-sm" />
       </div>
 
       <label
         onDragOver={(e) => e.preventDefault()}
         onDrop={onDrop}
-        className="mt-4 flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-dashed border-slate-300 bg-slate-50/60 cursor-pointer hover:border-violet-400 hover:bg-violet-50/40"
+        className="mt-4 flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-dashed border-slate-300 bg-slate-50/60 cursor-pointer hover:border-blue-400 hover:bg-blue-50/40"
       >
         <span className="inline-flex items-center gap-2 text-sm text-slate-600">
           <FileText className="w-4 h-4 text-slate-500" /> CSV বা TXT ফাইল আপলোড করুন
@@ -856,14 +856,14 @@ function BulkImportPanel({ products, presetSlug, onClose, onSaved }: { products:
         onChange={(e) => setText(e.target.value)}
         rows={8}
         placeholder={"XXXXX-XXXXX-XXXXX-XXXXX\nYYYYY-YYYYY-YYYYY-YYYYY\nZZZZZ-ZZZZZ-ZZZZZ-ZZZZZ\n…"}
-        className="mt-3 w-full px-3 py-2.5 rounded-xl border border-slate-200 font-mono text-[12px] outline-none focus:border-violet-400 bg-white"
+        className="mt-3 w-full px-3 py-2.5 rounded-xl border border-slate-200 font-mono text-[12px] outline-none focus:border-blue-400 bg-white"
       />
 
       <div className="mt-4 flex items-center justify-between">
         <div className="text-[12px] text-slate-500"><span className="font-bold text-slate-900">{keys.length}</span> টি key পাওয়া গেছে</div>
         <div className="flex items-center gap-2">
           <button onClick={onClose} className="h-10 px-4 rounded-full bg-white border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50">বাতিল</button>
-          <button onClick={run} disabled={busy || !keys.length} className="inline-flex items-center gap-1.5 h-10 px-5 rounded-full text-white text-sm font-bold shadow bg-gradient-to-r from-violet-500 to-orange-500 hover:opacity-95 disabled:opacity-60">
+          <button onClick={run} disabled={busy || !keys.length} className="inline-flex items-center gap-1.5 h-10 px-5 rounded-full text-white text-sm font-bold shadow bg-gradient-to-r from-blue-500 to-orange-500 hover:opacity-95 disabled:opacity-60">
             {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />} Import করুন
           </button>
         </div>

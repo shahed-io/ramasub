@@ -64,7 +64,7 @@ function HomepageEditorPage() {
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div>
           <h2 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-violet-600" /> Homepage Editor
+            <Sparkles className="w-5 h-5 text-blue-600" /> Homepage Editor
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
             Banner, section order, featured products, SEO — সব এক জায়গায়।
@@ -78,7 +78,7 @@ function HomepageEditorPage() {
             <button
               onClick={save}
               disabled={saving || loading}
-              className="h-10 px-5 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-sm font-bold shadow-md hover:opacity-95 disabled:opacity-60 inline-flex items-center gap-2"
+              className="h-10 px-5 rounded-xl bg-gradient-to-r from-blue-600 to-sky-600 text-white text-sm font-bold shadow-md hover:opacity-95 disabled:opacity-60 inline-flex items-center gap-2"
             >
               {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
               Save Changes
@@ -100,7 +100,7 @@ function HomepageEditorPage() {
             onClick={() => setTab(id)}
             className={`h-9 px-4 rounded-full text-xs font-bold transition inline-flex items-center gap-1.5 ${
               tab === id
-                ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow"
+                ? "bg-gradient-to-r from-blue-600 to-sky-600 text-white shadow"
                 : "text-slate-600 hover:text-slate-900"
             }`}
           >
@@ -142,7 +142,7 @@ function SectionsTab({ cfg, setCfg }: { cfg: HomepageConfig; setCfg: (c: Homepag
 
   return (
     <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-      <div className="px-5 py-4 border-l-4 border-violet-500">
+      <div className="px-5 py-4 border-l-4 border-blue-500">
         <h3 className="text-base font-extrabold text-slate-900">Section Visibility & Order</h3>
         <p className="text-xs text-slate-500 mt-0.5">Arrows দিয়ে reorder করুন, eye icon দিয়ে show/hide করুন। Save Changes চাপুন।</p>
       </div>
@@ -165,7 +165,7 @@ function SectionsTab({ cfg, setCfg }: { cfg: HomepageConfig; setCfg: (c: Homepag
             <button onClick={() => toggle(s.id)}
               className={`h-8 px-3 rounded-lg text-xs font-bold inline-flex items-center gap-1.5 border ${
                 s.visible
-                  ? "bg-violet-50 border-violet-200 text-violet-700"
+                  ? "bg-blue-50 border-blue-200 text-blue-700"
                   : "bg-slate-100 border-slate-200 text-slate-500"
               }`}>
               {s.visible ? <><Eye className="w-3.5 h-3.5" /> Visible</> : <><EyeOff className="w-3.5 h-3.5" /> Hidden</>}
@@ -243,7 +243,7 @@ function BannerTab() {
   return (
     <div className="space-y-4">
       <div className="flex justify-end">
-        <button onClick={add} className="h-10 px-4 rounded-xl bg-gradient-to-r from-violet-500 to-teal-600 text-white text-sm font-bold shadow inline-flex items-center gap-2">
+        <button onClick={add} className="h-10 px-4 rounded-xl bg-gradient-to-r from-blue-500 to-teal-600 text-white text-sm font-bold shadow inline-flex items-center gap-2">
           <Plus className="w-4 h-4" /> Add Slide
         </button>
       </div>
@@ -256,13 +256,13 @@ function BannerTab() {
         <div key={s.id} className="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 space-y-3">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-[11px] font-bold text-slate-500">SLIDE #{idx + 1}</span>
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${s.is_active ? "bg-violet-100 text-violet-700" : "bg-slate-100 text-slate-500"}`}>
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${s.is_active ? "bg-blue-100 text-blue-700" : "bg-slate-100 text-slate-500"}`}>
               {s.is_active ? "ACTIVE" : "HIDDEN"}
             </span>
             <div className="ml-auto flex items-center gap-1.5">
               <button onClick={() => move(idx, -1)} disabled={idx === 0} className="h-8 w-8 rounded-lg border border-slate-200 grid place-items-center disabled:opacity-30 hover:bg-slate-50"><ArrowUp className="w-4 h-4" /></button>
               <button onClick={() => move(idx, 1)} disabled={idx === slides.length - 1} className="h-8 w-8 rounded-lg border border-slate-200 grid place-items-center disabled:opacity-30 hover:bg-slate-50"><ArrowDown className="w-4 h-4" /></button>
-              <button onClick={() => patch(s.id, { is_active: !s.is_active })} className={`h-8 px-3 rounded-lg text-xs font-bold border inline-flex items-center gap-1.5 ${s.is_active ? "bg-violet-50 border-violet-200 text-violet-700" : "bg-slate-100 border-slate-200 text-slate-500"}`}>
+              <button onClick={() => patch(s.id, { is_active: !s.is_active })} className={`h-8 px-3 rounded-lg text-xs font-bold border inline-flex items-center gap-1.5 ${s.is_active ? "bg-blue-50 border-blue-200 text-blue-700" : "bg-slate-100 border-slate-200 text-slate-500"}`}>
                 {s.is_active ? <><Eye className="w-3.5 h-3.5"/>Visible</> : <><EyeOff className="w-3.5 h-3.5"/>Hidden</>}
               </button>
               <button onClick={() => remove(s.id)} className="h-8 w-8 rounded-lg border border-rose-200 text-rose-600 grid place-items-center hover:bg-rose-50"><Trash2 className="w-4 h-4" /></button>
@@ -289,7 +289,7 @@ function BannerTab() {
               </div>
             </div>
           </div>
-          {busyId === s.id && <div className="text-xs text-violet-600 inline-flex items-center gap-1"><Loader2 className="w-3 h-3 animate-spin"/>Saving…</div>}
+          {busyId === s.id && <div className="text-xs text-blue-600 inline-flex items-center gap-1"><Loader2 className="w-3 h-3 animate-spin"/>Saving…</div>}
         </div>
       ))}
     </div>
@@ -304,7 +304,7 @@ function Field({ label, value, onChange, placeholder }: { label: string; value: 
       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">{label}</label>
       <input value={local} onChange={(e) => setLocal(e.target.value)} onBlur={() => local !== value && onChange(local)}
         placeholder={placeholder}
-        className="w-full h-10 px-3 rounded-lg border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-300" />
+        className="w-full h-10 px-3 rounded-lg border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300" />
     </div>
   );
 }
@@ -316,7 +316,7 @@ function TextArea({ label, value, onChange }: { label: string; value: string; on
       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">{label}</label>
       <textarea value={local} onChange={(e) => setLocal(e.target.value)} onBlur={() => local !== value && onChange(local)}
         rows={2}
-        className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-300" />
+        className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300" />
     </div>
   );
 }
@@ -363,7 +363,7 @@ function FeaturedTab({ cfg, setCfg }: { cfg: HomepageConfig; setCfg: (c: Homepag
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       {/* Selected */}
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-        <div className="px-5 py-4 border-l-4 border-violet-500 flex items-center justify-between">
+        <div className="px-5 py-4 border-l-4 border-blue-500 flex items-center justify-between">
           <div>
             <h3 className="text-base font-extrabold text-slate-900">Featured Products ({selected.length})</h3>
             <p className="text-xs text-slate-500 mt-0.5">খালি রাখলে auto-pick হবে।</p>
@@ -394,10 +394,10 @@ function FeaturedTab({ cfg, setCfg }: { cfg: HomepageConfig; setCfg: (c: Homepag
 
       {/* Picker */}
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-        <div className="px-5 py-4 border-l-4 border-violet-500 space-y-2">
+        <div className="px-5 py-4 border-l-4 border-blue-500 space-y-2">
           <h3 className="text-base font-extrabold text-slate-900">All Products</h3>
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search product…"
-            className="w-full h-10 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-300" />
+            className="w-full h-10 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
         </div>
         <div className="divide-y divide-slate-100 max-h-[520px] overflow-y-auto">
           {loading && <div className="p-6 text-center"><Loader2 className="w-5 h-5 animate-spin mx-auto text-slate-400" /></div>}
@@ -405,13 +405,13 @@ function FeaturedTab({ cfg, setCfg }: { cfg: HomepageConfig; setCfg: (c: Homepag
             const on = selected.includes(p.slug);
             return (
               <button key={p.slug} onClick={() => toggle(p.slug)}
-                className={`w-full flex items-center gap-3 px-5 py-3 text-left transition ${on ? "bg-violet-50" : "hover:bg-slate-50"}`}>
+                className={`w-full flex items-center gap-3 px-5 py-3 text-left transition ${on ? "bg-blue-50" : "hover:bg-slate-50"}`}>
                 <span className="text-lg">{p.emoji}</span>
                 <div className="flex-1 min-w-0">
                   <div className="font-semibold text-slate-800 truncate">{p.name}</div>
                   <div className="text-[11px] text-slate-500 truncate">{p.category}</div>
                 </div>
-                <span className={`h-6 w-6 rounded-full grid place-items-center text-xs font-bold ${on ? "bg-violet-600 text-white" : "bg-slate-100 text-slate-400"}`}>
+                <span className={`h-6 w-6 rounded-full grid place-items-center text-xs font-bold ${on ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-400"}`}>
                   {on ? "✓" : "+"}
                 </span>
               </button>
@@ -430,7 +430,7 @@ function SeoTab({ cfg, setCfg }: { cfg: HomepageConfig; setCfg: (c: HomepageConf
 
   return (
     <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-      <div className="px-5 py-4 border-l-4 border-violet-500">
+      <div className="px-5 py-4 border-l-4 border-blue-500">
         <h3 className="text-base font-extrabold text-slate-900">Homepage SEO</h3>
         <p className="text-xs text-slate-500 mt-0.5">খালি রাখলে default values ব্যবহার হবে।</p>
       </div>
@@ -455,10 +455,10 @@ function SeoField({ label, value, placeholder, onChange, maxLen, textarea }: {
       </div>
       {textarea ? (
         <textarea value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} rows={3}
-          className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-300" />
+          className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
       ) : (
         <input value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}
-          className="w-full h-10 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-300" />
+          className="w-full h-10 px-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
       )}
     </div>
   );

@@ -187,7 +187,7 @@ function AdminSecurityPage() {
       {/* Session Settings */}
       <Card>
         <div className="flex items-center gap-2.5">
-          <Clock className="w-5 h-5 text-violet-600" strokeWidth={2.5} />
+          <Clock className="w-5 h-5 text-blue-600" strokeWidth={2.5} />
           <h2 className="text-lg sm:text-xl font-extrabold text-slate-900">Session Settings</h2>
         </div>
         <p className="text-sm text-slate-500 mt-2">
@@ -196,12 +196,12 @@ function AdminSecurityPage() {
 
         {/* Master enable */}
         <label className={`mt-5 flex items-start gap-3 rounded-2xl border p-4 cursor-pointer transition ${
-          settings.mfa_enforced ? "border-violet-200 bg-violet-50/60" : "border-slate-200 bg-slate-50/60"
+          settings.mfa_enforced ? "border-blue-200 bg-blue-50/60" : "border-slate-200 bg-slate-50/60"
         }`}>
           <Checkbox checked={settings.mfa_enforced} onChange={(v) => update({ mfa_enforced: v })} />
           <div className="min-w-0">
             <div className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-violet-600" />
+              <ShieldCheck className="w-4 h-4 text-blue-600" />
               Authenticator system {settings.mfa_enforced ? "ENABLED" : "DISABLED"} (global)
             </div>
             <p className="text-xs text-slate-600 mt-1 leading-relaxed">
@@ -235,7 +235,7 @@ function AdminSecurityPage() {
 
         {/* Remember device toggle */}
         <label className={`mt-4 flex items-start gap-3 rounded-2xl border p-4 cursor-pointer transition ${
-          settings.remember_device_enabled ? "border-violet-200 bg-violet-50/60" : "border-slate-200 bg-slate-50/60"
+          settings.remember_device_enabled ? "border-blue-200 bg-blue-50/60" : "border-slate-200 bg-slate-50/60"
         }`}>
           <Checkbox checked={settings.remember_device_enabled} onChange={(v) => update({ remember_device_enabled: v })} />
           <div className="min-w-0">
@@ -250,7 +250,7 @@ function AdminSecurityPage() {
           <button
             onClick={save}
             disabled={saving}
-            className="h-11 px-6 rounded-full bg-gradient-to-r from-violet-400 to-fuchsia-400 hover:from-violet-500 hover:to-fuchsia-500 text-white text-sm font-bold inline-flex items-center gap-2 shadow-md shadow-violet-200 disabled:opacity-60"
+            className="h-11 px-6 rounded-full bg-gradient-to-r from-blue-400 to-sky-400 hover:from-blue-500 hover:to-sky-500 text-white text-sm font-bold inline-flex items-center gap-2 shadow-md shadow-blue-200 disabled:opacity-60"
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
             Save Settings
@@ -267,7 +267,7 @@ function AdminSecurityPage() {
           <ShieldCheck className="w-5 h-5 text-slate-900" strokeWidth={2.5} />
           <h2 className="text-base font-bold text-slate-900">
             2FA is currently{" "}
-            <span className={`underline underline-offset-4 ${has2FA ? "text-violet-700" : "text-slate-500"}`}>
+            <span className={`underline underline-offset-4 ${has2FA ? "text-blue-700" : "text-slate-500"}`}>
               {has2FA ? "enabled" : "disabled"}
             </span>
           </h2>
@@ -287,7 +287,7 @@ function AdminSecurityPage() {
                 onChange={(e) => setDisableCode(e.target.value)}
                 placeholder="123456"
                 inputMode="numeric"
-                className="flex-1 h-11 px-4 rounded-full border border-slate-200 text-sm bg-white outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100"
+                className="flex-1 h-11 px-4 rounded-full border border-slate-200 text-sm bg-white outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
               />
               <button
                 onClick={disable2FA}
@@ -304,7 +304,7 @@ function AdminSecurityPage() {
         {/* Reset Authenticator */}
         <div className="pt-5 pb-5 border-b border-slate-100">
           <div className="flex items-center gap-2 text-sm font-bold text-slate-900">
-            <RefreshCw className="w-4 h-4 text-violet-600" />
+            <RefreshCw className="w-4 h-4 text-blue-600" />
             Lost your Authenticator?
           </div>
           <p className="text-xs text-slate-500 mt-1 leading-relaxed">
@@ -313,7 +313,7 @@ function AdminSecurityPage() {
           <button
             onClick={resetAuthenticator}
             disabled={resetting}
-            className="mt-3 h-10 px-5 rounded-full bg-white border border-violet-200 hover:bg-violet-50 text-violet-700 text-sm font-bold inline-flex items-center gap-2 disabled:opacity-60"
+            className="mt-3 h-10 px-5 rounded-full bg-white border border-blue-200 hover:bg-blue-50 text-blue-700 text-sm font-bold inline-flex items-center gap-2 disabled:opacity-60"
           >
             {resetting ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
             Reset Authenticator
@@ -323,7 +323,7 @@ function AdminSecurityPage() {
         {/* Backup Codes */}
         <div className="pt-5">
           <div className="flex items-center gap-2 text-sm font-bold text-slate-900">
-            <KeyRound className="w-4 h-4 text-violet-600" />
+            <KeyRound className="w-4 h-4 text-blue-600" />
             Backup Codes
           </div>
           <p className="text-xs text-slate-500 mt-1 leading-relaxed">
@@ -331,13 +331,13 @@ function AdminSecurityPage() {
           </p>
 
           {backupCodes && (
-            <div className="mt-3 rounded-2xl border border-violet-200 bg-violet-50/60 p-4">
-              <div className="flex items-center gap-2 text-xs font-bold text-violet-800">
+            <div className="mt-3 rounded-2xl border border-blue-200 bg-blue-50/60 p-4">
+              <div className="flex items-center gap-2 text-xs font-bold text-blue-800">
                 <Check className="w-4 h-4" /> Save these codes somewhere safe — they won't be shown again.
               </div>
               <div className="mt-3 grid grid-cols-2 gap-2 font-mono text-sm">
                 {backupCodes.map((c) => (
-                  <div key={c} className="bg-white border border-violet-200 rounded-lg px-3 py-2 text-slate-800">{c}</div>
+                  <div key={c} className="bg-white border border-blue-200 rounded-lg px-3 py-2 text-slate-800">{c}</div>
                 ))}
               </div>
               <div className="mt-3 flex gap-2">
@@ -360,7 +360,7 @@ function AdminSecurityPage() {
           <button
             onClick={generateBackupCodes}
             disabled={generatingCodes}
-            className="mt-3 h-10 px-5 rounded-full bg-white border border-violet-200 hover:bg-violet-50 text-violet-700 text-sm font-bold inline-flex items-center gap-2 disabled:opacity-60"
+            className="mt-3 h-10 px-5 rounded-full bg-white border border-blue-200 hover:bg-blue-50 text-blue-700 text-sm font-bold inline-flex items-center gap-2 disabled:opacity-60"
           >
             {generatingCodes ? <Loader2 className="w-4 h-4 animate-spin" /> : <KeyRound className="w-4 h-4" />}
             Generate Backup Codes
@@ -386,8 +386,8 @@ function Checkbox({ checked, onChange }: { checked: boolean; onChange: (v: boole
       onClick={(e) => { e.preventDefault(); onChange(!checked); }}
       className={`shrink-0 w-5 h-5 rounded-md grid place-items-center transition ${
         checked
-          ? "bg-violet-600 ring-1 ring-violet-700"
-          : "bg-white border border-slate-300 hover:border-violet-300"
+          ? "bg-blue-600 ring-1 ring-blue-700"
+          : "bg-white border border-slate-300 hover:border-blue-300"
       }`}
       aria-pressed={checked}
     >
@@ -414,7 +414,7 @@ function NumberField({
         max={max}
         value={value}
         onChange={(e) => onChange(Math.max(min, Math.min(max, Number(e.target.value) || min)))}
-        className="mt-2 w-full h-11 px-4 rounded-2xl border border-slate-200 text-sm bg-white outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100"
+        className="mt-2 w-full h-11 px-4 rounded-2xl border border-slate-200 text-sm bg-white outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
       />
       <p className="text-[11px] text-slate-500 mt-1">{hint}</p>
     </div>

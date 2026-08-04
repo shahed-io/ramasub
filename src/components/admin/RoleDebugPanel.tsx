@@ -109,9 +109,9 @@ export default function RoleDebugPanel() {
       aria-labelledby="role-debug-heading"
       className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden"
     >
-      <header className="flex items-center justify-between gap-3 px-5 py-4 border-b border-slate-200 bg-gradient-to-r from-indigo-50 to-violet-50">
+      <header className="flex items-center justify-between gap-3 px-5 py-4 border-b border-slate-200 bg-gradient-to-r from-indigo-50 to-blue-50">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 grid place-items-center text-white shadow-sm">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 grid place-items-center text-white shadow-sm">
             <ShieldCheck className="w-5 h-5" aria-hidden="true" />
           </div>
           <div>
@@ -185,7 +185,7 @@ export default function RoleDebugPanel() {
                       key={r.role}
                       className={`px-2 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide ${
                         r.role === "admin"
-                          ? "bg-violet-100 text-violet-700 ring-1 ring-violet-300"
+                          ? "bg-blue-100 text-blue-700 ring-1 ring-blue-300"
                           : "bg-slate-200 text-slate-700"
                       }`}
                     >
@@ -196,7 +196,7 @@ export default function RoleDebugPanel() {
               </div>
               <div className="text-[11px] text-slate-600 flex items-center gap-1.5">
                 <span>has_role(admin):</span>
-                <span className={`font-bold ${adminCheck ? "text-violet-600" : "text-rose-600"}`}>
+                <span className={`font-bold ${adminCheck ? "text-blue-600" : "text-rose-600"}`}>
                   {adminCheck ? "true" : "false"}
                 </span>
               </div>
@@ -261,7 +261,7 @@ export default function RoleDebugPanel() {
                         <span
                           className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-bold ${
                             ok
-                              ? "bg-violet-100 text-violet-700 ring-1 ring-violet-300"
+                              ? "bg-blue-100 text-blue-700 ring-1 ring-blue-300"
                               : required
                                 ? "bg-rose-100 text-rose-700 ring-1 ring-rose-300"
                                 : "bg-slate-100 text-slate-600 ring-1 ring-slate-200"
@@ -287,7 +287,7 @@ export default function RoleDebugPanel() {
               ⚠ Missing EXECUTE for: {missing.join(", ")} — RPC calls to has_role will fail.
             </p>
           ) : (
-            <p className="mt-2 text-[11px] text-violet-700">
+            <p className="mt-2 text-[11px] text-blue-700">
               ✓ authenticated &amp; anon both have EXECUTE — RPC calls will work.
             </p>
           );

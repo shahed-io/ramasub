@@ -164,7 +164,7 @@ function AdminUsers() {
                         {r.avatar_url ? (
                           <img src={r.avatar_url} alt="" className="w-9 h-9 rounded-full object-cover ring-1 ring-slate-200" />
                         ) : (
-                          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-100 to-violet-100 ring-1 ring-slate-200 grid place-items-center text-xs font-bold text-indigo-700">
+                          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-100 to-blue-100 ring-1 ring-slate-200 grid place-items-center text-xs font-bold text-indigo-700">
                             {(r.display_name || r.email || "U").slice(0, 1).toUpperCase()}
                           </div>
                         )}
@@ -180,7 +180,7 @@ function AdminUsers() {
                       <div className="flex flex-col gap-0.5 text-[12px]">
                         <span className="text-slate-800 flex items-center gap-1 truncate max-w-[220px]">
                           {r.email_confirmed
-                            ? <CheckCircle2 className="w-3 h-3 text-violet-500 shrink-0" />
+                            ? <CheckCircle2 className="w-3 h-3 text-blue-500 shrink-0" />
                             : <Clock className="w-3 h-3 text-amber-500 shrink-0" />}
                           <span className="truncate">{r.email || "—"}</span>
                         </span>
@@ -196,7 +196,7 @@ function AdminUsers() {
                     <td className="px-4 py-3 text-slate-500 text-[12px]">{fmtDateShort(r.last_sign_in_at)}</td>
                     <td className="px-4 py-3">
                       {r.is_admin ? (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold ring-1 bg-violet-50 text-violet-700 ring-violet-200">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold ring-1 bg-blue-50 text-blue-700 ring-blue-200">
                           <Shield className="w-3 h-3" /> Admin
                         </span>
                       ) : (
@@ -243,7 +243,7 @@ function CustomerDrawer({ c, onClose, onToggleAdmin }: { c: CustomerDetail; onCl
             {c.avatar_url ? (
               <img src={c.avatar_url} alt="" className="w-14 h-14 rounded-full object-cover ring-1 ring-slate-200" />
             ) : (
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-100 to-violet-100 ring-1 ring-slate-200 grid place-items-center text-lg font-bold text-indigo-700">
+              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-100 to-blue-100 ring-1 ring-slate-200 grid place-items-center text-lg font-bold text-indigo-700">
                 {(c.display_name || c.email || "U").slice(0, 1).toUpperCase()}
               </div>
             )}
@@ -251,7 +251,7 @@ function CustomerDrawer({ c, onClose, onToggleAdmin }: { c: CustomerDetail; onCl
               <div className="font-bold text-slate-900 text-lg truncate">{c.display_name || "Unnamed"}</div>
               <div className="flex items-center gap-1 text-[11px]">
                 {c.is_admin ? (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-bold bg-violet-50 text-violet-700 ring-1 ring-violet-200">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-bold bg-blue-50 text-blue-700 ring-1 ring-blue-200">
                     <Shield className="w-3 h-3" /> Admin
                   </span>
                 ) : (
@@ -322,7 +322,7 @@ function Field({
   badge?: string; badgeTone?: "emerald" | "amber" | "slate";
 }) {
   const toneCls = badgeTone === "emerald"
-    ? "bg-violet-50 text-violet-700 ring-violet-200"
+    ? "bg-blue-50 text-blue-700 ring-blue-200"
     : badgeTone === "amber"
     ? "bg-amber-50 text-amber-700 ring-amber-200"
     : "bg-slate-50 text-slate-600 ring-slate-200";

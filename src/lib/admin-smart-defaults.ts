@@ -263,7 +263,7 @@ export async function getSmartDefaults(kind: string, fields: AdminField[]): Prom
       map.company_name = brand;
       map.address = (footer.address as string) || "Dhaka, Bangladesh";
       map.tagline = "Trusted Digital Store";
-      map.primary_color = "#7c3aed";
+      map.primary_color = "#3b82f6";
       map.accent_color = "#0ea5e9";
       map.show_logo = true;
       map.show_signature = true;
@@ -297,11 +297,11 @@ export async function getSmartDefaults(kind: string, fields: AdminField[]): Prom
       break;
 
     case "support_widget":
-      map.orb_from = "#7c3aed";
+      map.orb_from = "#3b82f6";
       map.orb_via = "#a855f7";
       map.orb_to = "#0ea5e9";
       map.ring_color = "#a855f7";
-      map.spin_color_1 = "#7c3aed";
+      map.spin_color_1 = "#3b82f6";
       map.spin_color_2 = "#0ea5e9";
       map.icon_color = "#ffffff";
       break;

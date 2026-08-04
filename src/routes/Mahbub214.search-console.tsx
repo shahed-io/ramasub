@@ -197,26 +197,26 @@ function SearchConsolePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-violet-50/40 to-indigo-50/30 p-4 md:p-8 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/40 to-indigo-50/30 p-4 md:p-8 relative overflow-hidden">
       {/* Ambient glossy blobs */}
-      <div aria-hidden className="pointer-events-none absolute -top-32 -left-20 w-[420px] h-[420px] rounded-full bg-violet-300/20 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -top-32 -left-20 w-[420px] h-[420px] rounded-full bg-blue-300/20 blur-3xl" />
       <div aria-hidden className="pointer-events-none absolute top-40 -right-24 w-[380px] h-[380px] rounded-full bg-indigo-300/20 blur-3xl" />
       <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/3 w-[360px] h-[360px] rounded-full bg-sky-200/25 blur-3xl" />
 
       <div className="max-w-6xl mx-auto space-y-6 relative">
         {/* Glass hero */}
         <div className="rounded-3xl bg-white/60 backdrop-blur-xl border border-white/70 shadow-[0_10px_40px_-15px_rgba(99,102,241,0.25)] p-6 md:p-8 relative overflow-hidden">
-          <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-300/70 to-transparent" />
-          <div aria-hidden className="absolute -top-24 -right-16 w-64 h-64 rounded-full bg-gradient-to-br from-violet-300/30 to-indigo-300/20 blur-2xl" />
+          <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-300/70 to-transparent" />
+          <div aria-hidden className="absolute -top-24 -right-16 w-64 h-64 rounded-full bg-gradient-to-br from-blue-300/30 to-indigo-300/20 blur-2xl" />
           <div className="flex items-center gap-4 relative">
-            <div className="w-12 h-12 rounded-2xl bg-white/80 backdrop-blur border border-white shadow-sm grid place-items-center text-violet-600">
+            <div className="w-12 h-12 rounded-2xl bg-white/80 backdrop-blur border border-white shadow-sm grid place-items-center text-blue-600">
               <Search className="w-6 h-6" />
             </div>
             <div className="flex-1">
-              <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-slate-900 to-violet-700 bg-clip-text text-transparent">Google Search Console</h1>
+              <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-slate-900 to-blue-700 bg-clip-text text-transparent">Google Search Console</h1>
               <p className="text-slate-500 text-sm mt-1">Analytics, sitemap, URL inspection — সব customizable admin থেকে</p>
             </div>
-            <div className={`hidden md:inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur border ${connected ? "bg-white/80 border-violet-200 text-violet-700" : "bg-rose-50/80 border-rose-200 text-rose-700"}`}>
+            <div className={`hidden md:inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur border ${connected ? "bg-white/80 border-blue-200 text-blue-700" : "bg-rose-50/80 border-rose-200 text-rose-700"}`}>
               {connected ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
               {connected ? "Connected" : "Not connected"}
             </div>
@@ -237,9 +237,9 @@ function SearchConsolePage() {
           <>
             <div className="rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_-12px_rgba(99,102,241,0.15)] p-4 md:p-5 space-y-4">
               <div className="flex flex-col md:flex-row md:items-center gap-3">
-                <label className="text-xs font-semibold text-slate-600 flex items-center gap-1.5"><Globe className="w-3.5 h-3.5 text-violet-600" /> Site</label>
+                <label className="text-xs font-semibold text-slate-600 flex items-center gap-1.5"><Globe className="w-3.5 h-3.5 text-blue-600" /> Site</label>
                 <select
-                  className="flex-1 rounded-xl border border-slate-200/80 bg-white/80 backdrop-blur px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400/40 focus:border-violet-300"
+                  className="flex-1 rounded-xl border border-slate-200/80 bg-white/80 backdrop-blur px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/40 focus:border-blue-300"
                   value={siteUrl}
                   onChange={(e) => { setSiteUrl(e.target.value); savePrefs({ ...prefs, siteUrl: e.target.value }); }}
                 >
@@ -247,7 +247,7 @@ function SearchConsolePage() {
                   {sites.map((s) => <option key={s.siteUrl} value={s.siteUrl}>{s.siteUrl} — {s.permissionLevel}</option>)}
                 </select>
                 <select
-                  className="rounded-xl border border-slate-200/80 bg-white/80 backdrop-blur px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400/40"
+                  className="rounded-xl border border-slate-200/80 bg-white/80 backdrop-blur px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/40"
                   value={prefs.rangeDays}
                   onChange={(e) => savePrefs({ ...prefs, rangeDays: Number(e.target.value) })}
                 >
@@ -260,7 +260,7 @@ function SearchConsolePage() {
                 <button
                   onClick={loadAll}
                   disabled={busy || !siteUrl}
-                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-sm font-semibold shadow-md shadow-violet-500/20 hover:shadow-lg hover:shadow-violet-500/30 transition disabled:opacity-50"
+                  className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition disabled:opacity-50"
                 >
                   {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />} Refresh
                 </button>
@@ -290,8 +290,8 @@ function SearchConsolePage() {
                     <button key={t.k} onClick={() => setTab(t.k as any)}
                       className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
                         active
-                          ? "bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-500/25"
-                          : "bg-white/70 backdrop-blur border border-slate-200/70 text-slate-700 hover:bg-white hover:border-violet-200"
+                          ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25"
+                          : "bg-white/70 backdrop-blur border border-slate-200/70 text-slate-700 hover:bg-white hover:border-blue-200"
                       }`}>
                       <Icon className="w-3.5 h-3.5" /> {t.label}
                     </button>
@@ -330,7 +330,7 @@ function SearchConsolePage() {
                   <button
                     onClick={() => { const p = newSmPath.trim() || `${SITE_URL}/sitemap.xml`; submitPath(p); setNewSmPath(""); }}
                     disabled={busy}
-                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-sm font-semibold shadow disabled:opacity-50"
+                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-gradient-to-r from-blue-600 to-sky-600 text-white text-sm font-semibold shadow disabled:opacity-50"
                   >
                     <Send className="w-4 h-4" /> Submit
                   </button>
@@ -407,7 +407,7 @@ function SearchConsolePage() {
 
 function Stat({ title, value, accent }: { title: string; value: string; accent: "violet" | "indigo" | "sky" | "amber" }) {
   const map = {
-    violet: { text: "text-violet-600", dot: "bg-violet-500", glow: "from-violet-300/40" },
+    violet: { text: "text-blue-600", dot: "bg-blue-500", glow: "from-blue-300/40" },
     indigo: { text: "text-indigo-600", dot: "bg-indigo-500", glow: "from-indigo-300/40" },
     sky:    { text: "text-sky-600",    dot: "bg-sky-500",    glow: "from-sky-300/40" },
     amber:  { text: "text-amber-600",  dot: "bg-amber-500",  glow: "from-amber-300/40" },
@@ -491,7 +491,7 @@ function SettingsPanel({ prefs, save }: { prefs: Prefs; save: (p: Prefs) => void
           <p className="text-xs text-slate-500 mt-1">Preferences browser এ locally save হবে।</p>
         </div>
         <button onClick={() => save(local)}
-          className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-violet-600 text-white text-sm font-semibold shadow">
+          className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-blue-600 text-white text-sm font-semibold shadow">
           <Save className="w-4 h-4" /> Save
         </button>
       </div>
@@ -630,7 +630,7 @@ function VerifyPanel() {
     <div className="space-y-4">
       <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-5 space-y-4">
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-xl bg-violet-100 text-violet-700 grid place-items-center"><ShieldCheck className="w-5 h-5" /></div>
+          <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 grid place-items-center"><ShieldCheck className="w-5 h-5" /></div>
           <div className="flex-1">
             <h2 className="text-base font-bold text-slate-900">Site ownership verification</h2>
             <p className="text-xs text-slate-500 mt-1">
@@ -657,7 +657,7 @@ function VerifyPanel() {
           <button
             onClick={verify}
             disabled={busy !== "" || !token}
-            className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-gradient-to-r from-violet-600 to-teal-600 text-white text-sm font-semibold disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-gradient-to-r from-blue-600 to-teal-600 text-white text-sm font-semibold disabled:opacity-50"
           >
             {busy === "verify" ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />} 2. Verify & add
           </button>
@@ -702,7 +702,7 @@ function VerifyPanel() {
             {verified.map((v) => (
               <li key={v.id} className="py-2 flex items-center justify-between text-sm">
                 <span className="font-mono text-xs text-slate-700">{v.site.identifier}</span>
-                <span className="inline-flex items-center gap-1 text-violet-700 text-xs font-semibold"><CheckCircle2 className="w-3.5 h-3.5" /> Verified</span>
+                <span className="inline-flex items-center gap-1 text-blue-700 text-xs font-semibold"><CheckCircle2 className="w-3.5 h-3.5" /> Verified</span>
               </li>
             ))}
           </ul>

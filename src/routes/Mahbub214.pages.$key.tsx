@@ -78,7 +78,7 @@ function PageEditor() {
     <div className="max-w-xl mx-auto p-10 text-center">
       <h2 className="text-xl font-bold mb-2">Page not found</h2>
       <p className="text-sm text-slate-500 mb-4">No page exists for key "{key}".</p>
-      <Link to="/Mahbub214/pages" className="inline-flex items-center gap-1.5 text-violet-600 font-semibold"><ArrowLeft className="w-4 h-4" /> Back to Pages</Link>
+      <Link to="/Mahbub214/pages" className="inline-flex items-center gap-1.5 text-blue-600 font-semibold"><ArrowLeft className="w-4 h-4" /> Back to Pages</Link>
     </div>
   );
 
@@ -96,7 +96,7 @@ function PageEditor() {
             <input
               value={page.title}
               onChange={(e) => update("title", e.target.value)}
-              className="text-xl md:text-2xl font-extrabold bg-transparent outline-none border-b border-transparent focus:border-violet-300 w-full"
+              className="text-xl md:text-2xl font-extrabold bg-transparent outline-none border-b border-transparent focus:border-blue-300 w-full"
             />
             <div className="text-xs text-slate-500 mt-0.5"><code className="px-1.5 py-0.5 rounded bg-slate-100">{page.path}</code> · {page.page_type}</div>
           </div>
@@ -108,7 +108,7 @@ function PageEditor() {
           <button
             onClick={save}
             disabled={!dirty || saving}
-            className="inline-flex items-center gap-1.5 h-10 px-5 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-sm font-bold shadow-md disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 h-10 px-5 rounded-full bg-gradient-to-r from-blue-600 to-sky-600 text-white text-sm font-bold shadow-md disabled:opacity-50"
           >
             <Save className="w-4 h-4" /> {saving ? "Saving…" : dirty ? "Save changes" : "Saved"}
           </button>
@@ -123,7 +123,7 @@ function PageEditor() {
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`inline-flex items-center gap-1.5 h-9 px-4 rounded-xl text-xs font-semibold ${tab === t ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`}
+              className={`inline-flex items-center gap-1.5 h-9 px-4 rounded-xl text-xs font-semibold ${tab === t ? "bg-gradient-to-r from-blue-600 to-sky-600 text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`}
             >
               <Icon className="w-3.5 h-3.5" /> {t.toUpperCase()}
             </button>
@@ -233,9 +233,9 @@ function ContentTab({
                 <button
                   key={bt.type}
                   onClick={() => addBlock(bt.type)}
-                  className="flex flex-col items-center gap-1.5 p-3 rounded-xl border border-slate-200 hover:border-violet-400 hover:bg-violet-50 transition text-slate-700"
+                  className="flex flex-col items-center gap-1.5 p-3 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50 transition text-slate-700"
                 >
-                  <Icon className="w-5 h-5 text-violet-600" />
+                  <Icon className="w-5 h-5 text-blue-600" />
                   <span className="text-xs font-semibold">{bt.label}</span>
                 </button>
               );
@@ -267,7 +267,7 @@ function BlockRow({
     <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-3 group">
       <div className="flex items-center justify-between gap-2 mb-2">
         <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 uppercase tracking-wide">
-          <Icon className="w-3.5 h-3.5 text-violet-600" />
+          <Icon className="w-3.5 h-3.5 text-blue-600" />
           {block.type}
         </div>
         <div className="flex items-center gap-1">
@@ -283,8 +283,8 @@ function BlockRow({
 }
 
 function BlockEditorFields({ block, onChange }: { block: PageBlock; onChange: (patch: Partial<PageBlock>) => void }) {
-  const inp = "w-full h-10 px-3 rounded-lg bg-white border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-violet-200";
-  const ta = "w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-violet-200 resize-y min-h-[80px]";
+  const inp = "w-full h-10 px-3 rounded-lg bg-white border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-blue-200";
+  const ta = "w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-sm outline-none focus:ring-2 focus:ring-blue-200 resize-y min-h-[80px]";
 
   switch (block.type) {
     case "heading":
@@ -299,7 +299,7 @@ function BlockEditorFields({ block, onChange }: { block: PageBlock; onChange: (p
               {(["left", "center", "right"] as const).map((a) => {
                 const Icon = a === "left" ? AlignLeft : a === "center" ? AlignCenter : AlignRight;
                 return (
-                  <button key={a} onClick={() => onChange({ align: a })} className={`p-2 ${block.align === a ? "bg-violet-100 text-violet-700" : "text-slate-500 hover:bg-slate-50"}`} title={a}>
+                  <button key={a} onClick={() => onChange({ align: a })} className={`p-2 ${block.align === a ? "bg-blue-100 text-blue-700" : "text-slate-500 hover:bg-slate-50"}`} title={a}>
                     <Icon className="w-3.5 h-3.5" />
                   </button>
                 );
@@ -344,7 +344,7 @@ function BlockEditorFields({ block, onChange }: { block: PageBlock; onChange: (p
               <textarea className={ta} value={it.a} onChange={(e) => { const items = block.items.slice(); items[i] = { ...it, a: e.target.value }; onChange({ items }); }} placeholder="Answer" />
             </div>
           ))}
-          <button onClick={() => onChange({ items: [...block.items, { q: "New question", a: "Answer" }] })} className="inline-flex items-center gap-1 text-xs font-semibold text-violet-600 hover:underline">
+          <button onClick={() => onChange({ items: [...block.items, { q: "New question", a: "Answer" }] })} className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:underline">
             <Plus className="w-3 h-3" /> Add FAQ item
           </button>
         </div>
@@ -355,7 +355,7 @@ function BlockEditorFields({ block, onChange }: { block: PageBlock; onChange: (p
 /* -------------------------------- SEO TAB -------------------------------- */
 
 function SeoTab({ seo, onChange }: { seo: PageSeo; onChange: (v: Partial<PageSeo>) => void }) {
-  const inp = "w-full h-11 px-3 rounded-xl bg-white border border-slate-200 outline-none focus:ring-2 focus:ring-violet-200";
+  const inp = "w-full h-11 px-3 rounded-xl bg-white border border-slate-200 outline-none focus:ring-2 focus:ring-blue-200";
   return (
     <div className="bg-white rounded-2xl border border-slate-200 p-5 md:p-6 space-y-4 max-w-2xl">
       <div>
@@ -403,7 +403,7 @@ function SettingsTab({
         <h3 className="font-bold text-slate-800">Publish status</h3>
         <div className="space-y-2">
           {(["published", "draft", "hidden"] as PageStatus[]).map((s) => (
-            <label key={s} className="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:border-violet-300 cursor-pointer has-[:checked]:border-violet-400 has-[:checked]:bg-violet-50">
+            <label key={s} className="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:border-blue-300 cursor-pointer has-[:checked]:border-blue-400 has-[:checked]:bg-blue-50">
               <input type="radio" name="status" checked={page.status === s} onChange={() => onStatus(s)} className="mt-1" />
               <div className="min-w-0">
                 <div className="font-semibold text-sm capitalize">{s}</div>
@@ -434,7 +434,7 @@ function SettingsTab({
             <input
               value={zones[k]}
               onChange={(e) => onTextZonesChange({ ...zones, [k]: e.target.value })}
-              className="w-full h-10 px-3 rounded-lg bg-slate-50 border border-slate-200 outline-none focus:ring-2 focus:ring-violet-200 text-sm"
+              className="w-full h-10 px-3 rounded-lg bg-slate-50 border border-slate-200 outline-none focus:ring-2 focus:ring-blue-200 text-sm"
             />
           </div>
         ))}

@@ -44,36 +44,27 @@ const ic = (Icon: any) => <Icon className="w-5 h-5" strokeWidth={2.75} absoluteS
  * end-stop (light → deep) to separate items.
  */
 const C = {
-  // Overview — brand violet
-  brand: "from-violet-500 to-indigo-600",
-  brandSoft: "from-violet-400 to-violet-600",
-  // Sales — amber / orange money tones
-  sales: "from-amber-500 to-orange-600",
-  salesSoft: "from-amber-400 to-amber-600",
-  salesDeep: "from-orange-500 to-rose-500",
-  // Catalog — violet / fuchsia
-  catalog: "from-violet-500 to-fuchsia-600",
-  catalogSoft: "from-violet-400 to-purple-600",
-  // Customers — sky / blue
-  customer: "from-sky-500 to-blue-600",
-  customerSoft: "from-sky-400 to-cyan-500",
-  customerDeep: "from-blue-600 to-indigo-700",
-  // Storefront — rose / pink
-  store: "from-rose-500 to-pink-600",
-  storeSoft: "from-pink-400 to-rose-500",
-  // Marketing — fuchsia / pink
-  marketing: "from-fuchsia-500 to-pink-600",
-  marketingSoft: "from-fuchsia-400 to-purple-600",
-  // Content & SEO — teal / emerald
-  content: "from-teal-500 to-emerald-600",
-  contentSoft: "from-emerald-400 to-teal-500",
-  // Reports — indigo
+  // Cloud White system — one blue/slate family, only depth varies.
+  brand: "from-blue-500 to-indigo-600",
+  brandSoft: "from-blue-400 to-blue-600",
+  sales: "from-blue-600 to-indigo-700",
+  salesSoft: "from-sky-500 to-blue-600",
+  salesDeep: "from-indigo-600 to-blue-800",
+  catalog: "from-sky-500 to-blue-700",
+  catalogSoft: "from-sky-400 to-sky-600",
+  customer: "from-blue-500 to-sky-600",
+  customerSoft: "from-sky-400 to-blue-500",
+  customerDeep: "from-blue-700 to-indigo-800",
+  store: "from-slate-500 to-blue-600",
+  storeSoft: "from-slate-400 to-slate-600",
+  marketing: "from-indigo-500 to-blue-600",
+  marketingSoft: "from-indigo-400 to-sky-500",
+  content: "from-cyan-500 to-blue-600",
+  contentSoft: "from-cyan-400 to-sky-500",
   report: "from-indigo-500 to-blue-700",
-  reportSoft: "from-indigo-400 to-violet-600",
-  // Integrations — blue / indigo
+  reportSoft: "from-blue-400 to-indigo-600",
   integration: "from-blue-500 to-indigo-600",
-  integrationSoft: "from-sky-500 to-indigo-500",
-  // System — slate
+  integrationSoft: "from-sky-500 to-blue-600",
   system: "from-slate-600 to-slate-800",
   systemSoft: "from-slate-500 to-slate-700",
   danger: "from-rose-600 to-red-700",

@@ -43,7 +43,7 @@ type Design = {
 };
 
 const DEFAULTS: Design = {
-  brandColor: "#7c3aed",
+  brandColor: "#3b82f6",
   brandLight: "#f3e8ff",
   headerBg: "#bfdbfe",
   headerText: "#0f172a",
@@ -151,7 +151,7 @@ function InvoiceDesignPage() {
         <button onClick={reset} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full bg-white border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50 shadow-sm">
           <RotateCcw className="w-4 h-4" /> {t("Reset", "রিসেট")}
         </button>
-        <button onClick={save} disabled={saving} className="inline-flex items-center gap-1.5 h-10 px-5 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-600 text-white text-sm font-semibold shadow-lg hover:opacity-95 disabled:opacity-60">
+        <button onClick={save} disabled={saving} className="inline-flex items-center gap-1.5 h-10 px-5 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 text-white text-sm font-semibold shadow-lg hover:opacity-95 disabled:opacity-60">
           {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />} {t("Save Design", "ডিজাইন সংরক্ষণ")}
         </button>
       </div>
@@ -160,7 +160,7 @@ function InvoiceDesignPage() {
         {/* LEFT: Controls */}
         <div className="space-y-5">
           {/* Colors */}
-          <Section icon={<Palette className="w-4 h-4" />} title={t("Colors", "কালার")} accent="from-rose-400 to-fuchsia-500">
+          <Section icon={<Palette className="w-4 h-4" />} title={t("Colors", "কালার")} accent="from-rose-400 to-sky-500">
             <ColorField label={t("Brand color", "ব্র্যান্ড কালার")} value={design.brandColor} onChange={(v) => update("brandColor", v)} />
             <ColorField label={t("Brand light tint", "ব্র্যান্ড হালকা টিন্ট")} value={design.brandLight} onChange={(v) => update("brandLight", v)} />
             <ColorField label={t("Table header background", "টেবিল হেডার ব্যাকগ্রাউন্ড")} value={design.headerBg} onChange={(v) => update("headerBg", v)} autoBtn onAuto={() => update("headerBg", design.brandLight)} hint={t("Auto: matches brand tint for soft headers.", "অটো: ব্র্যান্ড টিন্টের সাথে মিল।")} />
@@ -183,17 +183,17 @@ function InvoiceDesignPage() {
               <input
                 type="range" min={0} max={32} value={design.cardRadius}
                 onChange={(e) => update("cardRadius", Number(e.target.value))}
-                className="w-full mt-2 accent-violet-600"
+                className="w-full mt-2 accent-blue-600"
               />
             </div>
             <label className="flex items-center gap-2 text-sm text-slate-700">
-              <input type="checkbox" checked={design.showLogo} onChange={(e) => update("showLogo", e.target.checked)} className="w-4 h-4 accent-violet-600" />
+              <input type="checkbox" checked={design.showLogo} onChange={(e) => update("showLogo", e.target.checked)} className="w-4 h-4 accent-blue-600" />
               {t("Show company logo", "কোম্পানির লোগো দেখান")}
             </label>
           </Section>
 
           {/* Company info */}
-          <Section icon={<Building2 className="w-4 h-4" />} title={t("Company info", "কোম্পানি তথ্য")} accent="from-violet-400 to-teal-500">
+          <Section icon={<Building2 className="w-4 h-4" />} title={t("Company info", "কোম্পানি তথ্য")} accent="from-blue-400 to-teal-500">
             <TextField label={t("Invoice title", "ইনভয়েস টাইটেল")} value={design.invoiceTitle} onChange={(v) => update("invoiceTitle", v)} />
             <TextField label={t("Company name", "কোম্পানির নাম")} value={design.companyName} onChange={(v) => update("companyName", v)} />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -207,7 +207,7 @@ function InvoiceDesignPage() {
           </Section>
 
           {/* Labels */}
-          <Section icon={<Tag className="w-4 h-4" />} title={t("Labels", "লেবেল")} accent="from-violet-400 to-orange-500">
+          <Section icon={<Tag className="w-4 h-4" />} title={t("Labels", "লেবেল")} accent="from-blue-400 to-orange-500">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <TextField label={t("Billing block", "বিলিং ব্লক")} value={design.billingLabel} onChange={(v) => update("billingLabel", v)} />
               <TextField label={t("Payment block", "পেমেন্ট ব্লক")} value={design.paymentLabel} onChange={(v) => update("paymentLabel", v)} />
@@ -225,7 +225,7 @@ function InvoiceDesignPage() {
           <Section icon={<Code2 className="w-4 h-4" />} title={t("Manual JSON Editor", "ম্যানুয়াল JSON এডিটর")} accent="from-slate-500 to-slate-700"
             right={
               <div className="flex gap-2">
-                <button onClick={applyJson} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-600 text-white text-xs font-semibold shadow">
+                <button onClick={applyJson} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 text-white text-xs font-semibold shadow">
                   <Sparkles className="w-3.5 h-3.5" /> {t("Apply JSON", "প্রয়োগ করুন")}
                 </button>
                 <button onClick={() => setJsonText(JSON.stringify(design, null, 2))} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full bg-white border border-slate-200 text-slate-700 text-xs font-semibold">
@@ -239,14 +239,14 @@ function InvoiceDesignPage() {
               value={jsonText}
               onChange={(e) => setJsonText(e.target.value)}
               spellCheck={false}
-              className="w-full h-72 mt-2 font-mono text-xs p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-400"
+              className="w-full h-72 mt-2 font-mono text-xs p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </Section>
         </div>
 
         {/* RIGHT: Live Preview */}
         <div className="xl:sticky xl:top-4 xl:self-start">
-          <Section icon={<Eye className="w-4 h-4" />} title={t("Live Preview", "লাইভ প্রিভিউ")} accent="from-violet-500 to-fuchsia-500">
+          <Section icon={<Eye className="w-4 h-4" />} title={t("Live Preview", "লাইভ প্রিভিউ")} accent="from-blue-500 to-sky-500">
             <InvoicePreview design={design} totalColor={totalColor} />
           </Section>
         </div>
@@ -282,7 +282,7 @@ function TextField({ label, value, onChange }: { label: string; value: string; o
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full mt-1 h-10 px-3 rounded-xl bg-white border border-slate-200 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-violet-400"
+        className="w-full mt-1 h-10 px-3 rounded-xl bg-white border border-slate-200 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
     </div>
   );
@@ -312,10 +312,10 @@ function ColorField({
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="flex-1 h-10 px-3 rounded-xl bg-white border border-slate-200 text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-violet-400"
+          className="flex-1 h-10 px-3 rounded-xl bg-white border border-slate-200 text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
         {autoBtn && (
-          <button onClick={onAuto} className="h-10 px-3 rounded-xl bg-gradient-to-r from-fuchsia-500 to-violet-600 text-white text-xs font-bold shadow">
+          <button onClick={onAuto} className="h-10 px-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 text-white text-xs font-bold shadow">
             Auto
           </button>
         )}

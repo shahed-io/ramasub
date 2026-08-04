@@ -91,7 +91,7 @@ function DescriptionTemplatePage() {
           <div className="text-xs text-muted-foreground mb-1">
             <Link to="/Mahbub214" className="hover:underline">Admin</Link> / Description Template
           </div>
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
             Product Description Template
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
@@ -109,7 +109,7 @@ function DescriptionTemplatePage() {
           <button
             onClick={save}
             disabled={!dirty || saving || loading}
-            className="text-sm px-4 py-2 rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white font-semibold disabled:opacity-50"
+            className="text-sm px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-sky-500 text-white font-semibold disabled:opacity-50"
           >
             {saving ? "Saving…" : "Save template"}
           </button>

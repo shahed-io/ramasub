@@ -143,7 +143,7 @@ function FacebookPixelsPage() {
           <div className="a-stat p-4">
             <div className="flex items-center justify-between">
               <span className="a-stat-label">মোট Pixel</span>
-              <span className="a-stat-icon bg-violet-100 text-violet-600"><Facebook className="w-4 h-4" /></span>
+              <span className="a-stat-icon bg-blue-100 text-blue-600"><Facebook className="w-4 h-4" /></span>
             </div>
             <div className="a-stat-value mt-1">{items.length}</div>
           </div>
@@ -180,7 +180,7 @@ function FacebookPixelsPage() {
           <div className="text-slate-600">
             <p className="font-bold text-slate-900 mb-0.5">কীভাবে কাজ করে</p>
             <p>
-              প্রতিটি enabled pixel-এ front-end থেকে <code className="px-1 py-0.5 bg-violet-50 text-violet-700 rounded font-mono text-[12px]">fbq('init', PIXEL_ID)</code> এবং প্রতি route change-এ PageView পাঠানো হয়। Access Token শুধু CAPI (server-side) কাজের জন্য — চাইলে খালি রাখতে পারেন।
+              প্রতিটি enabled pixel-এ front-end থেকে <code className="px-1 py-0.5 bg-blue-50 text-blue-700 rounded font-mono text-[12px]">fbq('init', PIXEL_ID)</code> এবং প্রতি route change-এ PageView পাঠানো হয়। Access Token শুধু CAPI (server-side) কাজের জন্য — চাইলে খালি রাখতে পারেন।
             </p>
           </div>
         </div>
@@ -202,7 +202,7 @@ function FacebookPixelsPage() {
             <ul className="divide-y divide-slate-100">
               {items.map((p) => (
                 <li key={p.id} className="p-4 flex items-center gap-3 sm:gap-4">
-                  <div className={`w-10 h-10 rounded-full grid place-items-center flex-shrink-0 ${p.enabled ? "bg-violet-100 text-violet-600" : "bg-slate-100 text-slate-400"}`}>
+                  <div className={`w-10 h-10 rounded-full grid place-items-center flex-shrink-0 ${p.enabled ? "bg-blue-100 text-blue-600" : "bg-slate-100 text-slate-400"}`}>
                     <Facebook className="w-5 h-5" strokeWidth={2.5} />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -286,7 +286,7 @@ function FacebookPixelsPage() {
                   value={draft.label}
                   onChange={(e) => setDraft({ ...draft, label: e.target.value })}
                   placeholder="e.g. Main Store Pixel"
-                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
+                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
               <div>
@@ -299,7 +299,7 @@ function FacebookPixelsPage() {
                   onChange={(e) => setDraft({ ...draft, pixel_id: e.target.value.replace(/\D/g, "") })}
                   placeholder="1234567890123456"
                   inputMode="numeric"
-                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
+                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
                 <p className="text-[11px] text-slate-500 mt-1">Meta Events Manager থেকে 15–16 digit Pixel ID</p>
               </div>
@@ -312,7 +312,7 @@ function FacebookPixelsPage() {
                   value={draft.access_token}
                   onChange={(e) => setDraft({ ...draft, access_token: e.target.value })}
                   placeholder={draft.id ? "(unchanged — leave blank to keep)" : "EAAG..."}
-                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
+                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
               <div>
@@ -321,7 +321,7 @@ function FacebookPixelsPage() {
                   value={draft.notes}
                   onChange={(e) => setDraft({ ...draft, notes: e.target.value })}
                   rows={2}
-                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
+                  className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
               <label className="flex items-center gap-3 p-3 rounded-lg border border-slate-200 bg-slate-50 cursor-pointer">
@@ -329,7 +329,7 @@ function FacebookPixelsPage() {
                   type="checkbox"
                   checked={draft.enabled}
                   onChange={(e) => setDraft({ ...draft, enabled: e.target.checked })}
-                  className="w-4 h-4 rounded accent-violet-600"
+                  className="w-4 h-4 rounded accent-blue-600"
                 />
                 <div className="flex-1">
                   <div className="text-sm font-semibold text-slate-900">Active</div>

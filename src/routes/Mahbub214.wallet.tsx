@@ -36,9 +36,9 @@ function initials(name?: string | null, fallback?: string) {
 }
 
 function statusPill(s: Topup["status"]) {
-  if (s === "approved") return "bg-violet-600 text-white ring-1 ring-violet-700";
+  if (s === "approved") return "bg-blue-600 text-white ring-1 ring-blue-700";
   if (s === "rejected") return "bg-rose-600 text-white ring-1 ring-rose-700";
-  return "bg-violet-500 text-white ring-1 ring-violet-600";
+  return "bg-blue-500 text-white ring-1 ring-blue-600";
 }
 
 function AdminWalletPage() {
@@ -97,7 +97,7 @@ function AdminWalletPage() {
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <h2 className="flex items-center gap-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-              <Wallet className="h-6 w-6 text-violet-600" />
+              <Wallet className="h-6 w-6 text-blue-600" />
               Wallet Manager
             </h2>
             <p className="text-sm text-slate-500 mt-1">Manage customer wallets and top-up requests</p>
@@ -112,10 +112,10 @@ function AdminWalletPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          <StatCard label="Total Wallet" icon={Wallet} iconColor="text-violet-500" value={fmt2(stats.totalWallet)} valueColor="text-slate-900" />
-          <StatCard label="Total Credits" icon={TrendingUp} iconColor="text-violet-500" value={fmt(stats.credits)} valueColor="text-violet-600" />
+          <StatCard label="Total Wallet" icon={Wallet} iconColor="text-blue-500" value={fmt2(stats.totalWallet)} valueColor="text-slate-900" />
+          <StatCard label="Total Credits" icon={TrendingUp} iconColor="text-blue-500" value={fmt(stats.credits)} valueColor="text-blue-600" />
           <StatCard label="Total Debits" icon={TrendingDown} iconColor="text-rose-500" value={fmt2(stats.debits)} valueColor="text-rose-600" />
-          <StatCard label="Pending" icon={Clock} iconColor="text-violet-500" value={String(stats.pending)} valueColor="text-slate-900" />
+          <StatCard label="Pending" icon={Clock} iconColor="text-blue-500" value={String(stats.pending)} valueColor="text-slate-900" />
         </div>
 
         {/* Body grid */}
@@ -133,7 +133,7 @@ function AdminWalletPage() {
                   onClick={() => setTab(id)}
                   className={`px-4 py-2 rounded-xl text-sm font-semibold inline-flex items-center gap-1.5 transition ${
                     tab === id
-                      ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-md shadow-violet-500/30"
+                      ? "bg-gradient-to-r from-blue-600 to-sky-600 text-white shadow-md shadow-blue-500/30"
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
@@ -220,7 +220,7 @@ function RequestsList({ topups, profiles, reload }: { topups: Topup[]; profiles:
         return (
           <div key={r.id} className="px-5 py-4">
             <div className="flex flex-wrap items-start gap-3">
-              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-violet-50 text-violet-600 font-semibold">
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-blue-50 text-blue-600 font-semibold">
                 {initials(name, r.user_id)}
               </div>
               <div className="flex-1 min-w-[200px]">
@@ -247,7 +247,7 @@ function RequestsList({ topups, profiles, reload }: { topups: Topup[]; profiles:
                     <Eye className="h-3.5 w-3.5" /> View screenshot
                   </button>
                 )}
-                <button disabled={busy === r.id} onClick={() => approve(r.id)} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-violet-600 text-white text-xs font-semibold hover:bg-violet-700 disabled:opacity-50">
+                <button disabled={busy === r.id} onClick={() => approve(r.id)} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 disabled:opacity-50">
                   <Check className="h-3.5 w-3.5" /> Approve
                 </button>
                 <button disabled={busy === r.id} onClick={() => reject(r.id)} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 text-white text-xs font-semibold hover:bg-rose-700 disabled:opacity-50">
@@ -286,7 +286,7 @@ function CustomersList({ wallets, profiles, onSelect, selected }: {
       <div className="p-4 border-b border-slate-100">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name / phone / id…" className="w-full rounded-xl bg-slate-50 border border-slate-200 pl-10 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400" />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name / phone / id…" className="w-full rounded-xl bg-slate-50 border border-slate-200 pl-10 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" />
         </div>
       </div>
       <div className="divide-y divide-slate-100 max-h-[560px] overflow-y-auto">
@@ -297,13 +297,13 @@ function CustomersList({ wallets, profiles, onSelect, selected }: {
           const name = p?.display_name || "Customer";
           const isSel = selected === w.user_id;
           return (
-            <button key={w.user_id} onClick={() => onSelect(w.user_id)} className={`w-full flex items-center gap-3 px-5 py-3 text-left transition ${isSel ? "bg-violet-50" : "hover:bg-slate-50"}`}>
-              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-violet-100 text-violet-600 font-semibold">{initials(name, w.user_id)}</div>
+            <button key={w.user_id} onClick={() => onSelect(w.user_id)} className={`w-full flex items-center gap-3 px-5 py-3 text-left transition ${isSel ? "bg-blue-50" : "hover:bg-slate-50"}`}>
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-blue-100 text-blue-600 font-semibold">{initials(name, w.user_id)}</div>
               <div className="flex-1 min-w-0">
                 <div className="font-semibold text-slate-800 truncate">{name}</div>
                 <div className="text-xs text-slate-500 truncate">{p?.phone || w.user_id.slice(0, 18)}…</div>
               </div>
-              <div className="font-bold text-violet-700">{fmt(Number(w.balance))}</div>
+              <div className="font-bold text-blue-700">{fmt(Number(w.balance))}</div>
             </button>
           );
         })}
@@ -321,7 +321,7 @@ function TransactionsList({ txns, profiles }: { txns: Txn[]; profiles: Record<st
         const positive = Number(t.amount) > 0;
         return (
           <div key={t.id} className="px-5 py-3 flex items-center gap-3">
-            <div className={`grid h-9 w-9 place-items-center rounded-full ${positive ? "bg-violet-50 text-violet-600" : "bg-rose-50 text-rose-600"}`}>
+            <div className={`grid h-9 w-9 place-items-center rounded-full ${positive ? "bg-blue-50 text-blue-600" : "bg-rose-50 text-rose-600"}`}>
               {positive ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
             </div>
             <div className="flex-1 min-w-0">
@@ -329,7 +329,7 @@ function TransactionsList({ txns, profiles }: { txns: Txn[]; profiles: Record<st
               <div className="text-xs text-slate-500 truncate">{t.reason || "—"} · {new Date(t.created_at).toLocaleString()}</div>
             </div>
             <div className="text-right">
-              <div className={`font-bold ${positive ? "text-violet-600" : "text-rose-600"}`}>{positive ? "+" : ""}{fmt(Number(t.amount))}</div>
+              <div className={`font-bold ${positive ? "text-blue-600" : "text-rose-600"}`}>{positive ? "+" : ""}{fmt(Number(t.amount))}</div>
               <div className="text-[11px] text-slate-400">bal {fmt(Number(t.balance_after))}</div>
             </div>
           </div>
@@ -371,8 +371,8 @@ function ManualAdjustPanel({ wallets, profiles, selectedUser, onSelectUser, onDo
   return (
     <div className="rounded-2xl bg-white border border-slate-200 p-5 lg:sticky lg:top-4 self-start">
       <div className="flex items-center gap-2">
-        <div className="h-7 w-1 rounded bg-gradient-to-b from-violet-500 to-fuchsia-600" />
-        <Wallet className="h-5 w-5 text-violet-600" />
+        <div className="h-7 w-1 rounded bg-gradient-to-b from-blue-500 to-sky-600" />
+        <Wallet className="h-5 w-5 text-blue-600" />
         <h2 className="text-xl font-extrabold text-slate-900">Manual Wallet Adjust</h2>
       </div>
 
@@ -381,7 +381,7 @@ function ManualAdjustPanel({ wallets, profiles, selectedUser, onSelectUser, onDo
         <button onClick={() => setPickerOpen(o => !o)} className="w-full rounded-xl bg-slate-50 border border-slate-200 px-4 py-3 text-sm text-left hover:bg-slate-100">
           {selectedName ? (
             <div className="flex items-center gap-2">
-              <div className="grid h-7 w-7 place-items-center rounded-full bg-violet-100 text-violet-600 text-xs font-semibold">{initials(selectedName, selectedUser!)}</div>
+              <div className="grid h-7 w-7 place-items-center rounded-full bg-blue-100 text-blue-600 text-xs font-semibold">{initials(selectedName, selectedUser!)}</div>
               <div className="flex-1 min-w-0">
                 <div className="font-semibold text-slate-800 truncate">{selectedName}</div>
                 <div className="text-[11px] text-slate-500">Balance {fmt(Number(selected?.balance || 0))}</div>
@@ -395,9 +395,9 @@ function ManualAdjustPanel({ wallets, profiles, selectedUser, onSelectUser, onDo
               const name = profiles[w.user_id]?.display_name || "Customer";
               return (
                 <button key={w.user_id} onClick={() => { onSelectUser(w.user_id); setPickerOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-slate-50">
-                  <div className="grid h-6 w-6 place-items-center rounded-full bg-violet-100 text-violet-600 text-[11px] font-semibold">{initials(name, w.user_id)}</div>
+                  <div className="grid h-6 w-6 place-items-center rounded-full bg-blue-100 text-blue-600 text-[11px] font-semibold">{initials(name, w.user_id)}</div>
                   <div className="flex-1 min-w-0 text-xs truncate">{name}</div>
-                  <div className="text-xs font-semibold text-violet-700">{fmt(Number(w.balance))}</div>
+                  <div className="text-xs font-semibold text-blue-700">{fmt(Number(w.balance))}</div>
                 </button>
               );
             })}
@@ -411,7 +411,7 @@ function ManualAdjustPanel({ wallets, profiles, selectedUser, onSelectUser, onDo
           onClick={() => setDirection("credit")}
           className={`h-11 rounded-xl text-sm font-semibold inline-flex items-center justify-center gap-1.5 transition ${
             direction === "credit"
-              ? "bg-violet-500 text-white shadow-md shadow-violet-500/30"
+              ? "bg-blue-500 text-white shadow-md shadow-blue-500/30"
               : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
           }`}
         ><Plus className="h-4 w-4" /> Credit</button>
@@ -433,7 +433,7 @@ function ManualAdjustPanel({ wallets, profiles, selectedUser, onSelectUser, onDo
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           placeholder="e.g. 500"
-          className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400"
+          className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </label>
       <div className="mt-2 flex flex-wrap gap-2">
@@ -449,7 +449,7 @@ function ManualAdjustPanel({ wallets, profiles, selectedUser, onSelectUser, onDo
           value={note}
           onChange={(e) => setNote(e.target.value)}
           placeholder="Reason…"
-          className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400"
+          className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </label>
 
@@ -458,7 +458,7 @@ function ManualAdjustPanel({ wallets, profiles, selectedUser, onSelectUser, onDo
         disabled={busy || !selectedUser || !amount}
         className={`mt-5 w-full inline-flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-bold text-white transition ${
           direction === "credit"
-            ? "bg-gradient-to-r from-violet-500 to-teal-600 hover:opacity-95"
+            ? "bg-gradient-to-r from-blue-500 to-teal-600 hover:opacity-95"
             : "bg-gradient-to-r from-rose-500 to-pink-600 hover:opacity-95"
         } disabled:opacity-50`}
       >

@@ -457,10 +457,10 @@ function RenewalRemindersPage() {
     if (d < 0)
       return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200">{t("Expired", "মেয়াদোত্তীর্ণ")}</span>;
     if (d <= 7)
-      return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200">{d}d {t("left", "বাকি")}</span>;
+      return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">{d}d {t("left", "বাকি")}</span>;
     if (d <= 30)
       return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200">{d}d {t("left", "বাকি")}</span>;
-    return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200">{d}d {t("left", "বাকি")}</span>;
+    return <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">{d}d {t("left", "বাকি")}</span>;
   };
 
   return (
@@ -498,7 +498,7 @@ function RenewalRemindersPage() {
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-4">
         <div>
           <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-violet-600" /> {t("Manual / AI Reminder", "ম্যানুয়াল / AI রিমাইন্ডার")}
+            <Sparkles className="w-4 h-4 text-blue-600" /> {t("Manual / AI Reminder", "ম্যানুয়াল / AI রিমাইন্ডার")}
           </h3>
           <p className="text-xs text-slate-500 mt-0.5">
             {t(
@@ -524,7 +524,7 @@ function RenewalRemindersPage() {
               value={fProductCustom}
               onChange={(e) => setFProductCustom(e.target.value)}
               placeholder={t("…or type custom product name", "…অথবা কাস্টম প্রোডাক্ট নাম লিখুন")}
-              className="mt-2 w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+              className="mt-2 w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
 
@@ -535,7 +535,7 @@ function RenewalRemindersPage() {
               onChange={(e) => setFEmails(e.target.value)}
               placeholder="customer1@example.com, customer2@example.com&#10;or one email per line"
               rows={3}
-              className="w-full p-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+              className="w-full p-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
             <p className="text-[11px] text-slate-500 mt-1">
               {t(
@@ -551,7 +551,7 @@ function RenewalRemindersPage() {
               value={fCustomerName}
               onChange={(e) => setFCustomerName(e.target.value)}
               placeholder="Optional"
-              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
 
@@ -561,7 +561,7 @@ function RenewalRemindersPage() {
               type="date"
               value={fExpiry}
               onChange={(e) => setFExpiry(e.target.value)}
-              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
 
@@ -570,7 +570,7 @@ function RenewalRemindersPage() {
             <select
               value={fLanguage}
               onChange={(e) => setFLanguage(e.target.value as "bn" | "en" | "mixed")}
-              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
             >
               <option value="bn">Bangla (বাংলা)</option>
               <option value="mixed">Bangla + English</option>
@@ -583,7 +583,7 @@ function RenewalRemindersPage() {
             <input
               value={fTone}
               onChange={(e) => setFTone(e.target.value)}
-              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
 
@@ -593,19 +593,19 @@ function RenewalRemindersPage() {
               value={fNotes}
               onChange={(e) => setFNotes(e.target.value)}
               placeholder="e.g. mention loyalty discount, mention 24/7 support"
-              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+              className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
         </div>
 
         {/* Coupon block */}
-        <div className="rounded-xl border border-violet-200 bg-violet-50/50 p-4 space-y-3">
-          <label className="flex items-center gap-2 text-sm font-bold text-violet-900">
+        <div className="rounded-xl border border-blue-200 bg-blue-50/50 p-4 space-y-3">
+          <label className="flex items-center gap-2 text-sm font-bold text-blue-900">
             <input
               type="checkbox"
               checked={fCouponOn}
               onChange={(e) => setFCouponOn(e.target.checked)}
-              className="w-4 h-4 accent-violet-600"
+              className="w-4 h-4 accent-blue-600"
             />
             <Tag className="w-4 h-4" />
             {t("Attach a personal one-time discount coupon for this customer", "এই কাস্টমারের জন্য পার্সোনাল ডিসকাউন্ট কুপন")}
@@ -642,7 +642,7 @@ function RenewalRemindersPage() {
                   className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm"
                 />
               </div>
-              <p className="md:col-span-3 text-[11px] text-violet-700/80">
+              <p className="md:col-span-3 text-[11px] text-blue-700/80">
                 {t(
                   "A unique RNW-XXXXX coupon is generated per recipient, locked to their email and the product. One-time use only.",
                   "প্রতি প্রাপকের জন্য আলাদা RNW-XXXXX কুপন তৈরি হবে।",
@@ -658,14 +658,14 @@ function RenewalRemindersPage() {
             value={fSubject}
             onChange={(e) => setFSubject(e.target.value)}
             placeholder={t("Subject", "সাবজেক্ট")}
-            className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm mb-2 focus:outline-none focus:ring-2 focus:ring-violet-300"
+            className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm mb-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
           />
           <textarea
             value={fBody}
             onChange={(e) => setFBody(e.target.value)}
             rows={7}
             placeholder={t("Click 'Generate with AI' to draft a professional reminder…", "AI ইমেইল ড্রাফট করতে 'Generate with AI' ক্লিক করুন…")}
-            className="w-full p-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+            className="w-full p-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
           />
         </div>
 
@@ -675,7 +675,7 @@ function RenewalRemindersPage() {
               type="checkbox"
               checked={fAutoSend}
               onChange={(e) => setFAutoSend(e.target.checked)}
-              className="w-4 h-4 accent-violet-600"
+              className="w-4 h-4 accent-blue-600"
             />
             <span className="font-semibold">{t("Auto-send right after AI generates", "AI জেনারেট হলেই পাঠান")}</span>
           </label>
@@ -689,14 +689,14 @@ function RenewalRemindersPage() {
               }}
               className="inline-flex items-center gap-2 h-10 px-4 rounded-xl bg-white border border-slate-200 text-sm font-bold text-slate-800 hover:bg-slate-50 disabled:opacity-50 shadow-sm"
             >
-              {aiBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4 text-violet-600" />}
+              {aiBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4 text-blue-600" />}
               {t("Generate with AI", "AI দিয়ে জেনারেট")}
             </button>
             <button
               type="button"
               disabled={sendBusy || aiBusy}
               onClick={manualSend}
-              className="inline-flex items-center gap-2 h-10 px-5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-95 disabled:opacity-50 shadow-md"
+              className="inline-flex items-center gap-2 h-10 px-5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-sky-600 hover:opacity-95 disabled:opacity-50 shadow-md"
             >
               {sendBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
               {t("Generate & Send", "জেনারেট ও সেন্ড")}
@@ -714,7 +714,7 @@ function RenewalRemindersPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("Search by customer, email, phone, product, order #", "সার্চ করুন")}
-              className="w-full h-11 pl-11 pr-4 rounded-full bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+              className="w-full h-11 pl-11 pr-4 rounded-full bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
           <select
@@ -747,7 +747,7 @@ function RenewalRemindersPage() {
           <button
             disabled={selected.size === 0 || sendBusy}
             onClick={bulkSend}
-            className="inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-95 disabled:opacity-40 shadow-md"
+            className="inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-sky-600 hover:opacity-95 disabled:opacity-40 shadow-md"
           >
             {sendBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
             {t("Send Reminder", "রিমাইন্ডার পাঠান")} ({selected.size})
@@ -771,7 +771,7 @@ function RenewalRemindersPage() {
                       type="checkbox"
                       checked={selected.size > 0 && selected.size === visible.length}
                       onChange={toggleAll}
-                      className="w-4 h-4 accent-violet-600"
+                      className="w-4 h-4 accent-blue-600"
                     />
                   </th>
                   <th className="px-3 py-3 text-left font-bold">{t("Customer", "কাস্টমার")}</th>
@@ -790,7 +790,7 @@ function RenewalRemindersPage() {
                         type="checkbox"
                         checked={selected.has(s.key)}
                         onChange={() => toggleSelect(s.key)}
-                        className="w-4 h-4 accent-violet-600"
+                        className="w-4 h-4 accent-blue-600"
                       />
                     </td>
                     <td className="px-3 py-3">
@@ -808,7 +808,7 @@ function RenewalRemindersPage() {
                     <td className="px-3 py-3 text-right">
                       <button
                         onClick={() => setEditing(s)}
-                        className="text-xs font-bold text-violet-700 bg-violet-50 hover:bg-violet-100 px-3 h-8 rounded-lg border border-violet-200"
+                        className="text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 h-8 rounded-lg border border-blue-200"
                       >
                         {t("Edit date", "তারিখ এডিট")}
                       </button>
@@ -854,7 +854,7 @@ function StatBox({
     tone === "rose"
       ? "text-rose-600"
       : tone === "violet"
-      ? "text-violet-700"
+      ? "text-blue-700"
       : "text-slate-900";
   return (
     <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
@@ -918,10 +918,10 @@ function ProductSelect({
                     onChange(p.slug);
                     setOpen(false);
                   }}
-                  className="w-full text-left px-3 py-2 text-sm hover:bg-violet-50 flex items-center justify-between"
+                  className="w-full text-left px-3 py-2 text-sm hover:bg-blue-50 flex items-center justify-between"
                 >
                   <span className="truncate">{p.name}</span>
-                  {p.slug === value && <CheckCircle2 className="w-4 h-4 text-violet-600" />}
+                  {p.slug === value && <CheckCircle2 className="w-4 h-4 text-blue-600" />}
                 </button>
               ))
             )}
@@ -961,7 +961,7 @@ function EditDateModal({
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-violet-300"
+            className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
           />
         </div>
         <div className="mt-5 flex items-center justify-end gap-2">
@@ -973,7 +973,7 @@ function EditDateModal({
           </button>
           <button
             onClick={() => onSave(date || null)}
-            className="h-10 px-5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:opacity-95"
+            className="h-10 px-5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-sky-600 hover:opacity-95"
           >
             Save
           </button>

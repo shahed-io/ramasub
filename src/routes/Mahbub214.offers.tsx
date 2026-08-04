@@ -104,7 +104,7 @@ function AdminOffersList() {
         </div>
         <button
           onClick={() => setCreating(true)}
-          className="px-4 h-10 rounded-xl bg-gradient-to-r from-pink-600 to-fuchsia-600 ring-1 ring-pink-700 text-white text-sm font-semibold inline-flex items-center gap-1.5 shadow-[0_8px_22px_-8px_rgba(219,39,119,0.7)] hover:opacity-95"
+          className="px-4 h-10 rounded-xl bg-gradient-to-r from-pink-600 to-sky-600 ring-1 ring-pink-700 text-white text-sm font-semibold inline-flex items-center gap-1.5 shadow-[0_8px_22px_-8px_rgba(219,39,119,0.7)] hover:opacity-95"
         >
           <Plus className="w-4 h-4" /> New campaign
         </button>
@@ -145,9 +145,9 @@ function AdminOffersList() {
                     </td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ring-1 ${
-                        c.status === "active" ? "bg-violet-50 text-violet-700 ring-violet-200" :
+                        c.status === "active" ? "bg-blue-50 text-blue-700 ring-blue-200" :
                         c.status === "ended" ? "bg-slate-100 text-slate-600 ring-slate-200" :
-                        "bg-violet-50 text-violet-700 ring-violet-200"
+                        "bg-blue-50 text-blue-700 ring-blue-200"
                       }`}>
                         {c.status.toUpperCase()}
                       </span>
@@ -190,7 +190,7 @@ function AdminOffersList() {
             <p className="text-[11px] text-slate-500 mt-2">তৈরি করার পর আপনি form fields, prizes, dates সব edit করতে পারবেন।</p>
             <div className="mt-5 flex justify-end gap-2">
               <button onClick={() => setCreating(false)} className="px-4 h-9 rounded-full ring-1 ring-slate-200 text-slate-700 text-xs font-semibold hover:bg-slate-50">Cancel</button>
-              <button onClick={createNew} className="px-4 h-9 rounded-full bg-gradient-to-r from-pink-600 to-fuchsia-600 ring-1 ring-pink-700 text-white text-xs font-semibold">Create &amp; edit</button>
+              <button onClick={createNew} className="px-4 h-9 rounded-full bg-gradient-to-r from-pink-600 to-sky-600 ring-1 ring-pink-700 text-white text-xs font-semibold">Create &amp; edit</button>
             </div>
           </div>
         </div>
