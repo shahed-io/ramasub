@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { sendMetaPurchaseForOrder } from "@/lib/meta-purchase.server";
 
 // SECURITY: Server-authoritative order creation.
 // Client-supplied prices are IGNORED. Every line item's price is recomputed
@@ -137,6 +138,22 @@ export const createOrder = createServerFn({ method: "POST" })
       .select("id")
       .single();
     if (iErr) throw new Error(`Failed to create order: ${iErr.message}`);
+
+    const publicOrderId = `ANB-${(inserted.id as string).slice(0, 8).toUpperCase()}`;
+    // Server-side delivery is authoritative: redirects, ad blockers, or a closed
+    // browser can no longer prevent Meta from receiving the Purchase event.
+    await sendMetaPurchaseForOrder({
+      orderId: publicOrderId,
+      value: total,
+      currency: "BDT",
+      email: data.email,
+      phone: data.phone,
+      items: richItems.map((item) => ({
+        id: item.slug,
+        price: item.price,
+        quantity: item.qty,
+      })),
+    });
 
     return {
       id: inserted.id as string,

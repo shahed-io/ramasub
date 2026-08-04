@@ -57,10 +57,11 @@ export function trackEvent(
   name: EventName,
   params: EventParams = {},
   userData: CapiUserData = {},
+  suppliedEventId?: string,
 ) {
   if (typeof window === "undefined") return;
 
-  const eventId = genEventId();
+  const eventId = suppliedEventId || genEventId();
 
   // Facebook Pixel (browser)
   try {
@@ -140,6 +141,7 @@ export function trackPurchase(args: {
   email?: string;
   phone?: string;
   items?: Array<{ id: string; name?: string; price?: number; quantity?: number }>;
+  eventId?: string;
 }) {
   trackEvent(
     "Purchase",
@@ -155,6 +157,7 @@ export function trackPurchase(args: {
       num_items: args.items?.reduce((s, i) => s + (i.quantity ?? 1), 0) ?? 1,
     },
     { email: args.email, phone: args.phone, external_id: args.orderId },
+    args.eventId,
   );
 }
 

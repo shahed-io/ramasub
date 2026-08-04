@@ -332,6 +332,7 @@ function CheckoutPage() {
           // Email + phone give Meta a real match key (better Event Match Quality).
           email: form.email,
           phone: form.phone,
+          eventId: `purchase_ANB-${newId.slice(0, 8).toUpperCase()}`,
 
           items: created.items.map((it) => ({
             id: it.slug,
