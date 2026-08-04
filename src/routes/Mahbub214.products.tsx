@@ -675,7 +675,7 @@ const slugify = (s: string) =>
  .replace(/^-+|-+$/g, "")
  .slice(0, 80);
 
-type AiBusy = "" | "all" | "short" | "rich" | "seo" | "image-gen" | "image-up";
+type AiBusy = "" | "all" | "short" | "rich" | "seo" | "image-gen" | "image-up" | "video-up";
 type TabId = "general" | "inventory" | "media" | "details" | "seo";
 
 const TABS: { id: TabId; label: string; icon: string }[] = [
