@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { waChatUrl } from "@/lib/whatsapp";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import {
   Loader2, Eye, X, Download, Trash2, Plus, RefreshCw, MessageCircle,
@@ -420,7 +421,7 @@ function OrderRow({ order: o, onView, onDelete, onDownload }: { order: Order; on
   const { t } = useAdminLang();
   const firstItem = o.items?.[0];
   const verified = (o.payment_status || "pending") === "verified";
-  const waLink = o.phone ? `https://wa.me/${o.phone.replace(/\D/g, "")}` : "";
+  const waLink = waChatUrl(o.phone);
   return (
     <tr className="border-t border-slate-100 hover:bg-slate-50/60">
       <td className="px-4 py-3"><input type="checkbox" className="rounded" /></td>
@@ -505,9 +506,7 @@ function OrderDetail({ order, onClose, onStatusChange, onPaymentStatusChange, on
     return Math.max(0, sum - Number(order.total));
   }, [order]);
 
-  const waLink = order.phone
-    ? `https://wa.me/${order.phone.replace(/\D/g, "")}${waMsg ? `?text=${encodeURIComponent(waMsg)}` : ""}`
-    : "";
+  const waLink = waChatUrl(order.phone, waMsg || undefined);
 
   const downloadReceipt = async () => {
     setDownloading(true);

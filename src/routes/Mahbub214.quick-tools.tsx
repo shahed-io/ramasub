@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { normalizeWaPhone } from "@/lib/whatsapp";
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { Loader2, Download, Send, FileText, Plus, Trash2, Search, Upload, MessageCircle, Copy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -16,15 +17,6 @@ export const Route = createFileRoute("/Mahbub214/quick-tools")({
 
 type Tab = "invoice" | "quick-order" | "bulk-delivery";
 
-// Normalize BD phone to international wa.me format (8801XXXXXXXXX)
-function normalizeWaPhone(p?: string | null): string {
-  const d = (p || "").replace(/\D/g, "");
-  if (!d) return "";
-  if (d.startsWith("880")) return d;
-  if (d.startsWith("0")) return "880" + d.slice(1);
-  if (d.length === 10) return "880" + d;
-  return d;
-}
 
 function fmt(n: number) { return "৳" + Number(n || 0).toLocaleString("en-IN"); }
 
