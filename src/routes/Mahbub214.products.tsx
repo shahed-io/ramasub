@@ -849,6 +849,24 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  finally { setAi(""); }
  };
 
+ /* ---------- Video upload ---------- */
+ const onPickVideo = async (file: File | undefined) => {
+ if (!file) return;
+ if (!file.type.startsWith("video/")) { toast.error("শুধু ভিডিও ফাইল আপলোড করুন"); return; }
+ if (file.size > 100 * 1024 * 1024) { toast.error("ভিডিও 100MB-এর কম হতে হবে"); return; }
+ setAi("video-up");
+ try {
+ const ext = file.name.split(".").pop()?.toLowerCase() || "mp4";
+ const path = `product-videos/${slugify(form.name) || "untitled"}-${Date.now()}.${ext}`;
+ const { error } = await supabase.storage.from("admin-uploads").upload(path, file, { cacheControl: "3600", upsert: false, contentType: file.type || "video/mp4" });
+ if (error) throw error;
+ const { data } = supabase.storage.from("admin-uploads").getPublicUrl(path);
+ setMeta("video_url", data.publicUrl);
+ toast.success("ভিডিও আপলোড হয়েছে ✓");
+ } catch (e) { toast.error(e instanceof Error ? e.message : "Video upload failed"); }
+ finally { setAi(""); }
+ };
+
   const generateImage = async (style: AiCardStyle = "premium-pastel") => {
     if (!form.name.trim()) { toast.error("আগে Product Title লিখুন"); return; }
     setAi("image-gen");
