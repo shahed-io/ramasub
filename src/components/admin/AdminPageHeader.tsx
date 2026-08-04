@@ -96,7 +96,7 @@ export function AdminPageHeader() {
     <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white/80 backdrop-blur-sm shadow-[0_1px_2px_rgba(15,23,42,0.04),0_10px_30px_-22px_rgba(15,23,42,0.18)] p-4 sm:p-5 mb-5 min-w-0">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-300/70 to-transparent" />
       <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 w-56 h-56 rounded-full bg-blue-100/60 blur-3xl" />
-      <div aria-hidden className="pointer-events-none absolute -left-20 bottom--10 w-56 h-56 rounded-full bg-slate-100/70 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -left-20 bottom-0 w-56 h-56 rounded-full bg-slate-100/70 blur-3xl" />
       <div className="relative flex items-center gap-3 sm:gap-4 min-w-0">
         <span className="shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 ring-1 ring-blue-100 grid place-items-center text-blue-600 [&_svg]:w-5 [&_svg]:h-5">
           {item.icon}
