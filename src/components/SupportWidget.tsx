@@ -135,7 +135,7 @@ async function logChatMessage(role: "user" | "assistant", content: string) {
 /** Renders assistant replies as rich text (bold, lists, links). */
 function ChatMarkdown({ text }: { text: string }) {
   return (
-    <div className="space-y-1.5 [&_p]:m-0 [&_ul]:my-1 [&_ul]:pl-4 [&_ol]:my-1 [&_ol]:pl-4 [&_li]:my-0.5 [&_li]:marker:text-primary [&_strong]:font-bold [&_strong]:text-white [&_code]:rounded [&_code]:bg-white/10 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[11.5px]">
+    <div className="space-y-1.5 [&_p]:m-0 [&_ul]:my-1 [&_ul]:pl-4 [&_ol]:my-1 [&_ol]:pl-4 [&_li]:my-0.5 [&_li]:marker:text-primary [&_strong]:font-bold [&_strong]:text-slate-900 [&_code]:rounded [&_code]:bg-violet-50 [&_code]:text-violet-700 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[11.5px]">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -147,7 +147,7 @@ function ChatMarkdown({ text }: { text: string }) {
                 href={url}
                 target={internal ? undefined : "_blank"}
                 rel={internal ? undefined : "noopener noreferrer"}
-                className="font-semibold text-aqua underline decoration-aqua/40 underline-offset-2 hover:text-white"
+                className="font-semibold text-aqua underline decoration-aqua/40 underline-offset-2 hover:text-violet-700"
               >
                 {children}
               </a>
@@ -411,7 +411,7 @@ export function SupportWidget() {
   const PANEL =
     "fixed bottom-24 right-5 z-50 w-[min(400px,calc(100vw-1.5rem))] origin-bottom-right";
   const SHELL =
-    "dark-surface relative rounded-[28px] overflow-hidden border border-white/[0.12] bg-[#0a0c25] backdrop-blur-2xl shadow-[0_50px_120px_-20px_rgba(0,0,0,0.9)]";
+    "relative rounded-[28px] overflow-hidden border border-white/70 bg-gradient-to-b from-white/95 via-[#F8FAFC]/95 to-[#F5F7FB]/95 backdrop-blur-2xl shadow-[0_40px_100px_-28px_rgba(76,29,149,0.28),0_2px_10px_-2px_rgba(15,23,42,0.06)]";
 
   return (
     <>
@@ -423,7 +423,7 @@ export function SupportWidget() {
             <div className="flex flex-col items-stretch gap-2.5 w-[230px] animate-fade-in">
               <button
                 onClick={() => { setChooser(false); setOpen(true); setTab("ai"); }}
-                className="group relative flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-[#10143a] backdrop-blur-xl px-3.5 py-3 text-left shadow-[0_18px_44px_-18px_rgba(76,29,149,0.22)] hover:border-violet-400/50 transition"
+                className="group relative flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-white/85 backdrop-blur-xl px-3.5 py-3 text-left shadow-[0_18px_44px_-18px_rgba(76,29,149,0.22)] hover:border-violet-400/50 transition"
               >
                 <span className="grid place-items-center h-10 w-10 overflow-hidden rounded-xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-purple-600 text-slate-900 shadow-[0_10px_24px_-6px_rgba(168,85,247,0.7)] shrink-0">
                   <img src={aiAgentAvatar} alt="AI Support" loading="lazy" width={64} height={64} className="h-full w-full object-cover" />
@@ -439,7 +439,7 @@ export function SupportWidget() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setChooser(false)}
-                className="group relative flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-[#10143a] backdrop-blur-xl px-3.5 py-3 text-left shadow-[0_18px_44px_-18px_rgba(76,29,149,0.22)] hover:border-emerald-400/50 transition"
+                className="group relative flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-white/85 backdrop-blur-xl px-3.5 py-3 text-left shadow-[0_18px_44px_-18px_rgba(76,29,149,0.22)] hover:border-emerald-400/50 transition"
               >
                 <span className="relative grid place-items-center h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600 text-slate-900 shadow-[0_10px_24px_-6px_rgba(16,185,129,0.7)] shrink-0">
                   <MessageCircle className="h-5 w-5" />
@@ -713,8 +713,8 @@ export function SupportWidget() {
       {open && tab === "faq" && (
         <div className={PANEL + " h-[min(620px,calc(100vh-1.5rem))]"}>
           <div className={SHELL + " h-full flex flex-col"}>
-            <div className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-amber-500/25 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-24 -right-20 h-56 w-56 rounded-full bg-primary/30 blur-3xl" />
+            <div className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-amber-200/50 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 -right-20 h-56 w-56 rounded-full bg-violet-200/50 blur-3xl" />
 
             <PanelHeader
               title="হেল্প সেন্টার"
@@ -775,8 +775,8 @@ export function SupportWidget() {
       {open && tab === "ai" && (
         <div className={PANEL + " h-[min(640px,calc(100vh-1.5rem))]"}>
           <div className={SHELL + " h-full flex flex-col"}>
-            <div className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-primary/40 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-24 -right-20 h-56 w-56 rounded-full bg-aqua/30 blur-3xl" />
+            <div className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-violet-200/60 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 -right-20 h-56 w-56 rounded-full bg-sky-200/50 blur-3xl" />
 
             <PanelHeader
               title="AI Assistant"
@@ -932,21 +932,21 @@ export function SupportWidget() {
                 e.preventDefault();
                 send(input);
               }}
-              className="relative border-t border-slate-200/70 bg-white/60 p-3"
+              className="relative border-t border-slate-200/70 bg-white/70 backdrop-blur-xl p-3"
             >
-              <div className="flex items-center gap-2 rounded-2xl border border-[rgba(139,92,246,0.25)] bg-white/75 focus-within:border-primary/60 focus-within:ring-2 focus-within:ring-primary/25 transition pl-4 pr-1.5 py-1.5">
+              <div className="group flex items-center gap-2 rounded-2xl border border-[rgba(139,92,246,0.25)] bg-white/90 shadow-[0_2px_10px_-4px_rgba(76,29,149,0.15)] pl-4 pr-1.5 py-1.5 transition-all duration-[250ms] focus-within:border-violet-400 focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(139,92,246,0.14),0_8px_24px_-12px_rgba(124,58,237,0.35)]">
                 <input
                   ref={inputRef}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="আপনার মেসেজ লিখুন…"
-                  className="flex-1 h-9 bg-transparent outline-none text-[13px] text-slate-900 placeholder:text-slate-400"
+                  className="min-w-0 flex-1 h-10 border-0 bg-transparent outline-none ring-0 text-[13px] text-slate-900 placeholder:text-slate-400"
                 />
                 {loading ? (
                   <button
                     type="button"
                     onClick={stopStreaming}
-                    className="grid place-items-center h-9 w-9 rounded-xl bg-white/10 border border-slate-200 text-slate-900 hover:bg-white/20 transition shrink-0"
+                    className="grid place-items-center h-10 w-10 shrink-0 rounded-xl bg-slate-100 border border-slate-200 text-slate-600 hover:bg-slate-200 transition"
                     aria-label="Stop"
                     title="উত্তর বন্ধ করুন"
                   >
@@ -956,13 +956,12 @@ export function SupportWidget() {
                   <button
                     type="submit"
                     disabled={!input.trim()}
-                    className="grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-br from-violet-500 via-primary to-aqua text-slate-900 disabled:opacity-40 hover:scale-105 transition shrink-0 shadow-[0_8px_20px_-6px_rgba(124,58,237,0.7)]"
+                    className="grid place-items-center h-10 w-10 shrink-0 rounded-xl bg-gradient-to-br from-violet-500 to-violet-700 text-white shadow-[0_8px_20px_-8px_rgba(124,58,237,0.65)] disabled:opacity-40 disabled:shadow-none hover:scale-[1.04] active:scale-95 transition-all duration-200"
                     aria-label="Send"
                   >
                     <Send className="h-4 w-4" />
                   </button>
                 )}
-
               </div>
               <div className="mt-2 flex items-center justify-between px-1">
                 <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
@@ -1003,10 +1002,10 @@ function PanelHeader({
   showOnlineDot?: boolean;
 }) {
   return (
-    <div className="relative px-4 pt-4 pb-3.5 border-b border-slate-200/70 flex items-center gap-2.5">
+    <div className="relative px-4 pt-4 pb-3.5 border-b border-slate-200/70 bg-white/70 backdrop-blur-xl flex items-center gap-2.5">
       <button
         onClick={onBack}
-        className="grid place-items-center h-8 w-8 rounded-full text-slate-500 hover:text-slate-900 hover:bg-white/10 transition shrink-0"
+        className="grid place-items-center h-8 w-8 rounded-full text-slate-500 hover:text-slate-900 hover:bg-violet-50 transition shrink-0"
         aria-label="Back"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -1034,7 +1033,7 @@ function PanelHeader({
       </div>
       <button
         onClick={onClose}
-        className="grid place-items-center h-8 w-8 rounded-full text-slate-500 hover:text-slate-900 hover:bg-white/10 transition shrink-0"
+        className="grid place-items-center h-8 w-8 rounded-full text-slate-500 hover:text-slate-900 hover:bg-violet-50 transition shrink-0"
         aria-label="Close"
       >
         <X className="h-4 w-4" />
@@ -1056,7 +1055,7 @@ function BottomTabs({
     { id: "faq", label: "হেল্প", icon: <HelpCircle className="h-4 w-4" /> },
   ];
   return (
-    <div className="relative border-t border-slate-200/70 bg-white/60 grid grid-cols-3">
+    <div className="relative border-t border-slate-200/70 bg-white/70 backdrop-blur-xl grid grid-cols-3">
       {items.map((it) => {
         const active = tab === it.id;
         return (
