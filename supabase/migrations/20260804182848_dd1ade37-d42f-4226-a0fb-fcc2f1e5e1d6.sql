@@ -1,0 +1,1 @@
+GRANT SELECT (is_winner) ON public.offer_submissions TO anon;
