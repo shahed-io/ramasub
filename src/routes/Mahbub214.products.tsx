@@ -730,6 +730,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  const [categoryOptions, setCategoryOptions] = useState<string[]>([]);
  const fileRef = useRef<HTMLInputElement>(null);
  const galleryRef = useRef<HTMLInputElement>(null);
+ const videoRef = useRef<HTMLInputElement>(null);
  const aiBusy = ai !== "";
 
  // Load category options from admin_records
