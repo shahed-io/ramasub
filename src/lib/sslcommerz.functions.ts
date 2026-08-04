@@ -9,6 +9,8 @@ async function assertAdmin(context: { supabase: any; userId: string }) {
   });
   if (error) throw new Error(error.message);
   if (!data) throw new Error("Forbidden: admin role required");
+  const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+  await assertAdminMfaGrant(context.userId);
 }
 
 /** Admin: returns which SSLCommerz secrets are set and the current mode. */

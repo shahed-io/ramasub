@@ -11,6 +11,8 @@ async function assertAdmin(context: AdminCtx) {
   });
   if (error) throw new Error("Role check failed");
   if (!data) throw new Error("Forbidden: admin required");
+  const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+  await assertAdminMfaGrant(context.userId);
 }
 
 

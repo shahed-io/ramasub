@@ -9,8 +9,8 @@ type NotifyInput = {
     | "chat_message"
     | "offer_submission"
     | "new_signup"
-    | "abandoned_checkout"
-    | "test";
+    | "abandoned_checkout";
+
   title?: string;
   lines?: Array<[string, string | number]>;
   message?: string;

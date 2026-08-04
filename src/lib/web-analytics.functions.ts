@@ -77,6 +77,8 @@ function topBy<K extends keyof Row>(rows: Row[], key: K, limit = 10, nameKey?: k
 async function requireAdmin(supabase: any, userId: string) {
   const { data, error } = await supabase.rpc("has_role", { _user_id: userId, _role: "admin" });
   if (error || !data) throw new Error("Forbidden");
+  const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+  await assertAdminMfaGrant(userId);
 }
 
 export const getWebAnalyticsOverview = createServerFn({ method: "POST" })

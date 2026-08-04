@@ -9,266 +9,121 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WalletRouteImport } from './routes/wallet'
-import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
-import { Route as TermsRouteImport } from './routes/terms'
-import { Route as StreamingRouteImport } from './routes/streaming'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as SitemapRouteImport } from './routes/sitemap'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as RegisterRouteImport } from './routes/register'
-import { Route as RefundRequestRouteImport } from './routes/refund-request'
-import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
-import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as ProductsRouteImport } from './routes/products'
-import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
-import { Route as OrdersRouteImport } from './routes/orders'
-import { Route as OrderCancellationRouteImport } from './routes/order-cancellation'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
-import { Route as FaqRouteImport } from './routes/faq'
-import { Route as EducationRouteImport } from './routes/education'
-import { Route as DeveloperRouteImport } from './routes/developer'
-import { Route as DeliveryInfoRouteImport } from './routes/delivery-info'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as ConnectTelegramRouteImport } from './routes/connect-telegram'
-import { Route as CheckoutRouteImport } from './routes/checkout'
-import { Route as CategoriesRouteImport } from './routes/categories'
-import { Route as CartRouteImport } from './routes/cart'
-import { Route as AiToolsRouteImport } from './routes/ai-tools'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as Mahbub214RouteImport } from './routes/Mahbub214'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as HelpIndexRouteImport } from './routes/help.index'
-import { Route as BlogIndexRouteImport } from './routes/blog.index'
-import { Route as Mahbub214IndexRouteImport } from './routes/Mahbub214.index'
-import { Route as ProductSlugRouteImport } from './routes/product.$slug'
-import { Route as OrdersIdRouteImport } from './routes/orders.$id'
-import { Route as OfferSlugRouteImport } from './routes/offer.$slug'
-import { Route as HelpSlugRouteImport } from './routes/help.$slug'
-import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
-import { Route as BlogHowToBuyNetflixInBangladeshRouteImport } from './routes/blog.how-to-buy-netflix-in-bangladesh'
-import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
-import { Route as Mahbub214ZoomSettingsRouteImport } from './routes/Mahbub214.zoom-settings'
-import { Route as Mahbub214WalletRouteImport } from './routes/Mahbub214.wallet'
-import { Route as Mahbub214UsersRouteImport } from './routes/Mahbub214.users'
-import { Route as Mahbub214TicketsRouteImport } from './routes/Mahbub214.tickets'
-import { Route as Mahbub214ThemesRouteImport } from './routes/Mahbub214.themes'
-import { Route as Mahbub214TelegramRouteImport } from './routes/Mahbub214.telegram'
-import { Route as Mahbub214SettingsRouteImport } from './routes/Mahbub214.settings'
-import { Route as Mahbub214SeoSettingsRouteImport } from './routes/Mahbub214.seo-settings'
-import { Route as Mahbub214SeoAuditRouteImport } from './routes/Mahbub214.seo-audit'
-import { Route as Mahbub214SecurityRouteImport } from './routes/Mahbub214.security'
-import { Route as Mahbub214SearchConsoleRouteImport } from './routes/Mahbub214.search-console'
-import { Route as Mahbub214ReviewsRouteImport } from './routes/Mahbub214.reviews'
-import { Route as Mahbub214ReviewGeneratorRouteImport } from './routes/Mahbub214.review-generator'
-import { Route as Mahbub214ReportsRouteImport } from './routes/Mahbub214.reports'
-import { Route as Mahbub214RenewalRemindersRouteImport } from './routes/Mahbub214.renewal-reminders'
-import { Route as Mahbub214RedirectsRouteImport } from './routes/Mahbub214.redirects'
-import { Route as Mahbub214QuickToolsRouteImport } from './routes/Mahbub214.quick-tools'
-import { Route as Mahbub214QuickSaleRouteImport } from './routes/Mahbub214.quick-sale'
-import { Route as Mahbub214PromotionsRouteImport } from './routes/Mahbub214.promotions'
-import { Route as Mahbub214ProductsRouteImport } from './routes/Mahbub214.products'
-import { Route as Mahbub214PaymentsRouteImport } from './routes/Mahbub214.payments'
-import { Route as Mahbub214PaymentLinksRouteImport } from './routes/Mahbub214.payment-links'
-import { Route as Mahbub214PagesRouteImport } from './routes/Mahbub214.pages'
-import { Route as Mahbub214OrdersRouteImport } from './routes/Mahbub214.orders'
-import { Route as Mahbub214OffersRouteImport } from './routes/Mahbub214.offers'
-import { Route as Mahbub214NewsletterRouteImport } from './routes/Mahbub214.newsletter'
-import { Route as Mahbub214MetaBusinessRouteImport } from './routes/Mahbub214.meta-business'
-import { Route as Mahbub214LiveChatRouteImport } from './routes/Mahbub214.live-chat'
-import { Route as Mahbub214LicenseManagerRouteImport } from './routes/Mahbub214.license-manager'
-import { Route as Mahbub214InvoiceGeneratorRouteImport } from './routes/Mahbub214.invoice-generator'
-import { Route as Mahbub214InvoiceDesignRouteImport } from './routes/Mahbub214.invoice-design'
-import { Route as Mahbub214InventoryRouteImport } from './routes/Mahbub214.inventory'
-import { Route as Mahbub214HomepageEditorRouteImport } from './routes/Mahbub214.homepage-editor'
-import { Route as Mahbub214Ga4RealtimeRouteImport } from './routes/Mahbub214.ga4-realtime'
-import { Route as Mahbub214FacebookPixelsRouteImport } from './routes/Mahbub214.facebook-pixels'
-import { Route as Mahbub214EmailDashboardRouteImport } from './routes/Mahbub214.email-dashboard'
-import { Route as Mahbub214DescriptionTemplateRouteImport } from './routes/Mahbub214.description-template'
-import { Route as Mahbub214DescriptionPreviewRouteImport } from './routes/Mahbub214.description-preview'
-import { Route as Mahbub214CustomerLicensesRouteImport } from './routes/Mahbub214.customer-licenses'
-import { Route as Mahbub214CouponsRouteImport } from './routes/Mahbub214.coupons'
-import { Route as Mahbub214BulkUpdateRouteImport } from './routes/Mahbub214.bulk-update'
-import { Route as Mahbub214BkashTransactionsRouteImport } from './routes/Mahbub214.bkash-transactions'
-import { Route as Mahbub214BackupRouteImport } from './routes/Mahbub214.backup'
-import { Route as Mahbub214AnalyticsRouteImport } from './routes/Mahbub214.analytics'
-import { Route as Mahbub214AffiliatesRouteImport } from './routes/Mahbub214.affiliates'
-import { Route as Mahbub214AbandonedCheckoutRouteImport } from './routes/Mahbub214.abandoned-checkout'
-import { Route as Mahbub214PageRouteImport } from './routes/Mahbub214.$page'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Mahbub214RouteImport } from './routes/Mahbub214'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AiToolsRouteImport } from './routes/ai-tools'
+import { Route as CartRouteImport } from './routes/cart'
+import { Route as CategoriesRouteImport } from './routes/categories'
+import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as ConnectTelegramRouteImport } from './routes/connect-telegram'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DeliveryInfoRouteImport } from './routes/delivery-info'
+import { Route as DeveloperRouteImport } from './routes/developer'
+import { Route as EducationRouteImport } from './routes/education'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as OrderCancellationRouteImport } from './routes/order-cancellation'
+import { Route as OrdersRouteImport } from './routes/orders'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as ProductsRouteImport } from './routes/products'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
+import { Route as RefundRequestRouteImport } from './routes/refund-request'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SitemapRouteImport } from './routes/sitemap'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as StreamingRouteImport } from './routes/streaming'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
+import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
-import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
-import { Route as ApiPublicTrackPageviewRouteImport } from './routes/api.public.track-pageview'
-import { Route as ApiPublicSupportChatRouteImport } from './routes/api/public/support-chat'
-import { Route as ApiPublicProductsRouteImport } from './routes/api/public/products'
-import { Route as ApiPublicGenerateBlogsRouteImport } from './routes/api/public/generate-blogs'
-import { Route as ApiPublicDeliverDownloadsRouteImport } from './routes/api/public/deliver-downloads'
-import { Route as ApiPublicClientErrorsRouteImport } from './routes/api/public/client-errors'
-import { Route as Mahbub214PagesKeyRouteImport } from './routes/Mahbub214.pages.$key'
-import { Route as Mahbub214OffersIdRouteImport } from './routes/Mahbub214.offers.$id'
-import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Mahbub214IndexRouteImport } from './routes/Mahbub214.index'
+import { Route as Mahbub214PageRouteImport } from './routes/Mahbub214.$page'
+import { Route as Mahbub214AbandonedCheckoutRouteImport } from './routes/Mahbub214.abandoned-checkout'
+import { Route as Mahbub214AffiliatesRouteImport } from './routes/Mahbub214.affiliates'
+import { Route as Mahbub214AnalyticsRouteImport } from './routes/Mahbub214.analytics'
+import { Route as Mahbub214BackupRouteImport } from './routes/Mahbub214.backup'
+import { Route as Mahbub214BkashTransactionsRouteImport } from './routes/Mahbub214.bkash-transactions'
+import { Route as Mahbub214BulkUpdateRouteImport } from './routes/Mahbub214.bulk-update'
+import { Route as Mahbub214CouponsRouteImport } from './routes/Mahbub214.coupons'
+import { Route as Mahbub214CustomerLicensesRouteImport } from './routes/Mahbub214.customer-licenses'
+import { Route as Mahbub214DescriptionPreviewRouteImport } from './routes/Mahbub214.description-preview'
+import { Route as Mahbub214DescriptionTemplateRouteImport } from './routes/Mahbub214.description-template'
+import { Route as Mahbub214EmailDashboardRouteImport } from './routes/Mahbub214.email-dashboard'
+import { Route as Mahbub214FacebookPixelsRouteImport } from './routes/Mahbub214.facebook-pixels'
+import { Route as Mahbub214Ga4RealtimeRouteImport } from './routes/Mahbub214.ga4-realtime'
+import { Route as Mahbub214HomepageEditorRouteImport } from './routes/Mahbub214.homepage-editor'
+import { Route as Mahbub214InventoryRouteImport } from './routes/Mahbub214.inventory'
+import { Route as Mahbub214InvoiceDesignRouteImport } from './routes/Mahbub214.invoice-design'
+import { Route as Mahbub214InvoiceGeneratorRouteImport } from './routes/Mahbub214.invoice-generator'
+import { Route as Mahbub214LicenseManagerRouteImport } from './routes/Mahbub214.license-manager'
+import { Route as Mahbub214LiveChatRouteImport } from './routes/Mahbub214.live-chat'
+import { Route as Mahbub214MetaBusinessRouteImport } from './routes/Mahbub214.meta-business'
+import { Route as Mahbub214NewsletterRouteImport } from './routes/Mahbub214.newsletter'
+import { Route as Mahbub214OffersRouteImport } from './routes/Mahbub214.offers'
+import { Route as Mahbub214OrdersRouteImport } from './routes/Mahbub214.orders'
+import { Route as Mahbub214PagesRouteImport } from './routes/Mahbub214.pages'
+import { Route as Mahbub214PaymentLinksRouteImport } from './routes/Mahbub214.payment-links'
+import { Route as Mahbub214PaymentsRouteImport } from './routes/Mahbub214.payments'
+import { Route as Mahbub214ProductsRouteImport } from './routes/Mahbub214.products'
+import { Route as Mahbub214PromotionsRouteImport } from './routes/Mahbub214.promotions'
+import { Route as Mahbub214QuickSaleRouteImport } from './routes/Mahbub214.quick-sale'
+import { Route as Mahbub214QuickToolsRouteImport } from './routes/Mahbub214.quick-tools'
+import { Route as Mahbub214RedirectsRouteImport } from './routes/Mahbub214.redirects'
+import { Route as Mahbub214RenewalRemindersRouteImport } from './routes/Mahbub214.renewal-reminders'
+import { Route as Mahbub214ReportsRouteImport } from './routes/Mahbub214.reports'
+import { Route as Mahbub214ReviewGeneratorRouteImport } from './routes/Mahbub214.review-generator'
+import { Route as Mahbub214ReviewsRouteImport } from './routes/Mahbub214.reviews'
+import { Route as Mahbub214SearchConsoleRouteImport } from './routes/Mahbub214.search-console'
+import { Route as Mahbub214SecurityRouteImport } from './routes/Mahbub214.security'
+import { Route as Mahbub214SeoAuditRouteImport } from './routes/Mahbub214.seo-audit'
+import { Route as Mahbub214SeoSettingsRouteImport } from './routes/Mahbub214.seo-settings'
+import { Route as Mahbub214SettingsRouteImport } from './routes/Mahbub214.settings'
+import { Route as Mahbub214TelegramRouteImport } from './routes/Mahbub214.telegram'
+import { Route as Mahbub214ThemesRouteImport } from './routes/Mahbub214.themes'
+import { Route as Mahbub214TicketsRouteImport } from './routes/Mahbub214.tickets'
+import { Route as Mahbub214UsersRouteImport } from './routes/Mahbub214.users'
+import { Route as Mahbub214WalletRouteImport } from './routes/Mahbub214.wallet'
+import { Route as Mahbub214ZoomSettingsRouteImport } from './routes/Mahbub214.zoom-settings'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as BlogHowToBuyNetflixInBangladeshRouteImport } from './routes/blog.how-to-buy-netflix-in-bangladesh'
+import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
+import { Route as HelpIndexRouteImport } from './routes/help.index'
+import { Route as HelpSlugRouteImport } from './routes/help.$slug'
+import { Route as OfferSlugRouteImport } from './routes/offer.$slug'
+import { Route as OrdersIdRouteImport } from './routes/orders.$id'
+import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
-import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
-import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
-import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
-import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
-import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
-import { Route as ApiPublicTelegramCustomerWebhookRouteImport } from './routes/api/public/telegram/customer-webhook'
-import { Route as ApiPublicSslcommerzCallbackRouteImport } from './routes/api/public/sslcommerz/callback'
-import { Route as ApiPublicEpsCallbackRouteImport } from './routes/api/public/eps/callback'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as Mahbub214OffersIdRouteImport } from './routes/Mahbub214.offers.$id'
+import { Route as Mahbub214PagesKeyRouteImport } from './routes/Mahbub214.pages.$key'
+import { Route as ApiPublicClientErrorsRouteImport } from './routes/api/public/client-errors'
+import { Route as ApiPublicDeliverDownloadsRouteImport } from './routes/api/public/deliver-downloads'
+import { Route as ApiPublicGenerateBlogsRouteImport } from './routes/api/public/generate-blogs'
+import { Route as ApiPublicProductsRouteImport } from './routes/api/public/products'
+import { Route as ApiPublicSupportChatRouteImport } from './routes/api/public/support-chat'
+import { Route as ApiPublicTrackPageviewRouteImport } from './routes/api.public.track-pageview'
+import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicBkashCallbackRouteImport } from './routes/api/public/bkash/callback'
+import { Route as ApiPublicEpsCallbackRouteImport } from './routes/api/public/eps/callback'
+import { Route as ApiPublicSslcommerzCallbackRouteImport } from './routes/api/public/sslcommerz/callback'
+import { Route as ApiPublicTelegramCustomerWebhookRouteImport } from './routes/api/public/telegram/customer-webhook'
+import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
+import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
+import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 
-const WalletRoute = WalletRouteImport.update({
-  id: '/wallet',
-  path: '/wallet',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UnsubscribeRoute = UnsubscribeRouteImport.update({
-  id: '/unsubscribe',
-  path: '/unsubscribe',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StreamingRoute = StreamingRouteImport.update({
-  id: '/streaming',
-  path: '/streaming',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapRoute = SitemapRouteImport.update({
-  id: '/sitemap',
-  path: '/sitemap',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RegisterRoute = RegisterRouteImport.update({
-  id: '/register',
-  path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RefundRequestRoute = RefundRequestRouteImport.update({
-  id: '/refund-request',
-  path: '/refund-request',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RefundPolicyRoute = RefundPolicyRouteImport.update({
-  id: '/refund-policy',
-  path: '/refund-policy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsRoute = ProductsRouteImport.update({
-  id: '/products',
-  path: '/products',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
-  id: '/privacy-policy',
-  path: '/privacy-policy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrdersRoute = OrdersRouteImport.update({
-  id: '/orders',
-  path: '/orders',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrderCancellationRoute = OrderCancellationRouteImport.update({
-  id: '/order-cancellation',
-  path: '/order-cancellation',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
-  id: '/forgot-password',
-  path: '/forgot-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FaqRoute = FaqRouteImport.update({
-  id: '/faq',
-  path: '/faq',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EducationRoute = EducationRouteImport.update({
-  id: '/education',
-  path: '/education',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DeveloperRoute = DeveloperRouteImport.update({
-  id: '/developer',
-  path: '/developer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DeliveryInfoRoute = DeliveryInfoRouteImport.update({
-  id: '/delivery-info',
-  path: '/delivery-info',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConnectTelegramRoute = ConnectTelegramRouteImport.update({
-  id: '/connect-telegram',
-  path: '/connect-telegram',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CheckoutRoute = CheckoutRouteImport.update({
-  id: '/checkout',
-  path: '/checkout',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CategoriesRoute = CategoriesRouteImport.update({
-  id: '/categories',
-  path: '/categories',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CartRoute = CartRouteImport.update({
-  id: '/cart',
-  path: '/cart',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AiToolsRoute = AiToolsRouteImport.update({
-  id: '/ai-tools',
-  path: '/ai-tools',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Mahbub214Route = Mahbub214RouteImport.update({
@@ -276,292 +131,176 @@ const Mahbub214Route = Mahbub214RouteImport.update({
   path: '/Mahbub214',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HelpIndexRoute = HelpIndexRouteImport.update({
-  id: '/help/',
-  path: '/help/',
+const AiToolsRoute = AiToolsRouteImport.update({
+  id: '/ai-tools',
+  path: '/ai-tools',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogIndexRoute = BlogIndexRouteImport.update({
-  id: '/blog/',
-  path: '/blog/',
+const CartRoute = CartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CategoriesRoute = CategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnectTelegramRoute = ConnectTelegramRouteImport.update({
+  id: '/connect-telegram',
+  path: '/connect-telegram',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeliveryInfoRoute = DeliveryInfoRouteImport.update({
+  id: '/delivery-info',
+  path: '/delivery-info',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeveloperRoute = DeveloperRouteImport.update({
+  id: '/developer',
+  path: '/developer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EducationRoute = EducationRouteImport.update({
+  id: '/education',
+  path: '/education',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrderCancellationRoute = OrderCancellationRouteImport.update({
+  id: '/order-cancellation',
+  path: '/order-cancellation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrdersRoute = OrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundPolicyRoute = RefundPolicyRouteImport.update({
+  id: '/refund-policy',
+  path: '/refund-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundRequestRoute = RefundRequestRouteImport.update({
+  id: '/refund-request',
+  path: '/refund-request',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapRoute = SitemapRouteImport.update({
+  id: '/sitemap',
+  path: '/sitemap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StreamingRoute = StreamingRouteImport.update({
+  id: '/streaming',
+  path: '/streaming',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UnsubscribeRoute = UnsubscribeRouteImport.update({
+  id: '/unsubscribe',
+  path: '/unsubscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WalletRoute = WalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const Mahbub214IndexRoute = Mahbub214IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => Mahbub214Route,
 } as any)
-const ProductSlugRoute = ProductSlugRouteImport.update({
-  id: '/product/$slug',
-  path: '/product/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrdersIdRoute = OrdersIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => OrdersRoute,
-} as any)
-const OfferSlugRoute = OfferSlugRouteImport.update({
-  id: '/offer/$slug',
-  path: '/offer/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HelpSlugRoute = HelpSlugRouteImport.update({
-  id: '/help/$slug',
-  path: '/help/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
-  id: '/email/unsubscribe',
-  path: '/email/unsubscribe',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogHowToBuyNetflixInBangladeshRoute =
-  BlogHowToBuyNetflixInBangladeshRouteImport.update({
-    id: '/blog/how-to-buy-netflix-in-bangladesh',
-    path: '/blog/how-to-buy-netflix-in-bangladesh',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/blog/$slug',
-  path: '/blog/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Mahbub214ZoomSettingsRoute = Mahbub214ZoomSettingsRouteImport.update({
-  id: '/zoom-settings',
-  path: '/zoom-settings',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214WalletRoute = Mahbub214WalletRouteImport.update({
-  id: '/wallet',
-  path: '/wallet',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214UsersRoute = Mahbub214UsersRouteImport.update({
-  id: '/users',
-  path: '/users',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214TicketsRoute = Mahbub214TicketsRouteImport.update({
-  id: '/tickets',
-  path: '/tickets',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214ThemesRoute = Mahbub214ThemesRouteImport.update({
-  id: '/themes',
-  path: '/themes',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214TelegramRoute = Mahbub214TelegramRouteImport.update({
-  id: '/telegram',
-  path: '/telegram',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214SettingsRoute = Mahbub214SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214SeoSettingsRoute = Mahbub214SeoSettingsRouteImport.update({
-  id: '/seo-settings',
-  path: '/seo-settings',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214SeoAuditRoute = Mahbub214SeoAuditRouteImport.update({
-  id: '/seo-audit',
-  path: '/seo-audit',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214SecurityRoute = Mahbub214SecurityRouteImport.update({
-  id: '/security',
-  path: '/security',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214SearchConsoleRoute = Mahbub214SearchConsoleRouteImport.update({
-  id: '/search-console',
-  path: '/search-console',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214ReviewsRoute = Mahbub214ReviewsRouteImport.update({
-  id: '/reviews',
-  path: '/reviews',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214ReviewGeneratorRoute =
-  Mahbub214ReviewGeneratorRouteImport.update({
-    id: '/review-generator',
-    path: '/review-generator',
-    getParentRoute: () => Mahbub214Route,
-  } as any)
-const Mahbub214ReportsRoute = Mahbub214ReportsRouteImport.update({
-  id: '/reports',
-  path: '/reports',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214RenewalRemindersRoute =
-  Mahbub214RenewalRemindersRouteImport.update({
-    id: '/renewal-reminders',
-    path: '/renewal-reminders',
-    getParentRoute: () => Mahbub214Route,
-  } as any)
-const Mahbub214RedirectsRoute = Mahbub214RedirectsRouteImport.update({
-  id: '/redirects',
-  path: '/redirects',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214QuickToolsRoute = Mahbub214QuickToolsRouteImport.update({
-  id: '/quick-tools',
-  path: '/quick-tools',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214QuickSaleRoute = Mahbub214QuickSaleRouteImport.update({
-  id: '/quick-sale',
-  path: '/quick-sale',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214PromotionsRoute = Mahbub214PromotionsRouteImport.update({
-  id: '/promotions',
-  path: '/promotions',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214ProductsRoute = Mahbub214ProductsRouteImport.update({
-  id: '/products',
-  path: '/products',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214PaymentsRoute = Mahbub214PaymentsRouteImport.update({
-  id: '/payments',
-  path: '/payments',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214PaymentLinksRoute = Mahbub214PaymentLinksRouteImport.update({
-  id: '/payment-links',
-  path: '/payment-links',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214PagesRoute = Mahbub214PagesRouteImport.update({
-  id: '/pages',
-  path: '/pages',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214OrdersRoute = Mahbub214OrdersRouteImport.update({
-  id: '/orders',
-  path: '/orders',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214OffersRoute = Mahbub214OffersRouteImport.update({
-  id: '/offers',
-  path: '/offers',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214NewsletterRoute = Mahbub214NewsletterRouteImport.update({
-  id: '/newsletter',
-  path: '/newsletter',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214MetaBusinessRoute = Mahbub214MetaBusinessRouteImport.update({
-  id: '/meta-business',
-  path: '/meta-business',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214LiveChatRoute = Mahbub214LiveChatRouteImport.update({
-  id: '/live-chat',
-  path: '/live-chat',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214LicenseManagerRoute = Mahbub214LicenseManagerRouteImport.update({
-  id: '/license-manager',
-  path: '/license-manager',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214InvoiceGeneratorRoute =
-  Mahbub214InvoiceGeneratorRouteImport.update({
-    id: '/invoice-generator',
-    path: '/invoice-generator',
-    getParentRoute: () => Mahbub214Route,
-  } as any)
-const Mahbub214InvoiceDesignRoute = Mahbub214InvoiceDesignRouteImport.update({
-  id: '/invoice-design',
-  path: '/invoice-design',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214InventoryRoute = Mahbub214InventoryRouteImport.update({
-  id: '/inventory',
-  path: '/inventory',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214HomepageEditorRoute = Mahbub214HomepageEditorRouteImport.update({
-  id: '/homepage-editor',
-  path: '/homepage-editor',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214Ga4RealtimeRoute = Mahbub214Ga4RealtimeRouteImport.update({
-  id: '/ga4-realtime',
-  path: '/ga4-realtime',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214FacebookPixelsRoute = Mahbub214FacebookPixelsRouteImport.update({
-  id: '/facebook-pixels',
-  path: '/facebook-pixels',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214EmailDashboardRoute = Mahbub214EmailDashboardRouteImport.update({
-  id: '/email-dashboard',
-  path: '/email-dashboard',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214DescriptionTemplateRoute =
-  Mahbub214DescriptionTemplateRouteImport.update({
-    id: '/description-template',
-    path: '/description-template',
-    getParentRoute: () => Mahbub214Route,
-  } as any)
-const Mahbub214DescriptionPreviewRoute =
-  Mahbub214DescriptionPreviewRouteImport.update({
-    id: '/description-preview',
-    path: '/description-preview',
-    getParentRoute: () => Mahbub214Route,
-  } as any)
-const Mahbub214CustomerLicensesRoute =
-  Mahbub214CustomerLicensesRouteImport.update({
-    id: '/customer-licenses',
-    path: '/customer-licenses',
-    getParentRoute: () => Mahbub214Route,
-  } as any)
-const Mahbub214CouponsRoute = Mahbub214CouponsRouteImport.update({
-  id: '/coupons',
-  path: '/coupons',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214BulkUpdateRoute = Mahbub214BulkUpdateRouteImport.update({
-  id: '/bulk-update',
-  path: '/bulk-update',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214BkashTransactionsRoute =
-  Mahbub214BkashTransactionsRouteImport.update({
-    id: '/bkash-transactions',
-    path: '/bkash-transactions',
-    getParentRoute: () => Mahbub214Route,
-  } as any)
-const Mahbub214BackupRoute = Mahbub214BackupRouteImport.update({
-  id: '/backup',
-  path: '/backup',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214AnalyticsRoute = Mahbub214AnalyticsRouteImport.update({
-  id: '/analytics',
-  path: '/analytics',
-  getParentRoute: () => Mahbub214Route,
-} as any)
-const Mahbub214AffiliatesRoute = Mahbub214AffiliatesRouteImport.update({
-  id: '/affiliates',
-  path: '/affiliates',
+const Mahbub214PageRoute = Mahbub214PageRouteImport.update({
+  id: '/$page',
+  path: '/$page',
   getParentRoute: () => Mahbub214Route,
 } as any)
 const Mahbub214AbandonedCheckoutRoute =
@@ -570,46 +309,308 @@ const Mahbub214AbandonedCheckoutRoute =
     path: '/abandoned-checkout',
     getParentRoute: () => Mahbub214Route,
   } as any)
-const Mahbub214PageRoute = Mahbub214PageRouteImport.update({
-  id: '/$page',
-  path: '/$page',
+const Mahbub214AffiliatesRoute = Mahbub214AffiliatesRouteImport.update({
+  id: '/affiliates',
+  path: '/affiliates',
   getParentRoute: () => Mahbub214Route,
 } as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
+const Mahbub214AnalyticsRoute = Mahbub214AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214BackupRoute = Mahbub214BackupRouteImport.update({
+  id: '/backup',
+  path: '/backup',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214BkashTransactionsRoute =
+  Mahbub214BkashTransactionsRouteImport.update({
+    id: '/bkash-transactions',
+    path: '/bkash-transactions',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214BulkUpdateRoute = Mahbub214BulkUpdateRouteImport.update({
+  id: '/bulk-update',
+  path: '/bulk-update',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214CouponsRoute = Mahbub214CouponsRouteImport.update({
+  id: '/coupons',
+  path: '/coupons',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214CustomerLicensesRoute =
+  Mahbub214CustomerLicensesRouteImport.update({
+    id: '/customer-licenses',
+    path: '/customer-licenses',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214DescriptionPreviewRoute =
+  Mahbub214DescriptionPreviewRouteImport.update({
+    id: '/description-preview',
+    path: '/description-preview',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214DescriptionTemplateRoute =
+  Mahbub214DescriptionTemplateRouteImport.update({
+    id: '/description-template',
+    path: '/description-template',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214EmailDashboardRoute = Mahbub214EmailDashboardRouteImport.update({
+  id: '/email-dashboard',
+  path: '/email-dashboard',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214FacebookPixelsRoute = Mahbub214FacebookPixelsRouteImport.update({
+  id: '/facebook-pixels',
+  path: '/facebook-pixels',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214Ga4RealtimeRoute = Mahbub214Ga4RealtimeRouteImport.update({
+  id: '/ga4-realtime',
+  path: '/ga4-realtime',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214HomepageEditorRoute = Mahbub214HomepageEditorRouteImport.update({
+  id: '/homepage-editor',
+  path: '/homepage-editor',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214InventoryRoute = Mahbub214InventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214InvoiceDesignRoute = Mahbub214InvoiceDesignRouteImport.update({
+  id: '/invoice-design',
+  path: '/invoice-design',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214InvoiceGeneratorRoute =
+  Mahbub214InvoiceGeneratorRouteImport.update({
+    id: '/invoice-generator',
+    path: '/invoice-generator',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214LicenseManagerRoute = Mahbub214LicenseManagerRouteImport.update({
+  id: '/license-manager',
+  path: '/license-manager',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214LiveChatRoute = Mahbub214LiveChatRouteImport.update({
+  id: '/live-chat',
+  path: '/live-chat',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214MetaBusinessRoute = Mahbub214MetaBusinessRouteImport.update({
+  id: '/meta-business',
+  path: '/meta-business',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214NewsletterRoute = Mahbub214NewsletterRouteImport.update({
+  id: '/newsletter',
+  path: '/newsletter',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214OffersRoute = Mahbub214OffersRouteImport.update({
+  id: '/offers',
+  path: '/offers',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214OrdersRoute = Mahbub214OrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214PagesRoute = Mahbub214PagesRouteImport.update({
+  id: '/pages',
+  path: '/pages',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214PaymentLinksRoute = Mahbub214PaymentLinksRouteImport.update({
+  id: '/payment-links',
+  path: '/payment-links',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214PaymentsRoute = Mahbub214PaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214ProductsRoute = Mahbub214ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214PromotionsRoute = Mahbub214PromotionsRouteImport.update({
+  id: '/promotions',
+  path: '/promotions',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214QuickSaleRoute = Mahbub214QuickSaleRouteImport.update({
+  id: '/quick-sale',
+  path: '/quick-sale',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214QuickToolsRoute = Mahbub214QuickToolsRouteImport.update({
+  id: '/quick-tools',
+  path: '/quick-tools',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214RedirectsRoute = Mahbub214RedirectsRouteImport.update({
+  id: '/redirects',
+  path: '/redirects',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214RenewalRemindersRoute =
+  Mahbub214RenewalRemindersRouteImport.update({
+    id: '/renewal-reminders',
+    path: '/renewal-reminders',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214ReportsRoute = Mahbub214ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214ReviewGeneratorRoute =
+  Mahbub214ReviewGeneratorRouteImport.update({
+    id: '/review-generator',
+    path: '/review-generator',
+    getParentRoute: () => Mahbub214Route,
+  } as any)
+const Mahbub214ReviewsRoute = Mahbub214ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214SearchConsoleRoute = Mahbub214SearchConsoleRouteImport.update({
+  id: '/search-console',
+  path: '/search-console',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214SecurityRoute = Mahbub214SecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214SeoAuditRoute = Mahbub214SeoAuditRouteImport.update({
+  id: '/seo-audit',
+  path: '/seo-audit',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214SeoSettingsRoute = Mahbub214SeoSettingsRouteImport.update({
+  id: '/seo-settings',
+  path: '/seo-settings',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214SettingsRoute = Mahbub214SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214TelegramRoute = Mahbub214TelegramRouteImport.update({
+  id: '/telegram',
+  path: '/telegram',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214ThemesRoute = Mahbub214ThemesRouteImport.update({
+  id: '/themes',
+  path: '/themes',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214TicketsRoute = Mahbub214TicketsRouteImport.update({
+  id: '/tickets',
+  path: '/tickets',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214UsersRoute = Mahbub214UsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214WalletRoute = Mahbub214WalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214ZoomSettingsRoute = Mahbub214ZoomSettingsRouteImport.update({
+  id: '/zoom-settings',
+  path: '/zoom-settings',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogHowToBuyNetflixInBangladeshRoute =
+  BlogHowToBuyNetflixInBangladeshRouteImport.update({
+    id: '/blog/how-to-buy-netflix-in-bangladesh',
+    path: '/blog/how-to-buy-netflix-in-bangladesh',
     getParentRoute: () => rootRouteImport,
   } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
+const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
+  id: '/email/unsubscribe',
+  path: '/email/unsubscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpIndexRoute = HelpIndexRouteImport.update({
+  id: '/help/',
+  path: '/help/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpSlugRoute = HelpSlugRouteImport.update({
+  id: '/help/$slug',
+  path: '/help/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfferSlugRoute = OfferSlugRouteImport.update({
+  id: '/offer/$slug',
+  path: '/offer/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrdersIdRoute = OrdersIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => OrdersRoute,
+} as any)
+const ProductSlugRoute = ProductSlugRouteImport.update({
+  id: '/product/$slug',
+  path: '/product/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
-const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
-  id: '/lovable/email/suppression',
-  path: '/lovable/email/suppression',
-  getParentRoute: () => rootRouteImport,
+const Mahbub214OffersIdRoute = Mahbub214OffersIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => Mahbub214OffersRoute,
 } as any)
-const ApiPublicTrackPageviewRoute = ApiPublicTrackPageviewRouteImport.update({
-  id: '/api/public/track-pageview',
-  path: '/api/public/track-pageview',
-  getParentRoute: () => rootRouteImport,
+const Mahbub214PagesKeyRoute = Mahbub214PagesKeyRouteImport.update({
+  id: '/$key',
+  path: '/$key',
+  getParentRoute: () => Mahbub214PagesRoute,
 } as any)
-const ApiPublicSupportChatRoute = ApiPublicSupportChatRouteImport.update({
-  id: '/api/public/support-chat',
-  path: '/api/public/support-chat',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicProductsRoute = ApiPublicProductsRouteImport.update({
-  id: '/api/public/products',
-  path: '/api/public/products',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicGenerateBlogsRoute = ApiPublicGenerateBlogsRouteImport.update({
-  id: '/api/public/generate-blogs',
-  path: '/api/public/generate-blogs',
+const ApiPublicClientErrorsRoute = ApiPublicClientErrorsRouteImport.update({
+  id: '/api/public/client-errors',
+  path: '/api/public/client-errors',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicDeliverDownloadsRoute =
@@ -618,36 +619,67 @@ const ApiPublicDeliverDownloadsRoute =
     path: '/api/public/deliver-downloads',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicClientErrorsRoute = ApiPublicClientErrorsRouteImport.update({
-  id: '/api/public/client-errors',
-  path: '/api/public/client-errors',
+const ApiPublicGenerateBlogsRoute = ApiPublicGenerateBlogsRouteImport.update({
+  id: '/api/public/generate-blogs',
+  path: '/api/public/generate-blogs',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Mahbub214PagesKeyRoute = Mahbub214PagesKeyRouteImport.update({
-  id: '/$key',
-  path: '/$key',
-  getParentRoute: () => Mahbub214PagesRoute,
+const ApiPublicProductsRoute = ApiPublicProductsRouteImport.update({
+  id: '/api/public/products',
+  path: '/api/public/products',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const Mahbub214OffersIdRoute = Mahbub214OffersIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => Mahbub214OffersRoute,
+const ApiPublicSupportChatRoute = ApiPublicSupportChatRouteImport.update({
+  id: '/api/public/support-chat',
+  path: '/api/public/support-chat',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const Char91DotmcpChar93InvokeToolToolRoute =
-  Char91DotmcpChar93InvokeToolToolRouteImport.update({
-    id: '/.mcp/invoke-tool/$tool',
-    path: '/.mcp/invoke-tool/$tool',
+const ApiPublicTrackPageviewRoute = ApiPublicTrackPageviewRouteImport.update({
+  id: '/api/public/track-pageview',
+  path: '/api/public/track-pageview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
+  id: '/lovable/email/suppression',
+  path: '/lovable/email/suppression',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBkashCallbackRoute = ApiPublicBkashCallbackRouteImport.update({
+  id: '/api/public/bkash/callback',
+  path: '/api/public/bkash/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicEpsCallbackRoute = ApiPublicEpsCallbackRouteImport.update({
+  id: '/api/public/eps/callback',
+  path: '/api/public/eps/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicSslcommerzCallbackRoute =
+  ApiPublicSslcommerzCallbackRouteImport.update({
+    id: '/api/public/sslcommerz/callback',
+    path: '/api/public/sslcommerz/callback',
     getParentRoute: () => rootRouteImport,
   } as any)
-const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
-  id: '/.lovable/oauth/consent',
-  path: '/.lovable/oauth/consent',
+const ApiPublicTelegramCustomerWebhookRoute =
+  ApiPublicTelegramCustomerWebhookRouteImport.update({
+    id: '/api/public/telegram/customer-webhook',
+    path: '/api/public/telegram/customer-webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
+  id: '/lovable/email/auth/preview',
+  path: '/lovable/email/auth/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LovableEmailTransactionalSendRoute =
-  LovableEmailTransactionalSendRouteImport.update({
-    id: '/lovable/email/transactional/send',
-    path: '/lovable/email/transactional/send',
+const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
+  id: '/lovable/email/auth/webhook',
+  path: '/lovable/email/auth/webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailQueueProcessRoute =
+  LovableEmailQueueProcessRouteImport.update({
+    id: '/lovable/email/queue/process',
+    path: '/lovable/email/queue/process',
     getParentRoute: () => rootRouteImport,
   } as any)
 const LovableEmailTransactionalPreviewRoute =
@@ -656,44 +688,12 @@ const LovableEmailTransactionalPreviewRoute =
     path: '/lovable/email/transactional/preview',
     getParentRoute: () => rootRouteImport,
   } as any)
-const LovableEmailQueueProcessRoute =
-  LovableEmailQueueProcessRouteImport.update({
-    id: '/lovable/email/queue/process',
-    path: '/lovable/email/queue/process',
+const LovableEmailTransactionalSendRoute =
+  LovableEmailTransactionalSendRouteImport.update({
+    id: '/lovable/email/transactional/send',
+    path: '/lovable/email/transactional/send',
     getParentRoute: () => rootRouteImport,
   } as any)
-const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
-  id: '/lovable/email/auth/webhook',
-  path: '/lovable/email/auth/webhook',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
-  id: '/lovable/email/auth/preview',
-  path: '/lovable/email/auth/preview',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicTelegramCustomerWebhookRoute =
-  ApiPublicTelegramCustomerWebhookRouteImport.update({
-    id: '/api/public/telegram/customer-webhook',
-    path: '/api/public/telegram/customer-webhook',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicSslcommerzCallbackRoute =
-  ApiPublicSslcommerzCallbackRouteImport.update({
-    id: '/api/public/sslcommerz/callback',
-    path: '/api/public/sslcommerz/callback',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicEpsCallbackRoute = ApiPublicEpsCallbackRouteImport.update({
-  id: '/api/public/eps/callback',
-  path: '/api/public/eps/callback',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicBkashCallbackRoute = ApiPublicBkashCallbackRouteImport.update({
-  id: '/api/public/bkash/callback',
-  path: '/api/public/bkash/callback',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -1440,214 +1440,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/wallet': {
-      id: '/wallet'
-      path: '/wallet'
-      fullPath: '/wallet'
-      preLoaderRoute: typeof WalletRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/unsubscribe': {
-      id: '/unsubscribe'
-      path: '/unsubscribe'
-      fullPath: '/unsubscribe'
-      preLoaderRoute: typeof UnsubscribeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/streaming': {
-      id: '/streaming'
-      path: '/streaming'
-      fullPath: '/streaming'
-      preLoaderRoute: typeof StreamingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap': {
-      id: '/sitemap'
-      path: '/sitemap'
-      fullPath: '/sitemap'
-      preLoaderRoute: typeof SitemapRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/register': {
-      id: '/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/refund-request': {
-      id: '/refund-request'
-      path: '/refund-request'
-      fullPath: '/refund-request'
-      preLoaderRoute: typeof RefundRequestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/refund-policy': {
-      id: '/refund-policy'
-      path: '/refund-policy'
-      fullPath: '/refund-policy'
-      preLoaderRoute: typeof RefundPolicyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/products': {
-      id: '/products'
-      path: '/products'
-      fullPath: '/products'
-      preLoaderRoute: typeof ProductsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy-policy': {
-      id: '/privacy-policy'
-      path: '/privacy-policy'
-      fullPath: '/privacy-policy'
-      preLoaderRoute: typeof PrivacyPolicyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/orders': {
-      id: '/orders'
-      path: '/orders'
-      fullPath: '/orders'
-      preLoaderRoute: typeof OrdersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/order-cancellation': {
-      id: '/order-cancellation'
-      path: '/order-cancellation'
-      fullPath: '/order-cancellation'
-      preLoaderRoute: typeof OrderCancellationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/forgot-password': {
-      id: '/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof ForgotPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/faq': {
-      id: '/faq'
-      path: '/faq'
-      fullPath: '/faq'
-      preLoaderRoute: typeof FaqRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/education': {
-      id: '/education'
-      path: '/education'
-      fullPath: '/education'
-      preLoaderRoute: typeof EducationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/developer': {
-      id: '/developer'
-      path: '/developer'
-      fullPath: '/developer'
-      preLoaderRoute: typeof DeveloperRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/delivery-info': {
-      id: '/delivery-info'
-      path: '/delivery-info'
-      fullPath: '/delivery-info'
-      preLoaderRoute: typeof DeliveryInfoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/connect-telegram': {
-      id: '/connect-telegram'
-      path: '/connect-telegram'
-      fullPath: '/connect-telegram'
-      preLoaderRoute: typeof ConnectTelegramRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/checkout': {
-      id: '/checkout'
-      path: '/checkout'
-      fullPath: '/checkout'
-      preLoaderRoute: typeof CheckoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/categories': {
-      id: '/categories'
-      path: '/categories'
-      fullPath: '/categories'
-      preLoaderRoute: typeof CategoriesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cart': {
-      id: '/cart'
-      path: '/cart'
-      fullPath: '/cart'
-      preLoaderRoute: typeof CartRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ai-tools': {
-      id: '/ai-tools'
-      path: '/ai-tools'
-      fullPath: '/ai-tools'
-      preLoaderRoute: typeof AiToolsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/Mahbub214': {
@@ -1657,417 +1454,214 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/help/': {
-      id: '/help/'
-      path: '/help'
-      fullPath: '/help/'
-      preLoaderRoute: typeof HelpIndexRouteImport
+    '/ai-tools': {
+      id: '/ai-tools'
+      path: '/ai-tools'
+      fullPath: '/ai-tools'
+      preLoaderRoute: typeof AiToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog/': {
-      id: '/blog/'
-      path: '/blog'
-      fullPath: '/blog/'
-      preLoaderRoute: typeof BlogIndexRouteImport
+    '/cart': {
+      id: '/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/': {
-      id: '/Mahbub214/'
-      path: '/'
-      fullPath: '/Mahbub214/'
-      preLoaderRoute: typeof Mahbub214IndexRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/product/$slug': {
-      id: '/product/$slug'
-      path: '/product/$slug'
-      fullPath: '/product/$slug'
-      preLoaderRoute: typeof ProductSlugRouteImport
+    '/categories': {
+      id: '/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/orders/$id': {
-      id: '/orders/$id'
-      path: '/$id'
-      fullPath: '/orders/$id'
-      preLoaderRoute: typeof OrdersIdRouteImport
-      parentRoute: typeof OrdersRoute
-    }
-    '/offer/$slug': {
-      id: '/offer/$slug'
-      path: '/offer/$slug'
-      fullPath: '/offer/$slug'
-      preLoaderRoute: typeof OfferSlugRouteImport
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/help/$slug': {
-      id: '/help/$slug'
-      path: '/help/$slug'
-      fullPath: '/help/$slug'
-      preLoaderRoute: typeof HelpSlugRouteImport
+    '/connect-telegram': {
+      id: '/connect-telegram'
+      path: '/connect-telegram'
+      fullPath: '/connect-telegram'
+      preLoaderRoute: typeof ConnectTelegramRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/email/unsubscribe': {
-      id: '/email/unsubscribe'
-      path: '/email/unsubscribe'
-      fullPath: '/email/unsubscribe'
-      preLoaderRoute: typeof EmailUnsubscribeRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog/how-to-buy-netflix-in-bangladesh': {
-      id: '/blog/how-to-buy-netflix-in-bangladesh'
-      path: '/blog/how-to-buy-netflix-in-bangladesh'
-      fullPath: '/blog/how-to-buy-netflix-in-bangladesh'
-      preLoaderRoute: typeof BlogHowToBuyNetflixInBangladeshRouteImport
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog/$slug': {
-      id: '/blog/$slug'
-      path: '/blog/$slug'
-      fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugRouteImport
+    '/delivery-info': {
+      id: '/delivery-info'
+      path: '/delivery-info'
+      fullPath: '/delivery-info'
+      preLoaderRoute: typeof DeliveryInfoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/zoom-settings': {
-      id: '/Mahbub214/zoom-settings'
-      path: '/zoom-settings'
-      fullPath: '/Mahbub214/zoom-settings'
-      preLoaderRoute: typeof Mahbub214ZoomSettingsRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/developer': {
+      id: '/developer'
+      path: '/developer'
+      fullPath: '/developer'
+      preLoaderRoute: typeof DeveloperRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/wallet': {
-      id: '/Mahbub214/wallet'
-      path: '/wallet'
-      fullPath: '/Mahbub214/wallet'
-      preLoaderRoute: typeof Mahbub214WalletRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/education': {
+      id: '/education'
+      path: '/education'
+      fullPath: '/education'
+      preLoaderRoute: typeof EducationRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/users': {
-      id: '/Mahbub214/users'
-      path: '/users'
-      fullPath: '/Mahbub214/users'
-      preLoaderRoute: typeof Mahbub214UsersRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/tickets': {
-      id: '/Mahbub214/tickets'
-      path: '/tickets'
-      fullPath: '/Mahbub214/tickets'
-      preLoaderRoute: typeof Mahbub214TicketsRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/themes': {
-      id: '/Mahbub214/themes'
-      path: '/themes'
-      fullPath: '/Mahbub214/themes'
-      preLoaderRoute: typeof Mahbub214ThemesRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/telegram': {
-      id: '/Mahbub214/telegram'
-      path: '/telegram'
-      fullPath: '/Mahbub214/telegram'
-      preLoaderRoute: typeof Mahbub214TelegramRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/settings': {
-      id: '/Mahbub214/settings'
-      path: '/settings'
-      fullPath: '/Mahbub214/settings'
-      preLoaderRoute: typeof Mahbub214SettingsRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/order-cancellation': {
+      id: '/order-cancellation'
+      path: '/order-cancellation'
+      fullPath: '/order-cancellation'
+      preLoaderRoute: typeof OrderCancellationRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/seo-settings': {
-      id: '/Mahbub214/seo-settings'
-      path: '/seo-settings'
-      fullPath: '/Mahbub214/seo-settings'
-      preLoaderRoute: typeof Mahbub214SeoSettingsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/seo-audit': {
-      id: '/Mahbub214/seo-audit'
-      path: '/seo-audit'
-      fullPath: '/Mahbub214/seo-audit'
-      preLoaderRoute: typeof Mahbub214SeoAuditRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/security': {
-      id: '/Mahbub214/security'
-      path: '/security'
-      fullPath: '/Mahbub214/security'
-      preLoaderRoute: typeof Mahbub214SecurityRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/search-console': {
-      id: '/Mahbub214/search-console'
-      path: '/search-console'
-      fullPath: '/Mahbub214/search-console'
-      preLoaderRoute: typeof Mahbub214SearchConsoleRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/reviews': {
-      id: '/Mahbub214/reviews'
-      path: '/reviews'
-      fullPath: '/Mahbub214/reviews'
-      preLoaderRoute: typeof Mahbub214ReviewsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/review-generator': {
-      id: '/Mahbub214/review-generator'
-      path: '/review-generator'
-      fullPath: '/Mahbub214/review-generator'
-      preLoaderRoute: typeof Mahbub214ReviewGeneratorRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/reports': {
-      id: '/Mahbub214/reports'
-      path: '/reports'
-      fullPath: '/Mahbub214/reports'
-      preLoaderRoute: typeof Mahbub214ReportsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/renewal-reminders': {
-      id: '/Mahbub214/renewal-reminders'
-      path: '/renewal-reminders'
-      fullPath: '/Mahbub214/renewal-reminders'
-      preLoaderRoute: typeof Mahbub214RenewalRemindersRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/redirects': {
-      id: '/Mahbub214/redirects'
-      path: '/redirects'
-      fullPath: '/Mahbub214/redirects'
-      preLoaderRoute: typeof Mahbub214RedirectsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/quick-tools': {
-      id: '/Mahbub214/quick-tools'
-      path: '/quick-tools'
-      fullPath: '/Mahbub214/quick-tools'
-      preLoaderRoute: typeof Mahbub214QuickToolsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/quick-sale': {
-      id: '/Mahbub214/quick-sale'
-      path: '/quick-sale'
-      fullPath: '/Mahbub214/quick-sale'
-      preLoaderRoute: typeof Mahbub214QuickSaleRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/promotions': {
-      id: '/Mahbub214/promotions'
-      path: '/promotions'
-      fullPath: '/Mahbub214/promotions'
-      preLoaderRoute: typeof Mahbub214PromotionsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/products': {
-      id: '/Mahbub214/products'
-      path: '/products'
-      fullPath: '/Mahbub214/products'
-      preLoaderRoute: typeof Mahbub214ProductsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/payments': {
-      id: '/Mahbub214/payments'
-      path: '/payments'
-      fullPath: '/Mahbub214/payments'
-      preLoaderRoute: typeof Mahbub214PaymentsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/payment-links': {
-      id: '/Mahbub214/payment-links'
-      path: '/payment-links'
-      fullPath: '/Mahbub214/payment-links'
-      preLoaderRoute: typeof Mahbub214PaymentLinksRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/pages': {
-      id: '/Mahbub214/pages'
-      path: '/pages'
-      fullPath: '/Mahbub214/pages'
-      preLoaderRoute: typeof Mahbub214PagesRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/orders': {
-      id: '/Mahbub214/orders'
+    '/orders': {
+      id: '/orders'
       path: '/orders'
-      fullPath: '/Mahbub214/orders'
-      preLoaderRoute: typeof Mahbub214OrdersRouteImport
-      parentRoute: typeof Mahbub214Route
+      fullPath: '/orders'
+      preLoaderRoute: typeof OrdersRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/offers': {
-      id: '/Mahbub214/offers'
-      path: '/offers'
-      fullPath: '/Mahbub214/offers'
-      preLoaderRoute: typeof Mahbub214OffersRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/newsletter': {
-      id: '/Mahbub214/newsletter'
-      path: '/newsletter'
-      fullPath: '/Mahbub214/newsletter'
-      preLoaderRoute: typeof Mahbub214NewsletterRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/meta-business': {
-      id: '/Mahbub214/meta-business'
-      path: '/meta-business'
-      fullPath: '/Mahbub214/meta-business'
-      preLoaderRoute: typeof Mahbub214MetaBusinessRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/live-chat': {
-      id: '/Mahbub214/live-chat'
-      path: '/live-chat'
-      fullPath: '/Mahbub214/live-chat'
-      preLoaderRoute: typeof Mahbub214LiveChatRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/refund-policy': {
+      id: '/refund-policy'
+      path: '/refund-policy'
+      fullPath: '/refund-policy'
+      preLoaderRoute: typeof RefundPolicyRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/license-manager': {
-      id: '/Mahbub214/license-manager'
-      path: '/license-manager'
-      fullPath: '/Mahbub214/license-manager'
-      preLoaderRoute: typeof Mahbub214LicenseManagerRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/refund-request': {
+      id: '/refund-request'
+      path: '/refund-request'
+      fullPath: '/refund-request'
+      preLoaderRoute: typeof RefundRequestRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/invoice-generator': {
-      id: '/Mahbub214/invoice-generator'
-      path: '/invoice-generator'
-      fullPath: '/Mahbub214/invoice-generator'
-      preLoaderRoute: typeof Mahbub214InvoiceGeneratorRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/invoice-design': {
-      id: '/Mahbub214/invoice-design'
-      path: '/invoice-design'
-      fullPath: '/Mahbub214/invoice-design'
-      preLoaderRoute: typeof Mahbub214InvoiceDesignRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/inventory': {
-      id: '/Mahbub214/inventory'
-      path: '/inventory'
-      fullPath: '/Mahbub214/inventory'
-      preLoaderRoute: typeof Mahbub214InventoryRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/sitemap': {
+      id: '/sitemap'
+      path: '/sitemap'
+      fullPath: '/sitemap'
+      preLoaderRoute: typeof SitemapRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/homepage-editor': {
-      id: '/Mahbub214/homepage-editor'
-      path: '/homepage-editor'
-      fullPath: '/Mahbub214/homepage-editor'
-      preLoaderRoute: typeof Mahbub214HomepageEditorRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/ga4-realtime': {
-      id: '/Mahbub214/ga4-realtime'
-      path: '/ga4-realtime'
-      fullPath: '/Mahbub214/ga4-realtime'
-      preLoaderRoute: typeof Mahbub214Ga4RealtimeRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/streaming': {
+      id: '/streaming'
+      path: '/streaming'
+      fullPath: '/streaming'
+      preLoaderRoute: typeof StreamingRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/facebook-pixels': {
-      id: '/Mahbub214/facebook-pixels'
-      path: '/facebook-pixels'
-      fullPath: '/Mahbub214/facebook-pixels'
-      preLoaderRoute: typeof Mahbub214FacebookPixelsRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/email-dashboard': {
-      id: '/Mahbub214/email-dashboard'
-      path: '/email-dashboard'
-      fullPath: '/Mahbub214/email-dashboard'
-      preLoaderRoute: typeof Mahbub214EmailDashboardRouteImport
-      parentRoute: typeof Mahbub214Route
+    '/unsubscribe': {
+      id: '/unsubscribe'
+      path: '/unsubscribe'
+      fullPath: '/unsubscribe'
+      preLoaderRoute: typeof UnsubscribeRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/description-template': {
-      id: '/Mahbub214/description-template'
-      path: '/description-template'
-      fullPath: '/Mahbub214/description-template'
-      preLoaderRoute: typeof Mahbub214DescriptionTemplateRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/description-preview': {
-      id: '/Mahbub214/description-preview'
-      path: '/description-preview'
-      fullPath: '/Mahbub214/description-preview'
-      preLoaderRoute: typeof Mahbub214DescriptionPreviewRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/customer-licenses': {
-      id: '/Mahbub214/customer-licenses'
-      path: '/customer-licenses'
-      fullPath: '/Mahbub214/customer-licenses'
-      preLoaderRoute: typeof Mahbub214CustomerLicensesRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/coupons': {
-      id: '/Mahbub214/coupons'
-      path: '/coupons'
-      fullPath: '/Mahbub214/coupons'
-      preLoaderRoute: typeof Mahbub214CouponsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/bulk-update': {
-      id: '/Mahbub214/bulk-update'
-      path: '/bulk-update'
-      fullPath: '/Mahbub214/bulk-update'
-      preLoaderRoute: typeof Mahbub214BulkUpdateRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/bkash-transactions': {
-      id: '/Mahbub214/bkash-transactions'
-      path: '/bkash-transactions'
-      fullPath: '/Mahbub214/bkash-transactions'
-      preLoaderRoute: typeof Mahbub214BkashTransactionsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/backup': {
-      id: '/Mahbub214/backup'
-      path: '/backup'
-      fullPath: '/Mahbub214/backup'
-      preLoaderRoute: typeof Mahbub214BackupRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/analytics': {
-      id: '/Mahbub214/analytics'
-      path: '/analytics'
-      fullPath: '/Mahbub214/analytics'
-      preLoaderRoute: typeof Mahbub214AnalyticsRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/affiliates': {
-      id: '/Mahbub214/affiliates'
-      path: '/affiliates'
-      fullPath: '/Mahbub214/affiliates'
-      preLoaderRoute: typeof Mahbub214AffiliatesRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/abandoned-checkout': {
-      id: '/Mahbub214/abandoned-checkout'
-      path: '/abandoned-checkout'
-      fullPath: '/Mahbub214/abandoned-checkout'
-      preLoaderRoute: typeof Mahbub214AbandonedCheckoutRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/Mahbub214/$page': {
-      id: '/Mahbub214/$page'
-      path: '/$page'
-      fullPath: '/Mahbub214/$page'
-      preLoaderRoute: typeof Mahbub214PageRouteImport
-      parentRoute: typeof Mahbub214Route
-    }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/wallet': {
+      id: '/wallet'
+      path: '/wallet'
+      fullPath: '/wallet'
+      preLoaderRoute: typeof WalletRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -2077,74 +1671,410 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lovable/email/suppression': {
-      id: '/lovable/email/suppression'
-      path: '/lovable/email/suppression'
-      fullPath: '/lovable/email/suppression'
-      preLoaderRoute: typeof LovableEmailSuppressionRouteImport
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/track-pageview': {
-      id: '/api/public/track-pageview'
-      path: '/api/public/track-pageview'
-      fullPath: '/api/public/track-pageview'
-      preLoaderRoute: typeof ApiPublicTrackPageviewRouteImport
+    '/Mahbub214/': {
+      id: '/Mahbub214/'
+      path: '/'
+      fullPath: '/Mahbub214/'
+      preLoaderRoute: typeof Mahbub214IndexRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/$page': {
+      id: '/Mahbub214/$page'
+      path: '/$page'
+      fullPath: '/Mahbub214/$page'
+      preLoaderRoute: typeof Mahbub214PageRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/abandoned-checkout': {
+      id: '/Mahbub214/abandoned-checkout'
+      path: '/abandoned-checkout'
+      fullPath: '/Mahbub214/abandoned-checkout'
+      preLoaderRoute: typeof Mahbub214AbandonedCheckoutRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/affiliates': {
+      id: '/Mahbub214/affiliates'
+      path: '/affiliates'
+      fullPath: '/Mahbub214/affiliates'
+      preLoaderRoute: typeof Mahbub214AffiliatesRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/analytics': {
+      id: '/Mahbub214/analytics'
+      path: '/analytics'
+      fullPath: '/Mahbub214/analytics'
+      preLoaderRoute: typeof Mahbub214AnalyticsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/backup': {
+      id: '/Mahbub214/backup'
+      path: '/backup'
+      fullPath: '/Mahbub214/backup'
+      preLoaderRoute: typeof Mahbub214BackupRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/bkash-transactions': {
+      id: '/Mahbub214/bkash-transactions'
+      path: '/bkash-transactions'
+      fullPath: '/Mahbub214/bkash-transactions'
+      preLoaderRoute: typeof Mahbub214BkashTransactionsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/bulk-update': {
+      id: '/Mahbub214/bulk-update'
+      path: '/bulk-update'
+      fullPath: '/Mahbub214/bulk-update'
+      preLoaderRoute: typeof Mahbub214BulkUpdateRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/coupons': {
+      id: '/Mahbub214/coupons'
+      path: '/coupons'
+      fullPath: '/Mahbub214/coupons'
+      preLoaderRoute: typeof Mahbub214CouponsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/customer-licenses': {
+      id: '/Mahbub214/customer-licenses'
+      path: '/customer-licenses'
+      fullPath: '/Mahbub214/customer-licenses'
+      preLoaderRoute: typeof Mahbub214CustomerLicensesRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/description-preview': {
+      id: '/Mahbub214/description-preview'
+      path: '/description-preview'
+      fullPath: '/Mahbub214/description-preview'
+      preLoaderRoute: typeof Mahbub214DescriptionPreviewRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/description-template': {
+      id: '/Mahbub214/description-template'
+      path: '/description-template'
+      fullPath: '/Mahbub214/description-template'
+      preLoaderRoute: typeof Mahbub214DescriptionTemplateRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/email-dashboard': {
+      id: '/Mahbub214/email-dashboard'
+      path: '/email-dashboard'
+      fullPath: '/Mahbub214/email-dashboard'
+      preLoaderRoute: typeof Mahbub214EmailDashboardRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/facebook-pixels': {
+      id: '/Mahbub214/facebook-pixels'
+      path: '/facebook-pixels'
+      fullPath: '/Mahbub214/facebook-pixels'
+      preLoaderRoute: typeof Mahbub214FacebookPixelsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/ga4-realtime': {
+      id: '/Mahbub214/ga4-realtime'
+      path: '/ga4-realtime'
+      fullPath: '/Mahbub214/ga4-realtime'
+      preLoaderRoute: typeof Mahbub214Ga4RealtimeRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/homepage-editor': {
+      id: '/Mahbub214/homepage-editor'
+      path: '/homepage-editor'
+      fullPath: '/Mahbub214/homepage-editor'
+      preLoaderRoute: typeof Mahbub214HomepageEditorRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/inventory': {
+      id: '/Mahbub214/inventory'
+      path: '/inventory'
+      fullPath: '/Mahbub214/inventory'
+      preLoaderRoute: typeof Mahbub214InventoryRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/invoice-design': {
+      id: '/Mahbub214/invoice-design'
+      path: '/invoice-design'
+      fullPath: '/Mahbub214/invoice-design'
+      preLoaderRoute: typeof Mahbub214InvoiceDesignRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/invoice-generator': {
+      id: '/Mahbub214/invoice-generator'
+      path: '/invoice-generator'
+      fullPath: '/Mahbub214/invoice-generator'
+      preLoaderRoute: typeof Mahbub214InvoiceGeneratorRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/license-manager': {
+      id: '/Mahbub214/license-manager'
+      path: '/license-manager'
+      fullPath: '/Mahbub214/license-manager'
+      preLoaderRoute: typeof Mahbub214LicenseManagerRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/live-chat': {
+      id: '/Mahbub214/live-chat'
+      path: '/live-chat'
+      fullPath: '/Mahbub214/live-chat'
+      preLoaderRoute: typeof Mahbub214LiveChatRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/meta-business': {
+      id: '/Mahbub214/meta-business'
+      path: '/meta-business'
+      fullPath: '/Mahbub214/meta-business'
+      preLoaderRoute: typeof Mahbub214MetaBusinessRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/newsletter': {
+      id: '/Mahbub214/newsletter'
+      path: '/newsletter'
+      fullPath: '/Mahbub214/newsletter'
+      preLoaderRoute: typeof Mahbub214NewsletterRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/offers': {
+      id: '/Mahbub214/offers'
+      path: '/offers'
+      fullPath: '/Mahbub214/offers'
+      preLoaderRoute: typeof Mahbub214OffersRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/orders': {
+      id: '/Mahbub214/orders'
+      path: '/orders'
+      fullPath: '/Mahbub214/orders'
+      preLoaderRoute: typeof Mahbub214OrdersRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/pages': {
+      id: '/Mahbub214/pages'
+      path: '/pages'
+      fullPath: '/Mahbub214/pages'
+      preLoaderRoute: typeof Mahbub214PagesRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/payment-links': {
+      id: '/Mahbub214/payment-links'
+      path: '/payment-links'
+      fullPath: '/Mahbub214/payment-links'
+      preLoaderRoute: typeof Mahbub214PaymentLinksRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/payments': {
+      id: '/Mahbub214/payments'
+      path: '/payments'
+      fullPath: '/Mahbub214/payments'
+      preLoaderRoute: typeof Mahbub214PaymentsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/products': {
+      id: '/Mahbub214/products'
+      path: '/products'
+      fullPath: '/Mahbub214/products'
+      preLoaderRoute: typeof Mahbub214ProductsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/promotions': {
+      id: '/Mahbub214/promotions'
+      path: '/promotions'
+      fullPath: '/Mahbub214/promotions'
+      preLoaderRoute: typeof Mahbub214PromotionsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/quick-sale': {
+      id: '/Mahbub214/quick-sale'
+      path: '/quick-sale'
+      fullPath: '/Mahbub214/quick-sale'
+      preLoaderRoute: typeof Mahbub214QuickSaleRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/quick-tools': {
+      id: '/Mahbub214/quick-tools'
+      path: '/quick-tools'
+      fullPath: '/Mahbub214/quick-tools'
+      preLoaderRoute: typeof Mahbub214QuickToolsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/redirects': {
+      id: '/Mahbub214/redirects'
+      path: '/redirects'
+      fullPath: '/Mahbub214/redirects'
+      preLoaderRoute: typeof Mahbub214RedirectsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/renewal-reminders': {
+      id: '/Mahbub214/renewal-reminders'
+      path: '/renewal-reminders'
+      fullPath: '/Mahbub214/renewal-reminders'
+      preLoaderRoute: typeof Mahbub214RenewalRemindersRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/reports': {
+      id: '/Mahbub214/reports'
+      path: '/reports'
+      fullPath: '/Mahbub214/reports'
+      preLoaderRoute: typeof Mahbub214ReportsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/review-generator': {
+      id: '/Mahbub214/review-generator'
+      path: '/review-generator'
+      fullPath: '/Mahbub214/review-generator'
+      preLoaderRoute: typeof Mahbub214ReviewGeneratorRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/reviews': {
+      id: '/Mahbub214/reviews'
+      path: '/reviews'
+      fullPath: '/Mahbub214/reviews'
+      preLoaderRoute: typeof Mahbub214ReviewsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/search-console': {
+      id: '/Mahbub214/search-console'
+      path: '/search-console'
+      fullPath: '/Mahbub214/search-console'
+      preLoaderRoute: typeof Mahbub214SearchConsoleRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/security': {
+      id: '/Mahbub214/security'
+      path: '/security'
+      fullPath: '/Mahbub214/security'
+      preLoaderRoute: typeof Mahbub214SecurityRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/seo-audit': {
+      id: '/Mahbub214/seo-audit'
+      path: '/seo-audit'
+      fullPath: '/Mahbub214/seo-audit'
+      preLoaderRoute: typeof Mahbub214SeoAuditRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/seo-settings': {
+      id: '/Mahbub214/seo-settings'
+      path: '/seo-settings'
+      fullPath: '/Mahbub214/seo-settings'
+      preLoaderRoute: typeof Mahbub214SeoSettingsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/settings': {
+      id: '/Mahbub214/settings'
+      path: '/settings'
+      fullPath: '/Mahbub214/settings'
+      preLoaderRoute: typeof Mahbub214SettingsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/telegram': {
+      id: '/Mahbub214/telegram'
+      path: '/telegram'
+      fullPath: '/Mahbub214/telegram'
+      preLoaderRoute: typeof Mahbub214TelegramRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/themes': {
+      id: '/Mahbub214/themes'
+      path: '/themes'
+      fullPath: '/Mahbub214/themes'
+      preLoaderRoute: typeof Mahbub214ThemesRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/tickets': {
+      id: '/Mahbub214/tickets'
+      path: '/tickets'
+      fullPath: '/Mahbub214/tickets'
+      preLoaderRoute: typeof Mahbub214TicketsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/users': {
+      id: '/Mahbub214/users'
+      path: '/users'
+      fullPath: '/Mahbub214/users'
+      preLoaderRoute: typeof Mahbub214UsersRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/wallet': {
+      id: '/Mahbub214/wallet'
+      path: '/wallet'
+      fullPath: '/Mahbub214/wallet'
+      preLoaderRoute: typeof Mahbub214WalletRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/zoom-settings': {
+      id: '/Mahbub214/zoom-settings'
+      path: '/zoom-settings'
+      fullPath: '/Mahbub214/zoom-settings'
+      preLoaderRoute: typeof Mahbub214ZoomSettingsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/support-chat': {
-      id: '/api/public/support-chat'
-      path: '/api/public/support-chat'
-      fullPath: '/api/public/support-chat'
-      preLoaderRoute: typeof ApiPublicSupportChatRouteImport
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/products': {
-      id: '/api/public/products'
-      path: '/api/public/products'
-      fullPath: '/api/public/products'
-      preLoaderRoute: typeof ApiPublicProductsRouteImport
+    '/blog/how-to-buy-netflix-in-bangladesh': {
+      id: '/blog/how-to-buy-netflix-in-bangladesh'
+      path: '/blog/how-to-buy-netflix-in-bangladesh'
+      fullPath: '/blog/how-to-buy-netflix-in-bangladesh'
+      preLoaderRoute: typeof BlogHowToBuyNetflixInBangladeshRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/generate-blogs': {
-      id: '/api/public/generate-blogs'
-      path: '/api/public/generate-blogs'
-      fullPath: '/api/public/generate-blogs'
-      preLoaderRoute: typeof ApiPublicGenerateBlogsRouteImport
+    '/email/unsubscribe': {
+      id: '/email/unsubscribe'
+      path: '/email/unsubscribe'
+      fullPath: '/email/unsubscribe'
+      preLoaderRoute: typeof EmailUnsubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/deliver-downloads': {
-      id: '/api/public/deliver-downloads'
-      path: '/api/public/deliver-downloads'
-      fullPath: '/api/public/deliver-downloads'
-      preLoaderRoute: typeof ApiPublicDeliverDownloadsRouteImport
+    '/help/': {
+      id: '/help/'
+      path: '/help'
+      fullPath: '/help/'
+      preLoaderRoute: typeof HelpIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/client-errors': {
-      id: '/api/public/client-errors'
-      path: '/api/public/client-errors'
-      fullPath: '/api/public/client-errors'
-      preLoaderRoute: typeof ApiPublicClientErrorsRouteImport
+    '/help/$slug': {
+      id: '/help/$slug'
+      path: '/help/$slug'
+      fullPath: '/help/$slug'
+      preLoaderRoute: typeof HelpSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/pages/$key': {
-      id: '/Mahbub214/pages/$key'
-      path: '/$key'
-      fullPath: '/Mahbub214/pages/$key'
-      preLoaderRoute: typeof Mahbub214PagesKeyRouteImport
-      parentRoute: typeof Mahbub214PagesRoute
+    '/offer/$slug': {
+      id: '/offer/$slug'
+      path: '/offer/$slug'
+      fullPath: '/offer/$slug'
+      preLoaderRoute: typeof OfferSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/Mahbub214/offers/$id': {
-      id: '/Mahbub214/offers/$id'
+    '/orders/$id': {
+      id: '/orders/$id'
       path: '/$id'
-      fullPath: '/Mahbub214/offers/$id'
-      preLoaderRoute: typeof Mahbub214OffersIdRouteImport
-      parentRoute: typeof Mahbub214OffersRoute
+      fullPath: '/orders/$id'
+      preLoaderRoute: typeof OrdersIdRouteImport
+      parentRoute: typeof OrdersRoute
     }
-    '/.mcp/invoke-tool/$tool': {
-      id: '/.mcp/invoke-tool/$tool'
-      path: '/.mcp/invoke-tool/$tool'
-      fullPath: '/.mcp/invoke-tool/$tool'
-      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+    '/product/$slug': {
+      id: '/product/$slug'
+      path: '/product/$slug'
+      fullPath: '/product/$slug'
+      preLoaderRoute: typeof ProductSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.lovable/oauth/consent': {
@@ -2154,53 +2084,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DotlovableOauthConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lovable/email/transactional/send': {
-      id: '/lovable/email/transactional/send'
-      path: '/lovable/email/transactional/send'
-      fullPath: '/lovable/email/transactional/send'
-      preLoaderRoute: typeof LovableEmailTransactionalSendRouteImport
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lovable/email/transactional/preview': {
-      id: '/lovable/email/transactional/preview'
-      path: '/lovable/email/transactional/preview'
-      fullPath: '/lovable/email/transactional/preview'
-      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
+    '/Mahbub214/offers/$id': {
+      id: '/Mahbub214/offers/$id'
+      path: '/$id'
+      fullPath: '/Mahbub214/offers/$id'
+      preLoaderRoute: typeof Mahbub214OffersIdRouteImport
+      parentRoute: typeof Mahbub214OffersRoute
+    }
+    '/Mahbub214/pages/$key': {
+      id: '/Mahbub214/pages/$key'
+      path: '/$key'
+      fullPath: '/Mahbub214/pages/$key'
+      preLoaderRoute: typeof Mahbub214PagesKeyRouteImport
+      parentRoute: typeof Mahbub214PagesRoute
+    }
+    '/api/public/client-errors': {
+      id: '/api/public/client-errors'
+      path: '/api/public/client-errors'
+      fullPath: '/api/public/client-errors'
+      preLoaderRoute: typeof ApiPublicClientErrorsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lovable/email/queue/process': {
-      id: '/lovable/email/queue/process'
-      path: '/lovable/email/queue/process'
-      fullPath: '/lovable/email/queue/process'
-      preLoaderRoute: typeof LovableEmailQueueProcessRouteImport
+    '/api/public/deliver-downloads': {
+      id: '/api/public/deliver-downloads'
+      path: '/api/public/deliver-downloads'
+      fullPath: '/api/public/deliver-downloads'
+      preLoaderRoute: typeof ApiPublicDeliverDownloadsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lovable/email/auth/webhook': {
-      id: '/lovable/email/auth/webhook'
-      path: '/lovable/email/auth/webhook'
-      fullPath: '/lovable/email/auth/webhook'
-      preLoaderRoute: typeof LovableEmailAuthWebhookRouteImport
+    '/api/public/generate-blogs': {
+      id: '/api/public/generate-blogs'
+      path: '/api/public/generate-blogs'
+      fullPath: '/api/public/generate-blogs'
+      preLoaderRoute: typeof ApiPublicGenerateBlogsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lovable/email/auth/preview': {
-      id: '/lovable/email/auth/preview'
-      path: '/lovable/email/auth/preview'
-      fullPath: '/lovable/email/auth/preview'
-      preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
+    '/api/public/products': {
+      id: '/api/public/products'
+      path: '/api/public/products'
+      fullPath: '/api/public/products'
+      preLoaderRoute: typeof ApiPublicProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/telegram/customer-webhook': {
-      id: '/api/public/telegram/customer-webhook'
-      path: '/api/public/telegram/customer-webhook'
-      fullPath: '/api/public/telegram/customer-webhook'
-      preLoaderRoute: typeof ApiPublicTelegramCustomerWebhookRouteImport
+    '/api/public/support-chat': {
+      id: '/api/public/support-chat'
+      path: '/api/public/support-chat'
+      fullPath: '/api/public/support-chat'
+      preLoaderRoute: typeof ApiPublicSupportChatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/sslcommerz/callback': {
-      id: '/api/public/sslcommerz/callback'
-      path: '/api/public/sslcommerz/callback'
-      fullPath: '/api/public/sslcommerz/callback'
-      preLoaderRoute: typeof ApiPublicSslcommerzCallbackRouteImport
+    '/api/public/track-pageview': {
+      id: '/api/public/track-pageview'
+      path: '/api/public/track-pageview'
+      fullPath: '/api/public/track-pageview'
+      preLoaderRoute: typeof ApiPublicTrackPageviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/suppression': {
+      id: '/lovable/email/suppression'
+      path: '/lovable/email/suppression'
+      fullPath: '/lovable/email/suppression'
+      preLoaderRoute: typeof LovableEmailSuppressionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/bkash/callback': {
+      id: '/api/public/bkash/callback'
+      path: '/api/public/bkash/callback'
+      fullPath: '/api/public/bkash/callback'
+      preLoaderRoute: typeof ApiPublicBkashCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/eps/callback': {
@@ -2210,11 +2168,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicEpsCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/bkash/callback': {
-      id: '/api/public/bkash/callback'
-      path: '/api/public/bkash/callback'
-      fullPath: '/api/public/bkash/callback'
-      preLoaderRoute: typeof ApiPublicBkashCallbackRouteImport
+    '/api/public/sslcommerz/callback': {
+      id: '/api/public/sslcommerz/callback'
+      path: '/api/public/sslcommerz/callback'
+      fullPath: '/api/public/sslcommerz/callback'
+      preLoaderRoute: typeof ApiPublicSslcommerzCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/telegram/customer-webhook': {
+      id: '/api/public/telegram/customer-webhook'
+      path: '/api/public/telegram/customer-webhook'
+      fullPath: '/api/public/telegram/customer-webhook'
+      preLoaderRoute: typeof ApiPublicTelegramCustomerWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/auth/preview': {
+      id: '/lovable/email/auth/preview'
+      path: '/lovable/email/auth/preview'
+      fullPath: '/lovable/email/auth/preview'
+      preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/auth/webhook': {
+      id: '/lovable/email/auth/webhook'
+      path: '/lovable/email/auth/webhook'
+      fullPath: '/lovable/email/auth/webhook'
+      preLoaderRoute: typeof LovableEmailAuthWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/queue/process': {
+      id: '/lovable/email/queue/process'
+      path: '/lovable/email/queue/process'
+      fullPath: '/lovable/email/queue/process'
+      preLoaderRoute: typeof LovableEmailQueueProcessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/transactional/send': {
+      id: '/lovable/email/transactional/send'
+      path: '/lovable/email/transactional/send'
+      fullPath: '/lovable/email/transactional/send'
+      preLoaderRoute: typeof LovableEmailTransactionalSendRouteImport
       parentRoute: typeof rootRouteImport
     }
   }

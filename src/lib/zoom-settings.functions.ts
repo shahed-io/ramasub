@@ -66,6 +66,10 @@ export const saveZoomSettings = createServerFn({ method: "POST" })
       _role: "admin",
     });
     if (!isAdmin) throw new Error("Forbidden");
+    {
+      const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+      await assertAdminMfaGrant(context.userId);
+    }
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const merged = clampSettings(data);

@@ -7,6 +7,8 @@ const GATEWAY = "https://connector-gateway.lovable.dev/google_search_console";
 async function assertAdmin(supabase: any, userId: string) {
   const { data, error } = await supabase.rpc("has_role", { _user_id: userId, _role: "admin" });
   if (error || !data) throw new Error("Forbidden");
+  const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+  await assertAdminMfaGrant(userId);
 }
 
 async function gwFetch(path: string, init: RequestInit = {}) {

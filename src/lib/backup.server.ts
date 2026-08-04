@@ -29,6 +29,8 @@ export async function assertAdmin(userId: string) {
     .maybeSingle();
   if (error) throw new Error(error.message);
   if (!data) throw new Error("Forbidden: admin role required");
+  const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+  await assertAdminMfaGrant(userId);
 }
 
 export function resolveTables(requested?: string[]): string[] {

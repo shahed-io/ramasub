@@ -23,6 +23,8 @@ async function adminGuard(context: {
     _role: "admin",
   });
   if (!isAdmin) throw new Error("Forbidden");
+  const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+  await assertAdminMfaGrant(context.userId);
 }
 
 export const listFacebookPixels = createServerFn({ method: "GET" })
