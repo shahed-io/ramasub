@@ -75,6 +75,7 @@ import { Route as Mahbub214ProductsRouteImport } from './routes/Mahbub214.produc
 import { Route as Mahbub214PromotionsRouteImport } from './routes/Mahbub214.promotions'
 import { Route as Mahbub214QuickSaleRouteImport } from './routes/Mahbub214.quick-sale'
 import { Route as Mahbub214QuickToolsRouteImport } from './routes/Mahbub214.quick-tools'
+import { Route as Mahbub214RateLimitsRouteImport } from './routes/Mahbub214.rate-limits'
 import { Route as Mahbub214RedirectsRouteImport } from './routes/Mahbub214.redirects'
 import { Route as Mahbub214RenewalRemindersRouteImport } from './routes/Mahbub214.renewal-reminders'
 import { Route as Mahbub214ReportsRouteImport } from './routes/Mahbub214.reports'
@@ -459,6 +460,11 @@ const Mahbub214QuickToolsRoute = Mahbub214QuickToolsRouteImport.update({
   path: '/quick-tools',
   getParentRoute: () => Mahbub214Route,
 } as any)
+const Mahbub214RateLimitsRoute = Mahbub214RateLimitsRouteImport.update({
+  id: '/rate-limits',
+  path: '/rate-limits',
+  getParentRoute: () => Mahbub214Route,
+} as any)
 const Mahbub214RedirectsRoute = Mahbub214RedirectsRouteImport.update({
   id: '/redirects',
   path: '/redirects',
@@ -761,6 +767,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/promotions': typeof Mahbub214PromotionsRoute
   '/Mahbub214/quick-sale': typeof Mahbub214QuickSaleRoute
   '/Mahbub214/quick-tools': typeof Mahbub214QuickToolsRoute
+  '/Mahbub214/rate-limits': typeof Mahbub214RateLimitsRoute
   '/Mahbub214/redirects': typeof Mahbub214RedirectsRoute
   '/Mahbub214/renewal-reminders': typeof Mahbub214RenewalRemindersRoute
   '/Mahbub214/reports': typeof Mahbub214ReportsRoute
@@ -873,6 +880,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/promotions': typeof Mahbub214PromotionsRoute
   '/Mahbub214/quick-sale': typeof Mahbub214QuickSaleRoute
   '/Mahbub214/quick-tools': typeof Mahbub214QuickToolsRoute
+  '/Mahbub214/rate-limits': typeof Mahbub214RateLimitsRoute
   '/Mahbub214/redirects': typeof Mahbub214RedirectsRoute
   '/Mahbub214/renewal-reminders': typeof Mahbub214RenewalRemindersRoute
   '/Mahbub214/reports': typeof Mahbub214ReportsRoute
@@ -987,6 +995,7 @@ export interface FileRoutesById {
   '/Mahbub214/promotions': typeof Mahbub214PromotionsRoute
   '/Mahbub214/quick-sale': typeof Mahbub214QuickSaleRoute
   '/Mahbub214/quick-tools': typeof Mahbub214QuickToolsRoute
+  '/Mahbub214/rate-limits': typeof Mahbub214RateLimitsRoute
   '/Mahbub214/redirects': typeof Mahbub214RedirectsRoute
   '/Mahbub214/renewal-reminders': typeof Mahbub214RenewalRemindersRoute
   '/Mahbub214/reports': typeof Mahbub214ReportsRoute
@@ -1102,6 +1111,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/promotions'
     | '/Mahbub214/quick-sale'
     | '/Mahbub214/quick-tools'
+    | '/Mahbub214/rate-limits'
     | '/Mahbub214/redirects'
     | '/Mahbub214/renewal-reminders'
     | '/Mahbub214/reports'
@@ -1214,6 +1224,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/promotions'
     | '/Mahbub214/quick-sale'
     | '/Mahbub214/quick-tools'
+    | '/Mahbub214/rate-limits'
     | '/Mahbub214/redirects'
     | '/Mahbub214/renewal-reminders'
     | '/Mahbub214/reports'
@@ -1327,6 +1338,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/promotions'
     | '/Mahbub214/quick-sale'
     | '/Mahbub214/quick-tools'
+    | '/Mahbub214/rate-limits'
     | '/Mahbub214/redirects'
     | '/Mahbub214/renewal-reminders'
     | '/Mahbub214/reports'
@@ -1902,6 +1914,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Mahbub214QuickToolsRouteImport
       parentRoute: typeof Mahbub214Route
     }
+    '/Mahbub214/rate-limits': {
+      id: '/Mahbub214/rate-limits'
+      path: '/rate-limits'
+      fullPath: '/Mahbub214/rate-limits'
+      preLoaderRoute: typeof Mahbub214RateLimitsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
     '/Mahbub214/redirects': {
       id: '/Mahbub214/redirects'
       path: '/redirects'
@@ -2276,6 +2295,7 @@ interface Mahbub214RouteChildren {
   Mahbub214PromotionsRoute: typeof Mahbub214PromotionsRoute
   Mahbub214QuickSaleRoute: typeof Mahbub214QuickSaleRoute
   Mahbub214QuickToolsRoute: typeof Mahbub214QuickToolsRoute
+  Mahbub214RateLimitsRoute: typeof Mahbub214RateLimitsRoute
   Mahbub214RedirectsRoute: typeof Mahbub214RedirectsRoute
   Mahbub214RenewalRemindersRoute: typeof Mahbub214RenewalRemindersRoute
   Mahbub214ReportsRoute: typeof Mahbub214ReportsRoute
@@ -2327,6 +2347,7 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214PromotionsRoute: Mahbub214PromotionsRoute,
   Mahbub214QuickSaleRoute: Mahbub214QuickSaleRoute,
   Mahbub214QuickToolsRoute: Mahbub214QuickToolsRoute,
+  Mahbub214RateLimitsRoute: Mahbub214RateLimitsRoute,
   Mahbub214RedirectsRoute: Mahbub214RedirectsRoute,
   Mahbub214RenewalRemindersRoute: Mahbub214RenewalRemindersRoute,
   Mahbub214ReportsRoute: Mahbub214ReportsRoute,

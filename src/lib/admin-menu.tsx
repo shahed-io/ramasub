@@ -10,7 +10,7 @@ import {
   Plug, Mail, MailCheck, CalendarClock, Zap, ZoomIn, ScanEye, MessagesSquare,
   MessageCircle, LifeBuoy, Send, Facebook, Crosshair, LineChart, CornerUpRight,
   UserCog, UserPlus, PenTool, BrainCircuit, Smartphone, Landmark, ArrowLeftRight,
-  Banknote, WandSparkles,
+  Banknote, WandSparkles, Gauge,
 } from "lucide-react";
 
 export type AdminBadge = "LIVE" | "NEW" | "BETA";
@@ -245,6 +245,7 @@ export const ADMIN_MENU: AdminMenuGroup[] = [
       { to: "/Mahbub214/settings", label: "General Settings", labelBn: "সাধারণ সেটিংস", icon: ic(Settings), grad: C.system },
       { to: "/Mahbub214/roles", label: "Admin Roles", labelBn: "অ্যাডমিন রোল", icon: ic(UserCog), grad: C.systemSoft },
       { to: "/Mahbub214/security", label: "Security & MFA", labelBn: "সিকিউরিটি ও MFA", icon: ic(ShieldCheck), grad: C.danger },
+      { to: "/Mahbub214/rate-limits", label: "Rate Limits", labelBn: "রেট লিমিট", icon: ic(Gauge), grad: C.danger, badge: "NEW" },
       { to: "/Mahbub214/backup", label: "Backup & Restore", labelBn: "ব্যাকআপ ও রিস্টোর", icon: ic(DatabaseBackup), grad: C.systemSoft },
     ],
   },

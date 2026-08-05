@@ -886,6 +886,11 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        {
+          const { guardPublicRoute, tooManyRequests } = await import("@/lib/rate-limit.server");
+          const rl = await guardPublicRoute("public.webhook", request);
+          if (!rl.allowed) return tooManyRequests(rl);
+        }
         let update: any = {};
         try {
           update = await request.json();
