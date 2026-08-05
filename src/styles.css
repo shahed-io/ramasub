@@ -648,12 +648,18 @@
     border: 1px solid var(--admin-border) !important;
     box-shadow: 0 16px 36px -28px rgba(15, 23, 42, 0.45) !important;
   }
-  .admin-clarity .admin-kpi-icon,
-  .admin-clarity .admin-menu-icon {
+  .admin-clarity .admin-kpi-icon {
     background-color: var(--admin-primary) !important;
     color: #ffffff !important;
     box-shadow: 0 12px 26px -13px rgba(15, 23, 42, 0.76) !important;
   }
+  /* Menu icon chips keep their own per-section gradient (inline style) so each
+     group is recognisable; only the glyph colour + depth are normalised. */
+  .admin-clarity .admin-menu-icon {
+    color: #ffffff !important;
+    box-shadow: 0 10px 20px -12px rgba(15, 23, 42, 0.55) !important;
+  }
+
   .admin-clarity .admin-kpi-icon *,
   .admin-clarity .admin-menu-icon * { color: #ffffff !important; }
   .admin-clarity .admin-menu-icon svg {
