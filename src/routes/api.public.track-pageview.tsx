@@ -42,6 +42,10 @@ export const Route = createFileRoute("/api/public/track-pageview")({
       OPTIONS: async () => new Response(null, { status: 204, headers: CORS }),
       POST: async ({ request }) => {
         try {
+          const { guardPublicRoute, tooManyRequests } = await import("@/lib/rate-limit.server");
+          const rl = await guardPublicRoute("public.track_pageview", request);
+          if (!rl.allowed) return tooManyRequests(rl, CORS);
+
           const body = await request.json().catch(() => null) as Record<string, unknown> | null;
           if (!body || typeof body.path !== "string" || typeof body.session_id !== "string") {
             return new Response(JSON.stringify({ ok: false }), { status: 400, headers: { "content-type": "application/json", ...CORS } });

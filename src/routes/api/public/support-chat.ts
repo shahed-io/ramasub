@@ -28,6 +28,10 @@ export const Route = createFileRoute("/api/public/support-chat")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        const { guardPublicRoute, tooManyRequests } = await import("@/lib/rate-limit.server");
+        const rl = await guardPublicRoute("public.support_chat", request);
+        if (!rl.allowed) return tooManyRequests(rl);
+
         let messages: ChatMsg[];
         try {
           const body = (await request.json()) as { messages?: unknown };

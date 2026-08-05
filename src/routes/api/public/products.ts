@@ -31,6 +31,10 @@ export const Route = createFileRoute("/api/public/products")({
   server: {
     handlers: {
       GET: async ({ request }) => {
+        const { guardPublicRoute, tooManyRequests } = await import("@/lib/rate-limit.server");
+        const rl = await guardPublicRoute("public.api_read", request);
+        if (!rl.allowed) return tooManyRequests(rl);
+
         const url = new URL(request.url);
         const slug = url.searchParams.get("slug");
 

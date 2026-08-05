@@ -17,6 +17,9 @@ export const Route = createFileRoute("/api/public/client-errors")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        const { guardPublicRoute, tooManyRequests } = await import("@/lib/rate-limit.server");
+        const rl = await guardPublicRoute("public.api_read", request);
+        if (!rl.allowed) return tooManyRequests(rl);
         try {
           const json = await request.json();
           const data = ErrorSchema.parse(json);
