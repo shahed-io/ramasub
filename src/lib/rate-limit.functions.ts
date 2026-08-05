@@ -128,10 +128,14 @@ export const updateRateLimitRule = createServerFn({ method: "POST" })
     await adminGuard(context as never);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { key, label, notes, ...rest } = data;
-    const patch: Record<string, unknown> = { ...rest };
-    if (label !== undefined) patch.label = label;
-    if (notes !== undefined) patch.notes = notes;
-    const { error } = await supabaseAdmin.from("rate_limit_rules").update(patch).eq("key", key);
+    const { error } = await supabaseAdmin
+      .from("rate_limit_rules")
+      .update({
+        ...rest,
+        ...(label !== undefined ? { label } : {}),
+        ...(notes !== undefined ? { notes } : {}),
+      })
+      .eq("key", key);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
