@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
 import { testTelegramConnection } from "@/lib/telegram.functions";
-import { setCustomerBotWebhook } from "@/lib/telegram-customer.functions";
+import { setCustomerBotWebhook, getCustomerWebhookStatus } from "@/lib/telegram-customer.functions";
 
 import { Bot, Save, Send, CheckCircle2, XCircle, Loader2, ExternalLink, Eye, EyeOff, RefreshCw, Users, Link2, ShoppingBag, Bell } from "lucide-react";
 
@@ -52,10 +52,19 @@ function TelegramAdmin() {
 
   const test = useServerFn(testTelegramConnection);
   const setWebhook = useServerFn(setCustomerBotWebhook);
+  const webhookStatus = useServerFn(getCustomerWebhookStatus);
 
   const load = async () => {
     setLoading(true);
-    const { data } = await supabase.from("telegram_settings" as any).select("*").eq("singleton", true).maybeSingle();
+    // Explicit column list — never select("*") here, which would ship the
+    // webhook secret to the browser.
+    const { data } = await supabase
+      .from("telegram_settings" as any)
+      .select(
+        "bot_token, chat_id, enabled, events, customer_bot_token, customer_bot_username, customer_bot_enabled",
+      )
+      .eq("singleton", true)
+      .maybeSingle();
     const s = data as any;
     if (s) {
       setBotToken(s.bot_token ?? "");
@@ -65,7 +74,12 @@ function TelegramAdmin() {
       setCustToken(s.customer_bot_token ?? "");
       setCustUsername(s.customer_bot_username ?? "");
       setCustEnabled(!!s.customer_bot_enabled);
-      setHasWebhookSecret(!!s.customer_webhook_secret);
+    }
+    try {
+      const st = await webhookStatus({});
+      setHasWebhookSecret(!!st.hasSecret);
+    } catch {
+      setHasWebhookSecret(false);
     }
     const { data: l } = await supabase
       .from("telegram_notifications_log" as any)

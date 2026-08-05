@@ -188,6 +188,22 @@ export const notifyCustomerOrderStatus = createServerFn({ method: "POST" })
     return { ok: res.ok, error: res.error };
   });
 
+// -- Admin: is a webhook secret configured? --------------------------
+// Presence only. The secret itself must never be sent to the browser.
+export const getCustomerWebhookStatus = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data } = await supabaseAdmin
+      .from("telegram_settings" as any)
+      .select("customer_webhook_secret")
+      .eq("singleton", true)
+      .maybeSingle();
+    const secret = (data as any)?.customer_webhook_secret;
+    return { hasSecret: typeof secret === "string" && secret.length >= 20 };
+  });
+
 // -- Admin: register the customer bot webhook ------------------------
 // Auto-generates a webhook secret if none exists, stores it, and registers
 // the webhook with Telegram — enabling both incoming messages AND inline
