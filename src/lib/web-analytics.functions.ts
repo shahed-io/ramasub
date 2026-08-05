@@ -83,7 +83,15 @@ async function requireAdmin(supabase: any, userId: string) {
 
 export const getWebAnalyticsOverview = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { range?: Range }) => ({ range: input?.range ?? "7d" as Range }))
+  .inputValidator(
+    validator(
+      z
+        .object({ range: z.enum(["24h", "7d", "30d", "90d"]).default("7d") })
+        .strict()
+        .default({ range: "7d" }),
+    ),
+  )
+
   .handler(async ({ data, context }) => {
     await requireAdmin(context.supabase, context.userId);
     const since = rangeStart(data.range).toISOString();
