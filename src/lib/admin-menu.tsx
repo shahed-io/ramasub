@@ -39,36 +39,47 @@ export type AdminMenuGroup = {
 const ic = (Icon: any) => <Icon className="w-5 h-5" strokeWidth={2.75} absoluteStrokeWidth />;
 
 /**
- * Colour system — one hue family per group so the sidebar reads as a single
- * palette instead of random gradients. Within a group we only shift the
- * end-stop (light → deep) to separate items.
+ * Colour system — every group gets its own clearly distinct hue family so an
+ * admin can recognise a section at a glance. Within a group we only shift the
+ * shade (light → deep) to separate individual items. All stops resolve through
+ * ADMIN_ICON_COLORS (inline styles), so they render exactly as written.
  */
 const C = {
-  // Cloud White system — one blue/slate family, only depth varies.
-  brand: "from-blue-500 to-indigo-600",
-  brandSoft: "from-blue-400 to-blue-600",
-  sales: "from-blue-600 to-indigo-700",
-  salesSoft: "from-sky-500 to-blue-600",
-  salesDeep: "from-indigo-600 to-blue-800",
-  catalog: "from-sky-500 to-blue-700",
-  catalogSoft: "from-sky-400 to-sky-600",
-  customer: "from-blue-500 to-sky-600",
-  customerSoft: "from-sky-400 to-blue-500",
-  customerDeep: "from-blue-700 to-indigo-800",
-  store: "from-slate-500 to-blue-600",
-  storeSoft: "from-slate-400 to-slate-600",
-  marketing: "from-indigo-500 to-blue-600",
-  marketingSoft: "from-indigo-400 to-sky-500",
-  content: "from-cyan-500 to-blue-600",
-  contentSoft: "from-cyan-400 to-sky-500",
-  report: "from-indigo-500 to-blue-700",
-  reportSoft: "from-blue-400 to-indigo-600",
-  integration: "from-blue-500 to-indigo-600",
-  integrationSoft: "from-sky-500 to-blue-600",
+  // Overview — brand violet
+  brand: "from-violet-500 to-indigo-600",
+  brandSoft: "from-violet-400 to-violet-600",
+  // Sales — emerald / money green
+  sales: "from-emerald-500 to-teal-600",
+  salesSoft: "from-emerald-400 to-emerald-600",
+  salesDeep: "from-teal-500 to-emerald-700",
+  // Catalog — amber / orange
+  catalog: "from-amber-500 to-orange-600",
+  catalogSoft: "from-amber-400 to-amber-600",
+  // Customers — sky / blue
+  customer: "from-sky-500 to-blue-600",
+  customerSoft: "from-sky-400 to-sky-600",
+  customerDeep: "from-blue-600 to-indigo-700",
+  // Storefront — fuchsia / pink
+  store: "from-fuchsia-500 to-purple-600",
+  storeSoft: "from-fuchsia-400 to-fuchsia-600",
+  // Marketing — rose / pink
+  marketing: "from-rose-500 to-pink-600",
+  marketingSoft: "from-rose-400 to-rose-600",
+  // Content & SEO — indigo
+  content: "from-indigo-500 to-violet-600",
+  contentSoft: "from-indigo-400 to-indigo-600",
+  // Reports — cyan / teal
+  report: "from-cyan-500 to-sky-600",
+  reportSoft: "from-cyan-400 to-cyan-600",
+  // Integrations — purple
+  integration: "from-purple-500 to-violet-700",
+  integrationSoft: "from-purple-400 to-purple-600",
+  // System — slate
   system: "from-slate-600 to-slate-800",
   systemSoft: "from-slate-500 to-slate-700",
   danger: "from-rose-600 to-red-700",
 };
+
 
 export const ADMIN_MENU: AdminMenuGroup[] = [
   {
