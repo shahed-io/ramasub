@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { slug as slugSchema } from "@/lib/validation";
 
 async function assertAdmin(sb: any, userId: string) {
   const { data } = await sb.rpc("has_role", { _user_id: userId, _role: "admin" });
@@ -151,7 +152,7 @@ async function saveBlog(
 export const generateBlogForProduct = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) =>
-    z.object({ slug: z.string().min(1) }).parse(d),
+    z.object({ slug: slugSchema }).strict().parse(d),
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);

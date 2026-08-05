@@ -3,6 +3,14 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { BACKUP_BUCKETS, type BackupPayload } from "@/lib/backup-tables";
 import {
+
+/** Postgres identifier: what a table name may look like. */
+const tableName = z
+  .string()
+  .trim()
+  .min(1)
+  .max(63)
+  .regex(/^[a-z_][a-z0-9_]*$/, "Invalid table name");
   assertAdmin,
   countTables,
   dumpTables,
@@ -29,7 +37,7 @@ export const getBackupCounts = createServerFn({ method: "POST" })
 export const createBackup = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) =>
-    z.object({ tables: z.array(z.string()).optional() }).optional().parse(d ?? {}),
+    z.object({ tables: z.array(tableName).max(100).optional() }).strict().optional().parse(d ?? {}),
   )
   .handler(async ({ data, context }): Promise<{
     json: string;
@@ -68,9 +76,24 @@ export const restoreBackupFile = createServerFn({ method: "POST" })
     z
       .object({
         bucket: z.enum(["admin-uploads", "payment-screenshots"]),
-        path: z.string().min(1).max(500),
-        base64: z.string().min(1),
-        contentType: z.string().max(120).optional(),
+        path: z
+          .string()
+          .trim()
+          .min(1)
+          .max(500)
+          .regex(/^[A-Za-z0-9][A-Za-z0-9/_.-]*$/, "Invalid storage path")
+          .refine((v) => !v.includes(".."), "Invalid storage path"),
+        base64: z
+          .string()
+          .min(1)
+          .max(40_000_000)
+          .regex(/^[A-Za-z0-9+/=\r\n]+$/, "Invalid base64 payload"),
+        contentType: z
+          .string()
+          .trim()
+          .max(120)
+          .regex(/^[\w.+-]+\/[\w.+-]+$/, "Invalid content type")
+          .optional(),
         overwrite: z.boolean().optional(),
       })
       .parse(d),
@@ -100,7 +123,7 @@ export const restoreBackup = createServerFn({ method: "POST" })
       .object({
         payloadJson: z.string().min(2),
         mode: z.enum(["skip", "merge", "replace"]).default("skip"),
-        selectedTables: z.array(z.string()).optional(),
+        selectedTables: z.array(tableName).max(100).optional(),
       })
       .parse(d),
   )
