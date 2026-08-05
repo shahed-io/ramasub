@@ -1173,6 +1173,111 @@ export type Database = {
           },
         ]
       }
+      rate_limit_blocks: {
+        Row: {
+          blocked_until: string
+          created_at: string
+          id: string
+          identifier: string
+          key: string
+          last_violation_at: string
+          strikes: number
+          updated_at: string
+        }
+        Insert: {
+          blocked_until?: string
+          created_at?: string
+          id?: string
+          identifier: string
+          key: string
+          last_violation_at?: string
+          strikes?: number
+          updated_at?: string
+        }
+        Update: {
+          blocked_until?: string
+          created_at?: string
+          id?: string
+          identifier?: string
+          key?: string
+          last_violation_at?: string
+          strikes?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      rate_limit_counters: {
+        Row: {
+          created_at: string
+          hits: number
+          id: string
+          identifier: string
+          key: string
+          updated_at: string
+          window_start: string
+        }
+        Insert: {
+          created_at?: string
+          hits?: number
+          id?: string
+          identifier: string
+          key: string
+          updated_at?: string
+          window_start: string
+        }
+        Update: {
+          created_at?: string
+          hits?: number
+          id?: string
+          identifier?: string
+          key?: string
+          updated_at?: string
+          window_start?: string
+        }
+        Relationships: []
+      }
+      rate_limit_rules: {
+        Row: {
+          backoff_base_seconds: number
+          backoff_max_seconds: number
+          category: string
+          created_at: string
+          enabled: boolean
+          key: string
+          label: string
+          max_requests: number
+          notes: string | null
+          updated_at: string
+          window_seconds: number
+        }
+        Insert: {
+          backoff_base_seconds?: number
+          backoff_max_seconds?: number
+          category?: string
+          created_at?: string
+          enabled?: boolean
+          key: string
+          label?: string
+          max_requests?: number
+          notes?: string | null
+          updated_at?: string
+          window_seconds?: number
+        }
+        Update: {
+          backoff_base_seconds?: number
+          backoff_max_seconds?: number
+          category?: string
+          created_at?: string
+          enabled?: boolean
+          key?: string
+          label?: string
+          max_requests?: number
+          notes?: string | null
+          updated_at?: string
+          window_seconds?: number
+        }
+        Relationships: []
+      }
       redirects: {
         Row: {
           created_at: string
@@ -2198,6 +2303,11 @@ export type Database = {
         Args: { _campaign_id: string; _email: string }
         Returns: boolean
       }
+      check_rate_limit: {
+        Args: { _cost?: number; _identifier: string; _key: string }
+        Returns: Json
+      }
+      cleanup_rate_limits: { Args: never; Returns: undefined }
       delete_email: {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
