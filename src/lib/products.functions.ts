@@ -42,8 +42,9 @@ export const listProducts = createServerFn({ method: "GET" }).handler(
 );
 
 export const getProduct = createServerFn({ method: "GET" })
-  .inputValidator((data: { slug: string }) => data)
+  .inputValidator(validator(z.object({ slug: slugSchema }).strict()))
   .handler(async ({ data }): Promise<Product | null> => {
+
     const { data: rows, error } = await createPublicProductClient()
       .from("products")
       .select(PRODUCT_SELECT)
