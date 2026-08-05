@@ -1,1 +1,5 @@
-UPDATE public.telegram_settings SET customer_webhook_secret = '198721edf6a3a052eca2bbd188c8cd92127ae2fc40914557' WHERE singleton = true;
+-- Historical migration: it originally hardcoded the Telegram customer bot
+-- webhook secret in plain text. The literal has been removed and the secret
+-- rotated in a later migration; secrets must never be committed to the repo.
+-- Intentionally a no-op.
+SELECT 1;
