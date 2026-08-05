@@ -99,7 +99,7 @@ export const upsertRedirect = createServerFn({ method: "POST" })
 
 export const deleteRedirect = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { id: string }) => input)
+  .inputValidator(validator(z.object({ id: uuid }).strict()))
   .handler(async ({ data, context }) => {
     await adminGuard(context as never);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
