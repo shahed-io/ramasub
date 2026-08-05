@@ -43,23 +43,29 @@ export const listRedirects = createServerFn({ method: "GET" })
     return (data ?? []) as Redirect[];
   });
 
+const RedirectInput = z
+  .object({
+    id: uuid.optional(),
+    // Accept a loose string here, then normalise (adds a leading "/") and
+    // re-validate against the strict path/URL schema below.
+    from_path: text(512),
+    to_path: text(2048),
+    status_code: z.union([z.literal(301), z.literal(302), z.literal(307), z.literal(308)]).optional(),
+    is_active: bool.optional(),
+    notes: optText(500),
+  })
+  .strict();
+
 export const upsertRedirect = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: {
-    id?: string;
-    from_path: string;
-    to_path: string;
-    status_code?: number;
-    is_active?: boolean;
-    notes?: string;
-  }) => input)
+  .inputValidator(validator(RedirectInput))
   .handler(async ({ data, context }) => {
     await adminGuard(context as never);
-    const from_path = normalize(data.from_path);
-    const to_path = normalize(data.to_path);
-    if (!from_path || !to_path) throw new Error("from_path and to_path required");
+    const from_path = parseOrThrow(relPath, normalize(data.from_path));
+    const to_path = parseOrThrow(pathOrUrl, normalize(data.to_path));
     if (from_path === to_path) throw new Error("from_path and to_path cannot be identical");
-    const status_code = [301, 302, 307, 308].includes(data.status_code ?? 301) ? (data.status_code ?? 301) : 301;
+    const status_code = data.status_code ?? 301;
+
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const payload = {
