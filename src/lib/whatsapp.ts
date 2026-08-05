@@ -48,10 +48,7 @@ export function waOrderUrl(
     if (opts.customer.email) lines.push(`ইমেইল: ${opts.customer.email}`);
   }
   if (opts.note) lines.push("", `📝 *নোট:* ${opts.note}`);
-  lines.push(
-    "",
-    "দয়া করে পেমেন্ট ইনস্ট্রাকশন ও ডেলিভারি কনফার্ম করবেন। ধন্যবাদ! 🙏",
-  );
+  lines.push("", "দয়া করে পেমেন্ট ইনস্ট্রাকশন ও ডেলিভারি কনফার্ম করবেন। ধন্যবাদ! 🙏");
 
   return `https://wa.me/${num}?text=${encodeURIComponent(lines.join("\n"))}`;
 }
