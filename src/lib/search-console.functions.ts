@@ -1,6 +1,57 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { DEFAULT_SEO_SETTINGS, type SeoSettings } from "@/lib/seo-settings.functions";
+import { validator, z, intIn } from "@/lib/validation";
+
+/** GSC property id: "https://example.com/" or "sc-domain:example.com". */
+const siteUrl = z
+  .string()
+  .trim()
+  .min(4)
+  .max(300)
+  .regex(/^(https?:\/\/[^\s"'<>]+|sc-domain:[a-z0-9.-]+)$/i, { message: "Invalid site URL" });
+
+/** Domain or origin the user typed in the verify box. */
+const identifier = z
+  .string()
+  .trim()
+  .min(4)
+  .max(300)
+  .regex(/^(https?:\/\/)?[a-z0-9.-]+\.[a-z]{2,}\/?$/i, { message: "Invalid domain" });
+
+const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Date must be YYYY-MM-DD" });
+
+const dimension = z.enum(["query", "page", "country", "device", "searchAppearance", "date"]);
+
+const SearchAnalyticsInput = z
+  .object({
+    siteUrl,
+    startDate: isoDate,
+    endDate: isoDate,
+    dimensions: z.array(dimension).max(4).optional(),
+    rowLimit: intIn(1, 1000).optional(),
+    searchType: z.enum(["web", "image", "video", "news", "discover", "googleNews"]).optional(),
+    filters: z
+      .array(
+        z
+          .object({
+            dimension,
+            operator: z.enum(["equals", "notEquals", "contains", "notContains"]),
+            expression: z.string().trim().min(1).max(300),
+          })
+          .strict(),
+      )
+      .max(10)
+      .optional(),
+  })
+  .strict()
+  .refine((v) => v.startDate <= v.endDate, {
+    message: "startDate must be on or before endDate",
+    path: ["startDate"],
+  });
+
+/** Sitemap feed path: absolute URL on the property. */
+const feedpath = z.string().trim().min(4).max(500).url();
 
 const GATEWAY = "https://connector-gateway.lovable.dev/google_search_console";
 
@@ -45,11 +96,7 @@ type Filter = { dimension: string; operator: FilterOp; expression: string };
 
 export const searchAnalytics = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: {
-    siteUrl: string; startDate: string; endDate: string;
-    dimensions?: string[]; rowLimit?: number; searchType?: string;
-    filters?: Filter[];
-  }) => d)
+  .inputValidator(validator(SearchAnalyticsInput))
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const path = `/webmasters/v3/sites/${encodeURIComponent(data.siteUrl)}/searchAnalytics/query`;
@@ -70,7 +117,7 @@ export const searchAnalytics = createServerFn({ method: "POST" })
 /** List submitted sitemaps for a site. */
 export const listSitemaps = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { siteUrl: string }) => d)
+  .inputValidator(validator(z.object({ siteUrl }).strict()))
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const path = `/webmasters/v3/sites/${encodeURIComponent(data.siteUrl)}/sitemaps`;
@@ -81,7 +128,7 @@ export const listSitemaps = createServerFn({ method: "POST" })
 /** Submit (or resubmit) a sitemap. */
 export const submitSitemap = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { siteUrl: string; feedpath: string }) => d)
+  .inputValidator(validator(z.object({ siteUrl, feedpath }).strict()))
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const path = `/webmasters/v3/sites/${encodeURIComponent(data.siteUrl)}/sitemaps/${encodeURIComponent(data.feedpath)}`;
@@ -92,7 +139,7 @@ export const submitSitemap = createServerFn({ method: "POST" })
 /** Delete a submitted sitemap. */
 export const deleteSitemap = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { siteUrl: string; feedpath: string }) => d)
+  .inputValidator(validator(z.object({ siteUrl, feedpath }).strict()))
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const path = `/webmasters/v3/sites/${encodeURIComponent(data.siteUrl)}/sitemaps/${encodeURIComponent(data.feedpath)}`;
@@ -103,7 +150,7 @@ export const deleteSitemap = createServerFn({ method: "POST" })
 /** Inspect a single URL's indexing state. */
 export const inspectUrl = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { siteUrl: string; inspectionUrl: string }) => d)
+  .inputValidator(validator(z.object({ siteUrl, inspectionUrl: z.string().trim().min(4).max(2048).url() }).strict()))
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const result = await gwFetch("/v1/urlInspection/index:inspect", {
@@ -162,7 +209,7 @@ export const getVerificationStatus = createServerFn({ method: "GET" })
  */
 export const startMetaVerification = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { identifier: string }) => d)
+  .inputValidator(validator(z.object({ identifier }).strict()))
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const identifier = normalizeIdentifier(data.identifier);
@@ -199,7 +246,7 @@ export const startMetaVerification = createServerFn({ method: "POST" })
  */
 export const completeMetaVerification = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { identifier: string }) => d)
+  .inputValidator(validator(z.object({ identifier }).strict()))
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const identifier = normalizeIdentifier(data.identifier);
