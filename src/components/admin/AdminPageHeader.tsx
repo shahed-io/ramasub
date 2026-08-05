@@ -64,6 +64,7 @@ const DESCRIPTIONS: Record<string, Desc> = {
   "/Mahbub214/offers": { en: "Custom giveaway forms with AI winner picker", bn: "নিজস্ব giveaway form ও AI winner picker" },
   "/Mahbub214/promotions": { en: "Promotional offers and campaigns", bn: "প্রমোশনাল অফার ও ক্যাম্পেইন" },
   "/Mahbub214/review-generator": { en: "Generate authentic looking reviews", bn: "অথেনটিক লুকিং রিভিউ তৈরি করুন" },
+  "/Mahbub214/rate-limits": { en: "Configure request limits for auth, public and user actions", bn: "অথ, পাবলিক ও ইউজার অ্যাকশনের রিকোয়েস্ট লিমিট কনফিগার করুন" },
   "/Mahbub214/security": { en: "Security settings and admin access", bn: "সিকিউরিটি সেটিংস ও অ্যাডমিন অ্যাক্সেস" },
 };
 
