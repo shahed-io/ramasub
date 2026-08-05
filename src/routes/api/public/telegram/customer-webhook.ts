@@ -955,7 +955,10 @@ export const Route = createFileRoute("/api/public/telegram/customer-webhook")({
             await sendMainMenu(token, chatId, info.firstName);
             return Response.json({ ok: true });
           }
-          const code = String(Math.floor(100000 + Math.random() * 900000));
+          // Crypto-random OTP: Math.random() is predictable and guessable.
+          const otpBytes = new Uint32Array(1);
+          crypto.getRandomValues(otpBytes);
+          const code = String(100000 + (otpBytes[0] % 900000));
           await admin().from("telegram_phone_otps" as any).insert({ chat_id: chatId, phone, code } as any);
           await reply(token, chatId, `🔐 <b>Verify করুন</b>\n${DIVIDER}\n\nSMS-এ পাঠানো <b>6-digit code</b> এখানে reply করুন।`);
           return Response.json({ ok: true });

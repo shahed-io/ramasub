@@ -7,7 +7,8 @@ export type FacebookPixel = {
   provider: string;
   label: string | null;
   pixel_id: string | null;
-  access_token: string | null;
+  /** Presence only — the raw CAPI token is never sent to the browser. */
+  has_access_token: boolean;
   enabled: boolean;
   sort_order: number;
   notes: string | null;
@@ -40,7 +41,12 @@ export const listFacebookPixels = createServerFn({ method: "GET" })
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: true });
     if (error) throw error;
-    return (data ?? []) as FacebookPixel[];
+    // Strip the CAPI access token: the admin UI only needs to know whether one
+    // is configured, so the secret never leaves the server.
+    return ((data ?? []) as Array<Record<string, unknown>>).map(({ access_token, ...row }) => ({
+      ...row,
+      has_access_token: typeof access_token === "string" && access_token.length > 0,
+    })) as FacebookPixel[];
   });
 
 export const upsertFacebookPixel = createServerFn({ method: "POST" })

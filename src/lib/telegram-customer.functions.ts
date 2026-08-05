@@ -188,6 +188,22 @@ export const notifyCustomerOrderStatus = createServerFn({ method: "POST" })
     return { ok: res.ok, error: res.error };
   });
 
+// -- Admin: is a webhook secret configured? --------------------------
+// Presence only. The secret itself must never be sent to the browser.
+export const getCustomerWebhookStatus = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data } = await supabaseAdmin
+      .from("telegram_settings" as any)
+      .select("customer_webhook_secret")
+      .eq("singleton", true)
+      .maybeSingle();
+    const secret = (data as any)?.customer_webhook_secret;
+    return { hasSecret: typeof secret === "string" && secret.length >= 20 };
+  });
+
 // -- Admin: register the customer bot webhook ------------------------
 // Auto-generates a webhook secret if none exists, stores it, and registers
 // the webhook with Telegram — enabling both incoming messages AND inline
@@ -211,8 +227,12 @@ export const setCustomerBotWebhook = createServerFn({ method: "POST" })
     // what the webhook route validates against every incoming update.
     let secret: string = bot.customer_webhook_secret ?? "";
     if (!secret || secret.length < 20) {
-      const alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      secret = Array.from({ length: 40 }, () => alpha[Math.floor(Math.random() * alpha.length)]).join("");
+      // Cryptographically random — Math.random() is predictable and must never
+      // be used to mint a shared verification secret.
+      const bytes = new Uint8Array(24);
+      crypto.getRandomValues(bytes);
+      secret = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+
       await supabaseAdmin
         .from("telegram_settings" as any)
         .update({ customer_webhook_secret: secret } as any)

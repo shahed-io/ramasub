@@ -133,7 +133,7 @@ function FacebookPixelsPage() {
   }
 
   const activeCount = items.filter((p) => p.enabled).length;
-  const capiCount = items.filter((p) => p.access_token).length;
+  const capiCount = items.filter((p) => p.has_access_token).length;
 
   return (
     <div className="p-4 sm:p-6">
@@ -213,7 +213,7 @@ function FacebookPixelsPage() {
                       <span className={`a-status ${p.enabled ? "a-status-completed" : "a-status-closed"}`}>
                         {p.enabled ? "ACTIVE" : "DISABLED"}
                       </span>
-                      {p.access_token && <span className="a-status a-status-refunded">CAPI</span>}
+                      {p.has_access_token && <span className="a-status a-status-refunded">CAPI</span>}
                     </div>
                     <div className="text-sm text-slate-500 mt-0.5 font-mono truncate">{p.pixel_id}</div>
                     {p.notes && <div className="text-xs text-slate-400 mt-0.5 truncate">{p.notes}</div>}
@@ -311,7 +311,7 @@ function FacebookPixelsPage() {
                   type="password"
                   value={draft.access_token}
                   onChange={(e) => setDraft({ ...draft, access_token: e.target.value })}
-                  placeholder={draft.id ? "(unchanged — leave blank to keep)" : "EAAG..."}
+                  placeholder={draft.id ? "(saved — leave blank to keep)" : "EAAG..."}
                   className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
