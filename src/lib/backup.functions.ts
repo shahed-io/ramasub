@@ -3,14 +3,6 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { BACKUP_BUCKETS, type BackupPayload } from "@/lib/backup-tables";
 import {
-
-/** Postgres identifier: what a table name may look like. */
-const tableName = z
-  .string()
-  .trim()
-  .min(1)
-  .max(63)
-  .regex(/^[a-z_][a-z0-9_]*$/, "Invalid table name");
   assertAdmin,
   countTables,
   dumpTables,
@@ -20,6 +12,15 @@ const tableName = z
   uploadBucketObject,
   type StorageObject,
 } from "@/lib/backup.server";
+
+/** Postgres identifier: what a table name may look like. */
+const tableName = z
+  .string()
+  .trim()
+  .min(1)
+  .max(63)
+  .regex(/^[a-z_][a-z0-9_]*$/, "Invalid table name");
+
 
 export { BACKUP_TABLES, BACKUP_TABLE_ORDER, BACKUP_BUCKETS } from "@/lib/backup-tables";
 export type { BackupPayload } from "@/lib/backup-tables";
