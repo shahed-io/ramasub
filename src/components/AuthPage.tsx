@@ -7,6 +7,7 @@ import { lovable } from "@/integrations/lovable";
 import { useAuth } from "@/context/AuthContext";
 import { sendTransactionalEmail } from "@/lib/email/send";
 import { BrandLogo } from "@/components/BrandLogo";
+import { guardAuthAttempt } from "@/lib/rate-limit.functions";
 
 
 export function AuthPageEntry({ initialMode, openForgot }: { initialMode: "login" | "signup"; openForgot?: boolean }) {
@@ -125,6 +126,8 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
     setForgotBusy(true);
     try {
       const email = z.string().trim().email().max(255).parse(forgotEmail);
+      const guard = await guardAuthAttempt({ data: { action: "reset", email } });
+      if (!guard.allowed) throw new Error(guard.message || "Too many attempts");
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/reset-password`,
       });
@@ -154,6 +157,8 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
         if (!agree) throw new Error("Please agree to the Terms & Privacy Policy");
         const parsed = signupSchema.safeParse(values);
         if (!parsed.success) throw new Error(parsed.error.issues[0].message);
+        const guard = await guardAuthAttempt({ data: { action: "signup", email: parsed.data.email } });
+        if (!guard.allowed) throw new Error(guard.message || "Too many attempts");
         const { data: signUpData, error } = await supabase.auth.signUp({
           email: parsed.data.email,
           password: parsed.data.password,
@@ -178,6 +183,8 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
       } else {
         const parsed = loginSchema.safeParse({ email: values.email, password: values.password });
         if (!parsed.success) throw new Error(parsed.error.issues[0].message);
+        const guard = await guardAuthAttempt({ data: { action: "login", email: parsed.data.email } });
+        if (!guard.allowed) throw new Error(guard.message || "Too many attempts");
         const { error } = await supabase.auth.signInWithPassword(parsed.data);
         if (error) throw error;
       }
