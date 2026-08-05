@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { Loader2, Save, ShieldAlert, Gauge, Power, Trash2, RefreshCw, Broom, Timer } from "lucide-react";
+import { Loader2, Save, ShieldAlert, Gauge, Power, Trash2, RefreshCw, Brush, Timer } from "lucide-react";
 import { toast } from "sonner";
 import { useAdminLang } from "@/context/AdminLangContext";
 import {
@@ -136,7 +136,7 @@ function RateLimitsPage() {
               }}
               className="inline-flex items-center gap-2 rounded-xl bg-white text-violet-700 px-4 py-2.5 text-sm font-bold shadow hover:shadow-lg"
             >
-              <Broom className="w-4 h-4" /> {t("Cleanup", "ক্লিনআপ")}
+              <Brush className="w-4 h-4" /> {t("Cleanup", "ক্লিনআপ")}
             </button>
           </div>
         </div>
