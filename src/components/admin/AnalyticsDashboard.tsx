@@ -94,8 +94,8 @@ export function AnalyticsDashboard() {
       m[s] = (m[s] || 0) + 1;
     });
     const colors: Record<string, string> = {
-      completed: "#10b981", delivered: "#10b981", pending: "#93c5fd",
-      refunded: "#93c5fd", failed: "#f59e0b", cancelled: "#ef4444",
+      completed: "#10b981", delivered: "#10b981", pending: "#c4b5fd",
+      refunded: "#c4b5fd", failed: "#f59e0b", cancelled: "#ef4444",
     };
     return Object.entries(m).map(([name, value]) => ({ name, value, fill: colors[name] || "#94a3b8" }));
   }, [orders]);
@@ -153,9 +153,9 @@ export function AnalyticsDashboard() {
   ];
 
   const toneRing: Record<string, string> = {
-    emerald: "bg-blue-100 text-blue-700 ring-blue-200",
-    violet: "bg-blue-200 text-blue-800 ring-blue-300",
-    sky: "bg-sky-100 text-sky-700 ring-sky-200",
+    emerald: "bg-emerald-100 text-emerald-700 ring-emerald-200",
+    violet: "bg-violet-100 text-violet-700 ring-violet-200",
+    sky: "bg-fuchsia-100 text-fuchsia-700 ring-fuchsia-200",
     indigo: "bg-indigo-100 text-indigo-700 ring-indigo-200",
     rose: "bg-rose-100 text-rose-700 ring-rose-200",
   };
@@ -164,15 +164,15 @@ export function AnalyticsDashboard() {
   return (
     <div className="space-y-5">
       {/* Hero header */}
-      <div className="relative overflow-hidden rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 via-sky-50 to-sky-50 p-6 sm:p-8">
-        <div className="absolute -right-10 -top-10 w-56 h-56 rounded-full bg-blue-200/40 blur-3xl" />
-        <div className="absolute -right-32 bottom-0 w-72 h-72 rounded-full bg-sky-200/40 blur-3xl" />
+      <div className="relative overflow-hidden rounded-2xl border border-violet-100 bg-gradient-to-r from-violet-50 via-purple-50 to-white p-6 sm:p-8">
+        <div className="absolute -right-10 -top-10 w-56 h-56 rounded-full bg-violet-200/40 blur-3xl" />
+        <div className="absolute -right-32 bottom-0 w-72 h-72 rounded-full bg-purple-200/40 blur-3xl" />
         <div className="relative flex items-start gap-4">
-          <span className="w-12 h-12 rounded-xl bg-white shadow-sm ring-1 ring-blue-100 grid place-items-center text-blue-600">
+          <span className="w-12 h-12 rounded-xl bg-white shadow-sm ring-1 ring-violet-100 grid place-items-center text-violet-600">
             <TrendingUp className="w-6 h-6" />
           </span>
           <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-blue-700 to-sky-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-violet-700 to-purple-600 bg-clip-text text-transparent">
               {t("Analytics & Reports", "অ্যানালিটিক্স ও রিপোর্ট")}
             </h1>
             <p className="text-sm text-slate-600 mt-0.5">
@@ -207,7 +207,7 @@ export function AnalyticsDashboard() {
               <div className="flex items-center justify-between mb-2">
                 <span className={`w-8 h-8 rounded-lg ring-1 grid place-items-center ${toneRing[k.tone]}`}>{k.icon}</span>
                 {k.delta !== 0 && (
-                  <span className={`text-[10px] font-bold inline-flex items-center gap-0.5 ${k.delta >= 0 ? "text-blue-600" : "text-rose-600"}`}>
+                  <span className={`text-[10px] font-bold inline-flex items-center gap-0.5 ${k.delta >= 0 ? "text-violet-600" : "text-rose-600"}`}>
                     {k.delta >= 0 ? "▲" : "▼"} {Math.abs(k.delta)}%
                   </span>
                 )}
@@ -222,7 +222,7 @@ export function AnalyticsDashboard() {
       {/* Revenue trend */}
       <div className="bg-white border border-slate-200 rounded-2xl p-5">
         <div className="flex items-center gap-2 mb-4">
-          <span className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 grid place-items-center"><TrendingUp className="w-4 h-4" /></span>
+          <span className="w-7 h-7 rounded-lg bg-violet-50 text-violet-600 grid place-items-center"><TrendingUp className="w-4 h-4" /></span>
           <h3 className="font-bold text-slate-900">{t("Revenue Trend", "রেভিনিউ ট্রেন্ড")}</h3>
         </div>
         <div className="h-64">
@@ -251,7 +251,7 @@ export function AnalyticsDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="bg-white border border-slate-200 rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-4">
-            <span className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 grid place-items-center"><BarChart3 className="w-4 h-4" /></span>
+            <span className="w-7 h-7 rounded-lg bg-violet-50 text-violet-600 grid place-items-center"><BarChart3 className="w-4 h-4" /></span>
             <h3 className="font-bold text-slate-900">{t("Order Status", "অর্ডার স্ট্যাটাস")}</h3>
           </div>
           <div className="h-64">
@@ -271,7 +271,7 @@ export function AnalyticsDashboard() {
 
         <div className="bg-white border border-slate-200 rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-4">
-            <span className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 grid place-items-center"><PieIcon className="w-4 h-4" /></span>
+            <span className="w-7 h-7 rounded-lg bg-violet-50 text-violet-600 grid place-items-center"><PieIcon className="w-4 h-4" /></span>
             <h3 className="font-bold text-slate-900">{t("Payment Methods", "পেমেন্ট মেথড")}</h3>
           </div>
           <div className="h-64">
@@ -292,7 +292,7 @@ export function AnalyticsDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="bg-white border border-slate-200 rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-4">
-            <span className="w-7 h-7 rounded-lg bg-sky-50 text-sky-600 grid place-items-center"><Clock className="w-4 h-4" /></span>
+            <span className="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 grid place-items-center"><Clock className="w-4 h-4" /></span>
             <h3 className="font-bold text-slate-900">{t("Hourly Orders", "ঘণ্টাভিত্তিক অর্ডার")}</h3>
           </div>
           <div className="h-56">
@@ -302,7 +302,7 @@ export function AnalyticsDashboard() {
                 <XAxis dataKey="hour" tick={{ fontSize: 10, fill: "#64748b" }} axisLine={false} tickLine={false} interval={2} />
                 <YAxis tick={{ fontSize: 11, fill: "#64748b" }} axisLine={false} tickLine={false} width={28} />
                 <Tooltip contentStyle={{ borderRadius: 10, border: "1px solid #e2e8f0", fontSize: 12 }} />
-                <Bar dataKey="count" fill="#93c5fd" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="count" fill="#a78bfa" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -310,7 +310,7 @@ export function AnalyticsDashboard() {
 
         <div className="bg-white border border-slate-200 rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-4">
-            <span className="w-7 h-7 rounded-lg bg-sky-50 text-sky-600 grid place-items-center"><Package className="w-4 h-4" /></span>
+            <span className="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 grid place-items-center"><Package className="w-4 h-4" /></span>
             <h3 className="font-bold text-slate-900">{t("Top Products", "টপ প্রোডাক্ট")}</h3>
           </div>
           {topProducts.length === 0 ? (
@@ -329,7 +329,7 @@ export function AnalyticsDashboard() {
                         <span className="text-[11px] font-bold text-slate-900 shrink-0">{fmtMoney(p.value)}</span>
                       </div>
                       <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
-                        <div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-sky-500" style={{ width: `${pct}%` }} />
+                        <div className="h-full rounded-full bg-gradient-to-r from-violet-500 to-purple-500" style={{ width: `${pct}%` }} />
                       </div>
                     </div>
                   </div>
