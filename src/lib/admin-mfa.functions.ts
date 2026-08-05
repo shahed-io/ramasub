@@ -106,6 +106,13 @@ export const requestAdminEmailOtp = createServerFn({ method: "POST" })
     const userId = context.userId;
     await assertAdmin(userId);
 
+    // Configurable per-account OTP limit with exponential backoff (auth.otp.account rule)
+    {
+      const { guardAuth, retryMessage } = await import("@/lib/rate-limit.server");
+      const rl = await guardAuth("otp", userId);
+      if (!rl.allowed) return { sent: false, throttled: true, message: retryMessage(rl, true) };
+    }
+
     // Rate-limit: don't allow more than one unconsumed code in last 60s.
     const since = new Date(Date.now() - 60_000).toISOString();
     const { data: recent } = await supabaseAdmin
@@ -157,6 +164,12 @@ export const verifyAdminEmailOtp = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const userId = context.userId;
     await assertAdmin(userId);
+
+    {
+      const { guardAuth, retryMessage } = await import("@/lib/rate-limit.server");
+      const rl = await guardAuth("otp", userId);
+      if (!rl.allowed) throw new Error(retryMessage(rl, true));
+    }
 
     const { data: row, error } = await supabaseAdmin
       .from("admin_otp_codes")
