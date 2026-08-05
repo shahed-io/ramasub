@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CategoryPage } from "@/components/CategoryPage";
 
 export const Route = createFileRoute("/products")({
-  validateSearch: (search: Record<string, unknown>) => ({
+  validateSearch: (search: Record<string, unknown>): { q?: string; cat?: string } => ({
     q: typeof search.q === "string" ? search.q : undefined,
     cat: typeof search.cat === "string" ? search.cat : undefined,
   }),
