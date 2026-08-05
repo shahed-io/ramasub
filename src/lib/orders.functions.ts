@@ -58,6 +58,13 @@ export const createOrder = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const userId = context.userId;
 
+    // Looser per-user limit for signed-in actions (user.order_create rule)
+    {
+      const { guardUserAction, retryMessage } = await import("@/lib/rate-limit.server");
+      const rl = await guardUserAction("user.order_create", userId);
+      if (!rl.allowed) throw new Error(retryMessage(rl, true));
+    }
+
     // 1. Fetch every referenced product in one query.
     const slugs = Array.from(new Set(data.items.map((i) => i.slug)));
     const { data: products, error: pErr } = await supabaseAdmin
