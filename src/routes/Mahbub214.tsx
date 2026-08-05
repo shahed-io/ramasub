@@ -605,10 +605,30 @@ const ADMIN_ICON_COLORS: Record<string, string> = {
   "slate-600": "#475569",
   "slate-700": "#334155",
   "slate-800": "#1e293b",
-  "teal-500": "#0d9488",
-  "teal-600": "#0f766e",
+  "teal-500": "#14b8a6",
+  "teal-600": "#0d9488",
+  "teal-700": "#0f766e",
+  "violet-400": "#a78bfa",
+  "violet-500": "#8b5cf6",
+  "violet-600": "#7c3aed",
+  "violet-700": "#6d28d9",
+  "purple-400": "#c084fc",
+  "purple-500": "#a855f7",
+  "purple-600": "#9333ea",
+  "purple-700": "#7e22ce",
+  "fuchsia-400": "#e879f9",
+  "fuchsia-500": "#d946ef",
+  "fuchsia-600": "#c026d3",
+  "emerald-400": "#34d399",
+  "emerald-700": "#065f46",
+  "amber-600": "#b45309",
+  "pink-400": "#f472b6",
+  "rose-400": "#fb7185",
+  "indigo-300": "#a5b4fc",
+  "cyan-600": "#0891b2",
   "yellow-500": "#ca8a04",
 };
+
 
 function iconGradientStyle(grad: string): CSSProperties {
   const from = /from-([\w-]+)/.exec(grad)?.[1] ?? "blue-500";

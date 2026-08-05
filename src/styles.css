@@ -648,12 +648,18 @@
     border: 1px solid var(--admin-border) !important;
     box-shadow: 0 16px 36px -28px rgba(15, 23, 42, 0.45) !important;
   }
-  .admin-clarity .admin-kpi-icon,
-  .admin-clarity .admin-menu-icon {
+  .admin-clarity .admin-kpi-icon {
     background-color: var(--admin-primary) !important;
     color: #ffffff !important;
     box-shadow: 0 12px 26px -13px rgba(15, 23, 42, 0.76) !important;
   }
+  /* Menu icon chips keep their own per-section gradient (inline style) so each
+     group is recognisable; only the glyph colour + depth are normalised. */
+  .admin-clarity .admin-menu-icon {
+    color: #ffffff !important;
+    box-shadow: 0 10px 20px -12px rgba(15, 23, 42, 0.55) !important;
+  }
+
   .admin-clarity .admin-kpi-icon *,
   .admin-clarity .admin-menu-icon * { color: #ffffff !important; }
   .admin-clarity .admin-menu-icon svg {
@@ -4082,11 +4088,11 @@ html.theme-white .product-card-ripple { mix-blend-mode: multiply; }
   /* Section headings — bold uppercase with a small accent bar (screenshot) */
   .admin-clarity .admin-dashboard h2 { letter-spacing: -0.01em; }
 
-  /* Sidebar / menu icon chips follow the violet primary */
+  /* Menu icon chips: gradient comes from the per-section inline style. */
   .admin-clarity .admin-menu-icon {
-    background-image: linear-gradient(135deg, #8b5cf6, #6d28d9) !important;
-    box-shadow: 0 10px 22px -12px rgba(76, 29, 149, 0.6) !important;
+    box-shadow: 0 10px 20px -12px rgba(15, 23, 42, 0.5) !important;
   }
+
   .admin-clarity .a-pill-active {
     background: linear-gradient(135deg, #7c3aed, #a855f7) !important;
     border-color: #7c3aed !important;
