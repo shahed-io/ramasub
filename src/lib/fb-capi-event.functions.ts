@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequestHeader, getRequestIP } from "@tanstack/react-start/server";
 import { createHash } from "crypto";
+import { validator, z, httpUrl, jsonObject } from "@/lib/validation";
 
 /**
  * Fires a single Meta Conversions API event to every enabled Facebook Pixel row
@@ -17,48 +18,44 @@ import { createHash } from "crypto";
 const hash = (v: string) =>
   createHash("sha256").update(v.trim().toLowerCase()).digest("hex");
 
-type UserData = {
-  email?: string;
-  phone?: string;
-  external_id?: string;
-  fbp?: string;
-  fbc?: string;
-  client_user_agent?: string;
-};
+/**
+ * Strict schema. Public endpoint (visitors call it), so every field is pinned
+ * by type + length + format and unknown keys are rejected outright.
+ */
+const EventInput = z
+  .object({
+    event_name: z
+      .string()
+      .trim()
+      .min(1)
+      .max(60)
+      .regex(/^[A-Za-z][A-Za-z0-9_]*$/, { message: "Invalid event_name" }),
+    event_id: z
+      .string()
+      .trim()
+      .min(1)
+      .max(100)
+      .regex(/^[A-Za-z0-9._:-]+$/, { message: "Invalid event_id" }),
+    event_source_url: httpUrl.optional(),
+    custom_data: jsonObject(4_000).optional(),
+    user_data: z
+      .object({
+        email: z.string().trim().max(200).email().optional(),
+        phone: z.string().trim().max(40).regex(/^\+?[0-9\s()-]{6,40}$/).optional(),
+        external_id: z.string().trim().max(200).optional(),
+        fbp: z.string().trim().max(200).regex(/^[A-Za-z0-9._-]+$/).optional(),
+        fbc: z.string().trim().max(500).regex(/^[A-Za-z0-9._%-]+$/).optional(),
+        client_user_agent: z.string().trim().max(500).optional(),
+      })
+      .strict()
+      .optional(),
+  })
+  .strict();
 
-type Input = {
-  event_name: string;
-  event_id: string;
-  event_source_url?: string;
-  custom_data?: Record<string, unknown>;
-  user_data?: UserData;
-};
-
-function validate(input: unknown): Input {
-  const i = (input ?? {}) as Partial<Input>;
-  const event_name = String(i.event_name ?? "").trim();
-  const event_id = String(i.event_id ?? "").trim();
-  if (!event_name || event_name.length > 60) throw new Error("Invalid event_name");
-  if (!event_id || event_id.length > 100) throw new Error("Invalid event_id");
-  const url = i.event_source_url ? String(i.event_source_url).slice(0, 500) : undefined;
-  const custom_data =
-    i.custom_data && typeof i.custom_data === "object"
-      ? (i.custom_data as Record<string, unknown>)
-      : undefined;
-  const u = (i.user_data ?? {}) as UserData;
-  const user_data: UserData = {
-    email: u.email?.slice(0, 200),
-    phone: u.phone?.slice(0, 40),
-    external_id: u.external_id?.slice(0, 200),
-    fbp: u.fbp?.slice(0, 200),
-    fbc: u.fbc?.slice(0, 500),
-    client_user_agent: u.client_user_agent?.slice(0, 500),
-  };
-  return { event_name, event_id, event_source_url: url, custom_data, user_data };
-}
+type UserData = NonNullable<z.infer<typeof EventInput>["user_data"]>;
 
 export const sendFbCapiEvent = createServerFn({ method: "POST" })
-  .inputValidator(validate)
+  .inputValidator(validator(EventInput))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
