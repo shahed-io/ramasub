@@ -437,7 +437,7 @@ function CheckoutPage() {
   if (step === 1) {
     const applyCouponNow = () => {
       const code = couponInput.trim().toUpperCase();
-      navigate({ to: "/checkout", search: { step: "1", coupon: code }, replace: true });
+      navigate({ to: "/checkout", search: { step: 1, coupon: code }, replace: true });
     };
     return (
       <div className="checkout-page min-h-screen bg-background text-foreground grid place-items-center px-4 py-8 md:py-12">
