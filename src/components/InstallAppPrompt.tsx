@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import ramaLogoAsset from "@/assets/rama-logo-round.png.asset.json";
+import ramaLogoAsset from "@/assets/rama-logo-new.png.asset.json";
 const ramaLogo = ramaLogoAsset.url;
 
 // Auto-hide the install banner after this many milliseconds so it doesn't
@@ -158,10 +158,10 @@ export function InstallAppPrompt() {
           <X className="h-4 w-4" />
         </button>
         <div className="flex items-start gap-3 pr-6">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 to-primary/5 ring-1 ring-primary/20 overflow-hidden">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white ring-1 ring-primary/20 shadow-sm overflow-hidden">
             {isIosDevice
               ? <DeviceIcon className="h-5 w-5 text-primary" />
-              : <img src={ramaLogo} alt="RamaSub" className="h-8 w-8 object-contain" draggable={false} />}
+              : <img src={ramaLogo} alt="RamaSub" className="h-9 w-9 object-contain p-[1px]" draggable={false} />}
           </div>
 
           <div className="flex-1">
