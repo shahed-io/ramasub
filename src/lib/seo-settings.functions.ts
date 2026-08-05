@@ -1,6 +1,15 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { createClient } from "@supabase/supabase-js";
+import { validator, z, httpUrl } from "@/lib/validation";
+
+/** Site-verification meta tokens: opaque, but bounded and no whitespace/markup. */
+const verificationToken = z
+  .string()
+  .trim()
+  .max(200)
+  .regex(/^[A-Za-z0-9_\-.=]*$/, { message: "Invalid verification token" });
+
 
 export type SeoSettings = {
   site_title: string;
