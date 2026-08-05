@@ -211,8 +211,12 @@ export const setCustomerBotWebhook = createServerFn({ method: "POST" })
     // what the webhook route validates against every incoming update.
     let secret: string = bot.customer_webhook_secret ?? "";
     if (!secret || secret.length < 20) {
-      const alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      secret = Array.from({ length: 40 }, () => alpha[Math.floor(Math.random() * alpha.length)]).join("");
+      // Cryptographically random — Math.random() is predictable and must never
+      // be used to mint a shared verification secret.
+      const bytes = new Uint8Array(24);
+      crypto.getRandomValues(bytes);
+      secret = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+
       await supabaseAdmin
         .from("telegram_settings" as any)
         .update({ customer_webhook_secret: secret } as any)
