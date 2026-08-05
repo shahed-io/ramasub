@@ -57,9 +57,23 @@ export const getZoomSettings = createServerFn({ method: "GET" }).handler(async (
 });
 
 /** Admin-only save. */
+/** Strict schema: rejects out-of-range scales, unknown easings, extra keys. */
+const ZoomSettingsInput = z
+  .object({
+    enabled: z.boolean(),
+    trigger: z.enum(["hover", "click"]),
+    scale: z.coerce.number().min(1.1).max(4),
+    duration_ms: z.coerce.number().int().min(0).max(2000),
+    easing: z.enum(["linear", "ease", "ease-in", "ease-out", "ease-in-out"]),
+    follow_cursor: z.boolean(),
+  })
+  .strict()
+  .partial();
+
 export const saveZoomSettings = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: Partial<ZoomSettings>) => input)
+  .inputValidator(validator(ZoomSettingsInput))
+
   .handler(async ({ data, context }) => {
     const { data: isAdmin } = await context.supabase.rpc("has_role", {
       _user_id: context.userId,
