@@ -620,6 +620,7 @@ const ADMIN_ICON_COLORS: Record<string, string> = {
   "fuchsia-500": "#d946ef",
   "fuchsia-600": "#c026d3",
   "emerald-400": "#34d399",
+  "emerald-700": "#065f46",
   "amber-600": "#b45309",
   "pink-400": "#f472b6",
   "rose-400": "#fb7185",
