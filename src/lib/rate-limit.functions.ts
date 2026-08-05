@@ -1,5 +1,14 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { validator, z, uuid, email as emailSchema, optText, intIn, bool } from "@/lib/validation";
+
+/** Rule/bucket keys are dotted identifiers, e.g. "auth.login.ip". */
+const ruleKey = z
+  .string()
+  .trim()
+  .min(3)
+  .max(100)
+  .regex(/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+$/, { message: "Invalid rate limit key" });
 
 export type RateLimitRule = {
   key: string;
@@ -35,13 +44,18 @@ export type AuthGuardResult = {
  * rate_limit_rules; all thresholds are admin-configurable).
  */
 export const guardAuthAttempt = createServerFn({ method: "POST" })
-  .inputValidator((input: { action: "login" | "signup" | "reset" | "otp"; email?: string }) => {
-    const action = input?.action;
-    if (action !== "login" && action !== "signup" && action !== "reset" && action !== "otp") {
-      throw new Error("Invalid action");
-    }
-    return { action, email: typeof input.email === "string" ? input.email.slice(0, 255) : "" };
-  })
+  .inputValidator(
+    validator(
+      z
+        .object({
+          action: z.enum(["login", "signup", "reset", "otp"]),
+          // An invalid address can never match an account, so reject it here
+          // rather than counting it against a bogus per-account bucket.
+          email: emailSchema.optional(),
+        })
+        .strict(),
+    ),
+  )
   .handler(async ({ data }): Promise<AuthGuardResult> => {
     const { guardAuth, retryMessage } = await import("@/lib/rate-limit.server");
     const v = await guardAuth(data.action, data.email || null);
@@ -55,9 +69,7 @@ export const guardAuthAttempt = createServerFn({ method: "POST" })
 /** Looser guard for signed-in user actions. */
 export const guardUserActionFn = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { key?: string }) => ({
-    key: typeof input?.key === "string" && input.key ? input.key.slice(0, 100) : "user.action",
-  }))
+  .inputValidator(validator(z.object({ key: ruleKey.default("user.action") }).strict().default({ key: "user.action" })))
   .handler(async ({ data, context }): Promise<AuthGuardResult> => {
     const { guardUserAction, retryMessage } = await import("@/lib/rate-limit.server");
     const v = await guardUserAction(data.key, context.userId);
@@ -97,33 +109,26 @@ export const listRateLimitRules = createServerFn({ method: "GET" })
 
 export const updateRateLimitRule = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: {
-    key: string;
-    window_seconds: number;
-    max_requests: number;
-    backoff_base_seconds: number;
-    backoff_max_seconds: number;
-    enabled: boolean;
-    label?: string;
-    notes?: string;
-  }) => {
-    if (!input?.key) throw new Error("key required");
-    const num = (v: unknown, min: number, max: number, fallback: number) => {
-      const n = Math.round(Number(v));
-      if (!Number.isFinite(n)) return fallback;
-      return Math.min(max, Math.max(min, n));
-    };
-    return {
-      key: String(input.key).slice(0, 100),
-      window_seconds: num(input.window_seconds, 1, 86_400, 60),
-      max_requests: num(input.max_requests, 1, 100_000, 60),
-      backoff_base_seconds: num(input.backoff_base_seconds, 0, 86_400, 0),
-      backoff_max_seconds: num(input.backoff_max_seconds, 0, 604_800, 3600),
-      enabled: Boolean(input.enabled),
-      label: typeof input.label === "string" ? input.label.slice(0, 120) : undefined,
-      notes: typeof input.notes === "string" ? input.notes.slice(0, 500) : undefined,
-    };
-  })
+  .inputValidator(
+    validator(
+      z
+        .object({
+          key: ruleKey,
+          window_seconds: intIn(1, 86_400),
+          max_requests: intIn(1, 100_000),
+          backoff_base_seconds: intIn(0, 86_400),
+          backoff_max_seconds: intIn(0, 604_800),
+          enabled: bool,
+          label: optText(120),
+          notes: optText(500),
+        })
+        .strict()
+        .refine((v) => v.backoff_max_seconds >= v.backoff_base_seconds, {
+          message: "Max wait must be greater than or equal to the backoff base",
+          path: ["backoff_max_seconds"],
+        }),
+    ),
+  )
   .handler(async ({ data, context }) => {
     await adminGuard(context as never);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -156,10 +161,7 @@ export const listRateLimitBlocks = createServerFn({ method: "GET" })
 
 export const clearRateLimitBlock = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { id: string }) => {
-    if (!input?.id) throw new Error("id required");
-    return { id: String(input.id) };
-  })
+  .inputValidator(validator(z.object({ id: uuid }).strict()))
   .handler(async ({ data, context }) => {
     await adminGuard(context as never);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");

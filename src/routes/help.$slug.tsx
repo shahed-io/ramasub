@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
+import { slug as slugSchema } from "@/lib/validation";
 import { z } from "zod";
 import { MessageCircle, ArrowLeft } from "lucide-react";
 
@@ -22,7 +23,7 @@ type HelpData = {
 };
 
 const getArticle = createServerFn({ method: "GET" })
-  .inputValidator((d: unknown) => z.object({ slug: z.string().min(1) }).parse(d))
+  .inputValidator((d: unknown) => z.object({ slug: slugSchema }).strict().parse(d))
   .handler(async ({ data }) => {
     const sb = createClient(
       process.env.SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL!,

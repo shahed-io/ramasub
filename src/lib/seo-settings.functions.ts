@@ -1,6 +1,15 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { createClient } from "@supabase/supabase-js";
+import { validator, z, httpUrl } from "@/lib/validation";
+
+/** Site-verification meta tokens: opaque, but bounded and no whitespace/markup. */
+const verificationToken = z
+  .string()
+  .trim()
+  .max(200)
+  .regex(/^[A-Za-z0-9_\-.=]*$/, { message: "Invalid verification token" });
+
 
 export type SeoSettings = {
   site_title: string;
@@ -52,9 +61,40 @@ export const getSeoSettings = createServerFn({ method: "GET" }).handler(async ()
 });
 
 /** Admin-only save. */
+/**
+ * Strict schema — every field is type/length/format checked and unknown keys
+ * are rejected. Verification tokens are opaque but must look like tokens.
+ */
+const SeoSettingsInput = z
+  .object({
+    site_title: z.string().trim().min(3).max(120),
+    site_description: z.string().trim().min(10).max(400),
+    og_image: httpUrl,
+    twitter_handle: z
+      .string()
+      .trim()
+      .max(20)
+      .regex(/^@?[A-Za-z0-9_]{1,15}$/, { message: "Invalid Twitter handle" }),
+    google_site_verification: verificationToken,
+    bing_site_verification: verificationToken,
+    yandex_site_verification: verificationToken,
+    facebook_domain_verification: verificationToken,
+    ga4_measurement_id: z
+      .string()
+      .trim()
+      .regex(/^(G-[A-Z0-9]{4,15})?$/, { message: "GA4 ID must look like G-XXXXXXX" }),
+    google_tag_manager_id: z
+      .string()
+      .trim()
+      .regex(/^(GTM-[A-Z0-9]{4,10})?$/, { message: "GTM ID must look like GTM-XXXXXX" }),
+  })
+  .strict()
+  .partial();
+
 export const saveSeoSettings = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: Partial<SeoSettings>) => input)
+  .inputValidator(validator(SeoSettingsInput))
+
   .handler(async ({ data, context }) => {
     const { data: isAdmin } = await context.supabase.rpc("has_role", {
       _user_id: context.userId,

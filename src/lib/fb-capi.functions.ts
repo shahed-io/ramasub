@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { createHash } from "crypto";
+import { validator, z, intIn } from "@/lib/validation";
 
 /**
  * Sends a server-side conversion event to Meta's Conversions API.
@@ -23,10 +24,22 @@ type SyncResult = {
 
 export const syncFbAudience = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { sinceDays?: number; testCode?: string }) => ({
-    sinceDays: Math.min(Math.max(Math.floor(input?.sinceDays ?? 30), 1), 365),
-    testCode: input?.testCode?.trim() || undefined,
-  }))
+  .inputValidator(
+    validator(
+      z
+        .object({
+          sinceDays: intIn(1, 365).default(30),
+          testCode: z
+            .string()
+            .trim()
+            .max(40)
+            .regex(/^TEST\d{1,10}$/i, { message: "Test code must look like TEST12345" })
+            .optional(),
+        })
+        .strict()
+        .default({ sinceDays: 30 }),
+    ),
+  )
   .handler(async ({ data, context }): Promise<SyncResult> => {
     // Admin only
     const { data: isAdmin } = await context.supabase.rpc("has_role", {

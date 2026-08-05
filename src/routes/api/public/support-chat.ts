@@ -8,9 +8,27 @@ import {
   type ChatMsg,
 } from "@/lib/support-chat.server";
 
+import { z } from "@/lib/validation";
 
 const MAX_MESSAGES = 24;
 const MAX_CONTENT_LEN = 4000;
+
+/** Strict transcript schema — anything that doesn't match is rejected, not cleaned. */
+const ChatRequest = z
+  .object({
+    messages: z
+      .array(
+        z
+          .object({
+            role: z.enum(["user", "assistant"]),
+            content: z.string().min(1).max(MAX_CONTENT_LEN),
+          })
+          .strict(),
+      )
+      .min(1)
+      .max(MAX_MESSAGES),
+  })
+  .strict();
 
 function json(body: unknown, status: number) {
   return new Response(JSON.stringify(body), {
@@ -34,24 +52,15 @@ export const Route = createFileRoute("/api/public/support-chat")({
 
         let messages: ChatMsg[];
         try {
-          const body = (await request.json()) as { messages?: unknown };
-          messages = body.messages as ChatMsg[];
+          const parsed = ChatRequest.safeParse(await request.json());
+          if (!parsed.success) {
+            return json({ error: parsed.error.issues[0]?.message ?? "Invalid request body" }, 400);
+          }
+          messages = parsed.data.messages;
         } catch {
           return json({ error: "Invalid JSON body" }, 400);
         }
 
-        if (!Array.isArray(messages) || messages.length === 0 || messages.length > MAX_MESSAGES) {
-          return json({ error: `messages must be an array of 1..${MAX_MESSAGES} items` }, 400);
-        }
-        for (const m of messages) {
-          if (!m || typeof m !== "object") return json({ error: "invalid message" }, 400);
-          if (m.role !== "user" && m.role !== "assistant") {
-            return json({ error: "invalid role" }, 400);
-          }
-          if (typeof m.content !== "string" || m.content.length === 0 || m.content.length > MAX_CONTENT_LEN) {
-            return json({ error: `content must be a string of 1..${MAX_CONTENT_LEN} chars` }, 400);
-          }
-        }
 
         const apiKey = process.env.LOVABLE_API_KEY;
         if (!apiKey) return json({ error: "AI সার্ভিস কনফিগার করা নেই।" }, 500);

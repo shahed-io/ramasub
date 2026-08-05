@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { validator, z, uuid, optText, digits, intIn, bool } from "@/lib/validation";
 
 export type FacebookPixel = {
   id: string;
@@ -44,21 +45,31 @@ export const listFacebookPixels = createServerFn({ method: "GET" })
 
 export const upsertFacebookPixel = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: {
-    id?: string;
-    label?: string;
-    pixel_id: string;
-    access_token?: string;
-    enabled?: boolean;
-    sort_order?: number;
-    notes?: string;
-  }) => input)
+  .inputValidator(
+    validator(
+      z
+        .object({
+          id: uuid.optional(),
+          label: optText(120),
+          pixel_id: digits(6, 25),
+          // Meta system-user tokens: long opaque strings, no whitespace.
+          access_token: z
+            .string()
+            .trim()
+            .min(10)
+            .max(500)
+            .regex(/^[A-Za-z0-9_.\-|]+$/, { message: "Invalid access token format" })
+            .optional(),
+          enabled: bool.optional(),
+          sort_order: intIn(0, 9999).optional(),
+          notes: optText(500),
+        })
+        .strict(),
+    ),
+  )
   .handler(async ({ data, context }) => {
     await adminGuard(context as never);
-    const pixel_id = (data.pixel_id || "").trim();
-    if (!/^\d{6,25}$/.test(pixel_id)) {
-      throw new Error("Pixel ID must be 6–25 digits");
-    }
+    const pixel_id = data.pixel_id;
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const payload: Record<string, unknown> = {
       provider: "facebook_pixel",
@@ -68,8 +79,8 @@ export const upsertFacebookPixel = createServerFn({ method: "POST" })
       sort_order: data.sort_order ?? 0,
       notes: data.notes?.trim() || null,
     };
-    if (typeof data.access_token === "string" && data.access_token.trim().length >= 10) {
-      payload.access_token = data.access_token.trim();
+    if (data.access_token) {
+      payload.access_token = data.access_token;
     }
     if (data.id) {
       const { error } = await supabaseAdmin
@@ -91,7 +102,7 @@ export const upsertFacebookPixel = createServerFn({ method: "POST" })
 
 export const toggleFacebookPixel = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { id: string; enabled: boolean }) => input)
+  .inputValidator(validator(z.object({ id: uuid, enabled: bool }).strict()))
   .handler(async ({ data, context }) => {
     await adminGuard(context as never);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -105,7 +116,7 @@ export const toggleFacebookPixel = createServerFn({ method: "POST" })
 
 export const deleteFacebookPixel = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { id: string }) => input)
+  .inputValidator(validator(z.object({ id: uuid }).strict()))
   .handler(async ({ data, context }) => {
     await adminGuard(context as never);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
