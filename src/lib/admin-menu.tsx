@@ -10,7 +10,7 @@ import {
   Plug, Mail, MailCheck, CalendarClock, Zap, ZoomIn, ScanEye, MessagesSquare,
   MessageCircle, LifeBuoy, Send, Facebook, Crosshair, LineChart, CornerUpRight,
   UserCog, UserPlus, PenTool, BrainCircuit, Smartphone, Landmark, ArrowLeftRight,
-  Banknote, WandSparkles, Gauge,
+  Banknote, WandSparkles, Gauge, Coins,
 } from "lucide-react";
 
 export type AdminBadge = "LIVE" | "NEW" | "BETA";
