@@ -40,7 +40,8 @@ export const DEFAULT_CURRENCY_CONFIG: CurrencyConfig = {
   currencies: DEFAULT_CURRENCIES,
 };
 
-const LS_KEY = "rama.currency";
+/** v2: reset any older stored selection so everyone starts on BDT (৳) by default. */
+const LS_KEY = "rama.currency.v2";
 
 type Ctx = {
   code: CurrencyCode;
