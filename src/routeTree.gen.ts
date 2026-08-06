@@ -52,6 +52,7 @@ import { Route as Mahbub214BackupRouteImport } from './routes/Mahbub214.backup'
 import { Route as Mahbub214BkashTransactionsRouteImport } from './routes/Mahbub214.bkash-transactions'
 import { Route as Mahbub214BulkUpdateRouteImport } from './routes/Mahbub214.bulk-update'
 import { Route as Mahbub214CouponsRouteImport } from './routes/Mahbub214.coupons'
+import { Route as Mahbub214CurrencyRouteImport } from './routes/Mahbub214.currency'
 import { Route as Mahbub214CustomerLicensesRouteImport } from './routes/Mahbub214.customer-licenses'
 import { Route as Mahbub214DescriptionPreviewRouteImport } from './routes/Mahbub214.description-preview'
 import { Route as Mahbub214DescriptionTemplateRouteImport } from './routes/Mahbub214.description-template'
@@ -339,6 +340,11 @@ const Mahbub214BulkUpdateRoute = Mahbub214BulkUpdateRouteImport.update({
 const Mahbub214CouponsRoute = Mahbub214CouponsRouteImport.update({
   id: '/coupons',
   path: '/coupons',
+  getParentRoute: () => Mahbub214Route,
+} as any)
+const Mahbub214CurrencyRoute = Mahbub214CurrencyRouteImport.update({
+  id: '/currency',
+  path: '/currency',
   getParentRoute: () => Mahbub214Route,
 } as any)
 const Mahbub214CustomerLicensesRoute =
@@ -744,6 +750,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
   '/Mahbub214/coupons': typeof Mahbub214CouponsRoute
+  '/Mahbub214/currency': typeof Mahbub214CurrencyRoute
   '/Mahbub214/customer-licenses': typeof Mahbub214CustomerLicensesRoute
   '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
   '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
@@ -857,6 +864,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
   '/Mahbub214/coupons': typeof Mahbub214CouponsRoute
+  '/Mahbub214/currency': typeof Mahbub214CurrencyRoute
   '/Mahbub214/customer-licenses': typeof Mahbub214CustomerLicensesRoute
   '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
   '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
@@ -972,6 +980,7 @@ export interface FileRoutesById {
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
   '/Mahbub214/coupons': typeof Mahbub214CouponsRoute
+  '/Mahbub214/currency': typeof Mahbub214CurrencyRoute
   '/Mahbub214/customer-licenses': typeof Mahbub214CustomerLicensesRoute
   '/Mahbub214/description-preview': typeof Mahbub214DescriptionPreviewRoute
   '/Mahbub214/description-template': typeof Mahbub214DescriptionTemplateRoute
@@ -1088,6 +1097,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/bkash-transactions'
     | '/Mahbub214/bulk-update'
     | '/Mahbub214/coupons'
+    | '/Mahbub214/currency'
     | '/Mahbub214/customer-licenses'
     | '/Mahbub214/description-preview'
     | '/Mahbub214/description-template'
@@ -1201,6 +1211,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/bkash-transactions'
     | '/Mahbub214/bulk-update'
     | '/Mahbub214/coupons'
+    | '/Mahbub214/currency'
     | '/Mahbub214/customer-licenses'
     | '/Mahbub214/description-preview'
     | '/Mahbub214/description-template'
@@ -1315,6 +1326,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/bkash-transactions'
     | '/Mahbub214/bulk-update'
     | '/Mahbub214/coupons'
+    | '/Mahbub214/currency'
     | '/Mahbub214/customer-licenses'
     | '/Mahbub214/description-preview'
     | '/Mahbub214/description-template'
@@ -1751,6 +1763,13 @@ declare module '@tanstack/react-router' {
       path: '/coupons'
       fullPath: '/Mahbub214/coupons'
       preLoaderRoute: typeof Mahbub214CouponsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/currency': {
+      id: '/Mahbub214/currency'
+      path: '/currency'
+      fullPath: '/Mahbub214/currency'
+      preLoaderRoute: typeof Mahbub214CurrencyRouteImport
       parentRoute: typeof Mahbub214Route
     }
     '/Mahbub214/customer-licenses': {
@@ -2272,6 +2291,7 @@ interface Mahbub214RouteChildren {
   Mahbub214BkashTransactionsRoute: typeof Mahbub214BkashTransactionsRoute
   Mahbub214BulkUpdateRoute: typeof Mahbub214BulkUpdateRoute
   Mahbub214CouponsRoute: typeof Mahbub214CouponsRoute
+  Mahbub214CurrencyRoute: typeof Mahbub214CurrencyRoute
   Mahbub214CustomerLicensesRoute: typeof Mahbub214CustomerLicensesRoute
   Mahbub214DescriptionPreviewRoute: typeof Mahbub214DescriptionPreviewRoute
   Mahbub214DescriptionTemplateRoute: typeof Mahbub214DescriptionTemplateRoute
@@ -2324,6 +2344,7 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214BkashTransactionsRoute: Mahbub214BkashTransactionsRoute,
   Mahbub214BulkUpdateRoute: Mahbub214BulkUpdateRoute,
   Mahbub214CouponsRoute: Mahbub214CouponsRoute,
+  Mahbub214CurrencyRoute: Mahbub214CurrencyRoute,
   Mahbub214CustomerLicensesRoute: Mahbub214CustomerLicensesRoute,
   Mahbub214DescriptionPreviewRoute: Mahbub214DescriptionPreviewRoute,
   Mahbub214DescriptionTemplateRoute: Mahbub214DescriptionTemplateRoute,
