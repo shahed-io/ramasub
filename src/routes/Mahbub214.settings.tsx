@@ -1,13 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { normalizeWaPhone } from "@/lib/whatsapp";
 import { useCallback, useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Save, Loader2, Eye, EyeOff, Plus, Send, Mail, MessageCircle,
   Sparkles, Info, ShieldCheck, Database, ExternalLink, RefreshCcw,
-  Settings, DollarSign,
+  Settings, DollarSign, Trash2,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  DEFAULT_CURRENCIES,
+  normalizeCurrencyConfig,
+  type CurrencyDef,
+} from "@/context/CurrencyContext";
 import { toast } from "sonner";
+
 
 export const Route = createFileRoute("/Mahbub214/settings")({
   component: GeneralSettingsPage,
