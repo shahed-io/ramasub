@@ -1,13 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { normalizeWaPhone } from "@/lib/whatsapp";
 import { useCallback, useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Save, Loader2, Eye, EyeOff, Plus, Send, Mail, MessageCircle,
   Sparkles, Info, ShieldCheck, Database, ExternalLink, RefreshCcw,
-  Settings, DollarSign,
+  Settings, DollarSign, Trash2,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  DEFAULT_CURRENCIES,
+  normalizeCurrencyConfig,
+  type CurrencyDef,
+} from "@/context/CurrencyContext";
 import { toast } from "sonner";
+
 
 export const Route = createFileRoute("/Mahbub214/settings")({
   component: GeneralSettingsPage,
@@ -31,11 +38,10 @@ type SettingsData = {
 };
 
 type CurrencyConfigData = {
-  usd_rate?: number;
-  enable_usd?: boolean;
-  usd_symbol?: string;
-  bdt_symbol?: string;
+  switcher_enabled?: boolean;
+  currencies?: CurrencyDef[];
 };
+
 
 /* ── Tone system: stronger tints + darker text for readability ── */
 const TONE = {
@@ -53,10 +59,13 @@ function GeneralSettingsPage() {
   const [recordId, setRecordId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const queryClient = useQueryClient();
+
 
   // Currency config (separate admin_records row: kind='currency_config')
   const [currency, setCurrency] = useState<CurrencyConfigData>({
-    usd_rate: 135, enable_usd: true, usd_symbol: "$", bdt_symbol: "৳",
+    switcher_enabled: true,
+    currencies: DEFAULT_CURRENCIES,
   });
   const [currencyId, setCurrencyId] = useState<string | null>(null);
   const [savingCurrency, setSavingCurrency] = useState(false);
@@ -84,7 +93,8 @@ function GeneralSettingsPage() {
     const cRow = curRes.data?.[0];
     if (cRow) {
       setCurrencyId(cRow.id);
-      setCurrency({ usd_rate: 135, enable_usd: true, usd_symbol: "$", bdt_symbol: "৳", ...((cRow.data ?? {}) as CurrencyConfigData) });
+      const norm = normalizeCurrencyConfig(cRow.data);
+      setCurrency({ switcher_enabled: norm.switcher_enabled, currencies: norm.currencies });
     }
     setLoading(false);
   }, []);
@@ -94,8 +104,26 @@ function GeneralSettingsPage() {
   const set = <K extends keyof SettingsData>(k: K, v: SettingsData[K]) =>
     setData((d) => ({ ...d, [k]: v }));
 
-  const setCur = <K extends keyof CurrencyConfigData>(k: K, v: CurrencyConfigData[K]) =>
-    setCurrency((d) => ({ ...d, [k]: v }));
+  const updateCur = (index: number, patch: Partial<CurrencyDef>) =>
+    setCurrency((c) => ({
+      ...c,
+      currencies: (c.currencies ?? []).map((cur, i) => (i === index ? { ...cur, ...patch } : cur)),
+    }));
+
+  const addCur = () =>
+    setCurrency((c) => ({
+      ...c,
+      currencies: [
+        ...(c.currencies ?? []),
+        { code: "", symbol: "", label: "", rate: 1, decimals: 2, enabled: true, base: false },
+      ],
+    }));
+
+  const removeCur = (index: number) =>
+    setCurrency((c) => ({
+      ...c,
+      currencies: (c.currencies ?? []).filter((_, i) => i !== index),
+    }));
 
   const save = async () => {
     setSaving(true);
@@ -111,13 +139,20 @@ function GeneralSettingsPage() {
   };
 
   const saveCurrency = async () => {
+    const list = currency.currencies ?? [];
+    const bad = list.find((c) => !c.code.trim() || !c.symbol.trim() || !(Number(c.rate) > 0));
+    if (bad) {
+      return toast.error("প্রতিটি কারেন্সির Code, Symbol এবং ০-এর বেশি রেট দিতে হবে।");
+    }
+    const codes = list.map((c) => c.code.trim().toUpperCase());
+    if (new Set(codes).size !== codes.length) {
+      return toast.error("একই Code দুইবার ব্যবহার করা যাবে না।");
+    }
     setSavingCurrency(true);
-    const clean: CurrencyConfigData = {
-      usd_rate: Number(currency.usd_rate) > 0 ? Number(currency.usd_rate) : 135,
-      enable_usd: currency.enable_usd !== false,
-      usd_symbol: currency.usd_symbol?.trim() || "$",
-      bdt_symbol: currency.bdt_symbol?.trim() || "৳",
-    };
+    const clean = normalizeCurrencyConfig({
+      switcher_enabled: currency.switcher_enabled !== false,
+      currencies: list,
+    });
     const payload = { kind: "currency_config", data: clean as never, is_active: true };
     const op = currencyId
       ? supabase.from("admin_records").update(payload).eq("id", currencyId)
@@ -126,9 +161,11 @@ function GeneralSettingsPage() {
     setSavingCurrency(false);
     if (error) return toast.error(error.message);
     if (!currencyId && saved?.id) setCurrencyId(saved.id);
-    setCurrency(clean);
+    setCurrency({ switcher_enabled: clean.switcher_enabled, currencies: clean.currencies });
+    queryClient.invalidateQueries({ queryKey: ["currency-config"] });
     toast.success("কারেন্সি সেটিংস সংরক্ষিত ✅");
   };
+
 
   if (loading) {
     return (
@@ -199,60 +236,130 @@ function GeneralSettingsPage() {
         </Grid2>
       </Card>
 
-      {/* Multi-Currency (USD switcher + rate) */}
-      <Card icon={<DollarSign className="w-4 h-4" />} title="Multi-Currency (USD Switcher)" tone="emerald">
+      {/* Multi-Currency manager */}
+      <Card icon={<DollarSign className="w-4 h-4" />} title="Multi-Currency (কারেন্সি ম্যানেজার)" tone="emerald">
         <p className="text-xs mb-3" style={{ color: "var(--admin-muted)" }}>
-          কাস্টমাররা হেডারে BDT ↔ USD সুইচ করতে পারবে। সব প্রাইস BDT-তে সেভ থাকে — USD সিলেক্ট করলে নিচের রেট দিয়ে অটো-কনভার্ট হয়ে দেখাবে।
+          সব প্রাইস <b>BDT (৳)</b>-তে সেভ থাকে — কাস্টমার অন্য কারেন্সি সিলেক্ট করলে নিচের রেট দিয়ে অটো-কনভার্ট হয়ে দেখাবে।
+          যত ইচ্ছা কারেন্সি অ্যাড করুন, চালু/বন্ধ করুন।
         </p>
-        <Grid2>
-          <Field label="USD রেট (১ USD = কত ৳)">
-            <Input
-              type="number"
-              value={String(currency.usd_rate ?? 135)}
-              onChange={(v) => setCur("usd_rate", Number(v) || 0)}
-              placeholder="135"
-            />
-            <p className="text-[11px] mt-1" style={{ color: "var(--admin-muted)" }}>
-              বর্তমান: <b>১ USD ≈ ৳{Number(currency.usd_rate ?? 135).toLocaleString()}</b>
-            </p>
-          </Field>
-          <Field label="USD সিম্বল">
-            <Input value={currency.usd_symbol ?? "$"} onChange={(v) => setCur("usd_symbol", v)} placeholder="$" />
-          </Field>
-        </Grid2>
 
-        <label className="mt-4 flex items-center gap-3 cursor-pointer select-none">
+        <label className="mb-4 flex items-center gap-3 cursor-pointer select-none">
           <input
             type="checkbox"
-            checked={currency.enable_usd !== false}
-            onChange={(e) => setCur("enable_usd", e.target.checked)}
+            checked={currency.switcher_enabled !== false}
+            onChange={(e) => setCurrency((c) => ({ ...c, switcher_enabled: e.target.checked }))}
             className="w-4 h-4 accent-blue-600"
           />
           <span className="text-sm font-semibold" style={{ color: "var(--admin-ink)" }}>
-            USD কারেন্সি সুইচার এনাবল করুন (হেডারে দেখাবে)
+            হেডারে কারেন্সি সুইচার দেখান (বন্ধ করলে শুধু ৳ দেখাবে)
           </span>
         </label>
 
-        <div className="mt-4 flex justify-end">
+        <div className="space-y-3">
+          {(currency.currencies ?? []).map((c, i) => (
+            <div
+              key={i}
+              className="rounded-xl border p-3.5"
+              style={{ borderColor: "var(--admin-border)", background: c.base ? "#f8fafc" : "#ffffff" }}
+            >
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <span className="inline-flex items-center gap-2 text-sm font-bold" style={{ color: "var(--admin-ink)" }}>
+                  <span className="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 grid place-items-center font-black">
+                    {c.symbol || "¤"}
+                  </span>
+                  {c.code || "NEW"}
+                  {c.base && (
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">
+                      BASE
+                    </span>
+                  )}
+                </span>
+                <div className="flex items-center gap-2">
+                  <label className="flex items-center gap-1.5 text-xs font-semibold cursor-pointer" style={{ color: "var(--admin-text)" }}>
+                    <input
+                      type="checkbox"
+                      checked={c.base ? true : c.enabled !== false}
+                      disabled={c.base}
+                      onChange={(e) => updateCur(i, { enabled: e.target.checked })}
+                      className="w-4 h-4 accent-blue-600"
+                    />
+                    চালু
+                  </label>
+                  {!c.base && (
+                    <button
+                      type="button"
+                      onClick={() => removeCur(i)}
+                      className="w-8 h-8 grid place-items-center rounded-lg border transition"
+                      style={{ borderColor: "var(--admin-border)", color: "var(--admin-muted)" }}
+                      title="ডিলিট"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+                <Field label="Code">
+                  <Input value={c.code} onChange={(v) => updateCur(i, { code: v.toUpperCase().slice(0, 6) })} placeholder="USD" />
+                </Field>
+                <Field label="Symbol">
+                  <Input value={c.symbol} onChange={(v) => updateCur(i, { symbol: v.slice(0, 4) })} placeholder="$" />
+                </Field>
+                <Field label="নাম">
+                  <Input value={c.label} onChange={(v) => updateCur(i, { label: v })} placeholder="US Dollar" />
+                </Field>
+                <Field label={c.base ? "রেট (base = 1)" : `রেট (১ ${c.code || "?"} = কত ৳)`}>
+                  <Input
+                    type="number"
+                    value={String(c.rate ?? 1)}
+                    onChange={(v) => updateCur(i, { rate: Number(v) || 0 })}
+                    placeholder="135"
+                  />
+                </Field>
+                <Field label="দশমিক ঘর">
+                  <Input
+                    type="number"
+                    value={String(c.decimals ?? 2)}
+                    onChange={(v) => updateCur(i, { decimals: Math.min(4, Math.max(0, Number(v) || 0)) })}
+                    placeholder="2"
+                  />
+                </Field>
+              </div>
+
+              {!c.base && Number(c.rate) > 0 && (
+                <p className="text-[11px] mt-2" style={{ color: "var(--admin-muted)" }}>
+                  উদাহরণ: ৳499 → <b>{c.symbol}{(499 / Number(c.rate)).toFixed(c.decimals ?? 2)}</b>
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4 flex items-center justify-between gap-3 flex-wrap">
           <button
-            onClick={saveCurrency}
-            disabled={savingCurrency}
-            className="a-save-btn"
+            type="button"
+            onClick={addCur}
+            className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-xs font-semibold transition"
+            style={{ background: "var(--admin-hover)", color: "var(--admin-text)" }}
           >
+            <Plus className="w-3.5 h-3.5" /> নতুন কারেন্সি অ্যাড
+          </button>
+          <button onClick={saveCurrency} disabled={savingCurrency} className="a-save-btn">
             {savingCurrency ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
             কারেন্সি সেভ করুন
           </button>
         </div>
 
         <InfoBox tone="emerald">
-          <p className="font-semibold mb-1">💡 উদাহরণ (রেট ১৩৫):</p>
           <ul className="list-disc pl-5 space-y-0.5">
-            <li>প্রোডাক্ট ৳499 → USD-তে দেখাবে ${(499 / (Number(currency.usd_rate) || 135)).toFixed(2)}</li>
-            <li>প্রোডাক্ট ৳1,350 → USD-তে দেখাবে ${(1350 / (Number(currency.usd_rate) || 135)).toFixed(2)}</li>
-            <li>পেমেন্ট সবসময় BDT-তে প্রসেস হয় — শুধু ডিসপ্লে চেঞ্জ হয়।</li>
+            <li>প্রাইস সবসময় BDT-তে সেভ হয় — শুধু ডিসপ্লে কনভার্ট হয়।</li>
+            <li>পেমেন্ট সবসময় BDT-তে প্রসেস হয়।</li>
+            <li>একটা কারেন্সি বন্ধ করলে যারা ওইটা সিলেক্ট করে রেখেছিল, তারা অটো BDT-তে ফিরে আসবে।</li>
           </ul>
         </InfoBox>
       </Card>
+
 
 
       {/* Order Settings */}
