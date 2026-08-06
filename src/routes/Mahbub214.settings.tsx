@@ -31,11 +31,10 @@ type SettingsData = {
 };
 
 type CurrencyConfigData = {
-  usd_rate?: number;
-  enable_usd?: boolean;
-  usd_symbol?: string;
-  bdt_symbol?: string;
+  switcher_enabled?: boolean;
+  currencies?: CurrencyDef[];
 };
+
 
 /* ── Tone system: stronger tints + darker text for readability ── */
 const TONE = {
