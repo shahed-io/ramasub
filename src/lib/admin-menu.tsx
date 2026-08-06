@@ -243,6 +243,7 @@ export const ADMIN_MENU: AdminMenuGroup[] = [
     icon: ic(Settings),
     items: [
       { to: "/Mahbub214/settings", label: "General Settings", labelBn: "সাধারণ সেটিংস", icon: ic(Settings), grad: C.system },
+      { to: "/Mahbub214/currency", label: "Currency Manager", labelBn: "কারেন্সি ম্যানেজার", icon: ic(Coins), grad: C.systemSoft, badge: "NEW" },
       { to: "/Mahbub214/roles", label: "Admin Roles", labelBn: "অ্যাডমিন রোল", icon: ic(UserCog), grad: C.systemSoft },
       { to: "/Mahbub214/security", label: "Security & MFA", labelBn: "সিকিউরিটি ও MFA", icon: ic(ShieldCheck), grad: C.danger },
       { to: "/Mahbub214/rate-limits", label: "Rate Limits", labelBn: "রেট লিমিট", icon: ic(Gauge), grad: C.danger, badge: "NEW" },
