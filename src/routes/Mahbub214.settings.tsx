@@ -59,6 +59,8 @@ function GeneralSettingsPage() {
   const [recordId, setRecordId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const queryClient = useQueryClient();
+
 
   // Currency config (separate admin_records row: kind='currency_config')
   const [currency, setCurrency] = useState<CurrencyConfigData>({
