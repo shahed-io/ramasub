@@ -55,7 +55,8 @@ function GeneralSettingsPage() {
 
   // Currency config (separate admin_records row: kind='currency_config')
   const [currency, setCurrency] = useState<CurrencyConfigData>({
-    usd_rate: 135, enable_usd: true, usd_symbol: "$", bdt_symbol: "৳",
+    switcher_enabled: true,
+    currencies: DEFAULT_CURRENCIES,
   });
   const [currencyId, setCurrencyId] = useState<string | null>(null);
   const [savingCurrency, setSavingCurrency] = useState(false);
@@ -83,7 +84,8 @@ function GeneralSettingsPage() {
     const cRow = curRes.data?.[0];
     if (cRow) {
       setCurrencyId(cRow.id);
-      setCurrency({ usd_rate: 135, enable_usd: true, usd_symbol: "$", bdt_symbol: "৳", ...((cRow.data ?? {}) as CurrencyConfigData) });
+      const norm = normalizeCurrencyConfig(cRow.data);
+      setCurrency({ switcher_enabled: norm.switcher_enabled, currencies: norm.currencies });
     }
     setLoading(false);
   }, []);
@@ -93,8 +95,26 @@ function GeneralSettingsPage() {
   const set = <K extends keyof SettingsData>(k: K, v: SettingsData[K]) =>
     setData((d) => ({ ...d, [k]: v }));
 
-  const setCur = <K extends keyof CurrencyConfigData>(k: K, v: CurrencyConfigData[K]) =>
-    setCurrency((d) => ({ ...d, [k]: v }));
+  const updateCur = (index: number, patch: Partial<CurrencyDef>) =>
+    setCurrency((c) => ({
+      ...c,
+      currencies: (c.currencies ?? []).map((cur, i) => (i === index ? { ...cur, ...patch } : cur)),
+    }));
+
+  const addCur = () =>
+    setCurrency((c) => ({
+      ...c,
+      currencies: [
+        ...(c.currencies ?? []),
+        { code: "", symbol: "", label: "", rate: 1, decimals: 2, enabled: true, base: false },
+      ],
+    }));
+
+  const removeCur = (index: number) =>
+    setCurrency((c) => ({
+      ...c,
+      currencies: (c.currencies ?? []).filter((_, i) => i !== index),
+    }));
 
   const save = async () => {
     setSaving(true);
@@ -110,13 +130,20 @@ function GeneralSettingsPage() {
   };
 
   const saveCurrency = async () => {
+    const list = currency.currencies ?? [];
+    const bad = list.find((c) => !c.code.trim() || !c.symbol.trim() || !(Number(c.rate) > 0));
+    if (bad) {
+      return toast.error("প্রতিটি কারেন্সির Code, Symbol এবং ০-এর বেশি রেট দিতে হবে।");
+    }
+    const codes = list.map((c) => c.code.trim().toUpperCase());
+    if (new Set(codes).size !== codes.length) {
+      return toast.error("একই Code দুইবার ব্যবহার করা যাবে না।");
+    }
     setSavingCurrency(true);
-    const clean: CurrencyConfigData = {
-      usd_rate: Number(currency.usd_rate) > 0 ? Number(currency.usd_rate) : 135,
-      enable_usd: currency.enable_usd !== false,
-      usd_symbol: currency.usd_symbol?.trim() || "$",
-      bdt_symbol: currency.bdt_symbol?.trim() || "৳",
-    };
+    const clean = normalizeCurrencyConfig({
+      switcher_enabled: currency.switcher_enabled !== false,
+      currencies: list,
+    });
     const payload = { kind: "currency_config", data: clean as never, is_active: true };
     const op = currencyId
       ? supabase.from("admin_records").update(payload).eq("id", currencyId)
@@ -125,9 +152,11 @@ function GeneralSettingsPage() {
     setSavingCurrency(false);
     if (error) return toast.error(error.message);
     if (!currencyId && saved?.id) setCurrencyId(saved.id);
-    setCurrency(clean);
+    setCurrency({ switcher_enabled: clean.switcher_enabled, currencies: clean.currencies });
+    queryClient.invalidateQueries({ queryKey: ["currency-config"] });
     toast.success("কারেন্সি সেটিংস সংরক্ষিত ✅");
   };
+
 
   if (loading) {
     return (
