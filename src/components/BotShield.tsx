@@ -198,13 +198,15 @@ export function BotShield({
       {config.turnstileEnabled && <div ref={turnstileBox} className="flex justify-center my-2" />}
 
       <div
-        className={`flex items-center justify-center gap-2 rounded-2xl border px-3 py-2 text-[12.5px] font-medium ${
-          state === "error"
-            ? "border-[#FECDD3] bg-[#FFF1F2] text-[#BE123C]"
-            : state === "ok"
-              ? "border-[#A7F3D0] bg-[#ECFDF5] text-[#047857]"
-              : "border-[#DDD6FE] bg-[#F5F3FF] text-[#5B21B6]"
-        }`}
+        className="flex items-center justify-center gap-2 rounded-2xl px-3 py-2 text-[12.5px] font-semibold"
+        style={{
+          background:
+            state === "error" ? "#FFF1F2" : state === "ok" ? "#ECFDF5" : "#F5F3FF",
+          border: `1px solid ${
+            state === "error" ? "#FECDD3" : state === "ok" ? "#A7F3D0" : "#DDD6FE"
+          }`,
+          color: state === "error" ? "#BE123C" : state === "ok" ? "#047857" : "#5B21B6",
+        }}
         aria-live="polite"
       >
         {state === "working" ? (
