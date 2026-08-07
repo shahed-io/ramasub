@@ -238,7 +238,7 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
       </div>
 
       <div className="flex-1 w-full flex items-center justify-center">
-        <div className="relative w-full max-w-[470px] bg-white/80 backdrop-blur-2xl rounded-[26px] shadow-[0_24px_70px_-30px_rgba(76,29,149,0.35)] border border-white/70 ring-1 ring-[#7C3AED]/10 p-7 sm:p-9">
+        <div className="relative w-full max-w-[470px] bg-white backdrop-blur-2xl rounded-[26px] shadow-[0_24px_70px_-30px_rgba(76,29,149,0.35)] border border-[#EDE9FE] ring-1 ring-[#7C3AED]/10 p-7 sm:p-9">
           {/* Close */}
           <Link
             to="/"
@@ -566,7 +566,7 @@ function Field({
           onChange={(e) => onChange(e.target.value)}
           required={required}
           placeholder={placeholder}
-          className={`w-full h-12 px-5 ${trailing ? "pr-14" : ""} rounded-full bg-white/90 border border-[#E9E4FF] text-[14px] text-[#1E1B4B] placeholder:text-[#A1A1AA] outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/12 transition`}
+          className={`w-full h-12 px-5 ${trailing ? "pr-14" : ""} rounded-full bg-white border border-[#E9E4FF] text-[14px] text-[#1E1B4B] placeholder:text-[#A1A1AA] outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/12 transition`}
         />
         {trailing && (
           <span className="absolute right-2 top-1/2 -translate-y-1/2 z-10">{trailing}</span>
