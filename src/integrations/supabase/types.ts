@@ -248,6 +248,69 @@ export type Database = {
         }
         Relationships: []
       }
+      bot_challenges: {
+        Row: {
+          created_at: string
+          difficulty: number
+          expires_at: string
+          id: string
+          ip: string | null
+          purpose: string
+          salt: string
+          solved_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          difficulty?: number
+          expires_at?: string
+          id?: string
+          ip?: string | null
+          purpose?: string
+          salt: string
+          solved_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          difficulty?: number
+          expires_at?: string
+          id?: string
+          ip?: string | null
+          purpose?: string
+          salt?: string
+          solved_at?: string | null
+        }
+        Relationships: []
+      }
+      bot_passes: {
+        Row: {
+          created_at: string
+          expires_at: string
+          ip: string | null
+          provider: string
+          purpose: string
+          token: string
+          used_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          expires_at?: string
+          ip?: string | null
+          provider?: string
+          purpose?: string
+          token: string
+          used_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          ip?: string | null
+          provider?: string
+          purpose?: string
+          token?: string
+          used_at?: string | null
+        }
+        Relationships: []
+      }
       coupons: {
         Row: {
           code: string

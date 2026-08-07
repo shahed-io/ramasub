@@ -98,7 +98,24 @@ const redirectMiddleware = createMiddleware().server(async ({ next, request }) =
   return next();
 });
 
+// ─────────────────────────────────────────────────────────────────────
+// DDoS shield: per-IP flood/burst protection with exponential backoff.
+// Thresholds live in `rate_limit_rules` (Admin → Rate Limits) and the
+// on/off switch in Admin → DDoS & Bot Protection. Fails open.
+// ─────────────────────────────────────────────────────────────────────
+const ddosMiddleware = createMiddleware().server(async ({ next, request }) => {
+  try {
+    const { ddosGuard } = await import("./lib/ddos.server");
+    const blocked = await ddosGuard(request);
+    if (blocked) return blocked;
+  } catch (e) {
+    console.warn("[ddos] middleware error", e);
+  }
+  return next();
+});
+
 export const startInstance = createStart(() => ({
-  requestMiddleware: [errorMiddleware, redirectMiddleware],
+  requestMiddleware: [errorMiddleware, ddosMiddleware, redirectMiddleware],
   functionMiddleware: [attachSupabaseAuth],
 }));
+
