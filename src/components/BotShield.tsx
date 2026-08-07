@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { ShieldCheck, Loader2, ShieldAlert } from "lucide-react";
+import { sha256HexSync } from "@/lib/sha256";
 import {
   getBotShieldConfig,
   issueBotChallenge,
@@ -19,19 +20,13 @@ declare global {
   }
 }
 
-async function sha256Hex(input: string): Promise<string> {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(input));
-  return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
-}
-
 /** Solve sha256(salt:nonce) with `difficulty` leading zeros — cheap for humans, costly for bulk bots. */
 async function solve(salt: string, difficulty: number): Promise<string> {
   const prefix = "0".repeat(difficulty);
+  const CHUNK = 4000;
   for (let nonce = 0; nonce < 20_000_000; nonce++) {
-    // Yield to the UI thread periodically.
-    if (nonce % 5000 === 4999) await new Promise((r) => setTimeout(r, 0));
-    const hash = await sha256Hex(`${salt}:${nonce}`);
-    if (hash.startsWith(prefix)) return String(nonce);
+    if (nonce > 0 && nonce % CHUNK === 0) await new Promise((r) => setTimeout(r, 0));
+    if (sha256HexSync(`${salt}:${nonce}`).startsWith(prefix)) return String(nonce);
   }
   throw new Error("Verification timed out");
 }
