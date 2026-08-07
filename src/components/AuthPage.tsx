@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Loader2, Eye, EyeOff, X, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,6 +8,8 @@ import { useAuth } from "@/context/AuthContext";
 import { sendTransactionalEmail } from "@/lib/email/send";
 import { BrandLogo } from "@/components/BrandLogo";
 import { guardAuthAttempt } from "@/lib/rate-limit.functions";
+import { BotShield, type BotShieldHandle } from "@/components/BotShield";
+import { assertBotPass } from "@/lib/bot-shield.functions";
 
 
 export function AuthPageEntry({ initialMode, openForgot }: { initialMode: "login" | "signup"; openForgot?: boolean }) {
@@ -41,6 +43,8 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
   const [forgotMsg, setForgotMsg] = useState<string | null>(null);
   const [forgotErr, setForgotErr] = useState<string | null>(null);
   const [forgotBusy, setForgotBusy] = useState(false);
+  // Bot verification (signup only) — handle is provided by <BotShield />.
+  const botShield = useRef<BotShieldHandle | null>(null);
 
   // Where to return after login. Priority:
   // 1. ?redirect=<path> search param (set by route guards / header links)
@@ -159,6 +163,12 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
         if (!parsed.success) throw new Error(parsed.error.issues[0].message);
         const guard = await guardAuthAttempt({ data: { action: "signup", email: parsed.data.email } });
         if (!guard.allowed) throw new Error(guard.message || "Too many attempts");
+        // Human verification — proof-of-work + honeypot (+ Turnstile when enabled).
+        const botToken = await (botShield.current?.getToken() ?? Promise.resolve(""));
+        if (botToken) {
+          const pass = await assertBotPass({ data: { token: botToken, purpose: "signup" } });
+          if (!pass.ok) throw new Error("Human verification failed. Please reload and try again.");
+        }
         const { data: signUpData, error } = await supabase.auth.signUp({
           email: parsed.data.email,
           password: parsed.data.password,
@@ -375,6 +385,16 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
                   <span className="font-bold text-slate-900">Privacy Policy</span>
                 </span>
               </label>
+            )}
+
+            {!isLogin && (
+              <BotShield
+                purpose="signup"
+                className="relative pt-1"
+                onReady={(h) => {
+                  botShield.current = h;
+                }}
+              />
             )}
 
             {err && (
