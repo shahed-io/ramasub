@@ -50,6 +50,7 @@ import { Route as Mahbub214AffiliatesRouteImport } from './routes/Mahbub214.affi
 import { Route as Mahbub214AnalyticsRouteImport } from './routes/Mahbub214.analytics'
 import { Route as Mahbub214BackupRouteImport } from './routes/Mahbub214.backup'
 import { Route as Mahbub214BkashTransactionsRouteImport } from './routes/Mahbub214.bkash-transactions'
+import { Route as Mahbub214BotProtectionRouteImport } from './routes/Mahbub214.bot-protection'
 import { Route as Mahbub214BulkUpdateRouteImport } from './routes/Mahbub214.bulk-update'
 import { Route as Mahbub214CouponsRouteImport } from './routes/Mahbub214.coupons'
 import { Route as Mahbub214CurrencyRouteImport } from './routes/Mahbub214.currency'
@@ -332,6 +333,11 @@ const Mahbub214BkashTransactionsRoute =
     path: '/bkash-transactions',
     getParentRoute: () => Mahbub214Route,
   } as any)
+const Mahbub214BotProtectionRoute = Mahbub214BotProtectionRouteImport.update({
+  id: '/bot-protection',
+  path: '/bot-protection',
+  getParentRoute: () => Mahbub214Route,
+} as any)
 const Mahbub214BulkUpdateRoute = Mahbub214BulkUpdateRouteImport.update({
   id: '/bulk-update',
   path: '/bulk-update',
@@ -748,6 +754,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/analytics': typeof Mahbub214AnalyticsRoute
   '/Mahbub214/backup': typeof Mahbub214BackupRoute
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
+  '/Mahbub214/bot-protection': typeof Mahbub214BotProtectionRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
   '/Mahbub214/coupons': typeof Mahbub214CouponsRoute
   '/Mahbub214/currency': typeof Mahbub214CurrencyRoute
@@ -862,6 +869,7 @@ export interface FileRoutesByTo {
   '/Mahbub214/analytics': typeof Mahbub214AnalyticsRoute
   '/Mahbub214/backup': typeof Mahbub214BackupRoute
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
+  '/Mahbub214/bot-protection': typeof Mahbub214BotProtectionRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
   '/Mahbub214/coupons': typeof Mahbub214CouponsRoute
   '/Mahbub214/currency': typeof Mahbub214CurrencyRoute
@@ -978,6 +986,7 @@ export interface FileRoutesById {
   '/Mahbub214/analytics': typeof Mahbub214AnalyticsRoute
   '/Mahbub214/backup': typeof Mahbub214BackupRoute
   '/Mahbub214/bkash-transactions': typeof Mahbub214BkashTransactionsRoute
+  '/Mahbub214/bot-protection': typeof Mahbub214BotProtectionRoute
   '/Mahbub214/bulk-update': typeof Mahbub214BulkUpdateRoute
   '/Mahbub214/coupons': typeof Mahbub214CouponsRoute
   '/Mahbub214/currency': typeof Mahbub214CurrencyRoute
@@ -1095,6 +1104,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/analytics'
     | '/Mahbub214/backup'
     | '/Mahbub214/bkash-transactions'
+    | '/Mahbub214/bot-protection'
     | '/Mahbub214/bulk-update'
     | '/Mahbub214/coupons'
     | '/Mahbub214/currency'
@@ -1209,6 +1219,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/analytics'
     | '/Mahbub214/backup'
     | '/Mahbub214/bkash-transactions'
+    | '/Mahbub214/bot-protection'
     | '/Mahbub214/bulk-update'
     | '/Mahbub214/coupons'
     | '/Mahbub214/currency'
@@ -1324,6 +1335,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/analytics'
     | '/Mahbub214/backup'
     | '/Mahbub214/bkash-transactions'
+    | '/Mahbub214/bot-protection'
     | '/Mahbub214/bulk-update'
     | '/Mahbub214/coupons'
     | '/Mahbub214/currency'
@@ -1749,6 +1761,13 @@ declare module '@tanstack/react-router' {
       path: '/bkash-transactions'
       fullPath: '/Mahbub214/bkash-transactions'
       preLoaderRoute: typeof Mahbub214BkashTransactionsRouteImport
+      parentRoute: typeof Mahbub214Route
+    }
+    '/Mahbub214/bot-protection': {
+      id: '/Mahbub214/bot-protection'
+      path: '/bot-protection'
+      fullPath: '/Mahbub214/bot-protection'
+      preLoaderRoute: typeof Mahbub214BotProtectionRouteImport
       parentRoute: typeof Mahbub214Route
     }
     '/Mahbub214/bulk-update': {
@@ -2289,6 +2308,7 @@ interface Mahbub214RouteChildren {
   Mahbub214AnalyticsRoute: typeof Mahbub214AnalyticsRoute
   Mahbub214BackupRoute: typeof Mahbub214BackupRoute
   Mahbub214BkashTransactionsRoute: typeof Mahbub214BkashTransactionsRoute
+  Mahbub214BotProtectionRoute: typeof Mahbub214BotProtectionRoute
   Mahbub214BulkUpdateRoute: typeof Mahbub214BulkUpdateRoute
   Mahbub214CouponsRoute: typeof Mahbub214CouponsRoute
   Mahbub214CurrencyRoute: typeof Mahbub214CurrencyRoute
@@ -2342,6 +2362,7 @@ const Mahbub214RouteChildren: Mahbub214RouteChildren = {
   Mahbub214AnalyticsRoute: Mahbub214AnalyticsRoute,
   Mahbub214BackupRoute: Mahbub214BackupRoute,
   Mahbub214BkashTransactionsRoute: Mahbub214BkashTransactionsRoute,
+  Mahbub214BotProtectionRoute: Mahbub214BotProtectionRoute,
   Mahbub214BulkUpdateRoute: Mahbub214BulkUpdateRoute,
   Mahbub214CouponsRoute: Mahbub214CouponsRoute,
   Mahbub214CurrencyRoute: Mahbub214CurrencyRoute,
