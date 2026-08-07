@@ -9,7 +9,7 @@ import {
   type PublicBotConfig,
 } from "@/lib/bot-shield.functions";
 
-type Purpose = "signup" | "reset" | "contact";
+type Purpose = "signup" | "login" | "reset" | "contact";
 
 declare global {
   interface Window {
@@ -52,6 +52,8 @@ function loadTurnstileScript(): Promise<void> {
 export type BotShieldHandle = {
   /** Runs verification and resolves with a single-use pass token. Throws on failure. */
   getToken: () => Promise<string>;
+  /** Forget the cached pass so the next attempt gets a fresh one (tokens are single-use). */
+  reset: () => void;
   ready: boolean;
 };
 
@@ -162,10 +164,21 @@ export function BotShield({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config, purpose]);
 
+  const reset = useCallback(() => {
+    cachedToken.current = "";
+    turnstileToken.current = "";
+    mountedAt.current = Date.now();
+    setState("idle");
+    setMessage(null);
+    try {
+      window.turnstile?.reset();
+    } catch { /* ignore */ }
+  }, []);
+
   useEffect(() => {
-    if (config) onReady?.({ getToken, ready: true });
+    if (config) onReady?.({ getToken, reset, ready: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config, getToken]);
+  }, [config, getToken, reset]);
 
   if (!config?.enabled) return null;
 
@@ -185,13 +198,15 @@ export function BotShield({
       {config.turnstileEnabled && <div ref={turnstileBox} className="flex justify-center my-2" />}
 
       <div
-        className={`flex items-center justify-center gap-2 rounded-2xl border px-3 py-2 text-[12.5px] font-medium ${
-          state === "error"
-            ? "border-rose-200 bg-rose-50 text-rose-700"
-            : state === "ok"
-              ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-              : "border-violet-200 bg-violet-50/70 text-violet-700"
-        }`}
+        className="flex items-center justify-center gap-2 rounded-2xl px-3 py-2 text-[12.5px] font-semibold"
+        style={{
+          background:
+            state === "error" ? "#FFF1F2" : state === "ok" ? "#ECFDF5" : "#F5F3FF",
+          border: `1px solid ${
+            state === "error" ? "#FECDD3" : state === "ok" ? "#A7F3D0" : "#DDD6FE"
+          }`,
+          color: state === "error" ? "#BE123C" : state === "ok" ? "#047857" : "#5B21B6",
+        }}
         aria-live="polite"
       >
         {state === "working" ? (
@@ -208,7 +223,7 @@ export function BotShield({
           </>
         ) : (
           <>
-            <ShieldCheck className="w-3.5 h-3.5" /> Protected by Rama Sub security shield
+            <ShieldCheck className="w-3.5 h-3.5" /> Protected — bot verification active
           </>
         )}
       </div>

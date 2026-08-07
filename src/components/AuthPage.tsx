@@ -34,6 +34,7 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
   const [mode, setMode] = useState<"login" | "signup">(initialMode);
   const [form, setForm] = useState({ name: "", email: "", phone: "", password: "" });
   const [err, setErr] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [showPw, setShowPw] = useState(false);
   const [remember, setRemember] = useState(true);
@@ -95,6 +96,7 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
   useEffect(() => {
     setMode(initialMode);
     setErr(null);
+    setNotice(null);
   }, [initialMode]);
 
   useEffect(() => {
@@ -147,6 +149,7 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErr(null);
+    setNotice(null);
     setBusy(true);
     try {
       // Read values from the form so browser-autofilled values are always picked up
@@ -167,6 +170,7 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
         const botToken = await (botShield.current?.getToken() ?? Promise.resolve(""));
         if (botToken) {
           const pass = await assertBotPass({ data: { token: botToken, purpose: "signup" } });
+          botShield.current?.reset();
           if (!pass.ok) throw new Error("Human verification failed. Please reload and try again.");
         }
         const { data: signUpData, error } = await supabase.auth.signUp({
@@ -189,16 +193,32 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
               dashboardUrl: `${window.location.origin}/dashboard`,
             },
           }).catch((err) => console.warn("Welcome email failed", err));
+        } else {
+          setNotice("Check your email to confirm your account, then sign in.");
         }
       } else {
         const parsed = loginSchema.safeParse({ email: values.email, password: values.password });
         if (!parsed.success) throw new Error(parsed.error.issues[0].message);
         const guard = await guardAuthAttempt({ data: { action: "login", email: parsed.data.email } });
         if (!guard.allowed) throw new Error(guard.message || "Too many attempts");
+        // Human verification on login too — blocks credential-stuffing bots.
+        const botToken = await (botShield.current?.getToken() ?? Promise.resolve(""));
+        if (botToken) {
+          const pass = await assertBotPass({ data: { token: botToken, purpose: "login" } });
+          botShield.current?.reset();
+          if (!pass.ok) throw new Error("Human verification failed. Please reload and try again.");
+        }
         const { error } = await supabase.auth.signInWithPassword(parsed.data);
-        if (error) throw error;
+        if (error) {
+          throw new Error(
+            /invalid login credentials/i.test(error.message)
+              ? "Email or password is incorrect. Please try again."
+              : error.message,
+          );
+        }
       }
     } catch (e: unknown) {
+      botShield.current?.reset();
       setErr(e instanceof Error ? e.message : "Something went wrong");
     } finally {
       setBusy(false);
@@ -209,38 +229,46 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
   const year = useMemo(() => new Date().getFullYear(), []);
 
   return (
-    <div className="dark-adapt min-h-screen bg-[#f4f5f7] flex flex-col items-center justify-between py-6 px-4">
+    <div className="dark-adapt relative min-h-[calc(100vh-140px)] bg-white flex flex-col items-center justify-between py-10 px-4 overflow-hidden">
+      {/* Soft violet aurora background */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#FFFFFF_0%,#F5F3FF_55%,#FFFFFF_100%)]" />
+        <div className="absolute -top-32 -left-24 w-[420px] h-[420px] rounded-full bg-[#7C3AED]/15 blur-3xl" />
+        <div className="absolute -bottom-40 -right-24 w-[460px] h-[460px] rounded-full bg-[#A78BFA]/20 blur-3xl" />
+      </div>
+
       <div className="flex-1 w-full flex items-center justify-center">
-        <div className="relative w-full max-w-[460px] bg-white rounded-3xl shadow-[0_8px_30px_-8px_rgba(0,0,0,0.08)] border border-slate-200/70 p-7 sm:p-9">
+        <div className="relative w-full max-w-[470px] bg-white backdrop-blur-2xl rounded-[26px] shadow-[0_24px_70px_-30px_rgba(76,29,149,0.35)] border border-[#EDE9FE] ring-1 ring-[#7C3AED]/10 p-7 sm:p-9">
           {/* Close */}
           <Link
             to="/"
-            aria-label="Close"
-            className="absolute top-5 right-5 grid place-items-center w-9 h-9 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
+            aria-label="Close and go back to home"
+            className="absolute top-5 right-5 grid place-items-center w-9 h-9 rounded-full text-[#6B7280] hover:text-[#4C1D95] hover:bg-[#F5F3FF] transition"
           >
             <X className="w-5 h-5" strokeWidth={2} />
           </Link>
 
           {/* Brand logo */}
-          <div className="flex items-center justify-center mb-7">
+          <div className="flex items-center justify-center mb-6">
             <BrandLogo to="/" size="md" underlineId="authBrandUnderline" />
           </div>
 
-
           {/* Heading */}
-          <h1 className="text-center font-extrabold text-slate-900 tracking-tight text-[32px] sm:text-[36px] leading-tight">
-            {isLogin ? "Welcome back" : "Create account"}
+          <h1 className="text-center font-extrabold text-[#1E1B4B] tracking-tight text-[30px] sm:text-[34px] leading-tight">
+            {isLogin ? "Welcome back" : "Create your account"}
           </h1>
-          <p className="mt-2 text-center text-slate-500 text-[14px]">
-            {isLogin ? "Please enter your detail to sign in." : "Sign up to get started with Rama Sub."}
+          <p className="mt-2 text-center text-[#6B7280] text-[14px] leading-relaxed">
+            {isLogin
+              ? "Sign in to track your orders, downloads and subscriptions."
+              : "Free account — order in seconds and get instant delivery updates."}
           </p>
 
           {/* Social buttons */}
-          <div className="mt-7 grid grid-cols-2 gap-3">
+          <div className="mt-6 grid grid-cols-2 gap-3">
             <button
               type="button"
               onClick={() => oauth("google")}
-              className="h-12 rounded-full bg-white/40 backdrop-blur-xl border border-white/60 hover:bg-white/55 active:bg-white/70 transition inline-flex items-center justify-center gap-2.5 shadow-[0_8px_24px_-12px_rgba(99,102,241,0.35)]"
+              className="h-12 rounded-full bg-white border border-[#E9E4FF] hover:border-[#C4B5FD] hover:bg-[#FAF8FF] active:bg-[#F5F3FF] transition inline-flex items-center justify-center gap-2.5 shadow-[0_8px_22px_-14px_rgba(124,58,237,0.45)]"
               aria-label="Continue with Google"
             >
               <svg viewBox="0 0 48 48" className="w-[18px] h-[18px]">
@@ -249,60 +277,62 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
                 <path fill="#4CAF50" d="M24 44c5.3 0 10.1-2 13.7-5.3l-6.3-5.3C29.4 35 26.8 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z" />
                 <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.3 5.7l6.3 5.3C41 35 44 30 44 24c0-1.2-.1-2.3-.4-3.5z" />
               </svg>
-              <span className="text-[14px] font-semibold text-slate-800">Google</span>
+              <span className="text-[14px] font-semibold text-[#1E1B4B]">Google</span>
             </button>
             <button
               type="button"
               onClick={() => oauth("apple")}
-              className="h-12 rounded-full bg-white/40 backdrop-blur-xl border border-white/60 hover:bg-white/55 active:bg-white/70 transition inline-flex items-center justify-center gap-2.5 shadow-[0_8px_24px_-12px_rgba(99,102,241,0.35)]"
+              className="h-12 rounded-full bg-white border border-[#E9E4FF] hover:border-[#C4B5FD] hover:bg-[#FAF8FF] active:bg-[#F5F3FF] transition inline-flex items-center justify-center gap-2.5 shadow-[0_8px_22px_-14px_rgba(124,58,237,0.45)]"
               aria-label="Continue with Apple"
             >
-              <svg viewBox="0 0 24 24" className="w-[18px] h-[18px] text-slate-900" fill="currentColor">
+              <svg viewBox="0 0 24 24" className="w-[18px] h-[18px] text-[#1E1B4B]" fill="currentColor">
                 <path d="M16.365 1.43c0 1.14-.46 2.23-1.21 3.01-.81.86-2.13 1.52-3.21 1.43-.14-1.09.42-2.24 1.13-2.97.79-.82 2.16-1.43 3.29-1.47zM20.5 17.06c-.55 1.27-.81 1.84-1.52 2.96-.99 1.56-2.39 3.5-4.12 3.52-1.54.02-1.93-1-4.02-.99-2.09.01-2.52 1.01-4.06.99-1.73-.02-3.05-1.77-4.04-3.33C.04 15.97-.26 11.4 1.41 8.97c1.19-1.74 3.07-2.76 4.83-2.76 1.79 0 2.92 1 4.4 1 1.43 0 2.3-1 4.37-1 1.57 0 3.23.86 4.42 2.34-3.88 2.13-3.25 7.68-.93 8.51z" />
               </svg>
-              <span className="text-[14px] font-semibold text-slate-900">Apple</span>
+              <span className="text-[14px] font-semibold text-[#1E1B4B]">Apple</span>
             </button>
           </div>
 
           {/* OR */}
           <div className="my-6 flex items-center gap-3">
-            <div className="h-px flex-1 bg-slate-200" />
-            <span className="text-[12px] font-semibold text-slate-400 tracking-wider">OR</span>
-            <div className="h-px flex-1 bg-slate-200" />
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#DDD6FE] to-[#DDD6FE]" />
+            <span className="text-[11.5px] font-bold text-[#8B5CF6] tracking-[0.14em]">OR</span>
+            <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#DDD6FE] to-[#DDD6FE]" />
           </div>
+
 
           <form onSubmit={submit} className="space-y-4">
             {!isLogin && (
               <>
                 <Field
-                  label="Full Name"
+                  label="Full name"
                   name="name"
                   autoComplete="name"
                   value={form.name}
                   onChange={(v) => update("name", v)}
-                  placeholder="আপনার পুরো নাম"
+                  placeholder="e.g. Rahim Uddin"
                   required
                 />
                 <Field
-                  label="WhatsApp Number"
+                  label="WhatsApp number"
                   name="phone"
                   autoComplete="tel"
                   value={form.phone}
                   onChange={(v) => update("phone", v)}
                   placeholder="01XXXXXXXXX"
+                  hint="We send order & delivery updates here."
                   required
                 />
               </>
             )}
 
             <Field
-              label="E-Mail Address"
+              label="Email address"
               type="email"
               name="email"
               autoComplete={isLogin ? "username" : "email"}
               value={form.email}
               onChange={(v) => update("email", v)}
-              placeholder="Enter your email..."
+              placeholder="you@example.com"
               required
             />
 
@@ -313,14 +343,15 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
               autoComplete={isLogin ? "current-password" : "new-password"}
               value={form.password}
               onChange={(v) => update("password", v)}
-              placeholder="Password@123"
+              placeholder={isLogin ? "Enter your password" : "At least 8 characters"}
+              hint={isLogin ? undefined : "Use 8+ characters with a number or symbol."}
               required
               trailing={
                 <button
                   type="button"
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => setShowPw((v) => !v)}
-                  className="grid place-items-center w-9 h-9 rounded-full text-white bg-[#7C5CFF] hover:bg-[#6B4BFF] active:bg-[#5A3FE6] transition shadow-[0_4px_12px_-4px_rgba(124,92,255,0.55)]"
+                  className="grid place-items-center w-9 h-9 rounded-full text-white bg-[#7C3AED] hover:bg-[#6D28D9] active:bg-[#5B21B6] transition shadow-[0_6px_14px_-6px_rgba(124,58,237,0.65)]"
                   aria-label={showPw ? "Hide password" : "Show password"}
                 >
                   {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -328,16 +359,17 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
               }
             />
 
+
             {isLogin ? (
               <div className="flex items-center justify-between pt-1">
-                <label className="inline-flex items-center gap-2 text-[13px] font-semibold text-slate-700 cursor-pointer select-none">
+                <label className="inline-flex items-center gap-2 text-[13px] font-semibold text-[#4B5563] cursor-pointer select-none">
                   <span
                     onClick={(e) => {
                       e.preventDefault();
                       setRemember((v) => !v);
                     }}
                     className={`grid place-items-center h-[18px] w-[18px] rounded-[5px] border transition ${
-                      remember ? "bg-slate-900 border-slate-900 text-white" : "bg-white border-slate-300"
+                      remember ? "bg-[#7C3AED] border-[#7C3AED] text-white" : "bg-white border-[#D6CEFF]"
                     }`}
                   >
                     {remember && (
@@ -347,7 +379,7 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
                     )}
                   </span>
                   <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="sr-only" />
-                  Remember me
+                  Keep me signed in
                 </label>
                 <button
                   type="button"
@@ -357,20 +389,20 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
                     setForgotMsg(null);
                     setForgotEmail(form.email);
                   }}
-                  className="text-[13px] font-bold text-slate-900 hover:text-[#2f6dff] transition"
+                  className="text-[13px] font-bold text-[#7C3AED] hover:text-[#5B21B6] transition"
                 >
                   Forgot password?
                 </button>
               </div>
             ) : (
-              <label className="flex items-start gap-2 text-[13px] text-slate-600 cursor-pointer select-none">
+              <label className="flex items-start gap-2 text-[13px] text-[#4B5563] cursor-pointer select-none">
                 <span
                   onClick={(e) => {
                     e.preventDefault();
                     setAgree((v) => !v);
                   }}
                   className={`mt-0.5 grid place-items-center h-[18px] w-[18px] rounded-[5px] border transition shrink-0 ${
-                    agree ? "bg-slate-900 border-slate-900 text-white" : "bg-white border-slate-300"
+                    agree ? "bg-[#7C3AED] border-[#7C3AED] text-white" : "bg-white border-[#D6CEFF]"
                   }`}
                 >
                   {agree && (
@@ -381,46 +413,57 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
                 </span>
                 <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} className="sr-only" />
                 <span>
-                  I agree to the <span className="font-bold text-slate-900">Terms</span> &{" "}
-                  <span className="font-bold text-slate-900">Privacy Policy</span>
+                  I agree to the{" "}
+                  <Link to="/terms" className="font-bold text-[#7C3AED] hover:underline">Terms</Link>{" "}
+                  &{" "}
+                  <Link to="/privacy-policy" className="font-bold text-[#7C3AED] hover:underline">Privacy Policy</Link>
                 </span>
               </label>
             )}
 
-            {!isLogin && (
-              <BotShield
-                purpose="signup"
-                className="relative pt-1"
-                onReady={(h) => {
-                  botShield.current = h;
-                }}
-              />
-            )}
+            {/* Human verification — runs on both sign up and sign in */}
+            <BotShield
+              key={mode}
+              purpose={isLogin ? "login" : "signup"}
+              className="relative pt-1"
+              onReady={(h) => {
+                botShield.current = h;
+              }}
+            />
 
             {err && (
-              <div className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-[13px] font-semibold text-rose-700">
+              <div className="rounded-2xl border border-rose-200 bg-rose-50 px-3.5 py-2.5 text-[13px] font-semibold text-rose-700">
                 {err}
+              </div>
+            )}
+            {notice && (
+              <div className="rounded-2xl border border-[#C7F0DC] bg-[#F0FDF6] px-3.5 py-2.5 text-[13px] font-semibold text-emerald-700 flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 mt-px shrink-0" /> {notice}
               </div>
             )}
 
             <button
               type="submit"
               disabled={busy}
-              className="w-full h-13 py-3.5 rounded-full bg-[#0c1322] hover:bg-[#1a2238] text-white text-[15px] font-bold transition shadow-[0_8px_24px_-10px_rgba(12,19,34,0.6)] inline-flex items-center justify-center gap-2 disabled:opacity-60"
+              className="w-full h-[52px] rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] active:bg-[#5B21B6] text-[15px] font-bold tracking-tight transition shadow-[0_14px_30px_-12px_rgba(124,58,237,0.65)] inline-flex items-center justify-center gap-2 disabled:opacity-60"
+              style={{ color: "#ffffff" }}
             >
               {busy && <Loader2 className="w-4 h-4 animate-spin" />}
-              {isLogin ? "Sign in" : "Create account"}
+              {busy
+                ? isLogin ? "Signing you in…" : "Creating your account…"
+                : isLogin ? "Sign in" : "Create account"}
             </button>
 
             {isLogin && forgotOpen && (
-              <div className="mt-1 p-4 rounded-2xl border border-slate-200 bg-slate-50 space-y-3">
-                <p className="text-[13px] font-bold text-slate-900">Reset your password</p>
+              <div className="mt-1 p-4 rounded-2xl border border-[#E9E4FF] bg-[#FAF8FF] space-y-3">
+                <p className="text-[13px] font-bold text-[#1E1B4B]">Reset your password</p>
                 <Field
                   label="Email"
                   type="email"
                   value={forgotEmail}
                   onChange={setForgotEmail}
                   placeholder="you@example.com"
+                  hint="We'll email you a secure reset link."
                   required
                 />
                 {forgotErr && <p className="text-[12px] font-semibold text-rose-600">{forgotErr}</p>}
@@ -433,7 +476,7 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
                   type="button"
                   onClick={sendReset}
                   disabled={forgotBusy}
-                  className="w-full h-11 rounded-full bg-white border border-slate-300 text-[13px] font-bold text-slate-900 hover:bg-slate-100 transition inline-flex items-center justify-center gap-2 disabled:opacity-60"
+                  className="w-full h-11 rounded-full bg-white border border-[#D6CEFF] text-[13px] font-bold text-[#5B21B6] hover:bg-[#F5F3FF] transition inline-flex items-center justify-center gap-2 disabled:opacity-60"
                 >
                   {forgotBusy && <Loader2 className="w-4 h-4 animate-spin" />}
                   Send reset link
@@ -441,19 +484,20 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
               </div>
             )}
 
-            <p className="text-center text-[13.5px] text-slate-500 pt-2">
+            <p className="text-center text-[13.5px] text-[#6B7280] pt-2">
               {isLogin ? (
                 <>
-                  Don't have an account yet?{" "}
+                  New to Rama Sub?{" "}
                   <Link
                     to="/register"
                     onClick={() => {
                       setMode("signup");
                       setErr(null);
+                      setNotice(null);
                     }}
-                    className="font-bold text-slate-900 hover:text-[#2f6dff] transition"
+                    className="font-bold text-[#7C3AED] hover:text-[#5B21B6] transition"
                   >
-                    Sign up
+                    Create a free account
                   </Link>
                 </>
               ) : (
@@ -464,8 +508,9 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
                     onClick={() => {
                       setMode("login");
                       setErr(null);
+                      setNotice(null);
                     }}
-                    className="font-bold text-slate-900 hover:text-[#2f6dff] transition"
+                    className="font-bold text-[#7C3AED] hover:text-[#5B21B6] transition"
                   >
                     Sign in
                   </Link>
@@ -476,9 +521,10 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
         </div>
       </div>
 
-      <p className="mt-6 text-center text-[12.5px] text-slate-400">
-        © {year} Rama Sub
+      <p className="mt-6 text-center text-[12.5px] text-[#9CA3AF]">
+        © {year} Rama Sub · Protected by bot &amp; DDoS shield
       </p>
+
     </div>
   );
 }
@@ -490,6 +536,7 @@ function Field({
   type = "text",
   required,
   placeholder,
+  hint,
   trailing,
   name,
   autoComplete,
@@ -500,17 +547,18 @@ function Field({
   type?: string;
   required?: boolean;
   placeholder?: string;
+  hint?: string;
   trailing?: React.ReactNode;
   name?: string;
   autoComplete?: string;
 }) {
   return (
     <div className="block">
-      <span className="text-[13.5px] font-bold text-slate-900 block">
+      <span className="text-[13px] font-bold text-[#1E1B4B] block">
         {label}
-        {required && <span className="text-rose-500"> *</span>}
+        {required && <span className="text-[#7C3AED]"> *</span>}
       </span>
-      <div className="mt-2 relative">
+      <div className="mt-1.5 relative">
         <input
           type={type}
           name={name}
@@ -519,12 +567,13 @@ function Field({
           onChange={(e) => onChange(e.target.value)}
           required={required}
           placeholder={placeholder}
-          className={`w-full h-12 px-5 ${trailing ? "pr-14" : ""} rounded-full bg-white border border-slate-200 text-[14px] text-slate-900 placeholder:text-slate-400 outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-200 transition`}
+          className={`w-full h-12 px-5 ${trailing ? "pr-14" : ""} rounded-full bg-white border border-[#E9E4FF] text-[14px] text-[#1E1B4B] placeholder:text-[#A1A1AA] outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/12 transition`}
         />
         {trailing && (
           <span className="absolute right-2 top-1/2 -translate-y-1/2 z-10">{trailing}</span>
         )}
       </div>
+      {hint && <p className="mt-1.5 text-[11.5px] text-[#6B7280] pl-1">{hint}</p>}
     </div>
   );
 }
