@@ -9,7 +9,7 @@ import {
   type PublicBotConfig,
 } from "@/lib/bot-shield.functions";
 
-type Purpose = "signup" | "reset" | "contact";
+type Purpose = "signup" | "login" | "reset" | "contact";
 
 declare global {
   interface Window {
@@ -52,6 +52,8 @@ function loadTurnstileScript(): Promise<void> {
 export type BotShieldHandle = {
   /** Runs verification and resolves with a single-use pass token. Throws on failure. */
   getToken: () => Promise<string>;
+  /** Forget the cached pass so the next attempt gets a fresh one (tokens are single-use). */
+  reset: () => void;
   ready: boolean;
 };
 
@@ -162,10 +164,21 @@ export function BotShield({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config, purpose]);
 
+  const reset = useCallback(() => {
+    cachedToken.current = "";
+    turnstileToken.current = "";
+    mountedAt.current = Date.now();
+    setState("idle");
+    setMessage(null);
+    try {
+      window.turnstile?.reset();
+    } catch { /* ignore */ }
+  }, []);
+
   useEffect(() => {
-    if (config) onReady?.({ getToken, ready: true });
+    if (config) onReady?.({ getToken, reset, ready: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config, getToken]);
+  }, [config, getToken, reset]);
 
   if (!config?.enabled) return null;
 

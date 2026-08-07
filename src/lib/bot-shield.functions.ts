@@ -23,7 +23,7 @@ export type BotProtectionSettings = {
   turnstile_secret_configured: boolean;
 };
 
-const purposeSchema = z.enum(["signup", "reset", "contact"]);
+const purposeSchema = z.enum(["signup", "login", "reset", "contact"]);
 
 /** Public: what the browser needs to render the verification widget. */
 export const getBotShieldConfig = createServerFn({ method: "GET" }).handler(
