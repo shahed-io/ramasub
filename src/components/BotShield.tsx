@@ -200,10 +200,10 @@ export function BotShield({
       <div
         className={`flex items-center justify-center gap-2 rounded-2xl border px-3 py-2 text-[12.5px] font-medium ${
           state === "error"
-            ? "border-rose-200 bg-rose-50 text-rose-700"
+            ? "border-[#FECDD3] bg-[#FFF1F2] text-[#BE123C]"
             : state === "ok"
-              ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-              : "border-violet-200 bg-violet-50/70 text-violet-700"
+              ? "border-[#A7F3D0] bg-[#ECFDF5] text-[#047857]"
+              : "border-[#DDD6FE] bg-[#F5F3FF] text-[#5B21B6]"
         }`}
         aria-live="polite"
       >
@@ -221,7 +221,7 @@ export function BotShield({
           </>
         ) : (
           <>
-            <ShieldCheck className="w-3.5 h-3.5" /> Protected by Rama Sub security shield
+            <ShieldCheck className="w-3.5 h-3.5" /> Protected — bot verification active
           </>
         )}
       </div>

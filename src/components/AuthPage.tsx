@@ -229,7 +229,7 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
   const year = useMemo(() => new Date().getFullYear(), []);
 
   return (
-    <div className="dark-adapt relative min-h-screen bg-white flex flex-col items-center justify-between py-8 px-4 overflow-hidden">
+    <div className="dark-adapt relative min-h-[calc(100vh-140px)] bg-white flex flex-col items-center justify-between py-10 px-4 overflow-hidden">
       {/* Soft violet aurora background */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,#FFFFFF_0%,#F5F3FF_55%,#FFFFFF_100%)]" />
