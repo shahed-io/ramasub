@@ -445,7 +445,8 @@ function AuthPage({ initialMode = "login", openForgot = false }: { initialMode?:
             <button
               type="submit"
               disabled={busy}
-              className="w-full h-[52px] rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] active:bg-[#5B21B6] text-white text-[15px] font-bold tracking-tight transition shadow-[0_14px_30px_-12px_rgba(124,58,237,0.65)] inline-flex items-center justify-center gap-2 disabled:opacity-60"
+              className="w-full h-[52px] rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] active:bg-[#5B21B6] text-[15px] font-bold tracking-tight transition shadow-[0_14px_30px_-12px_rgba(124,58,237,0.65)] inline-flex items-center justify-center gap-2 disabled:opacity-60"
+              style={{ color: "#ffffff" }}
             >
               {busy && <Loader2 className="w-4 h-4 animate-spin" />}
               {busy
