@@ -854,7 +854,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  const onPickVideo = async (file: File | undefined) => {
  if (!file) return;
  if (!file.type.startsWith("video/")) { toast.error("শুধু ভিডিও ফাইল আপলোড করুন"); return; }
- if (file.size > 100 * 1024 * 1024) { toast.error("ভিডিও 100MB-এর কম হতে হবে"); return; }
+ if (file.size > 500 * 1024 * 1024) { toast.error("ভিডিও 500MB-এর কম হতে হবে"); return; }
  setAi("video-up");
  try {
  const ext = file.name.split(".").pop()?.toLowerCase() || "mp4";
@@ -1552,7 +1552,7 @@ function ProductEditor({ product, isNew, onClose, onSaved }: { product: Product;
  <input ref={videoRef} type="file" accept="video/*" className="hidden" onChange={(e) => { onPickVideo(e.target.files?.[0]); e.target.value = ""; }} />
  <input value={meta.video_url ?? ""} onChange={(e) => setMeta("video_url", e.target.value)} placeholder="https://youtube.com/watch?v=... বা আপলোড করুন" className="flex-1 min-w-0 h-11 px-3.5 rounded-xl border border-white/60 bg-white/60 backdrop-blur text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200" />
  </div>
- <p className="mt-1 text-[11px] text-slate-400">MP4/WebM ফাইল সর্বোচ্চ 100MB · অথবা YouTube/Vimeo লিংক দিন</p>
+ <p className="mt-1 text-[11px] text-slate-400">MP4/WebM ফাইল সর্বোচ্চ 500MB · অথবা YouTube/Vimeo লিংক দিন</p>
  {meta.video_url && (
  <div className="mt-3 relative rounded-xl overflow-hidden border border-slate-200 bg-black">
  {/\.(mp4|webm|ogg)(\?|$)/i.test(meta.video_url) ? (
