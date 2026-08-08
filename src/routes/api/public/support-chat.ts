@@ -133,6 +133,32 @@ export const Route = createFileRoute("/api/public/support-chat")({
           },
         });
       },
+      /**
+       * Handle admin replies via Telegram/Live Chat back to the user's session.
+       * Since there's no websocket for the support widget yet, this is mostly for
+       * logging and future-proofing (polling or realtime DB).
+       */
+      PUT: async ({ request }) => {
+        const { guardPublicRoute, tooManyRequests } = await import("@/lib/rate-limit.server");
+        const rl = await guardPublicRoute("public.support_chat_reply", request);
+        if (!rl.allowed) return tooManyRequests(rl);
+
+        const body = await request.json();
+        const { sessionId, message } = z.object({
+          sessionId: z.string(),
+          message: z.string(),
+        }).parse(body);
+
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+        await supabaseAdmin.from("live_chat_messages" as any).insert({
+          session_id: sessionId,
+          role: "assistant",
+          content: `[Admin] ${message}`,
+          visitor_label: "Admin Reply",
+        });
+
+        return json({ ok: true }, 200);
+      }
     },
   },
 });
