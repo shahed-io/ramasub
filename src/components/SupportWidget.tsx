@@ -124,7 +124,27 @@ async function logChatMessage(role: "user" | "assistant", content: string) {
           ["Session", session_id.slice(0, 8)],
         ],
         message: content.slice(0, 300),
-        url: `https://ramasub.com/Mahbub214/live-chat`,
+        url: `/Mahbub214/live-chat`,
+      });
+    }
+
+    // Logic for "Request Human" or specific keywords that need admin attention
+    const humanKeywords = ["human", "মানুষ", "admin", "অ্যাডমিন", "সরাসরি", "কথা বলতে চাই", "support help"];
+    const contentLower = content.toLowerCase();
+    const needsHuman = role === "user" && humanKeywords.some(k => contentLower.includes(k));
+
+    if (needsHuman) {
+      const { notifyTelegram } = await import("@/lib/telegram");
+      notifyTelegram({
+        event: "support_ticket", // Using support_ticket as a generic high-priority notification
+        title: "হিউম্যান সাপোর্ট রিকোয়েস্ট",
+        lines: [
+          ["গ্রাহক", visitor_label ?? "Guest"],
+          ["সেশন", session_id.slice(0, 8)],
+          ["রিকোয়েস্ট", content.slice(0, 100) + "..."],
+        ],
+        message: "একজন গ্রাহক সরাসরি মানুষের সাথে কথা বলতে চাচ্ছেন।",
+        url: `/Mahbub214/live-chat?session=${session_id}`,
       });
     }
   } catch {
