@@ -120,30 +120,30 @@ async function logChatMessage(role: "user" | "assistant", content: string) {
         event: "chat_message",
         title: "নতুন লাইভ চ্যাট মেসেজ",
         lines: [
-          ["From", visitor_label ?? "Guest"],
-          ["Session", session_id.slice(0, 8)],
+          ["গ্রাহক", visitor_label ?? "Guest"],
+          ["সেশন", session_id.slice(0, 8)],
         ],
         message: content.slice(0, 300),
-        url: `/Mahbub214/live-chat`,
+        url: `/Mahbub214/live-chat?session=${session_id}`,
       });
     }
 
     // Logic for "Request Human" or specific keywords that need admin attention
-    const humanKeywords = ["human", "মানুষ", "admin", "অ্যাডমিন", "সরাসরি", "কথা বলতে চাই", "support help"];
+    const humanKeywords = ["human", "মানুষ", "admin", "অ্যাডমিন", "সরাসরি", "কথা বলতে চাই", "support help", "ব্যক্তি"];
     const contentLower = content.toLowerCase();
     const needsHuman = role === "user" && humanKeywords.some(k => contentLower.includes(k));
 
     if (needsHuman) {
       const { notifyTelegram } = await import("@/lib/telegram");
       notifyTelegram({
-        event: "support_ticket", // Using support_ticket as a generic high-priority notification
-        title: "হিউম্যান সাপোর্ট রিকোয়েস্ট",
+        event: "support_ticket", // High priority
+        title: "🆘 হিউম্যান সাপোর্ট রিকোয়েস্ট",
         lines: [
           ["গ্রাহক", visitor_label ?? "Guest"],
           ["সেশন", session_id.slice(0, 8)],
-          ["রিকোয়েস্ট", content.slice(0, 100) + "..."],
+          ["বার্তা", content.slice(0, 100)],
         ],
-        message: "একজন গ্রাহক সরাসরি মানুষের সাথে কথা বলতে চাচ্ছেন।",
+        message: "অর্ডার বা টেকনিক্যাল বিষয়ে একজন গ্রাহক আপনার সরাসরি সাহায্য চাচ্ছেন।",
         url: `/Mahbub214/live-chat?session=${session_id}`,
       });
     }
