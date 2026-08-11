@@ -1,6 +1,6 @@
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
-import { Check, Tag, ChevronDown, ChevronUp } from "lucide-react";
+import { Check, Tag, ChevronDown, ChevronUp, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 
 interface OrderSummaryProps {
