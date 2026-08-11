@@ -51,7 +51,8 @@ export function OrderSummary({
 
       {/* Main Summary Panel */}
       <div className={`
-        lg:block bg-card/40 backdrop-blur-xl border border-border/50 rounded-[2rem] shadow-2xl shadow-primary/5 overflow-hidden transition-all duration-500
+        lg:block bg-card/60 backdrop-blur-2xl border border-white/40 rounded-[2rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] overflow-hidden transition-all duration-500
+
         ${isExpanded ? "block" : "hidden lg:block"}
       `}>
         <div className="p-6 md:p-8 space-y-6">
@@ -99,7 +100,7 @@ export function OrderSummary({
             ))}
           </div>
 
-          <div className="h-px bg-gradient-to-r from-transparent via-border/60 to-transparent" />
+          <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
 
           {/* Coupon Section */}
           <div className="space-y-3">
@@ -129,7 +130,7 @@ export function OrderSummary({
           </div>
 
           {/* Price Breakdown */}
-          <div className="space-y-3 bg-muted/30 rounded-2xl p-4 border border-border/40">
+          <div className="space-y-3 bg-white/40 dark:bg-black/20 rounded-2xl p-4 border border-white/60 shadow-sm">
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground font-medium">Subtotal</span>
               <span className="text-foreground font-bold tabular-nums">{format(total)}</span>
@@ -140,7 +141,7 @@ export function OrderSummary({
                 <span className="text-emerald-500 font-bold tabular-nums">−{format(appliedDiscount)}</span>
               </div>
             )}
-            <div className="h-px bg-border/40 my-2" />
+            <div className="h-px bg-primary/10 my-2" />
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-lg font-bold text-foreground">Total</span>

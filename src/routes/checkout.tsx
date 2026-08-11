@@ -85,7 +85,7 @@ const normalizeBdPhone = (value: string) => {
 };
 const isValidBdPhone = (value: string) => bdPhoneRe.test(normalizeBdPhone(value));
 
-const CTA_GRADIENT = "linear-gradient(135deg, #6366f1, #8b5cf6, #d946ef)";
+const CTA_GRADIENT = "linear-gradient(135deg, #7c3aed, #6366f1, #3b82f6)";
 
 function CheckoutPage() {
   const { items, total, clear, ready: cartReady } = useCart();
