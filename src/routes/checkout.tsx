@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Check, Copy, Lock, Smartphone, Loader2, X, ChevronRight, Tag, ShieldCheck } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { Check, Loader2, X, ChevronRight, ShieldCheck, Lock, ArrowLeft, User, Mail, Phone, ShoppingBag } from "lucide-react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
 import { useAuth } from "@/context/AuthContext";
@@ -16,6 +16,12 @@ import { sendTransactionalEmail } from "@/lib/email/send";
 import { createOrder } from "@/lib/orders.functions";
 import { trackPurchase } from "@/lib/trackEvent";
 import { notifyTelegram } from "@/lib/telegram";
+import { PillField } from "@/components/checkout/PillField";
+import { OrderSummary } from "@/components/checkout/OrderSummary";
+import { PaymentMethods } from "@/components/checkout/PaymentMethods";
+import { CheckoutProgress } from "@/components/checkout/CheckoutProgress";
+import { PaymentInstructions } from "@/components/checkout/PaymentInstructions";
+
 
 
 function CheckoutErrorComponent({ error }: { error: Error }) {
