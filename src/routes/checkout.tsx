@@ -502,7 +502,7 @@ function CheckoutPage() {
           {/* Left Column: Forms */}
           <div className="space-y-12">
             <CheckoutProgress 
-              currentStep={step} 
+              currentStep={step || 1} 
               onStepClick={setStep} 
               isStep1Valid={step1Valid} 
             />
