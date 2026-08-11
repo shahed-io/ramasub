@@ -433,140 +433,11 @@ function CheckoutPage() {
     }
   };
 
-  const firstItem = items[0];
-  const firstImage = productImages[firstItem.slug];
-  const headerTitle = firstItem.name;
-  const headerSubtitle = items.length > 1 ? `+${items.length - 1} more item${items.length > 2 ? "s" : ""}` : (firstItem.planPeriod || "");
+  const applyCouponNow = useCallback(() => {
+    const code = couponInput.trim().toUpperCase();
+    navigate({ to: "/checkout", search: { step: 1, coupon: code }, replace: true });
+  }, [couponInput, navigate]);
 
-
-  // ============ STEP 1: CONTACT ============
-  if (step === 1) {
-    const applyCouponNow = () => {
-      const code = couponInput.trim().toUpperCase();
-      navigate({ to: "/checkout", search: { step: 1, coupon: code }, replace: true });
-    };
-    return (
-      <div className="checkout-page min-h-screen bg-background text-foreground grid place-items-center px-4 py-8 md:py-12">
-        <div className="w-full max-w-[520px] rounded-[2rem] border border-border bg-card text-card-foreground shadow-2xl overflow-hidden">
-          {/* Header */}
-          <div className="flex items-center justify-between px-5 pt-5 pb-3">
-            <div className="flex items-center gap-3 min-w-0">
-              {firstImage ? (
-                <img src={firstImage} alt={firstItem.name} className="w-11 h-11 shrink-0 rounded-xl object-cover border border-border" loading="lazy" />
-              ) : (
-                <div className={`w-11 h-11 shrink-0 rounded-xl bg-gradient-to-br ${firstItem.gradient} grid place-items-center text-lg`}>
-                  {firstItem.emoji}
-                </div>
-              )}
-              <div className="min-w-0 flex-1">
-                <h1 className="text-[15px] font-semibold truncate leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
-                  {headerTitle}
-                </h1>
-                {headerSubtitle && (
-                  <p className="text-[11px] text-muted-foreground truncate mt-0.5">{headerSubtitle}</p>
-                )}
-              </div>
-            </div>
-
-            <button
-              onClick={() => navigate({ to: "/cart" })}
-              aria-label="Close"
-              className="p-1.5 rounded-full hover:bg-muted text-muted-foreground"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-
-          <div className="h-px bg-border mx-5" />
-
-          {/* Step heading */}
-          <div className="flex items-center justify-between px-5 pt-4">
-            <div className="flex items-center gap-2.5">
-              <span className="grid place-items-center w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold">
-                ১
-              </span>
-              <h2 className="text-[15px] font-semibold" style={{ fontFamily: "var(--font-heading)" }}>
-                আপনার তথ্য দিন
-              </h2>
-            </div>
-            {user && (
-              <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-primary/10 text-primary inline-flex items-center gap-1">
-                লগইন আছে <Check className="w-3 h-3" />
-              </span>
-            )}
-          </div>
-
-          {/* Fields */}
-          <div className="px-5 mt-4 space-y-3">
-            <PillField label="পুরো নাম" value={form.name} onChange={(v) => update("name", v)} onBlur={() => blur("name")} error={touched.name ? errors.name : null} placeholder="আপনার নাম" />
-            <PillField label="ইমেইল" type="email" value={form.email} onChange={(v) => update("email", v)} onBlur={() => blur("email")} error={touched.email ? errors.email : null} placeholder="you@email.com" />
-            <PillField label="ফোন নম্বর" value={form.phone} onChange={(v) => update("phone", v)} onBlur={() => blur("phone")} error={touched.phone ? errors.phone : null} placeholder="01XXXXXXXXX" inputMode="numeric" />
-
-            {/* Coupon */}
-            <div>
-              <label className="text-[12px] font-medium text-muted-foreground ml-3">কুপন কোড (ঐচ্ছিক)</label>
-              <div className="mt-1 flex items-center gap-2">
-                <div className="flex-1 flex items-center gap-2 rounded-full border border-border bg-background px-4 h-11 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15 transition">
-                  <Tag className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-                  <input
-                    value={couponInput}
-                    onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
-                    placeholder="SAVE20"
-                    className="flex-1 bg-transparent outline-none text-sm text-foreground placeholder:text-muted-foreground"
-                  />
-                </div>
-                <button
-                  onClick={applyCouponNow}
-                  className="h-11 px-5 rounded-full border border-primary/40 text-primary text-sm font-semibold hover:bg-primary/10 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  Apply
-                </button>
-              </div>
-              {coupon && (
-                <p className={`text-[11px] mt-1.5 ml-3 ${applied.valid ? "text-emerald-500" : "text-destructive"}`}>
-                  {applied.valid ? `প্রয়োগ হয়েছে: ${applied.label}` : "কুপন কোডটি সঠিক নয়"}
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* Totals */}
-          <div className="mx-5 mt-5 rounded-2xl border border-border bg-background overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-2.5 text-sm">
-              <span className="text-muted-foreground">মূল্য</span>
-              <span className="text-foreground font-medium tabular-nums">{format(total)}</span>
-            </div>
-            {applied.discount > 0 && (
-              <div className="flex items-center justify-between px-4 py-2.5 text-sm border-t border-border">
-                <span className="text-emerald-500">ছাড় ({applied.code})</span>
-                <span className="text-emerald-500 font-medium tabular-nums">−{format(applied.discount)}</span>
-              </div>
-            )}
-            <div className="flex items-center justify-between px-4 py-3 border-t border-border bg-muted">
-              <span className="text-[15px] font-semibold">মোট</span>
-              <span className="text-xl font-bold text-primary tabular-nums" style={{ fontFamily: "var(--font-heading)" }}>
-                {format(grandTotal)}
-              </span>
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="px-5 py-5">
-            <button
-              onClick={goNext}
-              disabled={!step1Valid}
-              className="w-full h-12 rounded-full text-primary-foreground text-[15px] font-semibold inline-flex items-center justify-center gap-2 disabled:opacity-50 hover:opacity-95 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-lg shadow-primary/25"
-              style={{ background: CTA_GRADIENT }}
-            >
-              পেমেন্টে যান <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // ============ STEP 2: PAYMENT ============
   const brand = selectedMethod.brand_color || "#7c3aed";
   const sendLabel = selectedMethod.send_money_label || "Send Money";
 
@@ -602,345 +473,184 @@ function CheckoutPage() {
   };
 
   return (
-    <div className="checkout-page min-h-screen bg-background text-foreground grid place-items-center px-4 py-8 md:py-12">
-      <div className="w-full max-w-[520px] rounded-[2rem] border border-border bg-card text-card-foreground shadow-2xl overflow-hidden">
-        {/* Header */}
-        <div className="flex items-center justify-between px-5 pt-5 pb-3">
-          <div className="flex items-center gap-3 min-w-0">
-            {firstImage ? (
-              <img src={firstImage} alt={firstItem.name} className="w-11 h-11 shrink-0 rounded-xl object-cover border border-border" loading="lazy" />
-            ) : (
-              <div className={`w-11 h-11 shrink-0 rounded-xl bg-gradient-to-br ${firstItem.gradient} grid place-items-center text-lg`}>
-                {firstItem.emoji}
-              </div>
-            )}
-            <div className="min-w-0 flex-1">
-              <h1 className="text-[15px] font-semibold truncate leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
-                {headerTitle}
-              </h1>
-              {headerSubtitle && (
-                <p className="text-[11px] text-muted-foreground truncate mt-0.5">{headerSubtitle}</p>
-              )}
-            </div>
-          </div>
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/10">
+      {/* Background Decor */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden opacity-30">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-500/10 rounded-full blur-[120px]" />
+      </div>
 
-          <button onClick={() => navigate({ to: "/cart" })} aria-label="Close" className="p-1.5 rounded-full hover:bg-muted text-muted-foreground">
-            <X className="w-4 h-4" />
-          </button>
+      <div className="relative z-10 max-w-[1200px] mx-auto px-4 py-12 md:py-20">
+        {/* Simple Header */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 animate-in fade-in slide-in-from-top-4 duration-700">
+          <div>
+            <div className="flex items-center gap-2 text-primary font-bold mb-2 cursor-pointer hover:opacity-80 transition" onClick={() => navigate({ to: "/cart" })}>
+              <ArrowLeft className="w-4 h-4" />
+              <span className="text-xs uppercase tracking-[0.2em]">Back to Cart</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-black tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
+              Checkout
+            </h1>
+          </div>
+          <div className="flex items-center gap-4 text-xs font-bold text-muted-foreground uppercase tracking-widest bg-card/40 backdrop-blur-sm border border-border/40 px-6 py-3 rounded-2xl">
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+            <span>Secure 256-bit SSL Encryption</span>
+          </div>
         </div>
 
-        <div className="h-px bg-border mx-5" />
+        <div className="grid lg:grid-cols-[1fr,400px] gap-12 items-start">
+          {/* Left Column: Forms */}
+          <div className="space-y-12">
+            <CheckoutProgress 
+              currentStep={step} 
+              onStepClick={setStep} 
+              isStep1Valid={step1Valid} 
+            />
 
-        {/* Step heading */}
-        <div className="flex items-center justify-between px-5 pt-4">
-          <div className="flex items-center gap-2.5">
-            <span className="grid place-items-center w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold">২</span>
-            <h2 className="text-[15px] font-semibold" style={{ fontFamily: "var(--font-heading)" }}>পেমেন্ট করুন</h2>
-          </div>
-          <button onClick={() => setStep(1)} className="text-xs text-primary hover:opacity-80 inline-flex items-center gap-1 font-medium">
-            ← পিছনে
-          </button>
-        </div>
-
-        {/* Payment method tiles — bKash / Nagad / Wallet */}
-        <div className="px-5 mt-4 grid grid-cols-3 gap-3" role="radiogroup" aria-label="Payment method">
-          {methods.map((m) => {
-            const active = method === m.id;
-            return (
-              <button
-                key={m.id}
-                onClick={() => { setMethod(m.id); setUseWallet(false); }}
-                role="radio"
-                aria-checked={active}
-                className={`relative rounded-2xl border-2 bg-background px-3 py-3 flex flex-col items-center gap-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                  active ? "border-primary ring-2 ring-primary/20" : "border-border hover:border-primary/40"
-                }`}
-              >
-                <div className="w-12 h-12 grid place-items-center">
-                  {m.logo_url ? (
-                    <img src={m.logo_url} alt={m.name} className="max-w-full max-h-full object-contain" loading="lazy" />
-                  ) : (
-                    <div className={`w-10 h-10 rounded-full ${m.color} grid place-items-center text-white text-[10px] font-bold`}>
-                      {m.name.slice(0, 4)}
-                    </div>
-                  )}
+            {step === 1 ? (
+              <div className="space-y-8 animate-in fade-in slide-in-from-left-6 duration-500">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary grid place-items-center">
+                    <User className="w-4 h-4" />
+                  </div>
+                  <h2 className="text-lg font-bold text-foreground" style={{ fontFamily: "var(--font-heading)" }}>
+                    Contact Information
+                  </h2>
                 </div>
-                <div className="text-[12px] font-semibold text-foreground text-center leading-tight">{m.name}</div>
-              </button>
-            );
-          })}
 
-          {/* Wallet tile */}
-          <button
-            onClick={() => { setMethod("wallet"); setUseWallet(true); }}
-            role="radio"
-            aria-checked={isWalletMethod}
-            className={`relative rounded-2xl border-2 bg-background px-3 py-3 flex flex-col items-center gap-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-              isWalletMethod ? "border-primary ring-2 ring-primary/20" : "border-border hover:border-primary/40"
-            }`}
-          >
-            <div className="w-12 h-12 grid place-items-center">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/70 grid place-items-center text-primary-foreground shadow-md">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M2 10h20"/><circle cx="17" cy="15" r="1.5" fill="currentColor"/></svg>
-              </div>
-            </div>
-            <div className="text-[12px] font-semibold text-foreground text-center leading-tight">Wallet</div>
-            <div className="text-[10px] text-muted-foreground tabular-nums">৳{walletBalance.toLocaleString()}</div>
-          </button>
-
-          {/* EPS Online Gateway tile (admin-controlled) */}
-          {epsEnabled && (
-            <button
-              onClick={() => { setMethod("eps"); setUseWallet(false); }}
-              role="radio"
-              aria-checked={isEpsMethod}
-              className={`relative rounded-2xl border-2 bg-background px-3 py-3 flex flex-col items-center gap-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                isEpsMethod ? "border-primary ring-2 ring-primary/20" : "border-border hover:border-primary/40"
-              }`}
-            >
-              <div className="w-12 h-12 grid place-items-center">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 grid place-items-center text-white shadow-md text-[10px] font-bold">
-                  EPS
+                <div className="grid md:grid-cols-2 gap-6">
+                  <PillField 
+                    label="Full Name" 
+                    icon={User}
+                    value={form.name} 
+                    onChange={(v) => update("name", v)} 
+                    onBlur={() => blur("name")} 
+                    error={touched.name ? errors.name : null} 
+                    placeholder="Enter your name" 
+                  />
+                  <PillField 
+                    label="Email Address" 
+                    type="email" 
+                    icon={Mail}
+                    value={form.email} 
+                    onChange={(v) => update("email", v)} 
+                    onBlur={() => blur("email")} 
+                    error={touched.email ? errors.email : null} 
+                    placeholder="you@example.com" 
+                  />
                 </div>
-              </div>
-              <div className="text-[12px] font-semibold text-foreground text-center leading-tight">EPS Online</div>
-              <div className="text-[10px] text-muted-foreground">Cards • Mobile</div>
-            </button>
-          )}
-
-          {/* SSLCommerz Gateway tile (admin-controlled) */}
-          {sslczEnabled && (
-            <button
-              onClick={() => { setMethod("sslcommerz"); setUseWallet(false); }}
-              role="radio"
-              aria-checked={isSslczMethod}
-              className={`relative rounded-2xl border-2 bg-background px-3 py-3 flex flex-col items-center gap-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                isSslczMethod ? "border-primary ring-2 ring-primary/20" : "border-border hover:border-primary/40"
-              }`}
-            >
-              <div className="w-12 h-12 grid place-items-center">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-600 to-emerald-700 grid place-items-center text-white shadow-md text-[9px] font-bold">
-                  SSL
+                
+                <div className="max-w-md">
+                  <PillField 
+                    label="Phone Number" 
+                    icon={Phone}
+                    value={form.phone} 
+                    onChange={(v) => update("phone", v)} 
+                    onBlur={() => blur("phone")} 
+                    error={touched.phone ? errors.phone : null} 
+                    placeholder="01XXXXXXXXX" 
+                    inputMode="tel" 
+                  />
                 </div>
-              </div>
-              <div className="text-[12px] font-semibold text-foreground text-center leading-tight">SSLCommerz</div>
-              <div className="text-[10px] text-muted-foreground">Card • Bank • MFS</div>
-            </button>
-          )}
-        </div>
 
-        {/* Gateway-selected info banner */}
-        {isGatewayMethod && (
-          <div className="mx-5 mt-4 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-teal-500/5 p-3.5">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-emerald-500/15 grid place-items-center text-lg shrink-0">🔒</div>
-              <div className="flex-1 min-w-0">
-                <div className="text-[13px] font-bold text-foreground">
-                  {isEpsMethod ? "EPS Secure Gateway" : "SSLCommerz Secure Gateway"}
+                <div className="pt-6">
+                  <button
+                    onClick={goNext}
+                    disabled={!step1Valid}
+                    className="group relative h-14 w-full md:w-auto md:px-12 rounded-[2rem] bg-foreground text-background text-sm font-black uppercase tracking-widest overflow-hidden transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:hover:scale-100 shadow-xl shadow-foreground/10"
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-3">
+                      Continue to Payment
+                      <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                    <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 transition-opacity" />
+                  </button>
                 </div>
-                <div className="text-[11px] text-muted-foreground">Order confirm করলে {isEpsMethod ? "EPS" : "SSLCommerz"}-এর secure page-এ redirect হবে। সেখানে Card / Mobile Banking / Bank দিয়ে payment complete করুন।</div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Wallet-selected info banner */}
-        {isWalletMethod && (
-          <div className="mx-5 mt-4 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 to-primary/5 p-3.5">
-            {walletInsufficient ? (
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-destructive/15 grid place-items-center text-lg shrink-0">⚠️</div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-[13px] font-bold text-foreground">ব্যালেন্স অপর্যাপ্ত</div>
-                  <div className="text-[11px] text-muted-foreground">আপনার Wallet: ৳{walletBalance.toLocaleString()} • প্রয়োজন: ৳{subAfterCoupon.toLocaleString()}</div>
-                </div>
-                <Link to="/wallet" className="text-[12px] font-semibold text-primary shrink-0 px-2.5 py-1 rounded-full border border-primary/40 hover:bg-primary/10 transition">
-                  Top-up
-                </Link>
               </div>
             ) : (
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-primary/15 grid place-items-center text-lg shrink-0">✓</div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-[13px] font-bold text-foreground">Wallet দিয়ে সম্পূর্ণ পেমেন্ট হবে</div>
-                  <div className="text-[11px] text-muted-foreground">৳{walletApplied.toLocaleString()} কাটা হবে • বাকি ৳{(walletBalance - walletApplied).toLocaleString()}</div>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Brand instruction card */}
-        {!fullyByWallet && !isGatewayMethod && (
-          <div className="mx-5 mt-5 rounded-3xl border border-border bg-muted p-5 space-y-4">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-9 h-9 rounded-lg grid place-items-center bg-background border border-border shrink-0">
-                  {selectedMethod.logo_url ? (
-                    <img src={selectedMethod.logo_url} alt="" className="max-w-full max-h-full object-contain" />
-                  ) : (
-                    <Smartphone className="w-4 h-4" style={{ color: brand }} />
-                  )}
-                </div>
-                <div className="min-w-0">
-                  <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">{selectedMethod.name}</div>
-                  <div className="text-[13px] font-bold text-foreground">{sendLabel} করুন</div>
-                </div>
-              </div>
-              <div className="text-right shrink-0">
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">মোট পাঠাবেন</div>
-                <div className="text-[16px] font-bold text-primary tabular-nums">৳{grandTotal.toLocaleString()}</div>
-              </div>
-            </div>
-
-            {/* Number card */}
-            <div className="bg-background rounded-2xl p-4 flex flex-col items-center border border-border">
-              <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold mb-1">{sendLabel} নম্বর</span>
-              <button
-                onClick={copyNumber}
-                className="text-[22px] sm:text-[24px] font-black text-foreground tracking-wider mb-3 tabular-nums hover:text-primary transition"
-                style={{ fontFamily: "var(--font-heading)" }}
-                title="ক্লিক করে কপি করুন"
-              >
-                {selectedMethod.number}
-              </button>
-              <button
-                onClick={copyNumber}
-                className="w-full h-11 rounded-xl text-primary-foreground font-bold inline-flex items-center justify-center gap-2 transition active:scale-95 shadow-lg shadow-primary/20"
-                style={{ background: CTA_GRADIENT }}
-              >
-                {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                {copied ? "কপি হয়েছে" : "নম্বরটি কপি করুন"}
-              </button>
-              <p className="text-[10px] text-muted-foreground mt-2 italic">👆 নম্বরটি ক্লিক করলেই কপি হবে</p>
-            </div>
-
-            {/* Steps */}
-            <div className="space-y-2 text-[12px] text-foreground/85 font-medium px-1">
-              {steps2.map((s, i) => (
-                <div key={i} className="flex gap-3 items-start">
-                  <span className="w-5 h-5 bg-primary/15 text-primary rounded-full flex-shrink-0 grid place-items-center text-[10px] font-bold mt-0.5">
-                    {i + 1}
-                  </span>
-                  <p className="leading-relaxed">{s}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {!fullyByWallet && !isGatewayMethod && (
-          <>
-            {/* Sender number */}
-            <div className="px-5 mt-5">
-              <label className="text-[12px] font-medium text-muted-foreground">
-                যে নম্বর থেকে পাঠিয়েছেন <span className="text-destructive">*</span>
-              </label>
-              <div className={`mt-1 flex items-center rounded-full border bg-background px-4 h-11 transition ${
-                touched.senderNumber && errors.senderNumber ? "border-destructive/60" : "border-border focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15"
-              }`}>
-                <input
-                  value={form.senderNumber}
-                  onChange={(e) => update("senderNumber", e.target.value)}
-                  onBlur={() => blur("senderNumber")}
-                  inputMode="numeric"
-                  placeholder="01XXXXXXXXX"
-                  className="flex-1 bg-transparent outline-none text-sm text-foreground placeholder:text-muted-foreground tracking-wide"
+              <div className="space-y-12">
+                <PaymentMethods 
+                  methods={methods}
+                  selectedMethod={method}
+                  onSelect={setMethod}
+                  walletBalance={walletBalance}
+                  useWallet={useWallet}
+                  onWalletToggle={setUseWallet}
+                  epsEnabled={!!epsEnabled}
+                  sslczEnabled={!!sslczEnabled}
+                  subAfterCoupon={subAfterCoupon}
                 />
-              </div>
-              {touched.senderNumber && errors.senderNumber && (
-                <p className="text-[11px] text-destructive mt-1 ml-3">{errors.senderNumber}</p>
-              )}
-            </div>
 
-            {/* TrxID */}
-            <div className="px-5 mt-4">
-              <label className="text-[12px] font-medium text-muted-foreground">
-                Transaction ID (TrxID) <span className="text-destructive">*</span>
-              </label>
-              <div className={`mt-1 flex items-center rounded-full border bg-background px-4 h-11 transition ${
-                touched.trxId && errors.trxId ? "border-destructive/60" : "border-border focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15"
-              }`}>
-                <input
-                  value={form.trxId}
-                  onChange={(e) => update("trxId", e.target.value.toUpperCase())}
-                  onBlur={() => blur("trxId")}
-                  placeholder="যেমন: 8F3K2P9X"
-                  className="flex-1 bg-transparent outline-none text-sm text-foreground placeholder:text-muted-foreground tracking-wide"
-                />
-              </div>
-              {touched.trxId && errors.trxId && (
-                <p className="text-[11px] text-destructive mt-1 ml-3">{errors.trxId}</p>
-              )}
-            </div>
-
-            {/* Screenshot */}
-            <div className="px-5 mt-4">
-              <div className="flex items-baseline justify-between">
-                <label className="text-[13px] font-semibold text-foreground">📷 পেমেন্ট স্ক্রিনশট</label>
-                <span className="text-[11px] text-muted-foreground">(ঐচ্ছিক)</span>
-              </div>
-              <p className="text-[11px] text-muted-foreground mt-0.5">পেমেন্ট প্রমাণ হিসেবে স্ক্রিনশট দিলে দ্রুত ভেরিফাই হবে</p>
-              <label className="mt-2 block rounded-2xl border-2 border-dashed border-border bg-muted py-5 px-4 text-center cursor-pointer hover:border-primary/50 hover:bg-muted/80 transition">
-                <input
-                  type="file"
-                  accept="image/png,image/jpeg,image/jpg"
-                  className="hidden"
-                  onChange={(e) => {
-                    const f = e.target.files?.[0];
-                    if (f) handleScreenshot(f);
-                  }}
-                />
-                {uploading ? (
-                  <span className="inline-flex items-center gap-2 text-[13px] text-foreground/80">
-                    <Loader2 className="w-4 h-4 animate-spin" /> আপলোড হচ্ছে…
-                  </span>
-                ) : screenshotUrl ? (
-                  <span className="inline-flex items-center gap-2 text-[13px] text-emerald-500 font-medium">
-                    <Check className="w-4 h-4" /> স্ক্রিনশট আপলোড হয়েছে — পরিবর্তন করতে ক্লিক করুন
-                  </span>
-                ) : (
-                  <>
-                    <div className="text-[13px] font-semibold text-foreground">↑ স্ক্রিনশট সিলেক্ট করুন</div>
-                    <div className="text-[10px] text-muted-foreground mt-0.5">JPG, PNG • সর্বোচ্চ ৫MB</div>
-                  </>
+                {!isGatewayMethod && !isWalletMethod && (
+                  <PaymentInstructions 
+                    methodName={selectedMethod.name}
+                    methodNumber={selectedMethod.number}
+                    brandColor={brand}
+                    sendMoneyLabel={sendLabel}
+                    instructions={steps2}
+                    trxId={form.trxId}
+                    senderNumber={form.senderNumber}
+                    onTrxIdChange={(v) => update("trxId", v)}
+                    onSenderNumberChange={(v) => update("senderNumber", v)}
+                    onTrxIdBlur={() => blur("trxId")}
+                    onSenderNumberBlur={() => blur("senderNumber")}
+                    trxIdError={touched.trxId ? errors.trxId : null}
+                    senderNumberError={touched.senderNumber ? errors.senderNumber : null}
+                    screenshotUrl={screenshotUrl}
+                    uploading={uploading}
+                    onScreenshotUpload={handleScreenshot}
+                    onScreenshotRemove={() => setScreenshotUrl("")}
+                  />
                 )}
-              </label>
-            </div>
-          </>
-        )}
 
-        {/* Total */}
-        <div className="px-5 mt-5">
-          <div className="flex items-center justify-between rounded-2xl border border-border bg-background px-4 py-3">
-            <span className="text-[14px] font-semibold text-foreground">পেমেন্ট মোট</span>
-            <span className="text-[20px] font-bold text-primary tabular-nums" style={{ fontFamily: "var(--font-heading)" }}>
-              {format(grandTotal)}
-            </span>
+                {/* Final Error Display */}
+                {err && (
+                  <div className="p-4 rounded-2xl bg-destructive/10 border border-destructive/20 text-destructive text-xs font-bold animate-in shake duration-500">
+                    {err}
+                  </div>
+                )}
+
+                <div className="pt-6">
+                  <button
+                    onClick={handleSubmit}
+                    disabled={busy || (isWalletMethod && walletInsufficient) || (!isGatewayMethod && !isWalletMethod && (!form.trxId || !form.senderNumber))}
+                    className="group relative h-16 w-full rounded-[2.5rem] text-background text-base font-black uppercase tracking-[0.2em] overflow-hidden transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50 shadow-2xl shadow-primary/20"
+                    style={{ background: CTA_GRADIENT }}
+                  >
+                    <div className="relative z-10 flex items-center justify-center gap-3">
+                      {busy ? (
+                        <Loader2 className="w-6 h-6 animate-spin" />
+                      ) : (
+                        <>
+                          <Lock className="w-5 h-5" />
+                          Complete Order • {format(grandTotal)}
+                        </>
+                      )}
+                    </div>
+                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </button>
+                  <p className="text-[10px] text-center text-muted-foreground font-bold uppercase tracking-[0.1em] mt-4">
+                    By completing your order, you agree to our <span className="text-primary underline cursor-pointer">Terms of Service</span>
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
-          {currencyCode === "USD" && (
-            <p className="mt-2 text-[11px] text-muted-foreground text-center">
-              পেমেন্ট BDT-তে প্রসেস হয় · আপনাকে পাঠাতে হবে ৳{grandTotal.toLocaleString()}
-            </p>
-          )}
-        </div>
 
-        {err && <p role="alert" className="px-5 mt-3 text-[12px] text-destructive text-center">{err}</p>}
-
-        {/* CTA */}
-        <div className="px-5 py-5">
-          <button
-            onClick={handleSubmit}
-            disabled={busy || walletInsufficient || (!fullyByWallet && !isGatewayMethod && (!!errors.trxId || !form.trxId || !!errors.senderNumber || !form.senderNumber))}
-            className="w-full h-12 rounded-full text-primary-foreground text-[15px] font-semibold inline-flex items-center justify-center gap-2 disabled:opacity-50 hover:opacity-95 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-lg shadow-primary/25"
-            style={{ background: CTA_GRADIENT }}
-          >
-            {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}
-            {busy ? "অর্ডার তৈরি হচ্ছে…" : `অর্ডার কনফার্ম করুন  ${format(grandTotal)}`}
-          </button>
-          <p className="text-[11px] text-muted-foreground text-center mt-3 inline-flex items-center gap-1.5 justify-center w-full">
-            <ShieldCheck className="w-3.5 h-3.5" /> নিরাপদ পেমেন্ট — আপনার তথ্য সুরক্ষিত
-          </p>
+          {/* Right Column: Order Summary (Sticky) */}
+          <div className="lg:block">
+            <OrderSummary 
+              appliedDiscount={applied.discount}
+              couponCode={coupon || null}
+              couponLabel={applied.label || null}
+              isCouponValid={applied.valid}
+              couponInput={couponInput}
+              setCouponInput={setCouponInput}
+              onApplyCoupon={applyCouponNow}
+              grandTotal={grandTotal}
+              productImages={productImages}
+            />
+          </div>
         </div>
       </div>
     </div>
