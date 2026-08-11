@@ -32,7 +32,28 @@ export function OrderSummary({
 
   return (
     <div className="sticky top-24 space-y-6">
-      <div className="bg-card/40 backdrop-blur-xl border border-border/50 rounded-[2rem] shadow-2xl shadow-primary/5 overflow-hidden transition-all duration-500">
+      {/* Mobile Collapsible Summary Toggle */}
+      <button 
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="lg:hidden w-full flex items-center justify-between p-6 bg-card/60 backdrop-blur-xl border border-border/50 rounded-3xl shadow-xl active:scale-[0.98] transition-all"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-primary/10 text-primary grid place-items-center">
+            <ShoppingBag className="w-5 h-5" />
+          </div>
+          <div className="text-left">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block">Order Summary</span>
+            <span className="text-lg font-black text-foreground">{format(grandTotal)}</span>
+          </div>
+        </div>
+        {isExpanded ? <ChevronUp className="w-5 h-5 text-muted-foreground" /> : <ChevronDown className="w-5 h-5 text-muted-foreground" />}
+      </button>
+
+      {/* Main Summary Panel */}
+      <div className={`
+        lg:block bg-card/40 backdrop-blur-xl border border-border/50 rounded-[2rem] shadow-2xl shadow-primary/5 overflow-hidden transition-all duration-500
+        ${isExpanded ? "block" : "hidden lg:block"}
+      `}>
         <div className="p-6 md:p-8 space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold tracking-tight text-foreground" style={{ fontFamily: "var(--font-heading)" }}>
@@ -152,3 +173,4 @@ export function OrderSummary({
     </div>
   );
 }
+
