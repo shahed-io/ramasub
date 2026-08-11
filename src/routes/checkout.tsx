@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Check, Loader2, X, ChevronRight, ShieldCheck, Lock, ArrowLeft, User, Mail, Phone, ShoppingBag } from "lucide-react";
+import { Check, Loader2, X, ChevronRight, ShieldCheck, Lock, ArrowLeft, User, Mail, Phone, ShoppingBag, Tag, Smartphone, Copy } from "lucide-react";
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
