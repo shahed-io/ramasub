@@ -473,102 +473,80 @@ function CheckoutPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/10">
-      {/* Background Decor */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden opacity-30">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-500/10 rounded-full blur-[120px]" />
-      </div>
-
-      <div className="relative z-10 max-w-[1200px] mx-auto px-4 py-12 md:py-20">
-        {/* Simple Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 animate-in fade-in slide-in-from-top-4 duration-700">
-          <div>
-            <div className="flex items-center gap-2 text-primary font-bold mb-2 cursor-pointer hover:opacity-80 transition" onClick={() => navigate({ to: "/cart" })}>
-              <ArrowLeft className="w-4 h-4" />
-              <span className="text-xs uppercase tracking-[0.2em]">Back to Cart</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
-              Checkout
-            </h1>
-          </div>
-          <div className="flex items-center gap-4 text-xs font-bold text-muted-foreground uppercase tracking-widest bg-card/40 backdrop-blur-sm border border-border/40 px-6 py-3 rounded-2xl">
-            <ShieldCheck className="w-4 h-4 text-emerald-500" />
-            <span>Secure 256-bit SSL Encryption</span>
-          </div>
-        </div>
-
-        <div className="grid lg:grid-cols-[1fr,400px] gap-12 items-start">
-          {/* Left Column: Forms */}
-          <div className="space-y-12">
-            <CheckoutProgress 
-              currentStep={step || 1} 
-              onStepClick={setStep} 
-              isStep1Valid={step1Valid} 
-            />
-
-            {step === 1 ? (
-              <div className="space-y-8 animate-in fade-in slide-in-from-left-6 duration-500">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary grid place-items-center">
-                    <User className="w-4 h-4" />
-                  </div>
-                  <h2 className="text-lg font-bold text-foreground" style={{ fontFamily: "var(--font-heading)" }}>
-                    Contact Information
+    <CheckoutLayout 
+      currentStep={step || 1} 
+      onStepClick={setStep} 
+      isStep1Valid={step1Valid}
+    >
+      <div className="grid lg:grid-cols-[1fr,400px] gap-8 lg:gap-12 items-start">
+        {/* Left Column: Forms */}
+        <div className="space-y-8">
+          {step === 1 ? (
+            <div className="bg-white p-6 md:p-10 rounded-[2.5rem] border border-slate-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.03)] space-y-8 animate-in fade-in slide-in-from-left-6 duration-500">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-2xl bg-primary/10 text-primary grid place-items-center">
+                  <User className="w-5 h-5" />
+                </div>
+                <div className="space-y-0.5">
+                  <h2 className="text-xl font-bold text-slate-900" style={{ fontFamily: "var(--font-heading)" }}>
+                    Customer Information
                   </h2>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <PillField 
-                    label="Full Name" 
-                    icon={User}
-                    value={form.name} 
-                    onChange={(v) => update("name", v)} 
-                    onBlur={() => blur("name")} 
-                    error={touched.name ? errors.name : null} 
-                    placeholder="Enter your name" 
-                  />
-                  <PillField 
-                    label="Email Address" 
-                    type="email" 
-                    icon={Mail}
-                    value={form.email} 
-                    onChange={(v) => update("email", v)} 
-                    onBlur={() => blur("email")} 
-                    error={touched.email ? errors.email : null} 
-                    placeholder="you@example.com" 
-                  />
-                </div>
-                
-                <div className="max-w-md">
-                  <PillField 
-                    label="Phone Number" 
-                    icon={Phone}
-                    value={form.phone} 
-                    onChange={(v) => update("phone", v)} 
-                    onBlur={() => blur("phone")} 
-                    error={touched.phone ? errors.phone : null} 
-                    placeholder="01XXXXXXXXX" 
-                    inputMode="tel" 
-                  />
-                </div>
-
-                <div className="pt-6">
-                  <button
-                    onClick={goNext}
-                    disabled={!step1Valid}
-                    className="group relative h-14 w-full md:w-auto md:px-12 rounded-[2rem] bg-foreground text-background text-sm font-black uppercase tracking-widest overflow-hidden transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:hover:scale-100 shadow-xl shadow-foreground/10"
-                  >
-                    <span className="relative z-10 flex items-center justify-center gap-3">
-                      Continue to Payment
-                      <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                    </span>
-                    <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 transition-opacity" />
-                  </button>
+                  <p className="text-sm text-slate-500 font-medium">Enter your details to complete your order.</p>
                 </div>
               </div>
-            ) : (
-              <div className="space-y-12">
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <PillField 
+                  label="Full Name" 
+                  icon={User}
+                  value={form.name} 
+                  onChange={(v) => update("name", v)} 
+                  onBlur={() => blur("name")} 
+                  error={touched.name ? errors.name : null} 
+                  placeholder="Enter your name" 
+                />
+                <PillField 
+                  label="Email Address" 
+                  type="email" 
+                  icon={Mail}
+                  value={form.email} 
+                  onChange={(v) => update("email", v)} 
+                  onBlur={() => blur("email")} 
+                  error={touched.email ? errors.email : null} 
+                  placeholder="you@example.com" 
+                />
+              </div>
+              
+              <div className="max-w-md">
+                <PillField 
+                  label="Phone Number" 
+                  icon={Phone}
+                  value={form.phone} 
+                  onChange={(v) => update("phone", v)} 
+                  onBlur={() => blur("phone")} 
+                  error={touched.phone ? errors.phone : null} 
+                  placeholder="01XXXXXXXXX" 
+                  inputMode="tel" 
+                />
+              </div>
+
+              <div className="pt-6">
+                <button
+                  onClick={goNext}
+                  disabled={!step1Valid}
+                  className="group relative h-14 w-full md:w-auto md:px-12 rounded-2xl bg-primary text-primary-foreground text-sm font-black uppercase tracking-widest overflow-hidden transition-all hover:shadow-lg active:scale-95 disabled:opacity-50 disabled:hover:scale-100"
+                >
+                  <span className="relative z-10 flex items-center justify-center gap-3">
+                    Continue to Payment
+                    <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-8 animate-in fade-in slide-in-from-right-6 duration-500">
+              <div className="bg-white p-6 md:p-10 rounded-[2.5rem] border border-slate-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.03)]">
                 <PaymentMethods 
                   methods={methods}
                   selectedMethod={method}
@@ -580,8 +558,10 @@ function CheckoutPage() {
                   sslczEnabled={!!sslczEnabled}
                   subAfterCoupon={subAfterCoupon}
                 />
+              </div>
 
-                {!isGatewayMethod && !isWalletMethod && (
+              {!isGatewayMethod && !isWalletMethod && (
+                <div className="bg-white p-6 md:p-10 rounded-[2.5rem] border border-slate-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.03)]">
                   <PaymentInstructions 
                     methodName={selectedMethod.name}
                     methodNumber={selectedMethod.number}
@@ -601,67 +581,115 @@ function CheckoutPage() {
                     onScreenshotUpload={handleScreenshot}
                     onScreenshotRemove={() => setScreenshotUrl("")}
                   />
-                )}
+                </div>
+              )}
 
-                {/* Final Error Display */}
-                {err && (
-                  <div className="p-4 rounded-2xl bg-destructive/10 border border-destructive/20 text-destructive text-xs font-bold animate-in shake duration-500">
-                    {err}
+              {/* Final Error Display */}
+              {err && (
+                <div className="p-4 rounded-2xl bg-red-50 border border-red-100 text-red-600 text-xs font-bold animate-in shake duration-500">
+                  {err}
+                </div>
+              )}
+
+              <div className="pt-2">
+                <button
+                  onClick={handleSubmit}
+                  disabled={busy || (isWalletMethod && walletInsufficient) || (!isGatewayMethod && !isWalletMethod && (!form.trxId || !form.senderNumber))}
+                  className="group relative h-16 w-full rounded-2xl text-white text-base font-black uppercase tracking-[0.2em] overflow-hidden transition-all hover:shadow-xl active:scale-[0.98] disabled:opacity-50"
+                  style={{ background: CTA_GRADIENT }}
+                >
+                  <div className="relative z-10 flex items-center justify-center gap-3">
+                    {busy ? (
+                      <Loader2 className="w-6 h-6 animate-spin" />
+                    ) : (
+                      <>
+                        <Lock className="w-5 h-5" />
+                        Complete Order • {format(grandTotal)}
+                      </>
+                    )}
                   </div>
-                )}
-
-                <div className="pt-6">
-                  <button
-                    onClick={handleSubmit}
-                    disabled={busy || (isWalletMethod && walletInsufficient) || (!isGatewayMethod && !isWalletMethod && (!form.trxId || !form.senderNumber))}
-                    className="group relative h-16 w-full rounded-[2.5rem] text-background text-base font-black uppercase tracking-[0.2em] overflow-hidden transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50 shadow-2xl shadow-primary/20"
-                    style={{ background: CTA_GRADIENT }}
-                  >
-                    <div className="relative z-10 flex items-center justify-center gap-3">
-                      {busy ? (
-                        <Loader2 className="w-6 h-6 animate-spin" />
-                      ) : (
-                        <>
-                          <Lock className="w-5 h-5" />
-                          Complete Order • {format(grandTotal)}
-                        </>
-                      )}
+                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </button>
+                <div className="mt-8 flex flex-col items-center gap-4">
+                  <div className="flex flex-wrap items-center justify-center gap-6 opacity-40 grayscale">
+                    <div className="flex items-center gap-1.5">
+                      <ShieldCheck className="w-4 h-4" />
+                      <span className="text-[10px] font-bold uppercase tracking-widest">Secure Checkout</span>
                     </div>
-                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </button>
-                  <p className="text-[10px] text-center text-muted-foreground font-bold uppercase tracking-[0.1em] mt-4">
+                    <div className="flex items-center gap-1.5">
+                      <Check className="w-4 h-4" />
+                      <span className="text-[10px] font-bold uppercase tracking-widest">Protected Payment</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <ShoppingBag className="w-4 h-4" />
+                      <span className="text-[10px] font-bold uppercase tracking-widest">Fast Processing</span>
+                    </div>
+                  </div>
+                  <p className="text-[10px] text-center text-slate-400 font-bold uppercase tracking-[0.1em]">
                     By completing your order, you agree to our <span className="text-primary underline cursor-pointer">Terms of Service</span>
                   </p>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
+        </div>
 
-          {/* Right Column: Order Summary (Sticky) */}
-          <div className="lg:block">
-            <OrderSummary 
-              appliedDiscount={applied.discount}
-              couponCode={coupon || null}
-              couponLabel={applied.label || null}
-              isCouponValid={applied.valid}
-              couponInput={couponInput}
-              setCouponInput={setCouponInput}
-              onApplyCoupon={applyCouponNow}
-              grandTotal={grandTotal}
-              productImages={productImages}
-            />
-          </div>
+        {/* Right Column: Order Summary (Sticky) */}
+        <div className="lg:block">
+          <OrderSummary 
+            appliedDiscount={applied.discount}
+            couponCode={coupon || null}
+            couponLabel={applied.label || null}
+            isCouponValid={applied.valid}
+            couponInput={couponInput}
+            setCouponInput={setCouponInput}
+            onApplyCoupon={applyCouponNow}
+            grandTotal={grandTotal}
+            productImages={productImages}
+          />
         </div>
       </div>
-    </div>
+    </CheckoutLayout>
   );
 }
 
 function GuardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-background text-foreground grid place-items-center px-4 py-10">
-      <div className="text-center w-full max-w-sm rounded-3xl border border-border bg-card text-card-foreground p-8 shadow-xl">
+    <div className="min-h-screen bg-white grid place-items-center p-6">
+      <div className="max-w-md w-full text-center p-10 rounded-[2.5rem] bg-white border border-slate-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.05)]">
         {children}
+      </div>
+    </div>
+  );
+}
+
+function CheckoutLayout({ children, currentStep, isStep1Valid, onStepClick }: { children: React.ReactNode, currentStep: 1 | 2, isStep1Valid: boolean, onStepClick: (s: 1 | 2) => void }) {
+  return (
+    <div className="min-h-screen bg-[#F8F9FB] text-slate-900 font-body antialiased pb-20">
+      {/* Premium Header */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6 py-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <img src="/rama-logo-new.png" alt="Rama Sub" className="h-8 md:h-10 w-auto" />
+          </Link>
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-50 border border-slate-100">
+              <Lock className="w-3.5 h-3.5 text-slate-400" />
+              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Secure Checkout</span>
+            </div>
+            <Link to="/" className="text-sm font-bold text-slate-500 hover:text-primary transition-colors flex items-center gap-1">
+              <ArrowLeft className="w-4 h-4" />
+              Back
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
+        <div className="max-w-3xl mx-auto lg:max-w-none">
+          <CheckoutProgress currentStep={currentStep} onStepClick={onStepClick} isStep1Valid={isStep1Valid} />
+          {children}
+        </div>
       </div>
     </div>
   );
