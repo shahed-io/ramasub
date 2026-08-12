@@ -101,8 +101,7 @@ export const updateAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: any) => {
     const s = z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }).strict();
-    const p = parseOrThrow as any;
-    return p(s, input, "AC") as any;
+    return (parseOrThrow as Function)(s, input, "AC");
   })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
