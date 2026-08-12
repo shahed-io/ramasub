@@ -14,6 +14,7 @@ type SlideData = {
   secondary_cta?: string;
   secondary_link?: string;
   image_url?: string;
+  video_url?: string;
   color_preset?: string;
 };
 
@@ -434,21 +435,37 @@ export function ImageBannerCarousel() {
                   />
 
                   {/* Person flush to bottom, white glow drop-shadow */}
-                  <img
-                    src={personSrc}
-                    alt={title}
-                    className="relative block w-auto object-contain select-none pointer-events-none"
-                    style={{
-                      height: "clamp(260px, 36vw, 620px)",
-                      marginBottom: "clamp(-120px, -7vw, -56px)",
-                      filter:
-                        "drop-shadow(0 0 26px rgba(255,255,255,0.55)) drop-shadow(0 0 70px rgba(255,255,255,0.30)) drop-shadow(0 18px 28px rgba(0,0,0,0.30))",
-                    }}
-                    draggable={false}
-                    loading={idx === 0 ? "eager" : "lazy"}
-                    width={900}
-                    height={900}
-                  />
+                  {d.video_url && /\.(mp4|webm|ogg)(\?|$)/i.test(d.video_url) ? (
+                    <video
+                      src={d.video_url}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="relative block w-auto object-contain select-none pointer-events-none"
+                      style={{
+                        height: "clamp(260px, 36vw, 620px)",
+                        marginBottom: "clamp(-120px, -7vw, -56px)",
+                        filter: "drop-shadow(0 0 26px rgba(255,255,255,0.55)) drop-shadow(0 0 70px rgba(255,255,255,0.30))",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={personSrc}
+                      alt={title}
+                      className="relative block w-auto object-contain select-none pointer-events-none"
+                      style={{
+                        height: "clamp(260px, 36vw, 620px)",
+                        marginBottom: "clamp(-120px, -7vw, -56px)",
+                        filter:
+                          "drop-shadow(0 0 26px rgba(255,255,255,0.55)) drop-shadow(0 0 70px rgba(255,255,255,0.30)) drop-shadow(0 18px 28px rgba(0,0,0,0.30))",
+                      }}
+                      draggable={false}
+                      loading={idx === 0 ? "eager" : "lazy"}
+                      width={900}
+                      height={900}
+                    />
+                  )}
 
                   {/* CEO chip — person icon + single line label */}
                   <div
