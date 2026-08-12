@@ -768,7 +768,7 @@ export function SupportWidget() {
                       />
                     </button>
                     {isOpen && (
-                      <div className="px-3.5 pb-3.5 pl-[3.25rem] text-[12px] text-slate-500 leading-relaxed animate-fade-in">
+                      <div className="px-3.5 pb-3.5 pl-[3.25rem] text-[12px] text-black font-medium leading-relaxed animate-fade-in">
                         {f.a}
                       </div>
                     )}
