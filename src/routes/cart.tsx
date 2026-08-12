@@ -83,10 +83,27 @@ function CartPage() {
                     key={`${it.slug}-${it.planPeriod}`}
                     className="rounded-2xl border border-border bg-card text-card-foreground p-4 flex gap-4 shadow-sm hover:border-primary/40 transition"
                   >
-                    <div
-                      className={`w-20 h-20 shrink-0 rounded-xl bg-gradient-to-br ${it.gradient} grid place-items-center text-3xl shadow-inner`}
-                    >
-                      {it.emoji}
+                    <div className="w-20 h-20 shrink-0 rounded-xl overflow-hidden shadow-inner bg-slate-50 border border-slate-100 relative group/img">
+                      {it.video_url ? (
+                        <video
+                          src={it.video_url}
+                          className="w-full h-full object-cover"
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                        />
+                      ) : it.image_url ? (
+                        <img
+                          src={it.image_url}
+                          alt={it.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className={`w-full h-full bg-gradient-to-br ${it.gradient} grid place-items-center text-3xl`}>
+                          {it.emoji}
+                        </div>
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-3">
