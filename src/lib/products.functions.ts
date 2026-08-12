@@ -18,9 +18,6 @@ function createPublicProductClient() {
 
   if (!supabaseUrl || !supabaseKey) {
     throw new Error("Product data connection is not configured");
-  const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
-  await assertAdminMfaGrant(userId);
-}
 
   return createClient(supabaseUrl, supabaseKey, {
     auth: {
