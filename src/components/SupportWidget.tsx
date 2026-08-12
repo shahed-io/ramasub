@@ -873,7 +873,7 @@ export function SupportWidget() {
                     )}
                   </span>
                   <div
-                    className={`max-w-[85%] px-4 py-3 shadow-sm ${
+                    className={`max-w-[85%] px-4 py-3 shadow-sm font-sans ${
                       m.role === "user"
                         ? "rounded-2xl rounded-br-sm bg-gradient-to-br from-violet-600 to-primary text-white font-medium shadow-[0_8px_20px_-8px_rgba(124,58,237,0.5)] whitespace-pre-wrap text-[13.5px]"
                         : "rounded-2xl rounded-bl-sm bg-white border border-slate-200 text-slate-900"
