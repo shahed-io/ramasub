@@ -167,7 +167,7 @@ function InventoryPage() {
 
   async function persist(row: Row, patch: Partial<{ meta: Record<string, unknown>; plans: PlanRow[] }>) {
     const { updateProductAdmin } = await import("@/lib/products.functions");
-    await updateProductAdmin({ slug: row.slug, patch: patch as any });
+    await updateProductAdmin({ data: { slug: row.slug, patch: patch as any } });
   }
 
   async function bump(row: Row, delta: number) {
@@ -184,7 +184,7 @@ function InventoryPage() {
     );
     try {
       const { getProduct } = await import("@/lib/products.functions");
-      const data = await getProduct({ slug: row.slug });
+      const data = await getProduct({ data: { slug: row.slug } });
       const meta = ((data?.meta as Record<string, unknown>) || {});
       await persist(row, { meta: { ...meta, stock: next } });
     } catch {
@@ -203,7 +203,7 @@ function InventoryPage() {
     );
     try {
       const { getProduct } = await import("@/lib/products.functions");
-      const data = await getProduct({ slug: row.slug });
+      const data = await getProduct({ data: { slug: row.slug } });
       const meta = ((data?.meta as Record<string, unknown>) || {});
       await persist(row, { meta: { ...meta, stock: next } });
     } catch {
@@ -486,8 +486,10 @@ function ManagePanel({ row, onSaved }: { row: Row; onSaved: () => void }) {
 
       const { updateProductAdmin } = await import("@/lib/products.functions");
       await updateProductAdmin({ 
-        slug: row.slug, 
-        patch: { meta: newMeta, plans: cleanPlans } as any 
+        data: {
+          slug: row.slug, 
+          patch: { meta: newMeta, plans: cleanPlans } as any 
+        }
       });
       toast.success(t("Saved", "সেভ হয়েছে"));
       onSaved();
