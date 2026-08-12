@@ -246,6 +246,7 @@ function CheckoutPage() {
           items: items.map((it) => ({
             slug: it.slug, name: it.name, planPeriod: it.planPeriod,
             qty: it.qty, price: it.price, emoji: it.emoji,
+            image_url: it.image_url, video_url: it.video_url,
           })),
           subtotal: total,
           total: Math.max(0, total),
