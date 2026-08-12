@@ -26,7 +26,7 @@ const inputSchema = z.object({
 export type CaptureAbandonedInput = z.infer<typeof inputSchema>;
 
 export const captureAbandonedCheckout = createServerFn({ method: "POST" })
-  .inputValidator(validator(inputSchema))
+  .inputValidator((input: unknown) => validator(inputSchema)(input))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const request = getRequest();
@@ -47,9 +47,9 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
 
     const payload = {
       user_id: userId || null,
-      email: data.email ?? "", // Email is non-nullable in schema
-      full_name: data.full_name ?? "", // Non-nullable
-      phone: data.phone ?? "", // Non-nullable
+      email: data.email ?? "",
+      full_name: data.full_name ?? "",
+      phone: data.phone ?? "",
       items: data.items,
       status: data.status || "pending",
       total: data.total || 0,
@@ -99,7 +99,7 @@ export const listAbandonedCheckouts = createServerFn({ method: "GET" })
 
 export const updateAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: any) => z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }).strict().parse(input) as { id: string; patch: Record<string, unknown> })
+  .inputValidator((input: unknown) => validator(z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }).strict())(input))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -125,7 +125,7 @@ export const updateAbandonedCheckout = createServerFn({ method: "POST" })
 
 export const deleteAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(validator(z.object({ id: z.string().uuid() }).strict()))
+  .inputValidator((input: unknown) => validator(z.object({ id: z.string().uuid() }).strict())(input))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
