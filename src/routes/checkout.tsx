@@ -51,7 +51,16 @@ export const Route = createFileRoute("/checkout")({
     step: search.step === "2" || search.step === 2 ? 2 : 1,
     coupon: typeof search.coupon === "string" ? search.coupon : "",
   }),
-  head: () => ({ meta: [{ title: "Checkout — Rama Sub" }] }),
+  head: () => ({
+    meta: [
+      { title: "Secure Checkout — Rama Sub | Buy Premium Accounts in Bangladesh" },
+      { name: "description", content: "Securely purchase your premium subscriptions using bKash, Nagad, or Cards at Rama Sub. Instant delivery and 24/7 support guaranteed." },
+      { property: "og:title", content: "Secure Checkout — Rama Sub" },
+      { property: "og:description", content: "Fast and secure payment for your premium digital services at Rama Sub Bangladesh." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
 });
 
 type PayMethod = {

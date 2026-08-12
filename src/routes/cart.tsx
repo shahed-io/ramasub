@@ -16,7 +16,16 @@ const cartSearchSchema = z.object({
 export const Route = createFileRoute("/cart")({
   component: CartPage,
   validateSearch: zodValidator(cartSearchSchema),
-  head: () => ({ meta: [{ title: "Your Cart — Rama Sub" }] }),
+  head: () => ({
+    meta: [
+      { title: "Your Cart — Rama Sub | Premium Subscription Shop Bangladesh" },
+      { name: "description", content: "Review your selected premium subscriptions in your Rama Sub cart. Best prices for ChatGPT, Netflix, and more in Bangladesh." },
+      { property: "og:title", content: "Your Cart — Rama Sub" },
+      { property: "og:description", content: "Ready to upgrade? Complete your order for premium digital services at Rama Sub." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
 });
 
 function CartPage() {

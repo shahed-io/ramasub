@@ -5,10 +5,12 @@ export const Route = createFileRoute("/terms")({
   component: TermsPage,
   head: () => ({
     meta: [
-      { title: "Terms & Conditions — Rama Sub" },
-      { name: "description", content: "Terms of use for purchasing digital subscriptions on Rama Sub." },
+      { title: "Terms & Conditions — Rama Sub | Digital Shop Rules Bangladesh" },
+      { name: "description", content: "Review the terms and conditions for purchasing digital subscriptions at Rama Sub. Warranty, delivery, and account usage rules." },
       { property: "og:title", content: "Terms & Conditions — Rama Sub" },
-      { property: "og:description", content: "Read the terms governing your purchase and account use." },
+      { property: "og:description", content: "Clear rules for a fair service. Read our terms of use for premium accounts." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
 });

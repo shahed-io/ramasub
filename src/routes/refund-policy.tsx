@@ -5,10 +5,12 @@ export const Route = createFileRoute("/refund-policy")({
   component: RefundPolicyPage,
   head: () => ({
     meta: [
-      { title: "Refund & Return Policy — Rama Sub" },
-      { name: "description", content: "30-day warranty, replacement and refund policy for digital subscriptions." },
+      { title: "Refund & Return Policy — Rama Sub | 30-Day Warranty Bangladesh" },
+      { name: "description", content: "Rama Sub offers a 30-day full warranty and hassle-free replacements or refunds for all premium digital subscriptions in Bangladesh." },
       { property: "og:title", content: "Refund & Return Policy — Rama Sub" },
-      { property: "og:description", content: "Our hassle-free refund and replacement policy." },
+      { property: "og:description", content: "30-day full warranty and money-back guarantee for all premium accounts." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
 });
