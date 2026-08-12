@@ -134,22 +134,7 @@ function CheckoutPage() {
 
   const [walletBalance, setWalletBalance] = useState<number>(0);
   const [useWallet, setUseWallet] = useState(false);
-  const [productImages, setProductImages] = useState<Record<string, string>>({});
-
-  useEffect(() => {
-    if (!items.length) return;
-    const slugs = items.map((i) => i.slug).filter(Boolean);
-    if (!slugs.length) return;
-    supabase.from("products").select("slug,image_url").in("slug", slugs)
-      .then(({ data }) => {
-        if (!data) return;
-        const map: Record<string, string> = {};
-        data.forEach((p: { slug: string; image_url: string | null }) => {
-          if (p.image_url) map[p.slug] = p.image_url;
-        });
-        setProductImages(map);
-      });
-  }, [items]);
+  // Note: productImages mapping removed in favor of direct item metadata in cart for reliability.
 
 
   const [busy, setBusy] = useState(false);
