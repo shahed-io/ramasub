@@ -410,7 +410,7 @@
   .floating-field-container {
     position: relative;
     padding-top: 18px;
-    border-bottom: 1.5px solid rgba(124, 58, 237, 0.16);
+    border-bottom: 2px solid rgba(124, 58, 237, 0.25); /* Thicker and more contrast */
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
   }
   .floating-field-container:focus-within {
