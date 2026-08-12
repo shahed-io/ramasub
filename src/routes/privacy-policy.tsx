@@ -5,10 +5,12 @@ export const Route = createFileRoute("/privacy-policy")({
   component: PrivacyPolicyPage,
   head: () => ({
     meta: [
-      { title: "Privacy Policy — Rama Sub" },
-      { name: "description", content: "How Rama Sub collects, uses, and protects your personal information." },
+      { title: "Privacy Policy — Rama Sub | Your Data Security in Bangladesh" },
+      { name: "description", content: "Learn how Rama Sub protects your personal data and ensures secure transactions for premium subscriptions in Bangladesh." },
       { property: "og:title", content: "Privacy Policy — Rama Sub" },
-      { property: "og:description", content: "Read our privacy practices for orders, payments and account data." },
+      { property: "og:description", content: "We value your privacy. Read our policy on how we handle your subscription data." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
 });

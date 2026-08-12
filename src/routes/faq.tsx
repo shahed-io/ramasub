@@ -7,11 +7,13 @@ export const Route = createFileRoute("/faq")({
   component: FaqPage,
   head: () => ({
     meta: [
-      { title: "Frequently Asked Questions — Rama Sub" },
-      { name: "description", content: "Answers to common questions about delivery, payment, warranty and account support at Rama Sub." },
+      { title: "FAQ — Rama Sub | Subscription Help & Guides Bangladesh" },
+      { name: "description", content: "Find answers to common questions about premium subscription delivery, payments (bKash/Nagad), and warranties at Rama Sub Bangladesh." },
       { property: "og:title", content: "FAQ — Rama Sub" },
-      { property: "og:description", content: "Everything you need to know about buying premium subscriptions in Bangladesh." },
+      { property: "og:description", content: "Everything you need to know about buying premium digital accounts in Bangladesh." },
       { property: "og:url", content: "https://ramasub.com/faq" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [{ rel: "canonical", href: "https://ramasub.com/faq" }],
     scripts: [

@@ -9,11 +9,13 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
   head: () => ({
     meta: [
-      { title: "Contact — Rama Sub" },
-      { name: "description", content: "Reach Rama Sub via WhatsApp, email, or the contact form. Office hours 11 AM – 11 PM." },
-      { property: "og:title", content: "Contact Rama Sub" },
-      { property: "og:description", content: "We're here to help — WhatsApp, email, or send us a message." },
+      { title: "Contact Us — Rama Sub | 24/7 Support in Bangladesh" },
+      { name: "description", content: "Contact Rama Sub via WhatsApp, email, or our support form. We offer 24/7 assistance for all your premium subscription needs in Bangladesh." },
+      { property: "og:title", content: "Contact Us — Rama Sub" },
+      { property: "og:description", content: "Need help? Reach out to Rama Sub for instant subscription support." },
       { property: "og:url", content: "https://ramasub.com/contact" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
     links: [{ rel: "canonical", href: "https://ramasub.com/contact" }],
   }),
