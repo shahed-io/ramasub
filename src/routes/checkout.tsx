@@ -27,7 +27,7 @@ import { PaymentInstructions } from "@/components/checkout/PaymentInstructions";
 function CheckoutErrorComponent({ error }: { error: Error }) {
   if (typeof window !== "undefined") console.error("Checkout render error:", error);
   return (
-    <div className="min-h-screen grid place-items-center px-4 py-10 bg-background text-foreground">
+    <div className="min-h-screen grid place-items-center px-4 py-10 bg-white text-foreground">
       <div className="max-w-[480px] w-full rounded-3xl border border-border bg-card text-card-foreground p-6 shadow-xl">
         <h1 className="text-xl font-bold mb-2">চেকআউট লোড করা যায়নি</h1>
         <p className="text-sm text-muted-foreground mb-4">{error?.message || "Unknown error"}</p>
