@@ -424,10 +424,6 @@ function CheckoutPage() {
     }
   };
 
-  const applyCouponNow = useCallback(() => {
-    const code = couponInput.trim().toUpperCase();
-    navigate({ to: "/checkout", search: { step: 1, coupon: code }, replace: true });
-  }, [couponInput, navigate]);
 
   const brand = selectedMethod.brand_color || "#7c3aed";
   const sendLabel = selectedMethod.send_money_label || "Send Money";
