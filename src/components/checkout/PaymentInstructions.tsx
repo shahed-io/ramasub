@@ -112,7 +112,7 @@ export function PaymentInstructions({
                 onChange={(e) => onSenderNumberChange(e.target.value)}
                 onBlur={onSenderNumberBlur}
                 placeholder="01XXXXXXXXX"
-                className="w-full bg-transparent outline-none text-[15px] font-bold tracking-wide h-12 py-2"
+                className="w-full bg-transparent outline-none text-[15px] font-bold tracking-wide h-12 py-2 text-slate-900"
               />
             </div>
             {senderNumberError && <p className="text-[10px] font-bold text-destructive mt-1.5 ml-0.5">{senderNumberError}</p>}
@@ -129,7 +129,7 @@ export function PaymentInstructions({
                 onChange={(e) => onTrxIdChange(e.target.value.toUpperCase())}
                 onBlur={onTrxIdBlur}
                 placeholder="TRX12345678"
-                className="w-full bg-transparent outline-none text-[15px] font-bold tracking-widest h-12 py-2"
+                className="w-full bg-transparent outline-none text-[15px] font-bold tracking-widest h-12 py-2 text-slate-900"
               />
             </div>
             {trxIdError && <p className="text-[10px] font-bold text-destructive mt-1.5 ml-0.5">{trxIdError}</p>}
