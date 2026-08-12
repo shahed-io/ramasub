@@ -873,10 +873,10 @@ export function SupportWidget() {
                     )}
                   </span>
                   <div
-                    className={`max-w-[78%] px-3.5 py-2.5 text-[13px] leading-relaxed ${
+                    className={`max-w-[85%] px-4 py-3 shadow-sm ${
                       m.role === "user"
-                        ? "rounded-2xl rounded-br-sm bg-gradient-to-br from-violet-500 to-primary text-slate-900 shadow-[0_10px_25px_-10px_rgba(124,58,237,0.6)] whitespace-pre-wrap"
-                        : "rounded-2xl rounded-bl-sm bg-white/80 border border-slate-200/80 text-slate-800"
+                        ? "rounded-2xl rounded-br-sm bg-gradient-to-br from-violet-600 to-primary text-white font-medium shadow-[0_8px_20px_-8px_rgba(124,58,237,0.5)] whitespace-pre-wrap text-[13.5px]"
+                        : "rounded-2xl rounded-bl-sm bg-white border border-slate-200 text-slate-900"
                     }`}
                   >
                     {m.role === "user" ? (
