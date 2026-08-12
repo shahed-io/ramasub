@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { z, validator, parseOrThrow } from "@/lib/validation";
+import { z } from "@/lib/validation";
 
 const itemSchema = z.object({
   slug: z.string(),
@@ -26,7 +26,7 @@ const inputSchema = z.object({
 export type CaptureAbandonedInput = z.infer<typeof inputSchema>;
 
 export const captureAbandonedCheckout = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => validator(inputSchema)(input))
+  .inputValidator(inputSchema)
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const request = getRequest();
