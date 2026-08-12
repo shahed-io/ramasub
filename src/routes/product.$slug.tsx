@@ -568,7 +568,7 @@ function ProductPage() {
                   key={p.slug}
                   className="group block rounded-xl overflow-hidden backdrop-blur-xl bg-white/40 border border-white/60 hover:bg-white/60 hover:border-teal-300/60 shadow-[0_4px_20px_-8px_rgba(20,184,166,0.25)] hover:shadow-[0_10px_30px_-10px_rgba(20,184,166,0.45)] hover:-translate-y-0.5 transition-all"
                 >
-                  <ProductBanner product={p} ratio="1/1" spheres={4} className="rounded-none" />
+                  <ProductBanner product={p} ratio="1/1" className="rounded-none" />
                   <div className="p-3">
                     <h3 className="text-sm font-semibold text-foreground truncate">{p.name}</h3>
                     <div className="mt-1.5 flex items-center gap-2 text-xs">
