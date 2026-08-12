@@ -403,8 +403,8 @@ function CheckoutPage() {
   if (authLoading || !cartReady) {
     return (
       <GuardLayout>
-        <Loader2 className="mx-auto h-6 w-6 animate-spin text-primary" />
-        <p className="mt-3 text-sm text-muted-foreground">Checkout loading…</p>
+        <Loader2 className="mx-auto h-8 w-8 animate-spin text-primary" />
+        <p className="mt-4 text-sm font-medium text-muted-foreground">Preparing secure checkout...</p>
       </GuardLayout>
     );
   }
