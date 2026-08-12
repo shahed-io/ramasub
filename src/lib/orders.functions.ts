@@ -12,7 +12,7 @@ import { sendMetaPurchaseForOrder } from "@/lib/meta-purchase.server";
 
 const itemSchema = z.object({
   slug: z.string().trim().min(1).max(200),
-  planPeriod: z.string().trim().min(1).max(120),
+  planPeriod: z.union([z.string(), z.number()]).transform(v => String(v)).pipe(z.string().trim().min(1).max(120)),
   qty: z.number().int().min(1).max(999),
 });
 

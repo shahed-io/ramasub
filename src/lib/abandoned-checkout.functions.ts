@@ -7,7 +7,7 @@ import type { Database } from "@/integrations/supabase/types";
 const itemSchema = z.object({
   slug: z.string().max(200).optional().nullable(),
   name: z.string().max(300).optional().nullable(),
-  planPeriod: z.string().max(80).optional().nullable(),
+  planPeriod: z.union([z.string(), z.number()]).transform(v => String(v)).optional().nullable(),
   qty: z.number().int().min(1).max(999).optional().nullable(),
   price: z.number().min(0).max(1_000_000).optional().nullable(),
   emoji: z.string().max(16).optional().nullable(),
