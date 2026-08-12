@@ -237,7 +237,7 @@ function ProductPage() {
       });
     }
   };
-  const buyNow = () => { addToCart(); navigate({ to: "/checkout" }); };
+  const buyNow = () => { addToCart(); navigate({ to: "/checkout", search: { step: 1 } }); };
 
   const hasDiscount = !!plan?.original && parsePrice(plan.original) > parsePrice(plan.price);
 
