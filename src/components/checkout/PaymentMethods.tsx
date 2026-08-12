@@ -77,11 +77,10 @@ export function PaymentMethods({
           <button
             key={m.id}
             onClick={() => { onSelect(m.id); onWalletToggle(false); }}
-            className={`group relative flex flex-col items-center justify-center p-4 rounded-[2rem] border-2 transition-all duration-300 bg-white/40 dark:bg-card/30 backdrop-blur-sm
+            className={`group relative flex flex-col items-center justify-center p-4 rounded-[2rem] border-2 transition-all duration-300 bg-white
               ${selectedMethod === m.id 
-                ? "border-primary ring-4 ring-primary/10 bg-white/60 shadow-lg" 
-                : "border-border/40 hover:border-primary/30 hover:bg-white/40"
-
+                ? "border-primary ring-4 ring-primary/5 bg-white shadow-md" 
+                : "border-slate-100 hover:border-primary/20 hover:bg-slate-50"
               }`}
           >
             <div className="w-12 h-12 mb-3 flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
@@ -107,11 +106,10 @@ export function PaymentMethods({
         {epsEnabled && (
           <button
             onClick={() => { onSelect("eps"); onWalletToggle(false); }}
-            className={`group relative flex flex-col items-center justify-center p-4 rounded-[2rem] border-2 transition-all duration-300 bg-white/40 dark:bg-card/30 backdrop-blur-sm
+            className={`group relative flex flex-col items-center justify-center p-4 rounded-[2rem] border-2 transition-all duration-300 bg-white
               ${isEpsMethod 
-                ? "border-primary ring-4 ring-primary/10 bg-white/60 shadow-lg" 
-                : "border-border/40 hover:border-primary/30 hover:bg-white/40"
-
+                ? "border-primary ring-4 ring-primary/5 bg-white shadow-md" 
+                : "border-slate-100 hover:border-primary/20 hover:bg-slate-50"
               }`}
           >
             <div className={`w-12 h-12 rounded-2xl mb-3 flex items-center justify-center transition-transform duration-500 group-hover:scale-110
@@ -131,11 +129,10 @@ export function PaymentMethods({
         {sslczEnabled && (
           <button
             onClick={() => { onSelect("sslcommerz"); onWalletToggle(false); }}
-            className={`group relative flex flex-col items-center justify-center p-4 rounded-[2rem] border-2 transition-all duration-300 bg-white/40 dark:bg-card/30 backdrop-blur-sm
+            className={`group relative flex flex-col items-center justify-center p-4 rounded-[2rem] border-2 transition-all duration-300 bg-white
               ${isSslczMethod 
-                ? "border-primary ring-4 ring-primary/10 bg-white/60 shadow-lg" 
-                : "border-border/40 hover:border-primary/30 hover:bg-white/40"
-
+                ? "border-primary ring-4 ring-primary/5 bg-white shadow-md" 
+                : "border-slate-100 hover:border-primary/20 hover:bg-slate-50"
               }`}
           >
             <div className={`w-12 h-12 rounded-2xl mb-3 flex items-center justify-center transition-transform duration-500 group-hover:scale-110
