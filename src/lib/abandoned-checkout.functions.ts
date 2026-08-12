@@ -33,7 +33,7 @@ const inputSchema = z.object({
 export type CaptureAbandonedInput = z.infer<typeof inputSchema>;
 
 export const captureAbandonedCheckout = createServerFn({ method: "POST" })
-  .inputValidator(validator(inputSchema))
+  .inputValidator((d: CaptureAbandonedInput) => validator(inputSchema)(d))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const request = getRequest();
@@ -148,7 +148,7 @@ export const listAbandonedCheckouts = createServerFn({ method: "GET" })
 
 export const updateAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(validator(z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) })))
+  .inputValidator((d: any) => validator(z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }))(d))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -168,7 +168,7 @@ export const updateAbandonedCheckout = createServerFn({ method: "POST" })
 
 export const deleteAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(validator(z.object({ id: z.string().uuid() })))
+  .inputValidator((d: any) => validator(z.object({ id: z.string().uuid() }))(d))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
