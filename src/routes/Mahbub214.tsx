@@ -362,8 +362,10 @@ function AdminShell({ user, signOut, navigate }: any) {
             : "h-[76px] flex items-center justify-between px-5",
         ].join(" ")}>
 
-          <Link to="/Mahbub214" className={`flex items-center gap-2.5 min-w-0 group ${collapsed ? "justify-center" : ""}`} aria-label="Rama Sub Admin">
-            <BrandLogo size="sm" showWordmark={false} underlineId="adminSidebarUnderline" />
+          <Link to="/Mahbub214" className={`flex items-center gap-3 min-w-0 group ${collapsed ? "justify-center" : ""}`} aria-label="Rama Sub Admin">
+            <div className="w-10 h-10 rounded-xl bg-violet-600 shadow-[0_8px_16px_-6px_rgba(109,40,217,0.5)] grid place-items-center text-white shrink-0 group-hover:scale-105 transition-transform">
+              <ShoppingCart className="w-5 h-5" strokeWidth={2.5} />
+            </div>
             {!collapsed && (
               <span className="leading-tight min-w-0">
                 <span
@@ -419,7 +421,7 @@ function AdminShell({ user, signOut, navigate }: any) {
         </nav>
 
         {/* User */}
-        <div className="border-t border-[var(--admin-border)] p-3 bg-[var(--admin-panel)]">
+        <div className="border-t border-slate-100 p-4 bg-white">
           <div className={`flex items-center gap-2.5 ${collapsed ? "justify-center" : ""}`}>
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-100 to-indigo-100 text-violet-700 grid place-items-center text-xs font-black shrink-0 ring-1 ring-violet-200 shadow-sm">
               {(user?.email ?? "A").slice(0, 1).toUpperCase()}

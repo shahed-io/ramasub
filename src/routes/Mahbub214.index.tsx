@@ -308,10 +308,10 @@ function AdminDashboard() {
               <ShoppingCart className="w-4 h-4 text-blue-700" />
             </span>
             <div className="min-w-0 flex-1">
-              <div className="text-[13px] font-bold text-slate-900 truncate">
+              <div className="text-[14px] font-bold text-slate-900 truncate">
                 {stats.newOrders24h} {t("new order(s) in the last 24 hours", "নতুন অর্ডার গত ২৪ ঘণ্টায়")}
               </div>
-              <div className="text-[11px] text-slate-500 mt-0.5">{t("Today", "আজ")}</div>
+              <div className="text-[11px] text-slate-500 mt-0.5 uppercase tracking-wider font-bold">{t("Today", "আজ")}</div>
             </div>
           </Link>
         </div>
@@ -341,7 +341,7 @@ function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Sales chart */}
           <div className="lg:col-span-2 admin-card rounded-[24px] bg-white border border-slate-200/60 shadow-[0_1px_2px_rgba(15,23,42,0.02),0_8px_30px_-12px_rgba(15,23,42,0.08)] p-5 sm:p-7 min-w-0 overflow-hidden">
-          <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] items-start gap-3 mb-1">
+          <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] items-start gap-4 mb-6">
             <div className="min-w-0">
               <h3 className="text-[18px] font-extrabold text-slate-900">{t("Sales Overview", "সেল ওভারভিউ")}</h3>
               {stats.monthDelta !== 0 && (
