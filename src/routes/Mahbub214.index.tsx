@@ -292,7 +292,7 @@ function AdminDashboard() {
     <div className="admin-dashboard space-y-6 pb-10 min-w-0">
       {/* Notifications banner */}
       {stats.newOrders24h > 0 && (
-        <div className="rounded-2xl bg-white ring-1 ring-slate-200 p-4 sm:p-5">
+        <div className="rounded-[24px] bg-white border border-slate-200/60 shadow-[0_8px_30px_-12px_rgba(15,23,42,0.08)] p-5 sm:p-6">
           <div className="flex items-center gap-2.5 mb-3">
             <Bell className="w-4 h-4 text-slate-700" />
             <h2 className="text-[15px] font-bold text-slate-900">{t("Notifications", "নোটিফিকেশন")}</h2>
@@ -340,7 +340,7 @@ function AdminDashboard() {
       {/* Sales Overview + Best Selling */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Sales chart */}
-          <div className="lg:col-span-2 admin-card rounded-2xl p-4 sm:p-6 min-w-0 overflow-hidden">
+          <div className="lg:col-span-2 admin-card rounded-[24px] bg-white border border-slate-200/60 shadow-[0_1px_2px_rgba(15,23,42,0.02),0_8px_30px_-12px_rgba(15,23,42,0.08)] p-5 sm:p-7 min-w-0 overflow-hidden">
           <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] items-start gap-3 mb-1">
             <div className="min-w-0">
               <h3 className="text-[18px] font-extrabold text-slate-900">{t("Sales Overview", "সেল ওভারভিউ")}</h3>
@@ -408,7 +408,7 @@ function AdminDashboard() {
         </div>
 
         {/* Best Selling Products */}
-        <div className="admin-card rounded-2xl p-5 sm:p-6">
+        <div className="admin-card rounded-[24px] bg-white border border-slate-200/60 shadow-[0_1px_2px_rgba(15,23,42,0.02),0_8px_30px_-12px_rgba(15,23,42,0.08)] p-5 sm:p-7">
           <div className="flex items-start gap-2 mb-4">
             <span className="w-1.5 h-6 rounded-full bg-violet-600 mt-1" aria-hidden />
             <div className="min-w-0 flex-1">

@@ -334,7 +334,7 @@ function AdminShell({ user, signOut, navigate }: any) {
   }, [pathname]);
 
   return (
-    <div className="admin-shell admin-clarity min-h-[100dvh] w-full overflow-x-hidden lg:h-[100dvh] lg:overflow-hidden flex relative font-['Manrope',ui-sans-serif,system-ui] text-slate-900 bg-[var(--admin-bg)]">
+    <div className="admin-shell admin-clarity min-h-[100dvh] w-full overflow-x-hidden lg:h-[100dvh] lg:overflow-hidden flex relative font-['Inter',ui-sans-serif,system-ui] text-slate-900 bg-[#f8faff]">
       {/* Mobile overlay */}
       {mobileOpen && (
         <div
@@ -346,8 +346,8 @@ function AdminShell({ user, signOut, navigate }: any) {
       {/* SIDEBAR */}
       <aside
         className={[
-          "shrink-0 transition-all duration-200 flex flex-col h-[100dvh] max-h-[100dvh] lg:relative",
-          "bg-[var(--admin-panel)] border-r border-[var(--admin-border)]",
+          "shrink-0 transition-all duration-300 ease-in-out flex flex-col h-[100dvh] max-h-[100dvh] lg:relative",
+          "bg-white border-r border-slate-100",
           "lg:sticky lg:top-0 lg:translate-x-0 lg:z-10",
           collapsed ? "lg:w-[76px]" : "lg:w-[260px]",
           "fixed top-0 left-0 z-50 w-[min(22rem,92vw)] shadow-2xl lg:shadow-none",
@@ -421,7 +421,7 @@ function AdminShell({ user, signOut, navigate }: any) {
         {/* User */}
         <div className="border-t border-[var(--admin-border)] p-3 bg-[var(--admin-panel)]">
           <div className={`flex items-center gap-2.5 ${collapsed ? "justify-center" : ""}`}>
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-slate-200 to-slate-300 text-slate-700 grid place-items-center text-xs font-bold shrink-0 ring-1 ring-slate-200">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-100 to-indigo-100 text-violet-700 grid place-items-center text-xs font-black shrink-0 ring-1 ring-violet-200 shadow-sm">
               {(user?.email ?? "A").slice(0, 1).toUpperCase()}
             </div>
             {!collapsed && (
@@ -511,7 +511,7 @@ function AdminShell({ user, signOut, navigate }: any) {
           </div>
         </header>
 
-        <div className="admin-main-content flex-1 p-3 sm:p-4 md:p-8 min-w-0 w-full overflow-x-hidden text-[var(--admin-ink)]">
+        <div className="admin-main-content flex-1 p-3 sm:p-5 md:p-10 min-w-0 w-full overflow-x-hidden text-slate-900">
           <div className="mx-auto w-full max-w-[1400px] min-w-0">
             <AdminPageHeader />
             <Outlet />
