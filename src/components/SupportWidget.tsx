@@ -960,7 +960,7 @@ export function SupportWidget() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="আপনার মেসেজ লিখুন…"
-                  className="min-w-0 flex-1 h-10 border-0 bg-transparent outline-none ring-0 text-[13px] text-slate-900 placeholder:text-slate-400"
+                  className="min-w-0 flex-1 h-10 border-0 bg-transparent outline-none ring-0 text-[13px] text-slate-900 placeholder:text-slate-400 font-sans"
                 />
                 {loading ? (
                   <button
