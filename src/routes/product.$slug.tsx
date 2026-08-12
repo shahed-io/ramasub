@@ -266,7 +266,7 @@ function ProductPage() {
             ) : heroImg ? (
               <ProductImageZoom src={heroImg} alt={product.name} />
             ) : (
-              <ProductBanner product={product} ratio="1/1" spheres={6} priority className="rounded-3xl overflow-hidden" />
+              <ProductBanner product={product} ratio="1/1" priority className="rounded-3xl overflow-hidden" />
             )}
             {product.badge && (
               <span className={`absolute top-4 left-4 z-20 ${badgeColorFor(product.badge)} px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm pointer-events-none`}>

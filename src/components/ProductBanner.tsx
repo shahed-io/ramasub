@@ -81,13 +81,13 @@ export function ProductBanner({
   className = "",
   ratio = "1/1",
   priority = false,
+  loading,
 }: {
   product: Product;
   className?: string;
   ratio?: "5/4" | "4/3" | "1/1" | "16/9";
-  /** legacy prop — ignored, kept for compat */
-  spheres?: number;
   priority?: boolean;
+  loading?: "lazy" | "eager";
 }) {
   const [imgFailed, setImgFailed] = useState(false);
   const [logoIdx, setLogoIdx] = useState(0);
@@ -122,7 +122,7 @@ export function ProductBanner({
         <img
           src={primary}
           alt={`${product.name} — ${product.category ?? "premium subscription"} available in Bangladesh`}
-          loading={priority ? "eager" : "lazy"}
+          loading={loading ?? (priority ? "eager" : "lazy")}
           decoding="async"
           fetchPriority={priority ? "high" : "low"}
           width={1024}
@@ -143,7 +143,7 @@ export function ProductBanner({
           key={currentLogo}
           src={currentLogo}
           alt={`${product.name} logo — ${product.category ?? "digital subscription"}`}
-          loading={priority ? "eager" : "lazy"}
+          loading={loading ?? (priority ? "eager" : "lazy")}
           decoding="async"
           fetchPriority={priority ? "high" : "low"}
           width={256}

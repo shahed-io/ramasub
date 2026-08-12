@@ -222,8 +222,12 @@ function Index() {
 
   return (
     <div className="home-scroll-optimized min-h-screen">
-      <div>
-        {cfg.sections.map((s) => renderSection(s.id, s.id))}
+      <div className="flex flex-col">
+        {cfg.sections.map((s, idx) => (
+          <div key={s.id} className={idx === 0 ? "relative z-10" : "relative z-0"}>
+            {renderSection(s.id, s.id)}
+          </div>
+        ))}
         <PerfReportSection />
       </div>
       <SiteFooter />
