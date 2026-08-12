@@ -390,6 +390,13 @@ function CheckoutPage() {
     }
   };
 
+  const applyCouponNow = useCallback(() => {
+    const code = couponInput.trim().toUpperCase();
+    navigate({ to: "/checkout", search: { step: 1, coupon: code }, replace: true });
+  }, [couponInput, navigate]);
+
+
+
   // ----- Guards (loading / empty cart) -----
   if (authLoading || !cartReady) {
     return (
