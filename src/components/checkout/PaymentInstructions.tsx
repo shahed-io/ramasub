@@ -88,7 +88,7 @@ export function PaymentInstructions({
         </h3>
         <div className="grid gap-3">
           {instructions.map((step, i) => (
-            <div key={i} className="flex items-start gap-4 p-4 rounded-2xl bg-muted/30 border border-border/40 transition-colors hover:bg-muted/50">
+            <div key={i} className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-slate-200 transition-all hover:border-primary/40 hover:shadow-sm">
               <span className="w-6 h-6 rounded-lg bg-primary/10 text-primary text-[10px] font-black grid place-items-center shrink-0">
                 {i + 1}
               </span>
@@ -152,7 +152,7 @@ export function PaymentInstructions({
             ) : (
               <label className={`
                 w-full h-32 rounded-[2.5rem] border-2 border-dashed transition-all duration-500 cursor-pointer group flex flex-col items-center justify-center gap-2
-                ${uploading ? "bg-muted animate-pulse border-border/60" : "bg-card/30 backdrop-blur-sm border-border/40 hover:border-primary/50 hover:bg-primary/[0.02]"}
+                ${uploading ? "bg-slate-50 animate-pulse border-slate-200" : "bg-white border-slate-200 hover:border-primary/50 hover:bg-primary/[0.01]"}
               `}>
                 <input
                   type="file"
