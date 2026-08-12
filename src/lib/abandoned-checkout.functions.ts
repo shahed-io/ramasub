@@ -2,7 +2,8 @@ import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { createClient } from "@supabase/supabase-js";
-import { z, validator } from "@/lib/validation";
+import { z } from "zod";
+import { formatIssues } from "@/lib/validation";
 import type { Database } from "@/integrations/supabase/types";
 
 const itemSchema = z.object({
@@ -33,7 +34,11 @@ const inputSchema = z.object({
 export type CaptureAbandonedInput = z.infer<typeof inputSchema>;
 
 export const captureAbandonedCheckout = createServerFn({ method: "POST" })
-  .inputValidator(validator(inputSchema))
+  .inputValidator((d: unknown) => {
+    const res = inputSchema.safeParse(d);
+    if (!res.success) throw new Error(formatIssues(res.error));
+    return res.data;
+  })
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const request = getRequest();
@@ -148,7 +153,11 @@ export const listAbandonedCheckouts = createServerFn({ method: "GET" })
 
 export const updateAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(validator(z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) })))
+  .inputValidator((d: unknown) => {
+    const res = z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }).safeParse(d);
+    if (!res.success) throw new Error(formatIssues(res.error));
+    return res.data;
+  })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -168,7 +177,11 @@ export const updateAbandonedCheckout = createServerFn({ method: "POST" })
 
 export const deleteAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(validator(z.object({ id: z.string().uuid() })))
+  .inputValidator((d: unknown) => {
+    const res = z.object({ id: z.string().uuid() }).safeParse(d);
+    if (!res.success) throw new Error(formatIssues(res.error));
+    return res.data;
+  })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
