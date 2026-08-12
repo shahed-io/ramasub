@@ -410,7 +410,7 @@ function CheckoutPage() {
   if (items.length === 0) {
     return (
       <GuardLayout>
-        <h1 className="text-2xl font-bold text-foreground" style={{ fontFamily: "var(--font-heading)" }}>
+        <h1 className="text-2xl font-extrabold text-slate-950" style={{ fontFamily: "var(--font-heading)" }}>
           Your cart is empty
         </h1>
         <p className="text-sm text-muted-foreground mt-2">Add a subscription before checking out.</p>

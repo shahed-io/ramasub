@@ -12,7 +12,7 @@ export const Route = createFileRoute("/api/public/bkash/callback")({
         const orderId = url.searchParams.get("orderId");
         const origin = url.origin;
 
-        if (!paymentID || !orderId) {
+        if (!paymentID || !orderId || typeof paymentID !== "string" || typeof orderId !== "string" || orderId.length < 10) {
           throw redirect({ to: "/orders", search: { error: "invalid_callback" } as any });
         }
 

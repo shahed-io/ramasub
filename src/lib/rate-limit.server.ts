@@ -60,7 +60,7 @@ export async function consume(
     const { data, error } = await supabaseAdmin.rpc("check_rate_limit", {
       _key: key,
       _identifier: identifier,
-      _cost: cost,
+      _cost: Math.max(1, Math.floor(cost)),
     } as never);
     if (error) {
       console.warn("[rate-limit] rpc failed", key, error.message);
