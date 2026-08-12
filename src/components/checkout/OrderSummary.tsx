@@ -115,14 +115,14 @@ export function OrderSummary({
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <div className="relative flex-1 group">
-                <div className="relative flex-1 group pt-4">
+                <div className="floating-field-container">
                   <input
                     value={couponInput}
                     onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
                     placeholder=" "
                     className="floating-input"
                   />
-                  <label className="floating-label !left-0">Promo Code</label>
+                  <label className="floating-label">Promo Code</label>
                 </div>
               </div>
               <button
