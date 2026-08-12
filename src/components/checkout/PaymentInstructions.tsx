@@ -102,7 +102,7 @@ export function PaymentInstructions({
       <div className="space-y-8 pt-2">
         <div className="grid md:grid-cols-2 gap-8">
           <div className="space-y-1">
-            <div className={`floating-field-container ${senderNumberError ? "!border-destructive/40" : ""}`}>
+            <div className={`floating-field-container ${senderNumberError ? "field-error" : ""}`}>
               <input
                 value={senderNumber}
                 onChange={(e) => onSenderNumberChange(e.target.value)}
@@ -112,11 +112,11 @@ export function PaymentInstructions({
               />
               <label className="floating-label">Sender Number</label>
             </div>
-            {senderNumberError && <p className="text-[10px] font-bold text-destructive mt-1.5 ml-0.5">{senderNumberError}</p>}
+            {senderNumberError && <p className="text-[11px] font-semibold text-destructive/90 mt-1.5 ml-0.5">{senderNumberError}</p>}
           </div>
 
           <div className="space-y-1">
-            <div className={`floating-field-container ${trxIdError ? "!border-destructive/40" : ""}`}>
+            <div className={`floating-field-container ${trxIdError ? "field-error" : ""}`}>
               <input
                 value={trxId}
                 onChange={(e) => onTrxIdChange(e.target.value.toUpperCase())}
@@ -126,7 +126,7 @@ export function PaymentInstructions({
               />
               <label className="floating-label">Transaction ID</label>
             </div>
-            {trxIdError && <p className="text-[10px] font-bold text-destructive mt-1.5 ml-0.5">{trxIdError}</p>}
+            {trxIdError && <p className="text-[11px] font-semibold text-destructive/90 mt-1.5 ml-0.5">{trxIdError}</p>}
           </div>
         </div>
 
