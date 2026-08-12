@@ -437,7 +437,7 @@ export function SupportWidget() {
     <>
       {/* === Floating launcher === */}
       {true && (
-        <div className="fixed bottom-5 left-5 z-50 flex flex-col items-start gap-3">
+        <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
           {/* Chooser popup */}
           {chooser && (
             <div className="flex flex-col items-stretch gap-2.5 w-[230px] animate-fade-in">
