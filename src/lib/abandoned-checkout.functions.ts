@@ -99,7 +99,7 @@ export const listAbandonedCheckouts = createServerFn({ method: "GET" })
 
 export const updateAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: any) => { const s = z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }).strict(); return (s as any).parse(input, input); })
+  .inputValidator((input: any) => { const s = z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }).strict(); return (s as any).parse(input, undefined, undefined) as { id: string; patch: any }; })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
