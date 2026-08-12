@@ -36,7 +36,7 @@ async function handle(request: Request) {
     params.transaction_id || params.tran_id || params.txnid || params.session_id;
   const status = (params.status || params.pay_status || "").toLowerCase();
 
-  if (!orderId) {
+  if (!orderId || typeof orderId !== "string" || orderId.length < 10) {
     throw redirect({ to: "/orders", search: { error: "invalid_callback" } as any });
   }
 

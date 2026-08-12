@@ -32,7 +32,7 @@ async function handle(request: Request) {
     } catch {}
   }
 
-  if (!orderId) {
+  if (!orderId || typeof orderId !== "string" || orderId.length < 10) {
     return Response.redirect(`${origin}/orders?sslcz=invalid`, 302);
   }
 

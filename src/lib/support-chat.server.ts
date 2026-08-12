@@ -36,9 +36,16 @@ function formatPlans(plans: Plan[] | null): string {
     .slice(0, 6)
     .map((p) => {
       const label = (p.label || p.duration || "").toString().trim() || "প্ল্যান";
-      const price = typeof p.price === "number" ? `৳${p.price}` : "—";
+      let priceVal: number | null = null;
+      if (typeof p.price === "number") priceVal = p.price;
+      else if (typeof p.price === "string") {
+        const n = parseFloat((p.price as string).replace(/[^\d.]/g, ""));
+        if (Number.isFinite(n)) priceVal = n;
+      }
+      
+      const price = priceVal != null ? `৳${priceVal}` : "—";
       const was =
-        typeof p.original_price === "number" && p.original_price > (p.price ?? 0)
+        typeof p.original_price === "number" && p.original_price > (priceVal ?? 0)
           ? ` (আগে ৳${p.original_price})`
           : "";
       return `${label}: ${price}${was}`;
