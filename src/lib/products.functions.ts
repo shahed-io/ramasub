@@ -149,7 +149,7 @@ export const updateProductAdmin = createServerFn({ method: "POST" })
 
 export const createProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(validator(z.record(z.unknown())))
+  .inputValidator(validator(z.record(z.string(), z.unknown())))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
