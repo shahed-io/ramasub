@@ -129,7 +129,6 @@ export const createOrder = createServerFn({ method: "POST" })
     const { data: inserted, error: iErr } = await supabaseAdmin
       .from("orders")
       .insert({
-        user_id: undefined, // undefined in Supabase JS means "don't include", database default is NULL
         full_name: data.full_name,
         email: data.email,
         phone: data.phone,
@@ -139,7 +138,7 @@ export const createOrder = createServerFn({ method: "POST" })
         items: richItems,
         total,
         status: "pending",
-      })
+      } as any)
       .select("id")
       .single();
     if (iErr) throw new Error(`Failed to create order: ${iErr.message}`);
