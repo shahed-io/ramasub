@@ -131,9 +131,12 @@ export function validator<S extends z.ZodTypeAny>(schema: S) {
 }
 
 /** Parse-or-throw for API route handlers and helper functions. */
-export function parseOrThrow<S extends z.ZodTypeAny>(schema: S, input: unknown): z.output<S> {
+export function parseOrThrow<S extends z.ZodTypeAny>(schema: S, input: unknown, context?: string): z.output<S> {
   const parsed = schema.safeParse(input);
-  if (!parsed.success) throw new Error(formatIssues(parsed.error));
+  if (!parsed.success) {
+    const detail = formatIssues(parsed.error);
+    throw new Error(context ? `${context}: ${detail}` : detail);
+  }
   return parsed.data;
 }
 
