@@ -224,10 +224,20 @@ function ProductPage() {
   const addToCart = () => {
     if (!plan) return;
     for (let i = 0; i < qty; i++) {
-      add({ slug: product.slug, planPeriod: plan.period, qty: 1, price: parsePrice(plan.price), name: product.name, emoji: product.emoji, gradient: product.gradient });
+      add({ 
+        slug: product.slug, 
+        planPeriod: plan.period, 
+        qty: 1, 
+        price: parsePrice(plan.price), 
+        name: product.name, 
+        emoji: product.emoji, 
+        gradient: product.gradient,
+        image_url: product.imageUrl,
+        video_url: product.meta?.video_url
+      });
     }
   };
-  const buyNow = () => { addToCart(); navigate({ to: "/checkout" }); };
+  const buyNow = () => { addToCart(); navigate({ to: "/checkout", search: { step: 1 } }); };
 
   const hasDiscount = !!plan?.original && parsePrice(plan.original) > parsePrice(plan.price);
 

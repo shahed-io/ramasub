@@ -90,7 +90,7 @@ export function OrderSummary({
                       {item.emoji}
                     </div>
                   )}
-                  <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold grid place-items-center shadow-lg border-2 border-card z-20">
+                  <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold grid place-items-center shadow-lg border-2 border-white z-20">
                     {item.qty}
                   </span>
                 </div>
