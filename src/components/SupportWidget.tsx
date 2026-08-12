@@ -564,7 +564,7 @@ export function SupportWidget() {
                   </button>
                 </div>
 
-                <h2 className="mt-4 text-[22px] font-extrabold text-white leading-tight tracking-tight">
+                <h2 className="mt-4 text-[22px] font-extrabold text-white leading-tight tracking-tight font-sans">
                   {me ? `হ্যালো, ${me.name} 👋` : "হ্যালো 👋"}
                   <br />
                   কীভাবে সাহায্য করব?
