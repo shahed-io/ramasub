@@ -118,7 +118,7 @@ function ProductCardImpl({ product }: { product: Product }) {
     >
 
       <div className="relative">
-        <ProductBanner product={product} ratio="1/1" />
+        <ProductBanner product={product} ratio="1/1" loading="lazy" />
         {/* Discount + badge row, bottom-left of image — like reference */}
         <div className="absolute left-3 bottom-3 flex items-center gap-1.5 z-20">
           {plan?.original && plan?.price && (() => {
