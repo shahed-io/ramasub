@@ -99,42 +99,37 @@ export function PaymentInstructions({
       </div>
 
       {/* Verification Fields */}
-      <div className="space-y-5 pt-2">
-        <div className="grid md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <label className="text-[10px] font-black text-muted-foreground/60 ml-0.5 uppercase tracking-[0.15em]">Sender Number</label>
-            <div className={`
-              transition-all duration-300 border-b-2 bg-transparent flex items-center
-              ${senderNumberError ? "border-destructive/40" : "border-slate-200 focus-within:border-primary"}
-            `}>
+      <div className="space-y-8 pt-2">
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-1">
+            <div className={`floating-field-container ${senderNumberError ? "!border-destructive/40" : ""}`}>
               <input
                 value={senderNumber}
                 onChange={(e) => onSenderNumberChange(e.target.value)}
                 onBlur={onSenderNumberBlur}
-                placeholder="01XXXXXXXXX"
-                className="w-full bg-transparent outline-none text-[15px] font-bold tracking-wide h-12 py-2 text-slate-900"
+                placeholder=" "
+                className="floating-input"
               />
+              <label className="floating-label">Sender Number</label>
             </div>
             {senderNumberError && <p className="text-[10px] font-bold text-destructive mt-1.5 ml-0.5">{senderNumberError}</p>}
           </div>
 
-          <div className="space-y-2">
-            <label className="text-[10px] font-black text-muted-foreground/60 ml-0.5 uppercase tracking-[0.15em]">Transaction ID</label>
-            <div className={`
-              transition-all duration-300 border-b-2 bg-transparent flex items-center
-              ${trxIdError ? "border-destructive/40" : "border-slate-200 focus-within:border-primary"}
-            `}>
+          <div className="space-y-1">
+            <div className={`floating-field-container ${trxIdError ? "!border-destructive/40" : ""}`}>
               <input
                 value={trxId}
                 onChange={(e) => onTrxIdChange(e.target.value.toUpperCase())}
                 onBlur={onTrxIdBlur}
-                placeholder="TRX12345678"
-                className="w-full bg-transparent outline-none text-[15px] font-bold tracking-widest h-12 py-2 text-slate-900"
+                placeholder=" "
+                className="floating-input"
               />
+              <label className="floating-label">Transaction ID</label>
             </div>
             {trxIdError && <p className="text-[10px] font-bold text-destructive mt-1.5 ml-0.5">{trxIdError}</p>}
           </div>
         </div>
+
 
         {/* Screenshot Upload */}
         <div className="space-y-2">
