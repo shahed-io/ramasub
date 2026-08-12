@@ -331,7 +331,7 @@ function CheckoutPage() {
           phone: form.phone,
           eventId: `purchase_ANB-${newId.slice(0, 8).toUpperCase()}`,
 
-          items: created.items.map((it) => ({
+          items: created.items.map((it: any) => ({
             id: it.slug,
             name: it.name || it.slug,
             price: it.price,
