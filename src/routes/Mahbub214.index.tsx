@@ -203,9 +203,9 @@ function AdminDashboard() {
       label: t("TODAY'S SALES", "আজকের সেল"),
       value: fmtBDT(stats.todayRev),
       Icon: TrendingUp,
-      iconGrad: "from-violet-500 to-purple-600",
-      bgGrad: "from-violet-50 via-white to-indigo-50/70",
-      accent: "#8b5cf6",
+      iconGrad: "from-violet-600 to-indigo-700",
+      bgGrad: "from-violet-50/50 via-white to-white",
+      accent: "#7c3aed",
     },
     {
       label: t("THIS MONTH REVENUE", "এই মাসের আয়"),

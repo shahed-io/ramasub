@@ -667,15 +667,15 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
         "active:scale-[0.97] hover:translate-x-0.5",
         collapsed ? "justify-center px-2 py-2 mx-1 my-0.5" : "px-2.5 py-2",
         active
-          ? "bg-gradient-to-r from-blue-100 to-blue-50 text-blue-900 ring-1 ring-blue-300 shadow-[0_1px_0_0_rgba(124,58,237,0.08)_inset]"
-          : "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
+          ? "bg-violet-50 text-violet-900 ring-1 ring-violet-200/70 shadow-[0_1px_2px_rgba(139,92,246,0.05)]"
+          : "text-slate-600 hover:bg-slate-50 hover:text-slate-900",
       ].join(" ")}
     >
       {/* animated left indicator */}
       <span
         aria-hidden
         className={[
-          "absolute left-0 top-1/2 -translate-y-1/2 w-1 rounded-r-full bg-gradient-to-b from-blue-500 to-sky-500",
+          "absolute left-0 top-1/2 -translate-y-1/2 w-1.5 rounded-r-full bg-violet-600 shadow-[2px_0_10px_rgba(139,92,246,0.5)]",
           "transition-all duration-300 ease-out",
           active ? "h-6 opacity-100" : "h-0 opacity-0",
         ].join(" ")}
@@ -692,7 +692,7 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
       <span
         style={iconGradientStyle(item.grad)}
         className={[
-          "admin-menu-icon relative shrink-0 w-9 h-9 rounded-xl grid place-items-center text-white bg-[var(--admin-primary)] ring-1 ring-slate-900/10 shadow-[0_10px_22px_-10px_rgba(15,23,42,0.65)]",
+          "admin-menu-icon relative shrink-0 w-9 h-9 rounded-xl grid place-items-center text-white bg-violet-600 ring-1 ring-violet-400/20 shadow-[0_8px_16px_-6px_rgba(109,40,217,0.4)]",
           "transition-transform duration-200",
           active ? "scale-110" : "group-hover:scale-105 group-active:scale-95",
         ].join(" ")}
