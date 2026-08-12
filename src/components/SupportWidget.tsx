@@ -668,7 +668,7 @@ export function SupportWidget() {
                     <MessageCircle className="h-4.5 w-4.5" />
                     <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-300 ring-2 ring-white animate-pulse" />
                   </span>
-                  <div className="mt-2 text-[12.5px] font-extrabold text-slate-900">WhatsApp</div>
+                  <div className="mt-2 text-[12.5px] font-extrabold text-slate-900 font-sans">WhatsApp</div>
                   <div className="text-[10.5px] text-slate-500 mt-0.5">সরাসরি চ্যাট</div>
                 </a>
 
