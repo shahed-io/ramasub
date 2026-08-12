@@ -52,11 +52,10 @@ function planPriceOf(plans: unknown, planPeriod: string): number | null {
 }
 
 export const createOrder = createServerFn({ method: "POST" })
-  .middleware([])
   .inputValidator((d: CreateOrderInput) => inputSchema.parse(d))
-  .handler(async ({ data, context }) => {
+  .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const userId = context?.userId;
+    const userId = null; // Guest orders have no userId
 
     // Looser per-user limit for signed-in actions (user.order_create rule)
     {
