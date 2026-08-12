@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { rowToProduct, type Product } from "@/data/products";
 import { validator, z, slug as slugSchema, formatIssues } from "@/lib/validation";
 
