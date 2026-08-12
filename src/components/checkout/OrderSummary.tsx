@@ -106,12 +106,12 @@ export function OrderSummary({
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <div className="relative flex-1 group">
-                <Tag className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/60 group-focus-within:text-primary transition-colors" />
+                <Tag className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
                 <input
                   value={couponInput}
                   onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
                   placeholder="Promo Code"
-                  className="w-full h-12 pl-11 pr-4 rounded-2xl border border-border/60 bg-background/50 outline-none text-sm font-medium focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition-all"
+                  className="w-full h-12 pl-7 pr-4 border-b-2 border-slate-200 bg-transparent outline-none text-[15px] font-bold focus:border-primary transition-all placeholder:text-muted-foreground/30"
                 />
               </div>
               <button

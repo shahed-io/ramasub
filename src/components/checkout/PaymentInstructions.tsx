@@ -101,38 +101,38 @@ export function PaymentInstructions({
       {/* Verification Fields */}
       <div className="space-y-5 pt-2">
         <div className="grid md:grid-cols-2 gap-4">
-          <div className="space-y-1.5">
-            <label className="text-[11px] font-bold text-muted-foreground/70 ml-4 uppercase tracking-wider">Sender Number</label>
+          <div className="space-y-2">
+            <label className="text-[10px] font-black text-muted-foreground/60 ml-0.5 uppercase tracking-[0.15em]">Sender Number</label>
             <div className={`
-              h-13 px-5 rounded-2xl border bg-background/50 backdrop-blur-sm transition-all duration-300 flex items-center focus-within:ring-4 focus-within:ring-primary/10
-              ${senderNumberError ? "border-destructive/50 ring-2 ring-destructive/10" : "border-border/60 focus-within:border-primary/50"}
+              transition-all duration-300 border-b-2 bg-transparent flex items-center
+              ${senderNumberError ? "border-destructive/40" : "border-slate-200 focus-within:border-primary"}
             `}>
               <input
                 value={senderNumber}
                 onChange={(e) => onSenderNumberChange(e.target.value)}
                 onBlur={onSenderNumberBlur}
                 placeholder="01XXXXXXXXX"
-                className="w-full bg-transparent outline-none text-[15px] font-bold tracking-wide"
+                className="w-full bg-transparent outline-none text-[15px] font-bold tracking-wide h-12 py-2"
               />
             </div>
-            {senderNumberError && <p className="text-[10px] font-bold text-destructive mt-1 ml-4">{senderNumberError}</p>}
+            {senderNumberError && <p className="text-[10px] font-bold text-destructive mt-1.5 ml-0.5">{senderNumberError}</p>}
           </div>
 
-          <div className="space-y-1.5">
-            <label className="text-[11px] font-bold text-muted-foreground/70 ml-4 uppercase tracking-wider">Transaction ID</label>
+          <div className="space-y-2">
+            <label className="text-[10px] font-black text-muted-foreground/60 ml-0.5 uppercase tracking-[0.15em]">Transaction ID</label>
             <div className={`
-              h-13 px-5 rounded-2xl border bg-background/50 backdrop-blur-sm transition-all duration-300 flex items-center focus-within:ring-4 focus-within:ring-primary/10
-              ${trxIdError ? "border-destructive/50 ring-2 ring-destructive/10" : "border-border/60 focus-within:border-primary/50"}
+              transition-all duration-300 border-b-2 bg-transparent flex items-center
+              ${trxIdError ? "border-destructive/40" : "border-slate-200 focus-within:border-primary"}
             `}>
               <input
                 value={trxId}
                 onChange={(e) => onTrxIdChange(e.target.value.toUpperCase())}
                 onBlur={onTrxIdBlur}
                 placeholder="TRX12345678"
-                className="w-full bg-transparent outline-none text-[15px] font-bold tracking-widest"
+                className="w-full bg-transparent outline-none text-[15px] font-bold tracking-widest h-12 py-2"
               />
             </div>
-            {trxIdError && <p className="text-[10px] font-bold text-destructive mt-1 ml-4">{trxIdError}</p>}
+            {trxIdError && <p className="text-[10px] font-bold text-destructive mt-1.5 ml-0.5">{trxIdError}</p>}
           </div>
         </div>
 
