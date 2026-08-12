@@ -155,7 +155,7 @@ async function logChatMessage(role: "user" | "assistant", content: string) {
 /** Renders assistant replies as rich text (bold, lists, links). */
 function ChatMarkdown({ text }: { text: string }) {
   return (
-    <div className="space-y-1.5 text-black text-[13.5px] font-medium leading-relaxed [&_p]:m-0 [&_p]:leading-relaxed [&_ul]:my-1.5 [&_ul]:pl-5 [&_ol]:my-1.5 [&_ol]:pl-5 [&_li]:my-1 [&_li]:marker:text-primary [&_strong]:font-bold [&_strong]:text-black [&_code]:rounded [&_code]:bg-violet-50 [&_code]:text-violet-700 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-[12px] [&_code]:font-mono">
+    <div className="space-y-1.5 text-black text-[13.5px] font-sans leading-relaxed [&_p]:m-0 [&_p]:leading-relaxed [&_ul]:my-1.5 [&_ul]:pl-5 [&_ol]:my-1.5 [&_ol]:pl-5 [&_li]:my-1 [&_li]:marker:text-primary [&_strong]:font-bold [&_strong]:text-black [&_code]:rounded [&_code]:bg-violet-50 [&_code]:text-violet-700 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-[12px] [&_code]:font-mono">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -429,7 +429,7 @@ export function SupportWidget() {
   }
 
   const PANEL =
-    "fixed bottom-24 right-5 z-50 w-[min(400px,calc(100vw-1.5rem))] origin-bottom-right";
+    "fixed bottom-24 left-5 z-50 w-[min(400px,calc(100vw-1.5rem))] origin-bottom-left";
   const SHELL =
     "relative rounded-[28px] overflow-hidden border border-white/70 bg-gradient-to-b from-white via-[#F8FAFC] to-[#F5F7FB] backdrop-blur-2xl shadow-[0_40px_100px_-28px_rgba(76,29,149,0.28),0_2px_10px_-2px_rgba(15,23,42,0.06)]";
 
@@ -437,7 +437,7 @@ export function SupportWidget() {
     <>
       {/* === Floating launcher === */}
       {true && (
-        <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+        <div className="fixed bottom-5 left-5 z-50 flex flex-col items-start gap-3">
           {/* Chooser popup */}
           {chooser && (
             <div className="flex flex-col items-stretch gap-2.5 w-[230px] animate-fade-in">
@@ -564,7 +564,7 @@ export function SupportWidget() {
                   </button>
                 </div>
 
-                <h2 className="mt-4 text-[22px] font-extrabold text-white leading-tight tracking-tight">
+                <h2 className="mt-4 text-[22px] font-extrabold text-white leading-tight tracking-tight font-sans">
                   {me ? `হ্যালো, ${me.name} 👋` : "হ্যালো 👋"}
                   <br />
                   কীভাবে সাহায্য করব?
@@ -643,7 +643,7 @@ export function SupportWidget() {
                   </span>
                   <div className="flex-1 leading-tight">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-[14px] font-extrabold text-slate-900">নতুন কথোপকথন শুরু করুন</span>
+                      <span className="text-[14px] font-extrabold text-slate-900 font-sans">নতুন কথোপকথন শুরু করুন</span>
                       <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-violet-100 text-violet-700 border border-violet-200">
                         AI
                       </span>
@@ -668,7 +668,7 @@ export function SupportWidget() {
                     <MessageCircle className="h-4.5 w-4.5" />
                     <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-300 ring-2 ring-white animate-pulse" />
                   </span>
-                  <div className="mt-2 text-[12.5px] font-extrabold text-slate-900">WhatsApp</div>
+                  <div className="mt-2 text-[12.5px] font-extrabold text-slate-900 font-sans">WhatsApp</div>
                   <div className="text-[10.5px] text-slate-500 mt-0.5">সরাসরি চ্যাট</div>
                 </a>
 
@@ -679,7 +679,7 @@ export function SupportWidget() {
                   <span className="grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-br from-sky-500 via-cyan-500 to-aqua text-slate-900 shadow-[0_8px_20px_-6px_rgba(34,211,238,0.7)]">
                     <Phone className="h-4.5 w-4.5" />
                   </span>
-                  <div className="mt-2 text-[12.5px] font-extrabold text-slate-900">কল করুন</div>
+                  <div className="mt-2 text-[12.5px] font-extrabold text-slate-900 font-sans">কল করুন</div>
                   <div className="text-[10.5px] text-slate-500 mt-0.5 font-mono">
                     {ADMIN_PHONE}
                   </div>
@@ -695,7 +695,7 @@ export function SupportWidget() {
                   <HelpCircle className="h-5 w-5" />
                 </span>
                 <div className="flex-1 leading-tight">
-                  <div className="text-[13px] font-extrabold text-slate-900">হেল্প সেন্টার</div>
+                  <div className="text-[13px] font-extrabold text-slate-900 font-sans">হেল্প সেন্টার</div>
                   <div className="text-[11px] text-slate-500 mt-0.5">
                     জনপ্রিয় প্রশ্ন ও তাৎক্ষণিক উত্তর
                   </div>
@@ -819,7 +819,7 @@ export function SupportWidget() {
                     <span className="grid place-items-center h-9 w-9 shrink-0 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 ring-2 ring-white overflow-hidden">
                       <img src={aiAgentAvatar} alt="AI Assistant" loading="lazy" width={64} height={64} className="h-full w-full object-cover" />
                     </span>
-                    <div className="rounded-2xl rounded-tl-sm bg-white border border-slate-200 px-4 py-3 text-[13.5px] text-slate-900 max-w-[85%] leading-relaxed shadow-sm">
+                    <div className="rounded-2xl rounded-tl-sm bg-white border border-slate-200 px-4 py-3 text-[13.5px] text-slate-900 max-w-[85%] leading-relaxed shadow-sm font-sans">
                       আসসালামু আলাইকুম! 👋
                       <br />
                       আমি Rama Sub-এর AI সহকারী। প্রোডাক্ট, পেমেন্ট, ডেলিভারি — যেকোনো বিষয়ে জিজ্ঞাসা করুন।
@@ -873,7 +873,7 @@ export function SupportWidget() {
                     )}
                   </span>
                   <div
-                    className={`max-w-[85%] px-4 py-3 shadow-sm ${
+                    className={`max-w-[85%] px-4 py-3 shadow-sm font-sans ${
                       m.role === "user"
                         ? "rounded-2xl rounded-br-sm bg-gradient-to-br from-violet-600 to-primary text-white font-medium shadow-[0_8px_20px_-8px_rgba(124,58,237,0.5)] whitespace-pre-wrap text-[13.5px]"
                         : "rounded-2xl rounded-bl-sm bg-white border border-slate-200 text-slate-900"
@@ -960,7 +960,7 @@ export function SupportWidget() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="আপনার মেসেজ লিখুন…"
-                  className="min-w-0 flex-1 h-10 border-0 bg-transparent outline-none ring-0 text-[13px] text-slate-900 placeholder:text-slate-400"
+                  className="min-w-0 flex-1 h-10 border-0 bg-transparent outline-none ring-0 text-[13px] text-slate-900 placeholder:text-slate-400 font-sans"
                 />
                 {loading ? (
                   <button
@@ -1043,7 +1043,7 @@ function PanelHeader({
         )}
       </div>
       <div className="flex-1 leading-tight min-w-0">
-        <div className="text-[14.5px] font-extrabold text-slate-900 truncate">{title}</div>
+        <div className="text-[14.5px] font-extrabold text-slate-900 truncate font-sans">{title}</div>
         <div className="flex items-center gap-1.5 mt-0.5">
           {showOnlineDot && (
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -1090,7 +1090,7 @@ function BottomTabs({
               <span className="absolute top-0 left-1/2 -translate-x-1/2 h-0.5 w-8 rounded-full bg-gradient-to-r from-violet-500 to-aqua" />
             )}
             {it.icon}
-            <span>{it.label}</span>
+            <span className="font-sans">{it.label}</span>
           </button>
         );
       })}
