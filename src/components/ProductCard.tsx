@@ -9,6 +9,7 @@ import { badgeColorFor } from "@/lib/badgeColor";
 import { ProductBanner } from "@/components/ProductBanner";
 import { waAskUrl } from "@/lib/whatsapp";
 import type { Product } from "@/data/products";
+import { optimizeSupabaseImage } from "@/lib/image-url";
 
 const parsePrice = (p: unknown) => {
   if (typeof p === "number") return Number.isFinite(p) ? p : 0;
