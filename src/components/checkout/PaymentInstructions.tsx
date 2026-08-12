@@ -51,8 +51,8 @@ export function PaymentInstructions({
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-700">
       {/* Number Card */}
-      <div className="relative group overflow-hidden rounded-[2rem] border-2 border-primary/20 bg-card/40 backdrop-blur-xl p-6 shadow-xl shadow-primary/5">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl transition-transform group-hover:scale-110 duration-700" />
+      <div className="relative group overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/[0.02] rounded-full -mr-16 -mt-16 blur-3xl transition-transform group-hover:scale-110 duration-700" />
         
         <div className="relative z-10 space-y-4">
           <div className="flex items-center justify-between">

@@ -35,7 +35,7 @@ export function OrderSummary({
       {/* Mobile Collapsible Summary Toggle */}
       <button 
         onClick={() => setIsExpanded(!isExpanded)}
-        className="lg:hidden w-full flex items-center justify-between p-6 bg-card/60 backdrop-blur-xl border border-border/50 rounded-3xl shadow-xl active:scale-[0.98] transition-all"
+        className="lg:hidden w-full flex items-center justify-between p-6 bg-white border border-slate-200 rounded-3xl shadow-sm active:scale-[0.98] transition-all"
       >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-primary/10 text-primary grid place-items-center">
@@ -51,7 +51,7 @@ export function OrderSummary({
 
       {/* Main Summary Panel */}
       <div className={`
-        lg:block bg-card/60 backdrop-blur-2xl border border-white/40 rounded-[2rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] overflow-hidden transition-all duration-500
+        lg:block bg-white border border-slate-200 rounded-[2rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.03)] overflow-hidden transition-all duration-500
 
         ${isExpanded ? "block" : "hidden lg:block"}
       `}>
@@ -130,7 +130,7 @@ export function OrderSummary({
           </div>
 
           {/* Price Breakdown */}
-          <div className="space-y-3 bg-white/40 dark:bg-black/20 rounded-2xl p-4 border border-white/60 shadow-sm">
+          <div className="space-y-3 bg-slate-50 rounded-2xl p-4 border border-slate-100 shadow-sm">
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground font-medium">Subtotal</span>
               <span className="text-foreground font-bold tabular-nums">{format(total)}</span>
