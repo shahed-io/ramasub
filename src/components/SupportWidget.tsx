@@ -155,7 +155,7 @@ async function logChatMessage(role: "user" | "assistant", content: string) {
 /** Renders assistant replies as rich text (bold, lists, links). */
 function ChatMarkdown({ text }: { text: string }) {
   return (
-    <div className="space-y-1.5 [&_p]:m-0 [&_ul]:my-1 [&_ul]:pl-4 [&_ol]:my-1 [&_ol]:pl-4 [&_li]:my-0.5 [&_li]:marker:text-primary [&_strong]:font-bold [&_strong]:text-slate-900 [&_code]:rounded [&_code]:bg-violet-50 [&_code]:text-violet-700 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[11.5px]">
+    <div className="space-y-1.5 text-slate-800 text-[13.5px] leading-relaxed [&_p]:m-0 [&_p]:leading-relaxed [&_ul]:my-1.5 [&_ul]:pl-5 [&_ol]:my-1.5 [&_ol]:pl-5 [&_li]:my-1 [&_li]:marker:text-primary [&_strong]:font-bold [&_strong]:text-slate-900 [&_code]:rounded [&_code]:bg-violet-50 [&_code]:text-violet-700 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-[12px] [&_code]:font-mono">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -167,7 +167,7 @@ function ChatMarkdown({ text }: { text: string }) {
                 href={url}
                 target={internal ? undefined : "_blank"}
                 rel={internal ? undefined : "noopener noreferrer"}
-                className="font-semibold text-aqua underline decoration-aqua/40 underline-offset-2 hover:text-violet-700"
+                className="font-bold text-violet-700 underline decoration-violet-300 underline-offset-4 hover:text-violet-900 hover:decoration-violet-500 transition-colors"
               >
                 {children}
               </a>
