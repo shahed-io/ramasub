@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
+import { z, validator } from "@/lib/validation";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { sendMetaPurchaseForOrder } from "@/lib/meta-purchase.server";
 
@@ -64,7 +64,7 @@ export const createOrder = createServerFn({ method: "POST" })
     }
 
     // 1. Fetch every referenced product in one query.
-    const slugs = Array.from(new Set(data.items.map((i) => i.slug)));
+    const slugs = Array.from(new Set(data.items.map((i: any) => i.slug) as string[]));
     const { data: products, error: pErr } = await supabaseAdmin
       .from("products")
       .select("slug,name,emoji,gradient,plans,is_active")

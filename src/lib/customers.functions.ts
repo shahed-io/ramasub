@@ -46,8 +46,12 @@ export const listCustomers = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     // Fetch all auth users (paginated)
-    const authUsers: AuthUserLite[] = [];
-    let page = 1;
+    const { data: { users: allUsers }, error: authErr } = await supabaseAdmin.auth.admin.listUsers({
+      page: 1,
+      perPage: 100, // TODO: add pagination to UI
+    });
+    if (authErr) throw authErr;
+    const authUsers: AuthUserLite[] = allUsers;
     while (page < 50) {
       const { data, error } = await supabaseAdmin.auth.admin.listUsers({ page, perPage: 200 });
       if (error) throw new Error(error.message);
