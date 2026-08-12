@@ -155,7 +155,7 @@ async function logChatMessage(role: "user" | "assistant", content: string) {
 /** Renders assistant replies as rich text (bold, lists, links). */
 function ChatMarkdown({ text }: { text: string }) {
   return (
-    <div className="space-y-1.5 text-black text-[13.5px] font-medium leading-relaxed [&_p]:m-0 [&_p]:leading-relaxed [&_ul]:my-1.5 [&_ul]:pl-5 [&_ol]:my-1.5 [&_ol]:pl-5 [&_li]:my-1 [&_li]:marker:text-primary [&_strong]:font-bold [&_strong]:text-black [&_code]:rounded [&_code]:bg-violet-50 [&_code]:text-violet-700 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-[12px] [&_code]:font-mono">
+    <div className="space-y-1.5 text-black text-[13.5px] font-sans leading-relaxed [&_p]:m-0 [&_p]:leading-relaxed [&_ul]:my-1.5 [&_ul]:pl-5 [&_ol]:my-1.5 [&_ol]:pl-5 [&_li]:my-1 [&_li]:marker:text-primary [&_strong]:font-bold [&_strong]:text-black [&_code]:rounded [&_code]:bg-violet-50 [&_code]:text-violet-700 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-[12px] [&_code]:font-mono">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
