@@ -1,9 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
-import { validator } from "@/lib/validation";
 import { getRequest } from "@tanstack/react-start/server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { createClient } from "@supabase/supabase-js";
-import { z } from "zod";
+import { z, validator } from "@/lib/validation";
 import type { Database } from "@/integrations/supabase/types";
 
 const itemSchema = z.object({
@@ -125,7 +124,7 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
       return { ok: true as const, id: recovered.id, updated: true };
     }
     if (error) return { ok: false as const, error: error.message };
-    return { ok: true as const, id: inserted.id, updated: false };
+    return { ok: true as const, id: (inserted as any).id, updated: false };
   });
 
 export const listAbandonedCheckouts = createServerFn({ method: "GET" })
@@ -134,7 +133,6 @@ export const listAbandonedCheckouts = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
 
-    // Check role first
     const { data: role } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
     if (!role) throw new Error("Forbidden");
     await assertAdminMfaGrant(context.userId);
