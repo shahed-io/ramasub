@@ -203,16 +203,16 @@ function AdminDashboard() {
       label: t("TODAY'S SALES", "আজকের সেল"),
       value: fmtBDT(stats.todayRev),
       Icon: TrendingUp,
-      iconGrad: "from-violet-500 to-purple-600",
-      bgGrad: "from-violet-50 via-white to-indigo-50/70",
-      accent: "#8b5cf6",
+      iconGrad: "from-violet-600 to-indigo-700",
+      bgGrad: "from-violet-50/50 via-white to-white",
+      accent: "#7c3aed",
     },
     {
       label: t("THIS MONTH REVENUE", "এই মাসের আয়"),
       value: fmtBDT(stats.monthRev),
       Icon: DollarSign,
-      iconGrad: "from-violet-500 to-fuchsia-600",
-      bgGrad: "from-white via-white to-sky-50/80",
+      iconGrad: "from-violet-600 to-fuchsia-700",
+      bgGrad: "from-violet-50/50 via-white to-white",
       accent: "#22d3ee",
       delta: stats.monthDelta,
       sub: t("vs last month", "গত মাসের তুলনায়"),
@@ -221,16 +221,16 @@ function AdminDashboard() {
       label: t("THIS YEAR REVENUE", "এই বছরের আয়"),
       value: fmtBDT(stats.yearRev),
       Icon: BarChart3,
-      iconGrad: "from-emerald-400 to-teal-500",
-      bgGrad: "from-white via-white to-pink-50/80",
+      iconGrad: "from-emerald-500 to-teal-600",
+      bgGrad: "from-emerald-50/50 via-white to-white",
       accent: "#f9a8d4",
     },
     {
       label: t("TOTAL REVENUE (ALL)", "মোট আয় (সব)"),
       value: fmtBDT(stats.revenue),
       Icon: Wallet,
-      iconGrad: "from-orange-400 to-amber-500",
-      bgGrad: "from-white via-white to-amber-50/80",
+      iconGrad: "from-orange-500 to-amber-600",
+      bgGrad: "from-orange-50/50 via-white to-white",
       accent: "#fbbf24",
     },
   ];
@@ -240,8 +240,8 @@ function AdminDashboard() {
       label: t("TOTAL ORDERS", "মোট অর্ডার"),
       value: counts.orders.toLocaleString("en-IN"),
       Icon: ShoppingCart,
-      iconGrad: "from-violet-500 to-purple-600",
-      bgGrad: "from-violet-50/70 via-white to-indigo-50/60",
+      iconGrad: "from-violet-600 to-indigo-700",
+      bgGrad: "from-violet-50/50 via-white to-white",
       accent: "#8b5cf6",
       delta: stats.totalOrders > 0 ? Math.round((stats.delivered / stats.totalOrders) * 100) : 0,
       sub: t("delivered", "সম্পন্ন"),
@@ -250,40 +250,40 @@ function AdminDashboard() {
       label: t("PENDING", "অপেক্ষমাণ"),
       value: stats.pending.toString(),
       Icon: Clock,
-      iconGrad: "from-amber-400 to-yellow-500",
-      bgGrad: "from-white via-white to-cyan-50/70",
+      iconGrad: "from-amber-500 to-yellow-600",
+      bgGrad: "from-amber-50/50 via-white to-white",
       accent: "#22d3ee",
     },
     {
       label: t("PAYMENT PENDING", "পেমেন্ট অপেক্ষমাণ"),
       value: stats.paymentPending.toString(),
       Icon: CreditCard,
-      iconGrad: "from-rose-500 to-red-500",
-      bgGrad: "from-white via-white to-pink-50/70",
+      iconGrad: "from-rose-600 to-red-700",
+      bgGrad: "from-rose-50/50 via-white to-white",
       accent: "#f9a8d4",
     },
     {
       label: t("DELIVERED", "ডেলিভারড"),
       value: stats.delivered.toString(),
       Icon: CheckCircle2,
-      iconGrad: "from-emerald-400 to-teal-500",
-      bgGrad: "from-white via-white to-amber-50/70",
+      iconGrad: "from-emerald-500 to-teal-600",
+      bgGrad: "from-emerald-50/50 via-white to-white",
       accent: "#fbbf24",
     },
     {
       label: t("CANCELLED", "বাতিল"),
       value: stats.cancelled.toString(),
       Icon: XCircle,
-      iconGrad: "from-rose-500 to-red-600",
-      bgGrad: "from-white via-white to-violet-50/70",
+      iconGrad: "from-rose-600 to-red-700",
+      bgGrad: "from-rose-50/50 via-white to-white",
       accent: "#8b5cf6",
     },
     {
       label: t("CUSTOMERS", "কাস্টমার"),
       value: counts.users.toLocaleString("en-IN"),
       Icon: UsersRound,
-      iconGrad: "from-sky-400 to-blue-500",
-      bgGrad: "from-white via-white to-cyan-50/70",
+      iconGrad: "from-sky-500 to-blue-600",
+      bgGrad: "from-sky-50/50 via-white to-white",
       accent: "#22d3ee",
     },
   ];
@@ -292,7 +292,7 @@ function AdminDashboard() {
     <div className="admin-dashboard space-y-6 pb-10 min-w-0">
       {/* Notifications banner */}
       {stats.newOrders24h > 0 && (
-        <div className="rounded-2xl bg-white ring-1 ring-slate-200 p-4 sm:p-5">
+        <div className="rounded-[24px] bg-white border border-slate-200/60 shadow-[0_8px_30px_-12px_rgba(15,23,42,0.08)] p-5 sm:p-6">
           <div className="flex items-center gap-2.5 mb-3">
             <Bell className="w-4 h-4 text-slate-700" />
             <h2 className="text-[15px] font-bold text-slate-900">{t("Notifications", "নোটিফিকেশন")}</h2>
@@ -308,10 +308,10 @@ function AdminDashboard() {
               <ShoppingCart className="w-4 h-4 text-blue-700" />
             </span>
             <div className="min-w-0 flex-1">
-              <div className="text-[13px] font-bold text-slate-900 truncate">
+              <div className="text-[14px] font-bold text-slate-900 truncate">
                 {stats.newOrders24h} {t("new order(s) in the last 24 hours", "নতুন অর্ডার গত ২৪ ঘণ্টায়")}
               </div>
-              <div className="text-[11px] text-slate-500 mt-0.5">{t("Today", "আজ")}</div>
+              <div className="text-[11px] text-slate-500 mt-0.5 uppercase tracking-wider font-bold">{t("Today", "আজ")}</div>
             </div>
           </Link>
         </div>
@@ -340,8 +340,8 @@ function AdminDashboard() {
       {/* Sales Overview + Best Selling */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Sales chart */}
-          <div className="lg:col-span-2 admin-card rounded-2xl p-4 sm:p-6 min-w-0 overflow-hidden">
-          <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] items-start gap-3 mb-1">
+          <div className="lg:col-span-2 admin-card rounded-[24px] bg-white border border-slate-200/60 shadow-[0_1px_2px_rgba(15,23,42,0.02),0_8px_30px_-12px_rgba(15,23,42,0.08)] p-5 sm:p-7 min-w-0 overflow-hidden">
+          <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] items-start gap-4 mb-6">
             <div className="min-w-0">
               <h3 className="text-[18px] font-extrabold text-slate-900">{t("Sales Overview", "সেল ওভারভিউ")}</h3>
               {stats.monthDelta !== 0 && (
@@ -408,9 +408,9 @@ function AdminDashboard() {
         </div>
 
         {/* Best Selling Products */}
-        <div className="admin-card rounded-2xl p-5 sm:p-6">
+        <div className="admin-card rounded-[24px] bg-white border border-slate-200/60 shadow-[0_1px_2px_rgba(15,23,42,0.02),0_8px_30px_-12px_rgba(15,23,42,0.08)] p-5 sm:p-7">
           <div className="flex items-start gap-2 mb-4">
-            <span className="w-1 h-5 rounded-full bg-blue-500 mt-1" aria-hidden />
+            <span className="w-1.5 h-6 rounded-full bg-violet-600 mt-1" aria-hidden />
             <div className="min-w-0 flex-1">
               <h3 className="text-[18px] font-extrabold text-slate-900">{t("Best Selling Products", "বেস্ট সেলিং প্রোডাক্ট")}</h3>
             </div>
@@ -438,14 +438,14 @@ function AdminDashboard() {
           {/* Conversion Stats */}
           <div className="mt-6 pt-5 border-t border-slate-100">
             <div className="flex items-start gap-2 mb-3">
-              <span className="w-1 h-5 rounded-full bg-blue-500 mt-0.5" aria-hidden />
+              <span className="w-1.5 h-6 rounded-full bg-violet-600 mt-0.5" aria-hidden />
               <h4 className="text-[15px] font-extrabold text-slate-900">{t("Conversion Stats", "কনভার্শন স্ট্যাটস")}</h4>
             </div>
             <div className="space-y-2.5">
-              <ConvRow label={t("Total Orders", "মোট অর্ডার")} value={counts.orders.toLocaleString("en-IN")} Icon={ShoppingBag} color="violet" />
+              <ConvRow label={t("Total Orders", "মোট অর্ডার")} value={counts.orders.toLocaleString("en-IN")} Icon={ShoppingCart} color="violet" />
               <ConvRow label={t("Delivered", "ডেলিভারড")} value={stats.delivered.toString()} Icon={CheckCircle2} color="emerald" />
               <ConvRow label={t("Conversion Rate", "কনভার্শন রেট")} value={`${counts.orders > 0 ? Math.round((stats.delivered / counts.orders) * 100) : 0}%`} Icon={TrendingUp} color="sky" />
-              <ConvRow label={t("Customers", "কাস্টমার")} value={counts.users.toLocaleString("en-IN")} Icon={Users} color="orange" />
+              <ConvRow label={t("Customers", "কাস্টমার")} value={counts.users.toLocaleString("en-IN")} Icon={UsersRound} color="orange" />
             </div>
           </div>
         </div>
@@ -457,7 +457,7 @@ function AdminDashboard() {
 function SectionHeader({ title }: { title: string }) {
   return (
     <div className="flex items-center gap-2.5">
-      <span className="w-1 h-7 rounded-full bg-blue-500" aria-hidden />
+      <span className="w-1.5 h-8 rounded-full bg-violet-600" aria-hidden />
       <h2 className="text-[20px] sm:text-[22px] font-extrabold text-slate-900 tracking-tight uppercase">
         {title}
       </h2>
@@ -469,16 +469,16 @@ function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compac
   const { Icon } = kpi;
   return (
     <div
-      className={`admin-kpi-card relative overflow-hidden rounded-2xl ${compact ? "p-4" : "p-5"} transition-all`}
+      className={`admin-kpi-card relative overflow-hidden rounded-[24px] border border-slate-200/50 ${compact ? "p-5" : "p-6"} transition-all`}
       style={{
-        background: `linear-gradient(135deg, #ffffff 0%, #ffffff 45%, ${kpi.accent ?? "#8b5cf6"}22 100%)`,
+        background: `linear-gradient(135deg, #ffffff 0%, #ffffff 55%, ${kpi.accent ?? "#7c3aed"}15 100%)`,
       }}
     >
-      <span className="absolute inset-x-0 top-0 h-[3px]" style={{ background: kpi.accent ?? "#8b5cf6" }} aria-hidden />
+      <span className="absolute inset-x-0 top-0 h-[4px]" style={{ background: kpi.accent ?? "#7c3aed" }} aria-hidden />
       <div className="relative">
         <div className="flex items-start justify-between gap-2">
           <span className={`admin-kpi-icon w-11 h-11 rounded-full bg-gradient-to-br ${kpi.iconGrad} grid place-items-center text-white shrink-0`}>
-            <Icon className="w-5 h-5" strokeWidth={2.5} />
+            <Icon className="w-5 h-5" strokeWidth={2.75} />
           </span>
           {typeof kpi.delta === "number" && kpi.delta !== 0 && (
             <span className={`shrink-0 inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10.5px] font-bold ${kpi.delta >= 0 ? "bg-blue-100 text-blue-700" : "bg-rose-100 text-rose-700"}`}>
@@ -503,8 +503,8 @@ function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compac
 
 function ConvRow({ label, value, Icon, color }: { label: string; value: string; Icon: any; color: "violet" | "emerald" | "sky" | "orange" }) {
   const map = {
-    violet: "bg-blue-50 text-blue-600",
-    emerald: "bg-blue-50 text-blue-600",
+    violet: "bg-violet-50 text-violet-600",
+    emerald: "bg-emerald-50 text-emerald-600",
     sky: "bg-sky-50 text-sky-600",
     orange: "bg-orange-50 text-orange-600",
   } as const;

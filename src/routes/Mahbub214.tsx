@@ -4,7 +4,7 @@ import { AuthPageEntry } from "@/components/AuthPage";
 import {
   ShieldAlert, LogOut, Globe,
   PanelLeftClose, PanelLeftOpen, ChevronDown, ChevronRight, ExternalLink, Menu, Search, X,
-  Home, Frown,
+  Home, Frown, ShoppingCart,
 } from "lucide-react";
 
 
@@ -334,7 +334,7 @@ function AdminShell({ user, signOut, navigate }: any) {
   }, [pathname]);
 
   return (
-    <div className="admin-shell admin-clarity min-h-[100dvh] w-full overflow-x-hidden lg:h-[100dvh] lg:overflow-hidden flex relative font-['Manrope',ui-sans-serif,system-ui] text-slate-900 bg-[var(--admin-bg)]">
+    <div className="admin-shell admin-clarity min-h-[100dvh] w-full overflow-x-hidden lg:h-[100dvh] lg:overflow-hidden flex relative font-['Inter',ui-sans-serif,system-ui] text-slate-900 bg-[#f8faff]">
       {/* Mobile overlay */}
       {mobileOpen && (
         <div
@@ -346,8 +346,8 @@ function AdminShell({ user, signOut, navigate }: any) {
       {/* SIDEBAR */}
       <aside
         className={[
-          "shrink-0 transition-all duration-200 flex flex-col h-[100dvh] max-h-[100dvh] lg:relative",
-          "bg-[var(--admin-panel)] border-r border-[var(--admin-border)]",
+          "shrink-0 transition-all duration-300 ease-in-out flex flex-col h-[100dvh] max-h-[100dvh] lg:relative",
+          "bg-white border-r border-slate-100",
           "lg:sticky lg:top-0 lg:translate-x-0 lg:z-10",
           collapsed ? "lg:w-[76px]" : "lg:w-[260px]",
           "fixed top-0 left-0 z-50 w-[min(22rem,92vw)] shadow-2xl lg:shadow-none",
@@ -358,12 +358,14 @@ function AdminShell({ user, signOut, navigate }: any) {
         <div className={[
           "border-b border-slate-100",
           collapsed
-            ? "flex flex-col items-center justify-center gap-1.5 py-3 px-2"
-            : "h-[68px] flex items-center justify-between px-4",
+            ? "flex flex-col items-center justify-center gap-1.5 py-4 px-2"
+            : "h-[76px] flex items-center justify-between px-5",
         ].join(" ")}>
 
-          <Link to="/Mahbub214" className={`flex items-center gap-2.5 min-w-0 group ${collapsed ? "justify-center" : ""}`} aria-label="Rama Sub Admin">
-            <BrandLogo size="sm" showWordmark={false} underlineId="adminSidebarUnderline" />
+          <Link to="/Mahbub214" className={`flex items-center gap-3 min-w-0 group ${collapsed ? "justify-center" : ""}`} aria-label="Rama Sub Admin">
+            <div className="w-10 h-10 rounded-xl bg-violet-600 shadow-[0_8px_16px_-6px_rgba(109,40,217,0.5)] grid place-items-center text-white shrink-0 group-hover:scale-105 transition-transform">
+              <ShoppingCart className="w-5 h-5" strokeWidth={2.5} />
+            </div>
             {!collapsed && (
               <span className="leading-tight min-w-0">
                 <span
@@ -419,9 +421,9 @@ function AdminShell({ user, signOut, navigate }: any) {
         </nav>
 
         {/* User */}
-        <div className="border-t border-[var(--admin-border)] p-3 bg-[var(--admin-panel)]">
+        <div className="border-t border-slate-100 p-4 bg-white">
           <div className={`flex items-center gap-2.5 ${collapsed ? "justify-center" : ""}`}>
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-slate-200 to-slate-300 text-slate-700 grid place-items-center text-xs font-bold shrink-0 ring-1 ring-slate-200">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-100 to-indigo-100 text-violet-700 grid place-items-center text-xs font-black shrink-0 ring-1 ring-violet-200 shadow-sm">
               {(user?.email ?? "A").slice(0, 1).toUpperCase()}
             </div>
             {!collapsed && (
@@ -448,7 +450,7 @@ function AdminShell({ user, signOut, navigate }: any) {
       <div className="flex-1 min-w-0 w-full flex flex-col lg:h-[100dvh] lg:overflow-y-auto relative z-[1]">
 
         {/* Top bar */}
-        <header className="h-[64px] sticky top-0 z-20 bg-[var(--admin-panel)] border-b border-[var(--admin-border)] shadow-[0_10px_30px_-24px_rgba(15,23,42,0.35)]">
+        <header className="h-[76px] sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-[0_1px_2px_rgba(15,23,42,0.02)]">
           <div className="h-full px-3 md:px-6 flex items-center gap-2 md:gap-3 min-w-0">
             <button
               onClick={() => setMobileOpen(true)}
@@ -511,7 +513,7 @@ function AdminShell({ user, signOut, navigate }: any) {
           </div>
         </header>
 
-        <div className="admin-main-content flex-1 p-3 sm:p-4 md:p-8 min-w-0 w-full overflow-x-hidden text-[var(--admin-ink)]">
+        <div className="admin-main-content flex-1 p-3 sm:p-5 md:p-10 min-w-0 w-full overflow-x-hidden text-slate-900">
           <div className="mx-auto w-full max-w-[1400px] min-w-0">
             <AdminPageHeader />
             <Outlet />
@@ -667,15 +669,15 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
         "active:scale-[0.97] hover:translate-x-0.5",
         collapsed ? "justify-center px-2 py-2 mx-1 my-0.5" : "px-2.5 py-2",
         active
-          ? "bg-gradient-to-r from-blue-100 to-blue-50 text-blue-900 ring-1 ring-blue-300 shadow-[0_1px_0_0_rgba(124,58,237,0.08)_inset]"
-          : "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
+          ? "bg-violet-50 text-violet-900 ring-1 ring-violet-200/70 shadow-[0_1px_2px_rgba(139,92,246,0.05)]"
+          : "text-slate-600 hover:bg-slate-50 hover:text-slate-900",
       ].join(" ")}
     >
       {/* animated left indicator */}
       <span
         aria-hidden
         className={[
-          "absolute left-0 top-1/2 -translate-y-1/2 w-1 rounded-r-full bg-gradient-to-b from-blue-500 to-sky-500",
+          "absolute left-0 top-1/2 -translate-y-1/2 w-1.5 rounded-r-full bg-violet-600 shadow-[2px_0_10px_rgba(139,92,246,0.5)]",
           "transition-all duration-300 ease-out",
           active ? "h-6 opacity-100" : "h-0 opacity-0",
         ].join(" ")}
@@ -692,7 +694,7 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
       <span
         style={iconGradientStyle(item.grad)}
         className={[
-          "admin-menu-icon relative shrink-0 w-9 h-9 rounded-xl grid place-items-center text-white bg-[var(--admin-primary)] ring-1 ring-slate-900/10 shadow-[0_10px_22px_-10px_rgba(15,23,42,0.65)]",
+          "admin-menu-icon relative shrink-0 w-9 h-9 rounded-xl grid place-items-center text-white bg-violet-600 ring-1 ring-violet-400/20 shadow-[0_8px_16px_-6px_rgba(109,40,217,0.4)]",
           "transition-transform duration-200",
           active ? "scale-110" : "group-hover:scale-105 group-active:scale-95",
         ].join(" ")}

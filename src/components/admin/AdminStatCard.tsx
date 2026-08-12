@@ -3,11 +3,11 @@ import { TrendingDown, TrendingUp } from "lucide-react";
 export type AdminStatTone = "indigo" | "rose" | "emerald" | "violet" | "sky";
 
 const TONES: Record<AdminStatTone, { tint: string; stroke: string; fill: string }> = {
-  indigo:  { tint: "from-indigo-100/80 via-blue-50 to-white",   stroke: "#6366f1", fill: "rgba(99,102,241,0.18)" },
-  rose:    { tint: "from-rose-100/80 via-pink-50 to-white",       stroke: "#f43f5e", fill: "rgba(244,63,94,0.18)" },
-  emerald: { tint: "from-blue-100/80 via-teal-50 to-white",    stroke: "#10b981", fill: "rgba(16,185,129,0.18)" },
-  sky:     { tint: "from-sky-100/80 via-cyan-50 to-white",        stroke: "#0ea5e9", fill: "rgba(14,165,233,0.18)" },
-  violet:  { tint: "from-violet-100/80 via-indigo-50 to-white",  stroke: "#7c3aed", fill: "rgba(109,40,217,0.22)" },
+  indigo:  { tint: "from-indigo-50/80 via-white to-white",      stroke: "#6366f1", fill: "rgba(99,102,241,0.12)" },
+  rose:    { tint: "from-rose-50/80 via-white to-white",        stroke: "#f43f5e", fill: "rgba(244,63,94,0.12)" },
+  emerald: { tint: "from-emerald-50/80 via-white to-white",     stroke: "#10b981", fill: "rgba(16,185,129,0.12)" },
+  sky:     { tint: "from-sky-50/80 via-white to-white",         stroke: "#0ea5e9", fill: "rgba(14,165,233,0.12)" },
+  violet:  { tint: "from-violet-50/80 via-white to-white",      stroke: "#8b5cf6", fill: "rgba(139,92,246,0.15)" },
 };
 
 function sparkPath(vals: number[], w = 200, h = 60) {
@@ -53,7 +53,7 @@ export function AdminStatCard({
 
   return (
     <div
-      className={`admin-card relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br ${t.tint}`}
+      className={`admin-card relative overflow-hidden rounded-[24px] p-6 border border-slate-200/50 bg-gradient-to-br ${t.tint} shadow-[0_1px_2px_rgba(15,23,42,0.02),0_8px_30px_-12px_rgba(15,23,42,0.06)]`}
     >
       <div className="flex items-start justify-between">
         <div className="text-sm font-extrabold text-slate-700">{label}</div>
