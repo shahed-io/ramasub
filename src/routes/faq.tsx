@@ -175,7 +175,7 @@ function FaqGroup({ title, items }: { title: string; items: { q: string; a: stri
               <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
                 <div className="px-6 pb-6 pt-1">
                   <div className="h-px w-full bg-slate-100 mb-4" />
-                  <p className="text-sm md:text-[14.5px] text-slate-600 leading-relaxed font-medium">
+                  <p className="text-sm md:text-[14.5px] text-black leading-relaxed font-medium">
                     {it.a}
                   </p>
                 </div>

@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { createClient } from "@supabase/supabase-js";
 
 export type SiteCategory = {
@@ -63,4 +64,24 @@ export const listCategories = createServerFn({ method: "GET" }).handler(
     return out;
   },
 );
+
+export const listCategoriesAdmin = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+
+    const { data: role } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
+    if (!role) throw new Error("Forbidden");
+    await assertAdminMfaGrant(context.userId);
+
+    const { data, error } = await supabaseAdmin
+      .from("admin_records")
+      .select("*")
+      .eq("kind", "category")
+      .order("sort_order", { ascending: true });
+
+    if (error) throw error;
+    return data ?? [];
+  });
 

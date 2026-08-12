@@ -73,11 +73,8 @@ function firstPrice(plans: unknown): number | null {
 }
 
 async function fetchInventory(): Promise<Row[]> {
-  const { data, error } = await supabase
-    .from("products")
-    .select("slug,name,emoji,gradient,image_url,plans,meta")
-    .order("sort_order", { ascending: true });
-  if (error) throw error;
+  const { listProductsAdmin } = await import("@/lib/products.functions");
+  const data = await listProductsAdmin();
   return (data ?? []).map((raw): Row => {
     const r = raw as {
       slug: string; name: string; emoji: string | null; gradient: string | null;
@@ -169,8 +166,8 @@ function InventoryPage() {
   }, [rows, filter, search]);
 
   async function persist(row: Row, patch: Partial<{ meta: Record<string, unknown>; plans: PlanRow[] }>) {
-    const { error } = await supabase.from("products").update(patch as never).eq("slug", row.slug);
-    if (error) throw error;
+    const { updateProductAdmin } = await import("@/lib/products.functions");
+    await updateProductAdmin({ data: { slug: row.slug, patch: patch as any } });
   }
 
   async function bump(row: Row, delta: number) {
@@ -186,7 +183,8 @@ function InventoryPage() {
       ),
     );
     try {
-      const { data } = await supabase.from("products").select("meta").eq("slug", row.slug).maybeSingle();
+      const { getProduct } = await import("@/lib/products.functions");
+      const data = await getProduct({ data: { slug: row.slug } });
       const meta = ((data?.meta as Record<string, unknown>) || {});
       await persist(row, { meta: { ...meta, stock: next } });
     } catch {
@@ -204,7 +202,8 @@ function InventoryPage() {
       ),
     );
     try {
-      const { data } = await supabase.from("products").select("meta").eq("slug", row.slug).maybeSingle();
+      const { getProduct } = await import("@/lib/products.functions");
+      const data = await getProduct({ data: { slug: row.slug } });
       const meta = ((data?.meta as Record<string, unknown>) || {});
       await persist(row, { meta: { ...meta, stock: next } });
     } catch {
@@ -485,11 +484,13 @@ function ManagePanel({ row, onSaved }: { row: Row; onSaved: () => void }) {
         newMeta.stock = Object.values(nextStockByType).reduce((a, b) => a + (Number(b) || 0), 0);
       }
 
-      const { error } = await supabase
-        .from("products")
-        .update({ meta: newMeta, plans: cleanPlans } as never)
-        .eq("slug", row.slug);
-      if (error) throw error;
+      const { updateProductAdmin } = await import("@/lib/products.functions");
+      await updateProductAdmin({ 
+        data: {
+          slug: row.slug, 
+          patch: { meta: newMeta, plans: cleanPlans } as any 
+        }
+      });
       toast.success(t("Saved", "সেভ হয়েছে"));
       onSaved();
     } catch (e) {

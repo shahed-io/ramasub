@@ -83,15 +83,15 @@ function AbandonedCheckoutPage() {
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data, error } = await (supabase
-      .from("abandoned_checkouts" as never) as unknown as {
-        select: (s: string) => { order: (c: string, o: { ascending: boolean }) => Promise<{ data: Row[] | null; error: { message: string } | null }> };
-      })
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (error) toast.error(error.message);
-    setRows((data ?? []) as Row[]);
-    setLoading(false);
+    try {
+      const { listAbandonedCheckouts } = await import("@/lib/abandoned-checkout.functions");
+      const data = await listAbandonedCheckouts();
+      setRows((data ?? []) as Row[]);
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => { load(); }, [load]);
@@ -129,27 +129,27 @@ function AbandonedCheckoutPage() {
     const prev = rows;
     setRows((r) => r.map((x) => x.id === id ? { ...x, ...patch } as Row : x));
     setSelected((s) => s && s.id === id ? { ...s, ...patch } as Row : s);
-    const { error } = await (supabase
-      .from("abandoned_checkouts" as never) as unknown as {
-        update: (p: Partial<Row>) => { eq: (c: string, v: string) => Promise<{ error: { message: string } | null }> };
-      })
-      .update(patch)
-      .eq("id", id);
-    if (error) { setRows(prev); toast.error(error.message); return; }
+    try {
+      const { updateAbandonedCheckout } = await import("@/lib/abandoned-checkout.functions");
+      await updateAbandonedCheckout({ data: { id, patch } });
+    } catch (error: any) {
+      setRows(prev);
+      toast.error(error.message);
+    }
   };
 
   const deleteRow = async (id: string) => {
     if (!confirm(t("Delete this abandoned checkout?", "এই অ্যাবান্ডনড চেকআউট ডিলিট করবেন?"))) return;
     const prev = rows;
     setRows((r) => r.filter((x) => x.id !== id));
-    const { error } = await (supabase
-      .from("abandoned_checkouts" as never) as unknown as {
-        delete: () => { eq: (c: string, v: string) => Promise<{ error: { message: string } | null }> };
-      })
-      .delete()
-      .eq("id", id);
-    if (error) { setRows(prev); toast.error(error.message); return; }
-    toast.success(t("Deleted", "ডিলিট হয়েছে"));
+    try {
+      const { deleteAbandonedCheckout } = await import("@/lib/abandoned-checkout.functions");
+      await deleteAbandonedCheckout({ data: { id } });
+      toast.success(t("Deleted", "ডিলিট হয়েছে"));
+    } catch (error: any) {
+      setRows(prev);
+      toast.error(error.message);
+    }
     if (selected?.id === id) setSelected(null);
   };
 

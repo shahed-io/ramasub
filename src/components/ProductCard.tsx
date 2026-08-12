@@ -9,6 +9,7 @@ import { badgeColorFor } from "@/lib/badgeColor";
 import { ProductBanner } from "@/components/ProductBanner";
 import { waAskUrl } from "@/lib/whatsapp";
 import type { Product } from "@/data/products";
+import { optimizeSupabaseImage } from "@/lib/image-url";
 
 const parsePrice = (p: unknown) => {
   if (typeof p === "number") return Number.isFinite(p) ? p : 0;
@@ -51,7 +52,7 @@ function ProductCardImpl({ product }: { product: Product }) {
       name: product.name,
       emoji: product.emoji,
       gradient: product.gradient,
-      image_url: product.imageUrl,
+      image_url: optimizeSupabaseImage(product.imageUrl, { width: 400, quality: 70 }),
       video_url: product.meta?.video_url,
     });
   };

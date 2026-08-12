@@ -274,7 +274,7 @@ function ProductPage() {
                 className="absolute inset-0 w-full h-full object-cover"
               />
             ) : heroImg ? (
-              <ProductImageZoom src={heroImg} alt={product.name} />
+              <ProductImageZoom src={optimizeSupabaseImage(heroImg, { width: 1200, quality: 80, resize: "contain" })} alt={product.name} />
             ) : (
               <ProductBanner product={product} ratio="1/1" priority className="rounded-3xl overflow-hidden" />
             )}

@@ -59,26 +59,28 @@ function AdminDashboard() {
     if (cached && Date.now() - cached.ts < DASH_CACHE_TTL) return;
     let cancelled = false;
     (async () => {
-      const [pAll, oAll, uAll, recentOrders, recentProducts] = await Promise.all([
-        supabase.from("products").select("*", { count: "exact", head: true }),
-        supabase.from("orders").select("*", { count: "exact", head: true }),
-        supabase.from("profiles").select("*", { count: "exact", head: true }),
-        supabase.from("orders").select("id,created_at,status,total,full_name,email,payment_method,items").order("created_at", { ascending: false }).limit(200),
-        supabase.from("products").select("slug,name,emoji,image_url,category,is_active,created_at").order("created_at", { ascending: false }).limit(60),
-      ]);
-      if (cancelled) return;
-      const nextCounts = { products: pAll.count ?? 0, orders: oAll.count ?? 0, users: uAll.count ?? 0 };
-      const nextOrders = (recentOrders.data ?? []) as OrderRow[];
-      const nextProducts = (recentProducts.data ?? []) as ProductRow[];
-      setCounts(nextCounts);
-      setOrders(nextOrders);
-      setProducts(nextProducts);
-      setLoading(false);
       try {
-        sessionStorage.setItem(DASH_CACHE_KEY, JSON.stringify({
-          ts: Date.now(), orders: nextOrders, products: nextProducts, counts: nextCounts,
-        } as DashCache));
-      } catch { /* ignore quota */ }
+        const { getDashboardStats } = await import("@/lib/dashboard.functions");
+        const data = await getDashboardStats();
+        if (cancelled) return;
+
+        setCounts(data.counts);
+        setOrders(data.recentOrders as OrderRow[]);
+        setProducts(data.recentProducts as ProductRow[]);
+        setLoading(false);
+
+        try {
+          sessionStorage.setItem(DASH_CACHE_KEY, JSON.stringify({
+            ts: Date.now(),
+            orders: data.recentOrders,
+            products: data.recentProducts,
+            counts: data.counts,
+          } as DashCache));
+        } catch { /* ignore quota */ }
+      } catch (err) {
+        console.error("Dashboard load failed", err);
+        setLoading(false);
+      }
     })();
     return () => { cancelled = true; };
   }, [cached]);

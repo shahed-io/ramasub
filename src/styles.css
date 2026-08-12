@@ -408,7 +408,7 @@
   .floating-field-container {
     position: relative;
     padding-top: 18px;
-    border-bottom: 2px solid rgba(124, 58, 237, 0.25); /* Thicker and more contrast */
+    border-bottom: 2px solid #0f172a; /* Slate 950 for high contrast */
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
   }
   .floating-field-container:focus-within {
@@ -424,7 +424,7 @@
     top: 30px;
     font-size: 14px;
     font-weight: 600;
-    color: #475569; /* Slate 600 - darker for better visibility */
+    color: #0f172a; /* Slate 950 - pure contrast */
     pointer-events: none;
     transition: transform 0.25s ease, color 0.25s ease;
     transform-origin: left top;

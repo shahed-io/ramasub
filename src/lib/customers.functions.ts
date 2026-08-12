@@ -47,9 +47,9 @@ export const listCustomers = createServerFn({ method: "GET" })
 
     // Fetch all auth users (paginated)
     const authUsers: AuthUserLite[] = [];
-    let page = 1;
-    while (page < 50) {
-      const { data, error } = await supabaseAdmin.auth.admin.listUsers({ page, perPage: 200 });
+    let pageNum = 1;
+    while (pageNum < 50) {
+      const { data, error } = await supabaseAdmin.auth.admin.listUsers({ page: pageNum, perPage: 200 });
       if (error) throw new Error(error.message);
       const users = data?.users ?? [];
       for (const u of users) {
@@ -62,7 +62,7 @@ export const listCustomers = createServerFn({ method: "GET" })
         });
       }
       if (users.length < 200) break;
-      page++;
+      pageNum++;
     }
 
     const [

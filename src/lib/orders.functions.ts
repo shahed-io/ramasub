@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
+import { z, validator } from "@/lib/validation";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { sendMetaPurchaseForOrder } from "@/lib/meta-purchase.server";
 
@@ -52,7 +52,7 @@ function planPriceOf(plans: unknown, planPeriod: string): number | null {
 }
 
 export const createOrder = createServerFn({ method: "POST" })
-  .inputValidator((d: CreateOrderInput) => inputSchema.parse(d))
+  .inputValidator(validator(inputSchema))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     
@@ -64,7 +64,7 @@ export const createOrder = createServerFn({ method: "POST" })
     }
 
     // 1. Fetch every referenced product in one query.
-    const slugs = Array.from(new Set(data.items.map((i) => i.slug)));
+    const slugs = Array.from(new Set(data.items.map((i: any) => i.slug) as string[]));
     const { data: products, error: pErr } = await supabaseAdmin
       .from("products")
       .select("slug,name,emoji,gradient,plans,is_active")
@@ -166,4 +166,23 @@ export const createOrder = createServerFn({ method: "POST" })
       total,
       items: richItems,
     };
+  });
+
+export const listOrders = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+
+    const { data: role } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
+    if (!role) throw new Error("Forbidden");
+    await assertAdminMfaGrant(context.userId);
+
+    const { data, error } = await supabaseAdmin
+      .from("orders")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return data ?? [];
   });
