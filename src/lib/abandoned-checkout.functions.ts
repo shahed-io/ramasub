@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { z, parseOrThrow } from "@/lib/validation";
+import { z, parseOrThrow, validator } from "@/lib/validation";
 
 const itemSchema = z.object({
   slug: z.string(),
@@ -99,7 +99,7 @@ export const listAbandonedCheckouts = createServerFn({ method: "GET" })
 
 export const updateAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: any) => parseOrThrow(z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }).strict(), input) as { id: string; patch: any })
+  .inputValidator((input: any) => parseOrThrow(z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }).strict(), input) as any)
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");

@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { rowToProduct, type Product } from "@/data/products";
-import { z, slug as slugSchema, parseOrThrow } from "@/lib/validation";
+import { z, slug as slugSchema, parseOrThrow, validator } from "@/lib/validation";
 
 const PRODUCT_SELECT =
   "slug,name,emoji,gradient,category,badge,tagline,description,delivery_time,warranty,features,plans,image_url,short_description,meta";
@@ -83,7 +83,7 @@ export const listProductsAdmin = createServerFn({ method: "GET" })
 
 export const deleteProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: any) => parseOrThrow(z.object({ slug: z.string().min(1) }).strict(), input) as { slug: string })
+  .inputValidator(z.object({ slug: z.string().min(1) }).strict())
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -105,7 +105,7 @@ export const deleteProductAdmin = createServerFn({ method: "POST" })
 
 export const bulkDeleteProductsAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: any) => parseOrThrow(z.object({ slugs: z.array(z.string().min(1)) }).strict(), input) as { slugs: string[] })
+  .inputValidator(z.object({ slugs: z.array(z.string().min(1)) }).strict())
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -149,7 +149,7 @@ export const updateProductAdmin = createServerFn({ method: "POST" })
 
 export const createProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: any) => parseOrThrow(z.record(z.string(), z.unknown()), input) as any)
+  .inputValidator(z.record(z.string(), z.unknown()))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -171,10 +171,10 @@ export const createProductAdmin = createServerFn({ method: "POST" })
 
 export const swapProductSortOrder = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: any) => parseOrThrow(z.object({ 
+  .inputValidator(z.object({ 
     slugA: z.string().min(1), orderA: z.number(), 
     slugB: z.string().min(1), orderB: z.number() 
-  }).strict(), input) as any)
+  }).strict())
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
