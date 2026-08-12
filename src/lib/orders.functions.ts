@@ -55,12 +55,11 @@ export const createOrder = createServerFn({ method: "POST" })
   .inputValidator((d: CreateOrderInput) => inputSchema.parse(d))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const userId = null; // Guest orders have no userId
-
-    // Looser per-user limit for signed-in actions (user.order_create rule)
+    
+    // Looser per-IP limit for guest actions
     {
       const { guardUserAction, retryMessage } = await import("@/lib/rate-limit.server");
-      const rl = await guardUserAction("user.order_create", userId);
+      const rl = await guardUserAction("guest.order_create", "guest");
       if (!rl.allowed) throw new Error(retryMessage(rl, true));
     }
 
@@ -130,7 +129,7 @@ export const createOrder = createServerFn({ method: "POST" })
     const { data: inserted, error: iErr } = await supabaseAdmin
       .from("orders")
       .insert({
-        user_id: userId,
+        user_id: undefined, // undefined in Supabase JS means "don't include", database default is NULL
         full_name: data.full_name,
         email: data.email,
         phone: data.phone,
