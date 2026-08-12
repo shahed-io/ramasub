@@ -55,13 +55,15 @@ function AdminOrders() {
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("orders")
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (error) toast.error(error.message);
-    setOrders((data ?? []) as unknown as Order[]);
-    setLoading(false);
+    try {
+      const { listOrders } = await import("@/lib/orders.functions");
+      const data = await listOrders();
+      setOrders(data as unknown as Order[]);
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => { load(); }, [load]);

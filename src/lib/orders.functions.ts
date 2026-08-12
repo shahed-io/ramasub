@@ -167,3 +167,22 @@ export const createOrder = createServerFn({ method: "POST" })
       items: richItems,
     };
   });
+
+export const listOrders = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+
+    const { data: role } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
+    if (!role) throw new Error("Forbidden");
+    await assertAdminMfaGrant(context.userId);
+
+    const { data, error } = await supabaseAdmin
+      .from("orders")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return data ?? [];
+  });
