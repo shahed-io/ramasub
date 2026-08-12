@@ -819,7 +819,7 @@ export function SupportWidget() {
                     <span className="grid place-items-center h-9 w-9 shrink-0 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 ring-2 ring-white overflow-hidden">
                       <img src={aiAgentAvatar} alt="AI Assistant" loading="lazy" width={64} height={64} className="h-full w-full object-cover" />
                     </span>
-                    <div className="rounded-2xl rounded-tl-sm bg-white border border-slate-200 px-4 py-3 text-[13.5px] text-slate-900 max-w-[85%] leading-relaxed shadow-sm">
+                    <div className="rounded-2xl rounded-tl-sm bg-white border border-slate-200 px-4 py-3 text-[13.5px] text-slate-900 max-w-[85%] leading-relaxed shadow-sm font-sans">
                       আসসালামু আলাইকুম! 👋
                       <br />
                       আমি Rama Sub-এর AI সহকারী। প্রোডাক্ট, পেমেন্ট, ডেলিভারি — যেকোনো বিষয়ে জিজ্ঞাসা করুন।
