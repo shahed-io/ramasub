@@ -83,7 +83,7 @@ export const listProductsAdmin = createServerFn({ method: "GET" })
 
 export const deleteProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => z.object({ slug: z.string().min(1) }).strict().parse(input))
+  .inputValidator((input: unknown) => z.object({ slug: z.string().min(1) }).strict().parse(input) as { slug: string })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -105,7 +105,7 @@ export const deleteProductAdmin = createServerFn({ method: "POST" })
 
 export const bulkDeleteProductsAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => z.object({ slugs: z.array(z.string().min(1)) }).strict().parse(input))
+  .inputValidator((input: unknown) => z.object({ slugs: z.array(z.string().min(1)) }).strict().parse(input) as { slugs: string[] })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -127,7 +127,7 @@ export const bulkDeleteProductsAdmin = createServerFn({ method: "POST" })
 
 export const updateProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => z.object({ slug: z.string().min(1), patch: z.record(z.unknown()) }).strict().parse(input))
+  .inputValidator((input: unknown) => z.object({ slug: z.string().min(1), patch: z.record(z.unknown()) }).strict().parse(input) as { slug: string, patch: Record<string, unknown> })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -149,7 +149,7 @@ export const updateProductAdmin = createServerFn({ method: "POST" })
 
 export const createProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => z.record(z.string(), z.unknown()).parse(input))
+  .inputValidator((input: unknown) => z.record(z.string(), z.unknown()).parse(input) as Record<string, unknown>)
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -174,7 +174,7 @@ export const swapProductSortOrder = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => z.object({ 
     slugA: z.string().min(1), orderA: z.number(), 
     slugB: z.string().min(1), orderB: z.number() 
-  }).strict().parse(input))
+  }).strict().parse(input) as { slugA: string, orderA: number, slugB: string, orderB: number })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
