@@ -1090,7 +1090,7 @@ function BottomTabs({
               <span className="absolute top-0 left-1/2 -translate-x-1/2 h-0.5 w-8 rounded-full bg-gradient-to-r from-violet-500 to-aqua" />
             )}
             {it.icon}
-            <span>{it.label}</span>
+            <span className="font-sans">{it.label}</span>
           </button>
         );
       })}
