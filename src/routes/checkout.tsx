@@ -27,8 +27,9 @@ import { PaymentInstructions } from "@/components/checkout/PaymentInstructions";
 function CheckoutErrorComponent({ error }: { error: Error }) {
   if (typeof window !== "undefined") console.error("Checkout render error:", error);
   return (
-    <div className="min-h-screen grid place-items-center px-4 py-10 bg-white text-foreground">
-      <div className="max-w-[480px] w-full rounded-3xl border border-border bg-card text-card-foreground p-6 shadow-xl">
+    <div className="min-h-screen grid place-items-center px-4 py-10 bg-slate-50 text-foreground">
+      <div className="max-w-[480px] w-full glass-checkout-card p-10">
+
         <h1 className="text-xl font-bold mb-2">চেকআউট লোড করা যায়নি</h1>
         <p className="text-sm text-muted-foreground mb-4">{error?.message || "Unknown error"}</p>
         <button
@@ -463,7 +464,7 @@ function CheckoutPage() {
         {/* Left Column: Forms */}
         <div className="space-y-8">
           {step === 1 ? (
-            <div className="bg-white p-6 md:p-10 rounded-[2.5rem] border border-slate-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.03)] space-y-8 animate-in fade-in slide-in-from-left-6 duration-500">
+            <div className="glass-checkout-card p-6 md:p-10 space-y-8 animate-in fade-in slide-in-from-left-6 duration-500">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-2xl bg-primary/10 text-primary grid place-items-center">
                   <User className="w-5 h-5" />
@@ -527,7 +528,7 @@ function CheckoutPage() {
             </div>
           ) : (
             <div className="space-y-8 animate-in fade-in slide-in-from-right-6 duration-500">
-              <div className="bg-white p-6 md:p-10 rounded-[2.5rem] border border-slate-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.03)]">
+              <div className="glass-checkout-card p-6 md:p-10">
                 <PaymentMethods 
                   methods={methods}
                   selectedMethod={method}
@@ -542,7 +543,7 @@ function CheckoutPage() {
               </div>
 
               {!isGatewayMethod && !isWalletMethod && (
-                <div className="bg-white p-6 md:p-10 rounded-[2.5rem] border border-slate-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.03)]">
+                <div className="glass-checkout-card p-6 md:p-10">
                   <PaymentInstructions 
                     methodName={selectedMethod.name}
                     methodNumber={selectedMethod.number}
@@ -636,8 +637,8 @@ function CheckoutPage() {
 
 function GuardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-white grid place-items-center p-6">
-      <div className="max-w-md w-full text-center p-10 rounded-[2.5rem] bg-white border border-slate-100 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.05)]">
+    <div className="min-h-screen bg-slate-50 grid place-items-center p-6">
+      <div className="max-w-md w-full text-center p-10 glass-checkout-card">
         {children}
       </div>
     </div>
@@ -646,9 +647,15 @@ function GuardLayout({ children }: { children: React.ReactNode }) {
 
 function CheckoutLayout({ children, currentStep, isStep1Valid, onStepClick }: { children: React.ReactNode, currentStep: 1 | 2, isStep1Valid: boolean, onStepClick: (s: 1 | 2) => void }) {
   return (
-    <div className="min-h-screen bg-[#F8F9FB] text-slate-900 font-body antialiased pb-20">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-body antialiased pb-20 relative overflow-hidden">
+      {/* Dynamic Aurora Backgrounds */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/10 blur-[120px] rounded-full animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-400/10 blur-[120px] rounded-full animate-pulse [animation-delay:2s]" />
+      </div>
+
       {/* Premium Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6 py-4">
+      <header className="sticky top-0 z-50 bg-white/40 backdrop-blur-xl border-b border-white/50 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <img src="/rama-logo-new.png" alt="Rama Sub" className="h-8 md:h-10 w-auto" />

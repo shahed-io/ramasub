@@ -35,7 +35,7 @@ export function OrderSummary({
       {/* Mobile Collapsible Summary Toggle */}
       <button 
         onClick={() => setIsExpanded(!isExpanded)}
-        className="lg:hidden w-full flex items-center justify-between p-6 bg-white border border-slate-200 rounded-3xl shadow-sm active:scale-[0.98] transition-all"
+        className="lg:hidden w-full flex items-center justify-between p-6 glass-checkout-card active:scale-[0.98] transition-all"
       >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-primary/10 text-primary grid place-items-center">
@@ -51,7 +51,7 @@ export function OrderSummary({
 
       {/* Main Summary Panel */}
       <div className={`
-        lg:block bg-white border border-slate-200 rounded-[2rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.03)] overflow-hidden transition-all duration-500
+        lg:block glass-checkout-card overflow-hidden transition-all duration-500
 
         ${isExpanded ? "block" : "hidden lg:block"}
       `}>
@@ -115,17 +115,19 @@ export function OrderSummary({
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <div className="relative flex-1 group">
-                <Tag className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/40 group-focus-within:text-primary transition-colors" />
-                <input
-                  value={couponInput}
-                  onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
-                  placeholder="Promo Code"
-                  className="w-full h-12 pl-7 pr-4 border-b-2 border-slate-200 bg-transparent outline-none text-[15px] font-bold focus:border-primary transition-all placeholder:text-muted-foreground/30 text-slate-900"
-                />
+                <div className="relative flex-1 group pt-4">
+                  <input
+                    value={couponInput}
+                    onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                    placeholder=" "
+                    className="floating-input"
+                  />
+                  <label className="floating-label !left-0">Promo Code</label>
+                </div>
               </div>
               <button
                 onClick={onApplyCoupon}
-                className="h-12 px-6 rounded-2xl bg-foreground text-background text-sm font-bold hover:bg-foreground/90 transition-all active:scale-95 shadow-lg shadow-foreground/10"
+                className="h-12 px-6 rounded-2xl bg-foreground text-background text-sm font-bold hover:bg-foreground/90 transition-all active:scale-95 shadow-lg shadow-foreground/10 shrink-0"
               >
                 Apply
               </button>
@@ -139,7 +141,7 @@ export function OrderSummary({
           </div>
 
           {/* Price Breakdown */}
-          <div className="space-y-3 bg-slate-50 rounded-2xl p-4 border border-slate-100 shadow-sm">
+          <div className="space-y-3 bg-white/40 backdrop-blur-md rounded-3xl p-6 border border-white/60 shadow-sm">
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground font-medium">Subtotal</span>
               <span className="text-foreground font-bold tabular-nums">{format(total)}</span>

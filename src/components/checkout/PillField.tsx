@@ -24,40 +24,32 @@ export function PillField({
   icon: Icon
 }: PillFieldProps) {
   return (
-    <div className="space-y-2">
-      <label className="text-[10px] font-black text-muted-foreground/60 ml-0.5 uppercase tracking-[0.15em]">
-        {label}
-      </label>
-      <div className="relative group">
-        <div className={`
-          flex items-center gap-3 transition-all duration-300 border-b-2 bg-transparent
-          ${error 
-            ? "border-destructive/40" 
-            : "border-slate-200 focus-within:border-primary"
-          }
-        `}>
-          {Icon && (
-            <Icon className={`
-              w-4 h-4 transition-colors shrink-0
-              ${error ? "text-destructive/70" : "text-muted-foreground/40 group-focus-within:text-primary"}
-            `} />
-          )}
-          <input
-            type={type}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            onBlur={onBlur}
-            placeholder={placeholder}
-            inputMode={inputMode}
-            className="flex-1 bg-transparent outline-none text-[15px] text-slate-900 placeholder:text-muted-foreground/30 font-bold h-12 py-2"
-          />
-        </div>
-        {error && (
-          <p className="text-[10px] font-bold text-destructive mt-1.5 ml-0.5 animate-in fade-in slide-in-from-top-1">
-            {error}
-          </p>
+    <div className="space-y-1">
+      <div className={`floating-field-container ${error ? "!border-destructive/40" : ""}`}>
+        <input
+          type={type}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onBlur={onBlur}
+          placeholder=" "
+          inputMode={inputMode}
+          className="floating-input"
+        />
+        <label className="floating-label">
+          {label}
+        </label>
+        {Icon && (
+          <Icon className={`
+            absolute right-2 top-28 w-4 h-4 transition-colors shrink-0 -translate-y-[64px]
+            ${error ? "text-destructive/70" : "text-muted-foreground/30 group-focus-within:text-primary"}
+          `} />
         )}
       </div>
+      {error && (
+        <p className="text-[10px] font-bold text-destructive mt-1.5 ml-0.5 animate-in fade-in slide-in-from-top-1">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
