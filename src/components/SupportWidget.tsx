@@ -450,7 +450,7 @@ export function SupportWidget() {
                 </span>
                 <div className="leading-tight">
                   <div className="text-[13px] font-extrabold text-slate-900">AI Support</div>
-                  <div className="text-[11px] text-slate-500 mt-0.5">তাৎক্ষণিক উত্তর পান</div>
+                  <div className="text-[11px] text-black font-semibold mt-0.5">তাৎক্ষণিক উত্তর পান</div>
                 </div>
               </button>
 
@@ -467,11 +467,11 @@ export function SupportWidget() {
                 </span>
                 <div className="leading-tight">
                   <div className="text-[13px] font-extrabold text-slate-900">WhatsApp</div>
-                  <div className="text-[11px] text-slate-500 mt-0.5">সরাসরি কথা বলুন</div>
+                  <div className="text-[11px] text-black font-semibold mt-0.5">সরাসরি কথা বলুন</div>
                 </div>
               </a>
 
-              <div className="text-center text-[11px] text-slate-500 mt-1">কোনটি পছন্দ করবেন?</div>
+              <div className="text-center text-[11px] text-black font-bold mt-1">কোনটি পছন্দ করবেন?</div>
             </div>
           )}
 
