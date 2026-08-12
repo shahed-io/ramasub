@@ -410,7 +410,7 @@ function AdminDashboard() {
         {/* Best Selling Products */}
         <div className="admin-card rounded-2xl p-5 sm:p-6">
           <div className="flex items-start gap-2 mb-4">
-            <span className="w-1 h-5 rounded-full bg-blue-500 mt-1" aria-hidden />
+            <span className="w-1.5 h-6 rounded-full bg-violet-600 mt-1" aria-hidden />
             <div className="min-w-0 flex-1">
               <h3 className="text-[18px] font-extrabold text-slate-900">{t("Best Selling Products", "বেস্ট সেলিং প্রোডাক্ট")}</h3>
             </div>
@@ -438,7 +438,7 @@ function AdminDashboard() {
           {/* Conversion Stats */}
           <div className="mt-6 pt-5 border-t border-slate-100">
             <div className="flex items-start gap-2 mb-3">
-              <span className="w-1 h-5 rounded-full bg-blue-500 mt-0.5" aria-hidden />
+              <span className="w-1.5 h-6 rounded-full bg-violet-600 mt-0.5" aria-hidden />
               <h4 className="text-[15px] font-extrabold text-slate-900">{t("Conversion Stats", "কনভার্শন স্ট্যাটস")}</h4>
             </div>
             <div className="space-y-2.5">
@@ -457,7 +457,7 @@ function AdminDashboard() {
 function SectionHeader({ title }: { title: string }) {
   return (
     <div className="flex items-center gap-2.5">
-      <span className="w-1 h-7 rounded-full bg-blue-500" aria-hidden />
+      <span className="w-1.5 h-8 rounded-full bg-violet-600" aria-hidden />
       <h2 className="text-[20px] sm:text-[22px] font-extrabold text-slate-900 tracking-tight uppercase">
         {title}
       </h2>
@@ -468,17 +468,16 @@ function SectionHeader({ title }: { title: string }) {
 function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compact?: boolean }) {
   const { Icon } = kpi;
   return (
-    <div
-      className={`admin-kpi-card relative overflow-hidden rounded-2xl ${compact ? "p-4" : "p-5"} transition-all`}
+      className={`admin-kpi-card relative overflow-hidden rounded-[24px] border border-slate-200/50 ${compact ? "p-5" : "p-6"} transition-all`}
       style={{
-        background: `linear-gradient(135deg, #ffffff 0%, #ffffff 45%, ${kpi.accent ?? "#8b5cf6"}22 100%)`,
+        background: `linear-gradient(135deg, #ffffff 0%, #ffffff 55%, ${kpi.accent ?? "#7c3aed"}15 100%)`,
       }}
     >
-      <span className="absolute inset-x-0 top-0 h-[3px]" style={{ background: kpi.accent ?? "#8b5cf6" }} aria-hidden />
+      <span className="absolute inset-x-0 top-0 h-[4px]" style={{ background: kpi.accent ?? "#7c3aed" }} aria-hidden />
       <div className="relative">
         <div className="flex items-start justify-between gap-2">
           <span className={`admin-kpi-icon w-11 h-11 rounded-full bg-gradient-to-br ${kpi.iconGrad} grid place-items-center text-white shrink-0`}>
-            <Icon className="w-5 h-5" strokeWidth={2.5} />
+            <Icon className="w-5 h-5" strokeWidth={2.75} />
           </span>
           {typeof kpi.delta === "number" && kpi.delta !== 0 && (
             <span className={`shrink-0 inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10.5px] font-bold ${kpi.delta >= 0 ? "bg-blue-100 text-blue-700" : "bg-rose-100 text-rose-700"}`}>

@@ -352,12 +352,12 @@ function AdminOrders() {
 
 function StatCard({ label, value, icon, tone, loading }: { label: string; value: string | number; icon: React.ReactNode; tone: "violet"|"sky"|"emerald"; loading?: boolean }) {
   const tones: Record<string, string> = {
-    violet: "bg-blue-200 text-blue-800",
-    sky: "bg-sky-100 text-sky-700",
-    emerald: "bg-blue-100 text-blue-700",
+    violet: "bg-violet-100/80 text-violet-700",
+    sky: "bg-sky-100/80 text-sky-700",
+    emerald: "bg-emerald-100/80 text-emerald-700",
   };
   return (
-    <div className="a-stat-card">
+    <div className="a-stat-card border border-slate-200/50 shadow-sm rounded-[24px]">
       <div className="flex items-start justify-between">
         <div className="a-stat-label">{label}</div>
         <span className={`a-stat-icon ${tones[tone]}`}>{icon}</span>
