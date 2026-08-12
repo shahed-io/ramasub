@@ -155,7 +155,7 @@ async function logChatMessage(role: "user" | "assistant", content: string) {
 /** Renders assistant replies as rich text (bold, lists, links). */
 function ChatMarkdown({ text }: { text: string }) {
   return (
-    <div className="space-y-1.5 [&_p]:m-0 [&_ul]:my-1 [&_ul]:pl-4 [&_ol]:my-1 [&_ol]:pl-4 [&_li]:my-0.5 [&_li]:marker:text-primary [&_strong]:font-bold [&_strong]:text-slate-900 [&_code]:rounded [&_code]:bg-violet-50 [&_code]:text-violet-700 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[11.5px]">
+    <div className="space-y-1.5 text-slate-800 text-[13.5px] leading-relaxed [&_p]:m-0 [&_p]:leading-relaxed [&_ul]:my-1.5 [&_ul]:pl-5 [&_ol]:my-1.5 [&_ol]:pl-5 [&_li]:my-1 [&_li]:marker:text-primary [&_strong]:font-bold [&_strong]:text-slate-900 [&_code]:rounded [&_code]:bg-violet-50 [&_code]:text-violet-700 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-[12px] [&_code]:font-mono">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -167,7 +167,7 @@ function ChatMarkdown({ text }: { text: string }) {
                 href={url}
                 target={internal ? undefined : "_blank"}
                 rel={internal ? undefined : "noopener noreferrer"}
-                className="font-semibold text-aqua underline decoration-aqua/40 underline-offset-2 hover:text-violet-700"
+                className="font-bold text-violet-700 underline decoration-violet-300 underline-offset-4 hover:text-violet-900 hover:decoration-violet-500 transition-colors"
               >
                 {children}
               </a>
@@ -819,7 +819,7 @@ export function SupportWidget() {
                     <span className="grid place-items-center h-9 w-9 shrink-0 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 ring-2 ring-white overflow-hidden">
                       <img src={aiAgentAvatar} alt="AI Assistant" loading="lazy" width={64} height={64} className="h-full w-full object-cover" />
                     </span>
-                    <div className="rounded-2xl rounded-tl-sm bg-white/80 border border-slate-200/80 px-3.5 py-2.5 text-[13px] text-slate-700 max-w-[85%] leading-relaxed">
+                    <div className="rounded-2xl rounded-tl-sm bg-white border border-slate-200 px-4 py-3 text-[13.5px] text-slate-900 max-w-[85%] leading-relaxed shadow-sm">
                       আসসালামু আলাইকুম! 👋
                       <br />
                       আমি Rama Sub-এর AI সহকারী। প্রোডাক্ট, পেমেন্ট, ডেলিভারি — যেকোনো বিষয়ে জিজ্ঞাসা করুন।
@@ -873,10 +873,10 @@ export function SupportWidget() {
                     )}
                   </span>
                   <div
-                    className={`max-w-[78%] px-3.5 py-2.5 text-[13px] leading-relaxed ${
+                    className={`max-w-[85%] px-4 py-3 shadow-sm ${
                       m.role === "user"
-                        ? "rounded-2xl rounded-br-sm bg-gradient-to-br from-violet-500 to-primary text-slate-900 shadow-[0_10px_25px_-10px_rgba(124,58,237,0.6)] whitespace-pre-wrap"
-                        : "rounded-2xl rounded-bl-sm bg-white/80 border border-slate-200/80 text-slate-800"
+                        ? "rounded-2xl rounded-br-sm bg-gradient-to-br from-violet-600 to-primary text-white font-medium shadow-[0_8px_20px_-8px_rgba(124,58,237,0.5)] whitespace-pre-wrap text-[13.5px]"
+                        : "rounded-2xl rounded-bl-sm bg-white border border-slate-200 text-slate-900"
                     }`}
                   >
                     {m.role === "user" ? (
