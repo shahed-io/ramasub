@@ -274,11 +274,6 @@ function CheckoutPage() {
   };
 
   const handleSubmit = async () => {
-    if (!user) {
-      rememberReturnTo();
-      navigate({ to: "/login" });
-      return;
-    }
     setErr(null);
     setBusy(true);
     try {
@@ -399,7 +394,7 @@ function CheckoutPage() {
     }
   };
 
-  // ----- Guards (loading / login / empty cart) -----
+  // ----- Guards (loading / empty cart) -----
   if (authLoading || !cartReady) {
     return (
       <GuardLayout>

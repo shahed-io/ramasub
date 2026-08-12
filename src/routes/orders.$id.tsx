@@ -59,25 +59,17 @@ function OrderDetailPage() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      rememberReturnTo();
-      navigate({ to: "/login" });
-      return;
-    }
-    if (user) {
-      supabase
-        .from("orders")
-        .select("*")
-        .eq("id", id)
-        .eq("user_id", user.id)
-        .maybeSingle()
-        .then(({ data }) => {
-          if (!data) setNotFound(true);
-          else setOrder(data as unknown as Order);
-          setLoading(false);
-        });
-    }
-  }, [id, user, authLoading, navigate]);
+    supabase
+      .from("orders")
+      .select("*")
+      .eq("id", id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (!data) setNotFound(true);
+        else setOrder(data as unknown as Order);
+        setLoading(false);
+      });
+  }, [id]);
 
   // Auto-download receipt the first time a freshly placed order loads.
   const [autoDownloaded, setAutoDownloaded] = useState(false);

@@ -40,11 +40,6 @@ function OrdersPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      rememberReturnTo();
-      navigate({ to: "/login" });
-      return;
-    }
     if (user) {
       supabase
         .from("orders")
@@ -55,8 +50,10 @@ function OrdersPage() {
           setOrders(((data as unknown) as Order[]) || []);
           setLoading(false);
         });
+    } else {
+      setLoading(false);
     }
-  }, [user, authLoading, navigate]);
+  }, [user]);
 
   const handleSignOut = async () => {
     await signOut();

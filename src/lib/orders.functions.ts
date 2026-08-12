@@ -52,16 +52,14 @@ function planPriceOf(plans: unknown, planPeriod: string): number | null {
 }
 
 export const createOrder = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator((d: CreateOrderInput) => inputSchema.parse(d))
-  .handler(async ({ data, context }) => {
+  .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const userId = context.userId;
-
-    // Looser per-user limit for signed-in actions (user.order_create rule)
+    
+    // Looser per-IP limit for guest actions
     {
       const { guardUserAction, retryMessage } = await import("@/lib/rate-limit.server");
-      const rl = await guardUserAction("user.order_create", userId);
+      const rl = await guardUserAction("guest.order_create", "guest");
       if (!rl.allowed) throw new Error(retryMessage(rl, true));
     }
 
@@ -131,7 +129,6 @@ export const createOrder = createServerFn({ method: "POST" })
     const { data: inserted, error: iErr } = await supabaseAdmin
       .from("orders")
       .insert({
-        user_id: userId,
         full_name: data.full_name,
         email: data.email,
         phone: data.phone,
@@ -141,7 +138,7 @@ export const createOrder = createServerFn({ method: "POST" })
         items: richItems,
         total,
         status: "pending",
-      })
+      } as any)
       .select("id")
       .single();
     if (iErr) throw new Error(`Failed to create order: ${iErr.message}`);
