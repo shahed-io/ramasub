@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { rowToProduct, type Product } from "@/data/products";
-import { z, slug as slugSchema, parseOrThrow } from "@/lib/validation";
+import { z, slug as slugSchema, parseOrThrow, validator } from "@/lib/validation";
 
 const PRODUCT_SELECT =
   "slug,name,emoji,gradient,category,badge,tagline,description,delivery_time,warranty,features,plans,image_url,short_description,meta";
