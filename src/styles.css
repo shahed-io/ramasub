@@ -426,7 +426,7 @@
     top: 30px;
     font-size: 14px;
     font-weight: 600;
-    color: #94a3b8;
+    color: #475569; /* Slate 600 - darker for better visibility */
     pointer-events: none;
     transition: transform 0.25s ease, color 0.25s ease;
     transform-origin: left top;
