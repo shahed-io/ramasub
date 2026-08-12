@@ -643,7 +643,7 @@ export function SupportWidget() {
                   </span>
                   <div className="flex-1 leading-tight">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-[14px] font-extrabold text-slate-900">নতুন কথোপকথন শুরু করুন</span>
+                      <span className="text-[14px] font-extrabold text-slate-900 font-sans">নতুন কথোপকথন শুরু করুন</span>
                       <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-violet-100 text-violet-700 border border-violet-200">
                         AI
                       </span>
