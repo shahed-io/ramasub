@@ -313,7 +313,7 @@ function CheckoutPage() {
         templateData: {
           name: form.name?.split(" ")[0],
           orderId: `ANB-${newId.slice(0, 8).toUpperCase()}`,
-          items: created.items.map((it) => ({ name: it.name || it.slug, qty: it.qty, price: it.price * it.qty })),
+          items: created.items.map((it: any) => ({ name: it.name || it.slug, qty: it.qty, price: it.price * it.qty })),
           subtotal: created.subtotal,
           discount: created.discount,
           total: serverTotal,
@@ -349,7 +349,7 @@ function CheckoutPage() {
           ["Customer", form.name],
           ["Phone", form.phone],
           ["Email", form.email],
-          ["Items", created.items.map((it) => `${it.name || it.slug} × ${it.qty}`).join(", ")],
+          ["Items", created.items.map((it: any) => `${it.name || it.slug} × ${it.qty}`).join(", ")],
           ["Payment", fullyByWallet ? "Wallet" : method],
           ["Total", `৳${serverTotal}`],
         ],
