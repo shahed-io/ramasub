@@ -154,7 +154,7 @@ export const listAbandonedCheckouts = createServerFn({ method: "GET" })
 export const updateAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => {
-    const res = z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }).safeParse(d);
+    const res = z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }).safeParse(d as any);
     if (!res.success) throw new Error(formatIssues(res.error));
     return res.data;
   })
@@ -178,7 +178,7 @@ export const updateAbandonedCheckout = createServerFn({ method: "POST" })
 export const deleteAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => {
-    const res = z.object({ id: z.string().uuid() }).safeParse(d);
+    const res = z.object({ id: z.string().uuid() }).safeParse(d as any);
     if (!res.success) throw new Error(formatIssues(res.error));
     return res.data;
   })
