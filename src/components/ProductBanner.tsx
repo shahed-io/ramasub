@@ -109,7 +109,16 @@ export function ProductBanner({
     <div
       className={`product-banner-clean relative overflow-hidden ${aspectClass} ${className} flex items-center justify-center`}
     >
-      {primary && !imgFailed ? (
+      {product.meta?.video_url && /\.(mp4|webm|ogg)(\?|$)/i.test(product.meta.video_url) ? (
+        <video
+          src={product.meta.video_url}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="relative z-10 w-full h-full object-cover"
+        />
+      ) : primary && !imgFailed ? (
         <img
           src={primary}
           alt={`${product.name} — ${product.category ?? "premium subscription"} available in Bangladesh`}
@@ -121,9 +130,6 @@ export function ProductBanner({
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 320px"
           className="relative z-10 w-full h-full object-cover"
           onError={(e) => {
-            // If the transformed URL fails (transforms not enabled),
-            // fall back to the original public object URL once before
-            // surrendering to the logo fallback.
             const img = e.currentTarget;
             if (product.imageUrl && img.src !== product.imageUrl) {
               img.src = product.imageUrl;

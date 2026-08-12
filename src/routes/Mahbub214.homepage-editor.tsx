@@ -30,7 +30,7 @@ type BannerSlide = {
   data: {
     category?: string; title?: string; subtitle?: string;
     cta?: string; link?: string; secondary_cta?: string; secondary_link?: string;
-    image_url?: string; color_preset?: string;
+    image_url?: string; video_url?: string; color_preset?: string;
   };
 };
 
@@ -273,6 +273,7 @@ function BannerTab() {
             <Field label="Title" value={s.data.title ?? ""} onChange={(v) => patch(s.id, { data: { ...s.data, title: v } })} />
             <TextArea label="Subtitle" value={s.data.subtitle ?? ""} onChange={(v) => patch(s.id, { data: { ...s.data, subtitle: v } })} />
             <Field label="Image URL (optional)" value={s.data.image_url ?? ""} onChange={(v) => patch(s.id, { data: { ...s.data, image_url: v } })} placeholder="https://..." />
+            <Field label="Video URL (optional)" value={s.data.video_url ?? ""} onChange={(v) => patch(s.id, { data: { ...s.data, video_url: v } })} placeholder="https://...mp4" />
             <Field label="Primary CTA text" value={s.data.cta ?? ""} onChange={(v) => patch(s.id, { data: { ...s.data, cta: v } })} />
             <Field label="Primary CTA link" value={s.data.link ?? ""} onChange={(v) => patch(s.id, { data: { ...s.data, link: v } })} placeholder="/products" />
             <Field label="Secondary CTA text" value={s.data.secondary_cta ?? ""} onChange={(v) => patch(s.id, { data: { ...s.data, secondary_cta: v } })} />

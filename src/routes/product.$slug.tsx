@@ -254,7 +254,16 @@ function ProductPage() {
         {/* Media gallery */}
         <div className="md:col-span-6 space-y-4">
           <div className="relative aspect-square overflow-hidden rounded-3xl bg-white shadow-sm border border-slate-200">
-            {heroImg ? (
+            {product.meta?.video_url && /\.(mp4|webm|ogg)(\?|$)/i.test(product.meta.video_url) ? (
+              <video
+                src={product.meta.video_url}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            ) : heroImg ? (
               <ProductImageZoom src={heroImg} alt={product.name} />
             ) : (
               <ProductBanner product={product} ratio="1/1" spheres={6} priority className="rounded-3xl overflow-hidden" />
@@ -294,21 +303,17 @@ function ProductPage() {
             </div>
           )}
 
-          {videoEmbed && (
+          {videoEmbed && !(/\.(mp4|webm|ogg)(\?|$)/i.test(product.meta?.video_url || "")) && (
             <div className="rounded-3xl overflow-hidden bg-white border border-slate-200 shadow-sm p-2">
               <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black">
-                {/\.(mp4|webm|ogg)(\?|$)/i.test(videoEmbed) ? (
-                  <video src={videoEmbed} controls playsInline className="absolute inset-0 w-full h-full object-cover" />
-                ) : (
-                  <iframe
-                    src={videoEmbed}
-                    title={`${product.name} preview`}
-                    className="absolute inset-0 w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    loading="lazy"
-                  />
-                )}
+                <iframe
+                  src={videoEmbed}
+                  title={`${product.name} preview`}
+                  className="absolute inset-0 w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  loading="lazy"
+                />
               </div>
             </div>
           )}
