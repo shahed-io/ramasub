@@ -128,8 +128,7 @@ export const bulkDeleteProductsAdmin = createServerFn({ method: "POST" })
 export const updateProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: any) => {
-    const s = z.object({ slug: z.string().min(1), patch: z.record(z.unknown()) }).strict();
-    return s.parse(input);
+    return z.object({ slug: z.string().min(1), patch: z.record(z.unknown()) }).strict().parse(input);
   })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
