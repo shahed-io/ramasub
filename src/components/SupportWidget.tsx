@@ -1043,7 +1043,7 @@ function PanelHeader({
         )}
       </div>
       <div className="flex-1 leading-tight min-w-0">
-        <div className="text-[14.5px] font-extrabold text-slate-900 truncate">{title}</div>
+        <div className="text-[14.5px] font-extrabold text-slate-900 truncate font-sans">{title}</div>
         <div className="flex items-center gap-1.5 mt-0.5">
           {showOnlineDot && (
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
