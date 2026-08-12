@@ -35,7 +35,7 @@ export function OrderSummary({
       {/* Mobile Collapsible Summary Toggle */}
       <button 
         onClick={() => setIsExpanded(!isExpanded)}
-        className="lg:hidden w-full flex items-center justify-between p-6 bg-card/60 backdrop-blur-xl border border-border/50 rounded-3xl shadow-xl active:scale-[0.98] transition-all"
+        className="lg:hidden w-full flex items-center justify-between p-6 bg-white border border-slate-200 rounded-3xl shadow-sm active:scale-[0.98] transition-all"
       >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-primary/10 text-primary grid place-items-center">
