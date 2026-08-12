@@ -69,19 +69,28 @@ export function OrderSummary({
           <div className="space-y-4">
             {items.map((item) => (
               <div key={`${item.slug}-${item.planPeriod}`} className="flex items-center gap-4 group">
-                <div className="relative shrink-0">
-                  {productImages[item.slug] ? (
+                <div className="relative shrink-0 w-14 h-14 rounded-2xl overflow-hidden border border-border/50 shadow-sm transition-transform group-hover:scale-105">
+                  {item.video_url ? (
+                    <video
+                      src={item.video_url}
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    />
+                  ) : item.image_url ? (
                     <img 
-                      src={productImages[item.slug]} 
+                      src={item.image_url} 
                       alt={item.name} 
-                      className="w-14 h-14 rounded-2xl object-cover border border-border/50 shadow-sm transition-transform group-hover:scale-105" 
+                      className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.gradient} grid place-items-center text-xl shadow-sm transition-transform group-hover:scale-105`}>
+                    <div className={`w-full h-full bg-gradient-to-br ${item.gradient} grid place-items-center text-xl`}>
                       {item.emoji}
                     </div>
                   )}
-                  <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold grid place-items-center shadow-lg border-2 border-card">
+                  <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold grid place-items-center shadow-lg border-2 border-card z-20">
                     {item.qty}
                   </span>
                 </div>
