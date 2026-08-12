@@ -18,6 +18,7 @@ function createPublicProductClient() {
 
   if (!supabaseUrl || !supabaseKey) {
     throw new Error("Product data connection is not configured");
+  }
 
   return createClient(supabaseUrl, supabaseKey, {
     auth: {
