@@ -37,7 +37,8 @@ export const getWalletScreenshotUrl = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId);
-    const { data: signed, error } = await supabaseAdmin.storage
+    const { supabaseAdmin: sa } = await import("@/integrations/supabase/client.server");
+    const { data: signed, error } = await (sa as any).storage
       .from("payment-screenshots")
       .createSignedUrl(data.path, 60 * 5); // 5 minutes
     if (error) throw new Error(error.message);
