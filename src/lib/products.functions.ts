@@ -129,8 +129,7 @@ export const updateProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: any) => {
     const s = z.object({ slug: z.string().min(1), patch: z.record(z.unknown()) }).strict();
-    const fn: any = parseOrThrow;
-    return fn(s, input, "P");
+    return s.parse(input) as any;
   })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
