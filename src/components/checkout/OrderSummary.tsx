@@ -51,7 +51,7 @@ export function OrderSummary({
 
       {/* Main Summary Panel */}
       <div className={`
-        lg:block bg-card/60 backdrop-blur-2xl border border-white/40 rounded-[2rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] overflow-hidden transition-all duration-500
+        lg:block bg-white border border-slate-200 rounded-[2rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.03)] overflow-hidden transition-all duration-500
 
         ${isExpanded ? "block" : "hidden lg:block"}
       `}>

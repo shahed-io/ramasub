@@ -30,7 +30,7 @@ export function CheckoutProgress({ currentStep, onStepClick, isStep1Valid }: Che
                     w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 relative z-10
                     ${isCompleted ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20" : 
                       isActive ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20 scale-110" : 
-                      "bg-card border border-border text-muted-foreground"}
+                      "bg-white border border-slate-100 text-slate-400"}
                   `}
                 >
                   {isCompleted ? <Check className="w-5 h-5" strokeWidth={3} /> : <Icon className="w-5 h-5" />}

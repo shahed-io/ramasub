@@ -30,10 +30,10 @@ export function PillField({
       </label>
       <div className="relative group">
         <div className={`
-          flex items-center gap-3 px-5 h-13 rounded-2xl border bg-background/50 backdrop-blur-sm transition-all duration-300
+          flex items-center gap-3 px-5 h-13 rounded-2xl border bg-white transition-all duration-300
           ${error 
-            ? "border-destructive/50 ring-2 ring-destructive/10 shadow-sm shadow-destructive/5" 
-            : "border-border/60 focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/10 focus-within:bg-background shadow-sm hover:border-border"
+            ? "border-destructive/30 ring-4 ring-destructive/5" 
+            : "border-slate-200 focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/5 shadow-sm hover:border-slate-300"
           }
         `}>
           {Icon && <Icon className={`w-4 h-4 transition-colors ${error ? "text-destructive/70" : "text-muted-foreground/60 group-focus-within:text-primary/70"}`} />}
