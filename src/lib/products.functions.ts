@@ -42,7 +42,7 @@ export const listProducts = createServerFn({ method: "GET" }).handler(
 );
 
 export const getProduct = createServerFn({ method: "GET" })
-  .inputValidator((input: unknown) => validator(z.object({ slug: slugSchema }).strict())(input))
+  .inputValidator(z.object({ slug: slugSchema }).strict())
   .handler(async ({ data }): Promise<Product | null> => {
     const { data: rows, error } = await createPublicProductClient()
       .from("products")
@@ -127,7 +127,7 @@ export const bulkDeleteProductsAdmin = createServerFn({ method: "POST" })
 
 export const updateProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(z.object({ slug: z.string().min(1), patch: z.record(z.unknown()) }).strict())
+  .inputValidator((input: any) => z.object({ slug: z.string().min(1), patch: z.record(z.unknown()) }).strict().parse(input) as { slug: string; patch: Record<string, any> })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
