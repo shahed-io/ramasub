@@ -8,7 +8,7 @@ import {
   type ChatMsg,
 } from "@/lib/support-chat.server";
 
-import { z } from "@/lib/validation";
+import { z, validator, parseRequest } from "@/lib/validation";
 
 const MAX_MESSAGES = 24;
 const MAX_CONTENT_LEN = 4000;
@@ -51,15 +51,10 @@ export const Route = createFileRoute("/api/public/support-chat")({
         if (!rl.allowed) return tooManyRequests(rl);
 
         let messages: ChatMsg[];
-        try {
-          const parsed = ChatRequest.safeParse(await request.json());
-          if (!parsed.success) {
-            return json({ error: parsed.error.issues[0]?.message ?? "Invalid request body" }, 400);
-          }
-          messages = parsed.data.messages;
-        } catch {
-          return json({ error: "Invalid JSON body" }, 400);
-        }
+        const reqBody = await request.json().catch(() => ({}));
+        const parsed = parseRequest(ChatRequest, reqBody);
+        if (!parsed.ok) return parsed.response;
+        messages = parsed.data.messages;
 
 
         const apiKey = process.env.LOVABLE_API_KEY;

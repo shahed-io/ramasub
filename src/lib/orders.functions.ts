@@ -52,7 +52,7 @@ function planPriceOf(plans: unknown, planPeriod: string): number | null {
 }
 
 export const createOrder = createServerFn({ method: "POST" })
-  .inputValidator((d: CreateOrderInput) => inputSchema.parse(d))
+  .inputValidator(validator(inputSchema))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     
