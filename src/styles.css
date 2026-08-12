@@ -444,7 +444,7 @@
     border-radius: 0 !important;
     font-size: 16px;
     font-weight: 700;
-    color: #1e1b4b;
+    color: #0f172a; /* Slate 950 - pure contrast */
     padding: 4px 34px 4px 2px;
   }
   .floating-input:focus,
