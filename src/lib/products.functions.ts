@@ -4,7 +4,6 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { rowToProduct, type Product } from "@/data/products";
 import { validator, z, slug as slugSchema } from "@/lib/validation";
 
-
 const PRODUCT_SELECT =
   "slug,name,emoji,gradient,category,badge,tagline,description,delivery_time,warranty,features,plans,image_url,short_description,meta";
 
@@ -45,7 +44,6 @@ export const listProducts = createServerFn({ method: "GET" }).handler(
 export const getProduct = createServerFn({ method: "GET" })
   .inputValidator(validator(z.object({ slug: slugSchema }).strict()))
   .handler(async ({ data }): Promise<Product | null> => {
-
     const { data: rows, error } = await createPublicProductClient()
       .from("products")
       .select(PRODUCT_SELECT)
@@ -62,7 +60,14 @@ export const listProductsAdmin = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
-    const { data: role } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
+
+    const { data: role } = await supabaseAdmin
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
+
     if (!role) throw new Error("Forbidden");
     await assertAdminMfaGrant(context.userId);
 
@@ -71,6 +76,7 @@ export const listProductsAdmin = createServerFn({ method: "GET" })
       .select("*")
       .order("sort_order", { ascending: true })
       .order("name", { ascending: true });
+
     if (error) throw error;
     return data ?? [];
   });
@@ -81,7 +87,14 @@ export const deleteProductAdmin = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
-    const { data: role } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
+
+    const { data: role } = await supabaseAdmin
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
+
     if (!role) throw new Error("Forbidden");
     await assertAdminMfaGrant(context.userId);
 
@@ -96,7 +109,14 @@ export const bulkDeleteProductsAdmin = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
-    const { data: role } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
+
+    const { data: role } = await supabaseAdmin
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
+
     if (!role) throw new Error("Forbidden");
     await assertAdminMfaGrant(context.userId);
 
@@ -111,7 +131,14 @@ export const updateProductAdmin = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
-    const { data: role } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
+
+    const { data: role } = await supabaseAdmin
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
+
     if (!role) throw new Error("Forbidden");
     await assertAdminMfaGrant(context.userId);
 
@@ -126,7 +153,14 @@ export const createProductAdmin = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
-    const { data: role } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
+
+    const { data: role } = await supabaseAdmin
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
+
     if (!role) throw new Error("Forbidden");
     await assertAdminMfaGrant(context.userId);
 
@@ -144,7 +178,14 @@ export const swapProductSortOrder = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
-    const { data: role } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
+
+    const { data: role } = await supabaseAdmin
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
+
     if (!role) throw new Error("Forbidden");
     await assertAdminMfaGrant(context.userId);
 
