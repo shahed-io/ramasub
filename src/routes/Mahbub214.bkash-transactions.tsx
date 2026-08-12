@@ -63,15 +63,16 @@ function BkashTransactionsPage() {
 
   const load = useCallback(async (silent = false) => {
     if (!silent) setLoading(true); else setRefreshing(true);
-    const { data, error } = await supabase
-      .from("admin_records")
-      .select("*")
-      .eq("kind", "bkash_transaction")
-      .order("created_at", { ascending: false });
-    if (error) toast.error(error.message);
-    setRows(((data ?? []) as unknown) as TxRow[]);
-    setLoading(false);
-    setRefreshing(false);
+    try {
+      const { listBkashTransactions } = await import("@/lib/bkash.functions");
+      const data = await listBkashTransactions();
+      setRows(((data ?? []) as unknown) as TxRow[]);
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
   }, []);
 
   useEffect(() => { load(); }, [load]);
