@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { rowToProduct, type Product } from "@/data/products";
-import { validator, z, slug as slugSchema, formatIssues } from "@/lib/validation";
+import { validator, z, slug as slugSchema } from "@/lib/validation";
 
 
 const PRODUCT_SELECT =
@@ -77,11 +77,7 @@ export const listProductsAdmin = createServerFn({ method: "GET" })
 
 export const deleteProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => {
-    const res = z.object({ slug: z.string().min(1) }).safeParse(d as any);
-    if (!res.success) throw new Error(formatIssues(res.error));
-    return res.data;
-  })
+  .inputValidator(validator(z.object({ slug: z.string().min(1) })))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -96,11 +92,7 @@ export const deleteProductAdmin = createServerFn({ method: "POST" })
 
 export const bulkDeleteProductsAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => {
-    const res = z.object({ slugs: z.array(z.string().min(1)) }).safeParse(d as any);
-    if (!res.success) throw new Error(formatIssues(res.error));
-    return res.data;
-  })
+  .inputValidator(validator(z.object({ slugs: z.array(z.string().min(1)) })))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -115,11 +107,7 @@ export const bulkDeleteProductsAdmin = createServerFn({ method: "POST" })
 
 export const updateProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => {
-    const res = z.object({ slug: z.string().min(1), patch: z.record(z.unknown()) }).safeParse(d as any);
-    if (!res.success) throw new Error(formatIssues(res.error));
-    return res.data;
-  })
+  .inputValidator(validator(z.object({ slug: z.string().min(1), patch: z.record(z.unknown()) })))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -134,11 +122,7 @@ export const updateProductAdmin = createServerFn({ method: "POST" })
 
 export const createProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => {
-    const res = z.record(z.unknown()).safeParse(d as any);
-    if (!res.success) throw new Error(formatIssues(res.error));
-    return res.data;
-  })
+  .inputValidator(validator(z.record(z.unknown())))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -153,14 +137,10 @@ export const createProductAdmin = createServerFn({ method: "POST" })
 
 export const swapProductSortOrder = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => {
-    const res = z.object({ 
-      slugA: z.string().min(1), orderA: z.number(), 
-      slugB: z.string().min(1), orderB: z.number() 
-    }).safeParse(d as any);
-    if (!res.success) throw new Error(formatIssues(res.error));
-    return res.data;
-  })
+  .inputValidator(validator(z.object({ 
+    slugA: z.string().min(1), orderA: z.number(), 
+    slugB: z.string().min(1), orderB: z.number() 
+  })))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
