@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import type { Database } from "@/integrations/supabase/types";
@@ -124,4 +125,64 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
     }
     if (error) return { ok: false as const, error: error.message };
     return { ok: true as const, id: inserted.id, updated: false };
+  });
+
+export const listAbandonedCheckouts = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+
+    // Check role first
+    const { data: role } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
+    if (!role) throw new Error("Forbidden");
+    await assertAdminMfaGrant(context.userId);
+
+    const { data, error } = await supabaseAdmin
+      .from("abandoned_checkouts")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return data ?? [];
+  });
+
+export const updateAbandonedCheckout = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }))
+  .handler(async ({ data, context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+
+    const { data: role } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
+    if (!role) throw new Error("Forbidden");
+    await assertAdminMfaGrant(context.userId);
+
+    const { error } = await supabaseAdmin
+      .from("abandoned_checkouts")
+      .update(data.patch as any)
+      .eq("id", data.id);
+
+    if (error) throw error;
+    return { ok: true };
+  });
+
+export const deleteAbandonedCheckout = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(z.object({ id: z.string().uuid() }))
+  .handler(async ({ data, context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
+
+    const { data: role } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
+    if (!role) throw new Error("Forbidden");
+    await assertAdminMfaGrant(context.userId);
+
+    const { error } = await supabaseAdmin
+      .from("abandoned_checkouts")
+      .delete()
+      .eq("id", data.id);
+
+    if (error) throw error;
+    return { ok: true };
   });
