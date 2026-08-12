@@ -51,8 +51,8 @@ function ProductCardImpl({ product }: { product: Product }) {
       name: product.name,
       emoji: product.emoji,
       gradient: product.gradient,
-      image_url: product.image_url,
-      video_url: product.video_url,
+      image_url: product.imageUrl,
+      video_url: product.meta?.video_url,
     });
   };
 
