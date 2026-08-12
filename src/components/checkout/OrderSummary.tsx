@@ -120,7 +120,7 @@ export function OrderSummary({
                   value={couponInput}
                   onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
                   placeholder="Promo Code"
-                  className="w-full h-12 pl-7 pr-4 border-b-2 border-slate-200 bg-transparent outline-none text-[15px] font-bold focus:border-primary transition-all placeholder:text-muted-foreground/30"
+                  className="w-full h-12 pl-7 pr-4 border-b-2 border-slate-200 bg-transparent outline-none text-[15px] font-bold focus:border-primary transition-all placeholder:text-muted-foreground/30 text-slate-900"
                 />
               </div>
               <button

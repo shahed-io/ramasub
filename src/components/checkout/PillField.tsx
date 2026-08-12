@@ -49,7 +49,7 @@ export function PillField({
             onBlur={onBlur}
             placeholder={placeholder}
             inputMode={inputMode}
-            className="flex-1 bg-transparent outline-none text-[15px] text-foreground placeholder:text-muted-foreground/30 font-bold h-12 py-2"
+            className="flex-1 bg-transparent outline-none text-[15px] text-slate-900 placeholder:text-muted-foreground/30 font-bold h-12 py-2"
           />
         </div>
         {error && (
