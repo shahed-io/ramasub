@@ -679,7 +679,7 @@ export function SupportWidget() {
                   <span className="grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-br from-sky-500 via-cyan-500 to-aqua text-slate-900 shadow-[0_8px_20px_-6px_rgba(34,211,238,0.7)]">
                     <Phone className="h-4.5 w-4.5" />
                   </span>
-                  <div className="mt-2 text-[12.5px] font-extrabold text-slate-900">কল করুন</div>
+                  <div className="mt-2 text-[12.5px] font-extrabold text-slate-900 font-sans">কল করুন</div>
                   <div className="text-[10.5px] text-slate-500 mt-0.5 font-mono">
                     {ADMIN_PHONE}
                   </div>
