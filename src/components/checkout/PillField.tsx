@@ -24,8 +24,8 @@ export function PillField({
   icon: Icon
 }: PillFieldProps) {
   return (
-    <div className="space-y-1">
-      <div className={`floating-field-container ${error ? "!border-destructive/40" : ""}`}>
+    <div className="group space-y-1">
+      <div className={`floating-field-container ${error ? "field-error" : ""}`}>
         <input
           type={type}
           value={value}
@@ -39,14 +39,15 @@ export function PillField({
           {label}
         </label>
         {Icon && (
-          <Icon className={`
-            absolute right-2 top-28 w-4 h-4 transition-colors shrink-0 -translate-y-[64px]
-            ${error ? "text-destructive/70" : "text-muted-foreground/30 group-focus-within:text-primary"}
-          `} />
+          <Icon
+            className={`floating-field-icon ${
+              error ? "text-destructive/60" : "text-slate-300 group-focus-within:text-primary"
+            }`}
+          />
         )}
       </div>
       {error && (
-        <p className="text-[10px] font-bold text-destructive mt-1.5 ml-0.5 animate-in fade-in slide-in-from-top-1">
+        <p className="text-[11px] font-semibold text-destructive/90 mt-1.5 ml-0.5 animate-in fade-in slide-in-from-top-1">
           {error}
         </p>
       )}
