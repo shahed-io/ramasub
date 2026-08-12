@@ -83,7 +83,7 @@ export const listProductsAdmin = createServerFn({ method: "GET" })
 
 export const deleteProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(validator(z.object({ slug: z.string().min(1) })))
+  .inputValidator(validator(z.object({ slug: z.string().min(1) }).strict()))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -174,7 +174,7 @@ export const swapProductSortOrder = createServerFn({ method: "POST" })
   .inputValidator(validator(z.object({ 
     slugA: z.string().min(1), orderA: z.number(), 
     slugB: z.string().min(1), orderB: z.number() 
-  })))
+  }).strict()))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");

@@ -55,8 +55,9 @@ const feedpath = z.string().trim().min(4).max(500).url();
 
 const GATEWAY = "https://connector-gateway.lovable.dev/google_search_console";
 
-async function assertAdmin(supabase: any, userId: string) {
-  const { data, error } = await supabase.rpc("has_role", { _user_id: userId, _role: "admin" });
+async function assertAdmin(userId: string) {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data, error } = await supabaseAdmin.rpc("has_role", { _user_id: userId, _role: "admin" });
   if (error || !data) throw new Error("Forbidden");
   const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
   await assertAdminMfaGrant(userId);
@@ -85,7 +86,7 @@ async function gwFetch(path: string, init: RequestInit = {}) {
 export const listSites = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const data = await gwFetch("/webmasters/v3/sites");
     return { sites: (data.siteEntry ?? []) as Array<{ siteUrl: string; permissionLevel: string }> };
   });
@@ -98,7 +99,7 @@ export const searchAnalytics = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator(validator(SearchAnalyticsInput))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const path = `/webmasters/v3/sites/${encodeURIComponent(data.siteUrl)}/searchAnalytics/query`;
     const body: any = {
       startDate: data.startDate,
@@ -119,7 +120,7 @@ export const listSitemaps = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator(validator(z.object({ siteUrl }).strict()))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const path = `/webmasters/v3/sites/${encodeURIComponent(data.siteUrl)}/sitemaps`;
     const result = await gwFetch(path);
     return { sitemaps: (result.sitemap ?? []) as Array<any> };
@@ -130,7 +131,7 @@ export const submitSitemap = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator(validator(z.object({ siteUrl, feedpath }).strict()))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const path = `/webmasters/v3/sites/${encodeURIComponent(data.siteUrl)}/sitemaps/${encodeURIComponent(data.feedpath)}`;
     await gwFetch(path, { method: "PUT" });
     return { ok: true };
@@ -141,7 +142,7 @@ export const deleteSitemap = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator(validator(z.object({ siteUrl, feedpath }).strict()))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const path = `/webmasters/v3/sites/${encodeURIComponent(data.siteUrl)}/sitemaps/${encodeURIComponent(data.feedpath)}`;
     await gwFetch(path, { method: "DELETE" });
     return { ok: true };
@@ -152,7 +153,7 @@ export const inspectUrl = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator(validator(z.object({ siteUrl, inspectionUrl: z.string().trim().min(4).max(2048).url() }).strict()))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const result = await gwFetch("/v1/urlInspection/index:inspect", {
       method: "POST",
       body: JSON.stringify({ inspectionUrl: data.inspectionUrl, siteUrl: data.siteUrl }),
@@ -164,7 +165,7 @@ export const inspectUrl = createServerFn({ method: "POST" })
 export const gscHealthCheck = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const hasKey = Boolean(process.env.GOOGLE_SEARCH_CONSOLE_API_KEY && process.env.LOVABLE_API_KEY);
     if (!hasKey) return { connected: false, siteCount: 0 };
     try {
@@ -190,7 +191,7 @@ function normalizeIdentifier(input: string): string {
 export const getVerificationStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data } = await supabaseAdmin
       .from("admin_records")
@@ -211,7 +212,7 @@ export const startMetaVerification = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator(validator(z.object({ identifier }).strict()))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const identifier = normalizeIdentifier(data.identifier);
     const res = await gwFetch("/siteVerification/v1/token", {
       method: "POST",
@@ -248,7 +249,7 @@ export const completeMetaVerification = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator(validator(z.object({ identifier }).strict()))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const identifier = normalizeIdentifier(data.identifier);
     await gwFetch("/siteVerification/v1/webResource?verificationMethod=META", {
       method: "POST",
@@ -267,7 +268,7 @@ export const completeMetaVerification = createServerFn({ method: "POST" })
 export const listVerifiedResources = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const res = await gwFetch("/siteVerification/v1/webResource");
     return { items: (res.items ?? []) as Array<{ id: string; site: { identifier: string; type: string }; owners?: string[] }> };
   });

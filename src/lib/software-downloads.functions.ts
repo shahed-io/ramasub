@@ -2,8 +2,9 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-async function assertAdmin(sb: any, userId: string) {
-  const { data } = await sb.rpc("has_role", { _user_id: userId, _role: "admin" });
+async function assertAdmin(userId: string) {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data } = await supabaseAdmin.rpc("has_role", { _user_id: userId, _role: "admin" });
   if (!data) throw new Error("Forbidden: admin role required");
   const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
   await assertAdminMfaGrant(userId);
@@ -22,7 +23,7 @@ export type DownloadEntry = {
 export const listProductsWithDownloads = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const { supabaseAdmin: sa } = await import("@/integrations/supabase/client.server");
     const { data, error } = await (sa as any)
       .from("products")
@@ -58,7 +59,7 @@ export const setProductDownloads = createServerFn({ method: "POST" })
     }).parse(d),
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const { supabaseAdmin: sa } = await import("@/integrations/supabase/client.server");
 
     const { data: existing, error: e1 } = await (sa as any)
@@ -167,7 +168,7 @@ export const deliverDownloadsForOrder = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => z.object({ orderId: z.string().min(1) }).parse(d))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertAdmin(context.userId);
     const { supabaseAdmin: sa } = await import("@/integrations/supabase/client.server");
     return sendDownloadEmailInternal(sa as any, data.orderId);
   });

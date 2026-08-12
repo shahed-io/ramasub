@@ -47,9 +47,9 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
 
     const payload = {
       user_id: userId || null,
-      email: data.email || null,
-      full_name: data.full_name || null,
-      phone: data.phone || null,
+      email: data.email ?? "", // Email is non-nullable in schema
+      full_name: data.full_name ?? "", // Non-nullable
+      phone: data.phone ?? "", // Non-nullable
       items: data.items,
       status: data.status || "pending",
       total: data.total || 0,
@@ -60,12 +60,12 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
     if (userId) {
       const { error } = await supabaseAdmin
         .from("abandoned_checkouts")
-        .upsert(payload, { onConflict: "user_id" });
+        .upsert(payload as any, { onConflict: "user_id" });
       if (error) throw error;
     } else if (data.email) {
       const { error } = await supabaseAdmin
         .from("abandoned_checkouts")
-        .upsert(payload, { onConflict: "email" });
+        .upsert(payload as any, { onConflict: "email" });
       if (error) throw error;
     }
 
@@ -125,7 +125,7 @@ export const updateAbandonedCheckout = createServerFn({ method: "POST" })
 
 export const deleteAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(validator(z.object({ id: z.string().uuid() })))
+  .inputValidator(validator(z.object({ id: z.string().uuid() }).strict()))
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
