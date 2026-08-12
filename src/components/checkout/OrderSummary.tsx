@@ -130,7 +130,7 @@ export function OrderSummary({
           </div>
 
           {/* Price Breakdown */}
-          <div className="space-y-3 bg-white/40 dark:bg-black/20 rounded-2xl p-4 border border-white/60 shadow-sm">
+          <div className="space-y-3 bg-slate-50 rounded-2xl p-4 border border-slate-100 shadow-sm">
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground font-medium">Subtotal</span>
               <span className="text-foreground font-bold tabular-nums">{format(total)}</span>
