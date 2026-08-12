@@ -442,10 +442,10 @@ function AdminDashboard() {
               <h4 className="text-[15px] font-extrabold text-slate-900">{t("Conversion Stats", "কনভার্শন স্ট্যাটস")}</h4>
             </div>
             <div className="space-y-2.5">
-              <ConvRow label={t("Total Orders", "মোট অর্ডার")} value={counts.orders.toLocaleString("en-IN")} Icon={ShoppingBag} color="violet" />
+              <ConvRow label={t("Total Orders", "মোট অর্ডার")} value={counts.orders.toLocaleString("en-IN")} Icon={ShoppingCart} color="violet" />
               <ConvRow label={t("Delivered", "ডেলিভারড")} value={stats.delivered.toString()} Icon={CheckCircle2} color="emerald" />
               <ConvRow label={t("Conversion Rate", "কনভার্শন রেট")} value={`${counts.orders > 0 ? Math.round((stats.delivered / counts.orders) * 100) : 0}%`} Icon={TrendingUp} color="sky" />
-              <ConvRow label={t("Customers", "কাস্টমার")} value={counts.users.toLocaleString("en-IN")} Icon={Users} color="orange" />
+              <ConvRow label={t("Customers", "কাস্টমার")} value={counts.users.toLocaleString("en-IN")} Icon={UsersRound} color="orange" />
             </div>
           </div>
         </div>
@@ -468,6 +468,7 @@ function SectionHeader({ title }: { title: string }) {
 function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compact?: boolean }) {
   const { Icon } = kpi;
   return (
+    <div
       className={`admin-kpi-card relative overflow-hidden rounded-[24px] border border-slate-200/50 ${compact ? "p-5" : "p-6"} transition-all`}
       style={{
         background: `linear-gradient(135deg, #ffffff 0%, #ffffff 55%, ${kpi.accent ?? "#7c3aed"}15 100%)`,
@@ -502,8 +503,8 @@ function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compac
 
 function ConvRow({ label, value, Icon, color }: { label: string; value: string; Icon: any; color: "violet" | "emerald" | "sky" | "orange" }) {
   const map = {
-    violet: "bg-blue-50 text-blue-600",
-    emerald: "bg-blue-50 text-blue-600",
+    violet: "bg-violet-50 text-violet-600",
+    emerald: "bg-emerald-50 text-emerald-600",
     sky: "bg-sky-50 text-sky-600",
     orange: "bg-orange-50 text-orange-600",
   } as const;

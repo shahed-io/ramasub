@@ -358,8 +358,8 @@ function AdminShell({ user, signOut, navigate }: any) {
         <div className={[
           "border-b border-slate-100",
           collapsed
-            ? "flex flex-col items-center justify-center gap-1.5 py-3 px-2"
-            : "h-[68px] flex items-center justify-between px-4",
+            ? "flex flex-col items-center justify-center gap-1.5 py-4 px-2"
+            : "h-[76px] flex items-center justify-between px-5",
         ].join(" ")}>
 
           <Link to="/Mahbub214" className={`flex items-center gap-2.5 min-w-0 group ${collapsed ? "justify-center" : ""}`} aria-label="Rama Sub Admin">
@@ -448,7 +448,7 @@ function AdminShell({ user, signOut, navigate }: any) {
       <div className="flex-1 min-w-0 w-full flex flex-col lg:h-[100dvh] lg:overflow-y-auto relative z-[1]">
 
         {/* Top bar */}
-        <header className="h-[64px] sticky top-0 z-20 bg-[var(--admin-panel)] border-b border-[var(--admin-border)] shadow-[0_10px_30px_-24px_rgba(15,23,42,0.35)]">
+        <header className="h-[76px] sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-[0_1px_2px_rgba(15,23,42,0.02)]">
           <div className="h-full px-3 md:px-6 flex items-center gap-2 md:gap-3 min-w-0">
             <button
               onClick={() => setMobileOpen(true)}
