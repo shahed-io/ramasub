@@ -86,7 +86,7 @@ function FaqPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1100px] px-4 md:px-10 py-12 space-y-10">
+      <section className="mx-auto max-w-[900px] px-4 md:px-10 py-12 space-y-12">
         {SECTIONS.map((sec) => <FaqGroup key={sec.title} title={sec.title} items={sec.items} />)}
 
         <div className="relative overflow-hidden rounded-3xl border border-primary/15 bg-card p-8 md:p-12 shadow-[0_20px_60px_-25px_rgba(79,70,229,0.35)]">
@@ -136,22 +136,51 @@ function FaqPage() {
 function FaqGroup({ title, items }: { title: string; items: { q: string; a: string }[] }) {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <div>
-      <h2 className="text-xl font-extrabold mb-4 tracking-tight text-foreground">{title}</h2>
-      <div className="space-y-3">
+    <div className="space-y-4">
+      <h2 className="text-xl font-black mb-6 tracking-tight text-foreground flex items-center gap-3">
+        <span className="w-1.5 h-6 rounded-full bg-primary shadow-[0_0_12px_rgba(124,58,237,0.5)]" />
+        {title}
+      </h2>
+      <div className="grid gap-4">
         {items.map((it, i) => {
           const isOpen = open === i;
           return (
-            <button key={i} onClick={() => setOpen(isOpen ? null : i)}
-              className={`w-full text-left glass-strong rounded-2xl px-5 py-4 transition ${isOpen ? "ring-2 ring-primary/30" : ""}`}>
-              <div className="flex items-center justify-between gap-4">
-                <span className="text-sm md:text-base font-bold">{it.q}</span>
-                <span className="grid place-items-center w-7 h-7 rounded-full bg-aurora text-white shrink-0">
-                  {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
+            <div 
+              key={i} 
+              className={`group relative overflow-hidden rounded-[22px] transition-all duration-300 ${
+                isOpen 
+                ? "bg-white shadow-[0_20px_50px_-12px_rgba(79,70,229,0.15)] ring-1 ring-primary/20 scale-[1.01]" 
+                : "bg-white/60 hover:bg-white hover:shadow-xl hover:scale-[1.005] ring-1 ring-slate-200/60"
+              }`}
+            >
+              {/* Glossy top highlight */}
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent opacity-60" />
+              
+              <button 
+                onClick={() => setOpen(isOpen ? null : i)}
+                className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 outline-none"
+              >
+                <span className={`text-sm md:text-[15px] font-bold transition-colors duration-200 ${isOpen ? "text-primary" : "text-slate-900 group-hover:text-primary/80"}`}>
+                  {it.q}
                 </span>
+                <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  isOpen 
+                  ? "bg-primary text-white rotate-180 shadow-lg shadow-primary/30" 
+                  : "bg-slate-100 text-slate-500 group-hover:bg-primary/10 group-hover:text-primary"
+                }`}>
+                  {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                </div>
+              </button>
+              
+              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
+                <div className="px-6 pb-6 pt-1">
+                  <div className="h-px w-full bg-slate-100 mb-4" />
+                  <p className="text-sm md:text-[14.5px] text-slate-600 leading-relaxed font-medium">
+                    {it.a}
+                  </p>
+                </div>
               </div>
-              {isOpen && <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{it.a}</p>}
-            </button>
+            </div>
           );
         })}
       </div>
