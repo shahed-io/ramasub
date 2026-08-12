@@ -396,6 +396,57 @@
   .admin-clarity .a-btn-sm { height: 2.25rem; padding: 0 0.875rem; font-size: 13px; }
   .admin-clarity .a-btn-lg { height: 3rem; padding: 0 1.375rem; font-size: 15px; }
   .admin-clarity .a-btn-primary { background: var(--admin-primary); color: #ffffff !important; box-shadow: 0 6px 16px -8px rgba(124, 58, 237, 0.45); }
+
+  /* Premium Glassmorphic Floating Labels (Checkout v2) */
+  .glass-checkout-card {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 20px 80px -20px rgba(124, 58, 237, 0.12),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+    border-radius: 40px;
+  }
+
+  .floating-field-container {
+    position: relative;
+    padding-top: 14px;
+    border-bottom: 2px solid rgba(124, 58, 237, 0.1);
+    transition: border-color 0.3s ease;
+  }
+  .floating-field-container:focus-within {
+    border-color: #7c3aed;
+  }
+  .floating-label {
+    position: absolute;
+    left: 2px;
+    top: 26px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #94a3b8;
+    pointer-events: none;
+    transition: transform 0.25s ease, font-size 0.25s ease, color 0.25s ease;
+    transform-origin: left top;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .floating-input {
+    width: 100%;
+    height: 48px;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e1b4b;
+    padding: 4px 2px;
+  }
+  .floating-input:focus ~ .floating-label,
+  .floating-input:not(:placeholder-shown) ~ .floating-label {
+    transform: translateY(-24px) scale(0.65);
+    color: #7c3aed;
+    font-weight: 800;
+  }
+
   .admin-clarity .a-btn-primary:hover:not(:disabled) { background: var(--admin-primary-hover); box-shadow: 0 10px 22px -10px rgba(124, 58, 237, 0.5); }
   .admin-clarity .a-btn-secondary { background: #ffffff; color: var(--admin-heading) !important; border-color: var(--admin-border); box-shadow: var(--admin-shadow-card); }
   .admin-clarity .a-btn-secondary:hover:not(:disabled) { background: var(--admin-hover); }
