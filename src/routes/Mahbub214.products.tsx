@@ -124,17 +124,18 @@ function AdminProducts() {
  const [webpProgress, setWebpProgress] = useState<{ done: number; total: number } | null>(null);
  const fileRef = useRef<HTMLInputElement>(null);
 
- const load = useCallback(async () => {
- setLoading(true);
- const { data, error } = await supabase
- .from("products")
- .select("*")
- .order("sort_order", { ascending: true })
- .order("name", { ascending: true });
- if (error) toast.error(error.message);
- setProducts((data ?? []) as unknown as Product[]);
- setLoading(false);
- }, []);
+  const load = useCallback(async () => {
+    setLoading(true);
+    try {
+      const { listProductsAdmin } = await import("@/lib/products.functions");
+      const data = await listProductsAdmin();
+      setProducts(data as unknown as Product[]);
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
  useEffect(() => { load(); }, [load]);
 
@@ -177,22 +178,30 @@ function AdminProducts() {
  };
 
   const remove = async (slug: string) => {
-  if (!confirm("এই পণ্যটি মুছবেন?")) return;
-  const { error } = await supabase.from("products").delete().eq("slug", slug);
-  if (error) return toast.error(error.message);
-  toast.success("পণ্য মুছে ফেলা হয়েছে");
-  load();
+    if (!confirm("এই পণ্যটি মুছবেন?")) return;
+    try {
+      const { deleteProductAdmin } = await import("@/lib/products.functions");
+      await deleteProductAdmin({ data: { slug } });
+      toast.success("পণ্য মুছে ফেলা হয়েছে");
+      load();
+    } catch (err: any) {
+      toast.error(err.message);
+    }
   };
 
   const bulkDelete = async () => {
-  if (selected.size === 0) return;
-  const slugs = Array.from(selected);
-  if (!confirm(`${slugs.length}টি পণ্য মুছে ফেলবেন? এই কাজটি ফেরানো যাবে না।`)) return;
-  const { error } = await supabase.from("products").delete().in("slug", slugs);
-  if (error) return toast.error(error.message);
-  toast.success(`${slugs.length}টি পণ্য মুছে ফেলা হয়েছে`);
-  setSelected(new Set());
-  load();
+    if (selected.size === 0) return;
+    const slugs = Array.from(selected);
+    if (!confirm(`${slugs.length}টি পণ্য মুছে ফেলবেন? এই কাজটি ফেরানো যাবে না।`)) return;
+    try {
+      const { bulkDeleteProductsAdmin } = await import("@/lib/products.functions");
+      await bulkDeleteProductsAdmin({ data: { slugs } });
+      toast.success(`${slugs.length}টি পণ্য মুছে ফেলা হয়েছে`);
+      setSelected(new Set());
+      load();
+    } catch (err: any) {
+      toast.error(err.message);
+    }
   };
 
 
@@ -211,35 +220,45 @@ function AdminProducts() {
  load();
  };
 
- const toggleActive = async (p: Product) => {
- const { error } = await supabase.from("products").update({ is_active: !p.is_active }).eq("slug", p.slug);
- if (error) return toast.error(error.message);
- setProducts((prev) => prev.map((x) => x.slug === p.slug ? { ...x, is_active: !p.is_active } : x));
- };
+  const toggleActive = async (p: Product) => {
+    try {
+      const { updateProductAdmin } = await import("@/lib/products.functions");
+      await updateProductAdmin({ data: { slug: p.slug, patch: { is_active: !p.is_active } } });
+      setProducts((prev) => prev.map((x) => x.slug === p.slug ? { ...x, is_active: !p.is_active } : x));
+    } catch (err: any) {
+      toast.error(err.message);
+    }
+  };
 
- const setStock = async (slug: string, stock_status: StockStatus) => {
- const { error } = await supabase.from("products").update({ stock_status }).eq("slug", slug);
- if (error) return toast.error(error.message);
- setProducts((prev) => prev.map((x) => x.slug === slug ? { ...x, stock_status } : x));
- };
+  const setStock = async (slug: string, stock_status: StockStatus) => {
+    try {
+      const { updateProductAdmin } = await import("@/lib/products.functions");
+      await updateProductAdmin({ data: { slug, patch: { stock_status } } });
+      setProducts((prev) => prev.map((x) => x.slug === slug ? { ...x, stock_status } : x));
+    } catch (err: any) {
+      toast.error(err.message);
+    }
+  };
 
- const move = async (slug: string, dir: -1 | 1) => {
- const idx = products.findIndex((p) => p.slug === slug);
- const swap = idx + dir;
- if (idx < 0 || swap < 0 || swap >= products.length) return;
- const a = products[idx], b = products[swap];
- const aOrder = a.sort_order, bOrder = b.sort_order;
- const next = [...products];
- next[idx] = { ...a, sort_order: bOrder };
- next[swap] = { ...b, sort_order: aOrder };
- next.sort((x, y) => x.sort_order - y.sort_order);
- setProducts(next);
- const [r1, r2] = await Promise.all([
- supabase.from("products").update({ sort_order: bOrder }).eq("slug", a.slug),
- supabase.from("products").update({ sort_order: aOrder }).eq("slug", b.slug),
- ]);
- if (r1.error || r2.error) { toast.error("Reorder failed"); load(); }
- };
+  const move = async (slug: string, dir: -1 | 1) => {
+    const idx = products.findIndex((p) => p.slug === slug);
+    const swap = idx + dir;
+    if (idx < 0 || swap < 0 || swap >= products.length) return;
+    const a = products[idx], b = products[swap];
+    const aOrder = a.sort_order, bOrder = b.sort_order;
+    const next = [...products];
+    next[idx] = { ...a, sort_order: bOrder };
+    next[swap] = { ...b, sort_order: aOrder };
+    next.sort((x, y) => x.sort_order - y.sort_order);
+    setProducts(next);
+    try {
+      const { swapProductSortOrder } = await import("@/lib/products.functions");
+      await swapProductSortOrder({ data: { slugA: a.slug, orderA: aOrder, slugB: b.slug, orderB: bOrder } });
+    } catch (err: any) {
+      toast.error(err.message);
+      load();
+    }
+  };
 
  const runAI = async (mode: "short" | "rich") => {
  if (selected.size === 0) {
