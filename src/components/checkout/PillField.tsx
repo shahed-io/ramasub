@@ -24,19 +24,24 @@ export function PillField({
   icon: Icon
 }: PillFieldProps) {
   return (
-    <div className="space-y-1.5">
-      <label className="text-[12px] font-semibold text-muted-foreground/80 ml-4 uppercase tracking-wider">
+    <div className="space-y-2">
+      <label className="text-[10px] font-black text-muted-foreground/60 ml-0.5 uppercase tracking-[0.15em]">
         {label}
       </label>
       <div className="relative group">
         <div className={`
-          flex items-center gap-3 px-5 h-13 rounded-2xl border bg-white transition-all duration-300
+          flex items-center gap-3 transition-all duration-300 border-b-2 bg-transparent
           ${error 
-            ? "border-destructive/30 ring-4 ring-destructive/5" 
-            : "border-slate-200 focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/5 shadow-sm hover:border-slate-300"
+            ? "border-destructive/40" 
+            : "border-slate-200 focus-within:border-primary"
           }
         `}>
-          {Icon && <Icon className={`w-4 h-4 transition-colors ${error ? "text-destructive/70" : "text-muted-foreground/60 group-focus-within:text-primary/70"}`} />}
+          {Icon && (
+            <Icon className={`
+              w-4 h-4 transition-colors shrink-0
+              ${error ? "text-destructive/70" : "text-muted-foreground/40 group-focus-within:text-primary"}
+            `} />
+          )}
           <input
             type={type}
             value={value}
@@ -44,11 +49,11 @@ export function PillField({
             onBlur={onBlur}
             placeholder={placeholder}
             inputMode={inputMode}
-            className="flex-1 bg-transparent outline-none text-[15px] text-foreground placeholder:text-muted-foreground/40 font-medium h-full"
+            className="flex-1 bg-transparent outline-none text-[15px] text-foreground placeholder:text-muted-foreground/30 font-bold h-12 py-2"
           />
         </div>
         {error && (
-          <p className="text-[11px] font-medium text-destructive mt-1 ml-4 animate-in fade-in slide-in-from-top-1">
+          <p className="text-[10px] font-bold text-destructive mt-1.5 ml-0.5 animate-in fade-in slide-in-from-top-1">
             {error}
           </p>
         )}
