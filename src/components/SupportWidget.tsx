@@ -429,7 +429,7 @@ export function SupportWidget() {
   }
 
   const PANEL =
-    "fixed bottom-24 left-5 z-50 w-[min(400px,calc(100vw-1.5rem))] origin-bottom-left";
+    "fixed bottom-24 right-5 z-50 w-[min(400px,calc(100vw-1.5rem))] origin-bottom-right";
   const SHELL =
     "relative rounded-[28px] overflow-hidden border border-white/70 bg-gradient-to-b from-white via-[#F8FAFC] to-[#F5F7FB] backdrop-blur-2xl shadow-[0_40px_100px_-28px_rgba(76,29,149,0.28),0_2px_10px_-2px_rgba(15,23,42,0.06)]";
 
