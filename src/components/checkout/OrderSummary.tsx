@@ -12,7 +12,7 @@ interface OrderSummaryProps {
   setCouponInput: (v: string) => void;
   onApplyCoupon: () => void;
   grandTotal: number;
-  productImages: Record<string, string>;
+  productImages?: Record<string, string>;
 }
 
 export function OrderSummary({

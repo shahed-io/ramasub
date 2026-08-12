@@ -626,7 +626,7 @@ function CheckoutPage() {
             setCouponInput={setCouponInput}
             onApplyCoupon={applyCouponNow}
             grandTotal={grandTotal}
-            productImages={{}} 
+             
           />
         </div>
       </div>
