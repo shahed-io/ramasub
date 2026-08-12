@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { z } from "@/lib/validation";
+import { z, parseOrThrow } from "@/lib/validation";
 
 const itemSchema = z.object({
   slug: z.string(),

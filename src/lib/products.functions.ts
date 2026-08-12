@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { rowToProduct, type Product } from "@/data/products";
-import { z, slug as slugSchema } from "@/lib/validation";
+import { z, slug as slugSchema, parseOrThrow } from "@/lib/validation";
 
 const PRODUCT_SELECT =
   "slug,name,emoji,gradient,category,badge,tagline,description,delivery_time,warranty,features,plans,image_url,short_description,meta";
@@ -127,7 +127,7 @@ export const bulkDeleteProductsAdmin = createServerFn({ method: "POST" })
 
 export const updateProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: any) => parseOrThrow(z.object({ slug: z.string().min(1), patch: z.record(z.unknown()) }).strict(), input) as { slug: string; patch: any })
+  .inputValidator((input: any) => parseOrThrow(z.object({ slug: z.string().min(1), patch: z.record(z.unknown()) }).strict(), input) as any)
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
