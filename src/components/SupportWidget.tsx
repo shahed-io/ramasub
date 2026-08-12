@@ -695,7 +695,7 @@ export function SupportWidget() {
                   <HelpCircle className="h-5 w-5" />
                 </span>
                 <div className="flex-1 leading-tight">
-                  <div className="text-[13px] font-extrabold text-slate-900">হেল্প সেন্টার</div>
+                  <div className="text-[13px] font-extrabold text-slate-900 font-sans">হেল্প সেন্টার</div>
                   <div className="text-[11px] text-slate-500 mt-0.5">
                     জনপ্রিয় প্রশ্ন ও তাৎক্ষণিক উত্তর
                   </div>
