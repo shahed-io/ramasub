@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { z, validator, parseOrThrow } from "@/lib/validation";
+import { z, parseOrThrow } from "@/lib/validation";
 
 const itemSchema = z.object({
   slug: z.string(),
@@ -26,7 +26,7 @@ const inputSchema = z.object({
 export type CaptureAbandonedInput = z.infer<typeof inputSchema>;
 
 export const captureAbandonedCheckout = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => validator(inputSchema)(input))
+  .inputValidator(inputSchema)
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const request = getRequest();
@@ -99,7 +99,7 @@ export const listAbandonedCheckouts = createServerFn({ method: "GET" })
 
 export const updateAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: any) => parseOrThrow(z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }).strict(), input) as any)
+  .inputValidator((input: any) => parseOrThrow(z.object({ id: z.string().uuid(), patch: z.record(z.unknown()) }).strict(), input) as { id: string; patch: any })
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");
@@ -125,7 +125,7 @@ export const updateAbandonedCheckout = createServerFn({ method: "POST" })
 
 export const deleteAbandonedCheckout = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => validator(z.object({ id: z.string().uuid() }).strict())(input))
+  .inputValidator(z.object({ id: z.string().uuid() }).strict())
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { assertAdminMfaGrant } = await import("@/lib/admin-mfa-guard.server");

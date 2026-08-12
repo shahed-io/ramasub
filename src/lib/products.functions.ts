@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { rowToProduct, type Product } from "@/data/products";
-import { validator, z, slug as slugSchema, parseOrThrow } from "@/lib/validation";
+import { z, slug as slugSchema, parseOrThrow } from "@/lib/validation";
 
 const PRODUCT_SELECT =
   "slug,name,emoji,gradient,category,badge,tagline,description,delivery_time,warranty,features,plans,image_url,short_description,meta";
@@ -42,7 +42,7 @@ export const listProducts = createServerFn({ method: "GET" }).handler(
 );
 
 export const getProduct = createServerFn({ method: "GET" })
-  .inputValidator((input: unknown) => validator(z.object({ slug: slugSchema }).strict())(input))
+  .inputValidator(z.object({ slug: slugSchema }).strict())
   .handler(async ({ data }): Promise<Product | null> => {
     const { data: rows, error } = await createPublicProductClient()
       .from("products")
