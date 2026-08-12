@@ -10,6 +10,8 @@ export type CartItem = {
   name: string;
   emoji: string;
   gradient: string;
+  image_url?: string | null;
+  video_url?: string | null;
 };
 
 type CartCtx = {
