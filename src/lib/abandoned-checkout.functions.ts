@@ -35,7 +35,7 @@ export type CaptureAbandonedInput = z.infer<typeof inputSchema>;
 
 export const captureAbandonedCheckout = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => {
-    const res = inputSchema.safeParse(d);
+    const res = inputSchema.safeParse(d as any);
     if (!res.success) throw new Error(formatIssues(res.error));
     return res.data;
   })
