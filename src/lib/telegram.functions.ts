@@ -34,7 +34,7 @@ const EVENT_LABELS: Record<string, string> = {
   test: "Connection Test",
 };
 
-const SITE_ORIGINS = ["https://ramasub.com", "https://www.ramasub.com", "https://ramasub.lovable.app"];
+const SITE_ORIGINS = ["https://ramasub.com", "https://www.ramasub.com"];
 
 const notifyInputSchema = z.object({
   event: z.enum(PUBLIC_EVENT_TYPES),
