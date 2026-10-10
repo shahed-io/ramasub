@@ -95,36 +95,23 @@ export function AdminPageHeader() {
 
   return (
     <div
-      className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 mb-6 min-w-0"
-      style={{
-        background: "linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 244, 255, 0.88) 45%, rgba(253, 242, 248, 0.78) 100%)",
-        border: "1px solid rgba(224, 231, 255, 0.8)",
-        boxShadow: "0 1px 0 rgba(255, 255, 255, 1) inset, 0 8px 32px rgba(99, 102, 241, 0.08)",
-      }}
+      className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 mb-6 min-w-0 bg-white border border-slate-200/80 shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)]"
     >
-      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent)" }} />
-      <svg aria-hidden className="pointer-events-none absolute right-24 sm:right-44 top-1/2 -translate-y-1/2 w-64 h-28 opacity-35 text-indigo-300" viewBox="0 0 200 60" fill="none">
-        <path d="M0 45 Q 30 10, 60 35 T 120 20 T 170 38 T 200 15" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M0 52 Q 35 30, 70 48 T 130 35 T 180 42 T 200 28" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
-      </svg>
+      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none bg-gradient-to-r from-transparent via-slate-100 to-transparent" />
       <div className="relative flex items-center gap-4 sm:gap-5 min-w-0 z-10">
         <span
-          className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-[20px] text-white grid place-items-center ring-1 ring-white/50 [&_svg]:w-7 [&_svg]:h-7"
-          style={{
-            background: "linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)",
-            boxShadow: "0 10px 24px -6px rgba(124, 58, 237, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35)",
-          }}
+          className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-[20px] text-white grid place-items-center ring-1 ring-slate-800/10 [&_svg]:w-7 [&_svg]:h-7 bg-gradient-to-br from-slate-900 to-slate-800 shadow-[0_8px_20px_-4px_rgba(15,23,42,0.25)]"
         >
           {item.icon}
         </span>
         <div className="min-w-0 flex-1">
           <h1
-            className="text-2xl sm:text-3xl font-black tracking-tight truncate"
-            style={{ fontFamily: "var(--font-heading)", color: "#312e81" }}
+            className="text-2xl sm:text-3xl font-black tracking-tight truncate text-slate-900"
+            style={{ fontFamily: "var(--font-heading)" }}
           >
             {title}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 font-medium mt-1 leading-snug truncate">{subtitle}</p>
+          <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1 leading-snug truncate">{subtitle}</p>
         </div>
       </div>
     </div>

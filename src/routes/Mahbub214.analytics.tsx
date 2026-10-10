@@ -57,37 +57,37 @@ const KPI_TONE_CONFIG: Record<KpiTone, {
   iconGrad: string;
 }> = {
   violet: {
-    bg: "linear-gradient(135deg, rgba(250, 245, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(245, 243, 255, 0.5) 100%)",
-    border: "rgba(224, 231, 255, 0.75)",
+    bg: "rgba(255, 255, 255, 1)",
+    border: "rgba(226, 232, 240, 0.8)",
     iconGrad: "from-indigo-500 to-purple-600",
   },
   sky: {
-    bg: "linear-gradient(135deg, rgba(239, 246, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(240, 249, 255, 0.5) 100%)",
-    border: "rgba(219, 234, 254, 0.8)",
+    bg: "rgba(255, 255, 255, 1)",
+    border: "rgba(226, 232, 240, 0.8)",
     iconGrad: "from-sky-500 to-blue-600",
   },
   emerald: {
-    bg: "linear-gradient(135deg, rgba(236, 253, 245, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(240, 253, 244, 0.5) 100%)",
-    border: "rgba(209, 250, 229, 0.8)",
+    bg: "rgba(255, 255, 255, 1)",
+    border: "rgba(226, 232, 240, 0.8)",
     iconGrad: "from-emerald-500 to-teal-600",
   },
   amber: {
-    bg: "linear-gradient(135deg, rgba(254, 243, 199, 0.8) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(255, 251, 235, 0.5) 100%)",
-    border: "rgba(254, 243, 199, 0.9)",
+    bg: "rgba(255, 255, 255, 1)",
+    border: "rgba(226, 232, 240, 0.8)",
     iconGrad: "from-amber-500 to-orange-500",
   },
   rose: {
-    bg: "linear-gradient(135deg, rgba(254, 242, 242, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(255, 241, 242, 0.5) 100%)",
-    border: "rgba(254, 205, 211, 0.8)",
+    bg: "rgba(255, 255, 255, 1)",
+    border: "rgba(226, 232, 240, 0.8)",
     iconGrad: "from-rose-500 to-pink-600",
   },
   indigo: {
-    bg: "linear-gradient(135deg, rgba(238, 242, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(245, 247, 255, 0.5) 100%)",
-    border: "rgba(224, 231, 255, 0.8)",
+    bg: "rgba(255, 255, 255, 1)",
+    border: "rgba(226, 232, 240, 0.8)",
     iconGrad: "from-indigo-600 to-blue-600",
   },
   slate: {
-    bg: "linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(241, 245, 249, 0.5) 100%)",
+    bg: "rgba(255, 255, 255, 1)",
     border: "rgba(226, 232, 240, 0.8)",
     iconGrad: "from-slate-600 to-slate-800",
   },
@@ -103,10 +103,10 @@ function KpiCard({
       style={{
         background: cfg.bg,
         border: `1px solid ${cfg.border}`,
-        boxShadow: "0 1px 0 rgba(255, 255, 255, 1) inset, 0 4px 18px rgba(99, 102, 241, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02)",
+        boxShadow: "0 10px 40px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02)",
       }}
     >
-      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent)" }} />
+      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(226, 232, 240, 0.9), transparent)" }} />
       <div className="flex items-start justify-between gap-2">
         <span
           className={`shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br ${cfg.iconGrad} text-white grid place-items-center shadow-md [&_svg]:w-5 [&_svg]:h-5`}
@@ -131,14 +131,11 @@ function KpiCard({
 function Section({ title, children, right }: { title: string; children: React.ReactNode; right?: React.ReactNode }) {
   return (
     <div
-      className="rounded-[20px] bg-white border border-slate-200/70 overflow-hidden"
-      style={{
-        boxShadow: "0 1px 0 rgba(255, 255, 255, 1) inset, 0 4px 20px rgba(99, 102, 241, 0.06), 0 1px 3px rgba(0, 0, 0, 0.02)",
-      }}
+      className="rounded-[20px] bg-white border border-slate-200/80 overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)]"
     >
-      <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-slate-50/40">
+      <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-slate-50/50">
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-4.5 bg-indigo-600 rounded-full inline-block" />
+          <span className="w-1.5 h-4.5 bg-slate-900 rounded-full inline-block" />
           <h3 className="text-sm font-extrabold text-slate-800 tracking-wider uppercase">{title}</h3>
         </div>
         {right}
@@ -213,47 +210,30 @@ function WebAnalyticsPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Banner — Matching Image 2 Shahed Store Style */}
+      {/* Hero Banner — Pure White Glossy */}
       <div
-        className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 mb-3 min-w-0"
-        style={{
-          background: "linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 244, 255, 0.88) 45%, rgba(253, 242, 248, 0.78) 100%)",
-          border: "1px solid rgba(224, 231, 255, 0.8)",
-          boxShadow: "0 1px 0 rgba(255, 255, 255, 1) inset, 0 8px 32px rgba(99, 102, 241, 0.08)",
-        }}
+        className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 mb-3 min-w-0 bg-white border border-slate-200/80 shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)]"
       >
         {/* Gloss highlight */}
-        <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent)" }} />
-
-        {/* Background decorative watermark graphics */}
-        <svg aria-hidden className="pointer-events-none absolute right-24 sm:right-44 top-1/2 -translate-y-1/2 w-64 h-28 opacity-35 text-indigo-300" viewBox="0 0 200 60" fill="none">
-          <path d="M0 45 Q 30 10, 60 35 T 120 20 T 170 38 T 200 15" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-          <path d="M0 52 Q 35 30, 70 48 T 130 35 T 180 42 T 200 28" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
-        </svg>
-        <LayoutGrid aria-hidden className="pointer-events-none absolute -right-6 -bottom-6 w-36 h-36 text-indigo-200/20 stroke-[1.2]" />
+        <div className="absolute top-0 left-0 right-0 h-px pointer-events-none bg-gradient-to-r from-transparent via-slate-100 to-transparent" />
 
         <div className="relative flex flex-wrap items-center gap-4 justify-between z-10">
           <div className="flex items-center gap-4 min-w-0">
             <span
-              className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-[20px] text-white grid place-items-center ring-1 ring-white/50"
-              style={{
-                background: "linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)",
-                boxShadow: "0 10px 24px -6px rgba(124, 58, 237, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35)",
-              }}
+              className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-[20px] text-white grid place-items-center ring-1 ring-slate-800/10 bg-gradient-to-br from-slate-900 to-slate-800 shadow-[0_8px_20px_-4px_rgba(15,23,42,0.25)]"
             >
               <BarChart3 className="w-7 h-7 sm:w-8 sm:h-8" strokeWidth={2.2} />
             </span>
             <div className="min-w-0">
               <h1
-                className="text-2xl sm:text-3xl font-black tracking-tight"
+                className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900"
                 style={{
                   fontFamily: "var(--font-heading)",
-                  color: "#312e81",
                 }}
               >
                 {t("Website Analytics", "ওয়েবসাইট অ্যানালিটিক্স")}
               </h1>
-              <p className="text-xs sm:text-sm text-slate-400 font-medium mt-1 leading-snug">
+              <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1 leading-snug">
                 {t("Overview • Traffic, countries, sources & pages — real-time from your site", "সারসংক্ষেপ • ট্রাফিক, দেশ, সোর্স ও পেজ — আপনার সাইট থেকে রিয়েল-টাইম")}
               </p>
             </div>
@@ -262,42 +242,29 @@ function WebAnalyticsPage() {
           <div className="flex items-center gap-2.5 flex-wrap">
             {/* Live indicator pill */}
             <div
-              className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-bold text-indigo-900 shadow-sm"
-              style={{
-                background: "rgba(255, 255, 255, 0.9)",
-                border: "1px solid rgba(167, 139, 250, 0.35)",
-                backdropFilter: "blur(8px)",
-              }}
+              className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-bold text-slate-900 bg-white border border-slate-200/80 shadow-xs"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
               </span>
-              <span className="text-indigo-950 font-extrabold">{live.data?.activeVisitors ?? 0}</span>
+              <span className="text-slate-900 font-extrabold">{live.data?.activeVisitors ?? 0}</span>
               <span className="text-slate-500 font-medium">{t("active now", "এখন অনলাইন")}</span>
             </div>
 
             {/* Date range pills */}
             <div
-              className="inline-flex rounded-full p-1 text-xs font-bold shadow-sm"
-              style={{
-                background: "rgba(255, 255, 255, 0.9)",
-                border: "1px solid rgba(224, 231, 255, 0.8)",
-                backdropFilter: "blur(8px)",
-              }}
+              className="inline-flex rounded-full p-1 text-xs font-bold bg-slate-100/80 border border-slate-200/80 shadow-xs"
             >
               {(["24h", "7d", "30d", "90d"] as Range[]).map((r) => (
                 <button
                   key={r}
                   onClick={() => setRange(r)}
-                  className="px-3.5 py-1.5 rounded-full transition text-xs font-bold"
-                  style={range === r ? {
-                    background: "linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)",
-                    color: "#ffffff",
-                    boxShadow: "0 4px 12px -2px rgba(124, 58, 237, 0.35)",
-                  } : {
-                    color: "#64748b",
-                  }}
+                  className={`px-3.5 py-1.5 rounded-full transition text-xs font-bold ${
+                    range === r
+                      ? "bg-slate-900 text-white shadow-sm"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
                 >
                   {r === "24h" ? t("24h", "২৪ঘ") : r === "7d" ? t("7 days", "৭ দিন") : r === "30d" ? t("30 days", "৩০ দিন") : t("90 days", "৯০ দিন")}
                 </button>
@@ -307,11 +274,7 @@ function WebAnalyticsPage() {
             {/* Refresh button */}
             <button
               onClick={() => { overview.refetch(); live.refetch(); }}
-              className="w-9 h-9 grid place-items-center rounded-full text-slate-600 hover:text-indigo-600 hover:bg-white shadow-sm transition"
-              style={{
-                background: "rgba(255, 255, 255, 0.9)",
-                border: "1px solid rgba(224, 231, 255, 0.8)",
-              }}
+              className="w-9 h-9 grid place-items-center rounded-full text-slate-600 hover:text-slate-900 bg-white border border-slate-200/80 shadow-xs transition"
               aria-label="Refresh"
               title="Refresh"
             >

@@ -3,11 +3,11 @@ import { TrendingDown, TrendingUp } from "lucide-react";
 export type AdminStatTone = "indigo" | "rose" | "emerald" | "violet" | "sky";
 
 const TONES: Record<AdminStatTone, { tint: string; stroke: string; fill: string }> = {
-  indigo:  { tint: "from-indigo-50/80 via-white to-white",      stroke: "#6366f1", fill: "rgba(99,102,241,0.12)" },
-  rose:    { tint: "from-rose-50/80 via-white to-white",        stroke: "#f43f5e", fill: "rgba(244,63,94,0.12)" },
-  emerald: { tint: "from-emerald-50/80 via-white to-white",     stroke: "#10b981", fill: "rgba(16,185,129,0.12)" },
-  sky:     { tint: "from-sky-50/80 via-white to-white",         stroke: "#0ea5e9", fill: "rgba(14,165,233,0.12)" },
-  violet:  { tint: "from-violet-50/80 via-white to-white",      stroke: "#8b5cf6", fill: "rgba(139,92,246,0.15)" },
+  indigo:  { tint: "from-white to-white", stroke: "#6366f1", fill: "rgba(99,102,241,0.08)" },
+  rose:    { tint: "from-white to-white", stroke: "#f43f5e", fill: "rgba(244,63,94,0.08)" },
+  emerald: { tint: "from-white to-white", stroke: "#10b981", fill: "rgba(16,185,129,0.08)" },
+  sky:     { tint: "from-white to-white", stroke: "#0ea5e9", fill: "rgba(14,165,233,0.08)" },
+  violet:  { tint: "from-white to-white", stroke: "#8b5cf6", fill: "rgba(139,92,246,0.08)" },
 };
 
 function sparkPath(vals: number[], w = 200, h = 60) {
@@ -53,9 +53,9 @@ export function AdminStatCard({
 
   return (
     <div
-      className="admin-card relative overflow-hidden rounded-[24px] p-6 border border-white/80 ring-1 ring-slate-200/60 bg-gradient-to-br from-white/95 via-white/90 to-slate-50/85 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_10px_32px_-10px_rgba(99,102,241,0.08),0_2px_6px_rgba(15,23,42,0.02)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_18px_40px_-12px_rgba(99,102,241,0.14)]"
+      className="admin-card relative overflow-hidden rounded-[24px] p-6 border border-slate-200/80 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_45px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.03)]"
     >
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent" />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-100 to-transparent" />
       <div className="flex items-start justify-between">
         <div className="text-xs font-black uppercase tracking-wider text-slate-500">{label}</div>
         <button className="text-slate-400 hover:text-slate-700 leading-none">⋮</button>
@@ -94,8 +94,8 @@ export function AdminStatGrid({ children }: { children: React.ReactNode }) {
 
 export function AdminGlassCard({ className = "", children }: { className?: string; children: React.ReactNode }) {
   return (
-    <div className={`admin-card relative overflow-hidden rounded-[24px] border border-white/80 ring-1 ring-slate-200/60 bg-gradient-to-br from-white/95 via-white/90 to-slate-50/80 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_10px_35px_-10px_rgba(99,102,241,0.08),0_2px_6px_rgba(15,23,42,0.02)] ${className}`}>
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent" />
+    <div className={`admin-card relative overflow-hidden rounded-[24px] border border-slate-200/80 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)] ${className}`}>
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-100 to-transparent" />
       {children}
     </div>
   );

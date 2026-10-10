@@ -306,7 +306,7 @@ function AdminOrders() {
       </div>
 
       {/* Toolbar — counts, sync, actions */}
-      <div className="rounded-[22px] p-3.5 sm:p-4 border border-white/80 ring-1 ring-slate-200/60 bg-gradient-to-br from-white/95 via-white/90 to-slate-50/80 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_10px_28px_-10px_rgba(99,102,241,0.06),0_2px_4px_rgba(15,23,42,0.02)] flex items-center justify-between gap-3 flex-wrap">
+      <div className="rounded-[22px] p-3.5 sm:p-4 border border-slate-200/80 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)] flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-2.5 flex-wrap">
           <span className="text-sm font-semibold flex items-center gap-1.5">
             <span className="text-xl font-black text-slate-900 tabular-nums">{orders.length}</span>
@@ -377,7 +377,7 @@ function AdminOrders() {
       </div>
 
       {/* Search & Filter Toolbar */}
-      <div className="rounded-[22px] p-3 border border-white/80 ring-1 ring-slate-200/60 bg-gradient-to-br from-white/95 via-white/90 to-slate-50/80 backdrop-blur-xl shadow-xs flex items-center gap-2">
+      <div className="rounded-[22px] p-3 border border-slate-200/80 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)] flex items-center gap-2">
         <div className="relative flex-1">
           <SearchIcon className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
@@ -415,7 +415,7 @@ function AdminOrders() {
       )}
 
       {/* Orders Table Shell */}
-      <div className="rounded-[24px] border border-white/80 ring-1 ring-slate-200/60 bg-white/95 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_10px_35px_-10px_rgba(99,102,241,0.08),0_2px_6px_rgba(15,23,42,0.02)] overflow-hidden">
+      <div className="rounded-[24px] border border-slate-200/80 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
         {loading ? (
           <div className="p-16 grid place-items-center text-slate-400">
             <Loader2 className="w-7 h-7 animate-spin text-violet-600" />
@@ -585,35 +585,35 @@ function StatCard({
 }) {
   const configs = {
     violet: {
-      cardBg: "from-violet-50/70 via-white to-white",
-      ring: "ring-violet-200/60",
-      border: "border-violet-100/80",
+      cardBg: "from-white to-white",
+      ring: "ring-slate-200/80",
+      border: "border-slate-100/50",
       iconGrad: "linear-gradient(135deg, #7c3aed 0%, #6366f1 100%)",
-      shadow: "shadow-[0_8px_24px_-6px_rgba(124,58,237,0.12)]",
+      shadow: "shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)]",
       iconShadow: "0 8px 18px -4px rgba(124,58,237,0.4)",
     },
     amber: {
-      cardBg: "from-amber-50/70 via-white to-white",
-      ring: "ring-amber-200/60",
-      border: "border-amber-100/80",
+      cardBg: "from-white to-white",
+      ring: "ring-slate-200/80",
+      border: "border-slate-100/50",
       iconGrad: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
-      shadow: "shadow-[0_8px_24px_-6px_rgba(245,158,11,0.12)]",
+      shadow: "shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)]",
       iconShadow: "0 8px 18px -4px rgba(245,158,11,0.4)",
     },
     sky: {
-      cardBg: "from-sky-50/70 via-white to-white",
-      ring: "ring-sky-200/60",
-      border: "border-sky-100/80",
+      cardBg: "from-white to-white",
+      ring: "ring-slate-200/80",
+      border: "border-slate-100/50",
       iconGrad: "linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%)",
-      shadow: "shadow-[0_8px_24px_-6px_rgba(14,165,233,0.12)]",
+      shadow: "shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)]",
       iconShadow: "0 8px 18px -4px rgba(14,165,233,0.4)",
     },
     emerald: {
-      cardBg: "from-emerald-50/70 via-white to-white",
-      ring: "ring-emerald-200/60",
-      border: "border-emerald-100/80",
+      cardBg: "from-white to-white",
+      ring: "ring-slate-200/80",
+      border: "border-slate-100/50",
       iconGrad: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-      shadow: "shadow-[0_8px_24px_-6px_rgba(16,185,129,0.12)]",
+      shadow: "shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)]",
       iconShadow: "0 8px 18px -4px rgba(16,185,129,0.4)",
     },
   };
@@ -661,8 +661,8 @@ function Chip({
         small ? "h-8 px-3 text-[11px]" : "h-9 px-3.5"
       } ${
         active
-          ? "bg-gradient-to-r from-violet-600 via-indigo-600 to-blue-600 text-white shadow-[0_4px_14px_-2px_rgba(124,58,237,0.35)] ring-1 ring-violet-400/40"
-          : "bg-white/90 hover:bg-white text-slate-600 hover:text-slate-900 border border-slate-200/80 hover:border-violet-300 shadow-xs"
+          ? "bg-slate-900 text-white shadow-[0_4px_14px_-2px_rgba(0,0,0,0.2)] ring-1 ring-slate-800"
+          : "bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-900 border border-slate-200/80 hover:border-slate-300 shadow-xs"
       }`}
     >
       <span>{label}</span>

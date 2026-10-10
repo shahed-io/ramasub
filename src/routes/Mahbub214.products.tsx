@@ -502,7 +502,7 @@ function AdminProducts() {
  </div>
 
  {/* Table */}
- <div className="overflow-hidden rounded-[24px] border border-white/80 ring-1 ring-slate-200/60 bg-gradient-to-br from-white/95 via-white/90 to-slate-50/80 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_10px_35px_-10px_rgba(99,102,241,0.08),0_2px_6px_rgba(15,23,42,0.02)]">
+ <div className="overflow-hidden rounded-[24px] border border-slate-200/80 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)]">
  {loading ? null : (
  <div className="overflow-x-auto">
  <table className="w-full text-sm min-w-[900px]">
@@ -630,8 +630,8 @@ function StatCard({ icon: Icon, label, value, tint }: { icon: typeof Package; la
  violet: " text-slate-700 ring-slate-200",
  } as const;
  return (
- <div className="bg-white border border-border rounded-2xl p-4 flex items-center gap-3">
- <div className={`w-11 h-11 rounded-xl grid place-items-center bg-gradient-to-br ${map[tint]} ring-1`}>
+ <div className="bg-white border border-slate-200/80 rounded-2xl p-4 flex items-center gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)]">
+ <div className={`w-11 h-11 rounded-xl grid place-items-center bg-white ${map[tint]} ring-1`}>
  <Icon className="w-5 h-5" />
  </div>
  <div>

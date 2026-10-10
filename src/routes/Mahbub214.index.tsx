@@ -206,16 +206,16 @@ function AdminDashboard() {
       value: fmtBDT(stats.todayRev),
       Icon: TrendingUp,
       iconGrad: "from-indigo-500 to-purple-600",
-      bgGrad: "linear-gradient(135deg, rgba(250, 245, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(245, 243, 255, 0.5) 100%)",
-      borderColor: "rgba(224, 231, 255, 0.8)",
+      bgGrad: "rgba(255, 255, 255, 1)",
+      borderColor: "rgba(226, 232, 240, 0.8)",
     },
     {
       label: t("THIS MONTH REVENUE", "এই মাসের আয়"),
       value: fmtBDT(stats.monthRev),
       Icon: DollarSign,
       iconGrad: "from-purple-500 to-indigo-600",
-      bgGrad: "linear-gradient(135deg, rgba(250, 245, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(253, 242, 248, 0.5) 100%)",
-      borderColor: "rgba(224, 231, 255, 0.8)",
+      bgGrad: "rgba(255, 255, 255, 1)",
+      borderColor: "rgba(226, 232, 240, 0.8)",
       delta: stats.monthDelta,
       sub: t("vs last month", "গত মাসের তুলনায়"),
     },
@@ -224,16 +224,16 @@ function AdminDashboard() {
       value: fmtBDT(stats.yearRev),
       Icon: TrendingUp,
       iconGrad: "from-emerald-500 to-teal-600",
-      bgGrad: "linear-gradient(135deg, rgba(236, 253, 245, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(240, 253, 244, 0.5) 100%)",
-      borderColor: "rgba(209, 250, 229, 0.85)",
+      bgGrad: "rgba(255, 255, 255, 1)",
+      borderColor: "rgba(226, 232, 240, 0.8)",
     },
     {
       label: t("TOTAL REVENUE (ALL)", "মোট আয় (সব)"),
       value: fmtBDT(stats.revenue),
       Icon: Wallet,
       iconGrad: "from-amber-500 to-orange-500",
-      bgGrad: "linear-gradient(135deg, rgba(254, 243, 199, 0.8) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(255, 251, 235, 0.5) 100%)",
-      borderColor: "rgba(254, 243, 199, 0.95)",
+      bgGrad: "rgba(255, 255, 255, 1)",
+      borderColor: "rgba(226, 232, 240, 0.8)",
     },
   ];
 
@@ -243,8 +243,8 @@ function AdminDashboard() {
       value: counts.orders.toLocaleString("en-IN"),
       Icon: ShoppingCart,
       iconGrad: "from-indigo-500 to-purple-600",
-      bgGrad: "linear-gradient(135deg, rgba(250, 245, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(245, 243, 255, 0.5) 100%)",
-      borderColor: "rgba(224, 231, 255, 0.8)",
+      bgGrad: "rgba(255, 255, 255, 1)",
+      borderColor: "rgba(226, 232, 240, 0.8)",
       delta: stats.totalOrders > 0 ? Math.round((stats.delivered / stats.totalOrders) * 100) : 0,
       sub: t("delivered", "সম্পন্ন"),
     },
@@ -253,40 +253,40 @@ function AdminDashboard() {
       value: stats.pending.toString(),
       Icon: Clock,
       iconGrad: "from-amber-500 to-yellow-600",
-      bgGrad: "linear-gradient(135deg, rgba(254, 243, 199, 0.8) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(255, 251, 235, 0.5) 100%)",
-      borderColor: "rgba(254, 243, 199, 0.95)",
+      bgGrad: "rgba(255, 255, 255, 1)",
+      borderColor: "rgba(226, 232, 240, 0.8)",
     },
     {
       label: t("PAYMENT PENDING", "পেমেন্ট অপেক্ষমাণ"),
       value: stats.paymentPending.toString(),
       Icon: CreditCard,
       iconGrad: "from-orange-500 to-red-500",
-      bgGrad: "linear-gradient(135deg, rgba(255, 237, 213, 0.8) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(255, 241, 242, 0.5) 100%)",
-      borderColor: "rgba(254, 215, 170, 0.9)",
+      bgGrad: "rgba(255, 255, 255, 1)",
+      borderColor: "rgba(226, 232, 240, 0.8)",
     },
     {
       label: t("DELIVERED", "ডেলিভারড"),
       value: stats.delivered.toString(),
       Icon: CheckCircle2,
       iconGrad: "from-emerald-500 to-teal-600",
-      bgGrad: "linear-gradient(135deg, rgba(236, 253, 245, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(240, 253, 244, 0.5) 100%)",
-      borderColor: "rgba(209, 250, 229, 0.85)",
+      bgGrad: "rgba(255, 255, 255, 1)",
+      borderColor: "rgba(226, 232, 240, 0.8)",
     },
     {
       label: t("CANCELLED", "বাতিল"),
       value: stats.cancelled.toString(),
       Icon: XCircle,
       iconGrad: "from-rose-500 to-pink-600",
-      bgGrad: "linear-gradient(135deg, rgba(254, 242, 242, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(255, 241, 242, 0.5) 100%)",
-      borderColor: "rgba(254, 205, 211, 0.85)",
+      bgGrad: "rgba(255, 255, 255, 1)",
+      borderColor: "rgba(226, 232, 240, 0.8)",
     },
     {
       label: t("CUSTOMERS", "কাস্টমার"),
       value: counts.users.toLocaleString("en-IN"),
       Icon: UsersRound,
       iconGrad: "from-sky-500 to-blue-600",
-      bgGrad: "linear-gradient(135deg, rgba(239, 246, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(240, 249, 255, 0.5) 100%)",
-      borderColor: "rgba(219, 234, 254, 0.85)",
+      bgGrad: "rgba(255, 255, 255, 1)",
+      borderColor: "rgba(226, 232, 240, 0.8)",
     },
   ];
 
@@ -297,9 +297,9 @@ function AdminDashboard() {
         <div
           className="rounded-[20px] p-5 sm:p-6"
           style={{
-            background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,255,0.95) 100%)",
-            border: "1px solid rgba(224,231,255,0.7)",
-            boxShadow: "0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 20px rgba(99,102,241,0.07)",
+            background: "rgba(255, 255, 255, 1)",
+            border: "1px solid rgba(226, 232, 240, 0.8)",
+            boxShadow: "0 10px 40px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02)",
           }}
         >
           <div className="flex items-center gap-2.5 mb-3">
@@ -313,8 +313,8 @@ function AdminDashboard() {
             to="/Mahbub214/orders"
             className="flex items-center gap-3 rounded-xl px-3.5 py-3 transition"
             style={{
-              background: "linear-gradient(135deg, rgba(237,233,254,0.7) 0%, rgba(224,231,255,0.5) 100%)",
-              border: "1px solid rgba(167,139,250,0.25)",
+              background: "rgba(248, 250, 252, 1)",
+              border: "1px solid rgba(226, 232, 240, 0.8)",
             }}
           >
             <span className="w-9 h-9 rounded-xl grid place-items-center shrink-0 text-white" style={{ background: "linear-gradient(135deg, #7c3aed, #6366f1)", boxShadow: "0 4px 10px -4px rgba(124,58,237,0.4)" }}>
@@ -334,9 +334,9 @@ function AdminDashboard() {
       <div
         className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 min-w-0"
         style={{
-          background: "linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 244, 255, 0.88) 45%, rgba(253, 242, 248, 0.78) 100%)",
-          border: "1px solid rgba(224, 231, 255, 0.8)",
-          boxShadow: "0 1px 0 rgba(255, 255, 255, 1) inset, 0 8px 32px rgba(99, 102, 241, 0.08)",
+          background: "rgba(255, 255, 255, 1)",
+          border: "1px solid rgba(226, 232, 240, 0.8)",
+          boxShadow: "0 10px 40px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02)",
         }}
       >
         {/* Gloss highlight */}
@@ -352,25 +352,20 @@ function AdminDashboard() {
         <div className="relative flex items-center justify-between gap-4 z-10">
           <div className="flex items-center gap-4 min-w-0">
             <div
-              className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-[20px] grid place-items-center text-white ring-1 ring-white/50"
-              style={{
-                background: "linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)",
-                boxShadow: "0 10px 24px -6px rgba(124, 58, 237, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35)",
-              }}
+              className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-[20px] grid place-items-center text-white ring-1 ring-slate-800/10 bg-gradient-to-br from-slate-900 to-slate-800 shadow-[0_8px_20px_-4px_rgba(15,23,42,0.25)]"
             >
               <LayoutDashboard className="w-7 h-7 sm:w-8 sm:h-8" strokeWidth={2.2} />
             </div>
             <div className="min-w-0">
               <h1
-                className="text-2xl sm:text-3xl font-black tracking-tight"
+                className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900"
                 style={{
                   fontFamily: "var(--font-heading)",
-                  color: "#312e81",
                 }}
               >
                 Dashboard
               </h1>
-              <p className="text-xs sm:text-sm text-slate-400 font-medium mt-1 leading-snug">
+              <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1 leading-snug">
                 Overview • Manage and configure dashboard
               </p>
             </div>
@@ -420,9 +415,9 @@ function AdminDashboard() {
           <div
             className="lg:col-span-2 rounded-[20px] p-5 sm:p-7 min-w-0 overflow-hidden"
             style={{
-              background: "linear-gradient(145deg, rgba(255,255,255,0.97) 0%, rgba(248,250,255,0.96) 100%)",
-              border: "1px solid rgba(224,231,255,0.7)",
-              boxShadow: "0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 24px rgba(99,102,241,0.07), 0 1px 4px rgba(0,0,0,0.03)",
+              background: "rgba(255, 255, 255, 1)",
+              border: "1px solid rgba(226, 232, 240, 0.8)",
+              boxShadow: "0 10px 40px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02)",
             }}
           >
           <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] items-start gap-4 mb-6">
@@ -435,16 +430,16 @@ function AdminDashboard() {
                 </div>
               )}
             </div>
-            <div className="shrink-0 inline-flex w-full sm:w-auto rounded-xl p-1 text-[11.5px] font-bold overflow-x-auto" style={{ background: "rgba(237,233,254,0.5)", border: "1px solid rgba(167,139,250,0.2)" }}>
+            <div className="shrink-0 inline-flex w-full sm:w-auto rounded-xl p-1 text-[11.5px] font-bold overflow-x-auto bg-slate-100/80 border border-slate-200/80">
               {(["daily", "weekly", "monthly"] as Period[]).map((p) => (
                 <button
                   key={p}
                   onClick={() => setPeriod(p)}
                   className="px-3 py-1 rounded-lg transition shrink-0 flex-1 sm:flex-none"
                   style={period === p ? {
-                    background: "rgba(255,255,255,0.9)",
-                    color: "#5b21b6",
-                    boxShadow: "0 2px 8px rgba(124,58,237,0.12)",
+                    background: "#0f172a",
+                    color: "#ffffff",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
                   } : { color: "#64748b" }}
                 >
                   {t(p[0].toUpperCase() + p.slice(1), p === "daily" ? "দৈনিক" : p === "weekly" ? "সাপ্তাহিক" : "মাসিক")}
@@ -500,9 +495,9 @@ function AdminDashboard() {
         <div
           className="rounded-[20px] p-5 sm:p-7"
           style={{
-            background: "linear-gradient(145deg, rgba(255,255,255,0.97) 0%, rgba(248,250,255,0.96) 100%)",
-            border: "1px solid rgba(224,231,255,0.7)",
-            boxShadow: "0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 24px rgba(99,102,241,0.07), 0 1px 4px rgba(0,0,0,0.03)",
+            background: "rgba(255, 255, 255, 1)",
+            border: "1px solid rgba(226, 232, 240, 0.8)",
+            boxShadow: "0 10px 40px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02)",
           }}
         >
           <div className="flex items-center gap-2 mb-4">
@@ -553,7 +548,7 @@ function AdminDashboard() {
 function SectionHeader({ title }: { title: string }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="w-1.5 h-4.5 bg-indigo-600 rounded-full inline-block" />
+      <span className="w-1.5 h-4.5 bg-slate-900 rounded-full inline-block" />
       <h2 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-wider uppercase">
         {title}
       </h2>
@@ -568,9 +563,9 @@ function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compac
     <div
       className={`relative overflow-hidden rounded-[20px] ${compact ? "p-5" : "p-6"} transition-all duration-200 hover:-translate-y-0.5`}
       style={{
-        background: kpi.bgGrad || "linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(248,250,255,0.96) 100%)",
-        border: `1px solid ${kpi.borderColor || "rgba(224,231,255,0.75)"}`,
-        boxShadow: "0 1px 0 rgba(255,255,255,1) inset, 0 4px 18px rgba(99,102,241,0.06), 0 1px 3px rgba(0,0,0,0.02)",
+        background: kpi.bgGrad || "rgba(255, 255, 255, 1)",
+        border: `1px solid ${kpi.borderColor || "rgba(226, 232, 240, 0.8)"}`,
+        boxShadow: "0 10px 40px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02)",
       }}
     >
       {/* Top gloss line */}

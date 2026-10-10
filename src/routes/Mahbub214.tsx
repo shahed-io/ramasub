@@ -335,12 +335,11 @@ function AdminShell({ user, signOut, navigate }: any) {
   }, [pathname]);
 
   return (
-    <div className="admin-shell admin-clarity min-h-[100dvh] w-full overflow-x-hidden lg:h-[100dvh] lg:overflow-hidden flex relative font-['Inter',ui-sans-serif,system-ui] text-slate-800" style={{ background: "linear-gradient(135deg, #f0f4ff 0%, #f8faff 50%, #f5f0ff 100%)" }}>
-      {/* Ambient background blobs */}
+    <div className="admin-shell admin-clarity min-h-[100dvh] w-full overflow-x-hidden lg:h-[100dvh] lg:overflow-hidden flex relative font-['Inter',ui-sans-serif,system-ui] text-slate-900" style={{ background: "#f8f9fa" }}>
+      {/* Ambient background blobs for subtle glossy feel */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
-        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full opacity-40" style={{ background: "radial-gradient(circle, rgba(167,139,250,0.25) 0%, transparent 70%)" }} />
-        <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full opacity-30" style={{ background: "radial-gradient(circle, rgba(147,197,253,0.3) 0%, transparent 70%)" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full opacity-20" style={{ background: "radial-gradient(ellipse, rgba(196,181,253,0.3) 0%, transparent 60%)" }} />
+        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full opacity-50 blur-[100px]" style={{ background: "rgba(255, 255, 255, 1)" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full opacity-40 blur-[120px]" style={{ background: "rgba(255, 255, 255, 1)" }} />
       </div>
 
       {/* Mobile overlay */}
@@ -361,14 +360,14 @@ function AdminShell({ user, signOut, navigate }: any) {
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         ].join(" ")}
         style={{
-          background: "linear-gradient(170deg, rgba(255,255,255,0.97) 0%, rgba(248,250,255,0.95) 100%)",
-          borderRight: "1px solid rgba(224,231,255,0.6)",
-          boxShadow: "4px 0 40px rgba(99,102,241,0.06), 2px 0 12px rgba(0,0,0,0.03), inset -1px 0 0 rgba(255,255,255,0.8)",
-          backdropFilter: "blur(28px)",
+          background: "rgba(255, 255, 255, 0.95)",
+          borderRight: "1px solid rgba(226, 232, 240, 0.8)",
+          boxShadow: "0 0 30px rgba(0,0,0,0.03)",
+          backdropFilter: "blur(20px)",
         }}
       >
         {/* Top gloss line */}
-        <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent)" }} />
+        <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,1), transparent)" }} />
 
         {/* Brand */}
         <div className={[
@@ -376,7 +375,7 @@ function AdminShell({ user, signOut, navigate }: any) {
           collapsed
             ? "flex flex-col items-center justify-center gap-1.5 py-5 px-2"
             : "h-[72px] flex items-center justify-between px-5",
-        ].join(" ")} style={{ borderColor: "rgba(224,231,255,0.5)" }}>
+        ].join(" ")} style={{ borderColor: "rgba(226, 232, 240, 0.8)" }}>
 
           <Link to="/Mahbub214" className={`flex items-center gap-3 min-w-0 group ${collapsed ? "justify-center" : ""}`} aria-label="Rama Sub Admin">
             <div
@@ -414,8 +413,8 @@ function AdminShell({ user, signOut, navigate }: any) {
           <button
             onClick={() => setCollapsed((v) => !v)}
             className={[
-              "hidden lg:inline-flex items-center justify-center rounded-lg text-slate-400 hover:bg-violet-50 hover:text-violet-600 transition",
-              collapsed ? "w-9 h-9 ring-1 ring-slate-200/60 bg-white/70" : "w-8 h-8",
+              "hidden lg:inline-flex items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition",
+              collapsed ? "w-9 h-9 ring-1 ring-slate-200 bg-white" : "w-8 h-8",
             ].join(" ")}
             aria-label={collapsed ? t("Expand sidebar", "সাইডবার বড় করুন") : t("Collapse sidebar", "সাইডবার ছোট করুন")}
             title={collapsed ? t("Expand sidebar", "সাইডবার বড় করুন") : t("Collapse sidebar", "সাইডবার ছোট করুন")}
@@ -443,7 +442,7 @@ function AdminShell({ user, signOut, navigate }: any) {
         </nav>
 
         {/* User footer */}
-        <div className="p-4" style={{ borderTop: "1px solid rgba(224,231,255,0.5)", background: "linear-gradient(to top, rgba(248,250,255,0.9), transparent)" }}>
+        <div className="p-4 bg-white/80" style={{ borderTop: "1px solid rgba(226, 232, 240, 0.8)" }}>
           <div className={`flex items-center gap-2.5 ${collapsed ? "justify-center" : ""}`}>
             <div
               className="w-10 h-10 rounded-full grid place-items-center text-xs font-black shrink-0 text-white"
@@ -481,10 +480,10 @@ function AdminShell({ user, signOut, navigate }: any) {
         <header
           className="h-[68px] sticky top-0 z-20"
           style={{
-            background: "linear-gradient(to right, rgba(255,255,255,0.94), rgba(248,250,255,0.94))",
-            backdropFilter: "blur(24px)",
-            borderBottom: "1px solid rgba(224,231,255,0.6)",
-            boxShadow: "0 1px 0 rgba(255,255,255,0.8) inset, 0 4px 24px rgba(99,102,241,0.05), 0 1px 3px rgba(0,0,0,0.03)",
+            background: "rgba(255, 255, 255, 0.95)",
+            backdropFilter: "blur(20px)",
+            borderBottom: "1px solid rgba(226, 232, 240, 0.8)",
+            boxShadow: "0 4px 30px rgba(0,0,0,0.02)",
           }}
         >
           {/* Header gloss line */}
@@ -501,7 +500,7 @@ function AdminShell({ user, signOut, navigate }: any) {
             </button>
 
             <div className="hidden md:flex flex-col justify-center min-w-0 h-full py-1">
-              <div className="flex items-center gap-1.5 text-[10px] font-black tracking-widest uppercase" style={{ color: "rgba(124,58,237,0.7)" }}>
+              <div className="flex items-center gap-1.5 text-[10px] font-black tracking-widest uppercase text-slate-500">
                 <span>
                   {currentPage
                     ? t(currentPage.group.title, currentPage.group.titleBn)
@@ -534,16 +533,14 @@ function AdminShell({ user, signOut, navigate }: any) {
               onClick={toggle}
               aria-label={t("Switch to Bangla", "ইংরেজিতে পরিবর্তন")}
               title={lang === "en" ? "বাংলায় দেখুন" : "Show in English"}
-              className="inline-flex h-9 px-2.5 sm:px-3 rounded-xl text-xs font-bold items-center gap-1.5 text-slate-600 hover:bg-white hover:text-slate-800 transition shrink-0 shadow-sm backdrop-blur-sm bg-white/60"
-              style={{ border: "1px solid rgba(224,231,255,0.7)" }}
+              className="inline-flex h-9 px-2.5 sm:px-3 rounded-xl text-xs font-bold items-center gap-1.5 text-slate-700 hover:bg-slate-100 transition shrink-0 bg-white shadow-sm ring-1 ring-slate-200"
             >
               <Globe className="w-3.5 h-3.5" /> {lang === "en" ? "বাং" : "EN"}
             </button>
             <button
               type="button"
               onClick={() => setGlobalOpen(true)}
-              className="xl:hidden h-9 w-9 rounded-xl grid place-items-center text-slate-600 hover:bg-white hover:text-slate-800 transition shrink-0 shadow-sm bg-white/60"
-              style={{ border: "1px solid rgba(224,231,255,0.7)" }}
+              className="xl:hidden h-9 w-9 rounded-xl grid place-items-center text-slate-700 hover:bg-slate-100 transition shrink-0 bg-white shadow-sm ring-1 ring-slate-200"
               aria-label={t("Search", "খুঁজুন")}
               title={t("Search", "খুঁজুন")}
             >
@@ -558,8 +555,7 @@ function AdminShell({ user, signOut, navigate }: any) {
 
             <Link
               to="/"
-              className="hidden sm:inline-flex h-9 px-3 rounded-xl text-xs font-bold items-center gap-1.5 text-slate-600 hover:bg-white hover:text-slate-800 transition shadow-sm backdrop-blur-sm bg-white/60"
-              style={{ border: "1px solid rgba(224,231,255,0.7)" }}
+              className="hidden sm:inline-flex h-9 px-3 rounded-xl text-xs font-bold items-center gap-1.5 text-slate-700 hover:bg-slate-100 transition bg-white shadow-sm ring-1 ring-slate-200"
             >
               <ExternalLink className="w-3.5 h-3.5" /> {t("View store", "স্টোর দেখুন")}
             </Link>
@@ -567,7 +563,7 @@ function AdminShell({ user, signOut, navigate }: any) {
         </header>
 
         {/* Page content */}
-        <div className="admin-main-content flex-1 p-3 sm:p-5 md:p-8 min-w-0 w-full overflow-x-hidden text-slate-800">
+        <div className="admin-main-content flex-1 p-3 sm:p-5 md:p-8 min-w-0 w-full overflow-x-hidden text-slate-900">
           <div className="mx-auto w-full max-w-[1400px] min-w-0">
             <AdminPageHeader />
             <Outlet />
@@ -624,7 +620,7 @@ function SidebarGroup({ group, collapsed, pathname }: { group: any; collapsed: b
     <div className="mt-4 first:mt-2">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.18em] text-slate-400 hover:text-slate-600 transition"
+        className="w-full flex items-center justify-between px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.18em] text-slate-500 hover:text-slate-800 transition"
       >
         <span>{t(group.title, group.titleBn)}</span>
         <ChevronDown className={`w-3.5 h-3.5 transition-transform ${open ? "" : "-rotate-90"}`} />
@@ -740,11 +736,12 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
         collapsed ? "justify-center px-2 py-2.5 mx-1 my-0.5" : "px-2.5 py-2.5",
       ].join(" ")}
       style={active ? {
-        background: "linear-gradient(135deg, rgba(237,233,254,0.85) 0%, rgba(224,231,255,0.65) 100%)",
-        boxShadow: "0 1px 0 rgba(255,255,255,0.8) inset, 0 2px 8px rgba(139,92,246,0.08)",
-        color: "#5b21b6",
+        background: "rgba(241, 245, 249, 0.6)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,1), 0 2px 4px rgba(0,0,0,0.02)",
+        color: "#0f172a",
+        fontWeight: 700,
       } : {
-        color: "#64748b",
+        color: "#475569",
       }}
     >
       {/* Left active indicator */}
@@ -754,8 +751,7 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
         style={{
           height: active ? 24 : 0,
           opacity: active ? 1 : 0,
-          background: "linear-gradient(to bottom, #7c3aed, #6366f1)",
-          boxShadow: active ? "2px 0 8px rgba(124,58,237,0.4)" : "none",
+          background: "#0f172a",
         }}
       />
       {/* Ripple effects */}
@@ -772,8 +768,8 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
         style={{
           ...iconGradientStyle(item.grad),
           boxShadow: active
-            ? "0 6px 16px -4px rgba(124,58,237,0.4), inset 0 1px 0 rgba(255,255,255,0.25)"
-            : "0 4px 12px -4px rgba(124,58,237,0.2), inset 0 1px 0 rgba(255,255,255,0.2)",
+            ? "0 4px 12px -2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.3)"
+            : "0 2px 6px -1px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.2)",
         }}
         className={[
           "shrink-0 w-8 h-8 rounded-xl grid place-items-center text-white",
@@ -784,7 +780,7 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
         {item.icon}
       </span>
       {!collapsed && (
-        <span className={`relative truncate flex-1 text-[13px] transition-all ${active ? "font-bold" : "font-semibold group-hover:text-slate-700"}`}>{label}</span>
+        <span className={`relative truncate flex-1 text-[13px] transition-all ${active ? "font-bold text-slate-900" : "font-semibold group-hover:text-slate-900"}`}>{label}</span>
       )}
       {!collapsed && item.badge && (
         <span className={`relative shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider ${badgeClass}`}>
@@ -792,7 +788,7 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
         </span>
       )}
       {!collapsed && active && !item.badge && (
-        <span className="relative shrink-0 w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#7c3aed" }} aria-hidden />
+        <span className="relative shrink-0 w-1.5 h-1.5 rounded-full animate-pulse bg-slate-900" aria-hidden />
       )}
     </Link>
   );

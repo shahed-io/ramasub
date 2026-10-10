@@ -91,79 +91,77 @@ function AdminWalletPage() {
   }, [wallets, txns, topups]);
 
   return (
-    <div className="min-h-screen bg-slate-50/60">
-      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 py-6 space-y-5">
-        {/* Section heading */}
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <h2 className="flex items-center gap-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-              <Wallet className="h-6 w-6 text-blue-600" />
-              Wallet Manager
-            </h2>
-            <p className="text-sm text-slate-500 mt-1">Manage customer wallets and top-up requests</p>
-          </div>
-          <button
-            onClick={() => load(true)}
-            className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-sm text-slate-700 hover:bg-slate-50 shadow-sm"
-          >
-            <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`} /> Refresh
-          </button>
+    <div className="space-y-5 animate-fade-in">
+      {/* Header bar */}
+      <div className="flex items-center justify-between gap-3">
+        <div>
+          <h2 className="flex items-center gap-2 text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900">
+            <Wallet className="h-6 w-6 text-slate-900" />
+            Wallet Manager
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500 mt-0.5">Manage customer wallets and top-up requests</p>
         </div>
+        <button
+          onClick={() => load(true)}
+          className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200/80 text-xs font-bold text-slate-700 hover:bg-slate-50 shadow-xs"
+        >
+          <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`} /> Refresh
+        </button>
+      </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          <StatCard label="Total Wallet" icon={Wallet} iconColor="text-blue-500" value={fmt2(stats.totalWallet)} valueColor="text-slate-900" />
-          <StatCard label="Total Credits" icon={TrendingUp} iconColor="text-blue-500" value={fmt(stats.credits)} valueColor="text-blue-600" />
-          <StatCard label="Total Debits" icon={TrendingDown} iconColor="text-rose-500" value={fmt2(stats.debits)} valueColor="text-rose-600" />
-          <StatCard label="Pending" icon={Clock} iconColor="text-blue-500" value={String(stats.pending)} valueColor="text-slate-900" />
-        </div>
+      {/* Stats */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <StatCard label="Total Wallet" icon={Wallet} iconColor="text-blue-500" value={fmt2(stats.totalWallet)} valueColor="text-slate-900" />
+        <StatCard label="Total Credits" icon={TrendingUp} iconColor="text-emerald-500" value={fmt(stats.credits)} valueColor="text-emerald-600" />
+        <StatCard label="Total Debits" icon={TrendingDown} iconColor="text-rose-500" value={fmt2(stats.debits)} valueColor="text-rose-600" />
+        <StatCard label="Pending" icon={Clock} iconColor="text-amber-500" value={String(stats.pending)} valueColor="text-slate-900" />
+      </div>
 
-        {/* Body grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-5 items-start">
-          {/* Left: tabs + list */}
-          <div className="space-y-4">
-            <div className="inline-flex p-1 rounded-2xl bg-slate-100/80">
-              {([
-                ["requests", "Requests", Clock],
-                ["customers", "Customers", Users],
-                ["transactions", "Transactions", History],
-              ] as [Tab, string, React.ComponentType<{ className?: string }>][]).map(([id, label, Icon]) => (
-                <button
-                  key={id}
-                  onClick={() => setTab(id)}
-                  className={`px-4 py-2 rounded-xl text-sm font-semibold inline-flex items-center gap-1.5 transition ${
-                    tab === id
-                      ? "bg-gradient-to-r from-blue-600 to-sky-600 text-white shadow-md shadow-blue-500/30"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  <Icon className="h-3.5 w-3.5" /> {label}
-                </button>
-              ))}
-            </div>
-
-            <div className="rounded-2xl bg-white border border-slate-200 overflow-hidden">
-              {loading ? (
-                <div className="p-16 grid place-items-center text-slate-500"><Loader2 className="h-6 w-6 animate-spin" /></div>
-              ) : tab === "requests" ? (
-                <RequestsList topups={topups} profiles={profiles} reload={() => load(true)} />
-              ) : tab === "customers" ? (
-                <CustomersList wallets={wallets} profiles={profiles} onSelect={(uid) => setSelectedUser(uid)} selected={selectedUser} />
-              ) : (
-                <TransactionsList txns={txns} profiles={profiles} />
-              )}
-            </div>
+      {/* Body grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-5 items-start">
+        {/* Left: tabs + list */}
+        <div className="space-y-4">
+          <div className="inline-flex p-1 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
+            {([
+              ["requests", "Requests", Clock],
+              ["customers", "Customers", Users],
+              ["transactions", "Transactions", History],
+            ] as [Tab, string, React.ComponentType<{ className?: string }>][]).map(([id, label, Icon]) => (
+              <button
+                key={id}
+                onClick={() => setTab(id)}
+                className={`px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 transition ${
+                  tab === id
+                    ? "bg-slate-900 text-white shadow-sm"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                <Icon className="h-3.5 w-3.5" /> {label}
+              </button>
+            ))}
           </div>
 
-          {/* Right: manual adjust */}
-          <ManualAdjustPanel
-            wallets={wallets}
-            profiles={profiles}
-            selectedUser={selectedUser}
-            onSelectUser={setSelectedUser}
-            onDone={() => load(true)}
-          />
+          <div className="rounded-[20px] bg-white border border-slate-200/80 shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
+            {loading ? (
+              <div className="p-16 grid place-items-center text-slate-500"><Loader2 className="h-6 w-6 animate-spin text-slate-900" /></div>
+            ) : tab === "requests" ? (
+              <RequestsList topups={topups} profiles={profiles} reload={() => load(true)} />
+            ) : tab === "customers" ? (
+              <CustomersList wallets={wallets} profiles={profiles} onSelect={(uid) => setSelectedUser(uid)} selected={selectedUser} />
+            ) : (
+              <TransactionsList txns={txns} profiles={profiles} />
+            )}
+          </div>
         </div>
+
+        {/* Right: manual adjust */}
+        <ManualAdjustPanel
+          wallets={wallets}
+          profiles={profiles}
+          selectedUser={selectedUser}
+          onSelectUser={setSelectedUser}
+          onDone={() => load(true)}
+        />
       </div>
     </div>
   );
@@ -173,12 +171,13 @@ function StatCard({ label, icon: Icon, iconColor, value, valueColor }: {
   label: string; icon: React.ComponentType<{ className?: string }>; iconColor: string; value: string; valueColor: string;
 }) {
   return (
-    <div className="rounded-2xl bg-white border border-slate-200 p-4">
-      <div className="flex items-center gap-2 text-xs text-slate-500">
+    <div className="relative overflow-hidden rounded-[20px] bg-white border border-slate-200/80 p-5 shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)] transition-all duration-200 hover:-translate-y-0.5">
+      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none bg-gradient-to-r from-transparent via-slate-100 to-transparent" />
+      <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
         <Icon className={`h-4 w-4 ${iconColor}`} />
         <span>{label}</span>
       </div>
-      <div className={`mt-2 text-2xl font-extrabold ${valueColor}`}>{value}</div>
+      <div className={`mt-2 text-2xl sm:text-3xl font-black ${valueColor} tabular-nums tracking-tight`}>{value}</div>
     </div>
   );
 }
@@ -369,11 +368,11 @@ function ManualAdjustPanel({ wallets, profiles, selectedUser, onSelectUser, onDo
   };
 
   return (
-    <div className="rounded-2xl bg-white border border-slate-200 p-5 lg:sticky lg:top-4 self-start">
+    <div className="rounded-[20px] bg-white border border-slate-200/80 shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)] p-5 lg:sticky lg:top-4 self-start">
       <div className="flex items-center gap-2">
-        <div className="h-7 w-1 rounded bg-gradient-to-b from-blue-500 to-sky-600" />
-        <Wallet className="h-5 w-5 text-blue-600" />
-        <h2 className="text-xl font-extrabold text-slate-900">Manual Wallet Adjust</h2>
+        <div className="h-5 w-1 rounded-full bg-slate-900" />
+        <Wallet className="h-5 w-5 text-slate-900" />
+        <h2 className="text-lg font-extrabold text-slate-900">Manual Wallet Adjust</h2>
       </div>
 
       {/* Selector */}

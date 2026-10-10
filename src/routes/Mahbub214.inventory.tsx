@@ -118,7 +118,8 @@ async function fetchInventory(): Promise<Row[]> {
 
 function StatCard({ tone, icon, value, label }: { tone: string; icon: React.ReactNode; value: number | string; label: string }) {
   return (
-    <div className="admin-card rounded-2xl bg-white p-5 border border-slate-100">
+    <div className="relative overflow-hidden rounded-[20px] bg-white p-5 border border-slate-200/80 shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)] transition-all duration-200 hover:-translate-y-0.5">
+      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none bg-gradient-to-r from-transparent via-slate-100 to-transparent" />
       <div className={`w-10 h-10 rounded-xl grid place-items-center ${tone}`}>{icon}</div>
       <div className="mt-4 text-3xl font-black text-slate-900 tabular-nums">{value}</div>
       <div className="text-xs font-semibold text-slate-500 mt-1">{label}</div>
@@ -250,7 +251,7 @@ function InventoryPage() {
       </div>
 
       {showSettings && (
-        <div className="admin-card rounded-2xl bg-white p-4 border border-slate-100 flex items-center gap-3 flex-wrap">
+        <div className="rounded-[20px] bg-white p-4 border border-slate-200/80 shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)] flex items-center gap-3 flex-wrap">
           <span className="text-sm font-bold text-slate-700">
             {t("Default low-stock threshold", "ডিফল্ট লো-স্টক থ্রেশহোল্ড")}:
           </span>
@@ -309,7 +310,7 @@ function InventoryPage() {
         </div>
       </div>
 
-      <div className="admin-card rounded-2xl bg-white border border-slate-100 overflow-hidden">
+      <div className="rounded-[20px] bg-white border border-slate-200/80 shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden">
         <div className="px-5 pt-5 pb-3">
           <h3 className="text-lg font-extrabold text-slate-900">
             {t("Inventory List", "ইনভেন্টরি তালিকা")} ({filtered.length})
