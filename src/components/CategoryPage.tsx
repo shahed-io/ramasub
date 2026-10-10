@@ -161,6 +161,10 @@ export function CategoryPage({
 
 
       <section className="mx-auto max-w-[1440px] px-4 md:px-10 py-8">
+        <header className="mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground">{title}</h1>
+          {subtitle && <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>}
+        </header>
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-6">
           {/* Sidebar */}
           {showFilters && cats.length > 0 && (

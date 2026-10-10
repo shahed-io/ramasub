@@ -123,7 +123,7 @@ export const Route = createFileRoute("/help/$slug")({
       
       <main className="max-w-3xl mx-auto px-4 py-24 text-center">
         <h1 className="text-3xl font-bold text-slate-900">Something went wrong</h1>
-        <p className="mt-3 text-slate-600">{error?.message || "Please try again."}</p>
+        <p className="mt-3 text-slate-600">{(error as Error | undefined)?.message || "Please try again."}</p>
       </main>
       <SiteFooter />
     </div>

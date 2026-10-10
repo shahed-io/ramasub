@@ -175,12 +175,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:locale:alternate", content: "en_US" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@ramasub" },
-      { property: "og:title", content: "Rama Sub | Trusted Digital Services in Bangladesh" },
-      { name: "twitter:title", content: "Rama Sub | Trusted Digital Services in Bangladesh" },
-      { property: "og:description", content: "Rama Sub provides digital products, premium subscriptions, hosting, software, with fast support and secure access across Bangladesh." },
-      { name: "twitter:description", content: "Rama Sub provides digital products, premium subscriptions, hosting, software, with fast support and secure access across Bangladesh." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/de062542-a538-4372-9e7f-f1f51d5bc8b0" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/de062542-a538-4372-9e7f-f1f51d5bc8b0" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -201,7 +195,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
-  errorComponent: ErrorComponent,
+  errorComponent: ErrorComponent as never,
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
