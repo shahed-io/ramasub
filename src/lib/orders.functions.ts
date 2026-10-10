@@ -413,6 +413,7 @@ export const getOrderById = createServerFn({ method: "GET" })
       .eq("id", data.id)
       .maybeSingle();
     if (error) throw error;
+    if (order) delete (order as any).admin_note;
     return order;
   });
 

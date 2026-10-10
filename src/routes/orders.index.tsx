@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { rememberReturnTo } from "@/lib/auth-return-to";
 
 
-export const Route = createFileRoute("/orders")({
+export const Route = createFileRoute("/orders/")({
   component: OrdersPage,
   head: () => ({ meta: [{ title: "My Orders — Rama Sub" }] }),
 });
