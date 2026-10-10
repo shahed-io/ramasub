@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import {
   Users, Eye, MousePointerClick, Timer, TrendingUp, Globe2, MapPin, Radio,
-  Smartphone, Monitor, RefreshCw, ArrowUpRight,
+  Smartphone, Monitor, RefreshCw, ArrowUpRight, BarChart3, LayoutGrid,
 } from "lucide-react";
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid,
@@ -49,26 +49,80 @@ function fmtDuration(sec: number): string {
   return `${m}m ${s}s`;
 }
 
+type KpiTone = "violet" | "sky" | "emerald" | "amber" | "rose" | "indigo" | "slate";
+
+const KPI_TONE_CONFIG: Record<KpiTone, {
+  bg: string;
+  border: string;
+  iconGrad: string;
+}> = {
+  violet: {
+    bg: "linear-gradient(135deg, rgba(250, 245, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(245, 243, 255, 0.5) 100%)",
+    border: "rgba(224, 231, 255, 0.75)",
+    iconGrad: "from-indigo-500 to-purple-600",
+  },
+  sky: {
+    bg: "linear-gradient(135deg, rgba(239, 246, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(240, 249, 255, 0.5) 100%)",
+    border: "rgba(219, 234, 254, 0.8)",
+    iconGrad: "from-sky-500 to-blue-600",
+  },
+  emerald: {
+    bg: "linear-gradient(135deg, rgba(236, 253, 245, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(240, 253, 244, 0.5) 100%)",
+    border: "rgba(209, 250, 229, 0.8)",
+    iconGrad: "from-emerald-500 to-teal-600",
+  },
+  amber: {
+    bg: "linear-gradient(135deg, rgba(254, 243, 199, 0.8) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(255, 251, 235, 0.5) 100%)",
+    border: "rgba(254, 243, 199, 0.9)",
+    iconGrad: "from-amber-500 to-orange-500",
+  },
+  rose: {
+    bg: "linear-gradient(135deg, rgba(254, 242, 242, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(255, 241, 242, 0.5) 100%)",
+    border: "rgba(254, 205, 211, 0.8)",
+    iconGrad: "from-rose-500 to-pink-600",
+  },
+  indigo: {
+    bg: "linear-gradient(135deg, rgba(238, 242, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(245, 247, 255, 0.5) 100%)",
+    border: "rgba(224, 231, 255, 0.8)",
+    iconGrad: "from-indigo-600 to-blue-600",
+  },
+  slate: {
+    bg: "linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(241, 245, 249, 0.5) 100%)",
+    border: "rgba(226, 232, 240, 0.8)",
+    iconGrad: "from-slate-600 to-slate-800",
+  },
+};
+
 function KpiCard({
   icon, label, value, tone = "violet",
 }: { icon: React.ReactNode; label: string; value: string | number; tone?: string }) {
-  const tones: Record<string, string> = {
-    violet: "from-blue-500 to-sky-500",
-    emerald: "from-blue-500 to-blue-600",
-    amber: "from-amber-500 to-orange-500",
-    sky: "from-sky-500 to-blue-500",
-    rose: "from-rose-500 to-pink-500",
-    indigo: "from-indigo-500 to-blue-600",
-    slate: "from-slate-500 to-slate-700",
-  };
+  const cfg = KPI_TONE_CONFIG[(tone as KpiTone) || "violet"] || KPI_TONE_CONFIG.violet;
   return (
-    <div className="rounded-2xl bg-white ring-1 ring-slate-200 shadow-sm p-4 flex items-center gap-3">
-      <span className={`shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br ${tones[tone]} text-white grid place-items-center shadow-sm [&_svg]:w-5 [&_svg]:h-5`}>
-        {icon}
-      </span>
-      <div className="min-w-0">
-        <div className="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{label}</div>
-        <div className="text-xl font-extrabold text-slate-800 truncate">{value}</div>
+    <div
+      className="relative overflow-hidden rounded-[20px] p-5 transition-all duration-200 hover:-translate-y-0.5"
+      style={{
+        background: cfg.bg,
+        border: `1px solid ${cfg.border}`,
+        boxShadow: "0 1px 0 rgba(255, 255, 255, 1) inset, 0 4px 18px rgba(99, 102, 241, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02)",
+      }}
+    >
+      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent)" }} />
+      <div className="flex items-start justify-between gap-2">
+        <span
+          className={`shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br ${cfg.iconGrad} text-white grid place-items-center shadow-md [&_svg]:w-5 [&_svg]:h-5`}
+          style={{ boxShadow: "0 6px 14px -3px rgba(124, 58, 237, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)" }}
+        >
+          {icon}
+        </span>
+      </div>
+      <div className="mt-4 text-[10.5px] uppercase tracking-wider text-slate-400 font-extrabold truncate">
+        {label}
+      </div>
+      <div
+        className="mt-0.5 text-2xl font-black text-slate-900 tracking-tight tabular-nums truncate"
+        style={{ fontFamily: "var(--font-heading)" }}
+      >
+        {value}
       </div>
     </div>
   );
@@ -76,12 +130,20 @@ function KpiCard({
 
 function Section({ title, children, right }: { title: string; children: React.ReactNode; right?: React.ReactNode }) {
   return (
-    <div className="rounded-2xl bg-white ring-1 ring-slate-200 shadow-sm">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
-        <h3 className="text-sm font-bold text-slate-700">{title}</h3>
+    <div
+      className="rounded-[20px] bg-white border border-slate-200/70 overflow-hidden"
+      style={{
+        boxShadow: "0 1px 0 rgba(255, 255, 255, 1) inset, 0 4px 20px rgba(99, 102, 241, 0.06), 0 1px 3px rgba(0, 0, 0, 0.02)",
+      }}
+    >
+      <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-slate-50/40">
+        <div className="flex items-center gap-2">
+          <span className="w-1.5 h-4.5 bg-indigo-600 rounded-full inline-block" />
+          <h3 className="text-sm font-extrabold text-slate-800 tracking-wider uppercase">{title}</h3>
+        </div>
         {right}
       </div>
-      <div className="p-4">{children}</div>
+      <div className="p-5">{children}</div>
     </div>
   );
 }
@@ -151,59 +213,128 @@ function WebAnalyticsPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero */}
-      <div className="relative overflow-hidden rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 via-sky-50 to-sky-50 p-4 sm:p-5 mb-5">
-        <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 w-56 h-56 rounded-full bg-blue-200/40 blur-3xl" />
-        <div className="relative flex flex-wrap items-center gap-3 justify-between">
-          <div className="flex items-center gap-3 min-w-0">
-            <span className="shrink-0 w-11 h-11 rounded-xl bg-white shadow-sm ring-1 ring-blue-100 grid place-items-center text-blue-600">
-              <TrendingUp className="w-5 h-5" strokeWidth={2.5} />
+      {/* Hero Banner — Matching Image 2 Shahed Store Style */}
+      <div
+        className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 mb-3 min-w-0"
+        style={{
+          background: "linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 244, 255, 0.88) 45%, rgba(253, 242, 248, 0.78) 100%)",
+          border: "1px solid rgba(224, 231, 255, 0.8)",
+          boxShadow: "0 1px 0 rgba(255, 255, 255, 1) inset, 0 8px 32px rgba(99, 102, 241, 0.08)",
+        }}
+      >
+        {/* Gloss highlight */}
+        <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent)" }} />
+
+        {/* Background decorative watermark graphics */}
+        <svg aria-hidden className="pointer-events-none absolute right-24 sm:right-44 top-1/2 -translate-y-1/2 w-64 h-28 opacity-35 text-indigo-300" viewBox="0 0 200 60" fill="none">
+          <path d="M0 45 Q 30 10, 60 35 T 120 20 T 170 38 T 200 15" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M0 52 Q 35 30, 70 48 T 130 35 T 180 42 T 200 28" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+        </svg>
+        <LayoutGrid aria-hidden className="pointer-events-none absolute -right-6 -bottom-6 w-36 h-36 text-indigo-200/20 stroke-[1.2]" />
+
+        <div className="relative flex flex-wrap items-center gap-4 justify-between z-10">
+          <div className="flex items-center gap-4 min-w-0">
+            <span
+              className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-[20px] text-white grid place-items-center ring-1 ring-white/50"
+              style={{
+                background: "linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)",
+                boxShadow: "0 10px 24px -6px rgba(124, 58, 237, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35)",
+              }}
+            >
+              <BarChart3 className="w-7 h-7 sm:w-8 sm:h-8" strokeWidth={2.2} />
             </span>
             <div className="min-w-0">
-              <h1 className="text-lg sm:text-xl font-extrabold tracking-tight bg-gradient-to-r from-blue-700 to-sky-600 bg-clip-text text-transparent">
+              <h1
+                className="text-2xl sm:text-3xl font-black tracking-tight"
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  color: "#312e81",
+                }}
+              >
                 {t("Website Analytics", "ওয়েবসাইট অ্যানালিটিক্স")}
               </h1>
-              <p className="text-xs text-slate-600 mt-0.5">
-                {t("Traffic, countries, sources & pages — real-time from your site", "ট্রাফিক, দেশ, সোর্স ও পেজ — আপনার সাইট থেকে রিয়েল-টাইম")}
+              <p className="text-xs sm:text-sm text-slate-400 font-medium mt-1 leading-snug">
+                {t("Overview • Traffic, countries, sources & pages — real-time from your site", "সারসংক্ষেপ • ট্রাফিক, দেশ, সোর্স ও পেজ — আপনার সাইট থেকে রিয়েল-টাইম")}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            {/* Live indicator */}
-            <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-emerald-200 px-3 py-1.5 text-xs font-semibold text-blue-700">
+          <div className="flex items-center gap-2.5 flex-wrap">
+            {/* Live indicator pill */}
+            <div
+              className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-bold text-indigo-900 shadow-sm"
+              style={{
+                background: "rgba(255, 255, 255, 0.9)",
+                border: "1px solid rgba(167, 139, 250, 0.35)",
+                backdropFilter: "blur(8px)",
+              }}
+            >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
               </span>
-              {live.data?.activeVisitors ?? 0} {t("active now", "এখন অনলাইন")}
+              <span className="text-indigo-950 font-extrabold">{live.data?.activeVisitors ?? 0}</span>
+              <span className="text-slate-500 font-medium">{t("active now", "এখন অনলাইন")}</span>
             </div>
 
-            <div className="inline-flex rounded-full bg-white ring-1 ring-slate-200 p-0.5 text-xs font-semibold">
+            {/* Date range pills */}
+            <div
+              className="inline-flex rounded-full p-1 text-xs font-bold shadow-sm"
+              style={{
+                background: "rgba(255, 255, 255, 0.9)",
+                border: "1px solid rgba(224, 231, 255, 0.8)",
+                backdropFilter: "blur(8px)",
+              }}
+            >
               {(["24h", "7d", "30d", "90d"] as Range[]).map((r) => (
                 <button
                   key={r}
                   onClick={() => setRange(r)}
-                  className={`px-3 py-1.5 rounded-full transition ${
-                    range === r
-                      ? "bg-gradient-to-r from-blue-600 to-sky-600 text-white shadow"
-                      : "text-slate-600 hover:bg-slate-50"
-                  }`}
+                  className="px-3.5 py-1.5 rounded-full transition text-xs font-bold"
+                  style={range === r ? {
+                    background: "linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)",
+                    color: "#ffffff",
+                    boxShadow: "0 4px 12px -2px rgba(124, 58, 237, 0.35)",
+                  } : {
+                    color: "#64748b",
+                  }}
                 >
                   {r === "24h" ? t("24h", "২৪ঘ") : r === "7d" ? t("7 days", "৭ দিন") : r === "30d" ? t("30 days", "৩০ দিন") : t("90 days", "৯০ দিন")}
                 </button>
               ))}
             </div>
 
+            {/* Refresh button */}
             <button
               onClick={() => { overview.refetch(); live.refetch(); }}
-              className="w-9 h-9 grid place-items-center rounded-full bg-white ring-1 ring-slate-200 text-slate-600 hover:bg-slate-50"
+              className="w-9 h-9 grid place-items-center rounded-full text-slate-600 hover:text-indigo-600 hover:bg-white shadow-sm transition"
+              style={{
+                background: "rgba(255, 255, 255, 0.9)",
+                border: "1px solid rgba(224, 231, 255, 0.8)",
+              }}
               aria-label="Refresh"
+              title="Refresh"
             >
-              <RefreshCw className={`w-4 h-4 ${overview.isFetching ? "animate-spin" : ""}`} />
+              <RefreshCw className={`w-4 h-4 ${overview.isFetching ? "animate-spin text-indigo-600" : ""}`} />
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Real-time Sub-bar matching Image 2 */}
+      <div className="flex items-center justify-between text-xs font-medium text-slate-500 px-1 mb-5">
+        <div className="flex items-center gap-2">
+          <span className="text-slate-500 font-medium">{t("Real-time business snapshot", "রিয়েল-টাইম বিজনেস স্ন্যাপশট")}</span>
+          <span className="text-slate-300">•</span>
+          <span className="font-semibold text-slate-700">{new Date().toLocaleTimeString()}</span>
+        </div>
+        <button
+          onClick={() => { overview.refetch(); live.refetch(); }}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 border border-slate-200/80 text-xs font-semibold text-slate-600 hover:text-indigo-600 hover:bg-white shadow-sm transition"
+        >
+          <RefreshCw className={`w-3.5 h-3.5 ${overview.isFetching ? "animate-spin" : ""}`} />
+          <span>{t("Refresh", "রিফ্রেশ")}</span>
+        </button>
       </div>
 
       {overview.isLoading ? (

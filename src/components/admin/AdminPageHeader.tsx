@@ -94,25 +94,37 @@ export function AdminPageHeader() {
     : `${groupLabel} • ${t("Manage and configure", "ম্যানেজ ও কনফিগার করুন")}`;
 
   return (
-    <div className="relative overflow-hidden rounded-[24px] border border-white/80 ring-1 ring-slate-200/60 bg-gradient-to-br from-white/95 via-white/90 to-slate-50/80 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_10px_35px_-10px_rgba(99,102,241,0.08),0_2px_6px_rgba(15,23,42,0.03)] p-5 sm:p-6 mb-6 min-w-0">
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-300/60 to-transparent" />
-      <div aria-hidden className="pointer-events-none absolute -right-20 -top-20 w-64 h-64 rounded-full bg-violet-100/40 blur-3xl" />
-      <div aria-hidden className="pointer-events-none absolute -left-20 bottom-0 w-64 h-64 rounded-full bg-blue-100/30 blur-3xl" />
-      <div className="relative flex items-center gap-4 sm:gap-5 min-w-0">
+    <div
+      className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 mb-6 min-w-0"
+      style={{
+        background: "linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 244, 255, 0.88) 45%, rgba(253, 242, 248, 0.78) 100%)",
+        border: "1px solid rgba(224, 231, 255, 0.8)",
+        boxShadow: "0 1px 0 rgba(255, 255, 255, 1) inset, 0 8px 32px rgba(99, 102, 241, 0.08)",
+      }}
+    >
+      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent)" }} />
+      <svg aria-hidden className="pointer-events-none absolute right-24 sm:right-44 top-1/2 -translate-y-1/2 w-64 h-28 opacity-35 text-indigo-300" viewBox="0 0 200 60" fill="none">
+        <path d="M0 45 Q 30 10, 60 35 T 120 20 T 170 38 T 200 15" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M0 52 Q 35 30, 70 48 T 130 35 T 180 42 T 200 28" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+      </svg>
+      <div className="relative flex items-center gap-4 sm:gap-5 min-w-0 z-10">
         <span
-          className="shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl text-white grid place-items-center ring-1 ring-white/50 [&_svg]:w-6 [&_svg]:h-6"
+          className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-[20px] text-white grid place-items-center ring-1 ring-white/50 [&_svg]:w-7 [&_svg]:h-7"
           style={{
-            background: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)",
-            boxShadow: "0 8px 22px -4px rgba(124,58,237,0.42), inset 0 1px 0 rgba(255,255,255,0.35)",
+            background: "linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)",
+            boxShadow: "0 10px 24px -6px rgba(124, 58, 237, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35)",
           }}
         >
           {item.icon}
         </span>
         <div className="min-w-0 flex-1">
-          <h1 className="text-lg sm:text-xl md:text-2xl font-black tracking-tight text-slate-900 truncate">
+          <h1
+            className="text-2xl sm:text-3xl font-black tracking-tight truncate"
+            style={{ fontFamily: "var(--font-heading)", color: "#312e81" }}
+          >
             {title}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 font-medium mt-0.5 leading-snug truncate">{subtitle}</p>
+          <p className="text-xs sm:text-sm text-slate-400 font-medium mt-1 leading-snug truncate">{subtitle}</p>
         </div>
       </div>
     </div>

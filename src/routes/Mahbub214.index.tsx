@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   ShoppingBag, Users, TrendingUp, TrendingDown, ArrowUpRight,
   Bell, ShoppingCart, Clock, CreditCard, CheckCircle2, XCircle, UsersRound,
-  DollarSign, Calendar, BarChart3, Wallet,
+  DollarSign, Calendar, BarChart3, Wallet, LayoutDashboard, LayoutGrid, RefreshCw,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminLang } from "@/context/AdminLangContext";
@@ -196,7 +196,7 @@ function AdminDashboard() {
   // ----- KPI cards -----
   type Kpi = {
     label: string; value: string; Icon: any;
-    iconGrad: string; bgGrad: string; accent?: string;
+    iconGrad: string; bgGrad: string; borderColor: string;
     delta?: number; sub?: string;
   };
 
@@ -205,35 +205,35 @@ function AdminDashboard() {
       label: t("TODAY'S SALES", "আজকের সেল"),
       value: fmtBDT(stats.todayRev),
       Icon: TrendingUp,
-      iconGrad: "from-violet-600 to-indigo-700",
-      bgGrad: "from-violet-50/50 via-white to-white",
-      accent: "#7c3aed",
+      iconGrad: "from-indigo-500 to-purple-600",
+      bgGrad: "linear-gradient(135deg, rgba(250, 245, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(245, 243, 255, 0.5) 100%)",
+      borderColor: "rgba(224, 231, 255, 0.8)",
     },
     {
       label: t("THIS MONTH REVENUE", "এই মাসের আয়"),
       value: fmtBDT(stats.monthRev),
       Icon: DollarSign,
-      iconGrad: "from-violet-600 to-fuchsia-700",
-      bgGrad: "from-violet-50/50 via-white to-white",
-      accent: "#22d3ee",
+      iconGrad: "from-purple-500 to-indigo-600",
+      bgGrad: "linear-gradient(135deg, rgba(250, 245, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(253, 242, 248, 0.5) 100%)",
+      borderColor: "rgba(224, 231, 255, 0.8)",
       delta: stats.monthDelta,
       sub: t("vs last month", "গত মাসের তুলনায়"),
     },
     {
       label: t("THIS YEAR REVENUE", "এই বছরের আয়"),
       value: fmtBDT(stats.yearRev),
-      Icon: BarChart3,
+      Icon: TrendingUp,
       iconGrad: "from-emerald-500 to-teal-600",
-      bgGrad: "from-emerald-50/50 via-white to-white",
-      accent: "#f9a8d4",
+      bgGrad: "linear-gradient(135deg, rgba(236, 253, 245, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(240, 253, 244, 0.5) 100%)",
+      borderColor: "rgba(209, 250, 229, 0.85)",
     },
     {
       label: t("TOTAL REVENUE (ALL)", "মোট আয় (সব)"),
       value: fmtBDT(stats.revenue),
       Icon: Wallet,
-      iconGrad: "from-orange-500 to-amber-600",
-      bgGrad: "from-orange-50/50 via-white to-white",
-      accent: "#fbbf24",
+      iconGrad: "from-amber-500 to-orange-500",
+      bgGrad: "linear-gradient(135deg, rgba(254, 243, 199, 0.8) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(255, 251, 235, 0.5) 100%)",
+      borderColor: "rgba(254, 243, 199, 0.95)",
     },
   ];
 
@@ -242,9 +242,9 @@ function AdminDashboard() {
       label: t("TOTAL ORDERS", "মোট অর্ডার"),
       value: counts.orders.toLocaleString("en-IN"),
       Icon: ShoppingCart,
-      iconGrad: "from-violet-600 to-indigo-700",
-      bgGrad: "from-violet-50/50 via-white to-white",
-      accent: "#8b5cf6",
+      iconGrad: "from-indigo-500 to-purple-600",
+      bgGrad: "linear-gradient(135deg, rgba(250, 245, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(245, 243, 255, 0.5) 100%)",
+      borderColor: "rgba(224, 231, 255, 0.8)",
       delta: stats.totalOrders > 0 ? Math.round((stats.delivered / stats.totalOrders) * 100) : 0,
       sub: t("delivered", "সম্পন্ন"),
     },
@@ -253,40 +253,40 @@ function AdminDashboard() {
       value: stats.pending.toString(),
       Icon: Clock,
       iconGrad: "from-amber-500 to-yellow-600",
-      bgGrad: "from-amber-50/50 via-white to-white",
-      accent: "#22d3ee",
+      bgGrad: "linear-gradient(135deg, rgba(254, 243, 199, 0.8) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(255, 251, 235, 0.5) 100%)",
+      borderColor: "rgba(254, 243, 199, 0.95)",
     },
     {
       label: t("PAYMENT PENDING", "পেমেন্ট অপেক্ষমাণ"),
       value: stats.paymentPending.toString(),
       Icon: CreditCard,
-      iconGrad: "from-rose-600 to-red-700",
-      bgGrad: "from-rose-50/50 via-white to-white",
-      accent: "#f9a8d4",
+      iconGrad: "from-orange-500 to-red-500",
+      bgGrad: "linear-gradient(135deg, rgba(255, 237, 213, 0.8) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(255, 241, 242, 0.5) 100%)",
+      borderColor: "rgba(254, 215, 170, 0.9)",
     },
     {
       label: t("DELIVERED", "ডেলিভারড"),
       value: stats.delivered.toString(),
       Icon: CheckCircle2,
       iconGrad: "from-emerald-500 to-teal-600",
-      bgGrad: "from-emerald-50/50 via-white to-white",
-      accent: "#fbbf24",
+      bgGrad: "linear-gradient(135deg, rgba(236, 253, 245, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(240, 253, 244, 0.5) 100%)",
+      borderColor: "rgba(209, 250, 229, 0.85)",
     },
     {
       label: t("CANCELLED", "বাতিল"),
       value: stats.cancelled.toString(),
       Icon: XCircle,
-      iconGrad: "from-rose-600 to-red-700",
-      bgGrad: "from-rose-50/50 via-white to-white",
-      accent: "#8b5cf6",
+      iconGrad: "from-rose-500 to-pink-600",
+      bgGrad: "linear-gradient(135deg, rgba(254, 242, 242, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(255, 241, 242, 0.5) 100%)",
+      borderColor: "rgba(254, 205, 211, 0.85)",
     },
     {
       label: t("CUSTOMERS", "কাস্টমার"),
       value: counts.users.toLocaleString("en-IN"),
       Icon: UsersRound,
       iconGrad: "from-sky-500 to-blue-600",
-      bgGrad: "from-sky-50/50 via-white to-white",
-      accent: "#22d3ee",
+      bgGrad: "linear-gradient(135deg, rgba(239, 246, 255, 0.9) 0%, rgba(255, 255, 255, 0.98) 55%, rgba(240, 249, 255, 0.5) 100%)",
+      borderColor: "rgba(219, 234, 254, 0.85)",
     },
   ];
 
@@ -330,51 +330,68 @@ function AdminDashboard() {
         </div>
       )}
 
-      {/* Hero Banner — Premium Glossy */}
+      {/* Hero Banner — Matching Image 2 Shahed Store Style */}
       <div
-        className="relative overflow-hidden rounded-[24px] p-6 sm:p-8 flex items-center gap-6"
+        className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 min-w-0"
         style={{
-          background: "linear-gradient(135deg, rgba(237,233,254,0.9) 0%, rgba(224,231,255,0.7) 50%, rgba(207,250,254,0.5) 100%)",
-          border: "1px solid rgba(255,255,255,0.8)",
-          boxShadow: "0 1px 0 rgba(255,255,255,0.9) inset, 0 8px 40px rgba(99,102,241,0.1)",
+          background: "linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 244, 255, 0.88) 45%, rgba(253, 242, 248, 0.78) 100%)",
+          border: "1px solid rgba(224, 231, 255, 0.8)",
+          boxShadow: "0 1px 0 rgba(255, 255, 255, 1) inset, 0 8px 32px rgba(99, 102, 241, 0.08)",
         }}
       >
-        {/* Glossy highlight */}
-        <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent)" }} />
-        {/* Decorative orb */}
-        <div className="absolute right-6 top-1/2 -translate-y-1/2 w-32 h-32 rounded-full opacity-20 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 70%)" }} />
-        
-        <div
-          className="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-[20px] grid place-items-center text-white relative z-10"
-          style={{
-            background: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)",
-            boxShadow: "0 12px 24px -8px rgba(124,58,237,0.5), inset 0 1px 0 rgba(255,255,255,0.25)",
-          }}
+        {/* Gloss highlight */}
+        <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent)" }} />
+
+        {/* Background decorative watermark graphics */}
+        <svg aria-hidden className="pointer-events-none absolute right-24 sm:right-44 top-1/2 -translate-y-1/2 w-64 h-28 opacity-35 text-indigo-300" viewBox="0 0 200 60" fill="none">
+          <path d="M0 45 Q 30 10, 60 35 T 120 20 T 170 38 T 200 15" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M0 52 Q 35 30, 70 48 T 130 35 T 180 42 T 200 28" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+        </svg>
+        <LayoutGrid aria-hidden className="pointer-events-none absolute -right-6 -bottom-6 w-36 h-36 text-indigo-200/20 stroke-[1.2]" />
+
+        <div className="relative flex items-center justify-between gap-4 z-10">
+          <div className="flex items-center gap-4 min-w-0">
+            <div
+              className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-[20px] grid place-items-center text-white ring-1 ring-white/50"
+              style={{
+                background: "linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)",
+                boxShadow: "0 10px 24px -6px rgba(124, 58, 237, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35)",
+              }}
+            >
+              <LayoutDashboard className="w-7 h-7 sm:w-8 sm:h-8" strokeWidth={2.2} />
+            </div>
+            <div className="min-w-0">
+              <h1
+                className="text-2xl sm:text-3xl font-black tracking-tight"
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  color: "#312e81",
+                }}
+              >
+                Dashboard
+              </h1>
+              <p className="text-xs sm:text-sm text-slate-400 font-medium mt-1 leading-snug">
+                Overview • Manage and configure dashboard
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Real-time Sub-bar matching Image 2 */}
+      <div className="flex items-center justify-between text-xs font-medium text-slate-500 px-1 pt-1">
+        <div className="flex items-center gap-2">
+          <span className="text-slate-500 font-medium">{t("Real-time business snapshot", "রিয়েল-টাইম বিজনেস স্ন্যাপশট")}</span>
+          <span className="text-slate-300">•</span>
+          <span className="font-semibold text-slate-700">{new Date().toLocaleTimeString()}</span>
+        </div>
+        <button
+          onClick={() => window.location.reload()}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 border border-slate-200/80 text-xs font-semibold text-slate-600 hover:text-indigo-600 hover:bg-white shadow-sm transition"
         >
-          <BarChart3 className="w-8 h-8 sm:w-10 sm:h-10" strokeWidth={2} />
-        </div>
-        <div className="relative z-10">
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight mb-1" style={{ fontFamily: "var(--font-heading)" }}>
-            Dashboard
-          </h1>
-          <p className="text-[13px] font-semibold text-slate-500">
-            Overview • Real-time business snapshot
-          </p>
-        </div>
-        <div className="ml-auto hidden md:flex items-center gap-2">
-          <button
-            onClick={() => window.location.reload()}
-            className="inline-flex items-center gap-1.5 h-9 px-4 rounded-xl text-xs font-bold transition"
-            style={{
-              background: "rgba(255,255,255,0.8)",
-              border: "1px solid rgba(224,231,255,0.8)",
-              color: "#5b21b6",
-              boxShadow: "0 2px 8px rgba(124,58,237,0.08)",
-            }}
-          >
-            <TrendingUp className="w-3.5 h-3.5" /> {new Date().toLocaleTimeString()}
-          </button>
-        </div>
+          <RefreshCw className="w-3.5 h-3.5" />
+          <span>{t("Refresh", "রিফ্রেশ")}</span>
+        </button>
       </div>
 
       {/* REVENUE OVERVIEW */}
@@ -488,10 +505,10 @@ function AdminDashboard() {
             boxShadow: "0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 24px rgba(99,102,241,0.07), 0 1px 4px rgba(0,0,0,0.03)",
           }}
         >
-          <div className="flex items-start gap-2 mb-4">
-            <span className="w-[3px] h-6 rounded-full mt-1" aria-hidden style={{ background: "linear-gradient(to bottom, #7c3aed, #6366f1)" }} />
+          <div className="flex items-center gap-2 mb-4">
+            <span className="w-1.5 h-4.5 bg-indigo-600 rounded-full inline-block" />
             <div className="min-w-0 flex-1">
-              <h3 className="text-[18px] font-extrabold text-slate-800">{t("Best Selling Products", "বেস্ট সেলিং প্রোডাক্ট")}</h3>
+              <h3 className="text-base font-extrabold text-slate-900 tracking-wider uppercase">{t("Best Selling Products", "বেস্ট সেলিং প্রোডাক্ট")}</h3>
             </div>
             <Link to="/Mahbub214/products" className="shrink-0 text-xs font-semibold text-violet-600 hover:text-violet-700 inline-flex items-center gap-0.5 transition">
               {t("All", "সব")} <ArrowUpRight className="w-3.5 h-3.5" />
@@ -516,9 +533,9 @@ function AdminDashboard() {
 
           {/* Conversion Stats */}
           <div className="mt-6 pt-5" style={{ borderTop: "1px solid rgba(224,231,255,0.6)" }}>
-            <div className="flex items-start gap-2 mb-3">
-              <span className="w-[3px] h-6 rounded-full mt-0.5" aria-hidden style={{ background: "linear-gradient(to bottom, #7c3aed, #6366f1)" }} />
-              <h4 className="text-[15px] font-extrabold text-slate-800">{t("Conversion Stats", "কনভার্শন স্ট্যাটস")}</h4>
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-1.5 h-4.5 bg-indigo-600 rounded-full inline-block" />
+              <h4 className="text-sm font-extrabold text-slate-900 tracking-wider uppercase">{t("Conversion Stats", "কনভার্শন স্ট্যাটস")}</h4>
             </div>
             <div className="space-y-2.5">
               <ConvRow label={t("Total Orders", "মোট অর্ডার")} value={counts.orders.toLocaleString("en-IN")} Icon={ShoppingCart} color="violet" />
@@ -535,9 +552,9 @@ function AdminDashboard() {
 
 function SectionHeader({ title }: { title: string }) {
   return (
-    <div className="flex items-center gap-3">
-      <span className="w-[3px] h-8 rounded-full" aria-hidden style={{ background: "linear-gradient(to bottom, #7c3aed, #6366f1)" }} />
-      <h2 className="text-[18px] sm:text-[20px] font-extrabold text-slate-800 tracking-tight uppercase">
+    <div className="flex items-center gap-2">
+      <span className="w-1.5 h-4.5 bg-indigo-600 rounded-full inline-block" />
+      <h2 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-wider uppercase">
         {title}
       </h2>
     </div>
@@ -549,21 +566,11 @@ function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compac
 
   return (
     <div
-      className={`relative overflow-hidden rounded-[20px] ${compact ? "p-5" : "p-6"} transition-all duration-200`}
+      className={`relative overflow-hidden rounded-[20px] ${compact ? "p-5" : "p-6"} transition-all duration-200 hover:-translate-y-0.5`}
       style={{
-        background: "linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(248,250,255,0.96) 100%)",
-        border: "1px solid rgba(224,231,255,0.65)",
-        boxShadow: "0 1px 0 rgba(255,255,255,1) inset, 0 4px 20px rgba(99,102,241,0.07), 0 1px 3px rgba(0,0,0,0.03)",
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = "0 1px 0 rgba(255,255,255,1) inset, 0 8px 32px rgba(99,102,241,0.12), 0 2px 8px rgba(0,0,0,0.04)";
-        (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)";
-        (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(167,139,250,0.35)";
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = "0 1px 0 rgba(255,255,255,1) inset, 0 4px 20px rgba(99,102,241,0.07), 0 1px 3px rgba(0,0,0,0.03)";
-        (e.currentTarget as HTMLDivElement).style.transform = "";
-        (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(224,231,255,0.65)";
+        background: kpi.bgGrad || "linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(248,250,255,0.96) 100%)",
+        border: `1px solid ${kpi.borderColor || "rgba(224,231,255,0.75)"}`,
+        boxShadow: "0 1px 0 rgba(255,255,255,1) inset, 0 4px 18px rgba(99,102,241,0.06), 0 1px 3px rgba(0,0,0,0.02)",
       }}
     >
       {/* Top gloss line */}
@@ -572,36 +579,32 @@ function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compac
         <div className="flex items-start justify-between gap-2">
           <span
             className={`w-10 h-10 rounded-xl grid place-items-center text-white shrink-0 bg-gradient-to-br ${kpi.iconGrad}`}
-            style={{ boxShadow: "0 6px 16px -4px rgba(124,58,237,0.35), inset 0 1px 0 rgba(255,255,255,0.25)" }}
+            style={{ boxShadow: "0 6px 14px -3px rgba(124,58,237,0.32), inset 0 1px 0 rgba(255,255,255,0.3)" }}
           >
-            <Icon className="w-4 h-4" strokeWidth={2.5} />
+            <Icon className="w-4.5 h-4.5" strokeWidth={2.3} />
           </span>
           {typeof kpi.delta === "number" && kpi.delta !== 0 && (
             <span
               className={`shrink-0 inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                kpi.delta >= 0 ? "text-emerald-600" : "text-rose-500"
+                kpi.delta >= 0 ? "text-rose-500 bg-rose-50/90 border border-rose-200/80" : "text-emerald-600 bg-emerald-50/90 border border-emerald-200/80"
               }`}
-              style={{
-                background: kpi.delta >= 0 ? "rgba(209,250,229,0.8)" : "rgba(254,226,226,0.8)",
-                border: kpi.delta >= 0 ? "1px solid rgba(52,211,153,0.3)" : "1px solid rgba(251,113,133,0.3)",
-              }}
             >
               {kpi.delta >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
               {Math.abs(kpi.delta)}%
             </span>
           )}
         </div>
-        <div className={`${compact ? "mt-5" : "mt-6"} text-[10px] font-extrabold text-slate-400 tracking-[0.12em] uppercase truncate`}>
+        <div className={`${compact ? "mt-5" : "mt-6"} text-[10.5px] font-extrabold text-slate-400 tracking-wider uppercase truncate`}>
           {kpi.label}
         </div>
         <div
-          className={`mt-0.5 ${compact ? "text-[20px]" : "text-[24px] sm:text-[28px]"} font-black tracking-tight tabular-nums truncate`}
-          style={{ fontFamily: "var(--font-heading)", color: "#1e1b4b" }}
+          className={`mt-0.5 ${compact ? "text-[22px]" : "text-[26px] sm:text-[30px]"} font-black tracking-tight tabular-nums truncate text-slate-900`}
+          style={{ fontFamily: "var(--font-heading)" }}
         >
           {loading ? <span className="inline-block w-20 h-7 rounded-lg animate-pulse" style={{ background: "rgba(237,233,254,0.6)" }} /> : kpi.value}
         </div>
         {kpi.sub && !loading && (
-          <div className="mt-1 text-[11px] font-semibold text-slate-400 truncate">{kpi.sub}</div>
+          <div className="mt-1 text-[11px] font-medium text-slate-400 truncate">{kpi.sub}</div>
         )}
       </div>
     </div>

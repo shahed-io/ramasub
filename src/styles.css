@@ -4189,23 +4189,7 @@ html.theme-white .product-card-ripple { mix-blend-mode: multiply; }
   .admin-clarity .a-action-violet { background-color: #ede9fe !important; color: #6d28d9 !important; }
 
 
-  /* Sky/cyan mid-tones align to the violet primary family */
-  .admin-clarity :is(.bg-sky-400, .bg-sky-500, .bg-sky-600, .bg-cyan-500, .bg-cyan-600, .bg-indigo-500, .bg-indigo-600) { background-color: #7c3aed !important; }
-  .admin-clarity :is(.bg-sky-50, .bg-cyan-50, .bg-indigo-50) { background-color: #f5f3ff !important; }
-  .admin-clarity :is(.bg-sky-100, .bg-cyan-100, .bg-indigo-100) { background-color: #ede9fe !important; }
-  .admin-clarity :is(.text-sky-500, .text-sky-600, .text-sky-700, .text-cyan-600, .text-cyan-700) { color: #6d28d9 !important; }
-  .admin-clarity :is(.ring-sky-100, .ring-sky-200, .ring-indigo-100, .border-sky-100, .border-sky-200) { border-color: #ddd6fe !important; --tw-ring-color: #ddd6fe !important; }
-  .admin-clarity :is(span, div, a, button)[class*="bg-sky-1"] svg,
-  .admin-clarity :is(span, div, a, button)[class*="bg-indigo-1"] svg,
-  .admin-clarity :is(span, div, a, button)[class*="bg-blue-1"] svg { color: #6d28d9 !important; }
-
-  /* Wildcards catch opacity-modified + gradient sky/cyan accents */
-  .admin-clarity [class*="bg-sky-1"], .admin-clarity [class*="bg-cyan-1"], .admin-clarity [class*="bg-indigo-1"] { background-color: #ede9fe !important; }
-  .admin-clarity [class*="bg-sky-4"], .admin-clarity [class*="bg-sky-5"], .admin-clarity [class*="bg-sky-6"],
-  .admin-clarity [class*="bg-cyan-4"], .admin-clarity [class*="bg-cyan-5"], .admin-clarity [class*="bg-cyan-6"] { background-color: #7c3aed !important; }
-  .admin-clarity [class*="from-sky-"], .admin-clarity [class*="from-cyan-"] { --tw-gradient-from: #7c3aed !important; }
-  .admin-clarity [class*="via-sky-"], .admin-clarity [class*="via-cyan-"] { --tw-gradient-via: #8b5cf6 !important; }
-  .admin-clarity [class*="to-sky-"], .admin-clarity [class*="to-cyan-"] { --tw-gradient-to: #a855f7 !important; }
+  /* Pastel soft accents aligned with Shahed Store screenshot */
   .admin-clarity .admin-kpi-card [class*="bg-"] { background-color: revert-layer; }
 
   /* ============================================================
