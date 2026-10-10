@@ -3,12 +3,12 @@ import { TrendingDown, TrendingUp } from "lucide-react";
 export type AdminStatTone = "indigo" | "rose" | "emerald" | "violet" | "sky";
 
 // New color palette: brand purple #6D4AFF
-const TONES: Record<AdminStatTone, { stroke: string; fill: string; gloss: string }> = {
-  indigo:  { stroke: "#6D4AFF", fill: "rgba(109,74,255,0.08)",  gloss: "rgba(109,74,255,0.12)" },
-  rose:    { stroke: "#DC2626", fill: "rgba(220,38,38,0.07)",   gloss: "rgba(220,38,38,0.10)" },
-  emerald: { stroke: "#15803D", fill: "rgba(21,128,61,0.08)",   gloss: "rgba(21,128,61,0.12)" },
-  sky:     { stroke: "#0ea5e9", fill: "rgba(14,165,233,0.08)",  gloss: "rgba(14,165,233,0.12)" },
-  violet:  { stroke: "#6D4AFF", fill: "rgba(109,74,255,0.08)",  gloss: "rgba(109,74,255,0.12)" },
+const TONES: Record<AdminStatTone, { stroke: string; bg: string }> = {
+  indigo:  { stroke: "#6D4AFF", bg: "linear-gradient(135deg, #F3E8FF 0%, #ffffff 100%)" },
+  rose:    { stroke: "#DC2626", bg: "linear-gradient(135deg, #FFE4E6 0%, #ffffff 100%)" },
+  emerald: { stroke: "#15803D", bg: "linear-gradient(135deg, #ECFDF5 0%, #ffffff 100%)" },
+  sky:     { stroke: "#0ea5e9", bg: "linear-gradient(135deg, #E0F2FE 0%, #ffffff 100%)" },
+  violet:  { stroke: "#6D4AFF", bg: "linear-gradient(135deg, #F3EEFB 0%, #ffffff 100%)" },
 };
 
 function sparkPath(vals: number[], w = 200, h = 60) {
@@ -55,11 +55,11 @@ export function AdminStatCard({
 
   return (
     <div
-      className="relative overflow-hidden rounded-2xl p-5 transition-all duration-200 hover:-translate-y-0.5 group"
+      className="relative overflow-hidden rounded-[20px] p-5 transition-all duration-200 hover:-translate-y-0.5 group"
       style={{
-        background: "#ffffff",
-        border: "1px solid #E4E7EF",
-        boxShadow: "0 4px 20px rgba(109,74,255,0.05), 0 1px 3px rgba(0,0,0,0.03)",
+        background: t.bg,
+        border: "1px solid rgba(0,0,0,0.04)",
+        boxShadow: "0 4px 20px rgba(0,0,0,0.02)",
       }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLDivElement).style.boxShadow = `0 8px 30px rgba(109,74,255,0.10), 0 2px 6px rgba(0,0,0,0.04)`;
@@ -68,18 +68,8 @@ export function AdminStatCard({
         (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 20px rgba(109,74,255,0.05), 0 1px 3px rgba(0,0,0,0.03)";
       }}
     >
-      {/* Top gloss line */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 top-0 h-[2px] pointer-events-none rounded-t-2xl"
-        style={{ background: `linear-gradient(90deg, transparent, ${t.stroke}55, transparent)` }}
-      />
-      {/* Icon tint blob */}
-      <div
-        aria-hidden
-        className="absolute -top-6 -right-6 w-24 h-24 rounded-full pointer-events-none blur-2xl opacity-60"
-        style={{ background: t.gloss }}
-      />
+      {/* Top gloss line - removed for flat pastel look */}
+      {/* Icon tint blob - removed to keep it cleaner */}
 
       <div className="flex items-start justify-between relative z-10">
         <div className="text-[11px] font-black uppercase tracking-wider" style={{ color: "#667085" }}>{label}</div>

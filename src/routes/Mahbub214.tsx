@@ -815,9 +815,9 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
     setTimeout(() => setRipples((r) => r.filter((rp) => rp.id !== id)), 600);
   };
 
-  const activeBg = "#EEE9FF";
-  const activeColor = "#6D4AFF";
-  const hoverBg = "rgba(238,233,255,0.5)";
+  const activeBg = "linear-gradient(135deg, #FF705B 0%, #FF9068 100%)";
+  const activeColor = "#ffffff";
+  const hoverBg = "rgba(255,112,91,0.08)";
 
   return (
     <Link
@@ -828,32 +828,30 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={[
-        "group relative flex items-center gap-3 rounded-xl text-sm overflow-hidden",
+        "group relative flex items-center gap-3 rounded-[14px] text-sm overflow-hidden",
         "transition-all duration-200 ease-out will-change-transform",
         "active:scale-[0.97]",
         collapsed ? "justify-center px-2 py-2.5 mx-1 my-0.5" : "px-2.5 py-2.5",
       ].join(" ")}
       style={active ? {
         background: activeBg,
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 4px rgba(109,74,255,0.1)",
+        boxShadow: "0 4px 14px -4px rgba(255,112,91,0.4), inset 0 1px 0 rgba(255,255,255,0.2)",
         color: activeColor,
         fontWeight: 700,
+        border: "1px solid rgba(255,112,91,0.8)",
       } : hovered ? {
         background: hoverBg,
         color: "#15192C",
+        border: "1px solid transparent",
       } : {
         color: "#667085",
+        border: "1px solid transparent",
       }}
     >
-      {/* Left active indicator bar */}
+      {/* Left active indicator bar - hidden in new design */}
       <span
         aria-hidden
-        className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] rounded-r-full transition-all duration-300 ease-out"
-        style={{
-          height: active ? 22 : 0,
-          opacity: active ? 1 : 0,
-          background: "linear-gradient(to bottom, #6D4AFF, #4f46e5)",
-        }}
+        className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] rounded-r-full transition-all duration-300 ease-out hidden"
       />
       {/* Ripple effects */}
       {ripples.map((r) => (
@@ -869,11 +867,12 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
         style={{
           ...iconGradientStyle(item.grad),
           boxShadow: active
-            ? "0 4px 14px -2px rgba(109,74,255,0.35), inset 0 1px 0 rgba(255,255,255,0.3)"
+            ? "none"
             : "0 2px 8px -1px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.2)",
+          border: active ? "1px solid rgba(255,255,255,0.3)" : "none",
         }}
         className={[
-          "shrink-0 w-8 h-8 rounded-xl grid place-items-center text-white",
+          "shrink-0 w-8 h-8 rounded-full grid place-items-center text-white",
           "transition-transform duration-200",
           active ? "scale-110" : "group-hover:scale-105 group-active:scale-95",
         ].join(" ")}
@@ -883,7 +882,7 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
       {!collapsed && (
         <span
           className="relative truncate flex-1 text-[13px] transition-all"
-          style={{ fontWeight: active ? 700 : 600, color: active ? "#6D4AFF" : hovered ? "#15192C" : "#667085" }}
+          style={{ fontWeight: active ? 700 : 600, color: active ? "#ffffff" : hovered ? "#15192C" : "#667085" }}
         >
           {label}
         </span>
@@ -899,7 +898,7 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
       {!collapsed && active && !item.badge && (
         <span
           className="relative shrink-0 w-1.5 h-1.5 rounded-full"
-          style={{ background: "#6D4AFF", animation: "adminActivePulse 2s ease-in-out infinite" }}
+          style={{ background: "#ffffff", animation: "adminActivePulse 2s ease-in-out infinite" }}
           aria-hidden
         />
       )}

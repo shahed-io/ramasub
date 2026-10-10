@@ -113,38 +113,36 @@ export function AdminPageHeader() {
 
   return (
     <div
-      className="relative overflow-hidden rounded-2xl px-5 sm:px-7 py-5 sm:py-6 mb-6 min-w-0"
+      className="relative overflow-hidden rounded-[24px] px-5 sm:px-7 py-5 sm:py-6 mb-6 min-w-0"
       style={{
-        background: "#ffffff",
-        border: "1px solid #E4E7EF",
-        boxShadow: "0 4px 24px rgba(109,74,255,0.06), 0 1px 3px rgba(0,0,0,0.03)",
+        background: "linear-gradient(135deg, #F3EEFB 0%, #EEF2FF 100%)",
+        border: "1px solid rgba(109,74,255,0.1)",
+        boxShadow: "0 4px 24px rgba(109,74,255,0.06)",
       }}
     >
-      {/* Top gradient accent bar */}
-      <div
-        className="absolute top-0 left-0 right-0 h-[3px] pointer-events-none"
-        style={{ background: `linear-gradient(90deg, ${accent.from}, ${accent.to})` }}
-      />
       {/* Glow blob top-right */}
       <div
-        className="absolute -top-12 -right-12 w-40 h-40 rounded-full pointer-events-none blur-3xl opacity-30"
+        className="absolute -top-12 -right-12 w-48 h-48 rounded-full pointer-events-none blur-[80px] opacity-30"
         style={{ background: accent.glow }}
       />
 
       <div className="relative flex items-center gap-4 sm:gap-5 min-w-0 z-10">
         <span
-          className="shrink-0 w-14 h-14 sm:w-[60px] sm:h-[60px] rounded-2xl text-white grid place-items-center [&_svg]:w-7 [&_svg]:h-7"
+          className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-[20px] text-white grid place-items-center [&_svg]:w-7 [&_svg]:h-7 sm:[&_svg]:w-8 sm:[&_svg]:h-8"
           style={{
             background: `linear-gradient(135deg, ${accent.from} 0%, ${accent.to} 100%)`,
-            boxShadow: `0 8px 22px -4px ${accent.glow}, inset 0 1px 0 rgba(255,255,255,0.25)`,
+            boxShadow: `0 8px 24px -4px ${accent.glow}, inset 0 1px 0 rgba(255,255,255,0.2)`,
           }}
         >
           {item.icon}
         </span>
         <div className="min-w-0 flex-1">
           <h1
-            className="text-2xl sm:text-[28px] font-black tracking-tight truncate"
-            style={{ fontFamily: "var(--font-heading)", color: "#15192C" }}
+            className="text-2xl sm:text-[32px] font-black tracking-tight truncate bg-clip-text text-transparent"
+            style={{
+              fontFamily: "var(--font-heading)",
+              backgroundImage: `linear-gradient(90deg, ${accent.from} 0%, ${accent.to} 100%)`,
+            }}
           >
             {title}
           </h1>

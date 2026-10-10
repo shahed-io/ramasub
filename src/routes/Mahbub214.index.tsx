@@ -205,17 +205,17 @@ function AdminDashboard() {
       label: t("TODAY'S SALES", "আজকের সেল"),
       value: fmtBDT(stats.todayRev),
       Icon: TrendingUp,
-      iconGrad: "from-violet-600 to-indigo-600",
-      bgGrad: "#ffffff",
-      borderColor: "#E4E7EF",
+      iconGrad: "from-violet-500 to-indigo-600",
+      bgGrad: "linear-gradient(135deg, #F3E8FF 0%, #ffffff 100%)",
+      borderColor: "rgba(109,74,255,0.1)",
     },
     {
       label: t("THIS MONTH REVENUE", "এই মাসের আয়"),
       value: fmtBDT(stats.monthRev),
       Icon: DollarSign,
-      iconGrad: "from-violet-500 to-purple-600",
-      bgGrad: "#ffffff",
-      borderColor: "#E4E7EF",
+      iconGrad: "from-purple-500 to-violet-600",
+      bgGrad: "linear-gradient(135deg, #E0F2FE 0%, #ffffff 100%)",
+      borderColor: "rgba(14,165,233,0.1)",
       delta: stats.monthDelta,
       sub: t("vs last month", "গত মাসের তুলনায়"),
     },
@@ -224,16 +224,16 @@ function AdminDashboard() {
       value: fmtBDT(stats.yearRev),
       Icon: TrendingUp,
       iconGrad: "from-emerald-500 to-teal-600",
-      bgGrad: "#ffffff",
-      borderColor: "#E4E7EF",
+      bgGrad: "linear-gradient(135deg, #ECFDF5 0%, #ffffff 100%)",
+      borderColor: "rgba(16,185,129,0.1)",
     },
     {
       label: t("TOTAL REVENUE (ALL)", "মোট আয় (সব)"),
       value: fmtBDT(stats.revenue),
       Icon: Wallet,
       iconGrad: "from-amber-500 to-orange-500",
-      bgGrad: "#ffffff",
-      borderColor: "#E4E7EF",
+      bgGrad: "linear-gradient(135deg, #FFF7ED 0%, #ffffff 100%)",
+      borderColor: "rgba(249,115,22,0.1)",
     },
   ];
 
@@ -242,9 +242,9 @@ function AdminDashboard() {
       label: t("TOTAL ORDERS", "মোট অর্ডার"),
       value: counts.orders.toLocaleString("en-IN"),
       Icon: ShoppingCart,
-      iconGrad: "from-violet-600 to-indigo-600",
-      bgGrad: "#ffffff",
-      borderColor: "#E4E7EF",
+      iconGrad: "from-violet-500 to-indigo-600",
+      bgGrad: "linear-gradient(135deg, #F3E8FF 0%, #ffffff 100%)",
+      borderColor: "rgba(109,74,255,0.1)",
       delta: stats.totalOrders > 0 ? Math.round((stats.delivered / stats.totalOrders) * 100) : 0,
       sub: t("delivered", "সম্পন্ন"),
     },
@@ -253,40 +253,40 @@ function AdminDashboard() {
       value: stats.pending.toString(),
       Icon: Clock,
       iconGrad: "from-amber-500 to-yellow-600",
-      bgGrad: "#ffffff",
-      borderColor: "#E4E7EF",
+      bgGrad: "linear-gradient(135deg, #FEF3C7 0%, #ffffff 100%)",
+      borderColor: "rgba(245,158,11,0.1)",
     },
     {
       label: t("PAYMENT PENDING", "পেমেন্ট অপেক্ষমাণ"),
       value: stats.paymentPending.toString(),
       Icon: CreditCard,
       iconGrad: "from-orange-500 to-red-500",
-      bgGrad: "#ffffff",
-      borderColor: "#E4E7EF",
+      bgGrad: "linear-gradient(135deg, #FFE4E6 0%, #ffffff 100%)",
+      borderColor: "rgba(244,63,94,0.1)",
     },
     {
       label: t("DELIVERED", "ডেলিভারড"),
       value: stats.delivered.toString(),
       Icon: CheckCircle2,
       iconGrad: "from-emerald-500 to-teal-600",
-      bgGrad: "#ffffff",
-      borderColor: "#E4E7EF",
+      bgGrad: "linear-gradient(135deg, #ECFDF5 0%, #ffffff 100%)",
+      borderColor: "rgba(16,185,129,0.1)",
     },
     {
       label: t("CANCELLED", "বাতিল"),
       value: stats.cancelled.toString(),
       Icon: XCircle,
       iconGrad: "from-rose-500 to-red-600",
-      bgGrad: "#ffffff",
-      borderColor: "#E4E7EF",
+      bgGrad: "linear-gradient(135deg, #FEE2E2 0%, #ffffff 100%)",
+      borderColor: "rgba(239,68,68,0.1)",
     },
     {
       label: t("CUSTOMERS", "কাস্টমার"),
       value: counts.users.toLocaleString("en-IN"),
       Icon: UsersRound,
       iconGrad: "from-sky-500 to-blue-600",
-      bgGrad: "#ffffff",
-      borderColor: "#E4E7EF",
+      bgGrad: "linear-gradient(135deg, #E0F2FE 0%, #ffffff 100%)",
+      borderColor: "rgba(14,165,233,0.1)",
     },
   ];
 
@@ -338,44 +338,42 @@ function AdminDashboard() {
 
       {/* Hero Banner */}
       <div
-        className="relative overflow-hidden rounded-2xl p-6 sm:p-7 min-w-0"
+        className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 min-w-0"
         style={{
-          background: "#ffffff",
-          border: "1px solid #E4E7EF",
-          boxShadow: "0 4px 24px rgba(109,74,255,0.06), 0 1px 3px rgba(0,0,0,0.03)",
+          background: "linear-gradient(135deg, #F3EEFB 0%, #EEF2FF 100%)",
+          border: "1px solid rgba(109,74,255,0.1)",
+          boxShadow: "0 4px 24px rgba(109,74,255,0.06)",
         }}
       >
-        {/* Top purple accent bar */}
-        <div
-          className="absolute top-0 left-0 right-0 h-[3px] pointer-events-none"
-          style={{ background: "linear-gradient(90deg, #6D4AFF, #4f46e5, #818cf8)" }}
-        />
         {/* Decorative blobs */}
         <div
-          className="absolute -top-16 -right-16 w-48 h-48 rounded-full pointer-events-none blur-3xl opacity-25"
-          style={{ background: "#6D4AFF" }}
+          className="absolute -top-16 -right-16 w-64 h-64 rounded-full pointer-events-none blur-[80px] opacity-30"
+          style={{ background: "#a78bfa" }}
         />
-        <svg aria-hidden className="pointer-events-none absolute right-20 sm:right-40 top-1/2 -translate-y-1/2 w-64 h-28 opacity-20" viewBox="0 0 200 60" fill="none">
+        <svg aria-hidden className="pointer-events-none absolute right-20 sm:right-40 top-1/2 -translate-y-1/2 w-64 h-28 opacity-15" viewBox="0 0 200 60" fill="none">
           <path d="M0 45 Q 30 10, 60 35 T 120 20 T 170 38 T 200 15" stroke="#6D4AFF" strokeWidth="2.5" strokeLinecap="round" />
           <path d="M0 52 Q 35 30, 70 48 T 130 35 T 180 42 T 200 28" stroke="#818cf8" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
         </svg>
         <LayoutGrid aria-hidden className="pointer-events-none absolute -right-6 -bottom-6 w-36 h-36 opacity-5 stroke-[1.2]" style={{ color: "#6D4AFF" }} />
 
         <div className="relative flex items-center justify-between gap-4 z-10">
-          <div className="flex items-center gap-4 min-w-0">
+          <div className="flex items-center gap-4 sm:gap-5 min-w-0">
             <div
-              className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl grid place-items-center text-white"
+              className="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-[20px] grid place-items-center text-white"
               style={{
                 background: "linear-gradient(135deg, #6D4AFF 0%, #4f46e5 100%)",
                 boxShadow: "0 8px 24px -4px rgba(109,74,255,0.45), inset 0 1px 0 rgba(255,255,255,0.2)",
               }}
             >
-              <LayoutDashboard className="w-7 h-7 sm:w-8 sm:h-8" strokeWidth={2.2} />
+              <LayoutDashboard className="w-8 h-8 sm:w-10 sm:h-10" strokeWidth={2} />
             </div>
             <div className="min-w-0">
               <h1
-                className="text-2xl sm:text-3xl font-black tracking-tight"
-                style={{ fontFamily: "var(--font-heading)", color: "#15192C" }}
+                className="text-3xl sm:text-4xl font-black tracking-tight bg-clip-text text-transparent"
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  backgroundImage: "linear-gradient(90deg, #6D4AFF 0%, #4f46e5 100%)",
+                }}
               >
                 Dashboard
               </h1>
@@ -525,7 +523,7 @@ function AdminDashboard() {
           }}
         >
           <div className="flex items-center gap-2 mb-4">
-            <span className="w-1.5 h-5 rounded-full inline-block" style={{ background: "linear-gradient(to bottom, #6D4AFF, #4f46e5)" }} />
+            <span className="w-1.5 h-5 rounded-full inline-block" style={{ background: "#3b82f6" }} />
             <div className="min-w-0 flex-1">
               <h3 className="text-base font-extrabold tracking-wider uppercase" style={{ color: "#15192C" }}>{t("Best Selling Products", "বেস্ট সেলিং প্রোডাক্ট")}</h3>
             </div>
@@ -561,7 +559,7 @@ function AdminDashboard() {
           {/* Conversion Stats */}
           <div className="mt-6 pt-5" style={{ borderTop: "1px solid #E4E7EF" }}>
             <div className="flex items-center gap-2 mb-3">
-              <span className="w-1.5 h-5 rounded-full inline-block" style={{ background: "linear-gradient(to bottom, #6D4AFF, #4f46e5)" }} />
+              <span className="w-1.5 h-5 rounded-full inline-block" style={{ background: "#3b82f6" }} />
               <h4 className="text-sm font-extrabold tracking-wider uppercase" style={{ color: "#15192C" }}>{t("Conversion Stats", "কনভার্শন স্ট্যাটস")}</h4>
             </div>
             <div className="space-y-2.5">
@@ -580,7 +578,7 @@ function AdminDashboard() {
 function SectionHeader({ title }: { title: string }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="w-1.5 h-5 rounded-full inline-block" style={{ background: "linear-gradient(to bottom, #6D4AFF, #4f46e5)" }} />
+      <span className="w-1.5 h-5 rounded-full inline-block" style={{ background: "#3b82f6" }} />
       <h2 className="text-sm sm:text-base font-extrabold tracking-wider uppercase" style={{ color: "#15192C" }}>
         {title}
       </h2>
@@ -593,22 +591,17 @@ function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compac
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl ${compact ? "p-4" : "p-5"} transition-all duration-200 hover:-translate-y-0.5`}
+      className={`relative overflow-hidden rounded-3xl ${compact ? "p-4" : "p-5"} transition-all duration-200 hover:-translate-y-0.5`}
       style={{
         background: kpi.bgGrad || "#ffffff",
         border: `1px solid ${kpi.borderColor || "#E4E7EF"}`,
-        boxShadow: "0 4px 20px rgba(109,74,255,0.04), 0 1px 3px rgba(0,0,0,0.03)",
+        boxShadow: "0 4px 20px rgba(109,74,255,0.04)",
       }}
     >
-      {/* Purple top accent */}
-      <div
-        className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none rounded-t-2xl"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(109,74,255,0.4), transparent)" }}
-      />
       <div className="relative">
         <div className="flex items-start justify-between gap-2">
           <span
-            className={`w-10 h-10 rounded-xl grid place-items-center text-white shrink-0 bg-gradient-to-br ${kpi.iconGrad}`}
+            className={`w-10 h-10 rounded-full grid place-items-center text-white shrink-0 bg-gradient-to-br ${kpi.iconGrad}`}
             style={{ boxShadow: "0 4px 14px -3px rgba(109,74,255,0.30), inset 0 1px 0 rgba(255,255,255,0.25)" }}
           >
             <Icon className="w-4.5 h-4.5" strokeWidth={2.3} />
