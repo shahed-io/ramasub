@@ -91,7 +91,7 @@ function NewsletterPage() {
         r.status ?? "active",
         r.source ?? "",
         r.created_at,
-      ].map((c) => `"${String(c).replace(/"/g, '""')}"`);
+      ].map((c) => `"${String(c).replace(/^([=+\-@\t\r])/, "'$1").replace(/"/g, '""')}"`);
       lines.push(cells.join(","));
     }
     const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });

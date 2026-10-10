@@ -1,3 +1,4 @@
+import DOMPurify from "dompurify";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
@@ -178,7 +179,7 @@ function HelpArticlePage() {
 
         <article
           className="mt-6 bg-white rounded-2xl border border-slate-200 p-6 md:p-8 prose prose-slate max-w-none prose-headings:font-bold prose-a:text-violet-700 prose-h2:mt-8 prose-h2:text-2xl prose-h3:text-lg"
-          dangerouslySetInnerHTML={{ __html: d.body || "" }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(d.body || "") }}
         />
 
         {d.related_product_slug && (

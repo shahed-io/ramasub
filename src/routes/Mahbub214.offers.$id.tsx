@@ -212,7 +212,7 @@ function AdminOfferEdit() {
     const rows = subs.map((s) => {
       const base = [s.id, s.name, s.email, s.phone ?? "", s.is_winner ? "yes" : "no", s.winner_rank ?? "", s.created_at];
       const ans = fieldKeys.map((k) => JSON.stringify((s.answers as any)?.[k] ?? ""));
-      return [...base, ...ans].map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",");
+      return [...base, ...ans].map((c) => `"${String(c).replace(/^([=+\-@\t\r])/, "'$1").replace(/"/g, '""')}"`).join(",");
     });
     const csv = [allHeaders.join(","), ...rows].join("\n");
     const blob = new Blob([csv], { type: "text/csv" });

@@ -138,10 +138,21 @@ export const Route = createFileRoute("/api/public/support-chat")({
         const rl = await guardPublicRoute("public.support_chat_reply", request);
         if (!rl.allowed) return tooManyRequests(rl);
 
+        // SECURITY: only signed-in admins may post replies as the support team.
+        const bearer = request.headers.get("authorization") ?? "";
+        const tok = bearer.toLowerCase().startsWith("bearer ") ? bearer.slice(7).trim() : "";
+        if (!tok) return json({ error: "Unauthorized" }, 401);
+        const { supabaseAdmin: sbA } = await import("@/integrations/supabase/client.server");
+        const { data: u } = await sbA.auth.getUser(tok);
+        if (!u?.user) return json({ error: "Unauthorized" }, 401);
+        const { data: isAdmin } = await sbA
+          .from("user_roles").select("role").eq("user_id", u.user.id).eq("role", "admin").maybeSingle();
+        if (!isAdmin) return json({ error: "Forbidden" }, 403);
+
         const body = await request.json();
         const { sessionId, message } = z.object({
-          sessionId: z.string(),
-          message: z.string(),
+          sessionId: z.string().min(1).max(200),
+          message: z.string().min(1).max(4000),
         }).parse(body);
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");

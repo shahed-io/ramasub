@@ -1,3 +1,4 @@
+import DOMPurify from "dompurify";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
@@ -186,7 +187,7 @@ function BlogPostPage() {
 
         <article
           className="mt-8 prose prose-slate max-w-none prose-headings:font-bold prose-a:text-violet-700 prose-h2:mt-8 prose-h2:text-2xl prose-h3:text-lg prose-table:text-sm prose-td:px-3 prose-td:py-2 prose-th:px-3 prose-th:py-2 prose-th:bg-slate-50"
-          dangerouslySetInnerHTML={{ __html: d.body || "" }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(d.body || "") }}
         />
 
         {d.product_slug && (
