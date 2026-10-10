@@ -12,7 +12,7 @@ import { sendMetaPurchaseForOrder } from "@/lib/meta-purchase.server";
 
 const itemSchema = z.object({
   slug: z.string().trim().min(1).max(200),
-  planPeriod: z.union([z.string(), z.number()]).transform(v => String(v)).pipe(z.string().trim().min(1).max(120)),
+  planPeriod: z.union([z.string(), z.number(), z.null(), z.undefined()]).transform(v => (v == null ? "" : String(v).trim().slice(0, 120))),
   qty: z.number().int().min(1).max(999),
 });
 
@@ -31,6 +31,7 @@ const inputSchema = z.object({
 export type CreateOrderInput = z.infer<typeof inputSchema>;
 
 type PlanRow = {
+  period?: string | null;
   label?: string | null;
   duration?: string | null;
   price?: number | string | null;
@@ -42,11 +43,18 @@ function planPriceOf(plans: unknown, planPeriod: string): number | null {
   for (const raw of plans as PlanRow[]) {
     const label = (raw?.label ?? "").toString().trim().toLowerCase();
     const duration = (raw?.duration ?? "").toString().trim().toLowerCase();
-    if (label === wanted || duration === wanted) {
+    const period = (raw?.period ?? "").toString().trim().toLowerCase();
+    if (label === wanted || duration === wanted || period === wanted) {
       const priceNum = typeof raw.price === "number" ? raw.price : Number(raw?.price);
       if (Number.isFinite(priceNum) && priceNum >= 0) return priceNum;
       return null;
     }
+  }
+  // Fallback: missing/unknown plan name (e.g. old cart data) → use the only/first plan.
+  if (!wanted || wanted === "standard plan") {
+    const first = (plans as PlanRow[])[0];
+    const n = Number(first?.price);
+    if (first && Number.isFinite(n) && n >= 0) return n;
   }
   return null;
 }
