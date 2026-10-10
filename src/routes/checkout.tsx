@@ -46,7 +46,7 @@ function CheckoutErrorComponent({ error }: { error: Error }) {
 
 export const Route = createFileRoute("/checkout")({
   component: CheckoutPage,
-  errorComponent: CheckoutErrorComponent,
+  errorComponent: CheckoutErrorComponent as never,
   validateSearch: (search: Record<string, unknown>): { step?: 1 | 2; coupon?: string } => ({
     step: search.step === "2" || search.step === 2 ? 2 : 1,
     coupon: typeof search.coupon === "string" ? search.coupon : "",

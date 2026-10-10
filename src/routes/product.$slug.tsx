@@ -139,7 +139,7 @@ export const Route = createFileRoute("/product/$slug")({
     <div className="min-h-screen grid place-items-center px-4">
       <div className="text-center">
         <h1 className="text-2xl font-semibold mb-2">Something went wrong</h1>
-        <p className="text-sm text-muted-foreground mb-4">{error.message}</p>
+        <p className="text-sm text-muted-foreground mb-4">{(error as Error).message}</p>
         <Link to="/" className="text-primary underline">Back to home</Link>
       </div>
     </div>
