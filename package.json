@@ -118,12 +118,9 @@
     "workbox-window": "^7.4.1"
   },
   "pnpm": {
-    "overrides": {
-      "entities": "4.5.0"
-    }
+    "overrides": {}
   },
   "overrides": {
-    "entities": "4.5.0",
     "brace-expansion": "^1.1.18",
     "fast-uri": "^3.1.5",
     "undici": "^7.29.0",
