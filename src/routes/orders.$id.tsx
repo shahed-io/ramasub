@@ -60,7 +60,9 @@ function OrderDetailPage() {
     (async () => {
       try {
         const { getOrderById } = await import("@/lib/orders.functions");
-        const data = await getOrderById({ data: { id } });
+        let t: string | undefined;
+        try { t = localStorage.getItem(`order_t_${id}`) ?? undefined; } catch {}
+        const data = await getOrderById({ data: { id, ...(t ? { t } : {}) } });
         if (data) {
           setOrder(data as unknown as Order);
           setLoading(false);

@@ -67,9 +67,13 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
       supabaseAdmin.from("abandoned_checkouts").select("id")
         .neq("status", "recovered").order("updated_at", { ascending: false }).limit(1);
     let existingId: string | null = null;
-    if (userId) existingId = (await open().eq("user_id", userId).maybeSingle()).data?.id ?? null;
-    if (!existingId && payload.email) existingId = (await open().ilike("email", payload.email).maybeSingle()).data?.id ?? null;
-    if (!existingId && payload.phone) existingId = (await open().eq("phone", payload.phone).maybeSingle()).data?.id ?? null;
+    if (userId) {
+      // Signed-in visitors only ever touch their own row.
+      existingId = (await open().eq("user_id", userId).maybeSingle()).data?.id ?? null;
+    } else if (payload.email && payload.phone) {
+      // Guests may only refresh a guest row matching BOTH email and phone.
+      existingId = (await open().is("user_id", null).ilike("email", payload.email).eq("phone", payload.phone).maybeSingle()).data?.id ?? null;
+    }
 
     const { status: _s, ...updatePayload } = payload;
     const { error } = existingId

@@ -52,7 +52,7 @@ export const testEpsConnection = createServerFn({ method: "POST" })
 
 /** User: create an EPS payment session and return the redirect URL. */
 export const createEpsPayment = createServerFn({ method: "POST" })
-  .inputValidator((d) => z.object({ orderId: z.string().uuid() }).parse(d))
+  .inputValidator((d) => z.object({ orderId: z.string().uuid(), accessToken: z.string().max(128).optional() }).parse(d))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: order, error } = await supabaseAdmin
@@ -62,6 +62,11 @@ export const createEpsPayment = createServerFn({ method: "POST" })
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!order) throw new Error("Order not found");
+    {
+      const { canAccessOrder } = await import("@/lib/order-access.server");
+      const { getRequest } = await import("@tanstack/react-start/server");
+      if (!(await canAccessOrder(order as any, data.accessToken, getRequest()))) throw new Error("Order not found");
+    }
     const total = Number(order.total);
     if (!Number.isFinite(total) || total <= 0) throw new Error("Invalid order total");
 
