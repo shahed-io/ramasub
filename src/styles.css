@@ -4323,3 +4323,48 @@ html.theme-white .product-card-ripple { mix-blend-mode: multiply; }
     color: #0f172a !important;
     border-color: rgba(203, 213, 225, 0.9) !important;
   }
+
+/* ============================================================
+   ADMIN "PEARL SAPPHIRE" THEME — white glossy, high-contrast.
+   Re-maps every hue used across admin pages so all options
+   share one premium palette. Scoped to .admin-clarity only.
+   ============================================================ */
+.admin-clarity {
+  --admin-primary: #2563eb; --admin-primary-hover: #1d4ed8; --admin-secondary: #60a5fa;
+  --admin-heading: #0b1220; --admin-ink: #0b1220; --admin-text: #1e293b; --admin-body: #334155;
+  --admin-muted: #475569; --admin-hint: #64748b; --admin-bg: #ffffff; --admin-border: #e5e9f0;
+  --admin-hover: #f4f7fb; --admin-active: #e8f0fe; --admin-primary-soft: #dbe7fe; --admin-ring: rgba(37,99,235,.18);
+  --admin-shadow-card: 0 1px 0 rgba(255,255,255,.9) inset, 0 1px 2px rgba(11,18,32,.04), 0 10px 30px -14px rgba(11,18,32,.12);
+  --admin-shadow-card-hover: 0 1px 0 rgba(255,255,255,.9) inset, 0 2px 4px rgba(11,18,32,.05), 0 22px 50px -20px rgba(37,99,235,.22);
+
+  /* violet / purple / indigo / fuchsia → sapphire */
+  --color-violet-50:#eff5ff; --color-violet-100:#dbe7fe; --color-violet-200:#bfd4fe; --color-violet-300:#93b7fd; --color-violet-400:#6096fa; --color-violet-500:#3b76f6; --color-violet-600:#2563eb; --color-violet-700:#1d4ed8; --color-violet-800:#1e40af; --color-violet-900:#1e3a8a;
+  --color-purple-50:#eff5ff; --color-purple-100:#dbe7fe; --color-purple-200:#bfd4fe; --color-purple-300:#93b7fd; --color-purple-400:#6096fa; --color-purple-500:#3b76f6; --color-purple-600:#2563eb; --color-purple-700:#1d4ed8; --color-purple-800:#1e40af; --color-purple-900:#1e3a8a;
+  --color-indigo-50:#eef4ff; --color-indigo-100:#dde8ff; --color-indigo-200:#c0d3ff; --color-indigo-300:#94b4fc; --color-indigo-400:#6690f7; --color-indigo-500:#3f6ff0; --color-indigo-600:#2c55dc; --color-indigo-700:#2443b8; --color-indigo-800:#22398f; --color-indigo-900:#1f3270;
+  --color-fuchsia-50:#ecfeff; --color-fuchsia-100:#cffafe; --color-fuchsia-200:#a5f3fc; --color-fuchsia-300:#67e8f9; --color-fuchsia-400:#22d3ee; --color-fuchsia-500:#06b6d4; --color-fuchsia-600:#0891b2; --color-fuchsia-700:#0e7490; --color-fuchsia-800:#155e75; --color-fuchsia-900:#164e63;
+  --color-pink-50:#fff1f3; --color-pink-100:#ffe1e6; --color-pink-500:#e11d48; --color-pink-600:#be123c; --color-pink-700:#9f1239;
+  /* lighter greys darkened so all text reads clearly */
+  --color-slate-300:#a8b3c4; --color-slate-400:#64748b; --color-slate-500:#475569; --color-gray-400:#6b7280; --color-gray-500:#4b5563;
+  --primary: #2563eb; --ring: #2563eb;
+  background: #ffffff !important;
+}
+.admin-clarity .admin-main-content { background: linear-gradient(180deg,#ffffff 0%,#f7f9fc 100%); }
+.admin-clarity aside, .admin-clarity header { background: rgba(255,255,255,.92) !important; backdrop-filter: blur(14px); border-color: var(--admin-border) !important; }
+/* glossy white surfaces */
+.admin-clarity .a-card, .admin-clarity .a-stat,
+.admin-clarity .admin-main-content :is(.rounded-2xl,.rounded-3xl).bg-white,
+.admin-clarity .admin-main-content :is(.rounded-2xl,.rounded-3xl)[class*="border"]:not([class*="bg-"]) {
+  background: linear-gradient(180deg,#ffffff 0%,#fbfcfe 100%) !important;
+  border: 1px solid var(--admin-border) !important;
+  box-shadow: var(--admin-shadow-card);
+}
+.admin-clarity .a-card:hover, .admin-clarity .a-stat:hover { box-shadow: var(--admin-shadow-card-hover); border-color: #cfdcf3 !important; }
+.admin-clarity .a-pill-active, .admin-clarity .a-btn-primary, .admin-clarity .a-save-btn {
+  background: linear-gradient(180deg,#3b76f6 0%,#2563eb 100%) !important; color:#fff !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,.35) inset, 0 8px 18px -8px rgba(37,99,235,.55);
+}
+.admin-clarity :is(input,select,textarea):not([type=checkbox]):not([type=radio]) { color:#0b1220; background-color:#fff; border-color:#d6dde8; }
+.admin-clarity :is(input,textarea)::placeholder { color:#7b8798; }
+.admin-clarity :is(input,select,textarea):focus { border-color:#2563eb !important; box-shadow:0 0 0 4px var(--admin-ring) !important; outline:none; }
+.admin-clarity table thead th { color:#334155; background:#f6f8fb; font-weight:600; }
+.admin-clarity table tbody tr:hover { background:#f6f9ff; }

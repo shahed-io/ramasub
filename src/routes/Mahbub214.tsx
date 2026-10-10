@@ -335,7 +335,7 @@ function AdminShell({ user, signOut, navigate }: any) {
   }, [pathname]);
 
   return (
-    <div className="admin-shell admin-clarity min-h-[100dvh] w-full overflow-x-hidden lg:h-[100dvh] lg:overflow-hidden flex relative font-['Inter',ui-sans-serif,system-ui] text-slate-900" style={{ background: "#f8f9fa" }}>
+    <div className="admin-shell admin-clarity min-h-[100dvh] w-full overflow-x-hidden lg:h-[100dvh] lg:overflow-hidden flex relative font-['Inter',ui-sans-serif,system-ui] text-slate-900" style={{ background: "#ffffff" }}>
       {/* Ambient background blobs for subtle glossy feel */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
         <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full opacity-50 blur-[100px]" style={{ background: "rgba(255, 255, 255, 1)" }} />
