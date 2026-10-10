@@ -460,18 +460,25 @@ function AdminShell({ user, signOut, navigate }: any) {
               <Menu className="w-4 h-4" />
             </button>
 
-            <div className="hidden md:flex items-center gap-2 text-sm min-w-0">
-              <span className="text-[12px] font-semibold text-slate-500">
-                {currentPage
-                  ? t(currentPage.group.title, currentPage.group.titleBn)
-                  : t(ADMIN_MENU[0].title, ADMIN_MENU[0].titleBn)}
-              </span>
-              <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
-              <span className="font-bold text-slate-900 truncate">
+            <div className="hidden md:flex flex-col justify-center min-w-0 h-full py-1">
+              <div className="flex items-center gap-1.5 text-[10px] font-black tracking-widest text-violet-600/70 uppercase">
+                <span>
+                  {currentPage
+                    ? t(currentPage.group.title, currentPage.group.titleBn)
+                    : t(ADMIN_MENU[0].title, ADMIN_MENU[0].titleBn)}
+                </span>
+                <ChevronRight className="w-3 h-3 text-slate-300" />
+                <span className="text-slate-500">
+                  {currentPage
+                    ? t(currentPage.item.label, currentPage.item.labelBn)
+                    : t("Dashboard", "ড্যাশবোর্ড")}
+                </span>
+              </div>
+              <div className="font-black text-[18px] text-slate-900 leading-tight mt-0.5 truncate" style={{ fontFamily: "var(--font-heading)" }}>
                 {currentPage
                   ? t(currentPage.item.label, currentPage.item.labelBn)
                   : t("Dashboard", "ড্যাশবোর্ড")}
-              </span>
+              </div>
             </div>
 
             <div className="md:hidden flex-1 min-w-0 font-bold text-sm truncate text-slate-900">

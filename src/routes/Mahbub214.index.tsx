@@ -294,7 +294,7 @@ function AdminDashboard() {
     <div className="admin-dashboard space-y-6 pb-10 min-w-0">
       {/* Notifications banner */}
       {stats.newOrders24h > 0 && (
-        <div className="rounded-[24px] bg-white border border-slate-200/60 shadow-[0_8px_30px_-12px_rgba(15,23,42,0.08)] p-5 sm:p-6">
+        <div className="rounded-[24px] bg-white border border-slate-200/60 shadow-sm p-5 sm:p-6">
           <div className="flex items-center gap-2.5 mb-3">
             <Bell className="w-4 h-4 text-slate-700" />
             <h2 className="text-[15px] font-bold text-slate-900">{t("Notifications", "নোটিফিকেশন")}</h2>
@@ -318,6 +318,33 @@ function AdminDashboard() {
           </Link>
         </div>
       )}
+
+      {/* Hero Banner */}
+      <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 border border-white/60 shadow-sm p-6 sm:p-8 flex items-center gap-6">
+        <div className="absolute right-0 top-0 opacity-10 mix-blend-multiply pointer-events-none w-full h-full" style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiIGZpbGw9Im5vbmUiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMiIgZmlsbD0iIzAwMCIvPgo8L3N2Zz4=')" }} />
+        
+        <div className="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-[20px] bg-gradient-to-br from-indigo-500 to-purple-600 shadow-[0_8px_16px_-6px_rgba(99,102,241,0.5)] grid place-items-center text-white relative z-10">
+          <BarChart3 className="w-8 h-8 sm:w-10 sm:h-10" strokeWidth={2} />
+        </div>
+        <div className="relative z-10">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-1" style={{ fontFamily: "var(--font-heading)" }}>
+            Dashboard
+          </h1>
+          <p className="text-[13px] font-semibold text-slate-500">
+            Overview • Manage and configure dashboard
+          </p>
+        </div>
+      </div>
+
+      {/* Snapshot Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mt-2 mb-2">
+        <div className="text-[13px] font-semibold text-slate-500">
+          Real-time business snapshot - <span className="text-slate-900 font-bold">{new Date().toLocaleTimeString()}</span>
+        </div>
+        <button onClick={() => window.location.reload()} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50 transition shadow-sm">
+          <TrendingUp className="w-3.5 h-3.5" /> Refresh
+        </button>
+      </div>
 
       {/* REVENUE OVERVIEW */}
       <section>
@@ -469,34 +496,40 @@ function SectionHeader({ title }: { title: string }) {
 
 function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compact?: boolean }) {
   const { Icon } = kpi;
+  // Convert iconGrad to a subtle background gradient for the whole card
+  const bgColors: Record<string, string> = {
+    "#7c3aed": "from-violet-50 via-white to-white",
+    "#22d3ee": "from-cyan-50 via-white to-white",
+    "#f9a8d4": "from-pink-50 via-white to-white",
+    "#fbbf24": "from-amber-50 via-white to-white",
+    "#8b5cf6": "from-purple-50 via-white to-white",
+  };
+  const cardBg = bgColors[kpi.accent] || "from-slate-50 via-white to-white";
+
   return (
     <div
-      className={`admin-kpi-card relative overflow-hidden rounded-[24px] border border-slate-200/50 ${compact ? "p-5" : "p-6"} transition-all`}
-      style={{
-        background: `linear-gradient(135deg, #ffffff 0%, #ffffff 55%, ${kpi.accent ?? "#7c3aed"}15 100%)`,
-      }}
+      className={`admin-kpi-card relative overflow-hidden rounded-[24px] border border-slate-100 shadow-sm ${compact ? "p-5" : "p-6"} transition-all bg-gradient-to-br ${cardBg}`}
     >
-      <span className="absolute inset-x-0 top-0 h-[4px]" style={{ background: kpi.accent ?? "#7c3aed" }} aria-hidden />
       <div className="relative">
         <div className="flex items-start justify-between gap-2">
-          <span className={`admin-kpi-icon w-11 h-11 rounded-full bg-gradient-to-br ${kpi.iconGrad} grid place-items-center text-white shrink-0`}>
-            <Icon className="w-5 h-5" strokeWidth={2.75} />
+          <span className={`admin-kpi-icon w-10 h-10 rounded-full bg-gradient-to-br ${kpi.iconGrad} grid place-items-center text-white shrink-0 shadow-md`}>
+            <Icon className="w-4 h-4" strokeWidth={2.5} />
           </span>
           {typeof kpi.delta === "number" && kpi.delta !== 0 && (
-            <span className={`shrink-0 inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10.5px] font-bold ${kpi.delta >= 0 ? "bg-blue-100 text-blue-700" : "bg-rose-100 text-rose-700"}`}>
+            <span className={`shrink-0 inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10.5px] font-bold shadow-sm ${kpi.delta >= 0 ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"}`}>
               {kpi.delta >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
               {Math.abs(kpi.delta)}%
             </span>
           )}
         </div>
-        <div className={`${compact ? "mt-6" : "mt-8"} text-[10.5px] font-extrabold text-slate-600 tracking-[0.12em] uppercase truncate`}>
+        <div className={`${compact ? "mt-5" : "mt-6"} text-[10px] font-extrabold text-slate-500 tracking-[0.1em] uppercase truncate`}>
           {kpi.label}
         </div>
-        <div className={`mt-1 ${compact ? "text-[22px]" : "text-[26px] sm:text-[28px]"} font-black text-slate-950 tracking-tight tabular-nums truncate`}>
+        <div className={`mt-0.5 ${compact ? "text-[20px]" : "text-[24px] sm:text-[28px]"} font-black text-slate-900 tracking-tight tabular-nums truncate`} style={{ fontFamily: "var(--font-heading)" }}>
           {loading ? <span className="inline-block w-20 h-7 bg-slate-100 rounded animate-pulse" /> : kpi.value}
         </div>
         {kpi.sub && !loading && (
-          <div className="mt-1 text-[11px] font-semibold text-slate-600 truncate">{kpi.sub}</div>
+          <div className="mt-1 text-[11px] font-semibold text-slate-400 truncate">{kpi.sub}</div>
         )}
       </div>
     </div>
