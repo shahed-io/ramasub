@@ -596,9 +596,9 @@ const OrdersIndexRoute = OrdersIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrdersIdRoute = OrdersIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => OrdersRoute,
+  id: '/orders/$id',
+  path: '/orders/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ProductSlugRoute = ProductSlugRouteImport.update({
   id: '/product/$slug',
@@ -1450,6 +1450,7 @@ export interface RootRouteChildren {
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   HelpSlugRoute: typeof HelpSlugRoute
   OfferSlugRoute: typeof OfferSlugRoute
+  OrdersIdRoute: typeof OrdersIdRoute
   ProductSlugRoute: typeof ProductSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   HelpIndexRoute: typeof HelpIndexRoute
@@ -2122,10 +2123,10 @@ declare module '@tanstack/react-router' {
     }
     '/orders/$id': {
       id: '/orders/$id'
-      path: '/$id'
+      path: '/orders/$id'
       fullPath: '/orders/$id'
       preLoaderRoute: typeof OrdersIdRouteImport
-      parentRoute: typeof OrdersRoute
+      parentRoute: typeof rootRouteImport
     }
     '/product/$slug': {
       id: '/product/$slug'
@@ -2453,6 +2454,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   HelpSlugRoute: HelpSlugRoute,
   OfferSlugRoute: OfferSlugRoute,
+  OrdersIdRoute: OrdersIdRoute,
   ProductSlugRoute: ProductSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   HelpIndexRoute: HelpIndexRoute,
