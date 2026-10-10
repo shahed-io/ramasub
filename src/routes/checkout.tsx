@@ -395,7 +395,14 @@ function CheckoutPage() {
 
 
   // ----- Guards (loading / empty cart) -----
-  if (authLoading || !cartReady) {
+  useEffect(() => {
+    if (!authLoading && !user) {
+      rememberReturnTo();
+      navigate({ to: "/login", replace: true });
+    }
+  }, [user, authLoading, navigate]);
+
+  if (authLoading || !cartReady || !user) {
     return (
       <GuardLayout>
         <Loader2 className="mx-auto h-8 w-8 animate-spin text-primary" />

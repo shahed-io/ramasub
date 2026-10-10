@@ -5,7 +5,7 @@ import {
   Loader2, Eye, X, Download, Trash2, Plus, RefreshCw, MessageCircle,
   Pencil, Filter as FilterIcon, Search as SearchIcon, ShieldCheck,
   User as UserIcon, Mail, Phone, CreditCard, Package, FileText,
-  Copy, Check, History as HistoryIcon, AlertCircle, X as XIcon,
+  Copy, Check, History as HistoryIcon, AlertCircle, X as XIcon, Radio
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -53,20 +53,24 @@ function AdminOrders() {
   const [showFilters, setShowFilters] = useState(false);
   const [paymentFilter, setPaymentFilter] = useState<string>("all");
 
-  const load = useCallback(async () => {
-    setLoading(true);
+  const load = useCallback(async (silent = false) => {
+    if (!silent) setLoading(true);
     try {
       const { listOrders } = await import("@/lib/orders.functions");
       const data = await listOrders();
       setOrders(data as unknown as Order[]);
     } catch (err: any) {
-      toast.error(err.message);
+      if (!silent) toast.error(err.message);
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   }, []);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => { 
+    load(); 
+    const int = setInterval(() => load(true), 10000);
+    return () => clearInterval(int);
+  }, [load]);
 
   const updateStatus = async (id: string, status: string) => {
     const target = orders.find((o) => o.id === id);
@@ -348,6 +352,75 @@ function AdminOrders() {
           onDelete={() => deleteOrder(selected.id)}
         />
       )}
+
+      {/* Live Visitor Feed */}
+      <LiveVisitorFeed />
+    </div>
+  );
+}
+
+function LiveVisitorFeed() {
+  const { t } = useAdminLang();
+  const [events, setEvents] = useState<any[]>([]);
+
+  const loadFeed = useCallback(async () => {
+    try {
+      // Fetch recent checkouts, product views, searches
+      const { data, error } = await supabase
+        .from("web_analytics_events")
+        .select("id, path, created_at, city, country_name, visitor_id")
+        .or("path.ilike.%/checkout%,path.ilike.%/product/%,path.ilike.%q=%")
+        .order("created_at", { ascending: false })
+        .limit(20);
+
+      if (!error && data) {
+        setEvents(data);
+      }
+    } catch (e) {}
+  }, []);
+
+  useEffect(() => {
+    loadFeed();
+    const int = setInterval(loadFeed, 10000);
+    return () => clearInterval(int);
+  }, [loadFeed]);
+
+  if (events.length === 0) return null;
+
+  return (
+    <div className="mt-8">
+      <h3 className="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+        <Radio className="w-4 h-4 text-emerald-500 animate-pulse" />
+        {t("Live Visitor Feed (Checkout, Products, Search)", "লাইভ ভিজিটর ফিড (চেকআউট, প্রোডাক্ট, সার্চ)")}
+      </h3>
+      <div className="a-card overflow-hidden">
+        <table className="w-full text-sm">
+          <thead className="text-[11px] uppercase tracking-wide bg-slate-50">
+            <tr>
+              <th className="text-left px-4 py-3">{t("Time", "সময়")}</th>
+              <th className="text-left px-4 py-3">{t("Location", "স্থান")}</th>
+              <th className="text-left px-4 py-3">{t("Action / Path", "অ্যাকশন / পাথ")}</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100">
+            {events.map((e) => (
+              <tr key={e.id} className="hover:bg-slate-50/60">
+                <td className="px-4 py-3 text-xs text-slate-500">
+                  {new Date(e.created_at).toLocaleTimeString()}
+                </td>
+                <td className="px-4 py-3 text-xs text-slate-700">
+                  {e.city ? `${e.city}, ` : ""}{e.country_name || "Unknown"}
+                </td>
+                <td className="px-4 py-3">
+                  <span className="font-mono text-xs text-blue-600 truncate max-w-[400px] inline-block">
+                    {e.path}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

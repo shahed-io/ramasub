@@ -52,14 +52,15 @@ function planPriceOf(plans: unknown, planPeriod: string): number | null {
 }
 
 export const createOrder = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator(validator(inputSchema))
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     
-    // Looser per-IP limit for guest actions
+    // Looser per-IP limit for user actions
     {
       const { guardUserAction, retryMessage } = await import("@/lib/rate-limit.server");
-      const rl = await guardUserAction("guest.order_create", "guest");
+      const rl = await guardUserAction("user.order_create", context.userId);
       if (!rl.allowed) throw new Error(retryMessage(rl, true));
     }
 
@@ -129,6 +130,7 @@ export const createOrder = createServerFn({ method: "POST" })
     const { data: inserted, error: iErr } = await supabaseAdmin
       .from("orders")
       .insert({
+        user_id: context.userId,
         full_name: data.full_name,
         email: data.email,
         phone: data.phone,
