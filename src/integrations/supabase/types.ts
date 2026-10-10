@@ -979,7 +979,7 @@ export type Database = {
           total: number
           transaction_id: string
           updated_at: string
-          user_id: string
+          user_id: string | null
           whatsapp_sent: boolean
         }
         Insert: {
@@ -999,7 +999,7 @@ export type Database = {
           total: number
           transaction_id: string
           updated_at?: string
-          user_id: string
+          user_id?: string | null
           whatsapp_sent?: boolean
         }
         Update: {
@@ -1019,7 +1019,7 @@ export type Database = {
           total?: number
           transaction_id?: string
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
           whatsapp_sent?: boolean
         }
         Relationships: []
