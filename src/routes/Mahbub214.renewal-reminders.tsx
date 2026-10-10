@@ -423,7 +423,7 @@ function RenewalRemindersPage() {
         });
         ok++;
       } catch (e) {
-        console.error("bulk send fail", s.customer_email, e);
+        console.error("bulk send fail", e instanceof Error ? e.message : "error");
       }
     }
     setSendBusy(false);

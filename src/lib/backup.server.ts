@@ -71,6 +71,27 @@ export async function countTables() {
   return counts;
 }
 
+/** Fetch the real column names of each table from the database API schema. */
+async function loadTableColumns(): Promise<Record<string, Set<string>>> {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const out: Record<string, Set<string>> = {};
+  if (!url || !key) return out;
+  try {
+    const res = await fetch(`${url}/rest/v1/`, {
+      headers: { apikey: key, Authorization: `Bearer ${key}`, Accept: "application/openapi+json" },
+    });
+    const spec = (await res.json()) as any;
+    const defs = spec?.definitions ?? {};
+    for (const [t, d] of Object.entries<any>(defs)) {
+      out[t] = new Set(Object.keys(d?.properties ?? {}));
+    }
+  } catch {
+    /* fall through: empty map => rows rejected */
+  }
+  return out;
+}
+
 export type RestoreMode = "skip" | "merge" | "replace";
 
 /**
@@ -88,10 +109,19 @@ export async function restoreTables(
     (t) => payloadTables[t] && (!selected || selected.length === 0 || selected.includes(t)),
   );
   const results: Record<string, { restored: number; skipped?: number; error?: string }> = {};
+  const columns = await loadTableColumns();
 
   for (const table of wanted) {
     const pk = BACKUP_TABLES[table];
-    const rows = payloadTables[table] ?? [];
+    const allowed = columns[table];
+    if (!allowed || allowed.size === 0) {
+      results[table] = { restored: 0, error: "unknown table schema" };
+      continue;
+    }
+    // SECURITY: keep only real columns of the table; drop any extra fields.
+    const rows = (payloadTables[table] ?? [])
+      .filter((r) => r && typeof r === "object" && !Array.isArray(r))
+      .map((r) => Object.fromEntries(Object.entries(r).filter(([k]) => allowed.has(k))));
 
     if (mode === "replace") {
       const { error: delErr } = await admin().from(table).delete().not(pk, "is", null);
@@ -187,8 +217,14 @@ export async function uploadBucketObject(
 ) {
   const sb = supabaseAdmin as unknown as StorageLike;
   const binary = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
+  // SECURITY: never store files that browsers would execute (HTML/SVG/JS).
+  const head = new TextDecoder().decode(binary.slice(0, 512)).trimStart().toLowerCase();
+  const looksMarkup = /^(<!doctype|<html|<svg|<\?xml|<script|<body|<head|<iframe)/.test(head);
+  const dangerous = /(html|svg|javascript|ecmascript|xml)/i.test(contentType || "") ||
+    /\.(html?|svg|xhtml|js|mjs|xml)$/i.test(path);
+  if (looksMarkup || dangerous) throw new Error(`${bucket}/${path}: file type not allowed`);
   const { error } = await sb.storage.from(bucket).upload(path, binary, {
-    contentType: contentType || undefined,
+    contentType: contentType || "application/octet-stream",
     upsert: overwrite,
   });
   if (error && !/exists/i.test(error.message)) throw new Error(`${bucket}/${path}: ${error.message}`);

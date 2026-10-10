@@ -39,10 +39,7 @@ async function handle(request: Request) {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
   if (result === "cancel" || result === "fail") {
-    await supabaseAdmin
-      .from("orders")
-      .update({ payment_status: "failed", payment_method: "SSLCommerz" })
-      .eq("id", orderId);
+    // Unverified status from the request: do not modify the order.
     return Response.redirect(`${origin}/orders/${orderId}?sslcz=${result}`, 302);
   }
 
@@ -51,10 +48,6 @@ async function handle(request: Request) {
   // Security: only the SSLCommerz validator API is authoritative. We refuse to
   // mark as paid based on client-provided `status` alone — require val_id.
   if (!val_id) {
-    await supabaseAdmin
-      .from("orders")
-      .update({ payment_status: "failed", payment_method: "SSLCommerz" })
-      .eq("id", orderId);
     return Response.redirect(`${origin}/orders/${orderId}?sslcz=failed`, 302);
   }
 

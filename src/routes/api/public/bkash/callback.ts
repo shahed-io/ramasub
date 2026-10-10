@@ -17,11 +17,7 @@ export const Route = createFileRoute("/api/public/bkash/callback")({
         }
 
         if (status !== "success") {
-          const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-          await supabaseAdmin
-            .from("orders")
-            .update({ payment_status: "failed" })
-            .eq("id", orderId);
+          // Unverified status from the URL: do not modify the order.
           return Response.redirect(`${origin}/orders/${orderId}?bkash=${status || "failed"}`, 302);
         }
 
