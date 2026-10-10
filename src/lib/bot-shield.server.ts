@@ -91,7 +91,13 @@ async function sha256Hex(input: string): Promise<string> {
   return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
+/** True when the server can reach privileged backend tables (missing on a self-hosted/local server without the service key). */
+function hasAdminAccess(): boolean {
+  return !!(process.env["SUPABASE_URL"] && process.env["SUPABASE_SERVICE_ROLE_KEY"]);
+}
+
 export async function createChallenge(purpose: string, request?: Request) {
+  if (!hasAdminAccess()) return { id: "00000000-0000-0000-0000-000000000000", salt: randomHex(16), difficulty: 1 };
   const settings = await loadBotSettings();
   const salt = randomHex(16);
   const difficulty = settings.pow_difficulty;
@@ -123,6 +129,10 @@ export async function verifyHumanAttempt(input: {
   honeypot?: string;
   request?: Request;
 }): Promise<{ ok: true; token: string } | { ok: false; reason: string }> {
+  if (!hasAdminAccess()) {
+    if (input.honeypot && input.honeypot.trim() !== "") return { ok: false, reason: "Automated submission detected." };
+    return { ok: true, token: "self-hosted" };
+  }
   const settings = await loadBotSettings();
   if (!settings.shield_enabled) {
     return { ok: true, token: await issuePass(input.purpose, "disabled", input.request) };
@@ -195,6 +205,7 @@ export async function verifyHumanAttempt(input: {
 
 /** Consume a bot pass (single use). Returns true when the caller is verified. */
 export async function consumeBotPass(token: string, purpose: string): Promise<boolean> {
+  if (!hasAdminAccess()) return true;
   const settings = await loadBotSettings();
   if (!settings.shield_enabled) return true;
   if (!token) return false;
