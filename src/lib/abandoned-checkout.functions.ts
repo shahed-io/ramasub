@@ -21,6 +21,9 @@ const inputSchema = z.object({
   status: z.string().optional(),
   total: z.number().min(0).max(10_000_000).optional(),
   coupon_code: z.string().trim().max(80).nullable().optional(),
+  payment_method: z.string().optional(),
+  transaction_id: z.string().optional(),
+  payment_screenshot_url: z.string().optional().nullable(),
 });
 
 export type CaptureAbandonedInput = z.infer<typeof inputSchema>;
@@ -49,6 +52,9 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
       status: data.status || "pending",
       total: data.total || 0,
       coupon_code: data.coupon_code || null,
+      payment_method: data.payment_method || null,
+      transaction_id: data.transaction_id || null,
+      payment_screenshot_url: data.payment_screenshot_url || null,
       updated_at: new Date().toISOString(),
     };
 

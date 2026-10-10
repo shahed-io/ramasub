@@ -44,9 +44,10 @@ function ProductCardImpl({ product }: { product: Product }) {
   const onAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!plan) return;
+    const resolvedPeriod = (plan.period?.trim() || plan.duration?.trim() || plan.label?.trim() || "Standard Plan");
     add({
       slug: product.slug,
-      planPeriod: plan.period,
+      planPeriod: resolvedPeriod,
       qty: 1,
       price: parsePrice(plan.price),
       name: product.name,

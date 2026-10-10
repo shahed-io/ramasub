@@ -223,10 +223,11 @@ function ProductPage() {
 
   const addToCart = () => {
     if (!plan) return;
+    const resolvedPeriod = (plan.period?.trim() || plan.duration?.trim() || plan.label?.trim() || "Standard Plan");
     for (let i = 0; i < qty; i++) {
       add({ 
         slug: product.slug, 
-        planPeriod: plan.period, 
+        planPeriod: resolvedPeriod, 
         qty: 1, 
         price: parsePrice(plan.price), 
         name: product.name, 
@@ -237,7 +238,7 @@ function ProductPage() {
       });
     }
   };
-  const buyNow = () => { addToCart(); navigate({ to: "/checkout", search: { step: 1 } }); };
+  const buyNow = () => { addToCart(); navigate({ to: "/checkout", search: {} }); };
 
   const hasDiscount = !!plan?.original && parsePrice(plan.original) > parsePrice(plan.price);
 
@@ -501,7 +502,7 @@ function ProductPage() {
             </button>
             <div className="grid grid-cols-2 gap-3">
               <a
-                href={plan ? waOrderUrl([{ name: product.name, planPeriod: plan.period, qty, price: parsePrice(plan.price) }]) : "#"}
+                href={plan ? waOrderUrl([{ name: product.name, planPeriod: (plan.period?.trim() || plan.duration?.trim() || plan.label?.trim() || "Standard Plan"), qty, price: parsePrice(plan.price) }]) : "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="product-whatsapp-button flex items-center justify-center gap-2 font-bold py-3 rounded-2xl hover:opacity-95 transition"

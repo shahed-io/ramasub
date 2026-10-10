@@ -194,6 +194,9 @@ function CheckoutPage() {
           status: "pending",
           total: Math.max(0, total),
           coupon_code: coupon || null,
+          payment_method: fullyByWallet ? "wallet" : method,
+          transaction_id: fullyByWallet ? `WALLET-${Date.now()}` : form.trxId,
+          payment_screenshot_url: screenshotUrl || null,
         },
       }).catch(() => {});
     }, 900);
@@ -244,7 +247,7 @@ function CheckoutPage() {
           payment_screenshot_url: screenshotUrl || null,
           items: items.map((it) => ({
             slug: it.slug,
-            planPeriod: it.planPeriod || "Standard Plan",
+            planPeriod: it.planPeriod,
             qty: it.qty,
           })),
           coupon_code: applied.valid && applied.code ? applied.code : null,

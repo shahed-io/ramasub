@@ -267,7 +267,7 @@ function CartPage() {
                   onClick={() =>
                     navigate({
                       to: "/checkout",
-                      search: { step: 1, coupon: applied.valid ? applied.code : "" },
+                      search: { coupon: applied.valid ? applied.code : "" },
                     })
                   }
                   className="w-full h-12 rounded-full text-primary-foreground text-sm font-bold inline-flex items-center justify-center gap-2 hover:opacity-95 transition shadow-lg shadow-primary/25"
