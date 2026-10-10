@@ -14,7 +14,7 @@ const itemSchema = z.object({
 
 const inputSchema = z.object({
   user_id: z.string().uuid().optional(),
-  email: z.string().email().optional(),
+  email: z.union([z.string().trim().toLowerCase().email().max(255), z.literal("")]).optional(),
   full_name: z.string().optional(),
   phone: z.string().optional(),
   items: z.array(itemSchema),
@@ -58,39 +58,24 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
       updated_at: new Date().toISOString(),
     };
 
-    if (userId) {
-      const { error } = await supabaseAdmin
-        .from("abandoned_checkouts")
-        .upsert(payload as any, { onConflict: "user_id" });
-      if (error) throw error;
-    } else {
-      // For guest visitors, match existing by email or phone
-      let existingId: string | null = null;
-      if (data.email) {
-        const { data: ex } = await supabaseAdmin
-          .from("abandoned_checkouts")
-          .select("id")
-          .eq("email", data.email)
-          .limit(1)
-          .maybeSingle();
-        existingId = ex?.id ?? null;
-      }
-      if (!existingId && data.phone) {
-        const { data: ex } = await supabaseAdmin
-          .from("abandoned_checkouts")
-          .select("id")
-          .eq("phone", data.phone)
-          .limit(1)
-          .maybeSingle();
-        existingId = ex?.id ?? null;
-      }
+    if (!payload.email && !payload.phone) return { ok: false };
+    (payload as any).subtotal = data.items.reduce((n, it) => n + it.price * it.quantity, 0);
+    (payload as any).checkout_step = data.transaction_id ? 3 : data.payment_method ? 2 : 1;
 
-      if (existingId) {
-        await supabaseAdmin.from("abandoned_checkouts").update(payload as any).eq("id", existingId);
-      } else {
-        await supabaseAdmin.from("abandoned_checkouts").insert(payload as any);
-      }
-    }
+    // Find the latest still-open row for this visitor (never overwrite recovered history)
+    const open = () =>
+      supabaseAdmin.from("abandoned_checkouts").select("id")
+        .neq("status", "recovered").order("updated_at", { ascending: false }).limit(1);
+    let existingId: string | null = null;
+    if (userId) existingId = (await open().eq("user_id", userId).maybeSingle()).data?.id ?? null;
+    if (!existingId && payload.email) existingId = (await open().ilike("email", payload.email).maybeSingle()).data?.id ?? null;
+    if (!existingId && payload.phone) existingId = (await open().eq("phone", payload.phone).maybeSingle()).data?.id ?? null;
+
+    const { status: _s, ...updatePayload } = payload;
+    const { error } = existingId
+      ? await supabaseAdmin.from("abandoned_checkouts").update(updatePayload as any).eq("id", existingId)
+      : await supabaseAdmin.from("abandoned_checkouts").insert({ ...payload, status: "pending" } as any);
+    if (error) throw error;
 
     return { ok: true };
   });
