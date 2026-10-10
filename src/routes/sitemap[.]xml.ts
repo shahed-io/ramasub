@@ -61,23 +61,8 @@ export const Route = createFileRoute("/sitemap.xml")({
             }
           }
 
-          const { data: cats } = await sb
-            .from("admin_records")
-            .select("data, updated_at")
-            .eq("kind", "category")
-            .eq("is_active", true);
-          if (cats) {
-            for (const c of cats) {
-              const slug = (c.data as { slug?: string } | null)?.slug;
-              if (!slug) continue;
-              entries.push({
-                path: `/categories?cat=${encodeURIComponent(slug)}`,
-                lastmod: c.updated_at ? new Date(c.updated_at).toISOString().slice(0, 10) : undefined,
-                changefreq: "weekly",
-                priority: "0.6",
-              });
-            }
-          }
+          // Category filters live on /categories (query param), not separate pages,
+          // so individual category URLs are intentionally not listed.
 
           // Blog posts stored as admin_records kind=blog_post
           entries.push({ path: "/blog", changefreq: "daily", priority: "0.7" });
