@@ -115,29 +115,24 @@ function QuickSalePage() {
         };
       });
 
-      if (deliveryMode !== "whatsapp") {
-        const { data: { user } } = await supabase.auth.getUser();
-        const { error } = await supabase
-          .from("orders")
-          .insert({
-            user_id: user?.id || null,
-            full_name: name,
-            email: email || `${phone}@manual.local`,
-            phone,
-            payment_method: payMethod,
-            transaction_id: trxId || `QS-${Date.now()}`,
-            items: orderItems,
-            total: grandTotal,
-            status: payStatus === "paid" ? "processing" : "pending",
-            payment_status: payStatus === "paid" ? "verified" : "pending",
-            admin_note: note || null,
-          } as never)
-          .select("id")
-          .single();
-        if (error) throw error;
-        setTotalOrders((c) => c + 1);
-        toast.success(t("Order created", "অর্ডার তৈরি হয়েছে"));
-      }
+      // Always record the order in the database via createAdminOrder
+      const { createAdminOrder } = await import("@/lib/orders.functions");
+      await createAdminOrder({
+        data: {
+          full_name: name,
+          email: email || `${phone}@manual.local`,
+          phone,
+          payment_method: payMethod,
+          transaction_id: trxId || `QS-${Date.now()}`,
+          items: orderItems,
+          total: grandTotal,
+          status: payStatus === "paid" ? "processing" : "pending",
+          payment_status: payStatus === "paid" ? "verified" : "pending",
+          admin_note: note || (deliveryMode === "whatsapp" ? "Quick Sale via WhatsApp" : null),
+        },
+      });
+      setTotalOrders((c) => c + 1);
+      toast.success(t("Order recorded & synced", "অর্ডার ডাটাবেসে সেভ হয়েছে"));
 
       if (deliveryMode !== "system") {
         const num = normalizeWaPhone(phone);
