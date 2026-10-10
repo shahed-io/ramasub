@@ -2,12 +2,10 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { fallback, zodValidator } from "@tanstack/zod-adapter";
-import { ArrowLeft, Loader2, Copy, Check, Crown, Download, PartyPopper, Mail } from "lucide-react";
+import { ArrowLeft, Loader2, Copy, Check, Download, PartyPopper, Mail } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/context/AuthContext";
 import { rememberReturnTo } from "@/lib/auth-return-to";
-import { CartIcon } from "@/components/CartIcon";
-import { AccountIcon } from "@/components/AccountIcon";
 import { downloadReceiptPdf } from "@/lib/receipt";
 import { sendInvoiceEmail } from "@/lib/email/invoice";
 import { toast } from "sonner";
@@ -152,7 +150,7 @@ function OrderDetailPage() {
       <div className="min-h-screen grid place-items-center px-4">
         <div className="glass-strong rounded-3xl p-10 text-center max-w-md">
           <h1 className="text-2xl font-bold">Order not found</h1>
-          <p className="text-sm text-muted-foreground mt-2">This order doesn't exist or you don't have access to it.</p>
+          <p className="text-sm text-slate-500 mt-2">This order doesn't exist or you don't have access to it.</p>
           <Link to="/orders" className="inline-block mt-5 h-11 leading-[44px] px-6 rounded-full bg-aurora text-white text-sm font-semibold glow-violet">
             Back to my orders
           </Link>
@@ -165,27 +163,12 @@ function OrderDetailPage() {
   const itemsTotal = order.items.reduce((s, it) => s + (it.price ?? 0) * it.qty, 0);
 
   return (
-    <div className="min-h-screen">
-      <header className="sticky top-0 z-40 glass-soft">
-        <div className="mx-auto max-w-[1440px] px-4 md:px-10 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5 font-bold text-lg" style={{ fontFamily: "var(--font-heading)" }}>
-            <span className="grid place-items-center w-9 h-9 rounded-xl bg-aurora text-white"><Crown className="w-4 h-4" /></span>
-            Rama <span className="text-aurora">Sub</span>
-          </Link>
-          <div className="flex items-center gap-1.5"><AccountIcon /><CartIcon /></div>
-        </div>
-      </header>
+    <div className="min-h-screen text-slate-900">
 
       <div className="mx-auto max-w-[1100px] px-4 md:px-10 py-8">
-        {isNew ? (
-          <Link to="/orders" className="text-sm text-muted-foreground hover:text-primary inline-flex items-center gap-1 mb-4">
-            <ArrowLeft className="w-3.5 h-3.5" /> View all orders
-          </Link>
-        ) : (
-          <Link to="/orders" className="text-sm text-muted-foreground hover:text-primary inline-flex items-center gap-1 mb-4">
-            <ArrowLeft className="w-3.5 h-3.5" /> Back to my orders
-          </Link>
-        )}
+        <Link to={user ? "/orders" : "/"} className="text-sm text-slate-600 hover:text-primary inline-flex items-center gap-1 mb-4">
+          <ArrowLeft className="w-3.5 h-3.5" /> {user ? (isNew ? "View all orders" : "Back to my orders") : "Continue shopping"}
+        </Link>
 
         {isNew && (
           <div className="mb-5 rounded-3xl p-6 md:p-7 bg-aurora text-primary-foreground glow-aqua relative overflow-hidden">
@@ -219,20 +202,20 @@ function OrderDetailPage() {
         <div className="glass-strong rounded-3xl p-6 md:p-8">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <div className="text-xs uppercase tracking-wider text-muted-foreground">Order</div>
+              <div className="text-xs uppercase tracking-wider text-slate-500">Order</div>
               <div className="flex items-center gap-2 mt-1">
                 <h1 className="text-2xl font-extrabold tracking-tight" style={{ fontFamily: "var(--font-display)" }}>
                   #{order.id.slice(0, 8).toUpperCase()}
                 </h1>
                 <button
                   onClick={copyId}
-                  className="grid place-items-center w-8 h-8 rounded-full hover:bg-white/60 text-muted-foreground"
+                  className="grid place-items-center w-8 h-8 rounded-full hover:bg-white/60 text-slate-500"
                   aria-label="Copy order ID"
                 >
                   {copied ? <Check className="w-4 h-4 text-[var(--color-success)]" /> : <Copy className="w-3.5 h-3.5" />}
                 </button>
               </div>
-              <div className="text-xs text-muted-foreground mt-1">
+              <div className="text-xs text-slate-500 mt-1">
                 Placed on {new Date(order.created_at).toLocaleString()}
               </div>
             </div>
@@ -268,7 +251,7 @@ function OrderDetailPage() {
                   return (
                     <div key={s} className="flex-1 flex items-center gap-2">
                       <div className={`flex-1 h-1.5 rounded-full ${reached ? "bg-aurora" : "bg-border/60"}`} />
-                      <span className={`text-[10px] uppercase tracking-wider font-bold whitespace-nowrap ${reached ? "text-primary" : "text-muted-foreground"}`}>
+                      <span className={`text-[10px] uppercase tracking-wider font-bold whitespace-nowrap ${reached ? "text-primary" : "text-slate-500"}`}>
                         {s}
                       </span>
                     </div>
@@ -282,7 +265,7 @@ function OrderDetailPage() {
         <div className="grid md:grid-cols-3 gap-5 mt-5">
           {/* Items */}
           <div className="md:col-span-2 glass rounded-2xl p-5">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-4">Items ({order.items.length})</h2>
+            <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-4">Items ({order.items.length})</h2>
             <div className="space-y-3">
               {order.items.map((it, i) => (
                 <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-white/40">
@@ -291,10 +274,10 @@ function OrderDetailPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-bold truncate">{it.name ?? it.slug}</div>
-                    <div className="text-xs text-muted-foreground">{it.planPeriod} subscription</div>
+                    <div className="text-xs text-slate-500">{it.planPeriod} subscription</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs text-muted-foreground">Qty {it.qty}</div>
+                    <div className="text-xs text-slate-500">Qty {it.qty}</div>
                     {it.price ? (
                       <div className="text-sm font-bold text-aurora">৳{(it.price * it.qty).toLocaleString()}</div>
                     ) : null}
@@ -305,12 +288,12 @@ function OrderDetailPage() {
 
             <div className="border-t border-border/50 mt-5 pt-4 space-y-2 text-sm">
               {itemsTotal > 0 && (
-                <div className="flex justify-between text-muted-foreground">
+                <div className="flex justify-between text-slate-500">
                   <span>Subtotal</span>
                   <span>৳{itemsTotal.toLocaleString()}</span>
                 </div>
               )}
-              <div className="flex justify-between text-muted-foreground">
+              <div className="flex justify-between text-slate-500">
                 <span>Delivery</span>
                 <span className="text-[var(--color-aqua-deep)] font-semibold">FREE</span>
               </div>
@@ -326,7 +309,7 @@ function OrderDetailPage() {
           {/* Software downloads — populated when admin marks the order completed */}
           {Array.isArray(order.delivered_credentials?.downloads) && order.delivered_credentials!.downloads!.length > 0 && (
             <div className="md:col-span-3 glass rounded-2xl p-5">
-              <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-2">
+              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
                 <Download className="w-4 h-4" /> Your downloads
               </h2>
               <div className="space-y-2">
@@ -335,11 +318,11 @@ function OrderDetailPage() {
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-bold truncate">
                         {d.product || d.label}
-                        {d.platform ? <span className="ml-2 text-xs font-normal text-muted-foreground">· {d.platform}</span> : null}
-                        {d.version ? <span className="ml-2 text-xs font-normal text-muted-foreground">· v{d.version}</span> : null}
-                        {d.size ? <span className="ml-2 text-xs font-normal text-muted-foreground">· {d.size}</span> : null}
+                        {d.platform ? <span className="ml-2 text-xs font-normal text-slate-500">· {d.platform}</span> : null}
+                        {d.version ? <span className="ml-2 text-xs font-normal text-slate-500">· v{d.version}</span> : null}
+                        {d.size ? <span className="ml-2 text-xs font-normal text-slate-500">· {d.size}</span> : null}
                       </div>
-                      {d.notes && <div className="text-xs text-muted-foreground">{d.notes}</div>}
+                      {d.notes && <div className="text-xs text-slate-500">{d.notes}</div>}
                     </div>
                     <a
                       href={d.url}
@@ -357,42 +340,42 @@ function OrderDetailPage() {
 
           <div className="space-y-5">
             <div className="glass rounded-2xl p-5">
-              <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-3">Payment</h2>
+              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3">Payment</h2>
               <div className="space-y-2.5 text-sm">
                 <div>
-                  <div className="text-xs text-muted-foreground">Method</div>
+                  <div className="text-xs text-slate-500">Method</div>
                   <div className="font-bold capitalize">{order.payment_method}</div>
                 </div>
                 <div>
-                  <div className="text-xs text-muted-foreground">Transaction ID</div>
+                  <div className="text-xs text-slate-500">Transaction ID</div>
                   <div className="font-mono font-semibold text-xs break-all" style={{ fontFamily: "var(--font-mono)" }}>{order.transaction_id}</div>
                 </div>
               </div>
             </div>
 
             <div className="glass rounded-2xl p-5">
-              <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-3">Customer</h2>
+              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3">Customer</h2>
               <div className="space-y-2.5 text-sm">
                 <div>
-                  <div className="text-xs text-muted-foreground">Name</div>
+                  <div className="text-xs text-slate-500">Name</div>
                   <div className="font-semibold">{order.full_name}</div>
                 </div>
                 <div>
-                  <div className="text-xs text-muted-foreground">Email</div>
+                  <div className="text-xs text-slate-500">Email</div>
                   <div className="font-semibold break-all">{order.email}</div>
                 </div>
                 <div>
-                  <div className="text-xs text-muted-foreground">Phone</div>
+                  <div className="text-xs text-slate-500">Phone</div>
                   <div className="font-semibold">{order.phone}</div>
                 </div>
               </div>
             </div>
 
             <Link
-              to="/orders"
-              className="block text-center h-11 leading-[44px] rounded-full glass-strong text-sm font-semibold hover:bg-white transition"
+              to={user ? "/orders" : "/"}
+              className="block text-center h-11 leading-[44px] rounded-full glass-strong text-sm font-semibold text-slate-900 hover:bg-white transition"
             >
-              View all orders
+              {user ? "View all orders" : "Continue shopping"}
             </Link>
           </div>
         </div>
