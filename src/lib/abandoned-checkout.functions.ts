@@ -29,18 +29,19 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
   .inputValidator(inputSchema)
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    // SECURITY: never trust a client-supplied user_id. Identify the caller from
-    // their verified bearer token; anonymous visitors are not captured.
     const request = getRequest();
     const authHeader = request?.headers?.get("authorization") ?? "";
     const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
-    if (!token) return { ok: false, message: "Sign-in required" };
-    const { data: userData, error: userErr } = await supabaseAdmin.auth.getUser(token);
-    const userId = userData?.user?.id;
-    if (userErr || !userId) return { ok: false, message: "Sign-in required" };
+    let userId: string | null = null;
+    if (token) {
+      try {
+        const { data: userData } = await supabaseAdmin.auth.getUser(token);
+        userId = userData?.user?.id ?? null;
+      } catch {}
+    }
 
     const payload = {
-      user_id: userId || null,
+      user_id: userId,
       email: data.email ?? "",
       full_name: data.full_name ?? "",
       phone: data.phone ?? "",
@@ -51,10 +52,39 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
       updated_at: new Date().toISOString(),
     };
 
-    const { error } = await supabaseAdmin
-      .from("abandoned_checkouts")
-      .upsert(payload as any, { onConflict: "user_id" });
-    if (error) throw error;
+    if (userId) {
+      const { error } = await supabaseAdmin
+        .from("abandoned_checkouts")
+        .upsert(payload as any, { onConflict: "user_id" });
+      if (error) throw error;
+    } else {
+      // For guest visitors, match existing by email or phone
+      let existingId: string | null = null;
+      if (data.email) {
+        const { data: ex } = await supabaseAdmin
+          .from("abandoned_checkouts")
+          .select("id")
+          .eq("email", data.email)
+          .limit(1)
+          .maybeSingle();
+        existingId = ex?.id ?? null;
+      }
+      if (!existingId && data.phone) {
+        const { data: ex } = await supabaseAdmin
+          .from("abandoned_checkouts")
+          .select("id")
+          .eq("phone", data.phone)
+          .limit(1)
+          .maybeSingle();
+        existingId = ex?.id ?? null;
+      }
+
+      if (existingId) {
+        await supabaseAdmin.from("abandoned_checkouts").update(payload as any).eq("id", existingId);
+      } else {
+        await supabaseAdmin.from("abandoned_checkouts").insert(payload as any);
+      }
+    }
 
     return { ok: true };
   });

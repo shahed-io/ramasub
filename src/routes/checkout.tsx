@@ -395,14 +395,7 @@ function CheckoutPage() {
 
 
   // ----- Guards (loading / empty cart) -----
-  useEffect(() => {
-    if (!authLoading && !user) {
-      rememberReturnTo();
-      navigate({ to: "/login", replace: true });
-    }
-  }, [user, authLoading, navigate]);
-
-  if (authLoading || !cartReady || !user) {
+  if (authLoading || !cartReady) {
     return (
       <GuardLayout>
         <Loader2 className="mx-auto h-8 w-8 animate-spin text-primary" />
@@ -453,13 +446,13 @@ function CheckoutPage() {
   ];
 
   const handleScreenshot = async (file: File) => {
-    if (!user) return;
     if (file.size > 5 * 1024 * 1024) { setErr("ফাইল সর্বোচ্চ ৫MB হতে হবে"); return; }
     setUploading(true);
     setErr(null);
     try {
       const ext = file.name.split(".").pop() || "jpg";
-      const path = `${user.id}/${Date.now()}.${ext}`;
+      const ufolder = user?.id || (form.phone ? form.phone.replace(/\D/g, "") : "guest");
+      const path = `${ufolder}/${Date.now()}.${ext}`;
       const { error: upErr } = await supabase.storage.from("payment-screenshots").upload(path, file, { upsert: false });
       if (upErr) throw upErr;
       setScreenshotUrl(path);

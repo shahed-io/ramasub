@@ -52,15 +52,29 @@ function planPriceOf(plans: unknown, planPeriod: string): number | null {
 }
 
 export const createOrder = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator(validator(inputSchema))
-  .handler(async ({ data, context }) => {
+  .handler(async ({ data }) => {
+    const { getRequest } = await import("@tanstack/react-start/server");
+    const request = getRequest();
+    let userId: string | null = null;
+    try {
+      const authHeader = request?.headers?.get("authorization") ?? "";
+      const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
+      if (token) {
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+        const { data: userData } = await supabaseAdmin.auth.getUser(token);
+        userId = userData?.user?.id ?? null;
+      }
+    } catch {
+      userId = null;
+    }
+
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     
-    // Looser per-IP limit for user actions
+    // Looser rate-limit check (supports signed-in and guest direct orders)
     {
       const { guardUserAction, retryMessage } = await import("@/lib/rate-limit.server");
-      const rl = await guardUserAction("user.order_create", context.userId);
+      const rl = await guardUserAction("user.order_create", userId || data.phone || data.email, request);
       if (!rl.allowed) throw new Error(retryMessage(rl, true));
     }
 
@@ -130,7 +144,7 @@ export const createOrder = createServerFn({ method: "POST" })
     const { data: inserted, error: iErr } = await supabaseAdmin
       .from("orders")
       .insert({
-        user_id: context.userId,
+        user_id: userId,
         full_name: data.full_name,
         email: data.email,
         phone: data.phone,
@@ -380,3 +394,17 @@ export const syncUnlistedOrders = createServerFn({ method: "POST" })
 
     return { syncedCount };
   });
+
+export const getOrderById = createServerFn({ method: "GET" })
+  .inputValidator((input: any) => z.object({ id: z.string().uuid() }).parse(input))
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: order, error } = await supabaseAdmin
+      .from("orders")
+      .select("*")
+      .eq("id", data.id)
+      .maybeSingle();
+    if (error) throw error;
+    return order;
+  });
+

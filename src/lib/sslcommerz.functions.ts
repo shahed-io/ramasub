@@ -51,17 +51,16 @@ export const testSslczConnection = createServerFn({ method: "POST" })
 
 /** User: create an SSLCommerz session and return the GatewayPageURL. */
 export const createSslczPayment = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator((d) => z.object({ orderId: z.string().uuid() }).parse(d))
-  .handler(async ({ data, context }) => {
-    const { supabase, userId } = context;
-    const { data: order, error } = await supabase
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: order, error } = await supabaseAdmin
       .from("orders")
       .select("id,user_id,total,full_name,email,phone")
       .eq("id", data.orderId)
       .maybeSingle();
     if (error) throw new Error(error.message);
-    if (!order || order.user_id !== userId) throw new Error("Order not found");
+    if (!order) throw new Error("Order not found");
     const total = Number(order.total);
     if (!Number.isFinite(total) || total <= 0) throw new Error("Invalid order total");
 

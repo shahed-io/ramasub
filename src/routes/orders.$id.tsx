@@ -59,16 +59,28 @@ function OrderDetailPage() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    supabase
-      .from("orders")
-      .select("*")
-      .eq("id", id)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (!data) setNotFound(true);
-        else setOrder(data as unknown as Order);
-        setLoading(false);
-      });
+    (async () => {
+      try {
+        const { getOrderById } = await import("@/lib/orders.functions");
+        const data = await getOrderById({ data: { id } });
+        if (data) {
+          setOrder(data as unknown as Order);
+          setLoading(false);
+          return;
+        }
+      } catch {}
+
+      // Client-side query fallback
+      const { data } = await supabase
+        .from("orders")
+        .select("*")
+        .eq("id", id)
+        .maybeSingle();
+
+      if (!data) setNotFound(true);
+      else setOrder(data as unknown as Order);
+      setLoading(false);
+    })();
   }, [id]);
 
   // Auto-download receipt the first time a freshly placed order loads.
