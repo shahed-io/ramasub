@@ -94,10 +94,10 @@ async function handle(request: Request) {
       if (invoice && invoice !== expected) verifiedOk = false;
     }
 
-    await supabaseAdmin
+    if (verifiedOk) await supabaseAdmin
       .from("orders")
       .update({
-        payment_status: verifiedOk ? "verified" : "failed",
+        payment_status: "verified",
         transaction_id: trxId || undefined,
         payment_method: "EPS",
       })

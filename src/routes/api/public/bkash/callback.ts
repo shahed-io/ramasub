@@ -52,10 +52,10 @@ export const Route = createFileRoute("/api/public/bkash/callback")({
             }
           }
 
-          await supabaseAdmin
+          if (ok) await supabaseAdmin
             .from("orders")
             .update({
-              payment_status: ok ? "verified" : "failed",
+              payment_status: "verified",
               transaction_id: exec?.trxID || paymentID,
               payment_method: "bKash",
             })

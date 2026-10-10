@@ -72,10 +72,10 @@ async function handle(request: Request) {
       }
     }
 
-    await supabaseAdmin
+    if (verifiedOk) await supabaseAdmin
       .from("orders")
       .update({
-        payment_status: verifiedOk ? "verified" : "failed",
+        payment_status: "verified",
         transaction_id: trxId || undefined,
         payment_method: "SSLCommerz",
       })
