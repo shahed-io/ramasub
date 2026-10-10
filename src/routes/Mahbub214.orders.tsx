@@ -242,7 +242,7 @@ function AdminOrders() {
             <Trash2 className="w-3.5 h-3.5" /> {t("Trash", "ট্র্যাশ")}
           </button>
           <button
-            onClick={load}
+            onClick={() => load()}
             className="inline-flex items-center gap-1.5 px-3 h-9 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} /> {t("Refresh", "রিফ্রেশ")}
