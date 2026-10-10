@@ -777,6 +777,73 @@
   .admin-clarity button[class*="bg-rose-8"],
   .admin-clarity button[class*="bg-rose-9"],
   .admin-clarity button[class*="bg-slate-9"] { color: #ffffff !important; }
+
+  /* ============================================================
+     Catch-all brand remap — gradients, solid fills, borders, rings.
+     Covers every hardcoded violet/purple/indigo/fuchsia utility the
+     per-shade remap above misses (from-*, to-*, via-*, gradient-*,
+     border-*, ring-*, hover:bg-*, divide-*, outline).
+     ============================================================ */
+  :is(.admin-clarity, .admin-shell) [class*="bg-gradient-to-"]:is(
+    [class*="from-violet"], [class*="from-purple"], [class*="from-indigo"], [class*="from-fuchsia"],
+    [class*="to-violet"], [class*="to-purple"], [class*="to-indigo"], [class*="to-fuchsia"],
+    [class*="via-violet"], [class*="via-purple"], [class*="via-indigo"], [class*="via-fuchsia"]
+  ) {
+    background-image: linear-gradient(135deg, #6d4aff 0%, #8b6bff 100%) !important;
+    color: #ffffff !important;
+  }
+  :is(.admin-clarity, .admin-shell) [class*="bg-gradient-to-"]:is(
+    [class*="from-violet"], [class*="from-purple"], [class*="from-indigo"], [class*="from-fuchsia"],
+    [class*="to-violet"], [class*="to-purple"], [class*="to-indigo"], [class*="to-fuchsia"]
+  ) :is(svg, span, p, h1, h2, h3, h4) { color: #ffffff !important; }
+
+  /* Solid brand fills (500-900) → brand purple, white text */
+  :is(.admin-clarity, .admin-shell) :is(
+    .bg-violet-500, .bg-violet-600, .bg-violet-700, .bg-violet-800, .bg-violet-900,
+    .bg-purple-500, .bg-purple-600, .bg-purple-700, .bg-purple-800, .bg-purple-900,
+    .bg-indigo-500, .bg-indigo-600, .bg-indigo-700, .bg-indigo-800, .bg-indigo-900,
+    .bg-fuchsia-500, .bg-fuchsia-600, .bg-fuchsia-700, .bg-fuchsia-800, .bg-fuchsia-900
+  ) { background-color: #6d4aff !important; color: #ffffff !important; }
+
+  /* Brand borders & rings */
+  :is(.admin-clarity, .admin-shell) :is(
+    [class*="border-violet"], [class*="border-purple"], [class*="border-indigo"], [class*="border-fuchsia"]
+  ) { border-color: #c9bdfc !important; }
+  :is(.admin-clarity, .admin-shell) :is(
+    [class*="ring-violet"], [class*="ring-purple"], [class*="ring-indigo"], [class*="ring-fuchsia"]
+  ) { --tw-ring-color: rgba(109, 74, 255, 0.35) !important; }
+
+  /* Hover fills stay inside the brand family */
+  :is(.admin-clarity, .admin-shell) [class*="hover:bg-violet"]:hover,
+  :is(.admin-clarity, .admin-shell) [class*="hover:bg-purple"]:hover,
+  :is(.admin-clarity, .admin-shell) [class*="hover:bg-indigo"]:hover,
+  :is(.admin-clarity, .admin-shell) [class*="hover:bg-fuchsia"]:hover {
+    background-color: #5a38f0 !important; color: #ffffff !important;
+  }
+
+  /* Soft tinted surfaces (bg-*-50/100 with opacity modifiers) → brand tint */
+  :is(.admin-clarity, .admin-shell) :is(
+    [class*="bg-violet-"], [class*="bg-purple-"], [class*="bg-indigo-"], [class*="bg-fuchsia-"]
+  ):not([class*="bg-violet-5"]):not([class*="bg-violet-6"]):not([class*="bg-violet-7"]):not([class*="bg-violet-8"]):not([class*="bg-violet-9"]):not([class*="bg-purple-5"]):not([class*="bg-purple-6"]):not([class*="bg-purple-7"]):not([class*="bg-purple-8"]):not([class*="bg-purple-9"]):not([class*="bg-indigo-5"]):not([class*="bg-indigo-6"]):not([class*="bg-indigo-7"]):not([class*="bg-indigo-8"]):not([class*="bg-indigo-9"]):not([class*="bg-fuchsia-5"]):not([class*="bg-fuchsia-6"]):not([class*="bg-fuchsia-7"]):not([class*="bg-fuchsia-8"]):not([class*="bg-fuchsia-9"]):not([class*="bg-gradient"]) {
+    background-color: #eee9ff !important;
+  }
+
+  /* Selected/active states using brand colors keep white text */
+  :is(.admin-clarity, .admin-shell) [aria-selected="true"][class*="bg-"],
+  :is(.admin-clarity, .admin-shell) [data-state="active"][class*="bg-violet"],
+  :is(.admin-clarity, .admin-shell) [data-state="active"][class*="bg-purple"],
+  :is(.admin-clarity, .admin-shell) [data-state="active"][class*="bg-indigo"] {
+    background-color: #6d4aff !important; color: #ffffff !important;
+  }
+
+  /* Inline-style gradients with violet hues → brand gradient */
+  :is(.admin-clarity, .admin-shell) [style*="linear-gradient"][style*="#7"],
+  :is(.admin-clarity, .admin-shell) [style*="linear-gradient"][style*="#8B5"],
+  :is(.admin-clarity, .admin-shell) [style*="linear-gradient"][style*="#a855"],
+  :is(.admin-clarity, .admin-shell) [style*="linear-gradient"][style*="#A855"] {
+    background: linear-gradient(135deg, #6d4aff 0%, #8b6bff 100%) !important;
+    color: #ffffff !important;
+  }
   .admin-clarity table thead {
     background: oklch(0.96 0.01 255) !important;
     color: var(--admin-muted) !important;
