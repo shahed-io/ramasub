@@ -183,7 +183,9 @@ export const createOrder = createServerFn({ method: "POST" })
       })),
     });
 
+    const { signOrderAccess } = await import("@/lib/order-access.server");
     return {
+      accessToken: await signOrderAccess(inserted.id as string),
       id: inserted.id as string,
       subtotal,
       discount,
@@ -404,7 +406,7 @@ export const syncUnlistedOrders = createServerFn({ method: "POST" })
   });
 
 export const getOrderById = createServerFn({ method: "GET" })
-  .inputValidator((input: any) => z.object({ id: z.string().uuid() }).parse(input))
+  .inputValidator((input: any) => z.object({ id: z.string().uuid(), t: z.string().max(128).optional() }).parse(input))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: order, error } = await supabaseAdmin
@@ -412,7 +414,11 @@ export const getOrderById = createServerFn({ method: "GET" })
       .select("*")
       .eq("id", data.id)
       .maybeSingle();
-    if (error) throw error;
+    if (error) throw new Error("Could not load order");
+    if (!order) return null;
+    const { canAccessOrder } = await import("@/lib/order-access.server");
+    const { getRequest } = await import("@tanstack/react-start/server");
+    if (!(await canAccessOrder(order as any, data.t, getRequest()))) return null;
     if (order) delete (order as any).admin_note;
     return order;
   });

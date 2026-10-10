@@ -303,15 +303,16 @@ function CheckoutPage() {
         url: `https://ramasub.com/orders/${newId}`,
       });
       
+      try { if (created.accessToken) localStorage.setItem(`order_t_${newId}`, created.accessToken); } catch {}
       clear();
       
       if (isEpsMethod && !fullyByWallet) {
-        const eps = await createEps({ data: { orderId: newId } });
+        const eps = await createEps({ data: { orderId: newId, accessToken: created.accessToken } });
         if (eps?.redirectURL) { window.location.href = eps.redirectURL; return; }
         throw new Error("EPS Gateway URL not found");
       }
       if (isSslczMethod && !fullyByWallet) {
-        const s = await createSslcz({ data: { orderId: newId } });
+        const s = await createSslcz({ data: { orderId: newId, accessToken: created.accessToken } });
         if (s?.redirectURL) { window.location.href = s.redirectURL; return; }
         throw new Error("SSLCommerz Gateway URL not found");
       }
