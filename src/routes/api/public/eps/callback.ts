@@ -46,10 +46,7 @@ async function handle(request: Request) {
   const isFailed = status === "fail" || status === "failed" || status === "error";
 
   if (isCancelled || isFailed) {
-    await supabaseAdmin
-      .from("orders")
-      .update({ payment_status: "failed" })
-      .eq("id", orderId);
+    // Unverified status from the request: do not modify the order.
     return Response.redirect(
       `${origin}/orders/${orderId}?eps=${isCancelled ? "cancelled" : "failed"}`,
       302,
@@ -59,10 +56,6 @@ async function handle(request: Request) {
   // Security: never trust client-supplied `status`. A successful verification
   // REQUIRES a real transaction id that we can validate with EPS.
   if (!transactionId) {
-    await supabaseAdmin
-      .from("orders")
-      .update({ payment_status: "failed" })
-      .eq("id", orderId);
     return Response.redirect(`${origin}/orders/${orderId}?eps=failed`, 302);
   }
 

@@ -125,6 +125,13 @@ export const bulkDeleteProductsAdmin = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
+const PRODUCT_WRITABLE_FIELDS = ["badge","category","delivery_time","description","emoji","features","gradient","image_url","is_active","meta","name","plans","short_description","slug","sort_order","stock_status","tagline","warranty","whatsapp_order_text"] as const;
+function pickProductFields(input: Record<string, unknown>): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  for (const k of PRODUCT_WRITABLE_FIELDS) if (k in input) out[k] = input[k];
+  return out;
+}
+
 export const updateProductAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: any) => z.object({ slug: z.string().min(1), patch: z.record(z.string(), z.unknown()) }).strict().parse(input) as any)
@@ -142,7 +149,7 @@ export const updateProductAdmin = createServerFn({ method: "POST" })
     if (!role) throw new Error("Forbidden");
     await assertAdminMfaGrant(context.userId);
 
-    const { error } = await supabaseAdmin.from("products").update(data.patch as any).eq("slug", data.slug);
+    const { error } = await supabaseAdmin.from("products").update(pickProductFields(data.patch) as any).eq("slug", data.slug);
     if (error) throw error;
     return { ok: true };
   });
@@ -164,7 +171,7 @@ export const createProductAdmin = createServerFn({ method: "POST" })
     if (!role) throw new Error("Forbidden");
     await assertAdminMfaGrant(context.userId);
 
-    const { error } = await supabaseAdmin.from("products").insert(data as any);
+    const { error } = await supabaseAdmin.from("products").insert(pickProductFields(data as Record<string, unknown>) as any);
     if (error) throw error;
     return { ok: true };
   });

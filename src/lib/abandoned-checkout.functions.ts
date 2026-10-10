@@ -29,21 +29,15 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
   .inputValidator(inputSchema)
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    // SECURITY: never trust a client-supplied user_id. Identify the caller from
+    // their verified bearer token; anonymous visitors are not captured.
     const request = getRequest();
     const authHeader = request?.headers?.get("authorization") ?? "";
-    const isServiceRole = authHeader.includes(process.env.SUPABASE_SERVICE_ROLE_KEY || "NEVER_MATCH");
-
-    let userId = data.user_id;
-
-    if (!userId && !isServiceRole) {
-      const { supabase } = await import("@/integrations/supabase/client");
-      const { data: { session } } = await supabase.auth.getSession();
-      userId = session?.user?.id;
-    }
-
-    if (!userId && !data.email) {
-      return { ok: false, message: "No identifier provided" };
-    }
+    const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
+    if (!token) return { ok: false, message: "Sign-in required" };
+    const { data: userData, error: userErr } = await supabaseAdmin.auth.getUser(token);
+    const userId = userData?.user?.id;
+    if (userErr || !userId) return { ok: false, message: "Sign-in required" };
 
     const payload = {
       user_id: userId || null,
@@ -57,17 +51,10 @@ export const captureAbandonedCheckout = createServerFn({ method: "POST" })
       updated_at: new Date().toISOString(),
     };
 
-    if (userId) {
-      const { error } = await supabaseAdmin
-        .from("abandoned_checkouts")
-        .upsert(payload as any, { onConflict: "user_id" });
-      if (error) throw error;
-    } else if (data.email) {
-      const { error } = await supabaseAdmin
-        .from("abandoned_checkouts")
-        .upsert(payload as any, { onConflict: "email" });
-      if (error) throw error;
-    }
+    const { error } = await supabaseAdmin
+      .from("abandoned_checkouts")
+      .upsert(payload as any, { onConflict: "user_id" });
+    if (error) throw error;
 
     return { ok: true };
   });
@@ -116,7 +103,11 @@ export const updateAbandonedCheckout = createServerFn({ method: "POST" })
 
     const { error } = await supabaseAdmin
       .from("abandoned_checkouts")
-      .update(data.patch as any)
+      .update(Object.fromEntries(
+        Object.entries(data.patch as Record<string, unknown>).filter(([k]) =>
+          ["status", "admin_note", "contacted_at", "customer_note", "checkout_step"].includes(k),
+        ),
+      ) as any)
       .eq("id", data.id);
 
     if (error) throw error;
