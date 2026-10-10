@@ -18,6 +18,22 @@ export const Route = createFileRoute("/contact")({
       { name: "twitter:card", content: "summary" },
     ],
     links: [{ rel: "canonical", href: "https://ramasub.com/contact" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "Rama Sub",
+          url: "https://ramasub.com",
+          logo: "https://ramasub.com/icons/icon-512.png",
+          image: "https://ramasub.com/icons/icon-512.png",
+          telephone: "+8801601048085",
+          address: { "@type": "PostalAddress", addressLocality: "Dhaka", addressCountry: "BD" },
+          openingHours: "Mo-Su 11:00-23:00",
+        }),
+      },
+    ],
   }),
 });
 

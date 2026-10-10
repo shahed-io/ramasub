@@ -71,7 +71,7 @@ export const Route = createFileRoute("/sitemap.xml")({
               const slug = (c.data as { slug?: string } | null)?.slug;
               if (!slug) continue;
               entries.push({
-                path: `/categories/${slug}`,
+                path: `/categories?cat=${encodeURIComponent(slug)}`,
                 lastmod: c.updated_at ? new Date(c.updated_at).toISOString().slice(0, 10) : undefined,
                 changefreq: "weekly",
                 priority: "0.6",
