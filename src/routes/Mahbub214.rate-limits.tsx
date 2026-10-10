@@ -104,60 +104,44 @@ function RateLimitsPage() {
   }, [rules]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-violet-50/40 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto space-y-6">
-        {/* Hero */}
-        <div className="rounded-3xl bg-gradient-to-br from-violet-600 via-indigo-600 to-fuchsia-600 p-6 md:p-8 text-white shadow-xl flex items-center justify-between gap-4 flex-wrap">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur grid place-items-center">
-              <Gauge className="w-6 h-6" />
-            </div>
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold">{t("Rate Limits", "রেট লিমিট")}</h1>
-              <p className="text-white/85 text-sm mt-1">
-                {t(
-                  "Configurable per-endpoint throttling with exponential backoff",
-                  "প্রতি এন্ডপয়েন্টে কনফিগারযোগ্য থ্রটলিং ও exponential backoff",
-                )}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={reload}
-              className="inline-flex items-center gap-2 rounded-xl bg-white/15 backdrop-blur px-4 py-2.5 text-sm font-bold hover:bg-white/25"
-            >
-              <RefreshCw className="w-4 h-4" /> {t("Refresh", "রিফ্রেশ")}
-            </button>
-            <button
-              onClick={async () => {
-                try { await cleanup(); toast.success(t("Old records cleaned", "পুরনো রেকর্ড পরিষ্কার হয়েছে")); reload(); }
-                catch (e) { toast.error(e instanceof Error ? e.message : "Failed"); }
-              }}
-              className="inline-flex items-center gap-2 rounded-xl bg-white text-violet-700 px-4 py-2.5 text-sm font-bold shadow hover:shadow-lg"
-            >
-              <Brush className="w-4 h-4" /> {t("Cleanup", "ক্লিনআপ")}
-            </button>
-          </div>
-        </div>
-
-        {/* Tabs */}
+    <div className="max-w-6xl mx-auto space-y-6">
+      {/* Controls & Tabs */}
+      <div className="flex items-center justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-2">
           {([["rules", t("Rules", "নিয়ম")], ["blocks", t("Active blocks", "চলমান ব্লক")]] as const).map(([id, label]) => (
             <button
               key={id}
               onClick={() => setTab(id as "rules" | "blocks")}
-              className={`rounded-full px-4 py-2 text-sm font-bold transition ${
+              className={`rounded-full px-5 py-2 text-sm font-bold transition ${
                 tab === id
-                  ? "bg-violet-600 text-white shadow"
+                  ? "text-white shadow-sm"
                   : "bg-white text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50"
               }`}
+              style={tab === id ? { background: "linear-gradient(135deg, #6D4AFF, #4f46e5)" } : {}}
             >
               {label}
               {id === "blocks" && blocks.length > 0 ? ` (${blocks.length})` : ""}
             </button>
           ))}
         </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={reload}
+            className="inline-flex items-center gap-2 rounded-xl bg-white ring-1 ring-slate-200 px-4 py-2 text-sm font-bold hover:bg-slate-50 text-slate-700"
+          >
+            <RefreshCw className="w-4 h-4" /> {t("Refresh", "রিফ্রেশ")}
+          </button>
+          <button
+            onClick={async () => {
+              try { await cleanup(); toast.success(t("Old records cleaned", "পুরনো রেকর্ড পরিষ্কার হয়েছে")); reload(); }
+              catch (e) { toast.error(e instanceof Error ? e.message : "Failed"); }
+            }}
+            className="inline-flex items-center gap-2 rounded-xl bg-white text-[#6D4AFF] ring-1 ring-slate-200 px-4 py-2 text-sm font-bold hover:bg-slate-50"
+          >
+            <Brush className="w-4 h-4" /> {t("Cleanup", "ক্লিনআপ")}
+          </button>
+        </div>
+      </div>
 
         {loading ? (
           <div className="py-20 grid place-items-center"><Loader2 className="w-6 h-6 animate-spin text-slate-400" /></div>
@@ -166,10 +150,10 @@ function RateLimitsPage() {
             {grouped.map(([category, rows]) => {
               const meta = CATEGORY_META[category] ?? { en: category, bn: category, tint: "bg-slate-100 text-slate-700", ring: "ring-slate-200" };
               return (
-                <section key={category} className="rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden">
-                  <header className="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
-                    <span className="w-1.5 h-6 rounded-full bg-violet-600" />
-                    <h2 className="font-bold text-slate-900">{t(meta.en, meta.bn)}</h2>
+                <section key={category} className="rounded-[24px] bg-white border border-[#E4E7EF] overflow-hidden" style={{ boxShadow: "0 4px 24px rgba(109,74,255,0.04)" }}>
+                  <header className="px-5 py-4 border-b border-[#E4E7EF] flex items-center gap-3" style={{ background: "rgba(243,238,251,0.2)" }}>
+                    <span className="w-1.5 h-6 rounded-full" style={{ background: "#6D4AFF" }} />
+                    <h2 className="font-extrabold text-[#15192C]">{t(meta.en, meta.bn)}</h2>
                     <span className={`ml-auto text-[11px] font-bold px-2.5 py-1 rounded-full ring-1 ${meta.tint} ${meta.ring}`}>
                       {rows.length} {t("rules", "নিয়ম")}
                     </span>
@@ -210,7 +194,8 @@ function RateLimitsPage() {
                           <button
                             onClick={() => onSave(r)}
                             disabled={savingKey === r.key}
-                            className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-violet-600 text-white px-3.5 py-2 text-xs font-bold shadow hover:bg-violet-700 disabled:opacity-60"
+                            className="shrink-0 inline-flex items-center gap-2 rounded-xl text-white px-3.5 py-2 text-xs font-bold shadow hover:opacity-90 disabled:opacity-60"
+                            style={{ background: "#6D4AFF" }}
                           >
                             {savingKey === r.key ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
                             {t("Save", "সেভ")}
@@ -264,7 +249,6 @@ function RateLimitsPage() {
             )}
           </div>
         )}
-      </div>
     </div>
   );
 }
