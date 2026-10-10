@@ -270,7 +270,7 @@ function CheckoutPage() {
     setErr(null);
     setBusy(true);
     try {
-      const created = await submitOrder({
+        const created = await submitOrder({
         data: {
           full_name: form.name,
           email: form.email,
@@ -280,7 +280,7 @@ function CheckoutPage() {
           payment_screenshot_url: screenshotUrl || null,
           items: items.map((it) => ({
             slug: it.slug,
-            planPeriod: it.planPeriod,
+            planPeriod: it.planPeriod || "Standard Plan",
             qty: it.qty,
           })),
           coupon_code: applied.valid && applied.code ? applied.code : null,
@@ -586,20 +586,21 @@ function CheckoutPage() {
                 <button
                   onClick={handleSubmit}
                   disabled={busy || (isWalletMethod && walletInsufficient) || (!isGatewayMethod && !isWalletMethod && (!form.trxId || !form.senderNumber))}
-                  className="group relative h-16 w-full rounded-2xl text-white text-base font-black uppercase tracking-[0.2em] overflow-hidden transition-all hover:shadow-xl active:scale-[0.98] disabled:opacity-50"
-                  style={{ background: CTA_GRADIENT }}
+                  className="group relative h-16 w-full rounded-[1.25rem] text-white text-[15px] font-black uppercase tracking-[0.15em] overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-2xl active:scale-[0.98] disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none"
+                  style={{ background: CTA_GRADIENT, boxShadow: "0 10px 30px -10px rgba(99, 102, 241, 0.6)" }}
                 >
+                  <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="relative z-10 flex items-center justify-center gap-3">
                     {busy ? (
                       <Loader2 className="w-6 h-6 animate-spin" />
                     ) : (
                       <>
-                        <Lock className="w-5 h-5" />
-                        Complete Order • {format(grandTotal)}
+                        <Lock className="w-5 h-5 mb-0.5" />
+                        <span>Complete Order <span className="opacity-60 mx-2">•</span> {format(grandTotal)}</span>
                       </>
                     )}
                   </div>
-                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute inset-0 border border-white/20 rounded-[1.25rem] pointer-events-none" />
                 </button>
                 <div className="mt-8 flex flex-col items-center gap-4">
                   <div className="flex flex-wrap items-center justify-center gap-6 opacity-40 grayscale">

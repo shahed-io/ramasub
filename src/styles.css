@@ -407,43 +407,45 @@
 
   .floating-field-container {
     position: relative;
-    padding-top: 18px;
-    border-bottom: 2px solid #0f172a; /* Slate 950 for high contrast */
-    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    padding-top: 12px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    transition: all 0.25s ease;
   }
   .floating-field-container:focus-within {
     border-color: #7c3aed;
-    box-shadow: 0 8px 18px -14px rgba(124, 58, 237, 0.55);
+    background: #ffffff;
+    box-shadow: 0 8px 24px -12px rgba(124, 58, 237, 0.4);
   }
   .floating-field-container.field-error {
-    border-color: rgba(239, 68, 68, 0.55);
+    border-color: rgba(239, 68, 68, 0.8);
+    background: #fef2f2;
   }
   .floating-label {
     position: absolute;
-    left: 2px;
-    top: 30px;
+    left: 16px;
+    top: 20px;
     font-size: 14px;
     font-weight: 600;
-    color: #0f172a; /* Slate 950 - pure contrast */
+    color: #64748b;
     pointer-events: none;
     transition: transform 0.25s ease, color 0.25s ease;
     transform-origin: left top;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
     white-space: nowrap;
   }
   .floating-input {
     width: 100%;
-    height: 46px;
+    height: 44px;
     background: transparent !important;
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
-    border-radius: 0 !important;
+    border-radius: 16px !important;
     font-size: 16px;
     font-weight: 700;
-    color: #0f172a; /* Slate 950 - pure contrast */
-    padding: 4px 34px 4px 2px;
+    color: #0f172a;
+    padding: 2px 34px 10px 16px;
   }
   .floating-input:focus,
   .floating-input:focus-visible {
@@ -452,16 +454,17 @@
   }
   .floating-input:focus ~ .floating-label,
   .floating-input:not(:placeholder-shown) ~ .floating-label {
-    transform: translateY(-26px) scale(0.72);
-    color: #6d28d9; /* Violet 700 - darker violet for focus */
-    font-weight: 800;
+    transform: translateY(-12px) scale(0.75);
+    color: #7c3aed;
+    font-weight: 700;
   }
   .floating-field-icon {
     position: absolute;
-    right: 2px;
-    bottom: 12px;
-    width: 18px; /* Slightly larger */
-    height: 18px;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
     pointer-events: none;
     transition: color 0.25s ease;
   }
