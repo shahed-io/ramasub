@@ -205,17 +205,17 @@ function AdminDashboard() {
       label: t("TODAY'S SALES", "আজকের সেল"),
       value: fmtBDT(stats.todayRev),
       Icon: TrendingUp,
-      iconGrad: "from-indigo-500 to-purple-600",
-      bgGrad: "rgba(255, 255, 255, 1)",
-      borderColor: "rgba(226, 232, 240, 0.8)",
+      iconGrad: "from-violet-600 to-indigo-600",
+      bgGrad: "#ffffff",
+      borderColor: "#E4E7EF",
     },
     {
       label: t("THIS MONTH REVENUE", "এই মাসের আয়"),
       value: fmtBDT(stats.monthRev),
       Icon: DollarSign,
-      iconGrad: "from-purple-500 to-indigo-600",
-      bgGrad: "rgba(255, 255, 255, 1)",
-      borderColor: "rgba(226, 232, 240, 0.8)",
+      iconGrad: "from-violet-500 to-purple-600",
+      bgGrad: "#ffffff",
+      borderColor: "#E4E7EF",
       delta: stats.monthDelta,
       sub: t("vs last month", "গত মাসের তুলনায়"),
     },
@@ -224,16 +224,16 @@ function AdminDashboard() {
       value: fmtBDT(stats.yearRev),
       Icon: TrendingUp,
       iconGrad: "from-emerald-500 to-teal-600",
-      bgGrad: "rgba(255, 255, 255, 1)",
-      borderColor: "rgba(226, 232, 240, 0.8)",
+      bgGrad: "#ffffff",
+      borderColor: "#E4E7EF",
     },
     {
       label: t("TOTAL REVENUE (ALL)", "মোট আয় (সব)"),
       value: fmtBDT(stats.revenue),
       Icon: Wallet,
       iconGrad: "from-amber-500 to-orange-500",
-      bgGrad: "rgba(255, 255, 255, 1)",
-      borderColor: "rgba(226, 232, 240, 0.8)",
+      bgGrad: "#ffffff",
+      borderColor: "#E4E7EF",
     },
   ];
 
@@ -242,9 +242,9 @@ function AdminDashboard() {
       label: t("TOTAL ORDERS", "মোট অর্ডার"),
       value: counts.orders.toLocaleString("en-IN"),
       Icon: ShoppingCart,
-      iconGrad: "from-indigo-500 to-purple-600",
-      bgGrad: "rgba(255, 255, 255, 1)",
-      borderColor: "rgba(226, 232, 240, 0.8)",
+      iconGrad: "from-violet-600 to-indigo-600",
+      bgGrad: "#ffffff",
+      borderColor: "#E4E7EF",
       delta: stats.totalOrders > 0 ? Math.round((stats.delivered / stats.totalOrders) * 100) : 0,
       sub: t("delivered", "সম্পন্ন"),
     },
@@ -253,40 +253,40 @@ function AdminDashboard() {
       value: stats.pending.toString(),
       Icon: Clock,
       iconGrad: "from-amber-500 to-yellow-600",
-      bgGrad: "rgba(255, 255, 255, 1)",
-      borderColor: "rgba(226, 232, 240, 0.8)",
+      bgGrad: "#ffffff",
+      borderColor: "#E4E7EF",
     },
     {
       label: t("PAYMENT PENDING", "পেমেন্ট অপেক্ষমাণ"),
       value: stats.paymentPending.toString(),
       Icon: CreditCard,
       iconGrad: "from-orange-500 to-red-500",
-      bgGrad: "rgba(255, 255, 255, 1)",
-      borderColor: "rgba(226, 232, 240, 0.8)",
+      bgGrad: "#ffffff",
+      borderColor: "#E4E7EF",
     },
     {
       label: t("DELIVERED", "ডেলিভারড"),
       value: stats.delivered.toString(),
       Icon: CheckCircle2,
       iconGrad: "from-emerald-500 to-teal-600",
-      bgGrad: "rgba(255, 255, 255, 1)",
-      borderColor: "rgba(226, 232, 240, 0.8)",
+      bgGrad: "#ffffff",
+      borderColor: "#E4E7EF",
     },
     {
       label: t("CANCELLED", "বাতিল"),
       value: stats.cancelled.toString(),
       Icon: XCircle,
-      iconGrad: "from-rose-500 to-pink-600",
-      bgGrad: "rgba(255, 255, 255, 1)",
-      borderColor: "rgba(226, 232, 240, 0.8)",
+      iconGrad: "from-rose-500 to-red-600",
+      bgGrad: "#ffffff",
+      borderColor: "#E4E7EF",
     },
     {
       label: t("CUSTOMERS", "কাস্টমার"),
       value: counts.users.toLocaleString("en-IN"),
       Icon: UsersRound,
       iconGrad: "from-sky-500 to-blue-600",
-      bgGrad: "rgba(255, 255, 255, 1)",
-      borderColor: "rgba(226, 232, 240, 0.8)",
+      bgGrad: "#ffffff",
+      borderColor: "#E4E7EF",
     },
   ];
 
@@ -295,94 +295,109 @@ function AdminDashboard() {
       {/* Notifications banner */}
       {stats.newOrders24h > 0 && (
         <div
-          className="rounded-[20px] p-5 sm:p-6"
+          className="rounded-2xl p-4 sm:p-5"
           style={{
-            background: "rgba(255, 255, 255, 1)",
-            border: "1px solid rgba(226, 232, 240, 0.8)",
-            boxShadow: "0 10px 40px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02)",
+            background: "#ffffff",
+            border: "1px solid #E4E7EF",
+            boxShadow: "0 4px 20px rgba(109,74,255,0.06), 0 1px 3px rgba(0,0,0,0.03)",
           }}
         >
           <div className="flex items-center gap-2.5 mb-3">
-            <Bell className="w-4 h-4 text-violet-600" />
-            <h2 className="text-[15px] font-bold text-slate-800">{t("Notifications", "নোটিফিকেশন")}</h2>
-            <span className="ml-1 min-w-[20px] h-5 px-1.5 rounded-full text-[11px] font-bold grid place-items-center text-white" style={{ background: "linear-gradient(135deg, #7c3aed, #6366f1)" }}>
+            <Bell className="w-4 h-4" style={{ color: "#6D4AFF" }} />
+            <h2 className="text-[15px] font-bold" style={{ color: "#15192C" }}>{t("Notifications", "নোটিফিকেশন")}</h2>
+            <span
+              className="ml-1 min-w-[20px] h-5 px-1.5 rounded-full text-[11px] font-bold grid place-items-center text-white"
+              style={{ background: "linear-gradient(135deg, #6D4AFF, #4f46e5)" }}
+            >
               {stats.newOrders24h}
             </span>
           </div>
           <Link
             to="/Mahbub214/orders"
-            className="flex items-center gap-3 rounded-xl px-3.5 py-3 transition"
+            className="flex items-center gap-3 rounded-xl px-3.5 py-3 transition hover:opacity-90"
             style={{
-              background: "rgba(248, 250, 252, 1)",
-              border: "1px solid rgba(226, 232, 240, 0.8)",
+              background: "#EEE9FF",
+              border: "1px solid rgba(109,74,255,0.15)",
             }}
           >
-            <span className="w-9 h-9 rounded-xl grid place-items-center shrink-0 text-white" style={{ background: "linear-gradient(135deg, #7c3aed, #6366f1)", boxShadow: "0 4px 10px -4px rgba(124,58,237,0.4)" }}>
+            <span
+              className="w-9 h-9 rounded-xl grid place-items-center shrink-0 text-white"
+              style={{ background: "linear-gradient(135deg, #6D4AFF, #4f46e5)", boxShadow: "0 4px 12px -2px rgba(109,74,255,0.4)" }}
+            >
               <ShoppingCart className="w-4 h-4" />
             </span>
             <div className="min-w-0 flex-1">
-              <div className="text-[14px] font-bold text-slate-800 truncate">
+              <div className="text-[14px] font-bold truncate" style={{ color: "#15192C" }}>
                 {stats.newOrders24h} {t("new order(s) in the last 24 hours", "নতুন অর্ডার গত ২৪ ঘণ্টায়")}
               </div>
-              <div className="text-[11px] text-violet-500 mt-0.5 uppercase tracking-wider font-bold">{t("Today", "আজ")}</div>
+              <div className="text-[11px] mt-0.5 uppercase tracking-wider font-bold" style={{ color: "#6D4AFF" }}>{t("Today", "আজ")}</div>
             </div>
           </Link>
         </div>
       )}
 
-      {/* Hero Banner — Matching Image 2 Shahed Store Style */}
+      {/* Hero Banner */}
       <div
-        className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 min-w-0"
+        className="relative overflow-hidden rounded-2xl p-6 sm:p-7 min-w-0"
         style={{
-          background: "rgba(255, 255, 255, 1)",
-          border: "1px solid rgba(226, 232, 240, 0.8)",
-          boxShadow: "0 10px 40px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02)",
+          background: "#ffffff",
+          border: "1px solid #E4E7EF",
+          boxShadow: "0 4px 24px rgba(109,74,255,0.06), 0 1px 3px rgba(0,0,0,0.03)",
         }}
       >
-        {/* Gloss highlight */}
-        <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent)" }} />
-
-        {/* Background decorative watermark graphics */}
-        <svg aria-hidden className="pointer-events-none absolute right-24 sm:right-44 top-1/2 -translate-y-1/2 w-64 h-28 opacity-35 text-indigo-300" viewBox="0 0 200 60" fill="none">
-          <path d="M0 45 Q 30 10, 60 35 T 120 20 T 170 38 T 200 15" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-          <path d="M0 52 Q 35 30, 70 48 T 130 35 T 180 42 T 200 28" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+        {/* Top purple accent bar */}
+        <div
+          className="absolute top-0 left-0 right-0 h-[3px] pointer-events-none"
+          style={{ background: "linear-gradient(90deg, #6D4AFF, #4f46e5, #818cf8)" }}
+        />
+        {/* Decorative blobs */}
+        <div
+          className="absolute -top-16 -right-16 w-48 h-48 rounded-full pointer-events-none blur-3xl opacity-25"
+          style={{ background: "#6D4AFF" }}
+        />
+        <svg aria-hidden className="pointer-events-none absolute right-20 sm:right-40 top-1/2 -translate-y-1/2 w-64 h-28 opacity-20" viewBox="0 0 200 60" fill="none">
+          <path d="M0 45 Q 30 10, 60 35 T 120 20 T 170 38 T 200 15" stroke="#6D4AFF" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M0 52 Q 35 30, 70 48 T 130 35 T 180 42 T 200 28" stroke="#818cf8" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
         </svg>
-        <LayoutGrid aria-hidden className="pointer-events-none absolute -right-6 -bottom-6 w-36 h-36 text-indigo-200/20 stroke-[1.2]" />
+        <LayoutGrid aria-hidden className="pointer-events-none absolute -right-6 -bottom-6 w-36 h-36 opacity-5 stroke-[1.2]" style={{ color: "#6D4AFF" }} />
 
         <div className="relative flex items-center justify-between gap-4 z-10">
           <div className="flex items-center gap-4 min-w-0">
             <div
-              className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-[20px] grid place-items-center text-white ring-1 ring-slate-800/10 bg-gradient-to-br from-slate-900 to-slate-800 shadow-[0_8px_20px_-4px_rgba(15,23,42,0.25)]"
+              className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl grid place-items-center text-white"
+              style={{
+                background: "linear-gradient(135deg, #6D4AFF 0%, #4f46e5 100%)",
+                boxShadow: "0 8px 24px -4px rgba(109,74,255,0.45), inset 0 1px 0 rgba(255,255,255,0.2)",
+              }}
             >
               <LayoutDashboard className="w-7 h-7 sm:w-8 sm:h-8" strokeWidth={2.2} />
             </div>
             <div className="min-w-0">
               <h1
-                className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900"
-                style={{
-                  fontFamily: "var(--font-heading)",
-                }}
+                className="text-2xl sm:text-3xl font-black tracking-tight"
+                style={{ fontFamily: "var(--font-heading)", color: "#15192C" }}
               >
                 Dashboard
               </h1>
-              <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1 leading-snug">
-                Overview • Manage and configure dashboard
+              <p className="text-xs sm:text-sm font-medium mt-1 leading-snug" style={{ color: "#667085" }}>
+                Overview • Real-time business snapshot
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Real-time Sub-bar matching Image 2 */}
-      <div className="flex items-center justify-between text-xs font-medium text-slate-500 px-1 pt-1">
+      {/* Real-time sub-bar */}
+      <div className="flex items-center justify-between text-xs font-medium px-1 pt-1" style={{ color: "#667085" }}>
         <div className="flex items-center gap-2">
-          <span className="text-slate-500 font-medium">{t("Real-time business snapshot", "রিয়েল-টাইম বিজনেস স্ন্যাপশট")}</span>
-          <span className="text-slate-300">•</span>
-          <span className="font-semibold text-slate-700">{new Date().toLocaleTimeString()}</span>
+          <span>{t("Real-time business snapshot", "রিয়েল-টাইম বিজনেস স্ন্যাপশট")}</span>
+          <span style={{ color: "#E4E7EF" }}>•</span>
+          <span className="font-semibold" style={{ color: "#15192C" }}>{new Date().toLocaleTimeString()}</span>
         </div>
         <button
           onClick={() => window.location.reload()}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 border border-slate-200/80 text-xs font-semibold text-slate-600 hover:text-indigo-600 hover:bg-white shadow-sm transition"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition hover:opacity-80"
+          style={{ background: "#EEE9FF", border: "1px solid rgba(109,74,255,0.18)", color: "#6D4AFF" }}
         >
           <RefreshCw className="w-3.5 h-3.5" />
           <span>{t("Refresh", "রিফ্রেশ")}</span>
@@ -413,34 +428,43 @@ function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Sales chart */}
           <div
-            className="lg:col-span-2 rounded-[20px] p-5 sm:p-7 min-w-0 overflow-hidden"
+            className="lg:col-span-2 rounded-2xl p-5 sm:p-7 min-w-0 overflow-hidden"
             style={{
-              background: "rgba(255, 255, 255, 1)",
-              border: "1px solid rgba(226, 232, 240, 0.8)",
-              boxShadow: "0 10px 40px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02)",
+              background: "#ffffff",
+              border: "1px solid #E4E7EF",
+              boxShadow: "0 4px 20px rgba(109,74,255,0.05), 0 1px 3px rgba(0,0,0,0.03)",
             }}
           >
           <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] items-start gap-4 mb-6">
             <div className="min-w-0">
-              <h3 className="text-[18px] font-extrabold text-slate-800">{t("Sales Overview", "সেল ওভারভিউ")}</h3>
+              <h3 className="text-[18px] font-extrabold" style={{ color: "#15192C" }}>{t("Sales Overview", "সেল ওভারভিউ")}</h3>
               {stats.monthDelta !== 0 && (
-                <div className={`mt-1 text-[12px] font-semibold inline-flex items-center gap-1 ${stats.monthDelta >= 0 ? "text-violet-600" : "text-rose-500"}`}>
+                <div
+                  className="mt-1 text-[12px] font-semibold inline-flex items-center gap-1 px-2 py-0.5 rounded-full"
+                  style={{
+                    color: stats.monthDelta >= 0 ? "#15803D" : "#DC2626",
+                    background: stats.monthDelta >= 0 ? "rgba(21,128,61,0.08)" : "rgba(220,38,38,0.08)",
+                  }}
+                >
                   {stats.monthDelta >= 0 ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
                   {Math.abs(stats.monthDelta)}% {t("revenue growth vs last month", "আয় বেড়েছে গত মাসের তুলনায়")}
                 </div>
               )}
             </div>
-            <div className="shrink-0 inline-flex w-full sm:w-auto rounded-xl p-1 text-[11.5px] font-bold overflow-x-auto bg-slate-100/80 border border-slate-200/80">
+            <div
+              className="shrink-0 inline-flex w-full sm:w-auto rounded-xl p-1 text-[11.5px] font-bold overflow-x-auto"
+              style={{ background: "#F6F7FB", border: "1px solid #E4E7EF" }}
+            >
               {(["daily", "weekly", "monthly"] as Period[]).map((p) => (
                 <button
                   key={p}
                   onClick={() => setPeriod(p)}
                   className="px-3 py-1 rounded-lg transition shrink-0 flex-1 sm:flex-none"
                   style={period === p ? {
-                    background: "#0f172a",
+                    background: "#6D4AFF",
                     color: "#ffffff",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
-                  } : { color: "#64748b" }}
+                    boxShadow: "0 2px 8px rgba(109,74,255,0.3)",
+                  } : { color: "#667085" }}
                 >
                   {t(p[0].toUpperCase() + p.slice(1), p === "daily" ? "দৈনিক" : p === "weekly" ? "সাপ্তাহিক" : "মাসিক")}
                 </button>
@@ -465,23 +489,23 @@ function AdminDashboard() {
               <svg viewBox={`0 0 ${W} ${H + 28}`} className="w-full h-56 mt-4">
                 <defs>
                   <linearGradient id="salesGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.35" />
-                    <stop offset="100%" stopColor="#7c3aed" stopOpacity="0" />
+                    <stop offset="0%" stopColor="#6D4AFF" stopOpacity="0.30" />
+                    <stop offset="100%" stopColor="#6D4AFF" stopOpacity="0" />
                   </linearGradient>
                 </defs>
                 {/* Horizontal grid */}
                 {[0.25, 0.5, 0.75].map((p, i) => (
                   <line key={i} x1="0" x2={W} y1={H - p * (H - 20) - 10} y2={H - p * (H - 20) - 10}
-                    stroke="#e2e8f0" strokeDasharray="3 4" strokeWidth="1" />
+                    stroke="#E4E7EF" strokeDasharray="3 4" strokeWidth="1" />
                 ))}
                 <path d={area} fill="url(#salesGrad)" />
-                <path d={d} fill="none" stroke="#7c3aed" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d={d} fill="none" stroke="#6D4AFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 {pts.map(([x, y], i) => (
-                  <circle key={i} cx={x} cy={y} r="3" fill="#fff" stroke="#7c3aed" strokeWidth="2" />
+                  <circle key={i} cx={x} cy={y} r="3.5" fill="#fff" stroke="#6D4AFF" strokeWidth="2.5" />
                 ))}
                 {chart.map((s, i) => (
                   (i % labelEvery === 0 || i === chart.length - 1) && (
-                    <text key={i} x={i * step} y={H + 22} textAnchor="middle" className="fill-slate-400" style={{ fontSize: 10.5, fontWeight: 600 }}>
+                    <text key={i} x={i * step} y={H + 22} textAnchor="middle" fill="#667085" style={{ fontSize: 10.5, fontWeight: 600 }}>
                       {s.label}
                     </text>
                   )
@@ -493,44 +517,52 @@ function AdminDashboard() {
 
         {/* Best Selling Products */}
         <div
-          className="rounded-[20px] p-5 sm:p-7"
+          className="rounded-2xl p-5 sm:p-7"
           style={{
-            background: "rgba(255, 255, 255, 1)",
-            border: "1px solid rgba(226, 232, 240, 0.8)",
-            boxShadow: "0 10px 40px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02)",
+            background: "#ffffff",
+            border: "1px solid #E4E7EF",
+            boxShadow: "0 4px 20px rgba(109,74,255,0.05), 0 1px 3px rgba(0,0,0,0.03)",
           }}
         >
           <div className="flex items-center gap-2 mb-4">
-            <span className="w-1.5 h-4.5 bg-indigo-600 rounded-full inline-block" />
+            <span className="w-1.5 h-5 rounded-full inline-block" style={{ background: "linear-gradient(to bottom, #6D4AFF, #4f46e5)" }} />
             <div className="min-w-0 flex-1">
-              <h3 className="text-base font-extrabold text-slate-900 tracking-wider uppercase">{t("Best Selling Products", "বেস্ট সেলিং প্রোডাক্ট")}</h3>
+              <h3 className="text-base font-extrabold tracking-wider uppercase" style={{ color: "#15192C" }}>{t("Best Selling Products", "বেস্ট সেলিং প্রোডাক্ট")}</h3>
             </div>
-            <Link to="/Mahbub214/products" className="shrink-0 text-xs font-semibold text-violet-600 hover:text-violet-700 inline-flex items-center gap-0.5 transition">
+            <Link
+              to="/Mahbub214/products"
+              className="shrink-0 text-xs font-semibold inline-flex items-center gap-0.5 transition hover:opacity-80"
+              style={{ color: "#6D4AFF" }}
+            >
               {t("All", "সব")} <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
           {topProducts.length === 0 ? (
-            <div className="text-sm text-slate-400 text-center py-12">{t("No sales yet", "এখনও কোনো সেল নেই")}</div>
+            <div className="text-sm text-center py-12" style={{ color: "#667085" }}>{t("No sales yet", "এখনও কোনো সেল নেই")}</div>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {topProducts.map((p, i) => (
-                <div key={p.name + i} className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 py-2 rounded-xl px-2 transition" style={{ background: i % 2 === 0 ? "rgba(248,250,255,0.6)" : "transparent" }}>
-                  <span className="w-7 text-[12px] font-black text-violet-400 tabular-nums">#{i + 1}</span>
+                <div
+                  key={p.name + i}
+                  className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 py-2 rounded-xl px-2 transition"
+                  style={{ background: i % 2 === 0 ? "rgba(238,233,255,0.35)" : "transparent" }}
+                >
+                  <span className="w-7 text-[12px] font-black tabular-nums" style={{ color: "#6D4AFF" }}>#{i + 1}</span>
                   <div className="min-w-0">
-                    <div className="text-[13px] font-bold text-slate-800 truncate">{p.name}</div>
-                    <div className="text-[11px] font-semibold text-slate-400 tabular-nums">{p.sold} {t("sold", "বিক্রি")}</div>
+                    <div className="text-[13px] font-bold truncate" style={{ color: "#15192C" }}>{p.name}</div>
+                    <div className="text-[11px] font-semibold tabular-nums" style={{ color: "#667085" }}>{p.sold} {t("sold", "বিক্রি")}</div>
                   </div>
-                  <div className="text-[12px] font-bold text-violet-700 tabular-nums shrink-0">{fmtBDT(p.revenue)}</div>
+                  <div className="text-[12px] font-bold tabular-nums shrink-0" style={{ color: "#6D4AFF" }}>{fmtBDT(p.revenue)}</div>
                 </div>
               ))}
             </div>
           )}
 
           {/* Conversion Stats */}
-          <div className="mt-6 pt-5" style={{ borderTop: "1px solid rgba(224,231,255,0.6)" }}>
+          <div className="mt-6 pt-5" style={{ borderTop: "1px solid #E4E7EF" }}>
             <div className="flex items-center gap-2 mb-3">
-              <span className="w-1.5 h-4.5 bg-indigo-600 rounded-full inline-block" />
-              <h4 className="text-sm font-extrabold text-slate-900 tracking-wider uppercase">{t("Conversion Stats", "কনভার্শন স্ট্যাটস")}</h4>
+              <span className="w-1.5 h-5 rounded-full inline-block" style={{ background: "linear-gradient(to bottom, #6D4AFF, #4f46e5)" }} />
+              <h4 className="text-sm font-extrabold tracking-wider uppercase" style={{ color: "#15192C" }}>{t("Conversion Stats", "কনভার্শন স্ট্যাটস")}</h4>
             </div>
             <div className="space-y-2.5">
               <ConvRow label={t("Total Orders", "মোট অর্ডার")} value={counts.orders.toLocaleString("en-IN")} Icon={ShoppingCart} color="violet" />
@@ -548,8 +580,8 @@ function AdminDashboard() {
 function SectionHeader({ title }: { title: string }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="w-1.5 h-4.5 bg-slate-900 rounded-full inline-block" />
-      <h2 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-wider uppercase">
+      <span className="w-1.5 h-5 rounded-full inline-block" style={{ background: "linear-gradient(to bottom, #6D4AFF, #4f46e5)" }} />
+      <h2 className="text-sm sm:text-base font-extrabold tracking-wider uppercase" style={{ color: "#15192C" }}>
         {title}
       </h2>
     </div>
@@ -561,45 +593,59 @@ function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compac
 
   return (
     <div
-      className={`relative overflow-hidden rounded-[20px] ${compact ? "p-5" : "p-6"} transition-all duration-200 hover:-translate-y-0.5`}
+      className={`relative overflow-hidden rounded-2xl ${compact ? "p-4" : "p-5"} transition-all duration-200 hover:-translate-y-0.5`}
       style={{
-        background: kpi.bgGrad || "rgba(255, 255, 255, 1)",
-        border: `1px solid ${kpi.borderColor || "rgba(226, 232, 240, 0.8)"}`,
-        boxShadow: "0 10px 40px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02)",
+        background: kpi.bgGrad || "#ffffff",
+        border: `1px solid ${kpi.borderColor || "#E4E7EF"}`,
+        boxShadow: "0 4px 20px rgba(109,74,255,0.04), 0 1px 3px rgba(0,0,0,0.03)",
       }}
     >
-      {/* Top gloss line */}
-      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent)" }} />
+      {/* Purple top accent */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none rounded-t-2xl"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(109,74,255,0.4), transparent)" }}
+      />
       <div className="relative">
         <div className="flex items-start justify-between gap-2">
           <span
             className={`w-10 h-10 rounded-xl grid place-items-center text-white shrink-0 bg-gradient-to-br ${kpi.iconGrad}`}
-            style={{ boxShadow: "0 6px 14px -3px rgba(124,58,237,0.32), inset 0 1px 0 rgba(255,255,255,0.3)" }}
+            style={{ boxShadow: "0 4px 14px -3px rgba(109,74,255,0.30), inset 0 1px 0 rgba(255,255,255,0.25)" }}
           >
             <Icon className="w-4.5 h-4.5" strokeWidth={2.3} />
           </span>
           {typeof kpi.delta === "number" && kpi.delta !== 0 && (
             <span
-              className={`shrink-0 inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                kpi.delta >= 0 ? "text-rose-500 bg-rose-50/90 border border-rose-200/80" : "text-emerald-600 bg-emerald-50/90 border border-emerald-200/80"
-              }`}
+              className="shrink-0 inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold"
+              style={{
+                color: kpi.delta >= 0 ? "#15803D" : "#DC2626",
+                background: kpi.delta >= 0 ? "rgba(21,128,61,0.08)" : "rgba(220,38,38,0.08)",
+                border: `1px solid ${kpi.delta >= 0 ? "rgba(21,128,61,0.15)" : "rgba(220,38,38,0.15)"}`,
+              }}
             >
               {kpi.delta >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
               {Math.abs(kpi.delta)}%
             </span>
           )}
         </div>
-        <div className={`${compact ? "mt-5" : "mt-6"} text-[10.5px] font-extrabold text-slate-400 tracking-wider uppercase truncate`}>
+        <div
+          className={`${compact ? "mt-4" : "mt-5"} text-[10px] font-extrabold tracking-wider uppercase truncate`}
+          style={{ color: "#667085" }}
+        >
           {kpi.label}
         </div>
         <div
-          className={`mt-0.5 ${compact ? "text-[22px]" : "text-[26px] sm:text-[30px]"} font-black tracking-tight tabular-nums truncate text-slate-900`}
-          style={{ fontFamily: "var(--font-heading)" }}
+          className={`mt-0.5 ${compact ? "text-[22px]" : "text-[26px] sm:text-[29px]"} font-black tracking-tight tabular-nums truncate`}
+          style={{ fontFamily: "var(--font-heading)", color: "#15192C" }}
         >
-          {loading ? <span className="inline-block w-20 h-7 rounded-lg animate-pulse" style={{ background: "rgba(237,233,254,0.6)" }} /> : kpi.value}
+          {loading ? (
+            <span
+              className="inline-block w-20 h-7 rounded-lg animate-pulse"
+              style={{ background: "rgba(238,233,255,0.6)" }}
+            />
+          ) : kpi.value}
         </div>
         {kpi.sub && !loading && (
-          <div className="mt-1 text-[11px] font-medium text-slate-400 truncate">{kpi.sub}</div>
+          <div className="mt-1 text-[11px] font-medium truncate" style={{ color: "#667085" }}>{kpi.sub}</div>
         )}
       </div>
     </div>
@@ -608,10 +654,10 @@ function KpiCard({ kpi, loading, compact }: { kpi: any; loading: boolean; compac
 
 function ConvRow({ label, value, Icon, color }: { label: string; value: string; Icon: any; color: "violet" | "emerald" | "sky" | "orange" }) {
   const map = {
-    violet: { bg: "rgba(237,233,254,0.7)", text: "#7c3aed", border: "rgba(167,139,250,0.25)" },
-    emerald: { bg: "rgba(209,250,229,0.7)", text: "#059669", border: "rgba(52,211,153,0.25)" },
-    sky: { bg: "rgba(224,242,254,0.7)", text: "#0284c7", border: "rgba(56,189,248,0.25)" },
-    orange: { bg: "rgba(255,237,213,0.7)", text: "#c2410c", border: "rgba(251,146,60,0.25)" },
+    violet: { bg: "rgba(238,233,255,0.7)", text: "#6D4AFF", border: "rgba(109,74,255,0.18)" },
+    emerald: { bg: "rgba(21,128,61,0.08)", text: "#15803D", border: "rgba(21,128,61,0.18)" },
+    sky: { bg: "rgba(14,165,233,0.08)", text: "#0284c7", border: "rgba(14,165,233,0.20)" },
+    orange: { bg: "rgba(180,83,9,0.08)", text: "#B45309", border: "rgba(180,83,9,0.18)" },
   } as const;
   const s = map[color];
   return (
@@ -622,8 +668,8 @@ function ConvRow({ label, value, Icon, color }: { label: string; value: string; 
       >
         <Icon className="w-3.5 h-3.5" />
       </span>
-      <div className="min-w-0 flex-1 text-[12.5px] font-semibold text-slate-600 truncate">{label}</div>
-      <div className="text-[13px] font-bold tabular-nums shrink-0" style={{ color: "#1e1b4b" }}>{value}</div>
+      <div className="min-w-0 flex-1 text-[12.5px] font-semibold truncate" style={{ color: "#667085" }}>{label}</div>
+      <div className="text-[13px] font-bold tabular-nums shrink-0" style={{ color: "#15192C" }}>{value}</div>
     </div>
   );
 }

@@ -45,11 +45,7 @@ async function withAdminTimeout<T>(promise: PromiseLike<T>): Promise<T> {
   }
 }
 
-// Legacy splash/loader cache keys written by earlier versions. We scrub these
-// on every admin mount so any stale "splash seen" / "boot" flag is wiped from
-// localStorage and the splash can never reappear.
-// NOTE: ADMIN_CACHE_KEY is intentionally NOT included — we keep it so the
-// shell can render optimistically while re-verifying in the background.
+// Legacy splash/loader cache keys written by earlier versions.
 const LEGACY_SPLASH_KEYS = [
   "anbd:adminSplashSeen",
   "anbd:adminBoot",
@@ -76,12 +72,6 @@ function readCachedAdmin(): boolean {
 function AdminLayout() {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
-  // Secret-URL gate: /admin only opens if the user came in via /Mahbub214
-  // (which sets a sessionStorage flag). Otherwise show a 404 page.
-  // `null` = still checking on mount (SSR-safe), true/false after hydration.
-  // Initialize from localStorage synchronously so a returning admin sees the
-  // shell on first paint (no blocking spinner). Safe here because the route
-  // is `ssr: false` — this component never runs on the server.
   const [cachedAdmin, setCachedAdmin] = useState<boolean>(() => readCachedAdmin());
   const [isAdmin, setIsAdmin] = useState<boolean>(() => readCachedAdmin());
   const [verified, setVerified] = useState<boolean>(() => readCachedAdmin());
@@ -98,10 +88,7 @@ function AdminLayout() {
     purgeLegacySplashFlags();
   }, []);
 
-
-
-  // Admin panel is always light/white themed regardless of the user-selected
-  // site theme. Force `theme-white` on <html> while mounted, then restore on unmount.
+  // Admin panel uses its own design system — force theme-white on <html>
   useEffect(() => {
     if (typeof document === "undefined") return;
     const root = document.documentElement;
@@ -171,10 +158,6 @@ function AdminLayout() {
     return () => { cancelled = true; };
   }, [user, loading, verifyRole]);
 
-
-  // Optimistic render: if we have a cached admin flag, skip all blocking
-  // spinners and render the shell immediately. Background verification still
-  // runs and will redirect/deny if the cached flag is stale.
   if (loading && !cachedAdmin) {
     return <AdminBlankState />;
   }
@@ -187,28 +170,35 @@ function AdminLayout() {
     return <AdminBlankState />;
   }
 
-
-
   if (!isAdmin && verified) {
     return (
-      <div className="min-h-screen grid place-items-center bg-[#f6f7fb] px-4 py-10">
-        <div className="max-w-md w-full bg-white border border-slate-200 rounded-2xl p-8 shadow-sm text-center">
-          <div className="mx-auto w-14 h-14 rounded-full bg-rose-50 text-rose-600 grid place-items-center mb-4">
+      <div className="min-h-screen grid place-items-center px-4 py-10" style={{ background: "#F6F7FB" }}>
+        <div
+          className="max-w-md w-full rounded-2xl p-8 text-center"
+          style={{
+            background: "rgba(255,255,255,0.9)",
+            border: "1px solid #E4E7EF",
+            boxShadow: "0 8px 32px rgba(109,74,255,0.08), 0 1px 3px rgba(0,0,0,0.04)",
+            backdropFilter: "blur(20px)",
+          }}
+        >
+          <div className="mx-auto w-14 h-14 rounded-full grid place-items-center mb-4" style={{ background: "rgba(220,38,38,0.1)", color: "#DC2626" }}>
             <ShieldAlert className="w-7 h-7" />
           </div>
-          <h1 className="text-xl font-semibold text-slate-900">Access denied</h1>
-          <p className="text-sm text-slate-600 mt-2">
+          <h1 className="text-xl font-semibold" style={{ color: "#15192C" }}>Access denied</h1>
+          <p className="text-sm mt-2" style={{ color: "#667085" }}>
             আপনার এই পেজ দেখার অনুমতি নেই।
           </p>
           <div className="mt-6 flex flex-wrap gap-2 justify-center">
-            <Link to="/" className="h-10 px-5 inline-flex items-center rounded-full border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50">Home</Link>
+            <Link to="/" className="h-10 px-5 inline-flex items-center rounded-full text-sm font-semibold transition-all hover:opacity-80" style={{ border: "1px solid #E4E7EF", color: "#15192C", background: "#fff" }}>Home</Link>
             <button
               onClick={async () => {
                 try { localStorage.removeItem(ADMIN_CACHE_KEY); } catch {}
                 await signOut();
                 navigate({ to: "/login" });
               }}
-              className="h-10 px-5 inline-flex items-center gap-1.5 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800"
+              className="h-10 px-5 inline-flex items-center gap-1.5 rounded-full text-white text-sm font-semibold transition-all hover:opacity-90"
+              style={{ background: "linear-gradient(135deg, #6D4AFF 0%, #4f46e5 100%)" }}
             >
               <LogOut className="w-4 h-4" /> Sign out
             </button>
@@ -218,8 +208,6 @@ function AdminLayout() {
     );
   }
 
-
-  // MFA gate: requires Authenticator code OR email OTP fallback before admin shell renders.
   return (
     <AdminLangProvider>
       <AdminMfaGate
@@ -238,25 +226,33 @@ function AdminLayout() {
 
 function AdminBlankState() {
   return (
-    <div className="min-h-screen grid place-items-center bg-[#fafafa]" role="status" aria-label="Loading admin panel">
+    <div className="min-h-screen grid place-items-center" style={{ background: "#F6F7FB" }} role="status" aria-label="Loading admin panel">
       <div className="flex flex-col items-center gap-5">
         {/* Logo with animated gradient ring */}
-        <div className="relative w-16 h-16">
+        <div className="relative w-20 h-20">
           <div className="admin-loader-ring" />
           <div className="absolute inset-0 grid place-items-center">
-            <img
-              src={ramaSubLogo}
-              alt=""
-              className="w-10 h-10 object-contain admin-loader-logo"
-              draggable={false}
-            />
+            <div
+              className="w-14 h-14 rounded-2xl grid place-items-center"
+              style={{
+                background: "linear-gradient(135deg, #6D4AFF 0%, #4f46e5 100%)",
+                boxShadow: "0 8px 24px rgba(109,74,255,0.4)",
+              }}
+            >
+              <img
+                src={ramaSubLogo}
+                alt=""
+                className="w-8 h-8 object-contain admin-loader-logo"
+                draggable={false}
+              />
+            </div>
           </div>
         </div>
 
         {/* Animated text */}
         <div className="flex flex-col items-center gap-2">
-          <span className="text-sm font-semibold text-slate-700 tracking-wide">Rama Sub</span>
-          <span className="text-xs text-slate-400 font-medium tracking-wide">Loading admin panel</span>
+          <span className="text-sm font-bold tracking-wide" style={{ color: "#15192C" }}>Rama Sub</span>
+          <span className="text-xs font-medium tracking-wide" style={{ color: "#667085" }}>Loading admin panel…</span>
         </div>
 
         {/* Animated progress bars */}
@@ -272,25 +268,32 @@ function AdminBlankState() {
 
 function AdminNotFound() {
   return (
-    <div className="min-h-screen grid place-items-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-4">
+    <div className="min-h-screen grid place-items-center px-4" style={{ background: "#F6F7FB" }}>
       <div className="max-w-md w-full text-center">
         <div className="relative mx-auto w-28 h-28 mb-6">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-rose-100 to-orange-100 blur-xl opacity-70" />
-          <div className="relative w-full h-full rounded-full bg-white shadow-lg ring-1 ring-slate-200 grid place-items-center">
-            <Frown className="w-14 h-14 text-rose-500" strokeWidth={1.6} />
+          <div className="absolute inset-0 rounded-full blur-xl opacity-70" style={{ background: "linear-gradient(135deg, #EEE9FF, #6D4AFF33)" }} />
+          <div
+            className="relative w-full h-full rounded-full grid place-items-center"
+            style={{ background: "#fff", border: "1px solid #E4E7EF", boxShadow: "0 8px 32px rgba(109,74,255,0.12)" }}
+          >
+            <Frown className="w-14 h-14" style={{ color: "#DC2626" }} strokeWidth={1.6} />
           </div>
         </div>
-        <div className="text-[80px] leading-none font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-rose-500 via-sky-500 to-indigo-500">
+        <div
+          className="text-[80px] leading-none font-black tracking-tight bg-clip-text text-transparent"
+          style={{ backgroundImage: "linear-gradient(90deg, #6D4AFF 0%, #4f46e5 50%, #DC2626 100%)" }}
+        >
           404
         </div>
-        <h1 className="mt-2 text-2xl font-bold text-slate-900">Page Not Found</h1>
-        <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-          দুঃখিত! আপনি যে পেজটি খুঁজছেন সেটি খুঁজে পাওয়া যায়নি। লিঙ্কটি ভুল হতে পারে অথবা পেজটি সরিয়ে ফেলা হয়েছে।
+        <h1 className="mt-2 text-2xl font-bold" style={{ color: "#15192C" }}>Page Not Found</h1>
+        <p className="mt-2 text-sm leading-relaxed" style={{ color: "#667085" }}>
+          দুঃখিত! আপনি যে পেজটি খুঁজছেন সেটি খুঁজে পাওয়া যায়নি।
         </p>
         <div className="mt-7 flex items-center justify-center">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 h-12 px-7 rounded-full bg-gradient-to-r from-indigo-600 via-sky-600 to-rose-500 text-white font-semibold text-sm shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all"
+            className="inline-flex items-center gap-2 h-12 px-7 rounded-full text-white font-semibold text-sm transition-all hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0"
+            style={{ background: "linear-gradient(135deg, #6D4AFF 0%, #4f46e5 100%)", boxShadow: "0 8px 24px rgba(109,74,255,0.35)" }}
           >
             <Home className="w-4 h-4" />
             Back to Homepage
@@ -303,7 +306,6 @@ function AdminNotFound() {
 
 
 function AdminShell({ user, signOut, navigate }: any) {
-
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -335,17 +337,27 @@ function AdminShell({ user, signOut, navigate }: any) {
   }, [pathname]);
 
   return (
-    <div className="admin-shell admin-clarity min-h-[100dvh] w-full overflow-x-hidden lg:h-[100dvh] lg:overflow-hidden flex relative font-['Inter',ui-sans-serif,system-ui] text-slate-900" style={{ background: "#f6f7fb" }}>
-      {/* Ambient background blobs for subtle glossy feel */}
+    <div
+      className="admin-shell min-h-[100dvh] w-full overflow-x-hidden lg:h-[100dvh] lg:overflow-hidden flex relative font-['Inter',ui-sans-serif,system-ui]"
+      style={{ background: "#F6F7FB", color: "#15192C" }}
+    >
+      {/* Ambient glossy blobs */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
-        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full opacity-50 blur-[100px]" style={{ background: "rgba(255, 255, 255, 1)" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full opacity-40 blur-[120px]" style={{ background: "rgba(255, 255, 255, 1)" }} />
+        <div
+          className="absolute -top-60 -left-60 w-[700px] h-[700px] rounded-full opacity-30 blur-[120px]"
+          style={{ background: "radial-gradient(circle, #6D4AFF 0%, transparent 70%)" }}
+        />
+        <div
+          className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
+          style={{ background: "radial-gradient(circle, #4f46e5 0%, transparent 70%)" }}
+        />
       </div>
 
       {/* Mobile overlay */}
       {mobileOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-40 bg-slate-900/25 backdrop-blur-sm"
+          className="lg:hidden fixed inset-0 z-40 backdrop-blur-sm"
+          style={{ background: "rgba(21,25,44,0.35)" }}
           onClick={() => setMobileOpen(false)}
         />
       )}
@@ -355,34 +367,38 @@ function AdminShell({ user, signOut, navigate }: any) {
         className={[
           "shrink-0 transition-all duration-300 ease-in-out flex flex-col h-[100dvh] max-h-[100dvh] lg:relative",
           "lg:sticky lg:top-0 lg:translate-x-0 lg:z-10",
-          collapsed ? "lg:w-[76px]" : "lg:w-[264px]",
+          collapsed ? "lg:w-[78px]" : "lg:w-[270px]",
           "fixed top-0 left-0 z-50 w-[min(22rem,92vw)]",
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         ].join(" ")}
         style={{
-          background: "rgba(255, 255, 255, 0.95)",
-          borderRight: "1px solid rgba(226, 232, 240, 0.8)",
-          boxShadow: "0 0 30px rgba(0,0,0,0.03)",
-          backdropFilter: "blur(20px)",
+          background: "rgba(255,255,255,0.97)",
+          borderRight: "1px solid #E4E7EF",
+          boxShadow: "4px 0 32px rgba(109,74,255,0.06)",
+          backdropFilter: "blur(24px)",
         }}
       >
-        {/* Top gloss line */}
-        <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,1), transparent)" }} />
+        {/* Top gloss stripe */}
+        <div
+          className="absolute top-0 left-0 right-0 h-[3px] pointer-events-none"
+          style={{ background: "linear-gradient(90deg, #6D4AFF, #4f46e5, #6D4AFF)" }}
+        />
 
         {/* Brand */}
-        <div className={[
-          "border-b",
-          collapsed
-            ? "flex flex-col items-center justify-center gap-1.5 py-5 px-2"
-            : "h-[72px] flex items-center justify-between px-5",
-        ].join(" ")} style={{ borderColor: "rgba(226, 232, 240, 0.8)" }}>
-
+        <div
+          className={[
+            collapsed
+              ? "flex flex-col items-center justify-center gap-1.5 py-5 px-2"
+              : "h-[72px] flex items-center justify-between px-4",
+          ].join(" ")}
+          style={{ borderBottom: "1px solid #E4E7EF" }}
+        >
           <Link to="/Mahbub214" className={`flex items-center gap-3 min-w-0 group ${collapsed ? "justify-center" : ""}`} aria-label="Rama Sub Admin">
             <div
               className="w-10 h-10 rounded-xl grid place-items-center text-white shrink-0 group-hover:scale-105 transition-transform"
               style={{
-                background: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)",
-                boxShadow: "0 8px 20px -4px rgba(124,58,237,0.45), inset 0 1px 0 rgba(255,255,255,0.25)",
+                background: "linear-gradient(135deg, #6D4AFF 0%, #4f46e5 100%)",
+                boxShadow: "0 6px 18px -2px rgba(109,74,255,0.5), inset 0 1px 0 rgba(255,255,255,0.25)",
               }}
             >
               <ShoppingCart className="w-5 h-5" strokeWidth={2.5} />
@@ -390,22 +406,28 @@ function AdminShell({ user, signOut, navigate }: any) {
             {!collapsed && (
               <span className="leading-tight min-w-0">
                 <span
-                  className="block text-[16px] font-extrabold tracking-tight bg-clip-text text-transparent"
+                  className="block text-[15px] font-extrabold tracking-tight bg-clip-text text-transparent"
                   style={{
                     fontFamily: "'Poppins', var(--font-heading)",
-                    backgroundImage: "linear-gradient(90deg, #7c3aed 0%, #6366f1 50%, #0ea5e9 100%)",
+                    backgroundImage: "linear-gradient(90deg, #6D4AFF 0%, #4f46e5 60%, #818cf8 100%)",
                   }}
                 >
                   Rama Sub
                 </span>
-                <span className="block text-[9px] font-black uppercase tracking-[0.22em] text-slate-400 mt-0.5">Admin Console</span>
+                <span
+                  className="block text-[9px] font-black uppercase tracking-[0.22em] mt-0.5"
+                  style={{ color: "#667085" }}
+                >
+                  Admin Console
+                </span>
               </span>
             )}
           </Link>
 
           <button
             onClick={() => setMobileOpen(false)}
-            className="lg:hidden p-1.5 rounded-lg hover:bg-slate-100/80 text-slate-400"
+            className="lg:hidden p-1.5 rounded-lg transition hover:opacity-80"
+            style={{ color: "#667085" }}
             aria-label="Close menu"
           >
             <X className="w-4 h-4" />
@@ -413,9 +435,14 @@ function AdminShell({ user, signOut, navigate }: any) {
           <button
             onClick={() => setCollapsed((v) => !v)}
             className={[
-              "hidden lg:inline-flex items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition",
-              collapsed ? "w-9 h-9 ring-1 ring-slate-200 bg-white" : "w-8 h-8",
+              "hidden lg:inline-flex items-center justify-center rounded-lg transition",
+              collapsed ? "w-9 h-9" : "w-8 h-8",
             ].join(" ")}
+            style={{
+              color: "#667085",
+              background: collapsed ? "#EEE9FF" : "transparent",
+              border: collapsed ? "1px solid #E4E7EF" : "none",
+            }}
             aria-label={collapsed ? t("Expand sidebar", "সাইডবার বড় করুন") : t("Collapse sidebar", "সাইডবার ছোট করুন")}
             title={collapsed ? t("Expand sidebar", "সাইডবার বড় করুন") : t("Collapse sidebar", "সাইডবার ছোট করুন")}
           >
@@ -442,29 +469,41 @@ function AdminShell({ user, signOut, navigate }: any) {
         </nav>
 
         {/* User footer */}
-        <div className="p-4 bg-white/80" style={{ borderTop: "1px solid rgba(226, 232, 240, 0.8)" }}>
+        <div
+          className="p-3"
+          style={{ borderTop: "1px solid #E4E7EF", background: "rgba(238,233,255,0.3)" }}
+        >
           <div className={`flex items-center gap-2.5 ${collapsed ? "justify-center" : ""}`}>
             <div
-              className="w-10 h-10 rounded-full grid place-items-center text-xs font-black shrink-0 text-white"
+              className="w-9 h-9 rounded-xl grid place-items-center text-xs font-black shrink-0 text-white"
               style={{
-                background: "linear-gradient(135deg, #7c3aed 0%, #6366f1 100%)",
-                boxShadow: "0 4px 12px -4px rgba(124,58,237,0.4), inset 0 1px 0 rgba(255,255,255,0.3)",
+                background: "linear-gradient(135deg, #6D4AFF 0%, #4f46e5 100%)",
+                boxShadow: "0 4px 12px -2px rgba(109,74,255,0.45)",
               }}
             >
               {(user?.email ?? "A").slice(0, 1).toUpperCase()}
             </div>
             {!collapsed && (
               <div className="min-w-0 flex-1">
-                <div className="text-[13px] font-bold truncate text-slate-800">{t("Admin", "অ্যাডমিন")}</div>
-                <div className="text-[11px] truncate text-slate-400">{user?.email}</div>
+                <div className="text-[13px] font-bold truncate" style={{ color: "#15192C" }}>{t("Admin", "অ্যাডমিন")}</div>
+                <div className="text-[11px] truncate" style={{ color: "#667085" }}>{user?.email}</div>
               </div>
             )}
             {!collapsed && (
               <button
                 onClick={async () => { await signOut(); navigate({ to: "/login" }); }}
-                className="shrink-0 w-8 h-8 rounded-lg grid place-items-center text-slate-400 hover:bg-rose-50 hover:text-rose-500 transition"
+                className="shrink-0 w-8 h-8 rounded-lg grid place-items-center transition hover:opacity-80"
+                style={{ color: "#667085", background: "transparent" }}
                 title={t("Logout", "লগআউট")}
                 aria-label={t("Logout", "লগআউট")}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(220,38,38,0.08)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#DC2626";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#667085";
+                }}
               >
                 <LogOut className="w-4 h-4" />
               </button>
@@ -478,49 +517,62 @@ function AdminShell({ user, signOut, navigate }: any) {
 
         {/* Top bar */}
         <header
-          className="h-[68px] sticky top-0 z-20"
+          className="h-[66px] sticky top-0 z-20"
           style={{
-            background: "rgba(255, 255, 255, 0.95)",
+            background: "rgba(255,255,255,0.95)",
             backdropFilter: "blur(20px)",
-            borderBottom: "1px solid rgba(226, 232, 240, 0.8)",
-            boxShadow: "0 4px 30px rgba(0,0,0,0.02)",
+            borderBottom: "1px solid #E4E7EF",
+            boxShadow: "0 2px 16px rgba(109,74,255,0.04)",
           }}
         >
-          {/* Header gloss line */}
-          <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent)" }} />
+          {/* Header gloss accent */}
+          <div
+            className="absolute bottom-0 left-0 right-0 h-px pointer-events-none"
+            style={{ background: "linear-gradient(90deg, transparent, rgba(109,74,255,0.2), transparent)" }}
+          />
 
-          <div className="h-full px-3 md:px-6 flex items-center gap-2 md:gap-3 min-w-0">
+          <div className="h-full px-3 md:px-5 flex items-center gap-2 md:gap-3 min-w-0">
             <button
               onClick={() => setMobileOpen(true)}
-              className="lg:hidden h-9 w-9 rounded-xl grid place-items-center text-slate-600 hover:bg-white/80 bg-white/60 transition shadow-sm"
-              style={{ border: "1px solid rgba(224,231,255,0.7)" }}
+              className="lg:hidden h-9 w-9 rounded-xl grid place-items-center transition hover:opacity-80"
+              style={{
+                color: "#15192C",
+                background: "#EEE9FF",
+                border: "1px solid #E4E7EF",
+              }}
               aria-label="Open menu"
             >
               <Menu className="w-4 h-4" />
             </button>
 
             <div className="hidden md:flex flex-col justify-center min-w-0 h-full py-1">
-              <div className="flex items-center gap-1.5 text-[10px] font-black tracking-widest uppercase text-slate-500">
+              <div
+                className="flex items-center gap-1.5 text-[10px] font-black tracking-widest uppercase"
+                style={{ color: "#667085" }}
+              >
                 <span>
                   {currentPage
                     ? t(currentPage.group.title, currentPage.group.titleBn)
                     : t(ADMIN_MENU[0].title, ADMIN_MENU[0].titleBn)}
                 </span>
-                <ChevronRight className="w-3 h-3 text-slate-300" />
-                <span className="text-slate-400">
+                <ChevronRight className="w-3 h-3" style={{ color: "#E4E7EF" }} />
+                <span style={{ color: "#6D4AFF" }}>
                   {currentPage
                     ? t(currentPage.item.label, currentPage.item.labelBn)
                     : t("Dashboard", "ড্যাশবোর্ড")}
                 </span>
               </div>
-              <div className="font-black text-[18px] text-slate-800 leading-tight mt-0.5 truncate" style={{ fontFamily: "var(--font-heading)" }}>
+              <div
+                className="font-black text-[17px] leading-tight mt-0.5 truncate"
+                style={{ fontFamily: "var(--font-heading)", color: "#15192C" }}
+              >
                 {currentPage
                   ? t(currentPage.item.label, currentPage.item.labelBn)
                   : t("Dashboard", "ড্যাশবোর্ড")}
               </div>
             </div>
 
-            <div className="md:hidden flex-1 min-w-0 font-bold text-sm truncate text-slate-800">
+            <div className="md:hidden flex-1 min-w-0 font-bold text-sm truncate" style={{ color: "#15192C" }}>
               {currentPage
                 ? t(currentPage.item.label, currentPage.item.labelBn)
                 : t("Dashboard", "ড্যাশবোর্ড")}
@@ -533,18 +585,30 @@ function AdminShell({ user, signOut, navigate }: any) {
               onClick={toggle}
               aria-label={t("Switch to Bangla", "ইংরেজিতে পরিবর্তন")}
               title={lang === "en" ? "বাংলায় দেখুন" : "Show in English"}
-              className="inline-flex h-9 px-2.5 sm:px-3 rounded-xl text-xs font-bold items-center gap-1.5 text-slate-700 hover:bg-slate-100 transition shrink-0 bg-white shadow-sm ring-1 ring-slate-200"
+              className="inline-flex h-9 px-2.5 sm:px-3 rounded-xl text-xs font-bold items-center gap-1.5 transition shrink-0"
+              style={{
+                color: "#15192C",
+                background: "#fff",
+                border: "1px solid #E4E7EF",
+                boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+              }}
             >
-              <Globe className="w-3.5 h-3.5" /> {lang === "en" ? "বাং" : "EN"}
+              <Globe className="w-3.5 h-3.5" style={{ color: "#6D4AFF" }} /> {lang === "en" ? "বাং" : "EN"}
             </button>
             <button
               type="button"
               onClick={() => setGlobalOpen(true)}
-              className="xl:hidden h-9 w-9 rounded-xl grid place-items-center text-slate-700 hover:bg-slate-100 transition shrink-0 bg-white shadow-sm ring-1 ring-slate-200"
+              className="xl:hidden h-9 w-9 rounded-xl grid place-items-center transition shrink-0"
+              style={{
+                color: "#15192C",
+                background: "#fff",
+                border: "1px solid #E4E7EF",
+                boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+              }}
               aria-label={t("Search", "খুঁজুন")}
               title={t("Search", "খুঁজুন")}
             >
-              <Search className="w-4 h-4" />
+              <Search className="w-4 h-4" style={{ color: "#667085" }} />
             </button>
             <SearchTrigger
               size="sm"
@@ -555,7 +619,12 @@ function AdminShell({ user, signOut, navigate }: any) {
 
             <Link
               to="/"
-              className="hidden sm:inline-flex h-9 px-3 rounded-xl text-xs font-bold items-center gap-1.5 text-slate-700 hover:bg-slate-100 transition bg-white shadow-sm ring-1 ring-slate-200"
+              className="hidden sm:inline-flex h-9 px-3 rounded-xl text-xs font-bold items-center gap-1.5 transition hover:opacity-80"
+              style={{
+                color: "#6D4AFF",
+                background: "#EEE9FF",
+                border: "1px solid rgba(109,74,255,0.2)",
+              }}
             >
               <ExternalLink className="w-3.5 h-3.5" /> {t("View store", "স্টোর দেখুন")}
             </Link>
@@ -563,7 +632,7 @@ function AdminShell({ user, signOut, navigate }: any) {
         </header>
 
         {/* Page content */}
-        <div className="admin-main-content flex-1 p-3 sm:p-5 md:p-8 min-w-0 w-full overflow-x-hidden text-slate-900">
+        <div className="flex-1 p-3 sm:p-5 md:p-7 min-w-0 w-full overflow-x-hidden" style={{ color: "#15192C" }}>
           <div className="mx-auto w-full max-w-[1400px] min-w-0">
             <AdminPageHeader />
             <Outlet />
@@ -575,25 +644,41 @@ function AdminShell({ user, signOut, navigate }: any) {
       <AdminGlobalSearch open={globalOpen} onOpenChange={setGlobalOpen} />
 
       <style>{`
-        .admin-scroll::-webkit-scrollbar { width: 5px; }
-        .admin-scroll::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.15); border-radius: 999px; }
-        .admin-scroll::-webkit-scrollbar-thumb:hover { background: rgba(139,92,246,0.28); }
+        /* ── Scrollbar ── */
+        .admin-scroll::-webkit-scrollbar { width: 4px; }
+        .admin-scroll::-webkit-scrollbar-thumb { background: rgba(109,74,255,0.18); border-radius: 999px; }
+        .admin-scroll::-webkit-scrollbar-thumb:hover { background: rgba(109,74,255,0.32); }
+
+        /* ── Ripple ── */
         @keyframes adminRipple { to { transform: translate(-50%,-50%) scale(18); opacity: 0; } }
+
+        /* ── Loader ring ── */
         @keyframes adminRingPulse { to { transform: rotate(360deg); } }
-        @keyframes adminBarPulse { 0%,100% { transform: scaleY(0.6); opacity: .5; } 50% { transform: scaleY(1.2); opacity: 1; } }
-        @keyframes adminLogoFloat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .admin-loader-ring {
           position: absolute; inset: 0; border-radius: 50%;
-          border: 2px solid transparent;
-          border-top-color: #7c3aed; border-right-color: #6366f1;
-          animation: adminRingPulse 1s linear infinite;
+          border: 3px solid transparent;
+          border-top-color: #6D4AFF; border-right-color: #4f46e5;
+          animation: adminRingPulse 0.9s linear infinite;
         }
+
+        /* ── Loader logo float ── */
+        @keyframes adminLogoFloat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
         .admin-loader-logo { animation: adminLogoFloat 2s ease-in-out infinite; }
+
+        /* ── Loader bars ── */
+        @keyframes adminBarPulse { 0%,100% { transform: scaleY(0.55); opacity: .45; } 50% { transform: scaleY(1.2); opacity: 1; } }
         .admin-loader-bar {
-          display: inline-block; width: 3px; height: 20px; border-radius: 999px;
-          background: linear-gradient(to top, #7c3aed, #6366f1);
-          animation: adminBarPulse 0.8s ease-in-out infinite;
+          display: inline-block; width: 4px; height: 22px; border-radius: 999px;
+          background: linear-gradient(to top, #6D4AFF, #818cf8);
+          animation: adminBarPulse 0.85s ease-in-out infinite;
         }
+
+        /* ── Sidebar item active pulse ── */
+        @keyframes adminActivePulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        /* ── Card hover lift ── */
+        .admin-card-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .admin-card-lift:hover { transform: translateY(-2px); }
       `}</style>
     </div>
   );
@@ -608,7 +693,7 @@ function SidebarGroup({ group, collapsed, pathname }: { group: any; collapsed: b
 
   if (collapsed) {
     return (
-      <div className="py-2 last:border-0" style={{ borderBottom: "1px solid rgba(224,231,255,0.5)" }}>
+      <div className="py-2 last:border-0" style={{ borderBottom: "1px solid rgba(228,231,239,0.5)" }}>
         {group.items.map((item: AdminMenuItem) => (
           <SidebarItem key={item.to} item={item} collapsed active={pathname === item.to} />
         ))}
@@ -620,10 +705,14 @@ function SidebarGroup({ group, collapsed, pathname }: { group: any; collapsed: b
     <div className="mt-4 first:mt-2">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.18em] text-slate-500 hover:text-slate-800 transition"
+        className="w-full flex items-center justify-between px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.18em] transition hover:opacity-80"
+        style={{ color: "#667085" }}
       >
         <span>{t(group.title, group.titleBn)}</span>
-        <ChevronDown className={`w-3.5 h-3.5 transition-transform ${open ? "" : "-rotate-90"}`} />
+        <ChevronDown
+          className={`w-3.5 h-3.5 transition-transform ${open ? "" : "-rotate-90"}`}
+          style={{ color: "#B4B8CC" }}
+        />
       </button>
       {open && (
         <div className="space-y-0.5 mt-1">
@@ -702,7 +791,7 @@ function iconGradientStyle(grad: string): CSSProperties {
   const from = /from-([\w-]+)/.exec(grad)?.[1] ?? "violet-600";
   const to = /to-([\w-]+)/.exec(grad)?.[1] ?? "indigo-600";
   return {
-    backgroundImage: `linear-gradient(135deg, ${ADMIN_ICON_COLORS[from] ?? "#7c3aed"} 0%, ${ADMIN_ICON_COLORS[to] ?? "#4f46e5"} 100%)`,
+    backgroundImage: `linear-gradient(135deg, ${ADMIN_ICON_COLORS[from] ?? "#6D4AFF"} 0%, ${ADMIN_ICON_COLORS[to] ?? "#4f46e5"} 100%)`,
   };
 }
 
@@ -710,11 +799,14 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
   const { t } = useAdminLang();
   const label = t(item.label, item.labelBn);
   const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
-  const badgeClass = item.badge === "LIVE"
-    ? "bg-rose-500 text-white ring-1 ring-rose-600/30"
-    : item.badge === "NEW"
-      ? "bg-blue-500 text-white ring-1 ring-blue-600/30"
-      : "bg-amber-500 text-white ring-1 ring-amber-600/30";
+  const [hovered, setHovered] = useState(false);
+
+  const badgeStyle =
+    item.badge === "LIVE"
+      ? { background: "#DC2626", color: "#fff" }
+      : item.badge === "NEW"
+        ? { background: "#6D4AFF", color: "#fff" }
+        : { background: "#B45309", color: "#fff" };
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -723,12 +815,18 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
     setTimeout(() => setRipples((r) => r.filter((rp) => rp.id !== id)), 600);
   };
 
+  const activeBg = "#EEE9FF";
+  const activeColor = "#6D4AFF";
+  const hoverBg = "rgba(238,233,255,0.5)";
+
   return (
     <Link
       to={item.to}
       activeOptions={{ exact: item.exact }}
       title={collapsed ? label : undefined}
       onClick={handleClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       className={[
         "group relative flex items-center gap-3 rounded-xl text-sm overflow-hidden",
         "transition-all duration-200 ease-out will-change-transform",
@@ -736,22 +834,25 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
         collapsed ? "justify-center px-2 py-2.5 mx-1 my-0.5" : "px-2.5 py-2.5",
       ].join(" ")}
       style={active ? {
-        background: "rgba(241, 245, 249, 0.6)",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,1), 0 2px 4px rgba(0,0,0,0.02)",
-        color: "#0f172a",
+        background: activeBg,
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 4px rgba(109,74,255,0.1)",
+        color: activeColor,
         fontWeight: 700,
+      } : hovered ? {
+        background: hoverBg,
+        color: "#15192C",
       } : {
-        color: "#475569",
+        color: "#667085",
       }}
     >
-      {/* Left active indicator */}
+      {/* Left active indicator bar */}
       <span
         aria-hidden
         className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] rounded-r-full transition-all duration-300 ease-out"
         style={{
-          height: active ? 24 : 0,
+          height: active ? 22 : 0,
           opacity: active ? 1 : 0,
-          background: "#0f172a",
+          background: "linear-gradient(to bottom, #6D4AFF, #4f46e5)",
         }}
       />
       {/* Ripple effects */}
@@ -760,7 +861,7 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
           key={r.id}
           aria-hidden
           className="pointer-events-none absolute rounded-full animate-[adminRipple_0.6s_ease-out_forwards]"
-          style={{ left: r.x, top: r.y, width: 8, height: 8, transform: "translate(-50%, -50%)", background: "rgba(139,92,246,0.2)" }}
+          style={{ left: r.x, top: r.y, width: 8, height: 8, transform: "translate(-50%, -50%)", background: "rgba(109,74,255,0.18)" }}
         />
       ))}
       {/* Icon */}
@@ -768,8 +869,8 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
         style={{
           ...iconGradientStyle(item.grad),
           boxShadow: active
-            ? "0 4px 12px -2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.3)"
-            : "0 2px 6px -1px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.2)",
+            ? "0 4px 14px -2px rgba(109,74,255,0.35), inset 0 1px 0 rgba(255,255,255,0.3)"
+            : "0 2px 8px -1px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.2)",
         }}
         className={[
           "shrink-0 w-8 h-8 rounded-xl grid place-items-center text-white",
@@ -780,22 +881,28 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
         {item.icon}
       </span>
       {!collapsed && (
-        <span className={`relative truncate flex-1 text-[13px] transition-all ${active ? "font-bold text-slate-900" : "font-semibold group-hover:text-slate-900"}`}>{label}</span>
+        <span
+          className="relative truncate flex-1 text-[13px] transition-all"
+          style={{ fontWeight: active ? 700 : 600, color: active ? "#6D4AFF" : hovered ? "#15192C" : "#667085" }}
+        >
+          {label}
+        </span>
       )}
       {!collapsed && item.badge && (
-        <span className={`relative shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider ${badgeClass}`}>
+        <span
+          className="relative shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider"
+          style={badgeStyle}
+        >
           {item.badge}
         </span>
       )}
       {!collapsed && active && !item.badge && (
-        <span className="relative shrink-0 w-1.5 h-1.5 rounded-full animate-pulse bg-slate-900" aria-hidden />
+        <span
+          className="relative shrink-0 w-1.5 h-1.5 rounded-full"
+          style={{ background: "#6D4AFF", animation: "adminActivePulse 2s ease-in-out infinite" }}
+          aria-hidden
+        />
       )}
     </Link>
   );
 }
-
-
-
-
-
-

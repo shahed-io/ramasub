@@ -78,6 +78,22 @@ function findItem(pathname: string): { group: { id: string; title: string; title
   return null;
 }
 
+/** Per-group accent colors for the page header icon background */
+const GROUP_ACCENT: Record<string, { from: string; to: string; glow: string }> = {
+  overview:      { from: "#6D4AFF", to: "#4f46e5", glow: "rgba(109,74,255,0.35)" },
+  sales:         { from: "#059669", to: "#0d9488", glow: "rgba(5,150,105,0.30)" },
+  catalog:       { from: "#d97706", to: "#ea580c", glow: "rgba(217,119,6,0.30)" },
+  customers:     { from: "#0ea5e9", to: "#2563eb", glow: "rgba(14,165,233,0.30)" },
+  storefront:    { from: "#d946ef", to: "#9333ea", glow: "rgba(217,70,239,0.30)" },
+  marketing:     { from: "#e11d48", to: "#db2777", glow: "rgba(225,29,72,0.30)" },
+  "content-seo": { from: "#4f46e5", to: "#7c3aed", glow: "rgba(79,70,229,0.30)" },
+  reports:       { from: "#06b6d4", to: "#0ea5e9", glow: "rgba(6,182,212,0.30)" },
+  seo:           { from: "#4f46e5", to: "#6D4AFF", glow: "rgba(79,70,229,0.30)" },
+  integrations:  { from: "#9333ea", to: "#7c3aed", glow: "rgba(147,51,234,0.30)" },
+  "ai-tools":    { from: "#d97706", to: "#f59e0b", glow: "rgba(217,119,6,0.30)" },
+  system:        { from: "#334155", to: "#1e293b", glow: "rgba(51,65,85,0.30)" },
+};
+
 export function AdminPageHeader() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { t } = useAdminLang();
@@ -93,25 +109,48 @@ export function AdminPageHeader() {
     ? `${groupLabel} • ${t(desc.en, desc.bn)}`
     : `${groupLabel} • ${t("Manage and configure", "ম্যানেজ ও কনফিগার করুন")}`;
 
+  const accent = GROUP_ACCENT[group.id] ?? GROUP_ACCENT.overview;
+
   return (
     <div
-      className="relative overflow-hidden rounded-[24px] p-6 sm:p-7 mb-6 min-w-0 bg-white border border-slate-200/80 shadow-[0_10px_40px_rgba(0,0,0,0.03),0_1px_3px_rgba(0,0,0,0.02)]"
+      className="relative overflow-hidden rounded-2xl px-5 sm:px-7 py-5 sm:py-6 mb-6 min-w-0"
+      style={{
+        background: "#ffffff",
+        border: "1px solid #E4E7EF",
+        boxShadow: "0 4px 24px rgba(109,74,255,0.06), 0 1px 3px rgba(0,0,0,0.03)",
+      }}
     >
-      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none bg-gradient-to-r from-transparent via-slate-100 to-transparent" />
+      {/* Top gradient accent bar */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[3px] pointer-events-none"
+        style={{ background: `linear-gradient(90deg, ${accent.from}, ${accent.to})` }}
+      />
+      {/* Glow blob top-right */}
+      <div
+        className="absolute -top-12 -right-12 w-40 h-40 rounded-full pointer-events-none blur-3xl opacity-30"
+        style={{ background: accent.glow }}
+      />
+
       <div className="relative flex items-center gap-4 sm:gap-5 min-w-0 z-10">
         <span
-          className="shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-[20px] text-white grid place-items-center ring-1 ring-slate-800/10 [&_svg]:w-7 [&_svg]:h-7 bg-gradient-to-br from-slate-900 to-slate-800 shadow-[0_8px_20px_-4px_rgba(15,23,42,0.25)]"
+          className="shrink-0 w-14 h-14 sm:w-[60px] sm:h-[60px] rounded-2xl text-white grid place-items-center [&_svg]:w-7 [&_svg]:h-7"
+          style={{
+            background: `linear-gradient(135deg, ${accent.from} 0%, ${accent.to} 100%)`,
+            boxShadow: `0 8px 22px -4px ${accent.glow}, inset 0 1px 0 rgba(255,255,255,0.25)`,
+          }}
         >
           {item.icon}
         </span>
         <div className="min-w-0 flex-1">
           <h1
-            className="text-2xl sm:text-3xl font-black tracking-tight truncate text-slate-900"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="text-2xl sm:text-[28px] font-black tracking-tight truncate"
+            style={{ fontFamily: "var(--font-heading)", color: "#15192C" }}
           >
             {title}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1 leading-snug truncate">{subtitle}</p>
+          <p className="text-xs sm:text-sm font-medium mt-0.5 leading-snug truncate" style={{ color: "#667085" }}>
+            {subtitle}
+          </p>
         </div>
       </div>
     </div>
