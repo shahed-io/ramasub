@@ -426,18 +426,25 @@ function LiveVisitorFeed() {
 }
 
 function StatCard({ label, value, icon, tone, loading }: { label: string; value: string | number; icon: React.ReactNode; tone: "violet"|"sky"|"emerald"; loading?: boolean }) {
-  const tones: Record<string, string> = {
-    violet: "bg-violet-100/80 text-violet-700",
-    sky: "bg-sky-100/80 text-sky-700",
-    emerald: "bg-emerald-100/80 text-emerald-700",
+  const tones: Record<string, { bg: string; shadow: string }> = {
+    violet: { bg: "linear-gradient(135deg, #7c3aed 0%, #6366f1 100%)", shadow: "0 8px 18px -4px rgba(124,58,237,0.4)" },
+    sky: { bg: "linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%)", shadow: "0 8px 18px -4px rgba(14,165,233,0.4)" },
+    emerald: { bg: "linear-gradient(135deg, #10b981 0%, #059669 100%)", shadow: "0 8px 18px -4px rgba(16,185,129,0.4)" },
   };
+  const cfg = tones[tone] || tones.violet;
   return (
-    <div className="a-stat-card border border-slate-200/50 shadow-sm rounded-[24px]">
+    <div className="relative overflow-hidden rounded-[24px] p-5 border border-white/80 ring-1 ring-slate-200/60 bg-gradient-to-br from-white/95 via-white/90 to-slate-50/80 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_10px_32px_-10px_rgba(99,102,241,0.08),0_2px_6px_rgba(15,23,42,0.02)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_18px_40px_-12px_rgba(99,102,241,0.14)]">
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent" />
       <div className="flex items-start justify-between">
-        <div className="a-stat-label">{label}</div>
-        <span className={`a-stat-icon ${tones[tone]}`}>{icon}</span>
+        <div className="text-xs font-black uppercase tracking-wider text-slate-500">{label}</div>
+        <span
+          className="w-9 h-9 rounded-xl grid place-items-center text-white ring-1 ring-white/50"
+          style={{ background: cfg.bg, boxShadow: `${cfg.shadow}, inset 0 1px 0 rgba(255,255,255,0.3)` }}
+        >
+          {icon}
+        </span>
       </div>
-      <div className="a-stat-value">
+      <div className="text-2xl sm:text-3xl font-black text-slate-900 mt-2 tracking-tight tabular-nums">
         {loading ? "…" : value}
       </div>
     </div>

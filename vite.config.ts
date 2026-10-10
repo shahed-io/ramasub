@@ -30,7 +30,12 @@ function safeMcpPlugin() {
         },
       });
       try {
-        return plugin.configResolved?.call(this, resolvedConfig);
+        const hook: any = plugin.configResolved;
+        if (typeof hook === "function") {
+          return hook.call(this, resolvedConfig);
+        } else if (hook && typeof hook.handler === "function") {
+          return hook.handler.call(this, resolvedConfig);
+        }
       } catch (err) {
         console.warn("[vite.config] safeMcpPlugin configResolved warning:", err);
       }

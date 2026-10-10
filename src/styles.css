@@ -686,17 +686,26 @@
     }
   }
 
-  /* Translucent white cards over the lavender gradient wash — solidify so
-     text on top stays legible instead of blending with the background. */
-  :is(.admin-clarity, .admin-shell) [class*="bg-white/"],
-  :is(.admin-clarity, .admin-shell) [class*="bg-white\\/"] {
-    background-color: #ffffff !important;
+  /* White glossy glassmorphism cards across admin panel */
+  :is(.admin-clarity, .admin-shell) .a-card,
+  :is(.admin-clarity, .admin-shell) .admin-card,
+  :is(.admin-clarity, .admin-shell) .admin-glossy-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 250, 255, 0.92) 100%) !important;
+    border: 1px solid rgba(224, 231, 255, 0.75) !important;
+    border-radius: 20px;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 1) inset, 0 10px 32px -10px rgba(99, 102, 241, 0.08), 0 2px 6px rgba(15, 23, 42, 0.02) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
   }
-  /* Cards that use bg-card / bg-background become fully opaque too */
-  :is(.admin-clarity, .admin-shell) .bg-card,
-  :is(.admin-clarity, .admin-shell) .bg-background { background-color: #ffffff !important; }
+  :is(.admin-clarity, .admin-shell) .a-card:hover,
+  :is(.admin-clarity, .admin-shell) .admin-card:hover,
+  :is(.admin-clarity, .admin-shell) .admin-glossy-card:hover {
+    border-color: rgba(196, 181, 253, 0.8) !important;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 1) inset, 0 16px 40px -10px rgba(99, 102, 241, 0.12), 0 4px 10px rgba(15, 23, 42, 0.03) !important;
+  }
 
-  /* Default text on white surfaces defaults to a deep slate for readability */
+  /* Default text on white surfaces defaults to deep crisp slate for high readability */
   :is(.admin-clarity, .admin-shell) { color: #0f172a; }
   :is(.admin-clarity, .admin-shell) .text-white { color: #ffffff !important; }
 
@@ -716,13 +725,14 @@
   :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-red-"]     svg,
   :is(.admin-clarity, .admin-shell) :is(span, div, a, button)[class*="bg-pink-"]    svg { color: #e11d48 !important; }
 
-  .admin-clarity .a-save-btn { display: inline-flex; align-items: center; gap: 0.5rem; height: 2.5rem; padding: 0 1.25rem; border-radius: 0.75rem; background: linear-gradient(135deg, #7c3aed, #a855f7); color: #ffffff; font-weight: 700; font-size: 0.875rem; box-shadow: 0 10px 24px -10px rgba(124, 58, 237, 0.6); }
-  .admin-clarity .a-save-btn:hover { filter: brightness(1.05); }
-  .admin-clarity .admin-card {
-    background: var(--admin-card) !important;
-    border: 1px solid var(--admin-border) !important;
-    box-shadow: 0 16px 36px -28px rgba(15, 23, 42, 0.45) !important;
+  .admin-clarity .a-save-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem; height: 2.5rem; padding: 0 1.25rem; border-radius: 0.75rem;
+    background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%) !important; color: #ffffff !important;
+    font-weight: 700; font-size: 0.875rem;
+    box-shadow: 0 8px 22px -4px rgba(124, 58, 237, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    transition: transform 0.15s ease, filter 0.15s ease;
   }
+  .admin-clarity .a-save-btn:hover { filter: brightness(1.06) !important; transform: translateY(-1px); }
   .admin-clarity .admin-kpi-icon {
     background-color: var(--admin-primary) !important;
     color: #ffffff !important;
@@ -4197,3 +4207,133 @@ html.theme-white .product-card-ripple { mix-blend-mode: multiply; }
   .admin-clarity [class*="via-sky-"], .admin-clarity [class*="via-cyan-"] { --tw-gradient-via: #8b5cf6 !important; }
   .admin-clarity [class*="to-sky-"], .admin-clarity [class*="to-cyan-"] { --tw-gradient-to: #a855f7 !important; }
   .admin-clarity .admin-kpi-card [class*="bg-"] { background-color: revert-layer; }
+
+  /* ============================================================
+     UNIVERSAL PREMIUM WHITE GLOSSY ADMIN SYSTEM
+     ============================================================ */
+
+  /* Unified card surfaces */
+  :is(.admin-clarity, .admin-shell) :is(.a-card, .admin-card, .bg-white, [data-slot="card"]):not(button):not(a):not(input):not(select):not(textarea):not(thead):not(tr) {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 250, 255, 0.92) 100%) !important;
+    border: 1px solid rgba(224, 231, 255, 0.75) !important;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 1) inset, 0 10px 32px -10px rgba(99, 102, 241, 0.08), 0 2px 6px rgba(15, 23, 42, 0.02) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+
+  /* Universal high contrast text on white canvas */
+  :is(.admin-clarity, .admin-shell) :is(h1, h2, h3, h4, th, .a-heading, .font-extrabold, .font-black) {
+    color: #0f172a !important;
+  }
+
+  :is(.admin-clarity, .admin-shell) .text-slate-900,
+  :is(.admin-clarity, .admin-shell) .text-slate-950 {
+    color: #0f172a !important;
+  }
+
+  :is(.admin-clarity, .admin-shell) .text-slate-700,
+  :is(.admin-clarity, .admin-shell) .text-slate-800 {
+    color: #1e293b !important;
+  }
+
+  :is(.admin-clarity, .admin-shell) .text-slate-600 {
+    color: #334155 !important;
+  }
+
+  :is(.admin-clarity, .admin-shell) .text-slate-500 {
+    color: #64748b !important;
+  }
+
+  /* Universal glossy input fields */
+  :is(.admin-clarity, .admin-shell) :is(input[type="text"], input[type="search"], input[type="number"], input[type="email"], input[type="password"], textarea, select, .a-search, .a-input, .a-select) {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(203, 213, 225, 0.85) !important;
+    color: #0f172a !important;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03) !important;
+    font-weight: 500;
+  }
+
+  :is(.admin-clarity, .admin-shell) :is(input, textarea, select)::placeholder {
+    color: #94a3b8 !important;
+    opacity: 1;
+  }
+
+  :is(.admin-clarity, .admin-shell) :is(input, textarea, select):focus {
+    border-color: #7c3aed !important;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15), 0 1px 3px rgba(15, 23, 42, 0.05) !important;
+    background: #ffffff !important;
+  }
+
+  /* Universal glossy tables */
+  :is(.admin-clarity, .admin-shell) table {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  :is(.admin-clarity, .admin-shell) table thead {
+    background: linear-gradient(180deg, rgba(248, 250, 255, 0.96) 0%, rgba(241, 245, 249, 0.94) 100%) !important;
+    border-bottom: 1px solid rgba(224, 231, 255, 0.85) !important;
+  }
+
+  :is(.admin-clarity, .admin-shell) table thead th {
+    color: #475569 !important;
+    font-weight: 700 !important;
+    font-size: 11px !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.9) !important;
+  }
+
+  :is(.admin-clarity, .admin-shell) table tbody tr {
+    transition: background-color 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  :is(.admin-clarity, .admin-shell) table tbody tr:hover {
+    background-color: rgba(245, 243, 255, 0.72) !important;
+  }
+
+  :is(.admin-clarity, .admin-shell) table tbody td {
+    border-top: 1px solid rgba(241, 245, 249, 0.85);
+    color: #1e293b;
+  }
+
+  /* Glossy buttons */
+  :is(.admin-clarity, .admin-shell) .a-save-btn,
+  :is(.admin-clarity, .admin-shell) .a-btn-primary,
+  :is(.admin-clarity, .admin-shell) button.bg-slate-900:not([disabled]) {
+    background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 22px -4px rgba(124, 58, 237, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    font-weight: 700 !important;
+    transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  :is(.admin-clarity, .admin-shell) .a-save-btn:hover,
+  :is(.admin-clarity, .admin-shell) .a-btn-primary:hover,
+  :is(.admin-clarity, .admin-shell) button.bg-slate-900:hover:not([disabled]) {
+    filter: brightness(1.06) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px -4px rgba(124, 58, 237, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  }
+
+  /* Filter pills & chips */
+  :is(.admin-clarity, .admin-shell) .a-pill-active {
+    background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+    box-shadow: 0 6px 18px -3px rgba(124, 58, 237, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    font-weight: 700 !important;
+  }
+
+  :is(.admin-clarity, .admin-shell) .a-pill {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(226, 232, 240, 0.85) !important;
+    color: #334155 !important;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03) !important;
+  }
+
+  :is(.admin-clarity, .admin-shell) .a-pill:hover:not(.a-pill-active) {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border-color: rgba(196, 181, 253, 0.7) !important;
+  }

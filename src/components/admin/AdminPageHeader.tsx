@@ -94,19 +94,25 @@ export function AdminPageHeader() {
     : `${groupLabel} • ${t("Manage and configure", "ম্যানেজ ও কনফিগার করুন")}`;
 
   return (
-    <div className="relative overflow-hidden rounded-[24px] border border-slate-200/60 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.02),0_12px_40px_-16px_rgba(15,23,42,0.08)] p-5 sm:p-6 mb-6 min-w-0">
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-200/50 to-transparent" />
-      <div aria-hidden className="pointer-events-none absolute -right-20 -top-20 w-64 h-64 rounded-full bg-violet-50/40 blur-3xl" />
-      <div aria-hidden className="pointer-events-none absolute -left-20 bottom-0 w-64 h-64 rounded-full bg-blue-50/30 blur-3xl" />
+    <div className="relative overflow-hidden rounded-[24px] border border-white/80 ring-1 ring-slate-200/60 bg-gradient-to-br from-white/95 via-white/90 to-slate-50/80 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_10px_35px_-10px_rgba(99,102,241,0.08),0_2px_6px_rgba(15,23,42,0.03)] p-5 sm:p-6 mb-6 min-w-0">
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-300/60 to-transparent" />
+      <div aria-hidden className="pointer-events-none absolute -right-20 -top-20 w-64 h-64 rounded-full bg-violet-100/40 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -left-20 bottom-0 w-64 h-64 rounded-full bg-blue-100/30 blur-3xl" />
       <div className="relative flex items-center gap-4 sm:gap-5 min-w-0">
-        <span className="shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-violet-50/80 ring-1 ring-violet-100 grid place-items-center text-violet-600 [&_svg]:w-6 [&_svg]:h-6 shadow-sm shadow-violet-500/5">
+        <span
+          className="shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl text-white grid place-items-center ring-1 ring-white/50 [&_svg]:w-6 [&_svg]:h-6"
+          style={{
+            background: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)",
+            boxShadow: "0 8px 22px -4px rgba(124,58,237,0.42), inset 0 1px 0 rgba(255,255,255,0.35)",
+          }}
+        >
           {item.icon}
         </span>
         <div className="min-w-0 flex-1">
-          <h1 className="text-base sm:text-lg md:text-xl font-extrabold tracking-tight text-slate-900 truncate">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-black tracking-tight text-slate-900 truncate">
             {title}
           </h1>
-          <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-snug truncate">{subtitle}</p>
+          <p className="text-xs sm:text-sm text-slate-600 font-medium mt-0.5 leading-snug truncate">{subtitle}</p>
         </div>
       </div>
     </div>

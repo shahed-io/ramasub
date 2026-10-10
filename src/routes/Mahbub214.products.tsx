@@ -413,8 +413,7 @@ function AdminProducts() {
  <button
  onClick={() => runAI("short")}
  disabled={aiBusy || selected.size === 0}
- className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)] disabled:opacity-60 disabled:cursor-not-allowed flex-1 sm:flex-none"
- style={{ background: "linear-gradient(135deg, #94a3b8 0%, #94a3b8 100%)" }}
+ className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl text-violet-700 bg-violet-50/90 border border-violet-200/90 hover:bg-violet-100 text-sm font-bold shadow-sm transition disabled:opacity-50 disabled:cursor-not-allowed flex-1 sm:flex-none"
  title={selected.size === 0 ? "আগে পণ্য সিলেক্ট করুন" : "AI Short Description"}
  >
  {aiBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />} AI Short Desc
@@ -422,8 +421,7 @@ function AdminProducts() {
  <button
  onClick={() => runAI("rich")}
  disabled={aiBusy || selected.size === 0}
- className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl text-white text-sm font-semibold shadow-[0_4px_14px_-4px_rgba(100,116,139,0.6)] disabled:opacity-60 disabled:cursor-not-allowed flex-1 sm:flex-none"
- style={{ background: "linear-gradient(135deg, #94a3b8 0%, #94a3b8 100%)" }}
+ className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl text-violet-700 bg-violet-50/90 border border-violet-200/90 hover:bg-violet-100 text-sm font-bold shadow-sm transition disabled:opacity-50 disabled:cursor-not-allowed flex-1 sm:flex-none"
  >
  {aiBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4" />} AI Rich Desc + SEO
  </button>
@@ -435,7 +433,7 @@ function AdminProducts() {
  <button
  onClick={migrateAllToWebp}
  disabled={webpBusy}
- className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition disabled:opacity-60 disabled:cursor-not-allowed flex-1 sm:flex-none"
+ className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl text-sky-700 bg-sky-50/90 border border-sky-200/90 hover:bg-sky-100 text-sm font-bold shadow-sm transition disabled:opacity-50 disabled:cursor-not-allowed flex-1 sm:flex-none"
  title="সব প্রোডাক্ট ইমেজ WebP-তে কনভার্ট করুন"
  >
  {webpBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <ImageIcon className="w-4 h-4" />}
@@ -443,9 +441,13 @@ function AdminProducts() {
  </button>
  <button
  onClick={() => { setEditing({ ...empty, name: " Price in Bangladesh", sort_order: (products.at(-1)?.sort_order ?? 0) + 10 }); setIsNew(true); }}
- className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition flex-1 sm:flex-none"
+ className="h-10 px-5 inline-flex items-center justify-center gap-2 rounded-xl text-white text-sm font-extrabold transition flex-1 sm:flex-none hover:scale-[1.02] active:scale-[0.98]"
+ style={{
+   background: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)",
+   boxShadow: "0 8px 22px -4px rgba(124,58,237,0.45), inset 0 1px 0 rgba(255,255,255,0.3)",
+ }}
  >
- <Plus className="w-4 h-4" /> নতুন পণ্য
+ <Plus className="w-4 h-4" strokeWidth={2.5} /> নতুন পণ্য
  </button>
  </div>
  </div>
@@ -500,7 +502,7 @@ function AdminProducts() {
  </div>
 
  {/* Table */}
- <div className="bg-white border border-border rounded-2xl overflow-hidden">
+ <div className="overflow-hidden rounded-[24px] border border-white/80 ring-1 ring-slate-200/60 bg-gradient-to-br from-white/95 via-white/90 to-slate-50/80 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_10px_35px_-10px_rgba(99,102,241,0.08),0_2px_6px_rgba(15,23,42,0.02)]">
  {loading ? null : (
  <div className="overflow-x-auto">
  <table className="w-full text-sm min-w-[900px]">

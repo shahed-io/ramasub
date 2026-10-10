@@ -53,23 +53,24 @@ export function AdminStatCard({
 
   return (
     <div
-      className={`admin-card relative overflow-hidden rounded-[24px] p-6 border border-slate-200/50 bg-gradient-to-br ${t.tint} shadow-[0_1px_2px_rgba(15,23,42,0.02),0_8px_30px_-12px_rgba(15,23,42,0.06)]`}
+      className="admin-card relative overflow-hidden rounded-[24px] p-6 border border-white/80 ring-1 ring-slate-200/60 bg-gradient-to-br from-white/95 via-white/90 to-slate-50/85 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_10px_32px_-10px_rgba(99,102,241,0.08),0_2px_6px_rgba(15,23,42,0.02)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_18px_40px_-12px_rgba(99,102,241,0.14)]"
     >
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent" />
       <div className="flex items-start justify-between">
-        <div className="text-sm font-extrabold text-slate-700">{label}</div>
-        <button className="text-slate-500 hover:text-slate-800 leading-none">⋮</button>
+        <div className="text-xs font-black uppercase tracking-wider text-slate-500">{label}</div>
+        <button className="text-slate-400 hover:text-slate-700 leading-none">⋮</button>
       </div>
-      <div className="text-3xl md:text-4xl font-black text-slate-950 mt-3 tracking-tight tabular-nums">
+      <div className="text-3xl md:text-4xl font-black text-slate-900 mt-2.5 tracking-tight tabular-nums">
         {loading ? "—" : value}
       </div>
       <div className="flex items-end justify-between mt-3 gap-3">
         {typeof delta === "number" ? (
           <div className="flex items-center gap-1.5 text-xs">
-            <span className={`inline-flex items-center gap-0.5 font-bold ${up ? "text-blue-600" : "text-rose-600"}`}>
+            <span className={`inline-flex items-center gap-0.5 font-bold ${up ? "text-emerald-600" : "text-rose-600"}`}>
               {up ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
               {up ? "+" : ""}{delta}%
             </span>
-            <span className="font-semibold text-slate-600">{deltaLabel}</span>
+            <span className="font-semibold text-slate-500">{deltaLabel}</span>
           </div>
         ) : <span />}
         <svg viewBox="0 0 200 60" className="w-[55%] h-14 -mb-1">
@@ -93,7 +94,8 @@ export function AdminStatGrid({ children }: { children: React.ReactNode }) {
 
 export function AdminGlassCard({ className = "", children }: { className?: string; children: React.ReactNode }) {
   return (
-    <div className={`admin-card rounded-2xl bg-white ${className}`}>
+    <div className={`admin-card relative overflow-hidden rounded-[24px] border border-white/80 ring-1 ring-slate-200/60 bg-gradient-to-br from-white/95 via-white/90 to-slate-50/80 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,1)_inset,0_10px_35px_-10px_rgba(99,102,241,0.08),0_2px_6px_rgba(15,23,42,0.02)] ${className}`}>
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent" />
       {children}
     </div>
   );
