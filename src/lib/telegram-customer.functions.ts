@@ -68,10 +68,12 @@ export const createLinkCode = createServerFn({ method: "POST" })
     }
 
     // 12-char url-safe random code
-    const code = Array.from({ length: 12 }, () => {
-      const alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      return alpha[Math.floor(Math.random() * alpha.length)];
-    }).join("");
+    const alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const rnd = crypto.getRandomValues(new Uint8Array(24));
+    // 24 chars from a CSPRNG; 248 = 62*4 keeps the modulo unbiased.
+    const code = Array.from(rnd)
+      .map((b) => (b < 248 ? alpha[b % 62] : alpha[crypto.getRandomValues(new Uint8Array(1))[0] % 62]))
+      .join("");
 
     // Clean up any old unconsumed codes for this user
     await supabaseAdmin
