@@ -13,6 +13,31 @@ import path from "node:path";
 const serverEnv = loadEnv(process.env.NODE_ENV ?? "development", process.cwd(), "");
 Object.assign(process.env, serverEnv);
 
+function safeMcpPlugin() {
+  const plugin = mcpPlugin();
+  return {
+    ...plugin,
+    configResolved(config: any) {
+      // On Windows, Vite normalizes config.root with forward slashes ('/'),
+      // whereas @lovable.dev/mcp-js resolves child paths using path.resolve ('\').
+      // Using a proxy with path.resolve(config.root) ensures path separators match.
+      const resolvedConfig = new Proxy(config, {
+        get(target, prop, receiver) {
+          if (prop === "root") {
+            return path.resolve(target.root);
+          }
+          return Reflect.get(target, prop, receiver);
+        },
+      });
+      try {
+        return plugin.configResolved?.call(this, resolvedConfig);
+      } catch (err) {
+        console.warn("[vite.config] safeMcpPlugin configResolved warning:", err);
+      }
+    },
+  };
+}
+
 export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
@@ -32,7 +57,7 @@ export default defineConfig({
       },
     },
     plugins: [
-      mcpPlugin(),
+      safeMcpPlugin(),
       VitePWA({
         // We ship our own manifest at public/manifest.webmanifest — do NOT regenerate.
         manifest: false,
