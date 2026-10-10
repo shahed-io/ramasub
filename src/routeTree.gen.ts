@@ -27,7 +27,6 @@ import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as OrderCancellationRouteImport } from './routes/order-cancellation'
-import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ProfileRouteImport } from './routes/profile'
@@ -101,6 +100,7 @@ import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe
 import { Route as HelpIndexRouteImport } from './routes/help.index'
 import { Route as HelpSlugRouteImport } from './routes/help.$slug'
 import { Route as OfferSlugRouteImport } from './routes/offer.$slug'
+import { Route as OrdersIndexRouteImport } from './routes/orders.index'
 import { Route as OrdersIdRouteImport } from './routes/orders.$id'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
@@ -212,11 +212,6 @@ const McpRoute = McpRouteImport.update({
 const OrderCancellationRoute = OrderCancellationRouteImport.update({
   id: '/order-cancellation',
   path: '/order-cancellation',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrdersRoute = OrdersRouteImport.update({
-  id: '/orders',
-  path: '/orders',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
@@ -595,6 +590,11 @@ const OfferSlugRoute = OfferSlugRouteImport.update({
   path: '/offer/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrdersIndexRoute = OrdersIndexRouteImport.update({
+  id: '/orders/',
+  path: '/orders/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrdersIdRoute = OrdersIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -732,7 +732,6 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
   '/order-cancellation': typeof OrderCancellationRoute
-  '/orders': typeof OrdersRouteWithChildren
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/products': typeof ProductsRoute
   '/profile': typeof ProfileRoute
@@ -808,6 +807,7 @@ export interface FileRoutesByFullPath {
   '/Mahbub214/': typeof Mahbub214IndexRoute
   '/blog/': typeof BlogIndexRoute
   '/help/': typeof HelpIndexRoute
+  '/orders/': typeof OrdersIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
@@ -847,7 +847,6 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
   '/order-cancellation': typeof OrderCancellationRoute
-  '/orders': typeof OrdersRouteWithChildren
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/products': typeof ProductsRoute
   '/profile': typeof ProfileRoute
@@ -923,6 +922,7 @@ export interface FileRoutesByTo {
   '/Mahbub214': typeof Mahbub214IndexRoute
   '/blog': typeof BlogIndexRoute
   '/help': typeof HelpIndexRoute
+  '/orders': typeof OrdersIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
@@ -964,7 +964,6 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
   '/order-cancellation': typeof OrderCancellationRoute
-  '/orders': typeof OrdersRouteWithChildren
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/products': typeof ProductsRoute
   '/profile': typeof ProfileRoute
@@ -1040,6 +1039,7 @@ export interface FileRoutesById {
   '/Mahbub214/': typeof Mahbub214IndexRoute
   '/blog/': typeof BlogIndexRoute
   '/help/': typeof HelpIndexRoute
+  '/orders/': typeof OrdersIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/Mahbub214/offers/$id': typeof Mahbub214OffersIdRoute
@@ -1082,7 +1082,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/mcp'
     | '/order-cancellation'
-    | '/orders'
     | '/privacy-policy'
     | '/products'
     | '/profile'
@@ -1158,6 +1157,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/'
     | '/blog/'
     | '/help/'
+    | '/orders/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/Mahbub214/offers/$id'
@@ -1197,7 +1197,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/mcp'
     | '/order-cancellation'
-    | '/orders'
     | '/privacy-policy'
     | '/products'
     | '/profile'
@@ -1273,6 +1272,7 @@ export interface FileRouteTypes {
     | '/Mahbub214'
     | '/blog'
     | '/help'
+    | '/orders'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/Mahbub214/offers/$id'
@@ -1313,7 +1313,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/mcp'
     | '/order-cancellation'
-    | '/orders'
     | '/privacy-policy'
     | '/products'
     | '/profile'
@@ -1389,6 +1388,7 @@ export interface FileRouteTypes {
     | '/Mahbub214/'
     | '/blog/'
     | '/help/'
+    | '/orders/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/Mahbub214/offers/$id'
@@ -1430,7 +1430,6 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   McpRoute: typeof McpRoute
   OrderCancellationRoute: typeof OrderCancellationRoute
-  OrdersRoute: typeof OrdersRouteWithChildren
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProductsRoute: typeof ProductsRoute
   ProfileRoute: typeof ProfileRoute
@@ -1454,6 +1453,7 @@ export interface RootRouteChildren {
   ProductSlugRoute: typeof ProductSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   HelpIndexRoute: typeof HelpIndexRoute
+  OrdersIndexRoute: typeof OrdersIndexRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiPublicClientErrorsRoute: typeof ApiPublicClientErrorsRoute
@@ -1600,13 +1600,6 @@ declare module '@tanstack/react-router' {
       path: '/order-cancellation'
       fullPath: '/order-cancellation'
       preLoaderRoute: typeof OrderCancellationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/orders': {
-      id: '/orders'
-      path: '/orders'
-      fullPath: '/orders'
-      preLoaderRoute: typeof OrdersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy-policy': {
@@ -2120,6 +2113,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OfferSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/orders/': {
+      id: '/orders/'
+      path: '/orders'
+      fullPath: '/orders/'
+      preLoaderRoute: typeof OrdersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/orders/$id': {
       id: '/orders/$id'
       path: '/$id'
@@ -2413,17 +2413,6 @@ const Mahbub214RouteWithChildren = Mahbub214Route._addFileChildren(
   Mahbub214RouteChildren,
 )
 
-interface OrdersRouteChildren {
-  OrdersIdRoute: typeof OrdersIdRoute
-}
-
-const OrdersRouteChildren: OrdersRouteChildren = {
-  OrdersIdRoute: OrdersIdRoute,
-}
-
-const OrdersRouteWithChildren =
-  OrdersRoute._addFileChildren(OrdersRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   Mahbub214Route: Mahbub214RouteWithChildren,
@@ -2443,7 +2432,6 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   McpRoute: McpRoute,
   OrderCancellationRoute: OrderCancellationRoute,
-  OrdersRoute: OrdersRouteWithChildren,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProductsRoute: ProductsRoute,
   ProfileRoute: ProfileRoute,
@@ -2468,6 +2456,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductSlugRoute: ProductSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   HelpIndexRoute: HelpIndexRoute,
+  OrdersIndexRoute: OrdersIndexRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiPublicClientErrorsRoute: ApiPublicClientErrorsRoute,
