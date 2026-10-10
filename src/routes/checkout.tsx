@@ -175,7 +175,8 @@ function CheckoutPage() {
     if (!items?.length) return;
     const hasEmail = emailRe.test(form.email.trim());
     const hasPhone = isValidBdPhone(form.phone);
-    if (!hasEmail || !hasPhone) return;
+    if (!hasEmail && !hasPhone) return;
+
 
     const handle = window.setTimeout(() => {
       void captureCheckout({
