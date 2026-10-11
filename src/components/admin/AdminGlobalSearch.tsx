@@ -212,15 +212,17 @@ export function AdminGlobalSearch({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="p-0 gap-0 max-w-2xl bg-white border-slate-200 overflow-hidden rounded-2xl shadow-[0_30px_80px_-20px_rgba(15,23,42,0.3)]">
+      <DialogContent className="p-0 gap-0 max-w-2xl bg-[#EDF2F7] border border-white/80 overflow-hidden rounded-[28px] shadow-[0_24px_50px_rgba(160,175,200,0.35),0_6px_16px_rgba(160,175,200,0.2),inset_0_2px_4px_rgba(255,255,255,0.9)]">
         <DialogTitle className="sr-only">Admin search</DialogTitle>
 
         {/* Input row */}
-        <div className="flex items-center gap-3 px-5 h-16 border-b border-slate-200">
+        <div className="flex items-center gap-3 px-5 h-16 border-b border-[#D8E1EC] bg-white/60 backdrop-blur-md">
           {isLoading ? (
-            <Loader2 className="w-4 h-4 text-slate-500 animate-spin shrink-0" />
+            <Loader2 className="w-5 h-5 text-indigo-500 animate-spin shrink-0" />
           ) : (
-            <Search className="w-4 h-4 text-slate-500 shrink-0" />
+            <div className="grid place-items-center w-8 h-8 rounded-full bg-gradient-to-br from-indigo-50 to-indigo-100 shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),0_2px_4px_rgba(79,70,229,0.15)] text-indigo-600 shrink-0">
+              <Search className="w-4 h-4" />
+            </div>
           )}
           <input
             ref={inputRef}
@@ -228,20 +230,20 @@ export function AdminGlobalSearch({
             onChange={(e) => setQ(e.target.value)}
             onKeyDown={onKeyDown}
             placeholder="Search admin — pages, products, orders…"
-            className="flex-1 bg-transparent outline-none text-[15px] text-slate-900 placeholder:text-slate-400"
+            className="flex-1 bg-transparent outline-none text-[15px] font-medium text-slate-800 placeholder:text-slate-400"
             autoComplete="off"
             spellCheck={false}
           />
           {q && (
             <button
               onClick={() => setQ("")}
-              className="grid place-items-center w-8 h-8 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition"
+              className="grid place-items-center w-8 h-8 rounded-full text-slate-500 hover:text-slate-900 bg-white/70 shadow-[0_2px_4px_rgba(160,175,200,0.2)] hover:bg-white transition"
               aria-label="Clear"
             >
               <X className="w-4 h-4" />
             </button>
           )}
-          <kbd className="hidden sm:inline-flex items-center h-6 px-2 rounded-md text-[10px] font-mono bg-slate-100 text-slate-500 border border-slate-200">
+          <kbd className="hidden sm:inline-flex items-center h-6 px-2 rounded-full text-[10px] font-semibold bg-white/80 text-slate-600 border border-slate-200/80 shadow-[0_1px_3px_rgba(160,175,200,0.2)]">
             ESC
           </kbd>
         </div>
@@ -359,14 +361,14 @@ export function AdminGlobalSearch({
                       Clear
                     </button>
                   </div>
-                  <div className="flex flex-wrap gap-1.5 px-3">
+                  <div className="flex flex-wrap gap-2 px-3">
                     {recent.map((r) => (
                       <button
                         key={r}
                         onClick={() => setQ(r)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs text-slate-700 bg-slate-100 border border-slate-200 hover:border-indigo-300 hover:text-indigo-700 transition"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 bg-white/80 border border-white/90 shadow-[0_3px_8px_rgba(160,175,200,0.25),inset_0_1px_1px_rgba(255,255,255,0.8)] hover:text-indigo-600 hover:scale-[1.03] active:scale-[0.98] transition"
                       >
-                        <Search className="w-3 h-3 text-slate-500" />
+                        <Search className="w-3 h-3 text-slate-400" />
                         {r}
                       </button>
                     ))}
@@ -374,20 +376,20 @@ export function AdminGlobalSearch({
                 </div>
               )}
 
-              <div className="mt-2">
+              <div className="mt-3">
                 <div className="px-3 pb-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 flex items-center gap-1.5">
-                  <Sparkles className="w-3 h-3" /> Quick actions
+                  <Sparkles className="w-3 h-3 text-indigo-500" /> Quick actions
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   {QUICK.map((l) => (
                     <Link
                       key={l.to}
                       to={l.to as never}
                       onClick={() => onOpenChange(false)}
-                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition group"
+                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl bg-white/50 hover:bg-white border border-transparent hover:border-white shadow-[0_2px_6px_rgba(160,175,200,0.15)] hover:shadow-[0_6px_16px_rgba(160,175,200,0.25),inset_0_1px_2px_rgba(255,255,255,0.9)] transition group"
                     >
-                      <div className="grid place-items-center w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 group-hover:border-indigo-300 transition">
-                        <Package className="w-3.5 h-3.5 text-slate-600 group-hover:text-indigo-600" />
+                      <div className="grid place-items-center w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-50 to-indigo-100 border border-white/80 text-indigo-600 shadow-sm group-hover:scale-105 transition">
+                        <Package className="w-3.5 h-3.5" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="text-sm font-semibold text-slate-900 truncate">{l.label}</div>
@@ -402,31 +404,31 @@ export function AdminGlobalSearch({
         </div>
 
         {/* Footer */}
-        <div className="border-t border-slate-200 bg-slate-50 px-4 py-2.5 flex items-center justify-between text-[10px] text-slate-500">
+        <div className="border-t border-[#D8E1EC] bg-white/60 backdrop-blur-md px-5 py-3 flex items-center justify-between text-[11px] text-slate-500">
           <div className="flex items-center gap-3">
             <span className="inline-flex items-center gap-1">
-              <kbd className="inline-flex items-center justify-center w-5 h-5 rounded bg-white border border-slate-200">
+              <kbd className="inline-flex items-center justify-center w-5 h-5 rounded-md bg-white border border-slate-200/80 shadow-xs font-mono text-[10px]">
                 <ArrowUp className="w-2.5 h-2.5" />
               </kbd>
-              <kbd className="inline-flex items-center justify-center w-5 h-5 rounded bg-white border border-slate-200">
+              <kbd className="inline-flex items-center justify-center w-5 h-5 rounded-md bg-white border border-slate-200/80 shadow-xs font-mono text-[10px]">
                 <ArrowDown className="w-2.5 h-2.5" />
               </kbd>
               navigate
             </span>
             <span className="inline-flex items-center gap-1">
-              <kbd className="inline-flex items-center justify-center h-5 px-1.5 rounded bg-white border border-slate-200 font-mono">
+              <kbd className="inline-flex items-center justify-center h-5 px-1.5 rounded-md bg-white border border-slate-200/80 shadow-xs font-mono text-[10px]">
                 ↵
               </kbd>
               select
             </span>
             <span className="hidden sm:inline-flex items-center gap-1">
-              <kbd className="inline-flex items-center justify-center h-5 px-1.5 rounded bg-white border border-slate-200 font-mono">
+              <kbd className="inline-flex items-center justify-center h-5 px-1.5 rounded-md bg-white border border-slate-200/80 shadow-xs font-mono text-[10px]">
                 esc
               </kbd>
               close
             </span>
           </div>
-          <span className="hidden sm:inline font-semibold text-slate-600">Admin search</span>
+          <span className="hidden sm:inline font-semibold text-indigo-600">Clay Admin Search</span>
         </div>
       </DialogContent>
     </Dialog>

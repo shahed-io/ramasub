@@ -4,7 +4,7 @@ import { AuthPageEntry } from "@/components/AuthPage";
 import {
   ShieldAlert, LogOut, Globe,
   PanelLeftClose, PanelLeftOpen, ChevronDown, ChevronRight, ExternalLink, Menu, Search, X,
-  Home, Frown, ShoppingCart,
+  Home, Frown, ShoppingCart, Sun, Bell, Sparkles,
 } from "lucide-react";
 
 
@@ -172,33 +172,58 @@ function AdminLayout() {
 
   if (!isAdmin && verified) {
     return (
-      <div className="min-h-screen grid place-items-center px-4 py-10" style={{ background: "#F6F7FB" }}>
+      <div className="min-h-screen grid place-items-center px-4 py-10 relative overflow-hidden" style={{ background: "#EDF2F7" }}>
+        {/* Soft clay background blobs */}
+        <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-60 blur-3xl" style={{ background: "#FEE2E2" }} />
+        <div className="pointer-events-none absolute -bottom-32 -right-32 w-96 h-96 rounded-full opacity-60 blur-3xl" style={{ background: "#E0E7FF" }} />
+
         <div
-          className="max-w-md w-full rounded-2xl p-8 text-center"
+          className="max-w-md w-full rounded-[32px] p-8 sm:p-10 text-center relative z-10"
           style={{
-            background: "rgba(255,255,255,0.9)",
-            border: "1px solid #E4E7EF",
-            boxShadow: "0 8px 32px rgba(109,74,255,0.08), 0 1px 3px rgba(0,0,0,0.04)",
-            backdropFilter: "blur(20px)",
+            background: "#FFFFFF",
+            border: "1.5px solid rgba(255, 255, 255, 0.95)",
+            boxShadow: "12px 16px 36px rgba(160, 175, 200, 0.3), -8px -8px 24px rgba(255, 255, 255, 0.95), inset 2.5px 2.5px 5px rgba(255, 255, 255, 0.9), inset -2.5px -2.5px 5px rgba(175, 190, 215, 0.2)",
           }}
         >
-          <div className="mx-auto w-14 h-14 rounded-full grid place-items-center mb-4" style={{ background: "rgba(220,38,38,0.1)", color: "#DC2626" }}>
-            <ShieldAlert className="w-7 h-7" />
+          <div
+            className="mx-auto w-16 h-16 rounded-full grid place-items-center mb-5 text-white"
+            style={{
+              background: "linear-gradient(135deg, #F87171 0%, #DC2626 100%)",
+              boxShadow: "6px 8px 18px rgba(220, 38, 38, 0.35), inset 2px 2px 3px rgba(255, 255, 255, 0.5)",
+              border: "2px solid rgba(255, 255, 255, 0.8)",
+            }}
+          >
+            <ShieldAlert className="w-8 h-8" />
           </div>
-          <h1 className="text-xl font-semibold" style={{ color: "#15192C" }}>Access denied</h1>
-          <p className="text-sm mt-2" style={{ color: "#667085" }}>
-            আপনার এই পেজ দেখার অনুমতি নেই।
+          <h1 className="text-2xl font-black tracking-tight" style={{ color: "#1E293B", fontFamily: "'Poppins', sans-serif" }}>Access Denied</h1>
+          <p className="text-sm mt-2 font-medium" style={{ color: "#64748B" }}>
+            আপনার এই অ্যাডমিন পেজ দেখার অনুমতি নেই।
           </p>
-          <div className="mt-6 flex flex-wrap gap-2 justify-center">
-            <Link to="/" className="h-10 px-5 inline-flex items-center rounded-full text-sm font-semibold transition-all hover:opacity-80" style={{ border: "1px solid #E4E7EF", color: "#15192C", background: "#fff" }}>Home</Link>
+          <div className="mt-7 flex flex-wrap gap-3 justify-center">
+            <Link
+              to="/"
+              className="h-11 px-6 inline-flex items-center rounded-full text-sm font-bold transition-all hover:opacity-90"
+              style={{
+                background: "#FFFFFF",
+                color: "#1E293B",
+                border: "1.5px solid rgba(255, 255, 255, 0.95)",
+                boxShadow: "4px 6px 14px rgba(160, 175, 200, 0.22), -3px -3px 8px rgba(255, 255, 255, 0.95), inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.8)",
+              }}
+            >
+              Home
+            </Link>
             <button
               onClick={async () => {
                 try { localStorage.removeItem(ADMIN_CACHE_KEY); } catch {}
                 await signOut();
                 navigate({ to: "/login" });
               }}
-              className="h-10 px-5 inline-flex items-center gap-1.5 rounded-full text-white text-sm font-semibold transition-all hover:opacity-90"
-              style={{ background: "linear-gradient(135deg, #6D4AFF 0%, #4f46e5 100%)" }}
+              className="h-11 px-6 inline-flex items-center gap-2 rounded-full text-white text-sm font-bold transition-all hover:opacity-95"
+              style={{
+                background: "linear-gradient(135deg, #7C66FF 0%, #5B48E8 100%)",
+                boxShadow: "5px 8px 18px rgba(108, 92, 231, 0.4), inset 2px 2px 3px rgba(255, 255, 255, 0.5)",
+                border: "1.5px solid rgba(255, 255, 255, 0.4)",
+              }}
             >
               <LogOut className="w-4 h-4" /> Sign out
             </button>
@@ -226,17 +251,29 @@ function AdminLayout() {
 
 function AdminBlankState() {
   return (
-    <div className="min-h-screen grid place-items-center" style={{ background: "#F6F7FB" }} role="status" aria-label="Loading admin panel">
-      <div className="flex flex-col items-center gap-5">
-        {/* Logo with animated gradient ring */}
+    <div className="min-h-screen grid place-items-center relative overflow-hidden" style={{ background: "#EDF2F7" }} role="status" aria-label="Loading admin panel">
+      {/* Soft clay background blobs */}
+      <div className="pointer-events-none absolute -top-20 -left-20 w-80 h-80 rounded-full opacity-60 blur-3xl" style={{ background: "#D8CEFD" }} />
+      <div className="pointer-events-none absolute -bottom-20 -right-20 w-80 h-80 rounded-full opacity-60 blur-3xl" style={{ background: "#CDE3FE" }} />
+
+      <div
+        className="rounded-[32px] p-8 sm:p-10 flex flex-col items-center gap-5 relative z-10 max-w-sm w-full mx-4 text-center"
+        style={{
+          background: "#FFFFFF",
+          border: "1.5px solid rgba(255, 255, 255, 0.95)",
+          boxShadow: "12px 16px 36px rgba(160, 175, 200, 0.28), -8px -8px 24px rgba(255, 255, 255, 0.95), inset 2.5px 2.5px 5px rgba(255, 255, 255, 0.9), inset -2.5px -2.5px 5px rgba(175, 190, 215, 0.2)",
+        }}
+      >
+        {/* Logo in 3D clay bubble */}
         <div className="relative w-20 h-20">
           <div className="admin-loader-ring" />
           <div className="absolute inset-0 grid place-items-center">
             <div
-              className="w-14 h-14 rounded-2xl grid place-items-center"
+              className="w-14 h-14 rounded-2xl grid place-items-center text-white"
               style={{
-                background: "linear-gradient(135deg, #6D4AFF 0%, #4f46e5 100%)",
-                boxShadow: "0 8px 24px rgba(109,74,255,0.4)",
+                background: "linear-gradient(135deg, #7C66FF 0%, #5B48E8 100%)",
+                boxShadow: "6px 8px 18px rgba(108, 92, 231, 0.4), -3px -3px 8px rgba(255, 255, 255, 0.9), inset 2px 2px 3px rgba(255, 255, 255, 0.5)",
+                border: "1.5px solid rgba(255, 255, 255, 0.5)",
               }}
             >
               <img
@@ -250,16 +287,16 @@ function AdminBlankState() {
         </div>
 
         {/* Animated text */}
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-sm font-bold tracking-wide" style={{ color: "#15192C" }}>Rama Sub</span>
-          <span className="text-xs font-medium tracking-wide" style={{ color: "#667085" }}>Loading admin panel…</span>
+        <div className="flex flex-col items-center gap-1.5">
+          <span className="text-base font-black tracking-tight" style={{ color: "#1E293B", fontFamily: "'Poppins', sans-serif" }}>Rama Sub</span>
+          <span className="text-xs font-semibold tracking-wide" style={{ color: "#64748B" }}>Loading Clay Dashboard…</span>
         </div>
 
-        {/* Animated progress bars */}
-        <div className="flex items-center gap-1.5">
-          <span className="admin-loader-bar" style={{ animationDelay: "0ms" }} />
-          <span className="admin-loader-bar" style={{ animationDelay: "150ms" }} />
-          <span className="admin-loader-bar" style={{ animationDelay: "300ms" }} />
+        {/* Animated clay progress bars */}
+        <div className="flex items-center gap-2">
+          <span className="admin-loader-bar" style={{ animationDelay: "0ms", background: "linear-gradient(to top, #7C66FF, #A29BFE)" }} />
+          <span className="admin-loader-bar" style={{ animationDelay: "150ms", background: "linear-gradient(to top, #7C66FF, #A29BFE)" }} />
+          <span className="admin-loader-bar" style={{ animationDelay: "300ms", background: "linear-gradient(to top, #7C66FF, #A29BFE)" }} />
         </div>
       </div>
     </div>
@@ -339,17 +376,25 @@ function AdminShell({ user, signOut, navigate }: any) {
   return (
     <div
       className="admin-shell min-h-[100dvh] w-full overflow-x-hidden lg:h-[100dvh] lg:overflow-hidden flex relative font-['Inter',ui-sans-serif,system-ui]"
-      style={{ background: "#F6F7FB", color: "#15192C" }}
+      style={{ background: "#EDF2F7", color: "#1E293B" }}
     >
-      {/* Ambient glossy blobs */}
+      {/* Ambient soft pastel clay spheres floating in background */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
         <div
-          className="absolute -top-60 -left-60 w-[700px] h-[700px] rounded-full opacity-30 blur-[120px]"
-          style={{ background: "radial-gradient(circle, #6D4AFF 0%, transparent 70%)" }}
+          className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full opacity-65 blur-[100px]"
+          style={{ background: "radial-gradient(circle, #D8CEFD 0%, rgba(216,206,253,0) 70%)" }}
         />
         <div
-          className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
-          style={{ background: "radial-gradient(circle, #4f46e5 0%, transparent 70%)" }}
+          className="absolute top-1/4 -right-32 w-[650px] h-[650px] rounded-full opacity-55 blur-[110px]"
+          style={{ background: "radial-gradient(circle, #CDE3FE 0%, rgba(205,227,254,0) 70%)" }}
+        />
+        <div
+          className="absolute -bottom-48 left-1/3 w-[650px] h-[650px] rounded-full opacity-50 blur-[120px]"
+          style={{ background: "radial-gradient(circle, #D1F6E4 0%, rgba(209,246,228,0) 70%)" }}
+        />
+        <div
+          className="absolute bottom-20 -left-20 w-[450px] h-[450px] rounded-full opacity-45 blur-[90px]"
+          style={{ background: "radial-gradient(circle, #FEE5D4 0%, rgba(254,229,212,0) 70%)" }}
         />
       </div>
 
@@ -357,31 +402,30 @@ function AdminShell({ user, signOut, navigate }: any) {
       {mobileOpen && (
         <div
           className="lg:hidden fixed inset-0 z-40 backdrop-blur-sm"
-          style={{ background: "rgba(21,25,44,0.35)" }}
+          style={{ background: "rgba(15,23,42,0.3)" }}
           onClick={() => setMobileOpen(false)}
         />
       )}
 
-      {/* ─── SIDEBAR ─── */}
+      {/* ─── SIDEBAR (Clay Card Panel) ─── */}
       <aside
         className={[
           "shrink-0 transition-all duration-300 ease-in-out flex flex-col h-[100dvh] max-h-[100dvh] lg:relative",
           "lg:sticky lg:top-0 lg:translate-x-0 lg:z-10",
-          collapsed ? "lg:w-[78px]" : "lg:w-[270px]",
+          collapsed ? "lg:w-[82px]" : "lg:w-[276px]",
           "fixed top-0 left-0 z-50 w-[min(22rem,92vw)]",
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         ].join(" ")}
         style={{
-          background: "rgba(255,255,255,0.97)",
-          borderRight: "1px solid #E4E7EF",
-          boxShadow: "4px 0 32px rgba(109,74,255,0.06)",
-          backdropFilter: "blur(24px)",
+          background: "#FFFFFF",
+          borderRight: "1.5px solid rgba(255,255,255,0.95)",
+          boxShadow: "10px 0 32px rgba(160, 175, 200, 0.22), inset -2px 0 4px rgba(175, 190, 215, 0.12)",
         }}
       >
-        {/* Top gloss stripe */}
+        {/* Top clay accent line */}
         <div
           className="absolute top-0 left-0 right-0 h-[3px] pointer-events-none"
-          style={{ background: "linear-gradient(90deg, #6D4AFF, #4f46e5, #6D4AFF)" }}
+          style={{ background: "linear-gradient(90deg, #7C66FF, #5B48E8, #7C66FF)" }}
         />
 
         {/* Brand */}
@@ -389,36 +433,37 @@ function AdminShell({ user, signOut, navigate }: any) {
           className={[
             collapsed
               ? "flex flex-col items-center justify-center gap-1.5 py-5 px-2"
-              : "h-[72px] flex items-center justify-between px-4",
+              : "h-[74px] flex items-center justify-between px-4",
           ].join(" ")}
-          style={{ borderBottom: "1px solid #E4E7EF" }}
+          style={{ borderBottom: "1.5px solid #EDF2F7" }}
         >
           <Link to="/Mahbub214" className={`flex items-center gap-3 min-w-0 group ${collapsed ? "justify-center" : ""}`} aria-label="Rama Sub Admin">
             <div
-              className="w-10 h-10 rounded-xl grid place-items-center text-white shrink-0 group-hover:scale-105 transition-transform"
+              className="w-10 h-10 rounded-2xl grid place-items-center text-white shrink-0 group-hover:scale-105 transition-transform"
               style={{
-                background: "linear-gradient(135deg, #6D4AFF 0%, #4f46e5 100%)",
-                boxShadow: "0 6px 18px -2px rgba(109,74,255,0.5), inset 0 1px 0 rgba(255,255,255,0.25)",
+                background: "linear-gradient(135deg, #7C66FF 0%, #5B48E8 100%)",
+                boxShadow: "4px 6px 14px rgba(108, 92, 231, 0.38), -2px -2px 6px rgba(255, 255, 255, 0.9), inset 1.5px 1.5px 3px rgba(255, 255, 255, 0.5), inset -1.5px -1.5px 3px rgba(0, 0, 0, 0.15)",
+                border: "1px solid rgba(255,255,255,0.4)",
               }}
             >
-              <ShoppingCart className="w-5 h-5" strokeWidth={2.5} />
+              <ShoppingCart className="w-5 h-5" strokeWidth={2.4} />
             </div>
             {!collapsed && (
               <span className="leading-tight min-w-0">
                 <span
-                  className="block text-[15px] font-extrabold tracking-tight bg-clip-text text-transparent"
+                  className="block text-[16px] font-black tracking-tight"
                   style={{
                     fontFamily: "'Poppins', var(--font-heading)",
-                    backgroundImage: "linear-gradient(90deg, #6D4AFF 0%, #4f46e5 60%, #818cf8 100%)",
+                    color: "#1E293B",
                   }}
                 >
                   Rama Sub
                 </span>
                 <span
-                  className="block text-[9px] font-black uppercase tracking-[0.22em] mt-0.5"
-                  style={{ color: "#667085" }}
+                  className="block text-[9.5px] font-extrabold uppercase tracking-[0.2em] mt-0.5"
+                  style={{ color: "#6C5CE7" }}
                 >
-                  Admin Console
+                  Clay Dashboard
                 </span>
               </span>
             )}
@@ -426,8 +471,7 @@ function AdminShell({ user, signOut, navigate }: any) {
 
           <button
             onClick={() => setMobileOpen(false)}
-            className="lg:hidden p-1.5 rounded-lg transition hover:opacity-80"
-            style={{ color: "#667085" }}
+            className="lg:hidden p-1.5 rounded-xl transition hover:opacity-80 text-slate-500 hover:bg-slate-100"
             aria-label="Close menu"
           >
             <X className="w-4 h-4" />
@@ -435,13 +479,13 @@ function AdminShell({ user, signOut, navigate }: any) {
           <button
             onClick={() => setCollapsed((v) => !v)}
             className={[
-              "hidden lg:inline-flex items-center justify-center rounded-lg transition",
+              "hidden lg:inline-flex items-center justify-center rounded-xl transition",
               collapsed ? "w-9 h-9" : "w-8 h-8",
             ].join(" ")}
             style={{
-              color: "#667085",
-              background: collapsed ? "#EEE9FF" : "transparent",
-              border: collapsed ? "1px solid #E4E7EF" : "none",
+              color: "#64748B",
+              background: collapsed ? "#EEF2F6" : "transparent",
+              border: collapsed ? "1px solid #E2E8F0" : "none",
             }}
             aria-label={collapsed ? t("Expand sidebar", "সাইডবার বড় করুন") : t("Collapse sidebar", "সাইডবার ছোট করুন")}
             title={collapsed ? t("Expand sidebar", "সাইডবার বড় করুন") : t("Collapse sidebar", "সাইডবার ছোট করুন")}
@@ -450,121 +494,160 @@ function AdminShell({ user, signOut, navigate }: any) {
           </button>
         </div>
 
-        {/* Search */}
+        {/* Search Trigger (Debossed Clay Inset) */}
         {!collapsed && (
-          <div className="px-3 pt-3 pb-1">
-            <SearchTrigger
-              size="sm"
+          <div className="px-3 pt-3.5 pb-1">
+            <button
+              type="button"
               onClick={() => setGlobalOpen(true)}
-              placeholder={t("Search anything…", "যেকোনো কিছু খুঁজুন…")}
-            />
+              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition"
+              style={{
+                background: "#F4F7FB",
+                border: "1.5px solid rgba(215, 225, 238, 0.8)",
+                color: "#64748B",
+                boxShadow: "inset 3px 3px 6px rgba(160, 175, 200, 0.22), inset -3px -3px 6px rgba(255, 255, 255, 0.95)",
+              }}
+            >
+              <span className="flex items-center gap-2 truncate">
+                <Search className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                <span className="truncate">{t("Search cars, orders, users…", "সার্চ করুন…")}</span>
+              </span>
+              <kbd className="text-[10px] font-mono px-1.5 py-0.5 rounded-lg bg-white border border-slate-200 text-slate-500 shadow-sm shrink-0">Ctrl K</kbd>
+            </button>
           </div>
         )}
 
-        {/* Menu */}
-        <nav className="flex-1 overflow-y-auto px-2 pb-4 admin-scroll">
+        {/* Navigation Menu */}
+        <nav className="flex-1 overflow-y-auto px-2.5 py-3 admin-scroll space-y-1">
           {filteredMenu.map((group) => (
             <SidebarGroup key={group.id} group={group} collapsed={collapsed} pathname={pathname} />
           ))}
         </nav>
 
-        {/* User footer */}
+        {/* Upgrade / Pro Plan Clay Card (as shown in reference image) */}
+        {!collapsed && (
+          <div className="px-3 py-2">
+            <div
+              className="rounded-[22px] p-3.5 text-left relative overflow-hidden"
+              style={{
+                background: "linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)",
+                border: "1.5px solid rgba(255, 255, 255, 0.95)",
+                boxShadow: "6px 8px 18px rgba(160, 175, 200, 0.22), -4px -4px 10px rgba(255, 255, 255, 0.95), inset 2px 2px 3px rgba(255, 255, 255, 0.8)",
+              }}
+            >
+              <div className="flex items-center gap-2 text-indigo-700 font-extrabold text-xs">
+                <div
+                  className="w-6 h-6 rounded-lg grid place-items-center bg-white text-indigo-600"
+                  style={{
+                    boxShadow: "2px 3px 6px rgba(160, 175, 200, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.9)",
+                  }}
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                </div>
+                <span>Rama Pro Dealership</span>
+              </div>
+              <p className="text-[11px] text-slate-600 mt-1 font-medium leading-snug">
+                {t("Get automated delivery & fast checkout features", "অটোমেটেড ডেলিভারি ও প্রো ফিচার পান")}
+              </p>
+              <Link
+                to="/Mahbub214/settings"
+                className="mt-2.5 inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-bold text-white transition hover:opacity-95"
+                style={{
+                  background: "linear-gradient(135deg, #7C66FF 0%, #5B48E8 100%)",
+                  boxShadow: "3px 5px 12px rgba(108, 92, 231, 0.4), inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.5)",
+                }}
+              >
+                {t("Upgrade Now →", "আপগ্রেড করুন →")}
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* User Footer (Clay Pill Card) */}
         <div
           className="p-3"
-          style={{ borderTop: "1px solid #E4E7EF", background: "rgba(238,233,255,0.3)" }}
+          style={{ borderTop: "1.5px solid #EDF2F7", background: "#FFFFFF" }}
         >
           <div className={`flex items-center gap-2.5 ${collapsed ? "justify-center" : ""}`}>
             <div
-              className="w-9 h-9 rounded-xl grid place-items-center text-xs font-black shrink-0 text-white"
+              className="w-9 h-9 rounded-full grid place-items-center text-xs font-black shrink-0 text-white"
               style={{
-                background: "linear-gradient(135deg, #6D4AFF 0%, #4f46e5 100%)",
-                boxShadow: "0 4px 12px -2px rgba(109,74,255,0.45)",
+                background: "linear-gradient(135deg, #7C66FF 0%, #5B48E8 100%)",
+                boxShadow: "3px 4px 10px rgba(108, 92, 231, 0.35), inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.5)",
+                border: "1.5px solid rgba(255,255,255,0.7)",
               }}
             >
               {(user?.email ?? "A").slice(0, 1).toUpperCase()}
             </div>
             {!collapsed && (
               <div className="min-w-0 flex-1">
-                <div className="text-[13px] font-bold truncate" style={{ color: "#15192C" }}>{t("Admin", "অ্যাডমিন")}</div>
-                <div className="text-[11px] truncate" style={{ color: "#667085" }}>{user?.email}</div>
+                <div className="text-[13px] font-bold truncate text-slate-900">{t("Admin", "অ্যাডমিন")}</div>
+                <div className="text-[11px] truncate text-slate-500">{user?.email}</div>
               </div>
             )}
             {!collapsed && (
               <button
                 onClick={async () => { await signOut(); navigate({ to: "/login" }); }}
-                className="shrink-0 w-8 h-8 rounded-lg grid place-items-center transition hover:opacity-80"
-                style={{ color: "#667085", background: "transparent" }}
+                className="shrink-0 w-8 h-8 rounded-full grid place-items-center transition text-slate-400 hover:text-rose-600 hover:bg-rose-50"
+                style={{
+                  boxShadow: "2px 2px 5px rgba(160, 175, 200, 0.15), inset 1px 1px 2px rgba(255, 255, 255, 0.8)",
+                }}
                 title={t("Logout", "লগআউট")}
                 aria-label={t("Logout", "লগআউট")}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(220,38,38,0.08)";
-                  (e.currentTarget as HTMLButtonElement).style.color = "#DC2626";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background = "transparent";
-                  (e.currentTarget as HTMLButtonElement).style.color = "#667085";
-                }}
               >
-                <LogOut className="w-4 h-4" />
+                <LogOut className="w-3.5 h-3.5" />
               </button>
             )}
           </div>
         </div>
       </aside>
 
-      {/* ─── MAIN ─── */}
+      {/* ─── MAIN CONTENT ─── */}
       <div className="flex-1 min-w-0 w-full flex flex-col lg:h-[100dvh] lg:overflow-y-auto relative z-[1]">
 
-        {/* Top bar */}
+        {/* ─── TOP BAR (Claymorphic Header Bar) ─── */}
         <header
-          className="h-[66px] sticky top-0 z-20"
+          className="h-[72px] sticky top-0 z-20"
           style={{
-            background: "rgba(255,255,255,0.95)",
+            background: "rgba(255, 255, 255, 0.88)",
             backdropFilter: "blur(20px)",
-            borderBottom: "1px solid #E4E7EF",
-            boxShadow: "0 2px 16px rgba(109,74,255,0.04)",
+            borderBottom: "1.5px solid rgba(255, 255, 255, 0.95)",
+            boxShadow: "0 6px 20px rgba(160, 175, 200, 0.12)",
           }}
         >
-          {/* Header gloss accent */}
-          <div
-            className="absolute bottom-0 left-0 right-0 h-px pointer-events-none"
-            style={{ background: "linear-gradient(90deg, transparent, rgba(109,74,255,0.2), transparent)" }}
-          />
-
-          <div className="h-full px-3 md:px-5 flex items-center gap-2 md:gap-3 min-w-0">
+          <div className="h-full px-3 md:px-6 flex items-center gap-2 md:gap-4 min-w-0">
+            {/* Mobile menu trigger */}
             <button
               onClick={() => setMobileOpen(true)}
-              className="lg:hidden h-9 w-9 rounded-xl grid place-items-center transition hover:opacity-80"
+              className="lg:hidden h-10 w-10 rounded-2xl grid place-items-center transition text-slate-700"
               style={{
-                color: "#15192C",
-                background: "#EEE9FF",
-                border: "1px solid #E4E7EF",
+                background: "#FFFFFF",
+                border: "1.5px solid rgba(255, 255, 255, 0.95)",
+                boxShadow: "4px 5px 12px rgba(160, 175, 200, 0.22), -2px -2px 6px rgba(255, 255, 255, 0.95)",
               }}
               aria-label="Open menu"
             >
               <Menu className="w-4 h-4" />
             </button>
 
+            {/* Breadcrumb / Section info */}
             <div className="hidden md:flex flex-col justify-center min-w-0 h-full py-1">
-              <div
-                className="flex items-center gap-1.5 text-[10px] font-black tracking-widest uppercase"
-                style={{ color: "#667085" }}
-              >
+              <div className="flex items-center gap-1.5 text-[10px] font-black tracking-widest uppercase text-slate-400">
                 <span>
                   {currentPage
                     ? t(currentPage.group.title, currentPage.group.titleBn)
                     : t(ADMIN_MENU[0].title, ADMIN_MENU[0].titleBn)}
                 </span>
-                <ChevronRight className="w-3 h-3" style={{ color: "#E4E7EF" }} />
-                <span style={{ color: "#6D4AFF" }}>
+                <ChevronRight className="w-3 h-3 text-slate-300" />
+                <span className="text-[#6C5CE7]">
                   {currentPage
                     ? t(currentPage.item.label, currentPage.item.labelBn)
                     : t("Dashboard", "ড্যাশবোর্ড")}
                 </span>
               </div>
               <div
-                className="font-black text-[17px] leading-tight mt-0.5 truncate"
-                style={{ fontFamily: "var(--font-heading)", color: "#15192C" }}
+                className="font-black text-[18px] leading-tight mt-0.5 truncate text-slate-900"
+                style={{ fontFamily: "'Poppins', var(--font-heading)" }}
               >
                 {currentPage
                   ? t(currentPage.item.label, currentPage.item.labelBn)
@@ -572,68 +655,129 @@ function AdminShell({ user, signOut, navigate }: any) {
               </div>
             </div>
 
-            <div className="md:hidden flex-1 min-w-0 font-bold text-sm truncate" style={{ color: "#15192C" }}>
+            <div className="md:hidden flex-1 min-w-0 font-bold text-sm truncate text-slate-900">
               {currentPage
                 ? t(currentPage.item.label, currentPage.item.labelBn)
                 : t("Dashboard", "ড্যাশবোর্ড")}
             </div>
 
-            <div className="hidden md:block flex-1" />
+            {/* Center: Clay Search Bar (matching reference image) */}
+            <div className="hidden lg:flex flex-1 max-w-md mx-auto">
+              <button
+                type="button"
+                onClick={() => setGlobalOpen(true)}
+                className="w-full flex items-center justify-between h-11 px-4 rounded-full text-xs font-semibold text-slate-500 transition"
+                style={{
+                  background: "#F4F7FB",
+                  border: "1.5px solid rgba(215, 225, 238, 0.8)",
+                  boxShadow: "inset 3px 3px 6px rgba(160, 175, 200, 0.22), inset -3px -3px 6px rgba(255, 255, 255, 0.95)",
+                }}
+              >
+                <span className="flex items-center gap-2.5 truncate">
+                  <Search className="w-4 h-4 text-slate-400 shrink-0" />
+                  <span className="truncate">{t("Search cars, customers, orders…", "সার্চ করুন কাস্টমার, অর্ডার, কার...")}</span>
+                </span>
+                <kbd className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-500 shadow-sm shrink-0">
+                  Ctrl K
+                </kbd>
+              </button>
+            </div>
 
-            <button
-              type="button"
-              onClick={toggle}
-              aria-label={t("Switch to Bangla", "ইংরেজিতে পরিবর্তন")}
-              title={lang === "en" ? "বাংলায় দেখুন" : "Show in English"}
-              className="inline-flex h-9 px-2.5 sm:px-3 rounded-xl text-xs font-bold items-center gap-1.5 transition shrink-0"
-              style={{
-                color: "#15192C",
-                background: "#fff",
-                border: "1px solid #E4E7EF",
-                boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
-              }}
-            >
-              <Globe className="w-3.5 h-3.5" style={{ color: "#6D4AFF" }} /> {lang === "en" ? "বাং" : "EN"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setGlobalOpen(true)}
-              className="xl:hidden h-9 w-9 rounded-xl grid place-items-center transition shrink-0"
-              style={{
-                color: "#15192C",
-                background: "#fff",
-                border: "1px solid #E4E7EF",
-                boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
-              }}
-              aria-label={t("Search", "খুঁজুন")}
-              title={t("Search", "খুঁজুন")}
-            >
-              <Search className="w-4 h-4" style={{ color: "#667085" }} />
-            </button>
-            <SearchTrigger
-              size="sm"
-              onClick={() => setGlobalOpen(true)}
-              placeholder={t("Search…", "খুঁজুন…")}
-              className="hidden xl:block w-64"
-            />
+            <div className="lg:hidden flex-1" />
 
-            <Link
-              to="/"
-              className="hidden sm:inline-flex h-9 px-3 rounded-xl text-xs font-bold items-center gap-1.5 transition hover:opacity-80"
-              style={{
-                color: "#6D4AFF",
-                background: "#EEE9FF",
-                border: "1px solid rgba(109,74,255,0.2)",
-              }}
-            >
-              <ExternalLink className="w-3.5 h-3.5" /> {t("View store", "স্টোর দেখুন")}
-            </Link>
+            {/* Right Action Icons (Clay Bubbles & Pills) */}
+            <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+              {/* Sun/Theme toggle bubble */}
+              <button
+                type="button"
+                className="w-9 h-9 rounded-full grid place-items-center transition text-amber-500"
+                style={{
+                  background: "#FFFFFF",
+                  border: "1.5px solid rgba(255, 255, 255, 0.95)",
+                  boxShadow: "4px 5px 12px rgba(160, 175, 200, 0.22), -3px -3px 8px rgba(255, 255, 255, 0.95), inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.8)",
+                }}
+                title={t("Light theme active", "লাইট থিম সক্রিয়")}
+                aria-label="Theme"
+              >
+                <Sun className="w-4 h-4" />
+              </button>
+
+              {/* Notification bell bubble */}
+              <Link
+                to="/Mahbub214/orders"
+                className="relative w-9 h-9 rounded-full grid place-items-center transition text-slate-600 hover:text-indigo-600"
+                style={{
+                  background: "#FFFFFF",
+                  border: "1.5px solid rgba(255, 255, 255, 0.95)",
+                  boxShadow: "4px 5px 12px rgba(160, 175, 200, 0.22), -3px -3px 8px rgba(255, 255, 255, 0.95), inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.8)",
+                }}
+                title={t("Notifications", "নোটিফিকেশন")}
+                aria-label="Notifications"
+              >
+                <Bell className="w-4 h-4" />
+                <span
+                  className="absolute top-2 right-2 w-2 h-2 rounded-full ring-2 ring-white"
+                  style={{ background: "#EF4444" }}
+                />
+              </Link>
+
+              {/* Language toggle pill */}
+              <button
+                type="button"
+                onClick={toggle}
+                aria-label={t("Switch to Bangla", "ইংরেজিতে পরিবর্তন")}
+                title={lang === "en" ? "বাংলায় দেখুন" : "Show in English"}
+                className="inline-flex h-9 px-3 rounded-full text-xs font-bold items-center gap-1.5 transition text-slate-700"
+                style={{
+                  background: "#FFFFFF",
+                  border: "1.5px solid rgba(255, 255, 255, 0.95)",
+                  boxShadow: "4px 5px 12px rgba(160, 175, 200, 0.22), -3px -3px 8px rgba(255, 255, 255, 0.95), inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.8)",
+                }}
+              >
+                <Globe className="w-3.5 h-3.5 text-[#6C5CE7]" /> {lang === "en" ? "বাং" : "EN"}
+              </button>
+
+              {/* Store preview pill */}
+              <Link
+                to="/"
+                className="hidden sm:inline-flex h-9 px-3.5 rounded-full text-xs font-bold items-center gap-1.5 transition text-[#6C5CE7] hover:opacity-90"
+                style={{
+                  background: "#EEF2FF",
+                  border: "1.5px solid rgba(255, 255, 255, 0.95)",
+                  boxShadow: "4px 5px 12px rgba(108, 92, 231, 0.18), -2px -2px 6px rgba(255, 255, 255, 0.95)",
+                }}
+              >
+                <ExternalLink className="w-3.5 h-3.5" /> {t("Store", "স্টোর")}
+              </Link>
+
+              {/* Admin profile pill (matching image header) */}
+              <div
+                className="hidden sm:flex items-center gap-2 h-9 pl-1.5 pr-3 rounded-full text-xs font-bold text-slate-800"
+                style={{
+                  background: "#FFFFFF",
+                  border: "1.5px solid rgba(255, 255, 255, 0.95)",
+                  boxShadow: "4px 5px 12px rgba(160, 175, 200, 0.22), -3px -3px 8px rgba(255, 255, 255, 0.95), inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.8)",
+                }}
+              >
+                <div
+                  className="w-6 h-6 rounded-full grid place-items-center text-[10px] font-black text-white shrink-0"
+                  style={{
+                    background: "linear-gradient(135deg, #7C66FF 0%, #5B48E8 100%)",
+                    boxShadow: "1px 2px 4px rgba(108, 92, 231, 0.4)",
+                  }}
+                >
+                  {(user?.email ?? "A").slice(0, 1).toUpperCase()}
+                </div>
+                <span className="truncate max-w-[90px]">Admin</span>
+                <ChevronDown className="w-3 h-3 text-slate-400" />
+              </div>
+            </div>
           </div>
         </header>
 
         {/* Page content */}
-        <div className="flex-1 p-3 sm:p-5 md:p-7 min-w-0 w-full overflow-x-hidden" style={{ color: "#15192C" }}>
-          <div className="mx-auto w-full max-w-[1400px] min-w-0">
+        <div className="flex-1 p-3.5 sm:p-6 md:p-8 min-w-0 w-full overflow-x-hidden" style={{ color: "#1E293B" }}>
+          <div className="mx-auto w-full max-w-[1440px] min-w-0">
             <AdminPageHeader />
             <Outlet />
           </div>
@@ -798,83 +942,57 @@ function iconGradientStyle(grad: string): CSSProperties {
 function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collapsed?: boolean; active: boolean }) {
   const { t } = useAdminLang();
   const label = t(item.label, item.labelBn);
-  const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
   const [hovered, setHovered] = useState(false);
 
   const badgeStyle =
     item.badge === "LIVE"
-      ? { background: "#DC2626", color: "#fff" }
+      ? { background: "#EF4444", color: "#ffffff", boxShadow: "2px 3px 6px rgba(239,68,68,0.3)" }
       : item.badge === "NEW"
-        ? { background: "#6D4AFF", color: "#fff" }
-        : { background: "#B45309", color: "#fff" };
-
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const id = Date.now() + Math.random();
-    setRipples((r) => [...r, { id, x: e.clientX - rect.left, y: e.clientY - rect.top }]);
-    setTimeout(() => setRipples((r) => r.filter((rp) => rp.id !== id)), 600);
-  };
-
-  const activeBg = "linear-gradient(135deg, #FF705B 0%, #FF9068 100%)";
-  const activeColor = "#ffffff";
-  const hoverBg = "rgba(255,112,91,0.08)";
+        ? { background: "#6C5CE7", color: "#ffffff", boxShadow: "2px 3px 6px rgba(108,92,231,0.3)" }
+        : { background: "#F59E0B", color: "#ffffff", boxShadow: "2px 3px 6px rgba(245,158,11,0.3)" };
 
   return (
     <Link
       to={item.to}
       activeOptions={{ exact: item.exact }}
       title={collapsed ? label : undefined}
-      onClick={handleClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={[
-        "group relative flex items-center gap-3 rounded-[14px] text-sm overflow-hidden",
-        "transition-all duration-200 ease-out will-change-transform",
+        "group relative flex items-center gap-3 rounded-[20px] text-sm overflow-hidden",
+        "transition-all duration-200 ease-out",
         "active:scale-[0.97]",
-        collapsed ? "justify-center px-2 py-2.5 mx-1 my-0.5" : "px-2.5 py-2.5",
+        collapsed ? "justify-center px-2 py-2.5 mx-1 my-1" : "px-3 py-2.5 my-0.5",
       ].join(" ")}
       style={active ? {
-        background: activeBg,
-        boxShadow: "0 4px 14px -4px rgba(255,112,91,0.4), inset 0 1px 0 rgba(255,255,255,0.2)",
-        color: activeColor,
+        background: "#FFFFFF",
+        boxShadow: "5px 7px 16px rgba(160, 175, 200, 0.28), -3px -3px 8px rgba(255, 255, 255, 0.95), inset 2px 2px 3px rgba(255, 255, 255, 0.9), inset -2px -2px 3px rgba(175, 190, 215, 0.18)",
+        color: "#1E293B",
         fontWeight: 700,
-        border: "1px solid rgba(255,112,91,0.8)",
+        border: "1.5px solid rgba(255, 255, 255, 1)",
       } : hovered ? {
-        background: hoverBg,
-        color: "#15192C",
-        border: "1px solid transparent",
+        background: "#F8FAFD",
+        color: "#1E293B",
+        border: "1.5px solid rgba(255, 255, 255, 0.8)",
+        boxShadow: "3px 4px 10px rgba(160, 175, 200, 0.15), -2px -2px 6px rgba(255, 255, 255, 0.8)",
       } : {
-        color: "#667085",
-        border: "1px solid transparent",
+        color: "#64748B",
+        border: "1.5px solid transparent",
       }}
     >
-      {/* Left active indicator bar - hidden in new design */}
-      <span
-        aria-hidden
-        className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] rounded-r-full transition-all duration-300 ease-out hidden"
-      />
-      {/* Ripple effects */}
-      {ripples.map((r) => (
-        <span
-          key={r.id}
-          aria-hidden
-          className="pointer-events-none absolute rounded-full animate-[adminRipple_0.6s_ease-out_forwards]"
-          style={{ left: r.x, top: r.y, width: 8, height: 8, transform: "translate(-50%, -50%)", background: "rgba(109,74,255,0.18)" }}
-        />
-      ))}
-      {/* Icon */}
+      {/* 3D Clay Icon Bubble */}
       <span
         style={{
           ...iconGradientStyle(item.grad),
           boxShadow: active
-            ? "none"
-            : "0 2px 8px -1px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.2)",
-          border: active ? "1px solid rgba(255,255,255,0.3)" : "none",
+            ? "4px 6px 14px rgba(108, 92, 231, 0.38), inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.6), inset -1.5px -1.5px 2px rgba(0, 0, 0, 0.15)"
+            : "2px 3px 8px rgba(160, 175, 200, 0.22), inset 1px 1px 2px rgba(255, 255, 255, 0.45)",
+          border: "1.5px solid rgba(255, 255, 255, 0.65)",
         }}
         className={[
           "shrink-0 w-8 h-8 rounded-full grid place-items-center text-white",
           "transition-transform duration-200",
-          active ? "scale-110" : "group-hover:scale-105 group-active:scale-95",
+          active ? "scale-105" : "group-hover:scale-105",
         ].join(" ")}
       >
         {item.icon}
@@ -882,14 +1000,14 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
       {!collapsed && (
         <span
           className="relative truncate flex-1 text-[13px] transition-all"
-          style={{ fontWeight: active ? 700 : 600, color: active ? "#ffffff" : hovered ? "#15192C" : "#667085" }}
+          style={{ fontWeight: active ? 700 : 600, color: active ? "#1E293B" : hovered ? "#1E293B" : "#64748B" }}
         >
           {label}
         </span>
       )}
       {!collapsed && item.badge && (
         <span
-          className="relative shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider"
+          className="relative shrink-0 text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider"
           style={badgeStyle}
         >
           {item.badge}
@@ -897,8 +1015,11 @@ function SidebarItem({ item, collapsed, active }: { item: AdminMenuItem; collaps
       )}
       {!collapsed && active && !item.badge && (
         <span
-          className="relative shrink-0 w-1.5 h-1.5 rounded-full"
-          style={{ background: "#ffffff", animation: "adminActivePulse 2s ease-in-out infinite" }}
+          className="relative shrink-0 w-2 h-2 rounded-full"
+          style={{
+            background: "#6C5CE7",
+            boxShadow: "0 0 8px rgba(108, 92, 231, 0.6)",
+          }}
           aria-hidden
         />
       )}

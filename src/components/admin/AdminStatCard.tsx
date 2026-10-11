@@ -3,12 +3,12 @@ import { TrendingDown, TrendingUp } from "lucide-react";
 export type AdminStatTone = "indigo" | "rose" | "emerald" | "violet" | "sky";
 
 // New color palette: brand purple #6D4AFF
-const TONES: Record<AdminStatTone, { stroke: string; bg: string }> = {
-  indigo:  { stroke: "#6D4AFF", bg: "linear-gradient(135deg, #F3E8FF 0%, #ffffff 100%)" },
-  rose:    { stroke: "#DC2626", bg: "linear-gradient(135deg, #FFE4E6 0%, #ffffff 100%)" },
-  emerald: { stroke: "#15803D", bg: "linear-gradient(135deg, #ECFDF5 0%, #ffffff 100%)" },
-  sky:     { stroke: "#0ea5e9", bg: "linear-gradient(135deg, #E0F2FE 0%, #ffffff 100%)" },
-  violet:  { stroke: "#6D4AFF", bg: "linear-gradient(135deg, #F3EEFB 0%, #ffffff 100%)" },
+const TONES: Record<AdminStatTone, { stroke: string; bg: string; dot: string }> = {
+  indigo:  { stroke: "#6C5CE7", bg: "#FFFFFF", dot: "#7C66FF" },
+  rose:    { stroke: "#EF4444", bg: "#FFFFFF", dot: "#F87171" },
+  emerald: { stroke: "#10B981", bg: "#FFFFFF", dot: "#34D399" },
+  sky:     { stroke: "#3B82F6", bg: "#FFFFFF", dot: "#60A5FA" },
+  violet:  { stroke: "#8B5CF6", bg: "#FFFFFF", dot: "#A78BFA" },
 };
 
 function sparkPath(vals: number[], w = 200, h = 60) {
@@ -55,32 +55,23 @@ export function AdminStatCard({
 
   return (
     <div
-      className="relative overflow-hidden rounded-[20px] p-5 transition-all duration-200 hover:-translate-y-0.5 group"
+      className="clay-card clay-card-hover p-5 sm:p-6 relative overflow-hidden group"
       style={{
-        background: t.bg,
-        border: "1px solid rgba(0,0,0,0.04)",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.02)",
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = `0 8px 30px rgba(109,74,255,0.10), 0 2px 6px rgba(0,0,0,0.04)`;
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 20px rgba(109,74,255,0.05), 0 1px 3px rgba(0,0,0,0.03)";
+        background: "#FFFFFF",
+        border: "1.5px solid rgba(255, 255, 255, 0.95)",
+        boxShadow: "10px 14px 28px rgba(160, 175, 200, 0.28), -8px -8px 22px rgba(255, 255, 255, 0.95), inset 2.5px 2.5px 5px rgba(255, 255, 255, 0.85), inset -2.5px -2.5px 5px rgba(175, 190, 215, 0.2)",
       }}
     >
-      {/* Top gloss line - removed for flat pastel look */}
-      {/* Icon tint blob - removed to keep it cleaner */}
-
       <div className="flex items-start justify-between relative z-10">
-        <div className="text-[11px] font-black uppercase tracking-wider" style={{ color: "#667085" }}>{label}</div>
+        <div className="text-xs font-black uppercase tracking-wider text-slate-400">{label}</div>
         <button
-          className="text-sm leading-none transition hover:opacity-70"
-          style={{ color: "#B4B8CC" }}
+          className="text-slate-400 hover:text-slate-600 transition"
+          aria-label="Options"
         >⋮</button>
       </div>
       <div
-        className="text-3xl md:text-4xl font-black mt-2.5 tracking-tight tabular-nums relative z-10"
-        style={{ color: "#15192C" }}
+        className="text-3xl md:text-4xl font-black mt-2.5 tracking-tight tabular-nums relative z-10 text-slate-900"
+        style={{ fontFamily: "'Poppins', sans-serif" }}
       >
         {loading ? "—" : value}
       </div>
@@ -88,16 +79,16 @@ export function AdminStatCard({
         {typeof delta === "number" ? (
           <div className="flex items-center gap-1.5 text-xs">
             <span
-              className="inline-flex items-center gap-0.5 font-bold px-2 py-0.5 rounded-full"
+              className="clay-badge text-[11px]"
               style={{
-                color: up ? "#15803D" : "#DC2626",
-                background: up ? "rgba(21,128,61,0.08)" : "rgba(220,38,38,0.08)",
+                color: up ? "#065F46" : "#9F1239",
+                background: up ? "#D1FAE5" : "#FFE4E6",
               }}
             >
               {up ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
               {up ? "+" : ""}{delta}%
             </span>
-            <span className="font-semibold" style={{ color: "#667085" }}>{deltaLabel}</span>
+            <span className="font-semibold text-slate-400 text-[11px]">{deltaLabel}</span>
           </div>
         ) : <span />}
         <svg viewBox="0 0 200 60" className="w-[55%] h-14 -mb-1">
