@@ -251,15 +251,33 @@ function AdminLayout() {
 }
 
 function AdminBlankState() {
-  return (
-    <div className="min-h-screen grid place-items-center relative overflow-hidden" style={{ background: "#EDF2F7" }} role="status" aria-label="Loading admin panel">
-      {/* Soft clay background blobs */}
-      <div className="pointer-events-none absolute -top-20 -left-20 w-80 h-80 rounded-full opacity-60 blur-3xl" style={{ background: "#D8CEFD" }} />
-      <div className="pointer-events-none absolute -bottom-20 -right-20 w-80 h-80 rounded-full opacity-60 blur-3xl" style={{ background: "#CDE3FE" }} />
+  return <div className="admin-shell admin-clarity min-h-screen grid place-items-center" role="status" aria-label="Loading admin panel"><img src={ramaSubLogo} alt="Rama Sub" className="w-16 h-16 object-contain" /></div>;
+}
 
-      <div
-        className="rounded-[32px] p-8 sm:p-10 flex flex-col items-center gap-5 relative z-10 max-w-sm w-full mx-4 text-center"
-      >
+function AdminShell({ user, signOut, navigate }: { user: any; signOut: () => Promise<void>; navigate: any }) {
+  const { t, lang, toggle } = useAdminLang();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [globalOpen, setGlobalOpen] = useState(false);
+  const filteredMenu = ADMIN_MENU;
+  const currentPage = useMemo(() => {
+    for (const group of ADMIN_MENU) {
+      const item = group.items.find((item) => isMenuActive(pathname, item));
+      if (item) return { group, item };
+    }
+    return null;
+  }, [pathname]);
+  useEffect(() => { setMobileOpen(false); }, [pathname]);
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => { if ((event.ctrlKey || event.metaKey) && event.key === "k") { event.preventDefault(); setGlobalOpen((open) => !open); } };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+  return (
+    <div className="admin-shell admin-clarity min-h-[100dvh] w-full overflow-x-hidden lg:h-[100dvh] lg:overflow-hidden flex relative">
+      {mobileOpen && <div className="admin-menu-overlay lg:hidden fixed inset-0 z-40" onClick={() => setMobileOpen(false)} />}
+      <aside className={`admin-sidebar shrink-0 transition-all duration-200 flex flex-col h-[100dvh] lg:relative lg:translate-x-0 lg:z-10 fixed top-0 left-0 z-50 w-[min(22rem,92vw)] ${collapsed ? "lg:w-[82px]" : "lg:w-[296px]"} ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
         {/* Brand */}
         <div
           className={[
@@ -559,7 +577,7 @@ function AdminBlankState() {
         </header>
 
         {/* Page content */}
-        <div className="flex-1 p-3.5 sm:p-6 md:p-8 min-w-0 w-full overflow-x-hidden" style={{ color: "#1E293B" }}>
+        <div className="admin-main-content flex-1 p-3.5 sm:p-6 md:p-8 min-w-0 w-full overflow-x-hidden" style={{ color: "#1E293B" }}>
           <div className="mx-auto w-full max-w-[1440px] min-w-0">
             <AdminPageHeader />
             <Outlet />
