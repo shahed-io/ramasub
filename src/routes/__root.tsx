@@ -216,6 +216,7 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isAdmin = pathname.startsWith("/Mahbub214");
+  const isCheckout = pathname === "/checkout";
 
   useEffect(() => {
     installErrorLogger();
@@ -250,7 +251,7 @@ function RootComponent() {
               <main id="main-content">
                 <Outlet />
               </main>
-              {!isAdmin && <SupportWidget />}
+              {!isAdmin && !isCheckout && <SupportWidget />}
               {!isAdmin && <WelcomePopup />}
               {!isAdmin && <InstallAppPrompt />}
               {!isAdmin && <TrackingScripts />}

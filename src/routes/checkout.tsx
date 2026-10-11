@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Check, Loader2, X, Lock, ArrowLeft, User, Mail, Phone, ShoppingBag, CreditCard, ShieldCheck, Tag, Copy, Image as ImageIcon } from "lucide-react";
+import { Check, Loader2, X, Lock, ArrowLeft, User, Mail, Phone, ShoppingBag, CreditCard, ShieldCheck, Tag, Copy, Image as ImageIcon, ChevronDown, AlertCircle } from "lucide-react";
 import { useEffect, useMemo, useState, useCallback, useRef } from "react";
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
@@ -352,40 +352,128 @@ function CheckoutPage() {
     );
   }
 
+  const [mobileSummaryOpen, setMobileSummaryOpen] = useState(false);
+
   const canSubmit = 
     !errors.name && !errors.email && !errors.phone &&
     !busy &&
     !(isWalletMethod && walletInsufficient) &&
     (isGatewayMethod || isWalletMethod || (form.trxId && form.senderNumber && !errors.trxId && !errors.senderNumber));
 
+  const handleValidateAndSubmit = () => {
+    setTouched({
+      name: true,
+      email: true,
+      phone: true,
+      senderNumber: true,
+      trxId: true,
+    });
+
+    if (!form.name.trim() || errors.name) {
+      document.getElementById("section-customer")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      setErr("অনুগ্রহ করে আপনার পুরো নাম লিখুন (Full Name is required)");
+      return;
+    }
+    if (!form.phone.trim() || errors.phone) {
+      document.getElementById("section-customer")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      setErr("সঠিক বাংলাদেশি মোবাইল নম্বর দিন (Valid BD phone required)");
+      return;
+    }
+    if (!form.email.trim() || errors.email) {
+      document.getElementById("section-customer")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      setErr("সঠিক ইমেইল এড্রেস লিখুন (Valid email required)");
+      return;
+    }
+    if (!isGatewayMethod && !isWalletMethod) {
+      if (!form.senderNumber.trim() || errors.senderNumber) {
+        document.getElementById("field-sender-number")?.scrollIntoView({ behavior: "smooth", block: "center" });
+        setErr(`যে নম্বর থেকে ${selectedMethod.name} করেছেন সেই প্রেরক নম্বর দিন`);
+        return;
+      }
+      if (!form.trxId.trim() || errors.trxId) {
+        document.getElementById("field-trx-id")?.scrollIntoView({ behavior: "smooth", block: "center" });
+        setErr("পেমেন্টের Transaction ID (TrxID) প্রদান করুন");
+        return;
+      }
+    }
+    if (isWalletMethod && walletInsufficient) {
+      setErr("আপনার ওয়ালেট ব্যালেন্স পর্যাপ্ত নয়");
+      return;
+    }
+
+    void handleSubmit();
+  };
+
   return (
-    <div className="h-[100dvh] w-screen bg-slate-950 flex flex-col md:items-center md:justify-center overflow-hidden font-sans text-slate-200 relative">
+    <div className="min-h-[100dvh] w-full bg-slate-950 flex flex-col md:items-center md:justify-center overflow-x-hidden font-sans text-slate-200 relative pb-28 md:pb-0">
       {/* Background gradients */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-indigo-600/20 blur-[120px] mix-blend-screen" />
         <div className="absolute top-[60%] -right-[10%] w-[40%] h-[60%] rounded-full bg-purple-600/10 blur-[100px] mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 w-full h-full md:h-[90vh] md:max-h-[850px] md:max-w-6xl md:rounded-[2rem] bg-slate-900/80 backdrop-blur-2xl border-0 md:border md:border-white/10 shadow-2xl flex flex-col md:flex-row overflow-hidden flex-1">
+      <div className="relative z-10 w-full md:h-[90vh] md:max-h-[850px] md:max-w-6xl md:rounded-[2rem] bg-slate-900/80 backdrop-blur-2xl border-0 md:border md:border-white/10 shadow-2xl flex flex-col md:flex-row overflow-visible md:overflow-hidden flex-1">
         
         {/* Left Side: Forms & Payment */}
-        <div className="flex-1 flex flex-col h-full overflow-hidden border-r border-white/5">
+        <div className="w-full flex-1 flex flex-col md:h-full md:overflow-hidden md:border-r border-white/5">
           {/* Header Area */}
           <div className="flex items-center justify-between p-4 md:p-6 border-b border-white/5 bg-slate-900/50 shrink-0">
              <Link to="/" className="flex items-center gap-2 text-slate-400 hover:text-white transition">
                 <ArrowLeft className="w-5 h-5" />
                 <span className="font-semibold text-sm">Back to Shop</span>
              </Link>
-             <div className="flex items-center gap-2 text-indigo-400 bg-indigo-400/10 px-3 py-1.5 rounded-full">
+             <div className="flex items-center gap-2 text-indigo-400 bg-indigo-400/10 px-3 py-1.5 rounded-full border border-indigo-400/20">
                 <ShieldCheck className="w-4 h-4" />
                 <span className="text-xs font-bold uppercase tracking-wider">Secure</span>
              </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto custom-scrollbar p-4 md:p-8 space-y-6 md:space-y-8 pb-32 md:pb-8">
+          <div className="w-full flex-1 md:overflow-y-auto custom-scrollbar p-4 md:p-8 space-y-6 md:space-y-8 pb-8 md:pb-8">
             
+            {/* Mobile Order Summary Accordion (Mobile Only) */}
+            <div className="md:hidden bg-slate-800/40 border border-white/10 rounded-2xl overflow-hidden transition-all">
+              <button
+                type="button"
+                onClick={() => setMobileSummaryOpen(!mobileSummaryOpen)}
+                className="w-full flex items-center justify-between p-4 text-left"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-indigo-500/20 text-indigo-400 grid place-items-center">
+                    <ShoppingBag className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400 font-medium">Order Items ({items.length})</p>
+                    <p className="text-sm font-bold text-white">{format(grandTotal)}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 text-xs font-semibold text-indigo-400">
+                  <span>{mobileSummaryOpen ? "Hide Details" : "View Details"}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileSummaryOpen ? "rotate-180" : ""}`} />
+                </div>
+              </button>
+              
+              {mobileSummaryOpen && (
+                <div className="p-4 pt-0 border-t border-white/5 space-y-3">
+                  {items.map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-3 py-2 border-b border-white/5 last:border-0">
+                      <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center overflow-hidden shrink-0">
+                        {item.image_url ? <img src={item.image_url} alt="" className="w-full h-full object-cover" /> : <ShoppingBag className="w-4 h-4 text-slate-500" />}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-medium text-slate-200 truncate">{item.name}</h4>
+                        <p className="text-xs text-slate-400 truncate">{item.planPeriod} × {item.qty}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-bold text-white">{format(item.price * item.qty)}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* Customer Details Compact */}
-            <section className="space-y-4">
+            <section className="space-y-4" id="section-customer">
               <h2 className="text-lg font-bold flex items-center gap-2 text-white">
                 <User className="w-5 h-5 text-indigo-400" /> Customer Details
               </h2>
@@ -412,7 +500,7 @@ function CheckoutPage() {
             </section>
 
             {/* Payment Method Selection */}
-            <section className="space-y-4">
+            <section className="space-y-4" id="section-payment-method">
                <h2 className="text-lg font-bold flex items-center gap-2 text-white">
                 <CreditCard className="w-5 h-5 text-purple-400" /> Payment Method
               </h2>
@@ -440,43 +528,73 @@ function CheckoutPage() {
 
             {/* Payment Instructions & Details */}
             {!isGatewayMethod && !isWalletMethod && (
-              <section className="bg-slate-800/40 border border-white/5 rounded-2xl p-4 md:p-5 space-y-5">
-                <div className="flex flex-col md:flex-row gap-4 items-center justify-between p-4 rounded-xl border border-white/10 bg-slate-900/50 relative overflow-hidden">
-                  <div className="absolute left-0 top-0 bottom-0 w-1" style={{backgroundColor: selectedMethod.brand_color || '#6366f1'}} />
+              <section className="bg-slate-800/40 border border-white/5 rounded-2xl p-4 md:p-5 space-y-5" id="section-payment-details">
+                <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between p-4 rounded-xl border border-white/10 bg-slate-900/50 relative overflow-hidden">
+                  <div className="absolute left-0 top-0 bottom-0 w-1.5" style={{backgroundColor: selectedMethod.brand_color || '#6366f1'}} />
                   <div>
-                    <p className="text-xs text-slate-400 font-medium uppercase tracking-wider mb-1">{selectedMethod.name} Number (Personal)</p>
+                    <p className="text-xs text-slate-400 font-medium uppercase tracking-wider mb-1">
+                      {selectedMethod.name} Number ({selectedMethod.send_money_label || "Personal"})
+                    </p>
                     <p className="text-2xl font-black text-white tracking-wider">{selectedMethod.number}</p>
                   </div>
-                  <button onClick={copyNumber} className="flex items-center justify-center gap-2 h-10 px-4 rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-sm font-bold text-white">
+                  <button onClick={copyNumber} className="flex items-center justify-center gap-2 h-10 px-4 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/30 transition-colors text-sm font-bold text-indigo-300">
                     {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
                     {copied ? "Copied" : "Copy"}
                   </button>
                 </div>
+
+                <div className="text-xs text-slate-400 bg-slate-900/40 p-3 rounded-xl border border-white/5 leading-relaxed">
+                  {selectedMethod.instructions ? (
+                    <p>{selectedMethod.instructions}</p>
+                  ) : (
+                    <p>
+                      ১. আপনার {selectedMethod.name} অ্যাপ থেকে উপরের নম্বরে <strong className="text-slate-200">Send Money</strong> করুন।<br />
+                      ২. সেন্ড মানি সফল হলে নিচের বক্সে <strong className="text-slate-200">Sender Number</strong> এবং <strong className="text-slate-200">Transaction ID</strong> লিখে অর্ডার সম্পন্ন করুন।
+                    </p>
+                  )}
+                </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                   <div className="space-y-1.5">
-                     <label className="text-xs font-semibold text-slate-400 ml-1">Sender Number</label>
-                     <input type="tel" placeholder="e.g. 017XXXXXXXX" value={form.senderNumber} onChange={e => update("senderNumber", e.target.value)} onBlur={() => blur("senderNumber")}
-                       className={`w-full h-11 px-4 bg-slate-900/50 border ${touched.senderNumber && errors.senderNumber ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors`}
-                     />
+                   <div className="space-y-1.5" id="field-sender-number">
+                     <label className="text-xs font-semibold text-slate-400 ml-1 flex items-center justify-between">
+                       <span>Sender Number (প্রেরক নম্বর)</span>
+                       {touched.senderNumber && errors.senderNumber && (
+                         <span className="text-red-400 text-[11px] font-normal">{errors.senderNumber}</span>
+                       )}
+                     </label>
+                     <div className="relative">
+                       <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500"><Phone className="w-4 h-4"/></div>
+                       <input type="tel" placeholder="01XXXXXXXXX" value={form.senderNumber} onChange={e => update("senderNumber", e.target.value)} onBlur={() => blur("senderNumber")}
+                         className={`w-full h-11 pl-10 pr-4 bg-slate-900/50 border ${touched.senderNumber && errors.senderNumber ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-indigo-500'} rounded-xl text-sm text-white focus:outline-none transition-colors`}
+                       />
+                     </div>
                    </div>
-                   <div className="space-y-1.5">
-                     <label className="text-xs font-semibold text-slate-400 ml-1">Transaction ID</label>
-                     <input type="text" placeholder="e.g. 9F6A2B8C" value={form.trxId} onChange={e => update("trxId", e.target.value)} onBlur={() => blur("trxId")}
-                       className={`w-full h-11 px-4 bg-slate-900/50 border ${touched.trxId && errors.trxId ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-sm text-white uppercase focus:outline-none focus:border-indigo-500 transition-colors`}
-                     />
+
+                   <div className="space-y-1.5" id="field-trx-id">
+                     <label className="text-xs font-semibold text-slate-400 ml-1 flex items-center justify-between">
+                       <span>Transaction ID (ট্রানজেকশন আইডি)</span>
+                       {touched.trxId && errors.trxId && (
+                         <span className="text-red-400 text-[11px] font-normal">{errors.trxId}</span>
+                       )}
+                     </label>
+                     <div className="relative">
+                       <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500"><CreditCard className="w-4 h-4"/></div>
+                       <input type="text" placeholder="e.g. 9F6A2B8C" value={form.trxId} onChange={e => update("trxId", e.target.value)} onBlur={() => blur("trxId")}
+                         className={`w-full h-11 pl-10 pr-4 bg-slate-900/50 border ${touched.trxId && errors.trxId ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-indigo-500'} rounded-xl text-sm text-white uppercase focus:outline-none transition-colors`}
+                       />
+                     </div>
                    </div>
                 </div>
 
                 {/* Screenshot Upload Compact */}
                 <div className="flex items-center gap-3 mt-2">
-                   <label className="flex items-center justify-center gap-2 px-4 py-2 bg-slate-900/50 border border-white/10 hover:bg-white/10 transition-colors rounded-lg text-xs font-semibold cursor-pointer w-full text-slate-300">
-                     {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ImageIcon className="w-4 h-4" />}
-                     {screenshotUrl ? "Screenshot Uploaded" : "Upload Screenshot (Optional)"}
+                   <label className="flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-900/50 border border-white/10 hover:bg-white/10 transition-colors rounded-xl text-xs font-semibold cursor-pointer w-full text-slate-300">
+                     {uploading ? <Loader2 className="w-4 h-4 animate-spin text-indigo-400" /> : <ImageIcon className="w-4 h-4 text-slate-400" />}
+                     {screenshotUrl ? "✓ Screenshot Uploaded" : "Upload Payment Screenshot (Optional)"}
                      <input type="file" accept="image/*" className="hidden" onChange={handleScreenshot} />
                    </label>
                    {screenshotUrl && (
-                     <button onClick={() => setScreenshotUrl("")} className="p-2 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-lg transition-colors">
+                     <button onClick={() => setScreenshotUrl("")} className="p-2.5 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-xl transition-colors shrink-0" title="Remove Screenshot">
                        <X className="w-4 h-4" />
                      </button>
                    )}
@@ -492,20 +610,79 @@ function CheckoutPage() {
             )}
             
             {err && (
-              <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold animate-pulse">
-                {err}
+              <div className="p-3.5 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs font-semibold flex items-center gap-2 animate-pulse">
+                <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                <span>{err}</span>
               </div>
             )}
+
+            {/* Mobile-Only Promo Code & Totals Section (In-flow) */}
+            <div className="md:hidden space-y-4 pt-2 border-t border-white/10">
+              {/* Promo Code */}
+              <div className="space-y-2">
+                <div className="flex gap-2">
+                  <input type="text" placeholder="Promo code" value={couponInput} onChange={e => setCouponInput(e.target.value)}
+                    className="flex-1 h-11 px-3.5 bg-slate-900/60 border border-white/10 rounded-xl text-sm text-white uppercase focus:outline-none focus:border-indigo-500 transition-colors"
+                  />
+                  <button type="button" onClick={applyCouponNow} className="h-11 px-5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold rounded-xl transition-colors shadow-sm">
+                    Apply
+                  </button>
+                </div>
+                {applied.valid && applied.code && (
+                  <div className="flex items-center justify-between px-3.5 py-2 bg-green-500/10 border border-green-500/20 rounded-xl">
+                    <span className="text-xs font-bold text-green-400 flex items-center gap-1.5"><Tag className="w-3.5 h-3.5"/> {applied.code} applied</span>
+                    <span className="text-xs font-bold text-green-400">-{format(applied.discount)}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Price Breakdown */}
+              <div className="p-4 rounded-2xl bg-slate-800/40 border border-white/10 space-y-2.5 text-sm">
+                <div className="flex justify-between text-slate-400">
+                  <span>Subtotal ({items.length} items)</span>
+                  <span className="text-white font-medium">{format(total)}</span>
+                </div>
+                {applied.discount > 0 && (
+                  <div className="flex justify-between text-green-400 font-medium">
+                    <span>Discount</span>
+                    <span>-{format(applied.discount)}</span>
+                  </div>
+                )}
+                {walletApplied > 0 && (
+                  <div className="flex justify-between text-teal-400 font-medium">
+                    <span>Wallet Applied</span>
+                    <span>-{format(walletApplied)}</span>
+                  </div>
+                )}
+                <div className="flex justify-between items-center pt-3 border-t border-white/10 mt-3">
+                  <span className="text-slate-300 font-bold uppercase tracking-wider text-xs">Total to Pay</span>
+                  <span className="text-2xl font-black text-indigo-400">
+                    {format(grandTotal)}
+                  </span>
+                </div>
+              </div>
+
+              {/* In-flow Mobile Confirm Button */}
+              <button
+                type="button"
+                onClick={handleValidateAndSubmit}
+                disabled={busy}
+                className="w-full h-14 rounded-2xl font-black uppercase tracking-wider text-sm text-white flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(99,102,241,0.4)] active:scale-[0.98] transition-all disabled:opacity-50"
+                style={{ background: "linear-gradient(135deg, #4f46e5, #7c3aed)" }}
+              >
+                {busy ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Lock className="w-4 h-4"/> Confirm Payment ({format(grandTotal)})</>}
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Right Side: Order Summary & Pay */}
-        <div className="w-full md:w-[380px] lg:w-[420px] bg-slate-950/60 backdrop-blur-3xl flex flex-col h-auto md:h-full shrink-0 border-t md:border-t-0 md:border-l border-white/5 absolute md:relative bottom-0 left-0 z-20 rounded-t-3xl md:rounded-none">
+        {/* Right Side: Order Summary & Pay (Desktop Only) */}
+        <div className="hidden md:flex w-[380px] lg:w-[420px] bg-slate-950/60 backdrop-blur-3xl flex-col h-full shrink-0 border-l border-white/5 relative">
           <div className="flex-1 flex flex-col p-5 md:p-8 overflow-hidden h-full">
-            <h3 className="text-xl font-black text-white mb-5 hidden md:block">Order Summary</h3>
+            <h3 className="text-xl font-black text-white mb-5">Order Summary</h3>
             
             {/* Scrollable Items list */}
-            <div className="flex-1 overflow-y-auto custom-scrollbar -mx-2 px-2 hidden md:block space-y-3 mb-4">
+            <div className="flex-1 overflow-y-auto custom-scrollbar -mx-2 px-2 space-y-3 mb-4">
               {items.map((item, idx) => (
                 <div key={idx} className="flex gap-4 p-3 rounded-xl bg-slate-900/40 border border-white/5 items-center">
                   <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center overflow-hidden shrink-0">
@@ -524,9 +701,8 @@ function CheckoutPage() {
             </div>
 
             {/* Bottom Totals Section */}
-            <div className="mt-auto space-y-4 pt-2 md:pt-4 md:border-t border-white/10 bg-slate-950/80 md:bg-transparent -mx-5 px-5 md:mx-0 md:px-0">
-              
-              {/* Promo Code Compact */}
+            <div className="mt-auto space-y-4 pt-4 border-t border-white/10">
+              {/* Promo Code */}
               <div className="flex gap-2">
                 <input type="text" placeholder="Promo code" value={couponInput} onChange={e => setCouponInput(e.target.value)}
                   className="flex-1 h-10 px-3 bg-slate-900 border border-white/10 rounded-lg text-sm text-white uppercase focus:outline-none focus:border-indigo-500 transition-colors"
@@ -551,6 +727,12 @@ function CheckoutPage() {
                     <span>-{format(applied.discount)}</span>
                   </div>
                 )}
+                {walletApplied > 0 && (
+                  <div className="flex justify-between text-teal-400 font-medium">
+                    <span>Wallet Applied</span>
+                    <span>-{format(walletApplied)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between items-end pt-3 border-t border-white/5 mt-3">
                   <span className="text-slate-300 font-bold uppercase tracking-wider text-xs mb-1">Total to Pay</span>
                   <span className="text-2xl font-black text-white" style={{background: 'linear-gradient(to right, #a5b4fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
@@ -573,6 +755,23 @@ function CheckoutPage() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Mobile Sticky Bottom Floating Action Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 p-3 px-4 bg-slate-900/95 backdrop-blur-xl border-t border-white/10 shadow-[0_-8px_30px_rgba(0,0,0,0.5)] flex items-center justify-between gap-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="min-w-0">
+          <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total to Pay</p>
+          <p className="text-lg font-black text-white truncate">{format(grandTotal)}</p>
+        </div>
+        <button
+          type="button"
+          onClick={handleValidateAndSubmit}
+          disabled={busy}
+          className="h-12 px-6 rounded-xl font-bold uppercase tracking-wider text-xs sm:text-sm text-white flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(99,102,241,0.5)] active:scale-[0.98] transition-all shrink-0"
+          style={{ background: "linear-gradient(135deg, #4f46e5, #7c3aed)" }}
+        >
+          {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <><Lock className="w-3.5 h-3.5"/> Confirm Payment</>}
+        </button>
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
