@@ -524,44 +524,6 @@ function AdminShell({ user, signOut, navigate }: any) {
           ))}
         </nav>
 
-        {/* Upgrade / Pro Plan Clay Card (as shown in reference image) */}
-        {!collapsed && (
-          <div className="px-3 py-2">
-            <div
-              className="rounded-[22px] p-3.5 text-left relative overflow-hidden"
-              style={{
-                background: "linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)",
-                border: "1.5px solid rgba(255, 255, 255, 0.95)",
-                boxShadow: "6px 8px 18px rgba(160, 175, 200, 0.22), -4px -4px 10px rgba(255, 255, 255, 0.95), inset 2px 2px 3px rgba(255, 255, 255, 0.8)",
-              }}
-            >
-              <div className="flex items-center gap-2 text-indigo-700 font-extrabold text-xs">
-                <div
-                  className="w-6 h-6 rounded-lg grid place-items-center bg-white text-indigo-600"
-                  style={{
-                    boxShadow: "2px 3px 6px rgba(160, 175, 200, 0.25), inset 1px 1px 2px rgba(255, 255, 255, 0.9)",
-                  }}
-                >
-                  <Sparkles className="w-3.5 h-3.5" />
-                </div>
-                <span>Rama Pro Dealership</span>
-              </div>
-              <p className="text-[11px] text-slate-600 mt-1 font-medium leading-snug">
-                {t("Get automated delivery & fast checkout features", "অটোমেটেড ডেলিভারি ও প্রো ফিচার পান")}
-              </p>
-              <Link
-                to="/Mahbub214/settings"
-                className="mt-2.5 inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-bold text-white transition hover:opacity-95"
-                style={{
-                  background: "linear-gradient(135deg, #7C66FF 0%, #5B48E8 100%)",
-                  boxShadow: "3px 5px 12px rgba(108, 92, 231, 0.4), inset 1.5px 1.5px 2px rgba(255, 255, 255, 0.5)",
-                }}
-              >
-                {t("Upgrade Now →", "আপগ্রেড করুন →")}
-              </Link>
-            </div>
-          </div>
-        )}
 
         {/* User Footer (Clay Pill Card) */}
         <div
