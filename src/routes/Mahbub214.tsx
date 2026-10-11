@@ -4,7 +4,7 @@ import { AuthPageEntry } from "@/components/AuthPage";
 import {
   ShieldAlert, LogOut, Globe,
   PanelLeftClose, PanelLeftOpen, ChevronDown, ChevronRight, ExternalLink, Menu, Search, X,
-  Home, Frown, ShoppingCart, Sun, Bell, Sparkles,
+  Home, Frown, ShoppingCart, Sun, Bell,
 } from "lucide-react";
 
 
